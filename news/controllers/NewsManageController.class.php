@@ -115,7 +115,7 @@ class NewsManageController extends AdminModuleController
 			
 					NewsService::clear_cache();
 			
-					AppContext::get_response()->redirect(NewsUrlBuilder::manage_items(), LangLoader::get_message('process.success', 'status-messages-common'));
+					AppContext::get_response()->redirect(NewsUrlBuilder::manage_news(), LangLoader::get_message('process.success', 'status-messages-common'));
 			
 			}
 	}

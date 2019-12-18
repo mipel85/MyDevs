@@ -63,7 +63,6 @@ class NewsService
 	public static function clear_cache()
 	{
 		Feed::clear_cache('news');
-		NewsCache::invalidate();
 		NewsCategoriesCache::invalidate();
 		NewsKeywordsCache::invalidate();
 	}
