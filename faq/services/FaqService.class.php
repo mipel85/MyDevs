@@ -88,6 +88,13 @@ class FaqService
 		FaqCache::invalidate();
 		FaqCategoriesCache::invalidate();
 	}
+	
+	public static function bidon()
+	{
+		Feed::clear_cache('faq');
+		FaqCache::invalidate();
+		FaqCategoriesCache::invalidate();
+	}
 
 	 /**
 	 * @desc Update the position of a question.
