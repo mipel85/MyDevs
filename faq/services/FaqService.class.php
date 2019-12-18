@@ -85,6 +85,8 @@ class FaqService
 	public static function clear_cache()
 	{
 		Feed::clear_cache('faq');
+		Feed::clear_cache('faq');
+		FaqCache::invalidate();
 		FaqCache::invalidate();
 		FaqCategoriesCache::invalidate();
 	}
