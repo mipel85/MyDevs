@@ -6,6 +6,7 @@
  * @version     PHPBoost 5.3 - last update: 2019 12 18
  * @since       PHPBoost 4.0 - 2014 09 02
  * @contributor Mipel <mipel@phpboost.com>
+ * @contributor Mipel <mipel@phpboost.com>
 */
 
 class FaqService
