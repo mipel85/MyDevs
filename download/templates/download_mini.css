@@ -1,0 +1,18 @@
+/*
+* Copy this file in your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+.mini-download-table-name {
+	max-width: 5.236em;
+}
+
+#table-mini-download {
+	margin: 0;
+	padding: 0.456em 0;
+}
+
+#module-mini-download .category-folder {
+	text-align: right;
+	font-size: 0.809em;
+}

@@ -1,0 +1,71 @@
+/*
+* Copy this file in your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+/* -- Conteneur des messages de la shoutbox.*/
+#shoutbox-messages-container {
+	margin: auto;
+	height: 150px;
+	overflow: auto;
+	text-align: left;
+	word-wrap: break-word;
+	line-height: 1;
+}
+
+.shout-horizontal {
+	padding-left: 1.5em;
+}
+
+.shout-spacing {
+	margin: 0.618em 0;
+	position: relative;
+}
+
+.bbcode-elements.bbcode-block-shoutbox {
+	position: static !important;
+}
+
+.shout-spacing .bbcode-block-container {
+	top: 100%;
+}
+.shout-spacing .shoutbox-smileys {
+	width: 100%;
+	position: absolute;
+	z-index: 10
+}
+.shout-spacing
+.bbcode-block-container::after {
+    border-color: transparent;
+}
+
+.shout-pseudo.not-connected {
+	width: 90%;
+}
+
+.shout-form-container {
+	text-align: center;
+}
+
+.shout-form-container label {
+	display: block;
+}
+
+#shoutbox-bbcode-container ul {
+	margin: 0;
+	padding: 0;
+}
+
+.shoutbox-message-container {}
+.shoutbox-message-date {}
+
+.shoutbox-message {
+	font-size: 0.809em;
+}
+
+span.shoutbox-message-author {
+	text-decoration: italic;
+}
+
+.shoutbox-message-content {
+}

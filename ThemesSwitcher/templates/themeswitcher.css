@@ -1,0 +1,13 @@
+/*
+* Copy this file in your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+.themes-switcher {
+	padding: 0.809em;
+}
+
+.themes-switcher-vertical select {
+	display: block;
+	margin: 0 auto 0.309em auto;
+}

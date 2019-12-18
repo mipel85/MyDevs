@@ -1,0 +1,62 @@
+/*
+* Copy this file in your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+#login {
+	cursor: help;
+}
+
+#module-connect .js-menu-button {
+	display: block;
+	padding: 0.309em 0.809em;
+	position: relative;
+}
+
+#module-connect .js-menu-button::after {
+	position: absolute;
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	content: '\f0d7';
+	right: 0.809em;
+}
+
+#module-connect.active-connect .js-menu-button::after {
+	content: '\f0d8';
+}
+
+@media (min-width: 768px) {
+	#module-connect .js-menu-button {
+		display: none;
+	}
+}
+
+.connect-container {
+	opacity: 0;
+	visibility: hidden;
+	width: 100%;
+	z-index: 200;
+	height: 0;
+}
+
+.active-connect .connect-container {
+	opacity: 1;
+	visibility: visible;
+	height: auto;
+}
+
+@media (min-width: 769px) {
+	.connect-container {
+		opacity: 1;
+		visibility: visible;
+		height: auto;
+	}
+
+	.cell-list-inline .connect-container form {
+		display: inline-flex;
+	}
+
+	.connect-container li {
+		padding: 0.309em !important;
+	}
+}

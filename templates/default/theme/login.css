@@ -1,0 +1,24 @@
+/* --------------------------------------
+		login.css
+Contient les elements pour afficher la page de connexion a l'administration ou au site lorsqu'il est en maintenance.
+-------------------------------------- */
+
+#global {
+	padding: 2.618em;
+	min-height: 0;
+	width: 100%;
+	border-spacing: 1px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.fieldset-content {
+	margin: 0 auto;
+	max-width: 100%;
+}
+
+.cookiebar-container {
+	position: fixed;
+}

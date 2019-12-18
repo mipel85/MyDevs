@@ -1,0 +1,42 @@
+/*
+* Copy this file in your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+div.mce-edit-area,
+div.mce-statusbar {
+	margin-left: auto;
+	margin-right: auto;
+	width: 98%;
+}
+
+label.mce-wordcount {
+	position: relative;
+}
+
+div.mce-window-head {
+	padding: 20px 15px;
+}
+
+.form-element-textarea .form-field-textarea div {
+	float: none;
+}
+
+.mce-resizehandle {
+	margin-bottom: 5px !important;
+}
+
+div[id$="rich_text_field"].editor-tinymce .form-field-textarea.field-required:after,
+div[id$="rich_text_field"].editor-tinymce.constraint-status-right .form-field-textarea.field-required:after,
+div[id$="rich_text_field"].editor-tinymce.constraint-status-error .form-field-textarea.field-required:after {
+	top: auto;
+	right: 28px;
+}
+
+div[id$="rich_text_field"].editor-tinymce.constraint-status-error .form-field-textarea.field-required:after {
+	bottom: 10px;
+}
+
+div[id$="rich_text_field"].editor-tinymce.constraint-status-right .form-field-textarea.field-required:after {
+	bottom: 8px;
+}
