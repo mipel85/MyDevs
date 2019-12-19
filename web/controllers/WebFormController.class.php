@@ -347,8 +347,6 @@ class WebFormController extends ModuleController
 		KeywordsService::get_keywords_manager()->put_relations($id, $this->form->get_value('keywords'));
 
 		WebService::clear_cache();
-		
-		KeywordsCache::invalidate();
 	}
 
 	private function contribution_actions(WebLink $weblink, $id)

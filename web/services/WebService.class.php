@@ -67,7 +67,13 @@ class WebService
             $controller = PHPBoostErrors::user_in_read_only();
             DispatchManager::redirect($controller);
         }
-        self::$db_querier->delete(WebSetup::$web_table, 'WHERE id=:id', array('id' => $id));
+			self::$db_querier->delete(WebSetup::$web_table, 'WHERE id=:id', array('id' => $id));
+		
+			self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'web', 'id' => $id));
+		
+			CommentsService::delete_comments_topic_module('web', $id);
+			KeywordsService::get_keywords_manager()->delete_relations($id);
+			NotationService::delete_notes_id_in_module('web', $id);
 	}
 
 	 /**
@@ -93,7 +99,8 @@ class WebService
 	{
 		Feed::clear_cache('web');
 		KeywordsCache::invalidate();
-        CategoriesService::get_categories_manager()->regenerate_cache();
+		WebCache::invalidate();
+		CategoriesService::get_categories_manager()->regenerate_cache();
 	}
 }
 ?>
