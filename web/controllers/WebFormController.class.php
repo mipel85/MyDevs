@@ -6,6 +6,7 @@
  * @version     PHPBoost 5.3 - last update: 2019 12 19
  * @since       PHPBoost 4.1 - 2014 08 21
  * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor Mipel <mipel@phpboost.com>
 */
 
 class WebFormController extends ModuleController
@@ -345,9 +346,8 @@ class WebFormController extends ModuleController
 
 		KeywordsService::get_keywords_manager()->put_relations($id, $this->form->get_value('keywords'));
 
-		Feed::clear_cache('web');
-		WebCache::invalidate();
-		WebCategoriesCache::invalidate();
+		WebService::clear_cache();
+		
 		KeywordsCache::invalidate();
 	}
 
