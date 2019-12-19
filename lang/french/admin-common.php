@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 09 22
+ * @version     PHPBoost 5.3 - last update: 2018 12 18
  * @since       PHPBoost 4.0 - 2013 12 13
  * @contributor Arnaud GENET <elenwii@phpboost.com>
 */
@@ -13,6 +13,7 @@
 ####################################################
 
 $lang['configuration'] = 'Configuration';
+$lang['configuration.module.title'] = 'Configuration du module :module_name';
 $lang['install'] = 'Installer';
 $lang['uninstall'] = 'Désinstaller';
 $lang['actions'] = 'Actions';
@@ -30,10 +31,12 @@ $lang['author'] = 'Auteur';
 $lang['compatibility'] = 'Compatibilité';
 $lang['not_compatible'] = 'Non compatible';
 
-$lang['config.items_number_per_page'] = 'Nombre d\'éléments affichés par page';
-$lang['config.categories_number_per_page'] = 'Nombre de catégories maximum affichées par page';
+$lang['config.items_number_per_page'] = 'Nombre d\'éléments par page';
+$lang['config.categories_number_per_page'] = 'Nombre de catégories par page';
 $lang['config.columns_number_per_line'] = 'Nombre de colonnes d\'affichage par ligne';
 $lang['config.columns_number_per_line.description'] = 'Catégories et éléments';
+$lang['config.categories.number.per.row'] = 'Nombre de catégories par ligne';
+$lang['config.items.number.per.row'] = 'Nombre d\'éléments par ligne';
 $lang['config.items_default_sort'] = 'Ordre d\'affichage des éléments par défaut';
 $lang['config.author_displayed'] = 'Afficher le nom de l\'auteur';
 $lang['config.comments_enabled'] = 'Activer les commentaires';
