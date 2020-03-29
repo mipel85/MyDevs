@@ -58,7 +58,7 @@ class NewsletterSubscribersListController extends ModuleController
 		$columns = array(
 			new HTMLTableColumn($this->lang['subscribers.pseudo'], 'name'),
 			new HTMLTableColumn($this->lang['subscribers.mail'], 'user_mail'),
-            new HTMLTableColumn($this->lang['subscription.date'], 'subscription_date')
+             new HTMLTableColumn($this->lang['subscription.date'], 'subscription_date')
 		);
 
 		if ($moderation_authorization)
