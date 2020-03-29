@@ -57,7 +57,8 @@ class NewsletterSubscribersListController extends ModuleController
 
 		$columns = array(
 			new HTMLTableColumn($this->lang['subscribers.pseudo'], 'name'),
-			new HTMLTableColumn($this->lang['subscribers.mail'], 'user_mail')
+			new HTMLTableColumn($this->lang['subscribers.mail'], 'user_mail'),
+            new HTMLTableColumn($this->lang['subscription.date'], 'subscription_date')
 		);
 
 		if ($moderation_authorization)
@@ -89,7 +90,8 @@ class NewsletterSubscribersListController extends ModuleController
 
 				$table_row = array(
 					new HTMLTableRowCell($author),
-					new HTMLTableRowCell($row['user_mail'])
+					new HTMLTableRowCell($row['user_mail']),
+                    new HTMLTableRowCell(Date::to_format($row['subscription_date'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE))
 				);
 
 				if ($moderation_authorization)

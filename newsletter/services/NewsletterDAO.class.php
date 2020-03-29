@@ -87,8 +87,10 @@ class NewsletterDAO
 	public static function insert_subscriptions_visitor($mail, Array $streams)
 	{
 		//Inject user in subscribers table
+		$now = new Date();
 		$columns = array(
-			'mail' => $mail
+			'mail' => $mail,
+			'subscription_date' => $now->get_timestamp()
 		);
 		self::$db_querier->insert(NewsletterSetup::$newsletter_table_subscribers, $columns);
 

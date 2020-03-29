@@ -60,6 +60,7 @@ $lang['subscribe.newsletter_choice'] = 'Choose which newsletters you wish to sub
 $lang['subscribers.list'] = 'Subscribers list';
 $lang['subscribers.pseudo'] = 'Username';
 $lang['subscribers.mail'] = 'Mail';
+$lang['subscription.date'] = 'Subscription date';
 $lang['subscribers.delete'] = 'Do you really want to delete this person listed ?';
 $lang['subscribers.no_users'] = 'None subscribers';
 
