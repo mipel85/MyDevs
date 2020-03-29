@@ -56,12 +56,12 @@ class NewsletterSubscribersListController extends ModuleController
 		$moderation_authorization = NewsletterAuthorizationsService::id_stream($this->stream->get_id())->moderation_subscribers();
 
 		$columns = array(
-            new HTMLTableColumn($this -> lang['subscribers.pseudo'], 'name'),
-            new HTMLTableColumn($this -> lang['subscribers.mail'], 'user_mail'),
-            new HTMLTableColumn($this -> lang['subscription.date'], 'subscription_date')
-        );
+				new HTMLTableColumn($this -> lang['subscribers.pseudo'], 'name'),
+				new HTMLTableColumn($this -> lang['subscribers.mail'], 'user_mail'),
+				new HTMLTableColumn($this -> lang['subscription.date'], 'subscription_date')
+		);
 
-        if ($moderation_authorization)
+		if ($moderation_authorization)
 			$columns[] = new HTMLTableColumn(LangLoader::get_message('actions', 'admin-common'), '', array('sr-only' => true));
 
 		$table_model = new SQLHTMLTableModel(NewsletterSetup::$newsletter_table_subscribers, 'table', $columns, new HTMLTableSortingRule('name', HTMLTableSortingRule::ASC));
