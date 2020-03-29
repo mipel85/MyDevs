@@ -23,7 +23,7 @@
 		# ENDIF #
 
 		<nav id="admin-quick-menu">
-			<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
+			<a href="#" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
 				<i class="fa fa-bars" aria-hidden="true"></i> {L_GALLERY_MANAGEMENT}
 			</a>
 			<ul>
@@ -69,7 +69,7 @@
 						<div class="form-element half-field">
 							<label for="category">${LangLoader::get_message('form.category', 'common')}</label>
 							<div class="form-field">
-								<select name="idcat_post" id="category">
+								<select name="id_category_post" id="category">
 									{CATEGORIES}
 								</select>
 							</div>
@@ -79,26 +79,26 @@
 							<div class="form-field">
 								<div class="dnd-area">
 									<div class="dnd-dropzone">
-										<label for="gallery" class="dnd-label">${LangLoader::get_message('drag.and.drop.files', 'main')} <p></p></label>
+										<label for="gallery" class="dnd-label">${LangLoader::get_message('drag.and.drop.files', 'upload-common')} <span class="d-block"></span></label>
 										<input type="file" name="gallery[]" id="gallery" class="ufiles" />
 									</div>
 									<div class="ready-to-load">
-										<button type="button" class="button clear-list">${LangLoader::get_message('clear.list', 'main')}</button>
+										<button type="button" class="button clear-list">${LangLoader::get_message('clear.list', 'upload-common')}</button>
 										<span class="fa-stack fa-lg">
 											<i class="far fa-file fa-stack-2x "></i>
 											<strong class="fa-stack-1x files-nbr"></strong>
 										</span>
 									</div>
 									<div class="modal-container">
-										<button class="button upload-help" data-modal data-target="upload-helper"><i class="fa fa-question"></i></button>
+										<button class="button upload-help" data-modal data-target="upload-helper" aria-label="${LangLoader::get_message('upload.helper', 'upload-common')}"><i class="fa fa-question" aria-hidden="true"></i></button>
 										<div id="upload-helper" class="modal modal-animation">
 											<div class="close-modal" aria-label="${LangLoader::get_message('close', 'main')}"></div>
 											<div class="content-panel">
-												<h3>${LangLoader::get_message('upload.helper', 'main')}</h3>
-												<p><strong>${LangLoader::get_message('allowed.extensions', 'main')} :</strong> "{ALLOWED_EXTENSIONS}"</p>
+												<h3>${LangLoader::get_message('upload.helper', 'upload-common')}</h3>
+												<p><strong>${LangLoader::get_message('allowed.extensions', 'upload-common')} :</strong> "{ALLOWED_EXTENSIONS}"</p>
 												<p><strong>{L_WIDTH_MAX} :</strong> {MAX_WIDTH} {L_UNIT_PX}</p>
 												<p><strong>{L_HEIGHT_MAX} :</strong> {MAX_HEIGHT} {L_UNIT_PX}</p>
-												<p><strong>${LangLoader::get_message('max.file.size', 'main')} :</strong> {MAX_FILE_SIZE_TEXT}</p>
+												<p><strong>${LangLoader::get_message('max.file.size', 'upload-common')} :</strong> {MAX_FILE_SIZE_TEXT}</p>
 											</div>
 										</div>
 									</div>
@@ -123,7 +123,7 @@
 				# IF C_IMG #
 					<article>
 						<header>
-							<div class="align-right"><a href="" onclick="unselect_all_pictures();return false;" id="change_all_pictures_selection_top" class="smaller">{L_UNSELECT_ALL_PICTURES} <i class="far fa-check-square"></i></a></div>
+							<div class="align-right"><a href="#" onclick="unselect_all_pictures();return false;" id="change_all_pictures_selection_top" class="smaller">{L_UNSELECT_ALL_PICTURES} <i class="far fa-check-square"></i></a></div>
 							<h2>{L_IMG_DISPO_GALLERY}</h2>
 						</header>
 						<div class="cell-flex cell-columns-4 cell-tile">
@@ -167,7 +167,7 @@
 								</div>
 							# END list #
 						</div>
-						<div class="align-right"><a href="" onclick="unselect_all_pictures();return false;" id="change_all_pictures_selection_bottom" class="smaller">{L_UNSELECT_ALL_PICTURES} <i class="far fa-check-square"></i></a></div>
+						<div class="align-right"><a href="#" onclick="unselect_all_pictures();return false;" id="change_all_pictures_selection_bottom" class="smaller">{L_UNSELECT_ALL_PICTURES} <i class="far fa-check-square"></i></a></div>
 					</article>
 
 
@@ -209,10 +209,10 @@
 				maxWidth: '{MAX_WIDTH}',
 				maxHeight: '{MAX_HEIGHT}',
 				allowedExtensions: ["{ALLOWED_EXTENSIONS}"],
-				warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'main'))},
-				warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'main'))},
-				warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'main'))},
-				warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.nbr', 'main'))},
+				warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'upload-common'))},
+				warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'upload-common'))},
+				warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'upload-common'))},
+				warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.number', 'upload-common'))},
 				warningFileDim: ${escapejs(LangLoader::get_message('warning.upload.file.dim', 'main'))},
 			});
 		</script>

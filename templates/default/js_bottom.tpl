@@ -62,7 +62,13 @@
     jQuery('.accordion-container.siblings [data-accordion]').multiTabs({ pluginType: 'accordion', accordionSiblings: true });
     jQuery('.tabs-container [data-tabs]').multiTabs({ pluginType: 'tabs' });
 
+// Wizard
     jQuery('.wizard-container').wizard();
+
+// Selectimg
+	jQuery('.select-to-list').selectimg({
+		ariaLabel : ${escapejs(LangLoader::get_message('click.to.select', 'common'))}
+	});
 
 // sizes of .cell-thumbnail
 	jQuery('.cell-thumbnail.cell-landscape').each(function() {
@@ -77,6 +83,13 @@
 		var widthRef = $(this).innerWidth();
 		$(this).outerHeight(widthRef * 16 / 9);
 	});
+
+	jQuery(window).ready(function() {
+  		jQuery('.body-wrapper').animate({opacity: 1}, 300);
+	});
+
+// Autoresize Textareas
+	$(document).autoboxOn('textarea');
 </script>
 
 # IF C_COOKIEBAR_ENABLED #

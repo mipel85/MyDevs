@@ -1,4 +1,4 @@
-<span id="scroll-to-bottom" class="scroll-to" aria-label="${LangLoader::get_message('scroll-to.bottom', 'user-common')}"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+<span id="scroll-to-bottom" class="scroll-to" role="button" aria-label="${LangLoader::get_message('scroll-to.bottom', 'user-common')}"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
 
 <header id="header-admin">
 	<nav class="admin-index">
@@ -33,37 +33,37 @@
 		</div>
 		<div id="sub-header-admin">
 			<div id="admin-link">
-				<h5 class="menu-title">
+				<div class="menu-title">
 					<div class="site-logo" # IF C_HEADER_LOGO #style="background-image: url({HEADER_LOGO});"# ENDIF #></div>
-					<span>{L_ADMIN_MAIN_MENU}</span>
-				</h5>
+					<h5>{L_ADMIN_MAIN_MENU}</h5>
+				</div>
 				# INCLUDE subheader_menu #
 			</div>
 
 			<div id="support-pbt">
-					<h5 class="menu-title">
-						<div class="pbt-logo"></div>
-						<span>{L_NEED_HELP}</span>
-					</h5>
-					<nav class="admin-menu">
-						<ul>
-							<li class="admin-li">
-								<a href="https://www.phpboost.com/forum">
-									<i class="fa fa-fw fa-globe" aria-hidden="true"></i> {L_INDEX_SUPPORT}
-								</a>
-							</li>
-							<li class="admin-li">
-								<a href="https://www.phpboost.com/faq">
-									<i class="fa fa-fw fa-question-circle" aria-hidden="true"></i> {L_INDEX_FAQ}
-								</a>
-							</li>
-							<li class="admin-li">
-								<a href="https://www.phpboost.com/wiki">
-									<i class="fa fa-fw fa-book" aria-hidden="true"></i> {L_INDEX_DOCUMENTATION}
-								</a>
-							</li>
-						</ul>
-					</nav>
+				<div class="menu-title">
+					<div class="pbt-logo"></div>
+					<h5>{L_NEED_HELP}</h5>
+				</div>
+				<nav class="admin-menu">
+					<ul>
+						<li class="admin-li">
+							<a href="https://www.phpboost.com/forum">
+								<i class="fa fa-fw fa-globe" aria-hidden="true"></i> {L_INDEX_SUPPORT}
+							</a>
+						</li>
+						<li class="admin-li">
+							<a href="https://www.phpboost.com/faq">
+								<i class="fa fa-fw fa-question-circle" aria-hidden="true"></i> {L_INDEX_FAQ}
+							</a>
+						</li>
+						<li class="admin-li">
+							<a href="https://www.phpboost.com/wiki">
+								<i class="fa fa-fw fa-book" aria-hidden="true"></i> {L_INDEX_DOCUMENTATION}
+							</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</div>
@@ -92,5 +92,5 @@
 		# ENDIF #
 	</footer>
 
-	<span id="scroll-to-top" class="scroll-to" aria-label="${LangLoader::get_message('scroll-to.top', 'user-common')}"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+	<span id="scroll-to-top" class="scroll-to" role="button" aria-label="${LangLoader::get_message('scroll-to.top', 'user-common')}"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
 </div>

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 09
+ * @version     PHPBoost 5.3 - last update: 2020 01 25
  * @since       PHPBoost 4.1 - 2014 08 21
  * @contributor Kevin MASSY <reidlos@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -44,13 +44,14 @@ class AdminWebConfigController extends AdminModuleController
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$this->form->get_field_by_id('display_descriptions_to_guests')->set_hidden($this->config->get_category_display_type() == WebConfig::DISPLAY_ALL_CONTENT);
+			$this->form->get_field_by_id('full_item_display')->set_hidden($this->config->get_display_type() !== WebConfig::LIST_VIEW);
+			$this->form->get_field_by_id('items_per_row')->set_hidden($this->config->get_display_type() !== WebConfig::GRID_VIEW);
 			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
 		}
 
 		$tpl->put('FORM', $this->form->display());
 
-		return new AdminWebDisplayResponse($tpl, $this->lang['module_config_title']);
+		return new DefaultAdminDisplayResponse($tpl);
 	}
 
 	private function init()
@@ -66,53 +67,71 @@ class AdminWebConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTMLHeading('config', $this->admin_common_lang['configuration']);
+		$fieldset = new FormFieldsetHTMLHeading('configuration', StringVars::replace_vars(LangLoader::get_message('configuration.module.title', 'admin-common'), array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldNumberEditor('items_number_per_page', $this->admin_common_lang['config.items_number_per_page'], $this->config->get_items_number_per_page(),
+		$fieldset->add_field(new FormFieldNumberEditor('categories_per_page', $this->admin_common_lang['config.categories.per.page'], $this->config->get_categories_per_page(),
 			array('min' => 1, 'max' => 50, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 50))
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('categories_number_per_page', $this->admin_common_lang['config.categories_number_per_page'], $this->config->get_categories_number_per_page(),
-			array('min' => 1, 'max' => 50, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(1, 50))
-		));
-
-		$fieldset->add_field(new FormFieldNumberEditor('columns_number_per_line', $this->admin_common_lang['config.columns_number_per_line'], $this->config->get_columns_number_per_line(),
+		$fieldset->add_field(new FormFieldNumberEditor('categories_per_row', $this->admin_common_lang['config.categories.per.row'], $this->config->get_categories_per_row(),
 			array('min' => 1, 'max' => 4, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 4))
-		));
-
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('items_default_sort', $this->admin_common_lang['config.items_default_sort'], $this->config->get_items_default_sort_field() . '-' . $this->config->get_items_default_sort_mode(), $this->get_sort_options()));
-
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('category_display_type', $this->lang['config.category_display_type'], $this->config->get_category_display_type(),
-			array(
-				new FormFieldSelectChoiceOption($this->lang['config.category_display_type.display_summary'], WebConfig::DISPLAY_SUMMARY),
-				new FormFieldSelectChoiceOption($this->lang['config.category_display_type.display_all_content'], WebConfig::DISPLAY_ALL_CONTENT),
-				new FormFieldSelectChoiceOption($this->lang['config.category_display_type.display_table'], WebConfig::DISPLAY_TABLE)
-			),
-			array('events' => array('click' => '
-				if (HTMLForms.getField("category_display_type").getValue() != \'' . WebConfig::DISPLAY_ALL_CONTENT . '\') {
-					HTMLForms.getField("display_descriptions_to_guests").enable();
-				} else {
-					HTMLForms.getField("display_descriptions_to_guests").disable();
-				}'
-			))
-		));
-
-		$fieldset->add_field(new FormFieldCheckbox('display_descriptions_to_guests', $this->lang['config.display_descriptions_to_guests'], $this->config->are_descriptions_displayed_to_guests(),
-			array(
-				'class' => 'custom-checkbox',
-				'hidden' => $this->config->get_category_display_type() == WebConfig::DISPLAY_ALL_CONTENT
-			)
 		));
 
 		$fieldset->add_field(new FormFieldRichTextEditor('root_category_description', $this->admin_common_lang['config.root_category_description'], $this->config->get_root_category_description(),
 			array('rows' => 8, 'cols' => 47)
 		));
-        
-                $fieldset->add_field(new FormFieldRichTextEditor('default_contents', $this->lang['web.default.contents'], $this->config->get_default_contents(),
+
+        $fieldset->add_field(new FormFieldNumberEditor('items_per_page', $this->admin_common_lang['config.items.per.page'], $this->config->get_items_per_page(),
+			array('min' => 1, 'max' => 50, 'required' => true),
+			array(new FormFieldConstraintIntegerRange(1, 50))
+		));
+
+        $fieldset->add_field(new FormFieldSimpleSelectChoice('items_default_sort', $this->admin_common_lang['config.items_default_sort'], $this->config->get_items_default_sort_field() . '-' . $this->config->get_items_default_sort_mode(), $this->get_sort_options()));
+
+		$fieldset->add_field(new FormFieldCheckbox('display_descriptions_to_guests', $this->lang['config.display_descriptions_to_guests'], $this->config->are_descriptions_displayed_to_guests(),
+			array('class' => 'custom-checkbox')
+		));
+
+		$fieldset->add_field(new FormFieldSpacer('categories_display_type',''));
+
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('display_type', $this->admin_common_lang['config.display.type'], $this->config->get_display_type(),
+			array(
+				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.grid'], WebConfig::GRID_VIEW),
+				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.list'], WebConfig::LIST_VIEW),
+				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.table'], WebConfig::TABLE_VIEW)
+			),
+			array('events' => array('change' => '
+				if (HTMLForms.getField("display_type").getValue() == \'' . WebConfig::GRID_VIEW . '\') {
+					HTMLForms.getField("items_per_row").enable();
+					HTMLForms.getField("full_item_display").disable();
+				} else if (HTMLForms.getField("display_type").getValue() == \'' . WebConfig::LIST_VIEW . '\') {
+					HTMLForms.getField("full_item_display").enable();
+					HTMLForms.getField("items_per_row").disable();
+				} else {
+					HTMLForms.getField("items_per_row").disable();
+					HTMLForms.getField("full_item_display").disable();
+				}'
+			))
+		));
+
+		$fieldset->add_field(new FormFieldNumberEditor('items_per_row', $this->admin_common_lang['config.items.per.row'], $this->config->get_items_per_row(),
+			array(
+				'hidden' => $this->config->get_display_type() !== WebConfig::GRID_VIEW,
+				'min' => 1, 'max' => 4, 'required' => true),
+				array(new FormFieldConstraintIntegerRange(1, 4))
+		));
+
+		$fieldset->add_field(new FormFieldCheckbox('full_item_display', $this->admin_common_lang['config.full.item.display'], $this->config->is_full_item_displayed(),
+			array(
+				'hidden' => $this->config->get_display_type() !== WebConfig::LIST_VIEW,
+				'class' => 'custom-checkbox'
+			)
+		));
+
+		$fieldset->add_field(new FormFieldRichTextEditor('default_contents', $this->lang['web.default.contents'], $this->config->get_default_contents(),
 			array('rows' => 8, 'cols' => 47)
 		));
 
@@ -159,14 +178,14 @@ class AdminWebConfigController extends AdminModuleController
 
 		if ($this->comments_config->module_comments_is_enabled('web'))
 		{
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'] . ' - ' . $common_lang['sort.asc'], WebLink::SORT_NUMBER_COMMENTS . '-' . WebLink::ASC);
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'] . ' - ' . $common_lang['sort.desc'], WebLink::SORT_NUMBER_COMMENTS . '-' . WebLink::DESC);
+			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.comments.number'] . ' - ' . $common_lang['sort.asc'], WebLink::SORT_NUMBER_COMMENTS . '-' . WebLink::ASC);
+			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.comments.number'] . ' - ' . $common_lang['sort.desc'], WebLink::SORT_NUMBER_COMMENTS . '-' . WebLink::DESC);
 		}
 
 		if ($this->content_management_config->module_notation_is_enabled('web'))
 		{
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best_note'] . ' - ' . $common_lang['sort.asc'], WebLink::SORT_NOTATION . '-' . WebLink::ASC);
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best_note'] . ' - ' . $common_lang['sort.desc'], WebLink::SORT_NOTATION . '-' . WebLink::DESC);
+			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best.note'] . ' - ' . $common_lang['sort.asc'], WebLink::SORT_NOTATION . '-' . WebLink::ASC);
+			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best.note'] . ' - ' . $common_lang['sort.desc'], WebLink::SORT_NOTATION . '-' . WebLink::DESC);
 		}
 
 		return $sort_options;
@@ -174,27 +193,29 @@ class AdminWebConfigController extends AdminModuleController
 
 	private function save()
 	{
-		$this->config->set_items_number_per_page($this->form->get_value('items_number_per_page'));
-		$this->config->set_categories_number_per_page($this->form->get_value('categories_number_per_page'));
-		$this->config->set_columns_number_per_line($this->form->get_value('columns_number_per_line'));
-		$this->config->set_category_display_type($this->form->get_value('category_display_type')->get_raw_value());
+		$this->config->set_items_per_page($this->form->get_value('items_per_page'));
+
+		if($this->form->get_value('display_type') == WebConfig::GRID_VIEW)
+			$this->config->set_items_per_row($this->form->get_value('items_per_row'));
+
+		if ($this->form->get_value('full_item_display'))
+			$this->config->display_full_item();
+		else
+			$this->config->display_condensed_item();
+
+		$this->config->set_categories_per_page($this->form->get_value('categories_per_page'));
+		$this->config->set_categories_per_row($this->form->get_value('categories_per_row'));
+		$this->config->set_display_type($this->form->get_value('display_type')->get_raw_value());
 
 		$items_default_sort = $this->form->get_value('items_default_sort')->get_raw_value();
 		$items_default_sort = explode('-', $items_default_sort);
 		$this->config->set_items_default_sort_field($items_default_sort[0]);
 		$this->config->set_items_default_sort_mode(TextHelper::strtolower($items_default_sort[1]));
 
-		if ($this->config->get_category_display_type() != WebConfig::DISPLAY_ALL_CONTENT)
-		{
-			if ($this->form->get_value('display_descriptions_to_guests'))
-			{
-				$this->config->display_descriptions_to_guests();
-			}
-			else
-			{
-				$this->config->hide_descriptions_to_guests();
-			}
-		}
+		if ($this->form->get_value('display_descriptions_to_guests'))
+			$this->config->display_descriptions_to_guests();
+		else
+			$this->config->hide_descriptions_to_guests();
 
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));
 

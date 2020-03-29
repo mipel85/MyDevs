@@ -100,67 +100,80 @@
 </script>
 # IF C_DISPLAY_SHOUT_BBCODE #<script src="{PATH_TO_ROOT}/BBCode/templates/js/bbcode.js"></script># ENDIF #
 
-<div id="shoutbox-messages-container" class="cell-body cell-content# IF C_HORIZONTAL # shout-horizontal# ENDIF #"># INCLUDE SHOUTBOX_MESSAGES #</div>
+<div class="cell-body# IF C_HORIZONTAL # shout-horizontal# ENDIF #">
+	<div id="shoutbox-messages-container" class="cell-content">
+		# INCLUDE SHOUTBOX_MESSAGES #
+	</div>
+</div>
 # IF C_DISPLAY_FORM #
-	<form class="cell-form" action="#" method="post">
-		<div class="shout-form-container shout-pseudo-container">
-			# IF NOT C_MEMBER #
-				<label for="shout-pseudo"><span class="small">${LangLoader::get_message('form.name', 'common')}</span></label>
-				<input maxlength="25" type="text" name="shout-pseudo" id="shout-pseudo" class="shout-pseudo not-connected" value="	${LangLoader::get_message('visitor', 'user-common')}">
-			# ELSE #
-				<input type="hidden" name="shout-pseudo" id="shout-pseudo" class="shout-pseudo connected" value="{SHOUTBOX_PSEUDO}">
-			# ENDIF #
+	<form action="#" method="post">
+		# IF NOT C_MEMBER #
+			<label for="shout-pseudo" class="cell-form grouped-inputs">
+				<span class="grouped-element">${LangLoader::get_message('form.name', 'common')}</span>
+				<input type="text" name="shout-pseudo" id="shout-pseudo" class="grouped-element shout-pseudo not-connected" value="${LangLoader::get_message('visitor', 'user-common')}">
+			</label>
+		# ELSE #
+			<input type="hidden" name="shout-pseudo" id="shout-pseudo" class="shout-pseudo connected" value="{SHOUTBOX_PSEUDO}">
+		# ENDIF #
+		<div class="cell-textarea">
+			<label for="shout-contents"><span class="sr-only">${LangLoader::get_message('message', 'main')}</span></label>
+			<textarea id="shout-contents" name="shout-contents"# IF C_VALIDATE_ONKEYPRESS_ENTER # onkeypress="if(event.keyCode==13){shoutbox_add_message();}"# ENDIF # rows="3" cols="16" placeholder="${LangLoader::get_message('message', 'main')}..."></textarea>
 		</div>
-		<div class="shout-form-container shout-contents-container">
-			<label for="shout-contents"><span class="small">${LangLoader::get_message('message', 'main')}</span></label>
-			<textarea id="shout-contents" name="shout-contents"# IF C_VALIDATE_ONKEYPRESS_ENTER # onkeypress="if(event.keyCode==13){shoutbox_add_message();}"# ENDIF # rows="2" cols="16"></textarea>
-		</div>
-		<nav id="shoutbox-bbcode-container" class="shout-spacing">
+		<nav class="cell-body" id="shoutbox-bbcode-container">
 			# IF C_DISPLAY_SHOUT_BBCODE #
-			<ul class="bbcode-container">
+			<ul class="bbcode-container modal-container cell-flex cell-modal cell-tile">
 				<li class="bbcode-elements bbcode-block-shoutbox">
-					<a href="javascript:bb_display_block('1', 'shout-contents');" onmouseover="bb_hide_block('1', 'shout-contents', 1);" onmouseout="bb_hide_block('1', 'shout-contents', 0);"> <i class="far fa-fw fa-smile" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('bbcode.smileys', 'common', 'BBCode')}</span></a>
-					<div class="bbcode-block-container" style="display: none;" id="bb-block1shout-contents">
-						<ul class="bbcode-container shoutbox-smileys bkgd-main" onmouseover="bb_hide_block('1', 'shout-contents', 1);" onmouseout="bb_hide_block('1', 'shout-contents', 0);">
-							# START smileys #
-								<li>
-									<a href="" onclick="insertbbcode('{smileys.CODE}', 'smile', 'shout-contents');return false;" class="bbcode-hover" aria-label="{smileys.CODE}"><img src="{smileys.URL}" alt="{smileys.CODE}" /></a>
-								</li>
-							# END smileys #
-						</ul>
+					<span class="bbcode-button" data-modal data-target="bb-shoutbox-smileys" aria-label="${LangLoader::get_message('bbcode.smileys', 'common', 'BBCode')}">
+						<i class="far fa-fw fa-smile" aria-hidden="true"></i>
+					</span>
+					<div id="bb-shoutbox-smileys" class="modal modal-animation">
+						<div class="close-modal" aria-label="${LangLoader::get_message('close', 'main')}"></div>
+						<div class="content-panel cell">
+							<div class="cell-header">
+								${LangLoader::get_message('bbcode.smileys', 'common', 'BBCode')}
+							</div>
+							<div class="cell-list cell-list-inline">
+								<ul>
+									# START smileys #
+										<li>
+											<span class="hide-modal" onclick="insertbbcode('{smileys.CODE}', 'smile', 'shout-contents');return false;" aria-label="{smileys.CODE}">
+												<img src="{smileys.URL}" alt="{smileys.CODE}" />
+											</span>
+										</li>
+									# END smileys #
+								</ul>
+							</div>
+						</div>
 					</div>
 				</li>
 				<li class="bbcode-elements">
-					<a href="" onclick="# IF NOT C_BOLD_DISABLED #insertbbcode('[b]', '[/b]', 'shout-contents');# ENDIF #return false;" aria-label="${LangLoader::get_message('bbcode.bold', 'common', 'BBCode')}"><i class="fa fa-fw fa-bold# IF C_BOLD_DISABLED # icon-disabled# ENDIF #" aria-hidden="true"></i></a>
+					<a class="bbcode-button" href="#" onclick="# IF NOT C_BOLD_DISABLED #insertbbcode('[b]', '[/b]', 'shout-contents');# ENDIF #return false;" aria-label="${LangLoader::get_message('bbcode.bold', 'common', 'BBCode')}"><i class="fa fa-fw fa-bold# IF C_BOLD_DISABLED # icon-disabled# ENDIF #" aria-hidden="true"></i></a>
 				</li>
 				<li class="bbcode-elements">
-					<a href="" onclick="# IF NOT C_ITALIC_DISABLED #insertbbcode('[i]', '[/i]', 'shout-contents');# ENDIF #return false;" aria-label="${LangLoader::get_message('bbcode.italic', 'common', 'BBCode')}"><i class="fa fa-fw fa-italic# IF C_ITALIC_DISABLED # icon-disabled# ENDIF #" aria-hidden="true"></i></a>
+					<a class="bbcode-button" href="#" onclick="# IF NOT C_ITALIC_DISABLED #insertbbcode('[i]', '[/i]', 'shout-contents');# ENDIF #return false;" aria-label="${LangLoader::get_message('bbcode.italic', 'common', 'BBCode')}"><i class="fa fa-fw fa-italic# IF C_ITALIC_DISABLED # icon-disabled# ENDIF #" aria-hidden="true"></i></a>
 				</li>
 				<li class="bbcode-elements">
-					<a href="" onclick="# IF NOT C_UNDERLINE_DISABLED #insertbbcode('[u]', '[/u]', 'shout-contents');# ENDIF #return false;" aria-label="${LangLoader::get_message('bbcode.underline', 'common', 'BBCode')}"><i class="fa fa-fw fa-underline# IF C_UNDERLINE_DISABLED # icon-disabled# ENDIF #" aria-hidden="true"></i></a>
+					<a class="bbcode-button" href="#" onclick="# IF NOT C_UNDERLINE_DISABLED #insertbbcode('[u]', '[/u]', 'shout-contents');# ENDIF #return false;" aria-label="${LangLoader::get_message('bbcode.underline', 'common', 'BBCode')}"><i class="fa fa-fw fa-underline# IF C_UNDERLINE_DISABLED # icon-disabled# ENDIF #" aria-hidden="true"></i></a>
 				</li>
 				<li class="bbcode-elements">
-					<a href="" onclick="# IF NOT C_STRIKE_DISABLED #insertbbcode('[s]', '[/s]', 'shout-contents');# ENDIF #return false;" aria-label="${LangLoader::get_message('bbcode.strike', 'common', 'BBCode')}"><i class="fa fa-fw fa-strikethrough# IF C_STRIKE_DISABLED # icon-disabled# ENDIF #" aria-hidden="true"></i></a>
+					<a class="bbcode-button" href="#" onclick="# IF NOT C_STRIKE_DISABLED #insertbbcode('[s]', '[/s]', 'shout-contents');# ENDIF #return false;" aria-label="${LangLoader::get_message('bbcode.strike', 'common', 'BBCode')}"><i class="fa fa-fw fa-strikethrough# IF C_STRIKE_DISABLED # icon-disabled# ENDIF #" aria-hidden="true"></i></a>
 				</li>
 			</ul>
 			# ENDIF #
 		</nav>
-		<div class="shout-spacing small">
-			<div class="grouped-inputs">
-				<button class="button submit grouped-element" onclick="shoutbox_add_message();" type="button">${LangLoader::get_message('submit', 'main')}</button>
-				<input type="hidden" name="token" value="{TOKEN}">
-				<a class="grouped-element" href="" onclick="shoutbox_refresh_messages_box();return false;" id="shoutbox-refresh" aria-label="${LangLoader::get_message('refresh', 'main')}"><i class="fa fa-sync" aria-hidden="true"></i></a>
-			</div>
+		<div class="cell-form grouped-inputs">
+			<button class="button submit flex-wide" onclick="shoutbox_add_message();" type="button">${LangLoader::get_message('submit', 'main')}</button>
+			<input type="hidden" name="token" value="{TOKEN}">
+			<a class="grouped-element" href="#" onclick="shoutbox_refresh_messages_box();return false;" id="shoutbox-refresh" aria-label="${LangLoader::get_message('refresh', 'main')}"><i class="fa fa-sync" aria-hidden="true"></i></a>
 		</div>
 	</form>
 # ELSE #
 	# IF C_DISPLAY_NO_WRITE_AUTHORIZATION_MESSAGE #
-		<span class="message-helper bgc warning">{@error.post.unauthorized}</span>
-		<p class="shout-spacing">
-			<a href="" onclick="shoutbox_refresh_messages_box();return false;" id="shoutbox-refresh" aria-label="${LangLoader::get_message('refresh', 'main')}"><i class="fa fa-sync" aria-hidden="true"></i></a>
-		</p>
+		<div class="cell-alert">
+			<div class="message-helper bgc warning">{@error.post.unauthorized}</div>
+		</div>
 	# ENDIF #
 # ENDIF #
-<div class="cell-body">
-	<div class="cell-content align-center"><a class="button small" href="${relative_url(ShoutboxUrlBuilder::home())}">{@archives}</a></div>
+<div class="cell-footer">
+	<div class="align-center"><a class="button small" href="${relative_url(ShoutboxUrlBuilder::home())}">{@archives}</a></div>
 </div>

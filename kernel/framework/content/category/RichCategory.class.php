@@ -5,7 +5,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 10 20
+ * @version     PHPBoost 5.3 - last update: 2020 02 28
  * @since       PHPBoost 4.0 - 2013 01 29
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -13,74 +13,46 @@
 
 class RichCategory extends Category
 {
-	protected $description;
-	protected $image;
+	const THUMBNAIL_URL = '/templates/default/images/default_category_thumbnail.png';
+	
+	public static function __static()
+	{
+		parent::__static();
+		self::add_additional_attribute('description', array('type' => 'text', 'length' => 65000, 'attribute_field_parameters' => array(
+			'field_class' => 'FormFieldRichTextEditor',
+			'label' => LangLoader::get_message('form.description', 'common')
+			)
+		));
+		self::add_additional_attribute('thumbnail', array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''", 'attribute_field_parameters' => array(
+			'field_class' => 'FormFieldThumbnail',
+			'label' => LangLoader::get_message('form.picture', 'common'),
+			'default_value' => FormFieldThumbnail::DEFAULT_VALUE,
+			'default_picture' => self::THUMBNAIL_URL
+			)
+		));
+	}
 
 	public function set_description($description)
 	{
-		$this->description = $description;
+		$this->set_additional_property('description', $description);
 	}
 
 	public function get_description()
 	{
-		return $this->description;
+		return $this->get_additional_property('description');
 	}
 
-	public function set_image(Url $image)
+	public function get_thumbnail()
 	{
-		$this->image = $image;
+		if (!$this->get_additional_property('thumbnail') instanceof Url)
+			return new Url($this->get_additional_property('thumbnail') == FormFieldThumbnail::DEFAULT_VALUE ? FormFieldThumbnail::get_default_thumbnail_url(self::THUMBNAIL_URL) : $this->get_additional_property('thumbnail'));
+
+		return $this->get_additional_property('thumbnail');
 	}
 
-	public function get_image()
+	public function set_thumbnail($thumbnail)
 	{
-		if (!$this->image instanceof Url)
-			return $this->get_default_image();
-
-		return $this->image;
-	}
-
-	public function get_default_image()
-	{
-		$file = new File(PATH_TO_ROOT . '/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_category_thumbnail.png');
-		if ($file->exists())
-			return new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_category_thumbnail.png');
-		else
-			return new Url('/templates/default/images/default_category_thumbnail.png');
-	}
-
-	public function get_properties()
-	{
-		return array_merge(parent::get_properties(), array(
-			'description' => $this->get_description(),
-			'image' => $this->get_image()->relative()
-		));
-	}
-
-	public function set_properties(array $properties)
-	{
-		parent::set_properties($properties);
-		$this->set_description($properties['description']);
-		$this->set_image(new Url($properties['image']));
-	}
-
-	public static function create_categories_table($table_name)
-	{
-		$fields = array(
-			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
-			'name' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
-			'rewrited_name' => array('type' => 'string', 'length' => 250, 'default' => "''"),
-			'description' => array('type' => 'text', 'length' => 65000),
-			'c_order' => array('type' => 'integer', 'length' => 11, 'unsigned' => 1, 'notnull' => 1, 'default' => 0),
-			'special_authorizations' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
-			'auth' => array('type' => 'text', 'length' => 65000),
-			'image' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
-			'id_parent' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-		);
-
-		$options = array(
-			'primary' => array('id')
-		);
-		PersistenceContext::get_dbms_utils()->create_table($table_name, $fields, $options);
+		$this->set_additional_property('thumbnail', $thumbnail);
 	}
 }
 ?>

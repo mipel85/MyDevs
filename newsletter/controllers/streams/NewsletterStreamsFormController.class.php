@@ -3,18 +3,18 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 12 01
+ * @version     PHPBoost 5.3 - last update: 2020 02 18
  * @since       PHPBoost 4.0 - 2014 05 21
 */
 
-class NewsletterStreamsFormController extends AbstractRichCategoriesFormController
+class NewsletterStreamsFormController extends AbstractCategoriesFormController
 {
 	protected function get_id_category()
 	{
 		return AppContext::get_request()->get_getint('id', 0);
 	}
 
-	protected function get_categories_manager()
+	protected static function get_categories_manager()
 	{
 		return NewsletterService::get_streams_manager();
 	}
@@ -44,6 +44,11 @@ class NewsletterStreamsFormController extends AbstractRichCategoriesFormControll
 		return LangLoader::get_message('newsletter', 'common', 'newsletter');
 	}
 
+	protected function get_categories_management_title()
+	{
+		return LangLoader::get_message('newsletter.streams', 'common', 'newsletter');
+	}
+
 	protected function get_title()
 	{
 		return $this->get_id_category() == 0 ? LangLoader::get_message('stream.add', 'common', 'newsletter') : LangLoader::get_message('stream.edit', 'common', 'newsletter');
@@ -57,7 +62,7 @@ class NewsletterStreamsFormController extends AbstractRichCategoriesFormControll
 	/**
 	 * @return AuthorizationsSettings
 	 */
-	public function get_authorizations_settings()
+	public static function get_authorizations_settings()
 	{
 		$lang = LangLoader::get('common', 'newsletter');
 

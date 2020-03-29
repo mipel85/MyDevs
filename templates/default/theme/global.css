@@ -1,6 +1,6 @@
 /*
- * Copy this file in your theme to customize the module.
- * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
  *
  * Contains standalone framework classes
  *
@@ -26,7 +26,10 @@
 	border-style: solid;
 	border-color: transparent;
 	border-radius: 3px;
+	cursor: default;
 }
+
+a.pinned { cursor: pointer; }
 
 .pinned[data-color] {
 	padding-left: 1.618em;
@@ -59,19 +62,9 @@
 	border-color: transparent;
 }
 
-/* --- Authorized reader --- */
-.authorized-reader {
-    border-width: 0 0 0 3px;
-    border-style: solid;
-    border-color: transparent;
-    position: relative;
-}
-
-.authorized-reader::before {
-    position: absolute;
-    content: attr(data-reader);
-    font-style: italic;
-    font-size: 0.618em;
+.xmlhttprequest-result-search span {
+	display: block;
+	padding: 0.309em 0.618em;
 }
 
 /* --- add ellispsis --- */
@@ -105,27 +98,39 @@
 /* --- Stacked element --- */
 .stacked {
     position: relative;
+	display: inline-block;
 }
 
 .stacked .stack-event {
     position: absolute;
-    top: -0.809em;
     padding: 0 0.309em;
-    font-size: 0.618em;
+    font-size: 0.809em;
+	white-space: nowrap;
 }
 
-.stacked .stack-event.stack-left  { left: -0.309em; }
-.stacked .stack-event.stack-right { right: -0.309em; }
+.stacked .stack-event.stack-left  { right: calc(100% - 0.809em); }
+.stacked .stack-event.stack-right { left: calc(100% - 0.809em); }
+.stacked .stack-event.stack-sup   { top: -0.809em; }
+.stacked .stack-event.stack-sub   { bottom: -0.809em; }
+
+.stacked .stack-event.stack-center   {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
 .stacked .stack-event.stack-circle {
     border-width: 1px;
     border-style: solid;
-    border-radius: 100%;
+    border-radius: 1.309em;
 }
 
 /* --- Floating sub container --- */
 .dropdown-container {
 	z-index: 10;
+	border-width: 1px;
+	border-style: solid;
+	border-color: transparent;
 }
 
 /* --- Coast to coast elements --- */
@@ -133,27 +138,7 @@
     display: flex !important;
 	justify-content: space-between;
 	flex-direction: row;
-}
-
-/* --- Wikipedia link --- */
-a.wikipedia-link {
-	position: relative;
-	border-bottom-width: 1px;
-	border-bottom-style: dotted;
-	border-bottom-color: transparent;
-	cursor: help;
-	padding-right: 0.809em;
-}
-
-a.wikipedia-link:after {
-	position: absolute;
-	vertical-align: middle;
-	top: 1px;
-	right: 0;
-	content: "\f266" ;
-	font-family: 'Font Awesome 5 Brands';
-	font-weight: 900; /* Solid icons*/
-	font-size: 0.618em;
+	align-items: center;
 }
 
 /* --- Display --- */
@@ -168,11 +153,6 @@ a.wikipedia-link:after {
 	font-weight: 600;
 	font-size: 130.9%
 }
-
-.align-center  { text-align: center; }
-.align-left    { text-align: left; }
-.align-right   { text-align: right; }
-.align-justify { text-align: justify; }
 
 .float-left,
 .float-right { padding: 0.809em 0; }
@@ -193,6 +173,20 @@ a.wikipedia-link:after {
 	}
 }
 
+.valign-top		{ vertical-align: top; }
+.valign-middle 	{ vertical-align: middle; }
+.valign-bottom 	{ vertical-align: bottom; }
+
+/* --- Text --- */
+.text-strong    { font-weight: bold; }
+.text-italic    { font-style: italic; }
+.text-underline { text-decoration: underline; }
+.text-strike 	{ text-decoration: line-through; }
+.align-center   { text-align: center; }
+.align-left     { text-align: left; }
+.align-right    { text-align: right; }
+.align-justify  { text-align: justify; }
+
 /* --- Hidden --- */
 .hidden { display: none; }
 
@@ -203,15 +197,6 @@ a.wikipedia-link:after {
 @media (min-width: 769px) {
 	.hidden-large-screens { display: none; }
 }
-
-/* --- Text --- */
-.text-strong  { font-weight: bold; }
-.text-justify { text-align: justify; }
-.text-italic  { font-style: italic; }
-
-.valign-top		{ vertical-align: top; }
-.valign-middle 	{ vertical-align: middle; }
-.valign-bottom 	{ vertical-align: bottom; }
 
 .spacer { clear: both; }
 
@@ -245,6 +230,17 @@ a.wikipedia-link:after {
 	margin: 90px auto auto auto;
 	width: 100%;
 	text-align: center;
+}
+
+/* Sticky */
+
+.sticky-menu {
+	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	margin-bottom: 2.618em;
+	background-color: var(--bgc-alt);
 }
 
 /* --- Announces & messaging icons ------------------------------------------ */

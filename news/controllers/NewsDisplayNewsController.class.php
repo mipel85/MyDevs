@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 04
+ * @version     PHPBoost 5.3 - last update: 2020 03 10
  * @since       PHPBoost 4.0 - 2013 02 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -22,7 +22,7 @@ class NewsDisplayNewsController extends ModuleController
 
 		$this->init();
 
-		$this->count_number_view($request);
+		$this->count_views_number($request);
 
 		$this->build_view();
 
@@ -56,7 +56,7 @@ class NewsDisplayNewsController extends ModuleController
 		return $this->news;
 	}
 
-	private function count_number_view(HTTPRequestCustom $request)
+	private function count_views_number(HTTPRequestCustom $request)
 	{
 		if (!$this->news->is_visible())
 		{
@@ -64,10 +64,10 @@ class NewsDisplayNewsController extends ModuleController
 		}
 		else
 		{
-			if ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), NewsUrlBuilder::display_news($this->news->get_category()->get_id(), $this->news->get_category()->get_rewrited_name(), $this->news->get_id(), $this->news->get_rewrited_name())->rel()))
+			if ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), NewsUrlBuilder::display_news($this->news->get_category()->get_id(), $this->news->get_category()->get_rewrited_name(), $this->news->get_id(), $this->news->get_rewrited_title())->rel()))
 			{
-				$this->news->set_number_view($this->news->get_number_view() + 1);
-				NewsService::update_number_view($this->news);
+				$this->news->set_views_number($this->news->get_views_number() + 1);
+				NewsService::update_views_number($this->news);
 			}
 		}
 	}
@@ -88,7 +88,7 @@ class NewsDisplayNewsController extends ModuleController
 		{
 			$comments_topic = new NewsCommentsTopic($news);
 			$comments_topic->set_id_in_module($news->get_id());
-			$comments_topic->set_url(NewsUrlBuilder::display_news($category->get_id(), $category->get_rewrited_name(), $news->get_id(), $news->get_rewrited_name()));
+			$comments_topic->set_url(NewsUrlBuilder::display_news($category->get_id(), $category->get_rewrited_name(), $news->get_id(), $news->get_rewrited_title()));
 
 			$this->tpl->put_all(array(
 				'COMMENTS' => $comments_topic->display()
@@ -123,7 +123,6 @@ class NewsDisplayNewsController extends ModuleController
 		}
 	}
 
-
 	private function build_suggested_news(News $news)
 	{
 		$now = new Date();
@@ -136,7 +135,7 @@ class NewsDisplayNewsController extends ModuleController
 		AND (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0)))
 		ORDER BY relevance DESC LIMIT 0, 10', array(
 			'excluded_id' => $news->get_id(),
-			'search_content' => $news->get_name() .','. $news->get_contents(),
+			'search_content' => $news->get_title() .','. $news->get_contents(),
 			'timestamp_now' => $now->get_timestamp()
 		));
 
@@ -145,7 +144,9 @@ class NewsDisplayNewsController extends ModuleController
 		while ($row = $result->fetch())
 		{
 			$this->tpl->assign_block_vars('suggested', array(
-				'NAME' => $row['name'],
+				'CATEGORY_NAME' => CategoriesService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_name(),
+				'U_CATEGORY' =>  NewsUrlBuilder::display_category($row['id_category'], CategoriesService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name())->rel(),
+				'TITLE' => $row['name'],
 				'U_ITEM' => NewsUrlBuilder::display_news($row['id_category'], CategoriesService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_name'])->rel(),
 				'U_THUMBNAIL' => !empty($row['picture_url']) ? Url::to_rel($row['picture_url']) : $news->get_default_thumbnail()->rel()
 			));
@@ -227,12 +228,12 @@ class NewsDisplayNewsController extends ModuleController
 		$response = new SiteDisplayResponse($this->tpl);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->get_news()->get_name(), ($category->get_id() != Category::ROOT_CATEGORY ? $category->get_name() . ' - ' : '') . $this->lang['news']);
-		$graphical_environment->get_seo_meta_data()->set_description($this->get_news()->get_real_short_contents());
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(NewsUrlBuilder::display_news($category->get_id(), $category->get_rewrited_name(), $this->get_news()->get_id(), $this->get_news()->get_rewrited_name()));
+		$graphical_environment->set_page_title($this->get_news()->get_title(), ($category->get_id() != Category::ROOT_CATEGORY ? $category->get_name() . ' - ' : '') . $this->lang['news']);
+		$graphical_environment->get_seo_meta_data()->set_description($this->get_news()->get_real_summary());
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(NewsUrlBuilder::display_news($category->get_id(), $category->get_rewrited_name(), $this->get_news()->get_id(), $this->get_news()->get_rewrited_title()));
 
-		if ($this->get_news()->has_picture())
-			$graphical_environment->get_seo_meta_data()->set_picture_url($this->get_news()->get_picture());
+		if ($this->get_news()->has_thumbnail())
+			$graphical_environment->get_seo_meta_data()->set_picture_url($this->get_news()->get_thumbnail());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['news'], NewsUrlBuilder::home());
@@ -243,7 +244,7 @@ class NewsDisplayNewsController extends ModuleController
 			if ($category->get_id() != Category::ROOT_CATEGORY)
 				$breadcrumb->add($category->get_name(), NewsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
 		}
-		$breadcrumb->add($this->get_news()->get_name(), NewsUrlBuilder::display_news($category->get_id(), $category->get_rewrited_name(), $this->get_news()->get_id(), $this->get_news()->get_rewrited_name()));
+		$breadcrumb->add($this->get_news()->get_title(), NewsUrlBuilder::display_news($category->get_id(), $category->get_rewrited_name(), $this->get_news()->get_id(), $this->get_news()->get_rewrited_title()));
 
 		return $response;
 	}

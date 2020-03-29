@@ -7,11 +7,12 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2016 10 24
+ * @version     PHPBoost 5.3 - last update: 2020 01 16
  * @since       PHPBoost 2.0 - 2008 07 08
  * @contributor Loic ROUCHON <horn@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class LinksMenu extends LinksMenuElement
@@ -23,6 +24,7 @@ class LinksMenu extends LinksMenuElement
 	const VERTICAL_MENU = 'vertical';
 	const HORIZONTAL_MENU = 'horizontal';
 	const STATIC_MENU = 'static';
+	const PUSH_MENU = 'push';
 
 	/* Deprecated */
 	const VERTICAL_SCROLLING_MENU = 'vertical_scrolling';
@@ -125,7 +127,10 @@ class LinksMenu extends LinksMenuElement
 			// Get the good Template object
 			if (!is_object($template) || !($template instanceof Template))
 			{
-				$tpl = new FileTemplate('framework/menus/links.tpl');
+				if($this->type == self::PUSH_MENU)
+					$tpl = new FileTemplate('framework/menus/push.tpl');
+				else
+					$tpl = new FileTemplate('framework/menus/links.tpl');
 			}
 			else
 			{
@@ -159,9 +164,16 @@ class LinksMenu extends LinksMenuElement
 				'C_FIRST_MENU' => $this->depth == 0,
 				'C_HAS_CHILD' => $elements_number,
 				'C_HIDDEN_WITH_SMALL_SCREENS' => $this->hidden_with_small_screens,
+				'C_PUSHMENU_DISABLED_BODY' => $this->disabled_body,
+				'C_PUSHMENU_PUSHED_CONTENT' => $this->pushed_content,
+				'C_FALSE_EXPANDING' => $this->pushmenu_expanding == 'false',
+				'DISABLED_BODY' => $this->disabled_body ? 'true' : 'false',
+				'PUSHED_CONTENT' => $this->pushed_content ? '#push-container' : '',
+				'PUSHMENU_OPENING' => $this->pushmenu_opening,
+				'PUSHMENU_EXPANDING' => $this->pushmenu_expanding,
 				'DEPTH' => $this->depth
 			));
-
+			
 			if ($this->type == self::AUTOMATIC_MENU)
 			{
 				$tpl->put_all(array(
@@ -199,7 +211,10 @@ class LinksMenu extends LinksMenuElement
 		// Get the good Template object
 		if (!is_object($template) || !($template instanceof Template))
 		{
-			$tpl = new FileTemplate('framework/menus/links/links.tpl');
+			if($this->type == self::PUSH_MENU)
+				$tpl = new FileTemplate('framework/menus/push.tpl');
+			else
+				$tpl = new FileTemplate('framework/menus/links.tpl');
 		}
 		else
 		{
@@ -230,6 +245,13 @@ class LinksMenu extends LinksMenuElement
 			'C_FIRST_MENU' => $this->depth == 0,
 			'C_HAS_CHILD' => $elements_number,
 			'C_HIDDEN_WITH_SMALL_SCREENS' => $this->hidden_with_small_screens,
+			'C_PUSHMENU_DISABLED_BODY' => $this->disabled_body,
+			'C_PUSHMENU_PUSHED_CONTENT' => $this->pushed_content,
+			'C_FALSE_EXPANDING' => $this->pushmenu_expanding == 'false',
+			'DISABLED_BODY' => $this->disabled_body ? 'true' : 'false',
+			'PUSHED_CONTENT' => $this->pushed_content ? '#push-container' : '',
+			'PUSHMENU_OPENING' => $this->pushmenu_opening,
+			'PUSHMENU_EXPANDING' => $this->pushmenu_expanding,
 			'DEPTH' => $this->depth,
 			'ID' => '##.#GET_UID#.##',
 			'ID_VAR' => '##.#GET_UID_VAR#.##'
@@ -281,7 +303,7 @@ class LinksMenu extends LinksMenuElement
 	*/
 	public static function get_menu_types_list()
 	{
-		return array(self::AUTOMATIC_MENU, self::VERTICAL_MENU, self::HORIZONTAL_MENU, self::STATIC_MENU);
+		return array(self::AUTOMATIC_MENU, self::VERTICAL_MENU, self::HORIZONTAL_MENU, self::STATIC_MENU, self::PUSH_MENU);
 	}
 
 	/**

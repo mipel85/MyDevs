@@ -52,7 +52,7 @@
 </script>
 
 <nav id="admin-quick-menu">
-	<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;" aria-label="{L_GROUPS_MANAGEMENT}">
+	<a href="#" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;" aria-label="{L_GROUPS_MANAGEMENT}">
 		<i class="fa fa-bars" aria-hidden="true"></i> {L_GROUPS_MANAGEMENT}
 	</a>
 	<ul>
@@ -75,7 +75,7 @@
 					<div class="form-element">
 						<label for="name">* {L_NAME}</label>
 						<div class="form-field">
-							<label><input type="text" id="name" name="name" value="{NAME}"></label>
+							<input type="text" id="name" name="name" value="{NAME}">
 						</div>
 					</div>
 					<div class="form-element inline-radio custom-radio">
@@ -98,19 +98,19 @@
 					<div class="form-element">
 						<label for="pm_group_limit">{L_PM_GROUP_LIMIT} <span>{L_PM_GROUP_LIMIT_EXPLAIN}</span></label>
 						<div class="form-field">
-							<label><input type="text" name="pm_group_limit" id="pm_group_limit" value="{PM_GROUP_LIMIT}"></label>
+							<input type="text" name="pm_group_limit" id="pm_group_limit" value="{PM_GROUP_LIMIT}">
 						</div>
 					</div>
 					<div class="form-element">
 						<label for="data_group_limit">{L_DATA_GROUP_LIMIT} <span class="field-description">{L_DATA_GROUP_LIMIT_EXPLAIN}</span></label>
 						<div class="form-field">
-							<label><input type="text" name="data_group_limit" id="data_group_limit" value="{DATA_GROUP_LIMIT}"></label>
+							<input type="text" name="data_group_limit" id="data_group_limit" value="{DATA_GROUP_LIMIT}">
 						</div>
 					</div>
 					<div class="form-element">
 						<label for="color_group">{L_COLOR_GROUP}</label>
 						<div class="form-field">
-							<label><input type="color" name="color_group" id="color_group" value="{COLOR_GROUP}" pattern="#[A-Fa-f0-9]{6}" placeholder="#000000"></label>
+							<input type="color" name="color_group" id="color_group" value="{COLOR_GROUP}" pattern="#[A-Fa-f0-9]{6}" placeholder="#366493">
 						</div>
 					</div>
 					<div class="form-element custom-checkbox">
@@ -127,12 +127,10 @@
 					<div class="form-element">
 						<label for="img_group">{L_IMG_ASSOC_GROUP} <span class="field-description">{L_IMG_ASSOC_GROUP_EXPLAIN}</span></label>
 						<div class="form-field">
-							<label>
-								<select name="img" id="img_group" onchange="img_change(this.options[selectedIndex].value)">
-									{IMG_GROUPS}
-								</select>
-								<img src="{PATH_TO_ROOT}/images/group/{IMG}" id="img_group_change" alt="{IMG}" aria-label="{IMG}" class="valign-middle" style="display: none;" />
-							</label>
+							<select name="img" id="img_group" onchange="img_change(this.options[selectedIndex].value)">
+								{IMG_GROUPS}
+							</select>
+							<img src="{PATH_TO_ROOT}/images/group/{IMG}" id="img_group_change" alt="{IMG}" aria-label="{IMG}" class="valign-middle" style="display: none;" />
 						</div>
 					</div>
 				</div>
@@ -143,7 +141,7 @@
 				<div class="fieldset-inset">
 					<input type="hidden" name="id" value="{GROUP_ID}" class="update">
 					<button type="submit" class="button submit" name="valid" value="true">{L_UPDATE}</button>
-					<button type="reset" class="button reset" value="true">{L_RESET}</button>
+					<button type="reset" class="button reset-button" value="true">{L_RESET}</button>
 					<input type="hidden" name="token" value="{TOKEN}">
 				</div>
 			</fieldset>
@@ -172,7 +170,7 @@
 						<a href="{member.U_PROFILE}" class="{member.LEVEL_CLASS}" # IF member.C_GROUP_COLOR # style="color:{member.GROUP_COLOR}" # ENDIF #>{member.LOGIN}</a>
 					</td>
 					<td>
-						<a href="admin_groups.php?del_mbr=1&amp;id={GROUP_ID}&amp;user_id={member.USER_ID}&amp;token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true" aria-label="${LangLoader::get_message('delete', 'common')}"></i></a>
+						<a href="admin_groups.php?del_mbr=1&amp;id={GROUP_ID}&amp;user_id={member.USER_ID}&amp;token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="far fa-trash-alt" aria-hidden="true" aria-label="${LangLoader::get_message('delete', 'common')}"></i></a>
 					</td>
 				</tr>
 				# END member #
@@ -221,25 +219,25 @@
 				<legend>{L_UPLOAD_GROUPS}</legend>
 				<div class="dnd-area">
 					<div class="dnd-dropzone">
-						<label for="inputfiles" class="dnd-label">${LangLoader::get_message('drag.and.drop.files', 'main')} <p></p></label>
+						<label for="inputfiles" class="dnd-label">${LangLoader::get_message('drag.and.drop.files', 'upload-common')} <span class="d-block"></span></label>
 						<input type="file" name="upload_groups[]" id="inputfiles" class="ufiles" />
 					</div>
 					<input type="hidden" name="max_file_size" value="{MAX_FILE_SIZE}">
 					<div class="ready-to-load">
-						<button type="button" class="button clear-list">${LangLoader::get_message('clear.list', 'main')}</button>
+						<button type="button" class="button clear-list">${LangLoader::get_message('clear.list', 'upload-common')}</button>
 						<span class="fa-stack fa-lg">
 							<i class="far fa-file fa-stack-2x "></i>
 							<strong class="fa-stack-1x files-nbr"></strong>
 						</span>
 					</div>
 					<div class="modal-container">
-						<button class="button upload-help" data-modal data-target="upload-helper"><i class="fa fa-question"></i></button>
+						<button class="button upload-help" data-modal data-target="upload-helper" aria-label="${LangLoader::get_message('upload.helper', 'upload-common')}"><i class="fa fa-question" aria-hidden="true"></i></button>
 						<div id="upload-helper" class="modal modal-animation">
 							<div class="close-modal" aria-label="${LangLoader::get_message('close', 'main')}"></div>
 							<div class="content-panel">
-								<h3>${LangLoader::get_message('upload.helper', 'main')}</h3>
-								<p><strong>${LangLoader::get_message('max.file.size', 'main')} :</strong> {MAX_FILE_SIZE_TEXT}</p>
-								<p><strong>${LangLoader::get_message('allowed.extensions', 'main')} :</strong> "{ALLOWED_EXTENSIONS}"</p>
+								<h3>${LangLoader::get_message('upload.helper', 'upload-common')}</h3>
+								<p><strong>${LangLoader::get_message('max.file.size', 'upload-common')} :</strong> {MAX_FILE_SIZE_TEXT}</p>
+								<p><strong>${LangLoader::get_message('allowed.extensions', 'upload-common')} :</strong> "{ALLOWED_EXTENSIONS}"</p>
 							</div>
 						</div>
 					</div>
@@ -262,7 +260,7 @@
 					<div class="form-element">
 						<label for="name">* {L_NAME}</label>
 						<div class="form-field">
-							<label><input type="text" maxlength="25" id="name" name="name" value=""></label>
+							<input type="text" maxlength="25" id="name" name="name" value="">
 						</div>
 					</div>
 					<div class="form-element inline-radio custom-radio">
@@ -285,29 +283,29 @@
 					<div class="form-element">
 						<label for="pm_group_limit">{L_PM_GROUP_LIMIT} <span class="field-description">{L_PM_GROUP_LIMIT_EXPLAIN}</span></label>
 						<div class="form-field">
-							<label><input type="text" name="pm_group_limit" id="pm_group_limit" value="75"></label>
+							<input type="text" name="pm_group_limit" id="pm_group_limit" value="75">
 						</div>
 					</div>
 					<div class="form-element">
 						<label for="data_group_limit">{L_DATA_GROUP_LIMIT} <span class="field-description">{L_DATA_GROUP_LIMIT_EXPLAIN}</span></label>
 						<div class="form-field">
-							<label><input type="text" name="data_group_limit" id="data_group_limit" value="5"></label>
+							<input type="text" name="data_group_limit" id="data_group_limit" value="5">
 						</div>
 					</div>
 					<div class="form-element top-field">
 						<label for="color_group">{L_COLOR_GROUP}</label>
 						<div class="form-field">
-							<label><input type="color" name="color_group" id="color_group" value="{COLOR_GROUP}" pattern="#[A-Fa-f0-9]{6}" placeholder="#000000"></label>
+							<input type="color" name="color_group" id="color_group" value="{COLOR_GROUP}" pattern="#[A-Fa-f0-9]{6}" placeholder="#366493">
 						</div>
 					</div>
 					<div class="form-element">
 						<label for="img_group">{L_IMG_ASSOC_GROUP} <span class="field-description">{L_IMG_ASSOC_GROUP_EXPLAIN}</span></label>
-						<div class="form-field"><label>
+						<div class="form-field">
 							<select name="img" id="img_group" onchange="img_change(this.options[selectedIndex].value)">
 								{IMG_GROUPS}
 							</select>
 							<img src="{PATH_TO_ROOT}/images/group/{IMG}" id="img_group_change" alt="{IMG}" aria-label="{IMG}" class="valign-middle" style="display: none;" />
-						</label></div>
+						</div>
 					</div>
 				</div>
 			</fieldset>
@@ -328,9 +326,9 @@
 		maxFileSize: '{MAX_FILE_SIZE}',
 		maxFilesSize: '-1',
 		allowedExtensions: ["{ALLOWED_EXTENSIONS}"],
-		warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'main'))},
-		warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'main'))},
-		warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'main'))},
-		warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.nbr', 'main'))},
+		warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'upload-common'))},
+		warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'upload-common'))},
+		warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'upload-common'))},
+		warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.number', 'upload-common'))},
 	});
 </script>

@@ -1,6 +1,6 @@
 /*
- * Copy this file in your theme to customize the module.
- * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
  *
  * Common styles for form elements
 */
@@ -14,30 +14,21 @@
 	flex-direction: column;
 }
 
-.form-element.form-element-textarea {
-	flex-direction: column;
-}
+.form-element.form-element-textarea { flex-direction: column; }
 
-.fieldset-description {
-	margin: 0 1em 0.618em 1em;
-}
+.fieldset-description { margin: 0 1em 0.618em 1em; }
 
 @media (min-width: 769px) {
-	.form-element {
-		flex-direction: row;
-	}
-	.fieldset-description {
-		margin: 0 1.618em 1.482em 1.618em;
-	}
+	.form-element { flex-direction: row; }
+
+	.fieldset-description { margin: 0 1.618em 1.482em 1.618em; }
 }
 
-.form-element [id$="user_avatar"] img {
-	max-width: 200px;
-}
+.form-element [id$="user_avatar"] img { max-width: 200px; }
 
-.form-element > label {
-	padding: 0 0.618em 0.618em 0;
-}
+.form-element > label { padding: 0 0.618em 0.618em 0; }
+
+.subtitle-label { font-size: 1.456em; }
 
 .field-description {
 	display: block;
@@ -57,9 +48,7 @@
 	max-width: none;
 }
 
-.form-field-action-link {
-	text-align: center;
-}
+.form-field-action-link { text-align: center; }
 
 .form-element > label {
 	display: inline-block;
@@ -68,23 +57,17 @@
 }
 
 @media (min-width: 1025px) {
-	.form-element > label {
-		width: 40%;
-	}
+	.form-element > label { width: 40%; }
 
-	.form-field {
-		width: 60%;
-	}
+	.form-field { width: 60%; }
 
 	.form-field-map,
-	.form-element-auth .form-field {
-		width: 80%;
-	}
+	.form-element-auth .form-field { width: 80%; }
 
-	.form-field-textarea {
-		width: 100%;
-	}
+	.form-field-textarea { width: 100%; }
 }
+
+.form-spacer { width: 100%; }
 
 /* --- Textarea --- */
 .form-field-textarea {
@@ -93,18 +76,16 @@
 	width: 100%;
 }
 
-.form-element-textarea .form-field-textarea {
-	display: block;
-}
-
-.form-element .form-field-textarea {
-	display: inline-block;
-}
+.form-element-textarea .form-field-textarea { display: block; }
 
 .form-element-preview, .form-element-reset {
 	margin: 0.309em auto 0 auto;
 	text-align: center;
 	display: inline;
+}
+
+@media (min-width: 1025px) {
+	.form-element-textarea > label { width: 100%; }
 }
 
 /* --- Auto-completion --- */
@@ -115,9 +96,7 @@
 	overflow: auto;
 }
 
-.autocomplete-suggestion strong {
-	font-weight: normal;
-}
+.autocomplete-suggestion strong { font-weight: normal; }
 
 .autocomplete-suggestion {
 	padding: 0.1618em 0.309em;
@@ -126,9 +105,7 @@
 	cursor: pointer;
 }
 
-.autocomplete-no-suggestion {
-	text-align: center;
-}
+.autocomplete-no-suggestion { text-align: center; }
 
 /* --- AJAX Preview --- */
 .xmlhttprequest-preview {
@@ -137,9 +114,7 @@
 	margin: 0.228em 0;
 }
 
-.xmlhttprequest-preview img {
-	max-width: 600px;
-}
+.xmlhttprequest-preview img { max-width: 600px; }
 
 /* --- Input sizes --- */
 .field-smaller 	{ width: 29px;  }
@@ -148,9 +123,7 @@
 .field-xlarge 	{ width: 250px; }
 
 /* --- Hide Chrome password generator --- */
-.cip-icon-key-small {
-	display: none !important;
-}
+.cip-icon-key-small { display: none !important; }
 
 /* --- Checkbox - radio --- */
 .inline-radio .radio,
@@ -159,6 +132,15 @@
 .inline-checkbox .form-field-checkbox {
    display: inline-block;
  	margin: 0 0.456em 0 0;
+}
+
+label[for="delete-all-checkbox"] { position: relative; }
+label[for="delete-all-checkbox"] span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 /* --- Fieldset --- */
@@ -190,4 +172,14 @@
 
 @media (max-width: 768px) {
 	.fieldset-content { margin-top: 0.618em; }
+}
+
+/* --- Thumbnail field --- */
+.form-field-thumbnail-choice .grouped-inputs,
+.form-field-thumbnail-choice + .form-field-thumbnail-preview {
+	margin: 1em 0;
+}
+
+.form-field-thumbnail-choice + .form-field-thumbnail-preview .form-field-preview {
+	margin-top: 1em;
 }

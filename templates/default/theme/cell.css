@@ -1,3 +1,9 @@
+/*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+*/
+
 .cell header,
 .cell footer,
 .cell-header button {
@@ -10,6 +16,7 @@
 }
 
 .cell-header,
+.cell-infos,
 .cell-body,
 .cell-list,
 .cell-table,
@@ -21,10 +28,12 @@
 	border-color: transparent;
 }
 
+[class*="cell-"] + .cell-infos,
 [class*="cell-"] + .cell-body,
 [class*="cell-"] + .cell-list,
 [class*="cell-"] + .cell-table,
 [class*="cell-"] + .cell-form,
+[class*="cell-"] + .cell-textarea,
 [class*="cell-"] + .cell-footer {
 	border-width: 0 1px 1px;
 }
@@ -60,15 +69,11 @@
 	padding: 0.618em;
 }
 
-.cell-infos.center {
-	justify-content: center;
-}
-
 .cell-content {
     padding: 0.618em;
 }
 
-.cell-content .message-helper {
+.cell-alert .message-helper {
 	margin: 0;
 }
 
@@ -78,6 +83,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
+}
+
+.cell-thumbnail.cell-center {
+	align-items: center;
 }
 
 .cell-thumbnail-caption {
@@ -132,6 +141,8 @@
 	padding: 0.228em 0.809em;
 }
 
+.cell-textarea textarea { border-width: 0; }
+
 /* --- table --- */
 .cell-table {
     overflow: auto;
@@ -171,9 +182,7 @@
 	margin: 0 !important;
 }
 
-.cell .formatter-title {
-	display: block;
-}
+.cell .formatter-title { display: block; }
 
 .cell-footer {
 	padding: 0.618em;

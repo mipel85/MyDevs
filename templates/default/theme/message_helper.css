@@ -1,7 +1,13 @@
+/*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+*/
+
 .message-helper {
 	position: relative;
 	display: block;
-	margin: 0.309em auto 1em auto;
+	margin: 0.309em 0 1em;
 	padding: 0.618em 0.618em 0.618em 2.618em;
 	height: auto;
 	border-width: 1px;
@@ -27,7 +33,7 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.message-helper-small {
+.text-helper .message-helper-small {
 	width: 50%;
 }
 
@@ -61,18 +67,6 @@
 .floating-message-container .floating-element .message-helper {
     margin: 0;
 	overflow: visible;
-}
-
-@media (max-width: 768px) {
-	.floating-message-container {
-		width: 100%;
-		top: 1em;
-	}
-
-	.floating-message-container .message-helper {
-		max-width: 90%;
-		padding: 10px 10px 10px 50px;
-	}
 }
 
 .floating-message-container .close-message {

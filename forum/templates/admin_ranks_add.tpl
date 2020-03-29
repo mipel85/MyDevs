@@ -27,7 +27,7 @@
 		</script>
 
 		<nav id="admin-quick-menu">
-			<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
+			<a href="#" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
 				<i class="fa fa-bars" aria-hidden="true"></i> {L_FORUM_MANAGEMENT}
 			</a>
 			<ul>
@@ -62,25 +62,25 @@
 							<div class="form-field">
 								<div class="dnd-area">
 									<div class="dnd-dropzone">
-										<label for="inputfiles" class="dnd-label">${LangLoader::get_message('drag.and.drop.files', 'main')} <p></p></label>
+										<label for="inputfiles" class="dnd-label">${LangLoader::get_message('drag.and.drop.files', 'upload-common')} <span class="d-block"></span></label>
 										<input type="file" name="upload_ranks[]" id="inputfiles" class="ufiles" />
 									</div>
 									<input type="hidden" name="max_file_size" value="{MAX_FILE_SIZE}">
 									<div class="ready-to-load">
-										<button type="button" class="button clear-list">${LangLoader::get_message('clear.list', 'main')}</button>
+										<button type="button" class="button clear-list">${LangLoader::get_message('clear.list', 'upload-common')}</button>
 										<span class="fa-stack fa-lg">
 											<i class="far fa-file fa-stack-2x "></i>
 											<strong class="fa-stack-1x files-nbr"></strong>
 										</span>
 									</div>
 									<div class="modal-container">
-										<button class="button upload-help" data-modal data-target="upload-helper"><i class="fa fa-question"></i></button>
+										<button class="button upload-help" data-modal data-target="upload-helper" aria-label="${LangLoader::get_message('upload.helper', 'upload-common')}"><i class="fa fa-question" aria-hidden="true"></i></button>
 										<div id="upload-helper" class="modal modal-animation">
 											<div class="close-modal" aria-label="${LangLoader::get_message('close', 'main')}"></div>
 											<div class="content-panel">
-												<h3>${LangLoader::get_message('upload.helper', 'main')}</h3>
-												<p><strong>${LangLoader::get_message('max.file.size', 'main')} :</strong> {MAX_FILE_SIZE_TEXT}</p>
-												<p><strong>${LangLoader::get_message('allowed.extensions', 'main')} :</strong> "{ALLOWED_EXTENSIONS}"</p>
+												<h3>${LangLoader::get_message('upload.helper', 'upload-common')}</h3>
+												<p><strong>${LangLoader::get_message('max.file.size', 'upload-common')} :</strong> {MAX_FILE_SIZE_TEXT}</p>
+												<p><strong>${LangLoader::get_message('allowed.extensions', 'upload-common')} :</strong> "{ALLOWED_EXTENSIONS}"</p>
 											</div>
 										</div>
 									</div>
@@ -106,20 +106,20 @@
 						<div class="fieldset-inset">
 							<div class="form-element top-field">
 								<label for="name">* {L_RANK_NAME}</label>
-								<div class="form-field"><label><input type="text" maxlength="30" id="name" name="name"></label></div>
+								<div class="form-field"><input type="text" id="name" name="name"></div>
 							</div>
 							<div class="form-element top-field">
 								<label for="msg">* {L_NBR_MSG}</label>
-								<div class="form-field"><label><input type="number" min="0" id="msg" name="msg"></label></div>
+								<div class="form-field"><input type="number" min="0" id="msg" name="msg"></div>
 							</div>
 							<div class="form-element">
 								<label for="icon">{L_IMG_ASSOC}</label>
-								<div class="form-field"><label>
+								<div class="form-field">
 									<select name="icon" id="icon" onchange="img_change('img_icon', '{PATH_TO_ROOT}/forum/templates/images/ranks/' + this.options[selectedIndex].value)">
 										{RANK_OPTIONS}
 									</select>
 									<img src="{PATH_TO_ROOT}/forum/templates/images/ranks/rank_0.png" id="img_icon" alt="rank_0.png" style="display: none;" />
-								</label></div>
+								</div>
 							</div>
 						</div>
 				</fieldset>
@@ -130,7 +130,7 @@
 						<input type="hidden" name="idc" value="{NEXT_ID}">
 						<input type="hidden" name="token" value="{TOKEN}">
 						<button type="submit" name="add" value="true" class="button submit">{L_ADD}</button>
-						<button type="reset" class="button reset" value="true">{L_RESET}</button>
+						<button type="reset" class="button reset-button" value="true">{L_RESET}</button>
 					</div>
 				</fieldset>
 			</form>
@@ -142,9 +142,9 @@
 				maxFileSize: '{MAX_FILE_SIZE}',
 				maxFilesSize: '-1',
 				allowedExtensions: ["{ALLOWED_EXTENSIONS}"],
-				warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'main'))},
-				warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'main'))},
-				warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'main'))},
-				warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.nbr', 'main'))},
+				warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'upload-common'))},
+				warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'upload-common'))},
+				warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'upload-common'))},
+				warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.number', 'upload-common'))},
 			});
 		</script>

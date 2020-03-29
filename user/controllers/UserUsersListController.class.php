@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 28
+ * @version     PHPBoost 5.3 - last update: 2020 02 26
  * @since       PHPBoost 3.0 - 2011 10 09
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -22,6 +22,7 @@ class UserUsersListController extends AbstractController
 	{
 		$this->init();
 		$this->build_select_group_form();
+		$this->build_form();
 		$current_page = $this->build_table();
 
 		if (AppContext::get_current_user()->is_admin())
@@ -38,6 +39,18 @@ class UserUsersListController extends AbstractController
 		$this->groups_cache = GroupsCache::load();
 	}
 
+	private function build_form()
+	{
+		$form = new HTMLForm(__CLASS__);
+
+		$fieldset = new FormFieldsetHTML('search_member', LangLoader::get_message('search_member', 'main'));
+		$form->add_fieldset($fieldset);
+
+		$fieldset->add_field(new FormFieldAjaxSearchUserAutoComplete('member', $this->lang['display_name'], ''));
+
+		$this->view->put('FORM', $form->display());
+	}
+
 	private function build_table()
 	{
 		$number_admins = UserService::count_admin_members();
@@ -52,7 +65,7 @@ class UserUsersListController extends AbstractController
 		);
 
 		if (AppContext::get_current_user()->is_admin())
-			$sql_html_table_model[] = new HTMLTableColumn('');
+			$sql_html_table_model[] = new HTMLTableColumn(LangLoader::get_message('actions', 'admin-common'), '', array('sr-only' => true));
 
 		$table_model = new SQLHTMLTableModel(DB_TABLE_MEMBER, 'table', $sql_html_table_model, new HTMLTableSortingRule('display_name', HTMLTableSortingRule::ASC));
 
@@ -85,12 +98,12 @@ class UserUsersListController extends AbstractController
 			{
 				$user = new User();
 				$user->set_properties($row);
-				$edit_link = new LinkHTMLElement(UserUrlBuilder::edit_profile($user->get_id()), '<i class="far fa-fw fa-edit"></i>', array('aria-label' => LangLoader::get_message('edit', 'common')), '');
+				$edit_link = new EditLinkHTMLElement(UserUrlBuilder::edit_profile($user->get_id()));
 
 				if ($user->get_level() != User::ADMIN_LEVEL || ($user->get_level() == User::ADMIN_LEVEL && $number_admins > 1))
-					$delete_link = new LinkHTMLElement(AdminMembersUrlBuilder::delete($user->get_id()), '<i class="far fa-fw fa-trash-alt"></i>', array('aria-label' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), '');
+					$delete_link = new DeleteLinkHTMLElement(AdminMembersUrlBuilder::delete($user->get_id()));
 				else
-					$delete_link = new LinkHTMLElement('', '<i class="far fa-fw fa-trash-alt"></i>', array('aria-label' => LangLoader::get_message('delete', 'common'), 'onclick' => 'return false;'), 'icon-disabled');
+					$delete_link = new DeleteLinkHTMLElement('', '', array('disabled' => true));
 
 				$html_table_row[] = new HTMLTableRowCell($edit_link->display() . $delete_link->display());
 			}
@@ -108,12 +121,15 @@ class UserUsersListController extends AbstractController
 	{
 		if ($request->get_string('delete-selected-elements', false))
 		{
+			$last_admin_delete = false;
+			$selected_users_number = 0;
 			for ($i = 1 ; $i <= $this->elements_number ; $i++)
 			{
 				if ($request->get_value('delete-checkbox-' . $i, 'off') == 'on')
 				{
 					if (isset($this->ids[$i]))
 					{
+						$selected_users_number++;
 						$user = UserService::get_user($this->ids[$i]);
 						if (!$user->is_admin() || ($user->is_admin() && UserService::count_admin_members() > 1))
 						{
@@ -123,22 +139,28 @@ class UserUsersListController extends AbstractController
 							}
 							catch (RowNotFoundException $ex) {}
 						}
+						if ($user->is_admin() && UserService::count_admin_members() == 1)
+							$last_admin_delete = true;
 					}
 				}
 			}
-			AppContext::get_response()->redirect(UserUrlBuilder::home(), LangLoader::get_message('process.success', 'status-messages-common'));
+			if ($last_admin_delete && $selected_users_number == 1)
+				AppContext::get_response()->redirect(UserUrlBuilder::home(), LangLoader::get_message('error.action.unauthorized', 'status-messages-common'), MessageHelper::ERROR);
+			else
+				AppContext::get_response()->redirect(UserUrlBuilder::home(), LangLoader::get_message('process.success', 'status-messages-common'));
 		}
 	}
 
 	private function build_select_group_form()
 	{
 		$form = new HTMLForm('groups', '', false);
+		$form->set_css_class('options');
 
-		$fieldset = new FormFieldsetHTML('show_group');
+		$fieldset = new FormFieldsetHorizontal('show_group', array('description' =>$this->lang['groups.select'], 'css_class' => 'grouped-inputs'));
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('groups_select', $this->lang['groups.select'] . ' : ', '', $this->build_select_groups(),
-			array('events' => array('change' => 'document.location = "'. UserUrlBuilder::groups()->rel() .'" + HTMLForms.getField("groups_select").getValue();')
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('groups_select','', '', $this->build_select_groups(),
+			array('class' => 'grouped-element', 'events' => array('change' => 'document.location = "'. UserUrlBuilder::groups()->rel() .'" + HTMLForms.getField("groups_select").getValue();')
 		)));
 
 		$groups = $this->groups_cache->get_groups();

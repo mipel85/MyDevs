@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 12 29
+ * @version     PHPBoost 5.3 - last update: 2020 02 08
  * @since       PHPBoost 3.0 - 2010 08 14
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -145,10 +145,22 @@ $LANG['menus_links_add'] = 'Menu de liens';
 $LANG['menus_feed_add'] = 'Menu de flux';
 $LANG['menus_edit'] = 'Modifier le menu';
 $LANG['menus_add'] = 'Ajouter un menu';
-$LANG['automatic_menu'] = 'Automatique';
-$LANG['vertical_menu'] = 'Menu vertical déroulant';
-$LANG['horizontal_menu'] = 'Menu horizontal déroulant';
-$LANG['static_menu'] = 'Menu statique';
+$LANG['automatic.menu'] = 'Automatique';
+$LANG['vertical.menu'] = 'Menu vertical déroulant';
+$LANG['horizontal.menu'] = 'Menu horizontal déroulant';
+$LANG['static.menu'] = 'Menu statique';
+$LANG['push.menu'] = 'Menu poussé';
+$LANG['push.menu.disabled.body'] = 'Désactiver le contenu du site à l\'ouverture du menu';
+$LANG['push.menu.pushed.content'] = 'Pousser le contenu du site à l\'ouverture du menu';
+$LANG['push.menu.opening.type'] = 'Type d\'ouverture du menu';
+$LANG['push.menu.opening.type.left'] = 'Depuis la gauche';
+$LANG['push.menu.opening.type.right'] = 'Depuis la droite';
+$LANG['push.menu.opening.type.top'] = 'Depuis le haut';
+$LANG['push.menu.opening.type.bottom'] = 'Depuis le bas';
+$LANG['push.menu.expansion.type'] = 'Déploiement des onglets';
+$LANG['push.menu.expansion.type.overlap'] = 'Par chevauchement';
+$LANG['push.menu.expansion.type.expand'] = 'Par en dessous';
+$LANG['push.menu.expansion.type.none'] = 'Aucun';
 $LANG['available_menus'] = 'Menus disponibles';
 $LANG['no_available_menus'] = 'Aucun menu disponible';
 $LANG['menu_header'] = 'Tête de page';

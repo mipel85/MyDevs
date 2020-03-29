@@ -53,7 +53,7 @@
 						<th class="forum-delete" aria-label="{L_DELETE}">
 							<label for="" class="checkbox">
 								<input type="checkbox" class="valign-middle" onclick="check_convers(this.checked, 'd');">
-								<span><i class="fa fa-trash-alt hidden-small-screens" aria-hidden="true"></i></span>
+								<span><i class="far fa-trash-alt hidden-small-screens" aria-hidden="true"></i></span>
 							</label>
 							<span class="hidden-large-screens">{L_DELETE}</span>
 						</th>
@@ -72,7 +72,7 @@
 					# ENDIF #
 
 					# START topics #
-					<tr>
+					<tr class="category-{topics.CATEGORY_ID}">
 						<td class="forum-announce-topic">
 							# IF NOT topics.C_HOT_TOPIC #
 							<i class="fa {topics.IMG_ANNOUNCE}"></i>

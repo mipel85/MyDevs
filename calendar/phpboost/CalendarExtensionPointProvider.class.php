@@ -3,29 +3,18 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 11
+ * @version     PHPBoost 5.3 - last update: 2020 02 06
  * @since       PHPBoost 2.0 - 2008 07 07
  * @contributor Kevin MASSY <reidlos@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor xela <xela@phpboost.com>
 */
 
-class CalendarExtensionPointProvider extends ExtensionPointProvider
+class CalendarExtensionPointProvider extends ModuleExtensionPointProvider
 {
 	public function __construct()
 	{
 		parent::__construct('calendar');
-	}
-
-	public function comments()
-	{
-		return new CommentsTopics(array(new CalendarCommentsTopic()));
-	}
-
-	public function css_files()
-	{
-		$module_css_files = new ModuleCssFiles();
-		$module_css_files->adding_always_displayed_file('calendar.css');
-		return $module_css_files;
 	}
 
 	public function feeds()
@@ -35,7 +24,7 @@ class CalendarExtensionPointProvider extends ExtensionPointProvider
 
 	public function home_page()
 	{
-		return new CalendarHomePageExtensionPoint();
+		return new DefaultHomePageDisplay($this->get_id(), CalendarDisplayCategoryController::get_view());
 	}
 
 	public function menus()
@@ -53,19 +42,12 @@ class CalendarExtensionPointProvider extends ExtensionPointProvider
 		return new CalendarSearchable();
 	}
 
-	public function sitemap()
-	{
-		return new DefaultSitemapCategoriesModule('calendar');
-	}
-
-	public function tree_links()
-	{
-		return new CalendarTreeLinks();
-	}
-
 	public function url_mappings()
 	{
-		return new UrlMappings(array(new DispatcherUrlMapping('/calendar/index.php')));
+		return new UrlMappings(array(
+			new DispatcherUrlMapping('/calendar/index.php', 'events_list/today/?$', '', 'events_list/&display_current_day_events=1', true),
+			new DispatcherUrlMapping('/calendar/index.php')
+		));
 	}
 }
 ?>

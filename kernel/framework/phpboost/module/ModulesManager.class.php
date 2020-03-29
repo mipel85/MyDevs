@@ -6,7 +6,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 10 27
+ * @version     PHPBoost 5.3 - last update: 2020 02 11
  * @since       PHPBoost 2.0 - 2008 10 12
  * @contributor Kevin MASSY <reidlos@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -501,9 +501,9 @@ class ModulesManager
 		$module_setup_classname = TextHelper::ucfirst($module_id) . 'Setup';
 		if (self::module_setup_exists($module_setup_classname))
 		{
-			return new $module_setup_classname();
+			return new $module_setup_classname($module_id);
 		}
-		return new DefaultModuleSetup();
+		return new DefaultModuleSetup($module_id);
 	}
 
 	private static function module_setup_exists($module_setup_classname)

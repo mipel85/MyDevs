@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 12 20
+ * @version     PHPBoost 5.3 - last update: 2020 01 10
  * @since       PHPBoost 4.1 - 2015 02 04
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor xela <xela@phpboost.com>
 */
 
 ####################################################
@@ -13,11 +14,16 @@
 ####################################################
 
 $lang['module_title'] = 'Multimédia';
-$lang['module_config_title'] = 'Configuration du module multimédia';
+
+$lang['items'] = 'fichiers multimédia';
+$lang['item'] = 'fichier multimédia';
 
 $lang['media.actions.add'] = 'Ajouter un fichier multimédia';
 $lang['media.manage'] = 'Gérer les fichiers multimédia';
 $lang['media.management'] = 'Gestion des fichiers multimédia';
+
+$lang['media.item'] = 'fichier multimédia';
+$lang['media.items'] = 'fichiers multimédia';
 
 $lang['content_type'] = 'Types de fichiers autorisés';
 $lang['content_type.music_and_video'] = 'Musique & Vidéo';

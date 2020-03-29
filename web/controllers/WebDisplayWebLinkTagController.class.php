@@ -3,10 +3,11 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 19
+ * @version     PHPBoost 5.3 - last update: 2020 03 07
  * @since       PHPBoost 4.1 - 2014 08 21
  * @contributor Kevin MASSY <reidlos@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class WebDisplayWebLinkTagController extends ModuleController
@@ -34,7 +35,7 @@ class WebDisplayWebLinkTagController extends ModuleController
 	public function init()
 	{
 		$this->lang = LangLoader::get('common', 'web');
-		$this->tpl = new FileTemplate('web/WebDisplaySeveralWebLinksController.tpl');
+		$this->tpl = new FileTemplate('web/WebSeveralItemsController.tpl');
 		$this->tpl->add_lang($this->lang);
 		$this->config = WebConfig::load();
 		$this->comments_config = CommentsConfig::load();
@@ -78,26 +79,26 @@ class WebDisplayWebLinkTagController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = web.id AND note.module_name = \'web\' AND note.user_id = :user_id
 		' . $condition . '
 		ORDER BY web.privileged_partner DESC, ' . $sort_field . ' ' . $sort_mode . '
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, array(
+		LIMIT :items_per_page OFFSET :display_from', array_merge($parameters, array(
 			'user_id' => AppContext::get_current_user()->get_id(),
-			'number_items_per_page' => $pagination->get_number_items_per_page(),
+			'items_per_page' => $pagination->get_number_items_per_page(),
 			'display_from' => $pagination->get_display_from()
 		)));
 
-		$number_columns_display_per_line = $this->config->get_columns_number_per_line();
-
 		$this->tpl->put_all(array(
-			'C_WEBLINKS' => $result->get_rows_count() > 0,
-			'C_MORE_THAN_ONE_WEBLINK' => $result->get_rows_count() > 1,
-			'C_CATEGORY_DISPLAYED_SUMMARY' => $this->config->is_category_displayed_summary(),
-			'C_CATEGORY_DISPLAYED_TABLE' => $this->config->is_category_displayed_table(),
-			'C_SEVERAL_COLUMNS' => $number_columns_display_per_line > 1,
-			'COLUMNS_NUMBER' => $number_columns_display_per_line,
-			'C_COMMENTS_ENABLED' => $this->comments_config->module_comments_is_enabled('web'),
-			'C_NOTATION_ENABLED' => $this->content_management_config->module_notation_is_enabled('web'),
+			'C_ITEMS' => $result->get_rows_count() > 0,
+			'C_SEVERAL_ITEMS' => $result->get_rows_count() > 1,
+			'C_GRID_VIEW' => $this->config->get_display_type() == WebConfig::GRID_VIEW,
+			'C_LIST_VIEW' => $this->config->get_display_type() == WebConfig::LIST_VIEW,
+			'C_TABLE_VIEW' => $this->config->get_display_type() == WebConfig::TABLE_VIEW,
+			'C_MODERATE' => CategoriesAuthorizationsService::check_authorizations()->moderation(),
+			'C_FULL_ITEM_DISPLAY' => $this->config->is_full_item_displayed(),
+			'CATEGORIES_PER_ROW' => $this->config->get_categories_per_row(),
+			'ITEMS_PER_ROW' => $this->config->get_items_per_row(),
+			'C_ENABLED_COMMENTS' => $this->comments_config->module_comments_is_enabled('web'),
+			'C_ENABLED_NOTATION' => $this->content_management_config->module_notation_is_enabled('web'),
 			'C_PAGINATION' => $pagination->has_several_pages(),
 			'PAGINATION' => $pagination->display(),
-			'TABLE_COLSPAN' => 3 + (int)$this->comments_config->module_comments_is_enabled('web') + (int)$this->content_management_config->module_notation_is_enabled('web'),
 			'CATEGORY_NAME' => $this->get_keyword()->get_name()
 		));
 
@@ -137,10 +138,10 @@ class WebDisplayWebLinkTagController extends ModuleController
 		);
 
 		if ($this->comments_config->module_comments_is_enabled('web'))
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'], WebLink::SORT_FIELDS_URL_VALUES[WebLink::SORT_NUMBER_COMMENTS]);
+			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.comments.number'], WebLink::SORT_FIELDS_URL_VALUES[WebLink::SORT_NUMBER_COMMENTS]);
 
 		if ($this->content_management_config->module_notation_is_enabled('web'))
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best_note'], WebLink::SORT_FIELDS_URL_VALUES[WebLink::SORT_NOTATION]);
+			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best.note'], WebLink::SORT_FIELDS_URL_VALUES[WebLink::SORT_NOTATION]);
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('sort_fields', '', $field, $sort_options,
 			array('events' => array('change' => 'document.location = "'. WebUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name())->rel() . '" + HTMLForms.getField("sort_fields").getValue() + "/" + HTMLForms.getField("sort_mode").getValue();'))
@@ -187,7 +188,7 @@ class WebDisplayWebLinkTagController extends ModuleController
 		LEFT JOIN '. DB_TABLE_KEYWORDS_RELATIONS .' relation ON relation.module_id = \'web\' AND relation.id_in_module = web.id
 		' . $condition, $parameters);
 
-		$pagination = new ModulePagination($page, $result['weblinks_number'], (int)WebConfig::load()->get_items_number_per_page());
+		$pagination = new ModulePagination($page, $result['weblinks_number'], (int)WebConfig::load()->get_items_per_page());
 		$pagination->set_url(WebUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name(), $field, $mode, '%d'));
 
 		if ($pagination->current_page_is_empty() && $page > 1)

@@ -18,6 +18,7 @@ ${resources('install/install')}
 		</script>
 		<script src="{PATH_TO_ROOT}/kernel/lib/js/jquery/jquery.js"></script>
 		<script src="{PATH_TO_ROOT}/templates/default/plugins/@global.js"></script>
+		<script src="{PATH_TO_ROOT}/templates/default/plugins/selectimg.js"></script>
 		<link rel="shortcut icon" href="{PATH_TO_ROOT}/favicon.ico" type="image/x-icon" />
 	</head>
 	<body>
@@ -35,21 +36,17 @@ ${resources('install/install')}
 							<span>{@language.change}</span>
 						</h5>
 						<form class="align-center" action="{U_CHANGE_LANG}" method="post">
-							<label for="change_lang">
-								<select
-									id="change_lang"
-									class="lang-selector"
-									name="new_language"
-									onchange="document.location='index.php?lang=' + document.getElementById('change_lang').value;"
-									style="background-image: url('{PATH_TO_ROOT}/images/stats/countries/{LANG_IDENTIFIER}.png')">
-									# START lang #
-										<option value="{lang.LANG}" {lang.SELECTED} style="background-image: url({PATH_TO_ROOT}/images/stats/countries/{LANG_IDENTIFIER}.png)">
-											{lang.LANG_NAME}
-										</option>
-									# END lang #
-								</select>
-
-							</label>
+							<select
+								id="change_lang"
+								class="lang-selector"
+								name="new_language"
+								onchange="document.location='index.php?lang=' + document.getElementById('change_lang').value;">
+								# START lang #
+									<option value="{lang.LANG}" {lang.SELECTED} data-option-img="{PATH_TO_ROOT}/images/stats/countries/{lang.FLAG}.png">
+										{lang.LANG_NAME}
+									</option>
+								# END lang #
+							</select>
 							<p id="button_change_lang">
 								<button type="submit" value="true" class="button submit">{@change}</button>
 								<input type="hidden" name="token" value="{TOKEN}">
@@ -99,11 +96,11 @@ ${resources('install/install')}
 		</header>
 
 		<div id="global">
-			<div class="admin-main">
-				<div class="admin-content">
+			<div id="admin-main">
+				<div id="admin-contents">
 					<section>
 						<header>
-							<h1><div class="site-logo"></div> {STEP_TITLE}</h1>
+							<h1><div id="site-logo"></div> {STEP_TITLE}</h1>
 						</header>
 						<article>
 							# INCLUDE installStep #
@@ -116,5 +113,10 @@ ${resources('install/install')}
 				<span>${LangLoader::get_message('powered_by', 'main')} <a href="https://www.phpboost.com" aria-label="{@phpboost.link}">PHPBoost</a> {@phpboost.rights}</span>
 			</footer>
 		</div>
+		<script>
+			jQuery('.lang-selector').selectimg({
+				ariaLabel : ${escapejs(LangLoader::get_message('click.to.select', 'common'))}
+			});
+		</script>
 	</body>
 </html>

@@ -1,11 +1,12 @@
-//Recherche d'une chaîne dans une autre.
+// Recherche d'une chaîne dans une autre.
+
 function strpos(haystack, needle)
 {
 	var i = haystack.indexOf(needle, 0); // returns -1
 	return i >= 0 ? i : false;
 }
 
-//Add information hide balise
+// Add information hide balise
 jQuery(document).ready(function(){
 	var IDCODE = 1;
 	jQuery('.formatter-hide').each( function(){
@@ -15,13 +16,13 @@ jQuery(document).ready(function(){
 			jQuery(this).removeClass('no-js');
 			jQuery(this).attr('onClick', 'bb_hide(' + IDCODE + ', 1, event);');
 			jQuery(this).children('.formatter-content').before('<span id="formatter-hide-message-' + IDCODE + '" class="formatter-hide-message">' + L_HIDE_MESSAGE + '</span>');
-			jQuery(this).children('.formatter-content').before('<span id="formatter-hide-close-button-' + IDCODE + '" class="formatter-hide-close-button" "aria-label="' + L_HIDE_HIDEBLOCK + '" onclick="bb_hide(' + IDCODE + ', 0, event);"><i class="fa fa-times"></i><span class="formatter-hide-close-button-txt">' + L_HIDE_HIDEBLOCK + '</span></span>');
+			jQuery(this).children('.formatter-content').before('<span id="formatter-hide-close-button-' + IDCODE + '" class="formatter-hide-close-button pinned error" aria-label="' + L_HIDE_HIDEBLOCK + '" onclick="bb_hide(' + IDCODE + ', 0, event);"><i class="fa fa-times"></i></span>');
 			IDCODE = IDCODE + 1;
 		}
 	} );
 } );
 
-//Hide / show hide balise content
+// Hide / show hide balise content
 function bb_hide(idcode, show, event)
 {
 	var idcode = (typeof idcode !== 'undefined') ? idcode : 0;
@@ -40,7 +41,7 @@ function bb_hide(idcode, show, event)
 }
 
 
-//Add button "Copy to clipboard" on Coding balise
+// Add button "Copy to clipboard" on Coding balise
 jQuery(document).ready(function(){
 	var IDCODE = 1;
 	jQuery('.formatter-code').each( function(){
@@ -54,7 +55,7 @@ jQuery(document).ready(function(){
 	} );
 } );
 
-//Function copy_code_clipboard
+// Function copy_code_clipboard
 //
 // Description :
 // This function copy the content of your specific selection to clipboard.
@@ -134,7 +135,7 @@ function copy_to_clipboard(tocopy)
 	}
 }
 
-//Function open_submenu
+//xFunction open_submenu
 //
 // Description :
 // This function add CSS Class to the specified CSS ID
@@ -659,3 +660,20 @@ setInterval(function() {
 		jQuery(this).css('border-color', color);
 		jQuery(this).prepend('<span style="background-color: '+color+';" class="data-color"></span>')
 	});
+
+// Scroll to anchor on .sticky-menu
+jQuery('.sticky-menu').each(function(){
+	jQuery('.sticky-menu .cssmenu-title').click(function(){
+		var targetId = jQuery(this).attr("href"),
+			hash = targetId.substring(targetId.indexOf('#'));
+
+		if(hash != null || hash != targetId) {
+			if (parseInt($(window).width()) < 769)
+				menuOffset = jQuery('.sticky-menu > .cssmenu > ul > li > .cssmenu-title').innerHeight();
+			else
+				menuOffset = jQuery('.sticky-menu > .cssmenu').innerHeight();
+			history.pushState('', '', hash);
+			jQuery('html, body').animate({scrollTop:jQuery(hash).offset().top - menuOffset}, 'slow');
+		}
+	});
+})

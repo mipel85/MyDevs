@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 04
+ * @version     PHPBoost 5.3 - last update: 2020 01 10
  * @since       PHPBoost 4.1 - 2014 08 21
  * @contributor Mipel <mipel@phpboost.com>
 */
@@ -14,7 +14,9 @@
 ####################################################
 
 $lang['module_title'] = 'Liens Web';
-$lang['module_config_title'] = 'Configuration des liens web';
+
+$lang['items'] = 'liens';
+$lang['item'] = 'lien';
 
 $lang['web.actions.add'] = 'Ajouter un lien';
 $lang['web.add'] = 'Ajout d\'un lien';
@@ -32,10 +34,6 @@ $lang['link'] = 'Lien';
 $lang['links'] = 'Liens';
 
 //config
-$lang['config.category_display_type'] = 'Affichage des informations dans les catégories';
-$lang['config.category_display_type.display_summary'] = 'Résumé';
-$lang['config.category_display_type.display_all_content'] = 'Tout le contenu';
-$lang['config.category_display_type.display_table'] = 'Tableau';
 $lang['config.display_descriptions_to_guests'] = 'Afficher le résumé aux visiteurs s\'ils n\'ont pas l\'autorisation de lecture';
 $lang['config.partners_menu'] = 'Menu partenaires';
 $lang['config.partners_sort'] = 'Ordre d\'affichage des partenaires';
@@ -54,7 +52,7 @@ $lang['web.form.contribution.explain'] = 'Vous n\'êtes pas autorisé à ajouter
 
 //form
 $lang['web.form.partner'] = 'Site partenaire';
-$lang['web.form.partner_picture'] = 'Bannière du partenaire';
+$lang['web.form.partner_thumbnail'] = 'Bannière du partenaire';
 $lang['web.form.privileged_partner'] = 'Partenaire prioritaire';
 $lang['web.form.privileged_partner.explain'] = 'Affiché en tête de liste';
 

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 20
+ * @version     PHPBoost 5.3 - last update: 2020 02 25
  * @since       PHPBoost 4.0 - 2014 08 24
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -14,7 +14,7 @@ class DownloadManageController extends AdminModuleController
 {
 	private $lang;
 	private $view;
-	
+
 	private $elements_number = 0;
 	private $ids = array();
 
@@ -25,7 +25,7 @@ class DownloadManageController extends AdminModuleController
 		$this->init();
 
 		$current_page = $this->build_table();
-		
+
 		$this->execute_multiple_delete_if_needed($request);
 
 		return $this->generate_response($current_page);
@@ -47,7 +47,7 @@ class DownloadManageController extends AdminModuleController
 			new HTMLTableColumn(LangLoader::get_message('author', 'common'), 'display_name'),
 			new HTMLTableColumn(LangLoader::get_message('form.date.creation', 'common'), 'creation_date'),
 			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'approbation_type'),
-			new HTMLTableColumn('')
+			new HTMLTableColumn(LangLoader::get_message('actions', 'admin-common'), '', array('sr-only' => true))
 		);
 
 		if (!$display_categories)
@@ -73,18 +73,18 @@ class DownloadManageController extends AdminModuleController
 			$downloadfile->set_properties($row);
 			$category = $downloadfile->get_category();
 			$user = $downloadfile->get_author_user();
-			
+
 			$this->elements_number++;
 			$this->ids[$this->elements_number] = $downloadfile->get_id();
 
-			$edit_link = new LinkHTMLElement(DownloadUrlBuilder::edit($downloadfile->get_id()), '<i class="far fa-fw fa-edit"></i>', array('aria-label' => LangLoader::get_message('edit', 'common')), '');
-			$delete_link = new LinkHTMLElement(DownloadUrlBuilder::delete($downloadfile->get_id()), '<i class="far fa-fw fa-trash-alt"></i>', array('aria-label' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), '');
+			$edit_link = new EditLinkHTMLElement(DownloadUrlBuilder::edit($downloadfile->get_id()));
+			$delete_link = new DeleteLinkHTMLElement(DownloadUrlBuilder::delete($downloadfile->get_id()));
 
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
 
 			$row = array(
-				new HTMLTableRowCell(new LinkHTMLElement(DownloadUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $downloadfile->get_id(), $downloadfile->get_rewrited_name()), $downloadfile->get_name()), 'left'),
+				new HTMLTableRowCell(new LinkHTMLElement(DownloadUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $downloadfile->get_id(), $downloadfile->get_rewrited_title()), $downloadfile->get_title()), 'left'),
 				new HTMLTableRowCell(new LinkHTMLElement(DownloadUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), $category->get_name())),
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell($downloadfile->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE)),
@@ -103,7 +103,7 @@ class DownloadManageController extends AdminModuleController
 
 		return $table->get_page_number();
 	}
-	
+
 	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
     {
         if ($request->get_string('delete-selected-elements', false))
@@ -119,7 +119,7 @@ class DownloadManageController extends AdminModuleController
                 }
             }
             DownloadService::clear_cache();
-			
+
             AppContext::get_response()->redirect(DownloadUrlBuilder::manage(), LangLoader::get_message('process.success', 'status-messages-common'));
         }
     }
@@ -138,11 +138,11 @@ class DownloadManageController extends AdminModuleController
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['download.management'], $this->lang['module_title'], $page);
+		$graphical_environment->set_page_title($this->lang['download.management'], $this->lang['module.title'], $page);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(DownloadUrlBuilder::manage());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['module_title'], DownloadUrlBuilder::home());
+		$breadcrumb->add($this->lang['module.title'], DownloadUrlBuilder::home());
 
 		$breadcrumb->add($this->lang['download.management'], DownloadUrlBuilder::manage());
 

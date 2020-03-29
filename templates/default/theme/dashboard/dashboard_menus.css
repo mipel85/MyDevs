@@ -1,4 +1,7 @@
 /*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
  * contains elements for all admin menus
  *    - index menu
  *    - modal admin menu
@@ -49,6 +52,11 @@
 			margin: 1.618em 0 0;
 			padding: 0.309em;
 			overflow: hidden;
+		}
+
+		.menu-title h5 {
+		    display: inline-block;
+		    vertical-align: middle;
 		}
 
 		.pbt-logo,
@@ -192,8 +200,9 @@
 		}
 	}
 
-	.modal-menu i {
-		margin-right: 8px;
+	.modal-menu i,
+	.modal-menu img {
+		margin-right: 0.309em;
 		align-self: center;
 	}
 

@@ -1,6 +1,11 @@
-/* --- Cookie Bar --- */
+/*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+*/
+
 .cookiebar-container {
-	z-index: 100;
+	z-index: 201;
 	left: 0;
 	right: 0;
 	top: 0;
@@ -53,7 +58,7 @@
 	}
 }
 
-@media (max-width: 468px) {
+@media (max-width: 480px) {
 	.cookiebar-more {
 		display: block;
 		margin: 0.618em 0 0.309em 0;
@@ -67,7 +72,7 @@
 }
 
 .aboutcookie-title + p {
-	margin: 0 0 1.309 0;
+	margin: 0 0 1.309em 0;
 }
 
 #cookiebar-change-choice {

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 10 27
+ * @version     PHPBoost 5.3 - last update: 2020 02 08
  * @since       PHPBoost 5.1 - 2017 09 28
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -36,10 +36,14 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 		return true;
 	}
 
+	private $mini_lang;
+
 	public function get_menu_content()
 	{
+		$this->mini_lang = LangLoader::get('module-mini', 'sandbox');
 		$tpl = new FileTemplate('sandbox/SandboxModuleMiniMenu.tpl');
 		$tpl->add_lang(LangLoader::get('common', 'sandbox'));
+		$tpl->add_lang($this->mini_lang);
 		$tpl->add_lang(LangLoader::get('module-mini', 'sandbox'));
 		$config = SandboxConfig::load();
 
@@ -130,11 +134,16 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 			'C_CSS_CACHE_ENABLED' => CSSCacheConfig::load()->is_enabled(),
 			'C_LEFT_ENABLED'      => !$menus_status->left_columns_is_disabled(),
 			'C_RIGHT_ENABLED'     => !$menus_status->right_columns_is_disabled(),
-			'C_SLIDE_RIGHT'       => $config->get_open_menu() == SandboxConfig::RIGHT_MENU,
 			'C_IS_LOCALHOST'      => AppContext::get_request()->get_is_localhost(),
 			'C_IS_SUPERADMIN'     => $is_superadmin,
 			'C_LOGGED_ERRORS'     => ((bool)count($this->get_logged_errors_nb())),
 			'C_404_ERRORS'        => (bool)$nb_404,
+			'C_NO_EXPANSION'      => $config->get_expansion_type() == SandboxConfig::NO_EXPANSION,
+
+			'PUSHED_CONTENT' => $config->get_pushed_content() ? '#push-container' : '',
+			'DISABLED_BODY'  => $config->get_disabled_body() ? 'true' : 'false',
+			'OPENING_TYPE'   => $config->get_menu_opening_type(),
+			'EXPANSION_TYPE' => $config->get_expansion_type(),
 
 			'PBT_VERSION'  => Environment::get_phpboost_version(),
 			'PHP_VERSION'  => ServerConfiguration::get_phpversion(),
@@ -207,13 +216,13 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 	private function build_enable_css_cache()
 	{
 		$enable_css_cache = new HTMLForm('enable_css_cache', '', false);
-		$enable_css_cache->set_html_id('enable_css_cache');
+		$enable_css_cache->set_css_class('sandbox-mini-form enable-css-cache');
 
 		$this->enable_css_button = new FormButtonSubmit('
-			<span class="icon-stack">
-				<i class="fab fa-css3 icon-main" aria-hidden="true"></i>
-				<i class="fa fa-plus icon-sup" aria-hidden="true"></i>
-			</span> <span class="sr-only">{@mini.enable.css.cache}</span>
+			<span class="stacked">
+				<i class="fab fa-fw fa-css3" aria-hidden="true"></i>
+				<i class="fa fa-plus success stack-event stack-sup stack-right" aria-hidden="true"></i>
+			</span> <span> ' . $this->mini_lang['mini.enable.css.cache'] . ' </span>
 		', 'enable_css_cache');
 		$enable_css_cache->add_button($this->enable_css_button);
 
@@ -230,13 +239,13 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 	private function build_disable_css_cache()
 	{
 		$disable_css_cache = new HTMLForm('disable_css_cache', '', false);
-		$disable_css_cache->set_html_id('disable_css_cache');
+		$disable_css_cache->set_css_class('sandbox-mini-form disable-css-cache');
 
 		$this->disable_css_button = new FormButtonSubmit('
-			<span class="icon-stack">
-				<i class="fab fa-css3 icon-main" aria-hidden="true"></i>
-				<i class="fa fa-minus icon-sup" aria-hidden="true"></i>
-			</span> <span class="sr-only">{@mini.disable.css.cache}</span>
+			<span class="stacked">
+				<i class="fab fa-fw fa-css3" aria-hidden="true"></i>
+				<i class="fa fa-minus error stack-event stack-sup stack-right" aria-hidden="true"></i>
+			</span> <span> ' . $this->mini_lang['mini.disable.css.cache'] . ' </span>
 		', 'disable_css_cache');
 		$disable_css_cache->add_button($this->disable_css_button);
 
@@ -253,13 +262,13 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 	private function build_clean_css_cache()
 	{
 		$clean_css_cache = new HTMLForm('clean_css_cache', '', false);
-		$clean_css_cache->set_html_id('clean_css_cache');
+		$clean_css_cache->set_css_class('sandbox-mini-form clean-css-cache');
 
 		$this->clean_css_button = new FormButtonSubmit('
-			<span class="icon-stack">
-				<i class="fab fa-css3 icon-main" aria-hidden="true"></i>
-				<i class="fa fa-sync icon-sup" aria-hidden="true"></i>
-			</span> <span class="sr-only">{@mini.clean.css.cache}</span>
+			<span class="stacked">
+				<i class="fab fa-fw fa-css3" aria-hidden="true"></i>
+				<i class="fa fa-sync notice stack-event stack-sup stack-right" aria-hidden="true"></i>
+			</span> <span> ' . $this->mini_lang['mini.clean.css.cache'] . ' </span>
 		', 'clean_css_cache');
 		$clean_css_cache->add_button($this->clean_css_button);
 
@@ -275,13 +284,13 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 	{
 		$this->css_cache_config = CSSCacheConfig::load();
 		$clean_cache = new HTMLForm('clean_cache', '', false);
-		$clean_cache->set_html_id('clean_cache');
+		$clean_cache->set_css_class('sandbox-mini-form clean-cache');
 
 		$this->clean_button = new FormButtonSubmit('
-			<span class="icon-stack">
-				<i class="fab fa-html5 icon-main" aria-hidden="true"></i>
-				<i class="fa fa-sync icon-sup" aria-hidden="true"></i>
-			</span> <span class="sr-only">{@mini.clean.tpl.cache}</span>
+			<span class="stacked">
+				<i class="fab fa-fw fa-html5" aria-hidden="true"></i>
+				<i class="fa fa-sync notice stack-event stack-sup stack-right" aria-hidden="true"></i>
+			</span> <span> ' . $this->mini_lang['mini.clean.tpl.cache'] . ' </span>
 		', 'clean_cache');
 		$clean_cache->add_button($this->clean_button);
 
@@ -298,13 +307,13 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 	private function build_clean_syndication_cache()
 	{
 		$clean_syndication_cache = new HTMLForm('clean_syndication_cache', '', false);
-		$clean_syndication_cache->set_html_id('clean_syndication_cache');
+		$clean_syndication_cache->set_css_class('sandbox-mini-form clean-syndication-cache');
 
 		$this->clean_syndication_button = new FormButtonSubmit('
-			<span class="icon-stack">
-				<i class="fa fa-rss icon-main" aria-hidden="true"></i>
-				<i class="fa fa-sync icon-sup" aria-hidden="true"></i>
-			</span> <span class="sr-only">{@mini.clean.rss.cache}</span>
+			<span class="stacked">
+				<i class="fa fa-fw fa-rss" aria-hidden="true"></i>
+				<i class="fa fa-sync notice stack-event stack-sup stack-right" aria-hidden="true"></i>
+			</span> <span> ' . $this->mini_lang['mini.clean.rss.cache'] . ' </span>
 		', 'clean_syndication_cache');
 		$clean_syndication_cache->add_button($this->clean_syndication_button);
 
@@ -319,13 +328,13 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 	private function build_disable_left_menu()
 	{
 		$disable_left_menu = new HTMLForm('disable_left_menu', '', false);
-		$disable_left_menu->set_html_id('disable_left_menu');
+		$disable_left_menu->set_css_class('sandbox-mini-form disable-left-menu');
 
 		$this->disable_left_button = new FormButtonSubmit('
-			<span class="icon-stack">
-				<i class="fa fa-th-list icon-main" aria-hidden="true"></i>
-				<i class="fa fa-minus icon-sup" aria-hidden="true"></i>
-			</span> <span class="sr-only">{@mini.disable.left.col}</span>
+			<span class="stacked">
+				<i class="fa fa-fw fa-th-list" aria-hidden="true"></i>
+				<i class="fa fa-minus error stack-event stack-sup stack-right" aria-hidden="true"></i>
+			</span> <span> ' . $this->mini_lang['mini.disable.left.col'] . ' </span>
 		', 'disable_left_menu');
 		$disable_left_menu->add_button($this->disable_left_button);
 
@@ -335,13 +344,13 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 	private function build_enable_left_menu()
 	{
 		$enable_left_menu = new HTMLForm('enable_left_menu', '', false);
-		$enable_left_menu->set_html_id('enable_left_menu');
+		$enable_left_menu->set_css_class('sandbox-mini-form enable-left-menu');
 
 		$this->enable_left_button = new FormButtonSubmit('
-			<span class="icon-stack">
-				<i class="fa fa-th-list icon-main" aria-hidden="true"></i>
-				<i class="fa fa-plus icon-sup" aria-hidden="true"></i>
-			</span> <span class="sr-only">{@mini.enable.left.col}</span>
+			<span class="stacked">
+				<i class="fa fa-fw fa-th-list" aria-hidden="true"></i>
+				<i class="fa fa-plus success stack-event stack-sup stack-right" aria-hidden="true"></i>
+			</span> <span> ' . $this->mini_lang['mini.enable.left.col'] . ' </span>
 		', 'enable_left_menu');
 		$enable_left_menu->add_button($this->enable_left_button);
 
@@ -351,13 +360,13 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 	private function build_disable_right_menu()
 	{
 		$disable_right_menu = new HTMLForm('disable_right_menu', '', false);
-		$disable_right_menu->set_html_id('disable_right_menu');
+		$disable_right_menu->set_css_class('sandbox-mini-form disable-right-menu');
 
 		$this->disable_right_button = new FormButtonSubmit('
-			<span class="icon-stack">
-				<i class="fa fa-th-list fa-rotate-180 icon-main" aria-hidden="true"></i>
-				<i class="fa fa-minus icon-sup" aria-hidden="true"></i>
-			</span> <span class="sr-only">{@mini.disable.right.col}</span>
+			<span class="stacked">
+				<i class="fa fa-fw fa-th-list fa-rotate-180" aria-hidden="true"></i>
+				<i class="fa fa-minus error stack-event stack-sup stack-right" aria-hidden="true"></i>
+			</span> <span> ' . $this->mini_lang['mini.disable.right.col'] . '</span>
 		', 'disable_right_menu');
 		$disable_right_menu->add_button($this->disable_right_button);
 
@@ -367,13 +376,13 @@ class SandboxModuleMiniMenu extends ModuleMiniMenu
 	private function build_enable_right_menu()
 	{
 		$enable_right_menu = new HTMLForm('enable_right_menu', '', false);
-		$enable_right_menu->set_html_id('enable_right_menu');
+		$enable_right_menu->set_css_class('sandbox-mini-form enable-right-menu');
 
 		$this->enable_right_button = new FormButtonSubmit('
-			<span class="icon-stack">
-				<i class="fa fa-th-list fa-rotate-180 icon-main" aria-hidden="true"></i>
-				<i class="fa fa-plus icon-sup" aria-hidden="true"></i>
-			</span> <span class="sr-only">{@mini.enable.right.col}</span>
+			<span class="stacked">
+				<i class="fa fa-fw fa-th-list fa-rotate-180" aria-hidden="true"></i>
+				<i class="fa fa-plus success stack-event stack-sup stack-right" aria-hidden="true"></i>
+			</span> <span> ' . $this->mini_lang['mini.enable.right.col'] . '</span>
 		', 'enable_right_menu');
 		$enable_right_menu->add_button($this->enable_right_button);
 

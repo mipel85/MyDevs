@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 11
+ * @version     PHPBoost 5.3 - last update: 2019 12 29
  * @since       PHPBoost 4.1 - 2015 02 25
 */
 
@@ -15,13 +15,6 @@ class ForumAuthorizationsService extends CategoriesAuthorizationsService
 	const READ_TOPICS_CONTENT_AUTHORIZATIONS = 128;
 	const CATEGORIES_MANAGEMENT_AUTHORIZATIONS = 256;
 	const MULTIPLE_POSTS_AUTHORIZATIONS = 512;
-
-	public static function check_authorizations($id_category = Category::ROOT_CATEGORY)
-	{
-		$instance = new self();
-		$instance->id_category = $id_category;
-		return $instance;
-	}
 
 	public function flood()
 	{
@@ -53,7 +46,7 @@ class ForumAuthorizationsService extends CategoriesAuthorizationsService
 		if (!in_array($bit, array(Category::READ_AUTHORIZATIONS, Category::WRITE_AUTHORIZATIONS, Category::MODERATION_AUTHORIZATIONS)))
 			$auth = ForumConfig::load()->get_authorizations();
 		else
-			$auth = CategoriesService::get_categories_manager('forum', 'idcat')->get_heritated_authorizations($this->id_category, $bit, $mode);
+			$auth = CategoriesService::get_categories_manager('forum')->get_heritated_authorizations($this->id_category, $bit, $mode);
 
 		return AppContext::get_current_user()->check_auth($auth, $bit);
 	}

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 12 29
+ * @version     PHPBoost 5.3 - last update: 2019 12 30
  * @since       PHPBoost 3.0 - 2010 01 17
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -53,7 +53,7 @@ class MediaSetup extends DefaultModuleSetup
 	{
 		$fields = array(
 			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
-			'idcat' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'id_category' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'iduser' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => -1),
 			'timestamp' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'name' => array('type' => 'string', 'length' => 100, 'notnull' => 1, 'default' => "''"),
@@ -69,7 +69,7 @@ class MediaSetup extends DefaultModuleSetup
 		$options = array(
 			'primary' => array('id'),
 			'indexes' => array(
-				'idcat' => array('type' => 'key', 'fields' => 'idcat'),
+				'id_category' => array('type' => 'key', 'fields' => 'id_category'),
 				'name' => array('type' => 'fulltext', 'fields' => 'name'),
 				'contents' => array('type' => 'fulltext', 'fields' => 'contents')
 		));
@@ -98,7 +98,7 @@ class MediaSetup extends DefaultModuleSetup
 			'rewrited_name' => Url::encode_rewrite($this->messages['media_name_cat']),
 			'name' => $this->messages['media_name_cat'],
 			'description' => $this->messages['media_contents_cat'],
-			'image' => '/media/templates/images/video.png',
+			'thumbnail' => '/media/templates/images/video.png',
 			'content_type' => 2
 		));
 	}
@@ -107,7 +107,7 @@ class MediaSetup extends DefaultModuleSetup
 	{
 		PersistenceContext::get_querier()->insert(self::$media_table, array(
 			'id' => 1,
-			'idcat' => 1,
+			'id_category' => 1,
 			'iduser' => 1,
 			'timestamp' => time(),
 			'name' => $this->messages['media_name'],

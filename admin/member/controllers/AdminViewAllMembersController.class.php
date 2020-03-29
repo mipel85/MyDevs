@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 20
+ * @version     PHPBoost 5.3 - last update: 2020 02 26
  * @since       PHPBoost 3.0 - 2010 02 28
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -22,6 +22,7 @@ class AdminViewAllMembersController extends AdminController
 	{
 		$this->init();
 
+		$this->build_form();
 		$current_page = $this->build_table();
 
 		$this->execute_multiple_delete_if_needed($request);
@@ -44,7 +45,7 @@ class AdminViewAllMembersController extends AdminController
 
 		$fieldset->add_field(new FormFieldAjaxSearchUserAutoComplete('member', $this->lang['display_name'], ''));
 
-		return $form;
+		$this->view->put('FORM', $form->display());
 	}
 
 	private function build_table()
@@ -58,7 +59,7 @@ class AdminViewAllMembersController extends AdminController
 			new HTMLTableColumn($this->lang['registration_date'], 'registration_date'),
 			new HTMLTableColumn($this->lang['last_connection'], 'last_connection_date'),
 			new HTMLTableColumn($this->lang['approbation'], 'approved'),
-			new HTMLTableColumn('')
+			new HTMLTableColumn(LangLoader::get_message('actions', 'admin-common'), '', array('sr-only' => true))
 		), new HTMLTableSortingRule('display_name', HTMLTableSortingRule::ASC));
 
 		$table = new HTMLTable($table_model);
@@ -75,12 +76,12 @@ class AdminViewAllMembersController extends AdminController
 			$this->elements_number++;
 			$this->ids[$this->elements_number] = $user->get_id();
 
-			$edit_link = new LinkHTMLElement(UserUrlBuilder::edit_profile($user->get_id()), '<i class="far fa-fw fa-edit"></i>', array('aria-label' => LangLoader::get_message('edit', 'common')), '');
+			$edit_link = new EditLinkHTMLElement(UserUrlBuilder::edit_profile($user->get_id()));
 
 			if ($user->get_level() != User::ADMIN_LEVEL || ($user->get_level() == User::ADMIN_LEVEL && $number_admins > 1))
-				$delete_link = new LinkHTMLElement(AdminMembersUrlBuilder::delete($user->get_id()), '<i class="far fa-fw fa-trash-alt"></i>', array('aria-label' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), '');
+				$delete_link = new DeleteLinkHTMLElement(AdminMembersUrlBuilder::delete($user->get_id()));
 			else
-				$delete_link = new LinkHTMLElement('', '<i class="far fa-fw fa-trash-alt"></i>', array('aria-label' => LangLoader::get_message('delete', 'common'), 'onclick' => 'return false;'), 'icon-disabled');
+				$delete_link = new DeleteLinkHTMLElement('', '', array('disabled' => true));
 
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 
@@ -90,16 +91,13 @@ class AdminViewAllMembersController extends AdminController
 				new HTMLTableRowCell(new LinkHTMLElement('mailto:' . $user->get_email(), '<i class="fa fa-fw fa-at"></i>', array('aria-label' => $this->lang['email']), 'button submit smaller')),
 				new HTMLTableRowCell(Date::to_format($row['registration_date'], Date::FORMAT_DAY_MONTH_YEAR)),
 				new HTMLTableRowCell(!empty($row['last_connection_date']) && (empty($row['login']) || $row['approved']) ? Date::to_format($row['last_connection_date'], Date::FORMAT_DAY_MONTH_YEAR) : LangLoader::get_message('never', 'main')),
-				new HTMLTableRowCell(empty($row['login']) || $row['approved'] ? LangLoader::get_message('yes', 'common') : LangLoader::get_message('no', 'common')),
+				new HTMLTableRowCell($user->is_banned() ? $this->lang['banned'] : (empty($row['login']) || $row['approved'] ? LangLoader::get_message('yes', 'common') : LangLoader::get_message('no', 'common'))),
 				new HTMLTableRowCell($edit_link->display() . $delete_link->display())
 			));
 		}
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
-		$this->view->put_all(array(
-			'FORM' => $this->build_form()->display(),
-			'table' => $table->display()
-		));
+		$this->view->put('table', $table->display());
 
 		return $table->get_page_number();
 	}
@@ -110,10 +108,13 @@ class AdminViewAllMembersController extends AdminController
 		{
 			for ($i = 1 ; $i <= $this->elements_number ; $i++)
 			{
+				$last_admin_delete = false;
+				$selected_users_number = 0;
 				if ($request->get_value('delete-checkbox-' . $i, 'off') == 'on')
 				{
 					if (isset($this->ids[$i]))
 					{
+						$selected_users_number++;
 						$user = UserService::get_user($this->ids[$i]);
 						if (!$user->is_admin() || ($user->is_admin() && UserService::count_admin_members() > 1))
 						{
@@ -123,10 +124,15 @@ class AdminViewAllMembersController extends AdminController
 							}
 							catch (RowNotFoundException $ex) {}
 						}
+						if ($user->is_admin() && UserService::count_admin_members() == 1)
+							$last_admin_delete = true;
 					}
 				}
 			}
-			AppContext::get_response()->redirect(AdminMembersUrlBuilder::management(), LangLoader::get_message('process.success', 'status-messages-common'));
+			if ($last_admin_delete && $selected_users_number == 1)
+				AppContext::get_response()->redirect(AdminMembersUrlBuilder::management(), LangLoader::get_message('error.action.unauthorized', 'status-messages-common'), MessageHelper::ERROR);
+			else
+				AppContext::get_response()->redirect(AdminMembersUrlBuilder::management(), LangLoader::get_message('process.success', 'status-messages-common'));
 		}
 	}
 }

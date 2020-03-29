@@ -1,5 +1,5 @@
 <nav id="admin-quick-menu">
-	<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
+	<a href="#" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
 		<i class="fa fa-bars" aria-hidden="true"></i> {L_WIKI_MANAGEMENT}
 	</a>
 	<ul>
@@ -76,7 +76,7 @@
 				</div>
 				<div class="form-element">
 					<label for="number_articles_on_index">{L_NUMBER_ARTICLES_ON_INDEX} <span class="field-description">{L_NUMBER_ARTICLES_ON_INDEX_EXPLAIN}</span></label>
-					<div class="form-field"><label><input type="text" name="number_articles_on_index" id="number_articles_on_index" value="{NUMBER_ARTICLES_ON_INDEX}"></label></div>
+					<div class="form-field"><input type="text" name="number_articles_on_index" id="number_articles_on_index" value="{NUMBER_ARTICLES_ON_INDEX}"></div>
 				</div>
 				<div class="form-element form-element-textarea">
 					<label for="contents">{L_DESCRIPTION}</label>
@@ -86,7 +86,7 @@
 					<div id="xmlhttprequest-preview-contents" class="xmlhttprequest-preview" style="display: none;"></div>
 					{KERNEL_EDITOR}
 					<textarea rows="10" cols="60" id="contents" name="contents">{DESCRIPTION}</textarea>
-					<div class="align-center"><button type="button" class="button small" onclick="XMLHttpRequest_preview('contents');">{L_PREVIEW}</button></div>
+					<div class="align-center"><button type="button" class="button preview-button" onclick="XMLHttpRequest_preview('contents');">{L_PREVIEW}</button></div>
 				</div>
 			</div>
 		</fieldset>
@@ -95,7 +95,7 @@
 			<legend>{L_UPDATE}</legend>
 			<div class="fieldset-inset">
 				<button type="submit" name="update" value="true" class="button submit">{L_UPDATE}</button>
-				<button type="reset" class="button reset" value="true">{L_RESET}</button>
+				<button type="reset" class="button reset-button" value="true">{L_RESET}</button>
 				<input type="hidden" name="token" value="{TOKEN}">
 			</div>
 		</fieldset>

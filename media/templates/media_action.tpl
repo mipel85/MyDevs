@@ -30,7 +30,7 @@
 			var id_music = new Array({JS_ID_MUSIC});
 
 			if (id_music.length > 0)
-				if (in_array(jQuery('#idcat').val(), id_music))
+				if (in_array(jQuery('#id_category').val(), id_music))
 				{
 					jQuery('#width_dl').hide();
 					jQuery('#height_dl').hide();
@@ -47,7 +47,7 @@
 			jQuery('#width_dl').hide();
 			jQuery('#height_dl').hide();
 			# ENDIF #
-			jQuery('#idcat').change(function() {
+			jQuery('#id_category').change(function() {
 				hide_width_height();
 			});
 		});
@@ -65,13 +65,13 @@
 					<legend>{L_PAGE_TITLE}</legend>
 					<div class="form-element">
 						<label for="name">* {L_TITLE}</label>
-						<div class="form-field"><input type="text" maxlength="100" class="field-large" id="name" name="name" value="{NAME}" /></div>
+						<div class="form-field"><input type="text" id="name" name="name" value="{NAME}" /></div>
 					</div>
 					# IF C_CATEGORIES #
 					<div class="form-element">
 						<label for="category">${LangLoader::get_message('form.category', 'common')}</label>
 						<div class="form-field">
-							<select name="idcat" id="idcat">
+							<select name="id_category" id="id_category">
 								{CATEGORIES}
 							</select>
 						</div>
@@ -85,23 +85,23 @@
 						<label for="height">{L_HEIGHT}</label>
 						<div class="form-field"><input type="number" min="10" max="5000" id="height" name="height" value="{HEIGHT}" /></div>
 					</div>
-					<div class="form-element">
+					<div class="form-element form-element-upload-file">
 						<label for="u_media">* {L_U_MEDIA}</label>
-						<div class="form-field">
-							<input type="text" maxlength="255" class="field-large" id="u_media" name="u_media" value="{U_MEDIA}" />
+						<div class="form-field# IF C_AUTH_UPLOAD #  grouped-inputs form-field-upload-file# ENDIF #">
+							<input class="grouped-element upload-input" type="text" id="u_media" name="u_media" value="{U_MEDIA}" />
 							# IF C_AUTH_UPLOAD #
-								<a aria-label="${LangLoader::get_message('files_management', 'main')}" href="" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&amp;fd=u_media&amp;parse=true&amp;no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;">
+								<a class="grouped-element" aria-label="${LangLoader::get_message('files_management', 'main')}" href="#" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&amp;fd=u_media&amp;parse=true&amp;no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;">
 									<i class="fa fa-cloud-upload-alt fa-2x" aria-hidden="true"></i>
 								</a>
 							# ENDIF #
 						</div>
 					</div>
-					<div class="form-element">
+					<div class="form-element form-element-upload-file">
 						<label for="poster">{L_POSTER}</label>
-						<div class="form-field# IF C_AUTH_UPLOAD # form-field-upload-file# ENDIF #">
-							<input type="text" maxlength="255" class="field-large" id="poster" name="poster" value="{POSTER}" />
+						<div class="form-field# IF C_AUTH_UPLOAD # grouped-inputs form-field-upload-file# ENDIF #">
+							<input class="grouped-element upload-input" type="text" id="poster" name="poster" value="{POSTER}" />
 							# IF C_AUTH_UPLOAD #
-								<a aria-label="${LangLoader::get_message('files_management', 'main')}" href="" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&amp;fd=poster&amp;parse=true&amp;no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;">
+								<a class="grouped-element" aria-label="${LangLoader::get_message('files_management', 'main')}" href="#" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&amp;fd=poster&amp;parse=true&amp;no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;">
 									<i class="fa fa-cloud-upload-alt fa-2x" aria-hidden="true"></i>
 								</a>
 							# ENDIF #
@@ -146,8 +146,8 @@
 					<input type="hidden" name="contrib" value="{C_CONTRIBUTION}" />
 					<input type="hidden" name="token" value="{TOKEN}" />
 					<button type="submit" class="button submit" name="submit" value="true">{L_SUBMIT}</button>
-					<button type="button" class="button small" onclick="XMLHttpRequest_preview(); return false;">{L_PREVIEW}</button>
-					<button type="reset" class="button reset" value="true">{L_RESET}</button>
+					<button type="button" class="button preview-button" onclick="XMLHttpRequest_preview(); return false;">{L_PREVIEW}</button>
+					<button type="reset" class="button reset-button" value="true">{L_RESET}</button>
 				</fieldset>
 			</form>
 			</div>

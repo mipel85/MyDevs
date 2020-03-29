@@ -1,6 +1,6 @@
 /*
- * Copy this file in your theme to customize the module.
- * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
  *
  * Contains css for specific containers
  * 		visit counter
@@ -83,6 +83,9 @@ aside:not(#menu-left):not(#menu-right) {
 	padding: 0.809em;
 }
 
+.content img,
+.cell-content img { vertical-align: bottom; }
+
 /* --- Id Card --- */
 .id-card {
 	margin: 1.618em 0 0;
@@ -99,19 +102,17 @@ aside:not(#menu-left):not(#menu-right) {
 .sources-container {}
 .tags-container {}
 
-.suggested-links li {
-	list-style-type: none;
+.suggested-links .cell-thumbnail {
+	max-width: 130px;
 }
 
 .related-links,
-.suggested-item,
 .related-item {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-.suggested-item,
 .related-item { flex-direction: row; }
 
 .related-item {
@@ -121,16 +122,14 @@ aside:not(#menu-left):not(#menu-right) {
 .suggested-item:hover,
 .related-item:hover { text-decoration: none; }
 
-.suggested-item img,
 .related-item img {
-	max-height: 50px;
+	max-height: 80px;
 }
 
-.suggested-item img,
 .related-item.previous-item img,
-.related-item.previous-item i { padding: 0 0.309em 0 0;}
+.related-item.previous-item i { padding: 0 0.618em 0 0;}
 .related-item.next-item img,
-.related-item.next-item i 	 { padding: 0 0 0 0.309em;}
+.related-item.next-item i 	 { padding: 0 0 0 0.618em;}
 
 @media (min-width: 769px) {
 	.related-links {
@@ -141,7 +140,7 @@ aside:not(#menu-left):not(#menu-right) {
 	.related-item { max-width: 35%; }
 }
 
-/* --- Media --- */
+/* --- Main thumbnail in item --- */
 .item-thumbnail {
 	padding: 0.309em 0;
 	display: block;
@@ -150,11 +149,12 @@ aside:not(#menu-left):not(#menu-right) {
 @media (min-width: 769px) {
 	.item-thumbnail {
 		max-width: 38%;
-		float: left;
-		padding: 0.309em 0.618em 0.309em 0;
+		float: right;
+		padding: 0.309em 0 0.309em 0.618em;
 	}
 }
 
+/* --- Media --- */
 @media (max-width: 768px) {
 	.media-content {
 		clear: both;
@@ -205,7 +205,7 @@ aside:not(#menu-left):not(#menu-right) {
 	transition: width .6s ease;
 }
 
-/* --- Le systeme de notation --- */
+/* --- Notation --- */
 .notation,
 .static-notation {
 	display: inline-block;
@@ -273,7 +273,7 @@ aside:not(#menu-left):not(#menu-right) {
 	margin: 0;
 }
 
-/* --- Le selecteur de couleur --- */
+/* --- Coulor picker --- */
 .color-picker {
 	position: absolute;
 	z-index: 100;
@@ -302,16 +302,7 @@ aside:not(#menu-left):not(#menu-right) {
 }
 
 #message-maintain {
-	position: absolute;
 	z-index: 20;
-	top: 1em;
-	width: 100%;
-	opacity: 0.98;
-	text-align: center;
-}
-
-#message-maintain > div {
-	margin: 0 auto;
 }
 
 #release {
@@ -325,4 +316,36 @@ aside:not(#menu-left):not(#menu-right) {
 
 .content-privileged-friends {
 	border-width: 7px 1px 1px 1px;
+}
+
+/* --- Wikipedia link --- */
+a.wikipedia-link {
+	position: relative;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: transparent;
+	cursor: help;
+	padding-right: 0.809em;
+}
+
+a.wikipedia-link:after {
+	position: absolute;
+	vertical-align: middle;
+	top: 1px;
+	right: 0;
+	content: "\f266" ;
+	font-family: 'Font Awesome 5 Brands';
+	font-weight: 900;
+	font-size: 0.618em;
+}
+
+/* --- Publication status --- */
+.publication-status {
+	font-weight: bold;
+}
+
+/* --- Categories color on sortable --- */
+.category-color {
+	border-left-width: 5px !important;
+	border-left-style: solid;
 }

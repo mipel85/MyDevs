@@ -3,22 +3,12 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 07
+ * @version     PHPBoost 5.3 - last update: 2019 12 28
  * @since       PHPBoost 4.0 - 2015 02 04
 */
 
-class MediaCategoriesCache extends CategoriesCache
+class MediaCategoriesCache extends DefaultCategoriesCache
 {
-	public function get_table_name()
-	{
-		return MediaSetup::$media_cats_table;
-	}
-
-	public function get_table_name_containing_items()
-	{
-		return MediaSetup::$media_table;
-	}
-
 	public function get_category_class()
 	{
 		return 'MediaCategory';
@@ -33,7 +23,7 @@ class MediaCategoriesCache extends CategoriesCache
 	{
 		require_once(PATH_TO_ROOT . '/media/media_constant.php');
 
-		return MediaService::count('WHERE idcat = :id_category AND infos = :status',
+		return MediaService::count('WHERE id_category = :id_category AND infos = :status',
 			array(
 				'id_category' => $id_category,
 				'status' => MEDIA_STATUS_APROBED
@@ -56,7 +46,7 @@ class MediaCategoriesCache extends CategoriesCache
 		if (empty($description))
 			$description = StringVars::replace_vars(LangLoader::get_message('media.seo.description.root', 'common', 'media'), array('site' => GeneralConfig::load()->get_site_name()));
 		$root->set_description($description);
-		$root->set_content_type($config->get_root_category_content_type());
+		$root->set_additional_property('content_type', $config->get_root_category_content_type());
 		return $root;
 	}
 }

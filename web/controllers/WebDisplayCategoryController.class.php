@@ -3,10 +3,11 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 09
+ * @version     PHPBoost 5.3 - last update: 2020 01 18
  * @since       PHPBoost 4.1 - 2014 08 21
  * @contributor Kevin MASSY <reidlos@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class WebDisplayCategoryController extends ModuleController
@@ -33,7 +34,7 @@ class WebDisplayCategoryController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'web');
-		$this->tpl = new FileTemplate('web/WebDisplaySeveralWebLinksController.tpl');
+		$this->tpl = new FileTemplate('web/WebSeveralItemsController.tpl');
 		$this->tpl->add_lang($this->lang);
 		$this->config = WebConfig::load();
 		$this->comments_config = CommentsConfig::load();
@@ -50,7 +51,7 @@ class WebDisplayCategoryController extends ModuleController
 		$subcategories_page = $request->get_getint('subcategories_page', 1);
 
 		$subcategories = CategoriesService::get_categories_manager()->get_categories_cache()->get_children($this->get_category()->get_id(), CategoriesService::get_authorized_categories($this->get_category()->get_id(), $this->config->are_descriptions_displayed_to_guests()));
-		$subcategories_pagination = $this->get_subcategories_pagination(count($subcategories), $this->config->get_categories_number_per_page(), $field, $mode, $page, $subcategories_page);
+		$subcategories_pagination = $this->get_subcategories_pagination(count($subcategories), $this->config->get_categories_per_page(), $field, $mode, $page, $subcategories_page);
 
 		$nbr_cat_displayed = 0;
 		foreach ($subcategories as $id => $category)
@@ -59,22 +60,19 @@ class WebDisplayCategoryController extends ModuleController
 
 			if ($nbr_cat_displayed > $subcategories_pagination->get_display_from() && $nbr_cat_displayed <= ($subcategories_pagination->get_display_from() + $subcategories_pagination->get_number_items_per_page()))
 			{
-				$category_image = $category->get_image()->rel();
+				$category_thumbnail = $category->get_thumbnail()->rel();
 
 				$this->tpl->assign_block_vars('sub_categories_list', array(
-					'C_CATEGORY_IMAGE' => !empty($category_image),
-					'C_MORE_THAN_ONE_WEBLINK' => $category->get_elements_number() > 1,
-					'CATEGORY_ID' => $category->get_id(),
-					'CATEGORY_NAME' => $category->get_name(),
-					'CATEGORY_IMAGE' => $category_image,
-					'WEBLINKS_NUMBER' => $category->get_elements_number(),
-					'U_CATEGORY' => WebUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel()
+					'C_CATEGORY_THUMBNAIL' => !empty($category_thumbnail),
+					'C_SEVERAL_ITEMS'      => $category->get_elements_number() > 1,
+					'CATEGORY_ID'          => $category->get_id(),
+					'CATEGORY_NAME'        => $category->get_name(),
+					'ITEMS_NUMBER'         => $category->get_elements_number(),
+					'U_CATEGORY_THUMBNAIL' => $category_thumbnail,
+					'U_CATEGORY'           => WebUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel()
 				));
 			}
 		}
-
-		$nbr_column_cats_per_line = ($nbr_cat_displayed > $this->config->get_columns_number_per_line()) ? $this->config->get_columns_number_per_line() : $nbr_cat_displayed;
-		$nbr_column_cats_per_line = !empty($nbr_column_cats_per_line) ? $nbr_column_cats_per_line : 1;
 
 		$condition = 'WHERE id_category = :id_category
 		AND (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0)))';
@@ -101,26 +99,26 @@ class WebDisplayCategoryController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = web.id AND note.module_name = \'web\' AND note.user_id = :user_id
 		' . $condition . '
 		ORDER BY web.privileged_partner DESC, ' . $sort_field . ' ' . $sort_mode . '
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, array(
+		LIMIT :items_per_page OFFSET :display_from', array_merge($parameters, array(
 			'user_id' => AppContext::get_current_user()->get_id(),
-			'number_items_per_page' => $pagination->get_number_items_per_page(),
+			'items_per_page' => $pagination->get_number_items_per_page(),
 			'display_from' => $pagination->get_display_from()
 		)));
 
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
 
-		$number_columns_display_per_line = $this->config->get_columns_number_per_line();
-
 		$this->tpl->put_all(array(
-			'C_WEBLINKS' => $result->get_rows_count() > 0,
-			'C_MORE_THAN_ONE_WEBLINK' => $result->get_rows_count() > 1,
-			'C_CATEGORY_DISPLAYED_SUMMARY' => $this->config->is_category_displayed_summary(),
-			'C_CATEGORY_DISPLAYED_TABLE' => $this->config->is_category_displayed_table(),
+			'C_ITEMS' => $result->get_rows_count() > 0,
+			'C_SEVERAL_ITEMS' => $result->get_rows_count() > 1,
+			'C_GRID_VIEW' => $this->config->get_display_type() == WebConfig::GRID_VIEW,
+			'C_LIST_VIEW' => $this->config->get_display_type() == WebConfig::LIST_VIEW,
+			'C_TABLE_VIEW' => $this->config->get_display_type() == WebConfig::TABLE_VIEW,
+			'C_FULL_ITEM_DISPLAY' => $this->config->is_full_item_displayed(),
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
-			'C_SEVERAL_COLUMNS' => $number_columns_display_per_line > 1,
-			'COLUMNS_NUMBER' => $number_columns_display_per_line,
-			'C_COMMENTS_ENABLED' => $this->comments_config->module_comments_is_enabled('web'),
-			'C_NOTATION_ENABLED' => $this->content_management_config->module_notation_is_enabled('web'),
+			'CATEGORIES_PER_ROW' => $this->config->get_categories_per_row(),
+			'ITEMS_PER_ROW' => $this->config->get_items_per_row(),
+			'C_ENABLED_COMMENTS' => $this->comments_config->module_comments_is_enabled('web'),
+			'C_ENABLED_NOTATION' => $this->content_management_config->module_notation_is_enabled('web'),
 			'C_MODERATE' => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 			'C_PAGINATION' => $pagination->has_several_pages(),
 			'C_CATEGORY' => true,
@@ -130,10 +128,9 @@ class WebDisplayCategoryController extends ModuleController
 			'C_SUBCATEGORIES_PAGINATION' => $subcategories_pagination->has_several_pages(),
 			'SUBCATEGORIES_PAGINATION' => $subcategories_pagination->display(),
 			'PAGINATION' => $pagination->display(),
-			'TABLE_COLSPAN' => 3 + (int)$this->comments_config->module_comments_is_enabled('web') + (int)$this->content_management_config->module_notation_is_enabled('web'),
 			'ID_CAT' => $this->get_category()->get_id(),
 			'CATEGORY_NAME' => $this->get_category()->get_name(),
-			'CATEGORY_IMAGE' => $this->get_category()->get_image()->rel(),
+			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel(),
 			'CATEGORY_DESCRIPTION' => $category_description,
 			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? WebUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit_category($this->get_category()->get_id())->rel()
 		));
@@ -162,7 +159,7 @@ class WebDisplayCategoryController extends ModuleController
 		$common_lang = LangLoader::get('common');
 
 		$form = new HTMLForm(__CLASS__, '', false);
-		$form->set_css_class('options');
+		$form->set_css_class('options no-style');
 
 		$fieldset = new FormFieldsetHorizontal('filters', array('description' => $common_lang['sort_by']));
 		$form->add_fieldset($fieldset);
@@ -174,10 +171,10 @@ class WebDisplayCategoryController extends ModuleController
 		);
 
 		if ($this->comments_config->module_comments_is_enabled('web'))
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'], WebLink::SORT_FIELDS_URL_VALUES[WebLink::SORT_NUMBER_COMMENTS]);
+			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.comments.number'], WebLink::SORT_FIELDS_URL_VALUES[WebLink::SORT_NUMBER_COMMENTS]);
 
 		if ($this->content_management_config->module_notation_is_enabled('web'))
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best_note'], WebLink::SORT_FIELDS_URL_VALUES[WebLink::SORT_NOTATION]);
+			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best.note'], WebLink::SORT_FIELDS_URL_VALUES[WebLink::SORT_NOTATION]);
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('sort_fields', '', $field, $sort_options,
 			array('events' => array('change' => 'document.location = "'. WebUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name())->rel() .'" + HTMLForms.getField("sort_fields").getValue() + "/" + HTMLForms.getField("sort_mode").getValue();'))
@@ -198,7 +195,7 @@ class WebDisplayCategoryController extends ModuleController
 	{
 		$weblinks_number = WebService::count($condition, $parameters);
 
-		$pagination = new ModulePagination($page, $weblinks_number, (int)WebConfig::load()->get_items_number_per_page());
+		$pagination = new ModulePagination($page, $weblinks_number, (int)WebConfig::load()->get_items_per_page());
 		$pagination->set_url(WebUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), $field, $mode, '%d', $subcategories_page));
 
 		if ($pagination->current_page_is_empty() && $page > 1)
@@ -210,9 +207,9 @@ class WebDisplayCategoryController extends ModuleController
 		return $pagination;
 	}
 
-	private function get_subcategories_pagination($subcategories_number, $categories_number_per_page, $field, $mode, $page, $subcategories_page)
+	private function get_subcategories_pagination($subcategories_number, $categories_per_page, $field, $mode, $page, $subcategories_page)
 	{
-		$pagination = new ModulePagination($subcategories_page, $subcategories_number, (int)$categories_number_per_page);
+		$pagination = new ModulePagination($subcategories_page, $subcategories_number, (int)$categories_per_page);
 		$pagination->set_url(WebUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), $field, $mode, $page, '%d'));
 
 		if ($pagination->current_page_is_empty() && $subcategories_page > 1)
@@ -266,7 +263,7 @@ class WebDisplayCategoryController extends ModuleController
 	{
 		if (AppContext::get_current_user()->is_guest())
 		{
-			if (($this->config->are_descriptions_displayed_to_guests() && (!Authorizations::check_auth(RANK_TYPE, User::MEMBER_LEVEL, $this->get_category()->get_authorizations(), Category::READ_AUTHORIZATIONS) || $this->config->get_category_display_type() == WebConfig::DISPLAY_ALL_CONTENT)) || (!$this->config->are_descriptions_displayed_to_guests() && !CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->read()))
+			if (($this->config->are_descriptions_displayed_to_guests() && (!Authorizations::check_auth(RANK_TYPE, User::MEMBER_LEVEL, $this->get_category()->get_authorizations(), Category::READ_AUTHORIZATIONS) || $this->config->get_display_type() == WebConfig::DISPLAY_ALL_CONTENT)) || (!$this->config->are_descriptions_displayed_to_guests() && !CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->read()))
 			{
 				$error_controller = PHPBoostErrors::user_not_authorized();
 				DispatchManager::redirect($error_controller);

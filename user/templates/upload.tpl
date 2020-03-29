@@ -120,7 +120,7 @@
 					if( xhr_object.responseText != '' )
 					{
 						document.getElementById('f' + id_folder).innerHTML = '<a href="upload.php?f=' + id_folder + '{POPUP}">' + name + '</a>';
-						document.getElementById('fhref' + id_folder).innerHTML = '<a href="javascript:display_rename_folder(\'' + id_folder + '\', \'' + xhr_object.responseText.replace(/\'/g, "\\\'") + '\', \'' + name.replace(/\'/g, "\\\'") + '\');" class="fa fa-edit"></a>';
+						document.getElementById('fhref' + id_folder).innerHTML = '<a href="javascript:display_rename_folder(\'' + id_folder + '\', \'' + xhr_object.responseText.replace(/\'/g, "\\\'") + '\', \'' + name.replace(/\'/g, "\\\'") + '\');" class="far fa-edit"></a>';
 					}
 					else
 					{
@@ -160,7 +160,32 @@
 				{
 					if( xhr_object.responseText > 0 )
 					{
-						document.getElementById('new-folder' + divid).innerHTML = '<span id="img' + xhr_object.responseText + '"></span><div class="cell-header"><div id="f' + xhr_object.responseText + '" class="cell-name ellipsis"><a href="upload.php?f=' + xhr_object.responseText + '{POPUP}">' + name + '</a></div><i class="fa fa-folder"></i></div><div class="cell-list"><ul><li class="li-stretch"><span id="fhref' + xhr_object.responseText + '"><a href="javascript:display_rename_folder(\'' + xhr_object.responseText + '\', \'' + name.replace(/\'/g, "\\\'") + '\', \'' + name.replace(/\'/g, "\\\'") + '\');" class="fa fa-edit"></a></span> <span><a href="upload.php?delf=' + xhr_object.responseText + '&amp;f={FOLDER_ID}&amp;token={TOKEN}{POPUP}" data-confirmation="delete-element"><i class="fa fa-trash-alt"></i></a></span> <span><a href="upload.php?movefd=' + xhr_object.responseText + '&amp;f={FOLDER_ID}{POPUP}" aria-label="{L_MOVETO}" class="fa fa-share"></a></span></li></ul></div>';
+						var newFolder = '\
+						<div class="cell-header">\
+							<div id="f' + xhr_object.responseText + '" class="cell-name ellipsis">\
+								<a href="upload.php?f=' + xhr_object.responseText + '{POPUP}">' + name + '</a>\
+							</div>\
+							<i class="fa fa-folder" aria-hidden="true"></i>\
+						</div>\
+						<div class="cell-list">\
+							<ul>\
+								<li class="li-stretch">\
+									<span id="fhref' + xhr_object.responseText + '" aria-label="' + ${escapejs(LangLoader::get_message('edit', 'common'))} + '">\
+										<a href="javascript:display_rename_folder(\'' + xhr_object.responseText + '\', \'' + name.replace(/\'/g, "\\\'") + '\', \'' + name.replace(/\'/g, "\\\'") + '\');">\
+											<i class="far fa-edit" aria-hidden="true"></i>\
+										</a>\
+									</span>\
+									<a href="upload.php?delf=' + xhr_object.responseText + '&amp;f={FOLDER_ID}&amp;token={TOKEN}{POPUP}" data-confirmation="delete-element" aria-label="' + ${escapejs(LangLoader::get_message('delete', 'common'))} + '">\
+										<i class="far fa-trash-alt" aria-hidden="true"></i>\
+									</a>\
+									<a href="upload.php?movefd=' + xhr_object.responseText + '&amp;f={FOLDER_ID}{POPUP}" aria-label="{L_MOVETO}">\
+										<i class="fa fa-share" aria-hidden="true"></i>\
+									</a>\
+								</li>\
+								<span id="img' + xhr_object.responseText + '"></span>\
+							</ul>\
+						</div>';
+						document.getElementById('new-folder' + divid).innerHTML = newFolder;
 						var total_folder = document.getElementById('total-folder').innerHTML;
 						total_folder++;
 						document.getElementById('total-folder').innerHTML = total_folder;
@@ -230,7 +255,7 @@
 						document.getElementById('fi' + id_file).style.display = 'none';
 						document.getElementById('fifl' + id_file).style.display = 'inline';
 						document.getElementById('fifl' + id_file).innerHTML = xhr_object.responseText;
-						document.getElementById('fihref' + id_file).innerHTML = '<a href="javascript:display_rename_file(\'' + id_file + '\', \'' + name.replace(/\'/g, "\\\'") + '\', \'' + previous_name.replace(/\'/g, "\\\'") + '\', \'' + xhr_object.responseText.replace(/\'/g, "\\\'") + '\');" class="fa fa-edit"></a>';
+						document.getElementById('fihref' + id_file).innerHTML = '<a href="javascript:display_rename_file(\'' + id_file + '\', \'' + name.replace(/\'/g,"\\\'") + '\',\'' + previous_name.replace(/\'/g,"\\\'") + '\',\'' + xhr_object.responseText.replace(/\'/g,"\\\'") + '\');" class="far fa-edit"></a>';
 					}
 					document.getElementById('imgf' + id_file).innerHTML = '';
 				}
@@ -238,7 +263,7 @@
 				{
 					document.getElementById('fi' + id_file).style.display = 'none';
 					document.getElementById('fifl' + id_file).style.display = 'inline';
-					document.getElementById('fihref' + id_file).innerHTML = '<a href="javascript:display_rename_file(\'' + id_file + '\', \'' + previous_name.replace(/\'/g, "\\\'") + '\', \'' + previous_cut_name.replace(/\'/g, "\\\'") + '\');" class="fa fa-edit"></a>';
+					document.getElementById('fihref' + id_file).innerHTML = '<a href="javascript:display_rename_file(\'' + id_file + '\',\'' + previous_name.replace(/\'/g,"\\\'") + '\',\'' + previous_cut_name.replace(/\'/g,"\\\'") + '\');" class="far fa-edit"></a>';
 					document.getElementById('imgf' + id_file).innerHTML = '';
 				}
 			}
@@ -350,29 +375,29 @@
                                 <legend>{L_ADD_FILES}</legend>
                                 <div class="dnd-area">
                                     <div class="dnd-dropzone">
-                                        <label for="inputfiles" class="dnd-label">${LangLoader::get_message('drag.and.drop.files', 'main')} <p></p></label>
+                                        <label for="inputfiles" class="dnd-label">${LangLoader::get_message('drag.and.drop.files', 'upload-common')} <span class="d-block"></span></label>
                                         <input type="file" name="upload_file[]" id="inputfiles" class="ufiles" />
                                     </div>
                                     <input type="hidden" name="max_file_size" value="{MAX_FILE_SIZE}">
                                     <div class="ready-to-load">
-                                        <button type="button" class="button clear-list">${LangLoader::get_message('clear.list', 'main')}</button>
+                                        <button type="button" class="button clear-list">${LangLoader::get_message('clear.list', 'upload-common')}</button>
                                         <span class="fa-stack fa-lg">
                                             <i class="far fa-file fa-stack-2x"></i>
                                             <strong class="fa-stack-1x files-nbr"></strong>
                                         </span>
                                     </div>
                                     <div class="modal-container">
-                                        <button class="button upload-help" data-modal data-target="upload-helper"><i class="fa fa-question"></i></button>
-                                        <div id="button upload-helper" class="modal modal-animation">
+                                        <button class="button upload-help" data-modal data-target="upload-helper" aria-label="${LangLoader::get_message('upload.helper', 'upload-common')}"><i class="fa fa-question" aria-hidden="true"></i></button>
+                                        <div id="upload-helper" class="modal modal-animation">
                                             <div class="close-modal" aria-label="${LangLoader::get_message('close', 'main')}"></div>
                                             <div class="content-panel">
-                                                <h3>${LangLoader::get_message('upload.helper', 'main')}</h3>
+                                                <h3>${LangLoader::get_message('upload.helper', 'upload-common')}</h3>
                                                 # IF IS_ADMIN #
-                                                	<p><strong>${LangLoader::get_message('max.file.size', 'main')} :</strong> {MAX_FILE_SIZE_TEXT}</p>
+                                                	<p><strong>${LangLoader::get_message('max.file.size', 'upload-common')} :</strong> {MAX_FILE_SIZE_TEXT}</p>
                                                 # ELSE #
                                                 	<p><strong>${LangLoader::get_message('max.files.size', 'main')} :</strong> {SIZE_LIMIT}</p>
                                                 # ENDIF #
-                                            	<p><strong>${LangLoader::get_message('allowed.extensions', 'main')} :</strong> "{ALLOWED_EXTENSIONS}"</p>
+                                            	<p><strong>${LangLoader::get_message('allowed.extensions', 'upload-common')} :</strong> "{ALLOWED_EXTENSIONS}"</p>
                                             </div>
                                         </div>
                                     </div>
@@ -426,7 +451,7 @@
 									<ul>
 										<li class="li-stretch">
 											{folder.RENAME_FOLDER}
-											<a href="upload.php?delf={folder.ID}&amp;f={FOLDER_ID}&amp;token={TOKEN}{POPUP}" data-confirmation="delete-element" aria-label="{folder.L_TYPE_DEL_FOLDER}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+											<a href="upload.php?delf={folder.ID}&amp;f={FOLDER_ID}&amp;token={TOKEN}{POPUP}" data-confirmation="delete-element" aria-label="{folder.L_TYPE_DEL_FOLDER}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
 											<a href="upload{folder.U_MOVE}" aria-label="{L_MOVETO}"><i class="fa fa-share" aria-hidden="true"></i></a>
 										</li>
 									</ul>
@@ -446,18 +471,18 @@
 										</div>
 		                            	<span class="change-name" id="fi{personal_files.ID}"></span>
 										# IF NOT personal_files.C_ENABLED_THUMBNAILS #
-				                            <a href="{personal_files.URL}" {personal_files.LIGHTBOX}>
-				                                <i class="far {personal_files.IMG}"> </i>
+				                            <a href="{personal_files.URL}" {personal_files.LIGHTBOX} aria-label="${Langloader::get_message('see.details', 'common')}">
+				                                <i class="far {personal_files.IMG}" aria-hidden="true"> </i>
 				                            </a>
 										# ENDIF #
 									</div>
 		                            # IF personal_files.C_ENABLED_THUMBNAILS #
-										<div class="cell-body">
-											<div class="cell-thumbnail cell-landscape">
+										<div class="cell-body" aria-label="${Langloader::get_message('see.details', 'common')}">
+											<div class="cell-thumbnail cell-landscape cell-center">
 											 	# IF personal_files.C_IMG #
 											 		<img src="{personal_files.URL}" alt="{personal_files.NAME}">
 						                            <a class="cell-thumbnail-caption" href="{personal_files.URL}" data-lightbox="formatter" data-rel="lightcase:collection">
-														<i class="fa fa-eye"></i>
+														<i class="fa fa-eye" aria-hidden="true"></i>
 						                            </a>
 					                            # ELSE #
 					                                <i class="far {personal_files.IMG} fa-4x"></i>
@@ -473,14 +498,14 @@
 		                            	# IF C_POPUP #
 											<a class="grouped-element submit" href="javascript:insert_popup('{personal_files.INSERTED_CODE}')" aria-label="${LangLoader::get_message('popup_insert', 'main')}"><i class="fa fa-clipboard" aria-hidden="true"></i></a>
 										# ELSE #
-											<a class="grouped-element submit" href="" onclick="copy_to_clipboard('{personal_files.DISPLAYED_CODE}'); return false;" aria-label="${LangLoader::get_message('tag_copytoclipboard', 'editor-common')}"><i class="fa fa-copy" aria-hidden="true"></i></a>
+											<a class="grouped-element submit" href="#" onclick="copy_to_clipboard('{personal_files.DISPLAYED_CODE}'); return false;" aria-label="${LangLoader::get_message('tag_copytoclipboard', 'editor-common')}"><i class="fa fa-copy" aria-hidden="true"></i></a>
 										# ENDIF #
 		                            </div>
 		                            <div class="cell-list">
 										<ul>
 											<li class="li-stretch">
 				                                {personal_files.RENAME_FILE}
-				                                <a href="upload.php?del={personal_files.ID}&amp;f={FOLDER_ID}&amp;token={TOKEN}{POPUP}" data-confirmation="delete-element" aria-label="{L_DELETE}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+				                                <a href="upload.php?del={personal_files.ID}&amp;f={FOLDER_ID}&amp;token={TOKEN}{POPUP}" data-confirmation="delete-element" aria-label="{L_DELETE}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
 				                                <a href="upload{personal_files.U_MOVE}" aria-label="{L_MOVETO}"><i class="fa fa-share" aria-hidden="true"></i></a>
 					                            # IF personal_files.C_IS_PUBLIC_FILE #
 						                            <a href="#" id="status_function_{personal_files.ID}" onclick="change_status({personal_files.ID}, 0);return false;" aria-label="{L_CHANGE_PERSONAL}">
@@ -491,7 +516,6 @@
 						                                <i id="status_{personal_files.ID}" class="fas fa-user-shield"></i>
 						                            </a>
 					                            # ENDIF #
-
 											</li>
 										</ul>
 		                            </div>
@@ -532,14 +556,14 @@
 									<div class="cell-header">
 										<div id="fifl{public_files.ID}" class="cell-name ellipsis">{public_files.NAME}</div>
 										# IF NOT public_files.C_ENABLED_THUMBNAILS #
-				                            <a href="{public_files.URL}" {public_files.LIGHTBOX}>
+				                            <a href="{public_files.URL}" {public_files.LIGHTBOX} aria-label="${Langloader::get_message('see.details', 'common')}">
 				                                <i class="far {public_files.IMG}"> </i>
 				                            </a>
 										# ENDIF #
 			                            <span id="fi{public_files.ID}"></span>
 									</div>
 		                            # IF public_files.C_ENABLED_THUMBNAILS #
-										<div class="cell-body">
+										<div class="cell-body" aria-label="${Langloader::get_message('see.details', 'common')}">
 											<div class="cell-thumbnail cell-landscape">
 					                            # IF public_files.C_IMG #
 													<img src="{public_files.URL}" alt="{public_files.NAME}">
@@ -560,7 +584,7 @@
 		                            	# IF C_POPUP #
 											<a class="grouped-element" href="javascript:insert_popup('{public_files.INSERTED_CODE}')" aria-label="${LangLoader::get_message('popup_insert', 'main')}"><i class="fa fa-clipboard" aria-hidden="true"></i></a>
 										# ELSE #
-											<a class="grouped-element" href="" onclick="copy_to_clipboard('{public_files.DISPLAYED_CODE}'); return false;" aria-label="${LangLoader::get_message('tag_copytoclipboard', 'editor-common')}"><i class="fa fa-copy" aria-hidden="true"></i></a>
+											<a class="grouped-element" href="#" onclick="copy_to_clipboard('{public_files.DISPLAYED_CODE}'); return false;" aria-label="${LangLoader::get_message('tag_copytoclipboard', 'editor-common')}"><i class="fa fa-copy" aria-hidden="true"></i></a>
 										# ENDIF #
 									</div>
 		                            <div class="cell-list">
@@ -599,7 +623,7 @@
         # IF C_DISPLAY_CLOSE_BUTTON #
 	        <fieldset class="fieldset-submit">
 	            <legend>${LangLoader::get_message('close', 'main')}</legend>
-	            <button type="reset" class="button reset" onclick="javascript:close_popup()" value="true">${LangLoader::get_message('close', 'main')}</button>
+	            <button type="reset" class="button reset-button" onclick="javascript:close_popup()" value="true">${LangLoader::get_message('close', 'main')}</button>
 	        </fieldset>
         # ENDIF #
     </footer>
@@ -611,9 +635,9 @@
 		maxFileSize: '{MAX_FILE_SIZE}',
 		maxFilesSize: '{MAX_FILES_SIZE}',
 		allowedExtensions: ["{ALLOWED_EXTENSIONS}"],
-		warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'main'))},
-		warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'main'))},
-		warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'main'))},
-		warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.nbr', 'main'))},
+		warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'upload-common'))},
+		warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'upload-common'))},
+		warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'upload-common'))},
+		warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.number', 'upload-common'))},
 	});
 </script>

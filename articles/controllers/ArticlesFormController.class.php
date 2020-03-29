@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Patrick DUBEAU <daaxwizeman@gmail.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 19
+ * @version     PHPBoost 5.3 - last update: 2020 02 28
  * @since       PHPBoost 4.0 - 2013 02 27
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -11,7 +11,7 @@
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class ArticlesFormController extends ModuleController
+class ArticlesFormController extends AbstractItemController
 {
 	/**
 	 * @var HTMLForm
@@ -22,9 +22,6 @@ class ArticlesFormController extends ModuleController
 	 */
 	private $submit_button;
 
-	private $tpl;
-
-	private $lang;
 	private $common_lang;
 
 	private $article;
@@ -42,19 +39,16 @@ class ArticlesFormController extends ModuleController
 			$this->redirect();
 		}
 
-		$this->tpl->put_all(array(
+		$this->view->put_all(array(
 			'FORM' => $this->form->display(),
 			'C_TINYMCE_EDITOR' => AppContext::get_current_user()->get_editor() == 'TinyMCE'
 		));
 
-		return $this->build_response($this->tpl);
+		return $this->build_response();
 	}
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'articles');
-		$this->tpl = new FileTemplate('articles/ArticlesFormController.tpl');
-		$this->tpl->add_lang($this->lang);
 		$this->common_lang = LangLoader::get('common');
 	}
 
@@ -62,7 +56,7 @@ class ArticlesFormController extends ModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTMLHeading('articles', $this->get_article()->get_id() === null ? $this->lang['articles.add.item'] : $this->lang['articles.edit.item']);
+		$fieldset = new FormFieldsetHTMLHeading('articles', $this->get_article()->get_id() === null ? $this->items_lang['item.add'] : $this->items_lang['item.edit']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('title', $this->common_lang['form.title'], $this->get_article()->get_title(),
@@ -98,24 +92,24 @@ class ArticlesFormController extends ModuleController
 			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->common_lang['form.category'], $this->get_article()->get_id_category(), $search_category_children_options));
 		}
 
-		$fieldset->add_field(new FormFieldCheckbox('enable_description', $this->lang['articles.decription.enabled'], $this->get_article()->get_description_enabled(),
-			array('description' => StringVars::replace_vars($this->lang['articles.decription.enabled.annex'],
+		$fieldset->add_field(new FormFieldCheckbox('enable_summary', $this->lang['articles.summary.enabled'], $this->get_article()->get_summary(),
+			array('description' => StringVars::replace_vars($this->lang['articles.summary.enabled.annex'],
 			array(
-				'number' => ArticlesConfig::load()->get_number_character_to_cut())),
+				'number' => ArticlesConfig::load()->get_auto_cut_characters_number())),
 				'events' => array('click' => '
-					if (HTMLForms.getField("enable_description").getValue()) {
-						HTMLForms.getField("description").enable();
+					if (HTMLForms.getField("enable_summary").getValue()) {
+						HTMLForms.getField("summary").enable();
 					} else {
-						HTMLForms.getField("description").disable();
+						HTMLForms.getField("summary").disable();
 					}'
 		))));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('description', StringVars::replace_vars($this->lang['articles.decription'],
-			array('number' =>ArticlesConfig::load()->get_number_character_to_cut())), $this->get_article()->get_description(),
-			array('rows' => 3, 'hidden' => !$this->get_article()->get_description_enabled())
+		$fieldset->add_field(new FormFieldRichTextEditor('summary', StringVars::replace_vars($this->lang['articles.summary'],
+			array('number' => ArticlesConfig::load()->get_auto_cut_characters_number())), $this->get_article()->get_summary(),
+			array('rows' => 3, 'hidden' => !$this->get_article()->get_summary())
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('contents', $this->common_lang['form.contents'], $this->get_article()->get_contents(),
+		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->common_lang['form.content'], $this->get_article()->get_content(),
 			array('rows' => 15, 'required' => true)
 		));
 
@@ -145,7 +139,7 @@ class ArticlesFormController extends ModuleController
 
 		$other_fieldset->add_field(new FormFieldCheckbox('author_name_displayed', LangLoader::get_message('config.author_displayed', 'admin-common'), $this->get_article()->get_author_name_displayed()));
 
-		$other_fieldset->add_field(new FormFieldUploadPictureFile('picture', $this->common_lang['form.picture'], $this->get_article()->get_picture()->relative()));
+		$other_fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->common_lang['form.thumbnail'], $this->get_article()->get_thumbnail()->relative(), RichItem::THUMBNAIL_URL));
 
 		$other_fieldset->add_field(KeywordsService::get_keywords_manager()->get_form_field($this->get_article()->get_id(), 'keywords', $this->common_lang['form.keywords'],
 			array('description' => $this->common_lang['form.keywords.description'])
@@ -158,7 +152,7 @@ class ArticlesFormController extends ModuleController
 			$publication_fieldset = new FormFieldsetHTML('publication', $this->common_lang['form.approbation']);
 			$form->add_fieldset($publication_fieldset);
 
-			$publication_fieldset->add_field(new FormFieldDateTime('date_created', $this->common_lang['form.date.creation'], $this->get_article()->get_date_created(),
+			$publication_fieldset->add_field(new FormFieldDateTime('creation_date', $this->common_lang['form.date.creation'], $this->get_article()->get_creation_date(),
 				array('required' => true)
 			));
 
@@ -172,8 +166,8 @@ class ArticlesFormController extends ModuleController
 			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('publishing_state', $this->common_lang['form.approbation'], $this->get_article()->get_publishing_state(),
 				array(
 					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.not'], Article::NOT_PUBLISHED),
-					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.now'], Article::PUBLISHED_NOW),
-					new FormFieldSelectChoiceOption($this->common_lang['status.approved.date'], Article::PUBLISHED_DATE),
+					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.now'], Article::PUBLISHED),
+					new FormFieldSelectChoiceOption($this->common_lang['status.approved.date'], Article::DEFERRED_PUBLICATION),
 				),
 				array(
 					'events' => array('change' => '
@@ -190,12 +184,12 @@ class ArticlesFormController extends ModuleController
 
 			$publication_fieldset->add_field(new FormFieldDateTime('publishing_start_date', $this->common_lang['form.date.start'],
 				($this->get_article()->get_publishing_start_date() === null ? new Date() : $this->get_article()->get_publishing_start_date()),
-				array('hidden' => ($this->get_article()->get_publishing_state() != Article::PUBLISHED_DATE))
+				array('hidden' => ($this->get_article()->get_publishing_state() != Article::DEFERRED_PUBLICATION))
 			));
 
 			$publication_fieldset->add_field(new FormFieldCheckbox('end_date_enable', $this->common_lang['form.date.end.enable'], $this->get_article()->end_date_enabled(),
 				array(
-					'hidden' => ($this->get_article()->get_publishing_state() != Article::PUBLISHED_DATE),
+					'hidden' => ($this->get_article()->get_publishing_state() != Article::DEFERRED_PUBLICATION),
 					'events' => array('click' => '
 						if (HTMLForms.getField("end_date_enable").getValue()) {
 							HTMLForms.getField("publishing_end_date").enable();
@@ -227,27 +221,27 @@ class ArticlesFormController extends ModuleController
 		{
 			$current_page = $request->get_getstring('page', '');
 
-			$this->tpl->put('C_PAGE', !empty($current_page));
+			$this->view->put('C_PAGE', !empty($current_page));
 
 			if (!empty($current_page))
 			{
-				$article_contents = $this->article->get_contents();
+				$content = $this->article->get_content();
 
 				//If article doesn't begin with a page, we insert one
-				if (TextHelper::substr(trim($article_contents), 0, 6) != '[page]')
+				if (TextHelper::substr(trim($content), 0, 6) != '[page]')
 				{
-					$article_contents = '[page]&nbsp;[/page]' . $article_contents;
+					$content = '[page]&nbsp;[/page]' . $content;
 				}
 
 				//Removing [page] bbcode
-				$article_contents_clean = preg_split('`\[page\].+\[/page\](.*)`usU', $article_contents, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+				//$clean_content = preg_split('`\[page\].+\[/page\](.*)`usU', $content, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 
 				//Retrieving pages
-				preg_match_all('`\[page\]([^[]+)\[/page\]`uU', $article_contents, $array_page);
+				preg_match_all('`\[page\]([^[]+)\[/page\]`uU', $content, $array_page);
 
 				$page_name = (isset($array_page[1][$current_page-1]) && $array_page[1][$current_page-1] != '&nbsp;') ? $array_page[1][($current_page-1)] : '';
 
-				$this->tpl->put('PAGE', TextHelper::to_js_string($page_name));
+				$this->view->put('PAGE', TextHelper::to_js_string($page_name));
 			}
 		}
 	}
@@ -279,7 +273,7 @@ class ArticlesFormController extends ModuleController
 			{
 				try
 				{
-					$this->article = ArticlesService::get_article('WHERE articles.id=:id', array('id' => $id));
+					$this->article = self::get_items_manager()->get_item($id);
 				}
 				catch(RowNotFoundException $e)
 				{
@@ -297,7 +291,12 @@ class ArticlesFormController extends ModuleController
 		return $this->article;
 	}
 
-	private function check_authorizations()
+	protected function get_template_to_use()
+	{
+		return new FileTemplate('articles/ArticlesFormController.tpl');
+	}
+
+	protected function check_authorizations()
 	{
 		$article = $this->get_article();
 
@@ -311,7 +310,7 @@ class ArticlesFormController extends ModuleController
 		}
 		else
 		{
-			if (!$article->is_authorized_to_edit())
+			if (!$article->is_authorized_to_manage())
 			{
 				$error_controller = PHPBoostErrors::user_not_authorized();
 				DispatchManager::redirect($error_controller);
@@ -333,12 +332,12 @@ class ArticlesFormController extends ModuleController
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
 			$article->set_id_category($this->form->get_value('id_category')->get_raw_value());
 
-		$article->set_description(($this->form->get_value('enable_description') ? $this->form->get_value('description') : ''));
-		$article->set_contents($this->form->get_value('contents'));
+		$article->set_summary(($this->form->get_value('enable_summary') ? $this->form->get_value('summary') : ''));
+		$article->set_content($this->form->get_value('content'));
 
 		$author_name_displayed = $this->form->get_value('author_name_displayed') ? $this->form->get_value('author_name_displayed') : Article::AUTHOR_NAME_NOTDISPLAYED;
 		$article->set_author_name_displayed($author_name_displayed);
-		$article->set_picture(new Url($this->form->get_value('picture')));
+		$article->set_thumbnail($this->form->get_value('thumbnail'));
 
 		if ($this->get_article()->get_author_name_displayed() == true)
 			$article->set_author_custom_name(($this->form->get_value('author_custom_name') && $this->form->get_value('author_custom_name') !== $article->get_author_user()->get_display_name() ? $this->form->get_value('author_custom_name') : ''));
@@ -348,7 +347,7 @@ class ArticlesFormController extends ModuleController
 		if (!CategoriesAuthorizationsService::check_authorizations($article->get_id_category())->moderation())
 		{
 			if ($article->get_id() === null)
-				$article->set_date_created(new Date());
+				$article->set_creation_date(new Date());
 
 			$article->set_rewrited_title(Url::encode_rewrite($article->get_title()));
 			$article->clean_publishing_start_and_end_date();
@@ -360,11 +359,11 @@ class ArticlesFormController extends ModuleController
 		{
 			if ($this->form->get_value('update_creation_date'))
 			{
-				$article->set_date_created(new Date());
+				$article->set_creation_date(new Date());
 			}
 			else
 			{
-				$article->set_date_created($this->form->get_value('date_created'));
+				$article->set_creation_date($this->form->get_value('creation_date'));
 			}
 
 			$rewrited_title = $this->form->get_value('rewrited_title', '');
@@ -372,7 +371,7 @@ class ArticlesFormController extends ModuleController
 			$article->set_rewrited_title($rewrited_title);
 
 			$article->set_publishing_state($this->form->get_value('publishing_state')->get_raw_value());
-			if ($article->get_publishing_state() == Article::PUBLISHED_DATE)
+			if ($article->get_publishing_state() == Article::DEFERRED_PUBLICATION)
 			{
 				$config = ArticlesConfig::load();
 				$deferred_operations = $config->get_deferred_operations();
@@ -422,21 +421,21 @@ class ArticlesFormController extends ModuleController
 		if ($article->get_id() === null)
 		{
 			$article->set_author_user(AppContext::get_current_user());
-			$id_article = ArticlesService::add($article);
+			$id_article = self::get_items_manager()->add($article);
 		}
 		else
 		{
 			$now = new Date();
-			$article->set_date_updated($now);
+			$article->set_update_date($now);
 			$id_article = $article->get_id();
-			ArticlesService::update($article);
+			self::get_items_manager()->update($article);
 		}
 
 		$this->contribution_actions($article, $id_article);
 
 		KeywordsService::get_keywords_manager()->put_relations($id_article, $this->form->get_value('keywords'));
 
-		ArticlesService::clear_cache();
+		self::get_items_manager()->clear_cache();
 	}
 
 	private function contribution_actions(Article $article, $id_article)
@@ -449,7 +448,7 @@ class ArticlesFormController extends ModuleController
 				$contribution->set_id_in_module($id_article);
 				$contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
 				$contribution->set_entitled($article->get_title());
-				$contribution->set_fixing_url(ArticlesUrlBuilder::edit_article($id_article)->relative());
+				$contribution->set_fixing_url(ItemsUrlBuilder::edit($id_article)->relative());
 				$contribution->set_poster_id(AppContext::get_current_user()->get_id());
 				$contribution->set_module('articles');
 				$contribution->set_auth(
@@ -488,37 +487,37 @@ class ArticlesFormController extends ModuleController
 		elseif ($article->is_published())
 		{
 			if ($this->is_new_article)
-				AppContext::get_response()->redirect(ArticlesUrlBuilder::display_article($category->get_id(), $category->get_rewrited_name(), $article->get_id(), $article->get_rewrited_title(), AppContext::get_request()->get_getint('page', 1)), StringVars::replace_vars($this->lang['articles.message.success.add'], array('title' => $article->get_title())));
+				AppContext::get_response()->redirect(ItemsUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $article->get_id(), $article->get_rewrited_title(), self::get_module()->get_id(), '', AppContext::get_request()->get_getint('page', 1)), StringVars::replace_vars($this->items_lang['items.message.success.add'], array('title' => $article->get_title())));
 			else
-				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : ArticlesUrlBuilder::display_article($category->get_id(), $category->get_rewrited_name(), $article->get_id(), $article->get_rewrited_title(), AppContext::get_request()->get_getint('page', 1))), StringVars::replace_vars($this->lang['articles.message.success.edit'], array('title' => $article->get_title())));
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : ItemsUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $article->get_id(), $article->get_rewrited_title(), self::get_module()->get_id(), '', AppContext::get_request()->get_getint('page', 1))), StringVars::replace_vars($this->items_lang['items.message.success.edit'], array('title' => $article->get_title())));
 		}
 		else
 		{
 			if ($this->is_new_article)
-				AppContext::get_response()->redirect(ArticlesUrlBuilder::display_pending_articles(), StringVars::replace_vars($this->lang['articles.message.success.add'], array('title' => $article->get_title())));
+				AppContext::get_response()->redirect(ItemsUrlBuilder::display_pending(self::get_module()->get_id()), StringVars::replace_vars($this->items_lang['items.message.success.add'], array('title' => $article->get_title())));
 			else
-				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : ArticlesUrlBuilder::display_pending_articles()), StringVars::replace_vars($this->lang['articles.message.success.edit'], array('title' => $article->get_title())));
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : ItemsUrlBuilder::display_pending(self::get_module()->get_id())), StringVars::replace_vars($this->items_lang['items.message.success.edit'], array('title' => $article->get_title())));
 		}
 	}
 
-	private function build_response(View $tpl)
+	private function build_response()
 	{
 		$article = $this->get_article();
 
 		$location_id = $article->get_id() ? 'article-edit-'. $article->get_id() : '';
 
-		$response = new SiteDisplayResponse($tpl, $location_id);
+		$response = new SiteDisplayResponse($this->view, $location_id);
 		$graphical_environment = $response->get_graphical_environment();
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['articles.module.title'], ArticlesUrlBuilder::home());
+		$breadcrumb->add(self::get_module()->get_configuration()->get_name(), ModulesUrlBuilder::home());
 
 		if ($article->get_id() === null)
 		{
-			$breadcrumb->add($this->lang['articles.add.item'], ArticlesUrlBuilder::add_article($article->get_id_category()));
-			$graphical_environment->set_page_title($this->lang['articles.add.item'], $this->lang['articles.module.title']);
-			$graphical_environment->get_seo_meta_data()->set_description($this->lang['articles.add.item']);
-			$graphical_environment->get_seo_meta_data()->set_canonical_url(ArticlesUrlBuilder::add_article($article->get_id_category()));
+			$breadcrumb->add($this->items_lang['item.add'], ItemsUrlBuilder::add($article->get_id_category()));
+			$graphical_environment->set_page_title($this->items_lang['item.add'], self::get_module()->get_configuration()->get_name());
+			$graphical_environment->get_seo_meta_data()->set_description($this->items_lang['item.add']);
+			$graphical_environment->get_seo_meta_data()->set_canonical_url(ItemsUrlBuilder::add($article->get_id_category()));
 		}
 		else
 		{
@@ -526,18 +525,18 @@ class ArticlesFormController extends ModuleController
 			foreach ($categories as $id => $category)
 			{
 				if ($category->get_id() != Category::ROOT_CATEGORY)
-					$breadcrumb->add($category->get_name(), ArticlesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
+					$breadcrumb->add($category->get_name(), CategoriesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), self::get_module()->get_id()));
 			}
-			$breadcrumb->add($article->get_title(), ArticlesUrlBuilder::display_article($category->get_id(), $category->get_rewrited_name(), $article->get_id(), $article->get_rewrited_title()));
+			$breadcrumb->add($article->get_title(), ItemsUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $article->get_id(), $article->get_rewrited_title(), self::get_module()->get_id(), ''));
 
-			$breadcrumb->add($this->lang['articles.edit.item'], ArticlesUrlBuilder::edit_article($article->get_id()));
+			$breadcrumb->add($this->items_lang['item.edit'], ItemsUrlBuilder::edit($article->get_id()));
 
 			if (!AppContext::get_session()->location_id_already_exists($location_id))
 				$graphical_environment->set_location_id($location_id);
 
-			$graphical_environment->set_page_title($this->lang['articles.edit.item'], $this->lang['articles.module.title']);
-			$graphical_environment->get_seo_meta_data()->set_description($this->lang['articles.edit.item']);
-			$graphical_environment->get_seo_meta_data()->set_canonical_url(ArticlesUrlBuilder::edit_article($article->get_id()));
+			$graphical_environment->set_page_title($this->items_lang['item.edit'], self::get_module()->get_configuration()->get_name());
+			$graphical_environment->get_seo_meta_data()->set_description($this->items_lang['item.edit']);
+			$graphical_environment->get_seo_meta_data()->set_canonical_url(ItemsUrlBuilder::edit($article->get_id()));
 		}
 
 		return $response;

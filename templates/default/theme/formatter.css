@@ -1,3 +1,9 @@
+/*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+*/
+
 .formatter-title {
 	display: inline-block;
 	margin: 1.618rem 0 1.309rem 0;
@@ -42,8 +48,6 @@ h6.formatter-title { font-size: 2.0rem; margin-left: 4rem; }
 .formatter-container {
 	position: relative;
 	display: block;
-	margin: 0.618em auto;
-	width: 93%;
 }
 
 .formatter-container .formatter-title {
@@ -97,19 +101,16 @@ h6.formatter-title { font-size: 2.0rem; margin-left: 4rem; }
 	display: none;
 }
 
-.formatter-hide-close-button {
+.formatter-hide-close-button.pinned {
+	padding: 0.228em 1em;
 	position: absolute;
 	display: none;
-	top: 2.618em;
+	top: 1.618em;
 	right: 0;
 	font-size: 0.8em;
 	font-style: italic;
 	cursor: pointer;
 	transition: all 0.3s linear;
-}
-
-.formatter-hide-close-button-txt {
-	padding: 0 0 0 0.228em;
 }
 
 .formatter-show .formatter-hide-close-button {
@@ -133,7 +134,9 @@ h6.formatter-title { font-size: 2.0rem; margin-left: 4rem; }
 	border-style: dashed;
 }
 
-.formatter-blockquote .formatter-content{
+.formatter-blockquote .title-perso { padding-left: 1.618em; }
+
+.formatter-blockquote .formatter-content {
 	border-width: 0;
 	padding: 1.618em;
 	font-style: italic;

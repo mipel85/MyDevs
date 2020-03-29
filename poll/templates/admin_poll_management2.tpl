@@ -22,9 +22,9 @@
 			var i2 = i + 1;
 
 			if( document.getElementById('a'+i) )
-				document.getElementById('a'+i).innerHTML = '<label class="infos-options"><input type="text" name="a'+i+'" value="" /></label><span id="a'+i2+'"></span>';
+				document.getElementById('a'+i).innerHTML = '<label><input type="text" name="a'+i+'" value="" /></label><span id="a'+i2+'"></span>';
 			if( document.getElementById('v'+i) )
-				document.getElementById('v'+i).innerHTML = '<label class="infos-options"><input class="poll-vote" type="text" name="v'+i+'" value="" /> 0.0%</label><span id="v'+i2+'"></span>';
+				document.getElementById('v'+i).innerHTML = '<label><input class="poll-vote" type="text" name="v'+i+'" value="" /> 0.0%</label><span id="v'+i2+'"></span>';
 			if( document.getElementById('s'+i) )
 				document.getElementById('s'+i).innerHTML = (i < i_max) ? '<span id="s'+i2+'"><a href="javascript:add_field('+i2+', '+i_max+')" aria-label="${LangLoader::get_message('add', 'common')}"><i class="fa fa-plus" aria-hidden="true"></i></a></span>' : '';
 		}
@@ -33,7 +33,7 @@
 		</script>
 
 		<nav id="admin-quick-menu">
-			<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
+			<a href="#" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
 				<i class="fa fa-bars" aria-hidden="true"></i> {L_POLL_MANAGEMENT}
 			</a>
 			<ul>
@@ -114,13 +114,13 @@
 										<tr>
 											<td class="align-left">
 												# START answers #
-												<label class="infos-options"><input type="text" name="a{answers.ID}" value="{answers.ANSWER}" /></label>
+												<label><input type="text" name="a{answers.ID}" value="{answers.ANSWER}" /></label>
 												# END answers #
 												<span id="a{MAX_ID}"></span>
 											</td>
 											<td class="align-left">
 												# START votes #
-												<label class="infos-options"><input class="poll-vote" type="text" name="v{votes.ID}" value="{votes.VOTES}" /> {votes.PERCENT}</label>
+												<label><input class="poll-vote" type="text" name="v{votes.ID}" value="{votes.VOTES}" /> {votes.PERCENT}</label>
 												# END votes #
 												<span id="v{MAX_ID}"></span>
 											</td>
@@ -190,7 +190,7 @@
 						<input type="hidden" name="id" value="{IDPOLL}">
 						<input type="hidden" name="token" value="{TOKEN}">
 						<button type="submit" name="valid" value="true" class="button submit">{L_UPDATE}</button>
-						<button type="reset" class="button reset" value="true">{L_RESET}</button>
+						<button type="reset" class="button reset-button" value="true">{L_RESET}</button>
 					</div>
 				</fieldset>
 			</form>

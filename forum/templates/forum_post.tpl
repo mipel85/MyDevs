@@ -84,37 +84,46 @@
 						<fieldset>
 							<legend>{L_ACTION}</legend>
 							# IF C_FORUM_CUT_CAT #
-							<div class="form-element">
-								<label for="to">* {L_CAT}</label>
-								<div class="form-field"><label>
-									<select id="to" name="to">
-										{CATEGORIES}
-									</select>
-								</label></div>
-							</div>
+								<div class="form-element">
+									<label for="to">* {L_CAT}</label>
+									<div class="form-field">
+										<select id="to" name="to">
+											{CATEGORIES}
+										</select>
+									</div>
+								</div>
 							# ENDIF #
 							<div class="form-element">
 								<label for="title">* {L_TITLE}</label>
-								<div class="form-field"><label><input type="text" class="field-large" maxlength="100" id="title" name="title" value="{TITLE}"></label></div>
+								<div class="form-field"><input type="text" id="title" name="title" value="{TITLE}"></div>
 							</div>
 							<div class="form-element">
 								<label for="desc">{L_DESC}</label>
-								<div class="form-field"><label><input type="text" class="field-large" maxlength="75" id="desc" name="desc" value="{DESC}"></label></div>
+								<div class="form-field"><input type="text" id="desc" name="desc" value="{DESC}"></div>
 							</div>
 							<div class="form-element form-element-textarea">
 								<label for="contents">* {L_MESSAGE}</label>
 								{KERNEL_EDITOR}
 								<div class="form-field-textarea">
-									<textarea rows="25" cols="47" id="contents" name="contents">{CONTENTS}</textarea>
+									<textarea rows="25" id="contents" name="contents">{CONTENTS}</textarea>
 								</div>
 							</div>
 							# IF C_FORUM_POST_TYPE #
-							<div class="form-element">
+							<div class="form-element inline-radio">
 								<label for="type">{L_TYPE}</label>
 								<div class="form-field">
-									<label><input type="radio" name="type" id="type" value="0" {CHECKED_NORMAL}> {L_DEFAULT}</label>
-									<label><input type="radio" name="type" value="1" {CHECKED_POSTIT}> {L_POST_IT}</label>
-									<label><input type="radio" name="type" value="2" {CHECKED_ANNONCE}> {L_ANOUNCE}</label>
+									<label class="radio">
+										<input type="radio" name="type" id="type" value="0" {CHECKED_NORMAL}>
+										<span>{L_DEFAULT}</span>
+									</label>
+									<label class="radio">
+										<input type="radio" name="type" value="1" {CHECKED_POSTIT}>
+										<span>{L_POST_IT}</span>
+									</label>
+									<label class="radio">
+										<input type="radio" name="type" value="2" {CHECKED_ANNONCE}>
+										<span>{L_ANOUNCE}</span>
+									</label>
 								</div>
 							</div>
 							# ENDIF #
@@ -122,17 +131,23 @@
 
 						<fieldset>
 							<legend>{L_POLL}</legend>
-							<p id="hidepoll_link" class="align-center"><a href="" onclick="hide_poll('hidepoll');return false;">{L_OPEN_MENU_POLL}</a></p>
+							<p id="hidepoll_link" class="align-center"><a href="#" onclick="hide_poll('hidepoll');return false;">{L_OPEN_MENU_POLL}</a></p>
 							<div id="hidepoll">
 								<div class="form-element">
 									<label for="question">* {L_QUESTION}</label>
-									<div class="form-field"><label><input type="text" name="question" id="question" value="{POLL_QUESTION}"></label></div>
+									<div class="form-field"><input type="text" name="question" id="question" value="{POLL_QUESTION}"></div>
 								</div>
-								<div class="form-element">
+								<div class="form-element inline-radio">
 									<label for="poll_type">{L_POLL_TYPE}</label>
 									<div class="form-field">
-										<label><input type="radio" name="poll_type" id="poll_type" value="0" {SELECTED_SIMPLE}> {L_SINGLE}</label>
-										<label><input type="radio" name="poll_type" value="1" {SELECTED_MULTIPLE}> {L_MULTIPLE}</label>
+										<label class="radio">
+											<input type="radio" name="poll_type" id="poll_type" value="0" {SELECTED_SIMPLE}>
+											<span>{L_SINGLE}</span>
+										</label>
+										<label class="radio">
+											<input type="radio" name="poll_type" value="1" {SELECTED_MULTIPLE}>
+											<span>{L_MULTIPLE}</span>
+										</label>
 									</div>
 								</div>
 								# IF C_DELETE_POLL #
@@ -156,19 +171,17 @@
 
 										<p class="align-center" id="add_poll_field_link">
 											# IF C_ADD_POLL_FIELD #
-											<a aria-label="${LangLoader::get_message('add', 'common')}" href="" onclick="add_poll_field({NBR_POLL_FIELD});return false;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+											<a aria-label="${LangLoader::get_message('add', 'common')}" href="#" onclick="add_poll_field({NBR_POLL_FIELD});return false;"><i class="fa fa-plus" aria-hidden="true"></i></a>
 											# ENDIF #
 										</p>
 									</div>
 								</div>
 							</div>
 							<script>
-							<!--
-							if( {NO_DISPLAY_POLL} )
-								document.getElementById('hidepoll').style.display = 'none';
-							else
-								document.getElementById('hidepoll_link').style.display = 'none';
-							-->
+								if( {NO_DISPLAY_POLL} )
+									document.getElementById('hidepoll').style.display = 'none';
+								else
+									document.getElementById('hidepoll_link').style.display = 'none';
 							</script>
 						</fieldset>
 
@@ -177,14 +190,12 @@
 							<input type="hidden" name="idm" value="{IDM}">
 							<input type="hidden" name="token" value="{TOKEN}">
 							<button type="submit" class="button submit" name="post_topic" value="true">{L_SUBMIT}</button>
-							<button type="button" class="button small" onclick="XMLHttpRequest_preview();">{L_PREVIEW}</button>
-							<button type="reset" class="button reset" value="true">{L_RESET}</button>
+							<button type="button" class="button preview-button" onclick="XMLHttpRequest_preview();">{L_PREVIEW}</button>
+							<button type="reset" class="button reset-button" value="true">{L_RESET}</button>
 
 							# IF C_DISPLAY_MSG #
 								<p>
-									<span id="forum_change_statut">
-										<a href="" onclick="XMLHttpRequest_change_statut();return false;" id="forum_change_img"># IF C_ICON_DISPLAY_MSG #<i class="{ICON_DISPLAY_MSG}" aria-hidden="true"></i># ENDIF #</a> <a href="" onclick="XMLHttpRequest_change_statut();return false;"><span id="forum_change_msg">{L_EXPLAIN_DISPLAY_MSG_DEFAULT}</span></a>
-									</span>
+									<a href="#" onclick="XMLHttpRequest_change_statut();return false;" id="forum_change_img"># IF C_ICON_DISPLAY_MSG #<i class="{ICON_DISPLAY_MSG}" aria-hidden="true"></i># ENDIF #</a> <a href="#" onclick="XMLHttpRequest_change_statut();return false;"><span id="forum_change_msg">{L_EXPLAIN_DISPLAY_MSG_DEFAULT}</span></a>
 								</p>
 							# ENDIF #
 						</fieldset>

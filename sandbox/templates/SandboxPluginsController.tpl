@@ -26,7 +26,7 @@
     </div>
 	<script>jQuery("#cssmenu-sandbox").menumaker({ title: "Sandbox", format: "multitoggle", breakpoint: 768 }); </script>
 
-	<div id="wizard-example" class="sandbox-title">
+	<div id="wizard-example" class="sandbox-block">
 		<h2>{@plugins.wizard.title}</h2>
 	</div>
 	<header>
@@ -57,14 +57,14 @@
 	</article>
 
 	<!-- Source code -->
-	<div class="formatter-container formatter-hide no-js tpl" onclick="bb_hide(this)">
+	<div class="formatter-container formatter-hide no-js tpl">
 		<span class="formatter-title title-perso">{@sandbox.source.code} :</span>
 		<div class="formatter-content">
 			{PRE_WIZARD_HTML}
 		</div>
 	</div>
 
-	<article id="wizard-form" class="sandbox-title">
+	<article id="wizard-form" class="sandbox-block">
 		<header>
 			<h5>{@plugins.title.form}</h5>
 		</header>
@@ -72,14 +72,14 @@
 	</article>
 
 	<!-- Source code -->
-	<div class="formatter-container formatter-hide no-js tpl" onclick="bb_hide(this)">
+	<div class="formatter-container formatter-hide no-js tpl">
 		<span class="formatter-title title-perso">{@sandbox.source.code} :</span>
 		<div class="formatter-content">
 			{PRE_WIZARD_FORM}
 		</div>
 	</div>
 
-	<div id="tooltip-example" class="sandbox-title">
+	<div id="tooltip-example" class="sandbox-block">
 		<h2>{@plugins.tooltip.title}</h2>
 	</div>
 	<article>
@@ -106,7 +106,7 @@
 	</article>
 
 	<!-- Source code -->
-	<div class="formatter-container formatter-hide no-js tpl" onclick="bb_hide(this)">
+	<div class="formatter-container formatter-hide no-js tpl">
 		<span class="formatter-title title-perso">{@sandbox.source.code} :</span>
 		<div class="formatter-content">
 			{PRE_TOOTLTIP}

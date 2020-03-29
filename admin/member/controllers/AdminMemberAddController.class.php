@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 07 30
+ * @version     PHPBoost 5.3 - last update: 2020 02 27
  * @since       PHPBoost 3.0 - 2010 12 27
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -54,10 +54,13 @@ class AdminMemberAddController extends AdminController
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field($display_name = new FormFieldTextEditor('display_name', $this->lang['display_name'], '',
-			array('maxlength' => 100, 'required' => true, 'events' => array('blur' => '
-				if (!HTMLForms.getField("login").getValue() && HTMLForms.getField("display_name").validate() == "") {
-					HTMLForms.getField("login").setValue(HTMLForms.getField("display_name").getValue().replace(/\s/g, \'\'));
-				}')
+			array(
+				'maxlength' => 100, 'required' => true,
+				'events' => array('blur' => '
+					if (!HTMLForms.getField("login").getValue() && HTMLForms.getField("display_name").validate() == "") {
+						HTMLForms.getField("login").setValue(HTMLForms.getField("display_name").getValue().replace(/\s/g, \'\'));
+					}'
+				)
 			),
 			array(new FormFieldConstraintLengthRange(3, 100), new FormFieldConstraintDisplayNameExists())
 		));
@@ -69,7 +72,7 @@ class AdminMemberAddController extends AdminController
 
 		$fieldset->add_field(new FormFieldRanksSelect('rank', $this->lang['rank'], FormFieldRanksSelect::MEMBER));
 
-		$fieldset->add_field(new FormFieldFree('1_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('define_identifier', ''));
 
 		$fieldset->add_field($custom_login_checked = new FormFieldCheckbox('custom_login', $this->lang['login.custom'], false,
 			array(
@@ -89,7 +92,7 @@ class AdminMemberAddController extends AdminController
 			array(new FormFieldConstraintLengthRange(3, 25), new FormFieldConstraintPHPBoostAuthLoginExists())
 		));
 
-		$fieldset->add_field(new FormFieldFree('2_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('define_password', ''));
 
 		$fieldset->add_field(new FormFieldCheckbox('custom_password', $this->lang['password.custom'], false,
 			array(
@@ -108,12 +111,12 @@ class AdminMemberAddController extends AdminController
 		));
 
 		$fieldset->add_field($password = new FormFieldPasswordEditor('password', $this->lang['password'], '',
-			array('required' => true, 'hidden' => true),
+			array('required' => true, 'autocomplete' => false, 'hidden' => true),
 			array(new FormFieldConstraintLengthMin($security_config->get_internal_password_min_length()), new FormFieldConstraintPasswordStrength())
 		));
 
 		$fieldset->add_field($password_bis = new FormFieldPasswordEditor('password_bis', $this->lang['password.confirm'], '',
-			array('required' => true, 'hidden' => true),
+			array('required' => true, 'autocomplete' => false, 'hidden' => true),
 			array(new FormFieldConstraintLengthMin($security_config->get_internal_password_min_length()), new FormFieldConstraintPasswordStrength())
 		));
 

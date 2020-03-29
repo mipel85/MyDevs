@@ -1,21 +1,8 @@
 /*
-* Copy this file in your theme to customize the module.
+* Copy this file into your theme to customize the module.
 * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
 */
 
 .column-last-update {
 	width: 160px;
-}
-
-.nbr-connected-user-container {
-	margin-top: 0.618em;
-}
-
-.online-users-container {
-	margin: 0.618em 0;
-}
-
-.online-user {
-	display: block;
-	margin: auto;
 }

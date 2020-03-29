@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 11 05
+ * @version     PHPBoost 5.3 - last update: 2020 01 16
  * @since       PHPBoost 4.1 - 2014 10 14
  * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminShoutboxConfigController extends AdminModuleController
@@ -48,7 +49,7 @@ class AdminShoutboxConfigController extends AdminModuleController
 
 		$tpl->put('FORM', $this->form->display());
 
-		return new AdminShoutboxDisplayResponse($tpl, $this->lang['module_config_title']);
+		return new DefaultAdminDisplayResponse($tpl);
 	}
 
 	private function init()
@@ -61,7 +62,7 @@ class AdminShoutboxConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin-common'));
+		$fieldset = new FormFieldsetHTMLHeading('configuration', StringVars::replace_vars(LangLoader::get_message('configuration.module.title', 'admin-common'), array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldNumberEditor('items_number_per_page', $this->lang['config.items_number_per_page'], $this->config->get_items_number_per_page(),
@@ -87,7 +88,7 @@ class AdminShoutboxConfigController extends AdminModuleController
 			array(new FormFieldConstraintIntegerRange(5, 1000))
 		));
 
-		$fieldset->add_field(new FormFieldFree('1_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('1_separator', ''));
 
 		$fieldset->add_field(new FormFieldCheckbox('no_write_authorization_message_displayed', $this->lang['config.no_write_authorization_message_displayed'], $this->config->is_no_write_authorization_message_displayed(),
 			array('class' => 'third-field custom-checkbox')
@@ -111,7 +112,7 @@ class AdminShoutboxConfigController extends AdminModuleController
 			array(new FormFieldConstraintIntegerRange(1, 20))
 		));
 
-		$fieldset->add_field(new FormFieldFree('2_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('2_separator', ''));
 
 		$fieldset->add_field(new FormFieldMultipleSelectChoice('forbidden_formatting_tags', LangLoader::get_message('config.forbidden-tags', 'admin-common'), $this->config->get_forbidden_formatting_tags(), $this->generate_forbidden_formatting_tags_option(),
 			array('size' => 10)
@@ -135,7 +136,7 @@ class AdminShoutboxConfigController extends AdminModuleController
 			));
 		}
 
-		$fieldset->add_field(new FormFieldFree('3_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('3_separator', ''));
 
 		$fieldset->add_field(new FormFieldCheckbox('automatic_refresh_enabled', $this->lang['config.automatic_refresh_enabled'], $this->config->is_automatic_refresh_enabled(),
 			array(
@@ -154,7 +155,7 @@ class AdminShoutboxConfigController extends AdminModuleController
 			array('class' => 'third-field', 'min' => 0, 'max' => 60, 'step' => 0.5, 'description' => $this->lang['config.refresh_delay.explain'], 'required' => true, 'hidden' => !$this->config->is_automatic_refresh_enabled())
 		));
 
-		$fieldset->add_field(new FormFieldFree('4_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('4_separator', ''));
 
 		$fieldset->add_field(new FormFieldCheckbox('shout_max_messages_number_enabled', $this->lang['config.shout_max_messages_number_enabled'], $this->config->is_shout_max_messages_number_enabled(),
 			array(

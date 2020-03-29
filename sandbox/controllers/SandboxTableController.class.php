@@ -24,6 +24,8 @@ class SandboxTableController extends ModuleController
 
 		$current_page = $this->build_table();
 
+		$this->view->put('SANDBOX_SUB_MENU', self::get_sub_tpl());
+
 		return $this->generate_response($current_page);
 	}
 
@@ -34,6 +36,14 @@ class SandboxTableController extends ModuleController
 		$this->view = new FileTemplate('sandbox/SandboxTableController.tpl');
 		$this->view->add_lang($this->common_lang);
 		$this->view->add_lang($this->lang);
+	}
+
+	private static function get_sub_tpl()
+	{
+		$sub_lang = LangLoader::get('submenu', 'sandbox');
+		$sub_tpl = new FileTemplate('sandbox/SandboxSubMenu.tpl');
+		$sub_tpl->add_lang($sub_lang);
+		return $sub_tpl;
 	}
 
 	private function build_table()
@@ -103,11 +113,11 @@ class SandboxTableController extends ModuleController
 	{
 		$response = new SiteDisplayResponse($this->view);
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->common_lang['title.table.builder'], $this->common_lang['sandbox.module.title'], $page);
+		$graphical_environment->set_page_title($this->common_lang['title.table'], $this->common_lang['sandbox.module.title'], $page);
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->common_lang['sandbox.module.title'], SandboxUrlBuilder::home()->rel());
-		$breadcrumb->add($this->common_lang['title.table.builder'], SandboxUrlBuilder::table()->rel());
+		$breadcrumb->add($this->common_lang['title.table'], SandboxUrlBuilder::table()->rel());
 
 		return $response;
 	}

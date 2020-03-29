@@ -1,3 +1,8 @@
+/*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+*/
 
 .explorer .cats,
 .explorer .files {
@@ -21,6 +26,9 @@
 .explorer .cats {
 	min-width: 200px;
 }
+
+.form-field .explorer,
+.form-field .explorer .cats { width: 100%; }
 
 .explorer .content {
 	padding: 0;

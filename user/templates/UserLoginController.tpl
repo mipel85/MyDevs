@@ -6,7 +6,7 @@
 		# INCLUDE LOGIN_FORM #
 		<div class="align-center">
 			# IF C_REGISTRATION_ENABLED #
-				<a class="infos-options" href="{U_REGISTER}"><i class="fa fa-ticket-alt" aria-hidden="true"></i> {@registration}</a>
+				<a href="{U_REGISTER}"><i class="fa fa-ticket-alt" aria-hidden="true"></i> {@registration}</a>
 			# ENDIF #
 			# IF C_DISPLAY_EXTERNAL_AUTHENTICATION #
 				# START external_auth #
@@ -78,7 +78,7 @@
 
 			# IF NOT C_HAS_ERROR #
 			<p class="align-center">
-				<a href="" id="connect" onclick="jQuery('#loginForm').toggle();jQuery('#externalAuthForm').toggle();return false;">${LangLoader::get_message('connection', 'user-common')}</a>
+				<a href="#" id="connect" onclick="jQuery('#loginForm').toggle();jQuery('#externalAuthForm').toggle();return false;">${LangLoader::get_message('connection', 'user-common')}</a>
 			</p>
 
 			<script>

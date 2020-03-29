@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 10
+ * @version     PHPBoost 5.3 - last update: 2020 02 17
  * @since       PHPBoost 4.1 - 2015 05 15
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,23 +11,6 @@
 
 class ForumCategoriesFormController extends DefaultCategoriesFormController
 {
-	/**
-	 * @return mixed[] Array of ActionAuthorization for AuthorizationsSettings
-	 */
-	public function get_authorizations_settings()
-	{
-		return array(
-			new ActionAuthorization(self::$common_lang['authorizations.read'], Category::READ_AUTHORIZATIONS),
-			new VisitorDisabledActionAuthorization(self::$common_lang['authorizations.write'], Category::WRITE_AUTHORIZATIONS),
-			new MemberDisabledActionAuthorization(self::$common_lang['authorizations.moderation'], Category::MODERATION_AUTHORIZATIONS)
-		);
-	}
-
-	protected function get_categories_manager()
-	{
-		return CategoriesService::get_categories_manager('forum', 'idcat');
-	}
-
 	protected function build_form(HTTPRequestCustom $request)
 	{
 		$form = new HTMLForm(__CLASS__);
@@ -105,7 +88,7 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 		if ($this->get_category()->get_id())
 			$search_category_children_options->add_category_in_excluded_categories($this->get_category()->get_id());
 
-		$fieldset->add_field($this->get_categories_manager()->get_select_categories_form_field('id_parent', self::$common_lang['form.category'], $this->get_category()->get_id_parent(), $search_category_children_options, array('required' => true, 'hidden' => $this->get_category()->get_type() == ForumCategory::TYPE_CATEGORY)));
+		$fieldset->add_field(self::get_categories_manager()->get_select_categories_form_field('id_parent', self::$common_lang['form.category'], $this->get_category()->get_id_parent(), $search_category_children_options, array('required' => true, 'hidden' => $this->get_category()->get_type() == ForumCategory::TYPE_CATEGORY)));
 
 		$fieldset->add_field(new FormFieldCheckbox('status', LangLoader::get_message('category.status.locked', 'common', 'forum'), $this->get_category()->get_status(),
 			array('hidden' => $this->get_category()->get_type() != ForumCategory::TYPE_FORUM)
@@ -118,7 +101,7 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', self::$common_lang['authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
-		$root_auth = $this->get_categories_manager()->get_categories_cache()->get_category(Category::ROOT_CATEGORY)->get_authorizations();
+		$root_auth = self::get_categories_manager()->get_categories_cache()->get_category(Category::ROOT_CATEGORY)->get_authorizations();
 
 		$fieldset_authorizations->add_field(new FormFieldCheckbox('special_authorizations', self::$common_lang['authorizations'], !$this->get_category()->auth_is_equals($root_auth),
 		array('description' => self::$lang['category.form.authorizations.description'], 'events' => array('click' => '
@@ -152,7 +135,8 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 		$fieldset_authorizations->add_field($auth_setter);
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
-
+		$fieldset->add_field(new FormFieldHidden('last_topic_id', $this->is_new_category ? 0 : $this->get_category()->get_last_topic_id()));
+		
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
 		$form->add_button(new FormButtonReset());
@@ -164,19 +148,20 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 	{
 		parent::set_properties();
 		$this->get_category()->set_type($this->form->get_value('type')->get_raw_value());
-		$this->get_category()->set_description($this->form->get_value('description'));
+		$this->get_category()->set_additional_property('description', $this->form->get_value('description'));
 
 		if ($this->get_category()->get_type() == ForumCategory::TYPE_URL)
-			$this->get_category()->set_url($this->form->get_value('url'));
+			$this->get_category()->set_additional_property('url', $this->form->get_value('url'));
 		else
-			$this->get_category()->set_url('');
+			$this->get_category()->set_additional_property('url', '');
 
 		if ($this->get_category()->get_type() == ForumCategory::TYPE_FORUM)
 			$status = $this->form->get_value('status');
 		else
 			$status = ForumCategory::STATUS_UNLOCKED;
 
-		$this->get_category()->set_status($status);
+		$this->get_category()->set_additional_property('status', $status);
+		$this->get_category()->set_additional_property('last_topic_id', (int)$this->form->get_value('last_topic_id'));
 
 		if ($this->form->get_value('special_authorizations'))
 		{

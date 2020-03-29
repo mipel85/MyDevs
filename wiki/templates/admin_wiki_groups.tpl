@@ -1,5 +1,5 @@
 <nav id="admin-quick-menu">
-		<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
+		<a href="#" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
 			<i class="fa fa-bars" aria-hidden="true"></i> {L_WIKI_MANAGEMENT}
 		</a>
 		<ul>
@@ -124,7 +124,7 @@
 			<legend>{L_UPDATE}</legend>
 			<div class="fieldset-inset">
 				<button type="submit" name="valid" value="true" class="button submit">{L_UPDATE}</button>
-				<button type="reset" class="button reset" value="true">{L_RESET}</button>
+				<button type="reset" class="button reset-button" value="true">{L_RESET}</button>
 				<input type="hidden" name="token" value="{TOKEN}">
 			</div>
 		</fieldset>

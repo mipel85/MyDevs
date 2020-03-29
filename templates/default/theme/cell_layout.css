@@ -1,4 +1,9 @@
-/* --- flex layout ---------------------------------------------------------- */
+/*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+*/
+
 .cell-flex {
 	display: flex;
 	flex-direction: column;
@@ -50,7 +55,8 @@
 .cell-flex .cell-body,
 .cell-flex .cell-list,
 .cell-flex .cell-table,
-.cell-flex .cell-textarea {
+.cell-flex .cell-textarea,
+.flex-wide {
 	flex: 1 1 auto;
 }
 
@@ -94,15 +100,16 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	width: 100%;
 }
 
 @media (min-width: 769px) {
 	.cell-row .cell-thumbnail {
-		max-width: 30%;
+		width: 30%;
 		padding: 0.618em;
 	}
 
-	.cell-row .cell-content { max-width: 70%; }
+	.cell-row .cell-thumbnail + .cell-content { width: 70%; }
 }
 
 /* --- Modal ---------------------------------------------------------------- */
@@ -135,6 +142,8 @@
 .cell-mini .cell-form .cell-input {
 	padding: 0;
 }
+
+.cell-mini fieldset { margin: 0; }
 
 .cell-mini-vertical .cell-form:not(.grouped-inputs) input:not([type="checkbox"]):not([type="radio"]) {
 	width: 100%;

@@ -26,7 +26,11 @@ class SocialNetworksModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_content()
 	{
-		return ContentSharingActionsMenuService::display_sharing_elements();
+		$tpl = new FileTemplate('SocialNetworks/SocialNetworksModuleMiniMenu.tpl');
+
+		$tpl->put('NETWORK', ContentSharingActionsMenuService::display_sharing_elements());
+
+		return $tpl->render();
 	}
 }
 ?>

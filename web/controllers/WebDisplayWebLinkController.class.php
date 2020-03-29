@@ -3,10 +3,11 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 09
+ * @version     PHPBoost 5.3 - last update: 2020 03 07
  * @since       PHPBoost 4.1 - 2014 08 21
  * @contributor Kevin MASSY <reidlos@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class WebDisplayWebLinkController extends ModuleController
@@ -30,7 +31,7 @@ class WebDisplayWebLinkController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'web');
-		$this->tpl = new FileTemplate('web/WebDisplayWebLinkController.tpl');
+		$this->tpl = new FileTemplate('web/WebItemController.tpl');
 		$this->tpl->add_lang($this->lang);
 	}
 
@@ -66,8 +67,8 @@ class WebDisplayWebLinkController extends ModuleController
 		$has_keywords = count($keywords) > 0;
 
 		$this->tpl->put_all(array_merge($weblink->get_array_tpl_vars(), array(
-			'C_COMMENTS_ENABLED' => $comments_config->module_comments_is_enabled('web'),
-			'C_NOTATION_ENABLED' => $content_management_config->module_notation_is_enabled('web'),
+			'C_ENABLED_COMMENTS' => $comments_config->module_comments_is_enabled('web'),
+			'C_ENABLED_NOTATION' => $content_management_config->module_notation_is_enabled('web'),
 			'C_KEYWORDS' => $has_keywords,
 			'NOT_VISIBLE_MESSAGE' => MessageHelper::display(LangLoader::get_message('element.not_visible', 'status-messages-common'), MessageHelper::WARNING)
 		)));
@@ -76,7 +77,7 @@ class WebDisplayWebLinkController extends ModuleController
 		{
 			$comments_topic = new WebCommentsTopic($weblink);
 			$comments_topic->set_id_in_module($weblink->get_id());
-			$comments_topic->set_url(WebUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $weblink->get_id(), $weblink->get_rewrited_name()));
+			$comments_topic->set_url(WebUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $weblink->get_id(), $weblink->get_rewrited_title()));
 
 			$this->tpl->put('COMMENTS', $comments_topic->display());
 		}
@@ -144,12 +145,12 @@ class WebDisplayWebLinkController extends ModuleController
 		$response = new SiteDisplayResponse($this->tpl);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($weblink->get_name(), ($category->get_id() != Category::ROOT_CATEGORY ? $category->get_name() . ' - ' : '') . $this->lang['module_title']);
-		$graphical_environment->get_seo_meta_data()->set_description($weblink->get_real_short_contents());
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(WebUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $weblink->get_id(), $weblink->get_rewrited_name()));
+		$graphical_environment->set_page_title($weblink->get_title(), ($category->get_id() != Category::ROOT_CATEGORY ? $category->get_name() . ' - ' : '') . $this->lang['module_title']);
+		$graphical_environment->get_seo_meta_data()->set_description($weblink->get_real_summary());
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(WebUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $weblink->get_id(), $weblink->get_rewrited_title()));
 
-		if ($weblink->has_picture())
-			$graphical_environment->get_seo_meta_data()->set_picture_url($weblink->get_picture());
+		if ($weblink->has_thumbnail())
+			$graphical_environment->get_seo_meta_data()->set_picture_url($weblink->get_thumbnail());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['module_title'],WebUrlBuilder::home());
@@ -160,7 +161,7 @@ class WebDisplayWebLinkController extends ModuleController
 			if ($category->get_id() != Category::ROOT_CATEGORY)
 				$breadcrumb->add($category->get_name(), WebUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
 		}
-		$breadcrumb->add($weblink->get_name(), WebUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $weblink->get_id(), $weblink->get_rewrited_name()));
+		$breadcrumb->add($weblink->get_title(), WebUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $weblink->get_id(), $weblink->get_rewrited_title()));
 
 		return $response;
 	}

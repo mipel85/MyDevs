@@ -32,8 +32,8 @@
 
 		</div>
 		<div class="sortable-actions">
-			<a href="" id="menu_element_{ID}_more_image" onclick="toggleProperties({ID});return false;" aria-label="{L_MORE}"><i class="fa fa-cog" aria-hidden="true"></i></a>
-			<a href="" id="menu_element_{ID}_delete_image" style="cursor:pointer;" onclick="deleteElement('menu_element_{ID}');return false;" aria-label="{L_DELETE}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+			<a href="#" id="menu_element_{ID}_more_image" onclick="toggleProperties({ID});return false;" aria-label="{L_MORE}"><i class="fa fa-cog" aria-hidden="true"></i></a>
+			<a href="#" id="menu_element_{ID}_delete_image" style="cursor:pointer;" onclick="deleteElement('menu_element_{ID}');return false;" aria-label="{L_DELETE}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
 		</div>
 		<div class="spacer"></div>
 		<fieldset id="menu_element_{ID}_properties"# IF C_AUTH_MENU_HIDDEN # style="display: none;"# ENDIF #>
@@ -68,18 +68,16 @@
 				<label for="menu_element_{ID}_url" class="label-sup grouped-element"><span>{L_URL}</span> <input type="text" value="{RELATIVE_URL}" id="menu_element_{ID}_url" name="menu_element_{ID}_url"></label>
 				<label for="menu_element_{ID}_image" class="label-sup grouped-element"><span>{L_IMAGE}</span> <input type="text" value="{RELATIVE_IMG}" id="menu_element_{ID}_image" name="menu_element_{ID}_image" onblur="image_preview(this,menu_element_{ID}_image_preview)"></label>
 				<script>
-				<!--
 					jQuery(document).ready(function() {
 						image_preview(jQuery('#menu_element_{ID}_image').val(), menu_element_{ID}_image_preview, true);
 					});
-				-->
 				</script>
 				<span class="preview grouped-element"><img src="# IF C_IMG #{REL_IMG}# ENDIF #" id="menu_element_{ID}_image_preview" alt="{TITLE}" /></span>
 			</div>
 		</div>
 		<div class="sortable-actions">
-			<a href="" id="menu_element_{ID}_more_image" onclick="toggleProperties({ID});return false;" aria-label="{L_MORE}"><i class="fa fa-cog" aria-hidden="true"></i></a>
-			<a href="" id="menu_element_{ID}_delete_image" style="cursor:pointer;" onclick="deleteElement('menu_element_{ID}');return false;" aria-label="{L_DELETE}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+			<a href="#" id="menu_element_{ID}_more_image" onclick="toggleProperties({ID});return false;" aria-label="{L_MORE}"><i class="fa fa-cog" aria-hidden="true"></i></a>
+			<a href="#" id="menu_element_{ID}_delete_image" style="cursor:pointer;" onclick="deleteElement('menu_element_{ID}');return false;" aria-label="{L_DELETE}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
 		</div>
 		<div class="spacer"></div>
 		<fieldset id="menu_element_{ID}_properties"# IF C_AUTH_MENU_HIDDEN # style="display: none;"# ENDIF #>

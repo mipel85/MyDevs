@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 20
+ * @version     PHPBoost 5.3 - last update: 2020 01 09
  * @since       PHPBoost 4.0 - 2014 09 02
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -14,7 +14,14 @@
 ####################################################
 
 $lang['faq.module.title'] = 'FAQ';
-$lang['faq.config.title'] = 'Configuration des questions de la FAQ';
+
+$lang['items'] = 'questions';
+$lang['item'] = 'question';
+
+$lang['all.items'] = 'Toutes les questions';
+$lang['last.items'] = 'Dernières questions';
+$lang['an.item'] = 'Une question';
+$lang['the.item'] = 'La question';
 
 $lang['faq.question.add'] = 'Ajouter une question';
 $lang['faq.question.edit'] = 'Modifier la question';
@@ -28,10 +35,10 @@ $lang['faq.show.answers'] = 'Montrer toutes les réponses';
 $lang['faq.hide.answers'] = 'Cacher toutes les réponses';
 
 //config
-$lang['config.display.type.accordion'] = 'Type d\'affichge des réponses';
+$lang['config.display.type.accordion'] = 'Type d\'affichage des réponses';
 $lang['config.display.type.basic'] = 'Affichage indépendant';
 $lang['config.display.type.siblings'] = 'Affichage séparé';
-$lang['config.display.controls'] = 'Afficher le controle total';
+$lang['config.display.controls'] = 'Afficher le contrôle total';
 $lang['config.display.controls.explain'] = 'Afficher les boutons pour ouvrir/fermer toutes les réponses';
 $lang['config.items.default.sort.explain'] = 'Sur la page "Questions en attente"';
 

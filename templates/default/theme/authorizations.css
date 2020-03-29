@@ -1,3 +1,9 @@
+/*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+*/
+
 .auth-setter {
     display: flex;
     flex-direction: row;
@@ -29,7 +35,8 @@
     }
 
     .advanced-auth-select {
-        min-width: 227px;
+        min-width: 180px;
+        min-height: 106px;
     }
 
     .advanced-auth-input {

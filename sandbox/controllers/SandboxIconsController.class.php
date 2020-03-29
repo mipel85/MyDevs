@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 05 05
+ * @version     PHPBoost 5.3 - last update: 2020 03 05
  * @since       PHPBoost 3.0 - 2012 05 05
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -12,6 +12,7 @@
 class SandboxIconsController extends ModuleController
 {
 	private $view;
+	private $icons_lang;
 	private $lang;
 
 	public function execute(HTTPRequestCustom $request)
@@ -28,12 +29,36 @@ class SandboxIconsController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'sandbox');
+		$this->icons_lang = LangLoader::get('icons', 'sandbox');
 		$this->view = new FileTemplate('sandbox/SandboxIconsController.tpl');
 		$this->view->add_lang($this->lang);
+		$this->view->add_lang($this->icons_lang);
 	}
 
 	private function build_view()
 	{
+		$this->view->put_all(array(
+			'SANDBOX_SUBMENU' => self::get_submenu(),
+			'FA' => self::get_fa(),
+		));
+	}
+
+	private function get_submenu()
+	{
+		$submenu_lang = LangLoader::get('submenu', 'sandbox');
+		$submenu_tpl = new FileTemplate('sandbox/SandboxSubMenu.tpl');
+		$submenu_tpl->add_lang($submenu_lang);
+		return $submenu_tpl;
+	}
+
+	private function get_fa()
+	{
+		$css_lang = LangLoader::get('fwkboost', 'sandbox');
+		$fa_lang = LangLoader::get('icons', 'sandbox');
+		$fa_tpl = new FileTemplate('sandbox/pagecontent/icons/fa.tpl');
+		$fa_tpl->add_lang($fa_lang);
+		$fa_tpl->add_lang($css_lang);
+
 		//Social
 		$icons = array(
 			array('fab', 'facebook-f', '\f39e'),
@@ -44,10 +69,10 @@ class SandboxIconsController extends ModuleController
 
 		foreach ($icons as $icon)
 		{
-			$this->view->assign_block_vars('social', array(
-					'PREFIX' => $icon[0],
-					'FA'     => $icon[1],
-					'CODE'   => $icon[2]
+			$fa_tpl->assign_block_vars('social', array(
+				'PREFIX' => $icon[0],
+				'FA'     => $icon[1],
+				'CODE'   => $icon[2]
 			));
 		}
 
@@ -62,12 +87,14 @@ class SandboxIconsController extends ModuleController
 
 		foreach ($icons as $icon)
 		{
-			$this->view->assign_block_vars('responsive', array(
+			$fa_tpl->assign_block_vars('responsive', array(
 				'PREFIX' => $icon[0],
 				'FA'     => $icon[1],
 				'CODE'   => $icon[2]
 			));
 		}
+
+		return $fa_tpl;
 	}
 
 	private function check_authorizations()

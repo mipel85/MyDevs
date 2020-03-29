@@ -3,101 +3,84 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Patrick DUBEAU <daaxwizeman@gmail.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 02
+ * @version     PHPBoost 5.3 - last update: 2020 02 12
  * @since       PHPBoost 4.0 - 2013 06 03
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class ArticlesPrintArticlesController extends ModuleController
+class ArticlesPrintArticlesController extends AbstractItemController
 {
-	private $lang;
-	private $view;
-	private $article;
+	private $item;
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
-
-		$this->init();
 
 		$this->build_view($request);
 
 		return new SiteNodisplayResponse($this->view);
 	}
 
-	private function init()
+	private function get_item()
 	{
-		$this->lang = LangLoader::get('common', 'articles');
-		$this->view = new FileTemplate('framework/content/print.tpl');
-		$this->view->add_lang($this->lang);
-	}
-
-	private function get_article()
-	{
-		if ($this->article === null)
+		if ($this->item === null)
 		{
-			$id = AppContext::get_request()->get_getint('id', 0);
-			if (!empty($id))
+			try
 			{
-				try
-				{
-					$this->article = ArticlesService::get_article('WHERE articles.id=:id', array('id' => $id));
-				}
-				catch (RowNotFoundException $e)
-				{
-					$error_controller = PHPBoostErrors::unexisting_page();
-					DispatchManager::redirect($error_controller);
-				}
+				$item = self::get_items_manager()->get_item(AppContext::get_request()->get_getint('id', 0));
 			}
-			else
-				$this->article = new Article();
+			catch (RowNotFoundException $e)
+			{
+				$this->display_unexisting_page();
+			}
 		}
-		return $this->article;
+		return $this->item;
 	}
 
 	private function build_view()
 	{
-		$contents = preg_replace('`\[page\](.*)\[/page\]`u', '<h2>$1</h2>', $this->article->get_contents());
+		$content = preg_replace('`\[page\](.*)\[/page\]`u', '<h2>$1</h2>', $this->item->get_content());
 		$this->view->put_all(array(
-			'PAGE_TITLE' => $this->lang['articles.print.item'] . ' - ' . $this->article->get_title() . ' - ' . GeneralConfig::load()->get_site_name(),
-			'TITLE' => $this->article->get_title(),
-			'CONTENT' => FormatingHelper::second_parse($contents)
+			'PAGE_TITLE' => $this->lang['articles.print.item'] . ' - ' . $this->item->get_title() . ' - ' . GeneralConfig::load()->get_site_name(),
+			'TITLE' => $this->item->get_title(),
+			'CONTENT' => FormatingHelper::second_parse($content)
 		));
 	}
 
-	private function check_authorizations()
+	protected function get_template_to_use()
 	{
-		$article = $this->get_article();
+		return new FileTemplate('framework/content/print.tpl');
+	}
+
+	protected function check_authorizations()
+	{
+		$article = $this->get_item();
 
 		$not_authorized = !CategoriesAuthorizationsService::check_authorizations($article->get_id_category())->write() && (!CategoriesAuthorizationsService::check_authorizations($article->get_id_category())->moderation() && $article->get_author_user()->get_id() != AppContext::get_current_user()->get_id());
 
 		switch ($article->get_publishing_state())
 		{
-			case Article::PUBLISHED_NOW:
-				if (!CategoriesAuthorizationsService::check_authorizations()->read() && $not_authorized)
+			case Article::PUBLISHED:
+				if (!CategoriesAuthorizationsService::check_authorizations()->read() || $not_authorized)
 				{
-					$error_controller = PHPBoostErrors::user_not_authorized();
-					DispatchManager::redirect($error_controller);
+					$this->display_user_not_authorized_page();
 				}
 			break;
 			case Article::NOT_PUBLISHED:
 				if ($not_authorized)
 				{
-					$error_controller = PHPBoostErrors::user_not_authorized();
-					DispatchManager::redirect($error_controller);
+					$this->display_user_not_authorized_page();
 				}
 			break;
-			case Article::PUBLISHED_DATE:
+			case Article::DEFERRED_PUBLICATION:
 				if (!$article->is_published() && $not_authorized)
 				{
-					$error_controller = PHPBoostErrors::user_not_authorized();
-					DispatchManager::redirect($error_controller);
+					$this->display_user_not_authorized_page();
 				}
 			break;
 			default:
-				$error_controller = PHPBoostErrors::unexisting_page();
-				DispatchManager::redirect($error_controller);
+				$this->display_unexisting_page();
 			break;
 		}
 	}

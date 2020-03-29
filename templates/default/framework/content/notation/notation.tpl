@@ -1,8 +1,8 @@
 # IF C_STATIC_DISPLAY #
 	# IF C_NOTES #
-		<div aria-label="${LangLoader::get_message('note', 'common')}: {AVERAGE_NOTES}/{NOTATION_SCALE}" class="notation static-notation" itemprop="aggregateRating" itemscope="itemscope" itemtype="http://schema.org/AggregateRating">
+		<div role="note" aria-label="${LangLoader::get_message('note', 'common')}: {AVERAGE_NOTES}/{NOTATION_SCALE}" class="notation static-notation" itemprop="aggregateRating" itemscope="itemscope" itemtype="http://schema.org/AggregateRating">
 			# START star #
-				<a href="" onclick="return false;" class="far star fa-star" id="star-{ID_IN_MODULE}-{star.I}" aria-hidden="true"><span class="star-width {star.STAR_WIDTH}"></span></a>
+				<a href="#" onclick="return false;" class="far star fa-star" id="star-{ID_IN_MODULE}-{star.I}" aria-hidden="true"><span class="star-width {star.STAR_WIDTH}"></span></a>
 			# END star #
 			<meta itemprop="ratingCount" content="{NUMBER_NOTES}">
 			<meta itemprop="ratingValue" content="{AVERAGE_NOTES}">
@@ -30,15 +30,15 @@
 	<div class="notation" id="notation-{ID_IN_MODULE}" # IF C_NOTES #itemprop="aggregateRating" itemscope="itemscope" itemtype="http://schema.org/AggregateRating"# ENDIF #>
 		<span class="stars">
 			# START star #
-				<a aria-label="${LangLoader::get_message('add_note', 'common')} {star.I}/{NOTATION_SCALE}" href="" onclick="return false;" class="far star fa-star" id="star-{ID_IN_MODULE}-{star.I}"><span class="star-width {star.STAR_WIDTH}"></span></a>
+				<a aria-label="${LangLoader::get_message('add_note', 'common')} {star.I}/{NOTATION_SCALE}" href="#" onclick="return false;" class="far star fa-star" id="star-{ID_IN_MODULE}-{star.I}"><span class="star-width {star.STAR_WIDTH}"></span></a>
 			# END star #
 		</span>
 		<span class="notes">
 			<span class="number-notes" # IF C_NOTES #itemprop="ratingCount"# ENDIF #>{NUMBER_NOTES}</span>
 			# IF C_MORE_1_NOTES #
-				<span aria-label="{NUMBER_NOTES} {L_NOTES}">{L_NOTES}</span>
+				<span role="note" aria-label="{NUMBER_NOTES} {L_NOTES}">{L_NOTES}</span>
 			# ELSE #
-				<span aria-label="{NUMBER_NOTES} {L_NOTE}">{L_NOTE}</span>
+				<span role="note" aria-label="{NUMBER_NOTES} {L_NOTE}">{L_NOTE}</span>
 			# ENDIF #
 		</span>
 		# IF C_NOTES #

@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 16
+ * @version     PHPBoost 5.3 - last update: 2020 03 21
  * @since       PHPBoost 3.0 - 2012 11 20
+ * @contributor Mipel <mipel@phpboost.com>
 */
 
 class CalendarService
@@ -87,8 +88,8 @@ class CalendarService
 			$controller = PHPBoostErrors::user_in_read_only();
 			DispatchManager::redirect($controller);
 		}
-		
-		self::$db_querier->delete(CalendarSetup::$calendar_events_table, 'WHERE id=:id', array('id' => $id));
+
+		self::$db_querier->delete(CalendarSetup::$calendar_events_table, 'WHERE id_event=:id', array('id' => $id));
 
 		if (!$has_parent)
 			PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'calendar', 'id' => $id));
@@ -230,7 +231,7 @@ class CalendarService
 	public static function clear_cache()
 	{
 		Feed::clear_cache('calendar');
-		CalendarCurrentMonthEventsCache::invalidate();
+		CalendarCache::invalidate();
 	}
 
 	 /**

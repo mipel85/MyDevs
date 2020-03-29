@@ -1,5 +1,5 @@
 /*
-* Copy this file in your theme to customize the module.
+* Copy this file into your theme to customize the module.
 * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
 */
 
@@ -11,6 +11,10 @@
 	display: block;
 	padding: 0.309em 0.809em;
 	position: relative;
+}
+
+#module-connect .js-menu-button .stacked {
+	margin: 0 0 0 0.809em;
 }
 
 #module-connect .js-menu-button::after {
@@ -25,9 +29,24 @@
 	content: '\f0d8';
 }
 
+#module-connect .connect-contents.cell-list-inline ul {
+	flex-direction: column;
+}
+
+#module-connect .cell-list .li-spaced a {
+	padding-right: 0.618em;
+}
+
+#module-connect .cell-list li:hover {
+    background-color: transparent;
+}
+
 @media (min-width: 768px) {
 	#module-connect .js-menu-button {
 		display: none;
+	}
+	#module-connect .connect-contents.cell-list-inline ul {
+		flex-direction: row;
 	}
 }
 

@@ -45,7 +45,7 @@
 				# START create #
 				<div class="form-element">
 					<label for="title">* {L_TITLE_FIELD}</label>
-					<div class="form-field"><label><input type="text" id="title" name="title" maxlength="250" class="field-large" value="{ARTICLE_TITLE}"></label></div>
+					<div class="form-field"><input type="text" id="title" name="title" value="{ARTICLE_TITLE}"></div>
 				</div>
 				<div class="form-element">
 					<label>{L_CURRENT_CAT}</label>
@@ -56,30 +56,32 @@
 				</div>
 				<div class="form-element">
 					<label>{L_CAT}</label>
-					<div class="explorer d-inline">
-						<div class="cats">
-							<div class="content">
-								<ul>
-									<li><a class="{CAT_0}" id="class-0" href="javascript:select_cat(0);"><i class="fa fa-folder" aria-hidden="true"></i>{L_DO_NOT_SELECT_ANY_CAT}</a>
-										<ul>
-											# START create.list #
-											<li class="sub">
-												# IF create.list.C_SUB_CAT #
-												<a class="parent" href="javascript:show_wiki_cat_contents({create.list.ID}, 1);" aria-label="${LangLoader::get_message('display', 'common')}">
-													<i class="fa fa-plus-square" id="img-subfolder-{create.list.ID}"></i>
-													<i class="fa fa-folder" id="img-folder-{create.list.ID}"></i>
-												</a>
-												<a id="class-{create.list.ID}" href="javascript:select_cat({create.list.ID});">{create.list.TITLE}</a>
-												# ELSE #
-												<a id="class-{create.list.ID}" href="javascript:select_cat({create.list.ID});"><i class="fa fa-folder" aria-hidden="true"></i>{create.list.TITLE}</a>
-												# ENDIF #
-												<span id="cat-{create.list.ID}"></span>
-											</li>
-											# END create.list #
-											{CAT_LIST}
-										</ul>
-									</li>
-								</ul>
+					<div class="form-field">
+						<div class="explorer">
+							<div class="cats">
+								<div class="content">
+									<ul>
+										<li><a class="{CAT_0}" id="class-0" href="javascript:select_cat(0);"><i class="fa fa-folder" aria-hidden="true"></i>{L_DO_NOT_SELECT_ANY_CAT}</a>
+											<ul>
+												# START create.list #
+												<li class="sub">
+													# IF create.list.C_SUB_CAT #
+													<a class="parent" href="javascript:show_wiki_cat_contents({create.list.ID}, 1);" aria-label="${LangLoader::get_message('display', 'common')}">
+														<i class="fa fa-plus-square" id="img-subfolder-{create.list.ID}"></i>
+														<i class="fa fa-folder" id="img-folder-{create.list.ID}"></i>
+													</a>
+													<a id="class-{create.list.ID}" href="javascript:select_cat({create.list.ID});">{create.list.TITLE}</a>
+													# ELSE #
+													<a id="class-{create.list.ID}" href="javascript:select_cat({create.list.ID});"><i class="fa fa-folder" aria-hidden="true"></i>{create.list.TITLE}</a>
+													# ENDIF #
+													<span id="cat-{create.list.ID}"></span>
+												</li>
+												# END create.list #
+												{CAT_LIST}
+											</ul>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -131,7 +133,7 @@
 				<input type="hidden" name="id_edit" value="{ID_EDIT}">
 				<input type="hidden" name="token" value="{TOKEN}">
 				<button type="submit" class="button submit" name="submit">{L_SUBMIT}</button>
-				<button type="submit" class="button small" name="preview" value="preview">{L_PREVIEW}</button>
-				<button type="reset" class="button reset">{L_RESET}</button>
+				<button type="submit" class="button preview-button" name="preview" value="preview">{L_PREVIEW}</button>
+				<button type="reset" class="button reset-button">{L_RESET}</button>
 			</fieldset>
 		</form>

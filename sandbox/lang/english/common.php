@@ -19,35 +19,35 @@ $lang['sandbox.module.title'] = 'Sandbox';
 
 $lang['title.config'] = 'Configuration';
 $lang['title.admin.form'] = 'Form in administration';
-$lang['title.form.builder'] = 'Form builder';
-$lang['title.css'] = 'CSS';
+$lang['title.builder'] = 'Form builder';
+$lang['title.fwkboost'] = 'CSS';
 $lang['title.plugins'] = 'Plugins';
 $lang['title.bbcode'] = 'BBCode';
 $lang['title.menu'] = 'Cssmenu menus ';
 $lang['title.icons'] = 'Font-Awesome icons ';
-$lang['title.table.builder'] = 'Table builder';
-$lang['title.mail.sender'] = 'Email sending';
+$lang['title.table'] = 'Table builder';
+$lang['title.email'] = 'Email sending';
 $lang['title.string.template'] = 'Template generator';
 
 // Home page
 $lang['welcome.message'] = '<p>Welcome to the Sandbox module.</p>
 <br />
-<p>You can try here several part of the PHPBoost framework :</p>
+<p>You can try here several part of the PHPBoost fwkboost :</p>
 <ul class="sandbox-home-list">
 <li><i class="fa fa-fw fa-asterisk"></i> Rendering of the different fields of the <a href="' . SandboxUrlBuilder::form()->absolute() . '">form builder</a></li>
 <li><i class="fab fa-fw fa-css3"></i> Rendering of the main <a href="' . SandboxUrlBuilder::css()->absolute() . '">CSS classes</a></li>
 <li><i class="fa fa-fw fa-cube"></i> Rendering of the <a href="' . SandboxUrlBuilder::plugins()->absolute() . '">jQuery plugins</a> integrated in PHPBoost.</li>
 <li><i class="far fa-fw fa-file-code"></i> Rendering of the specific styles from the <a href="' . SandboxUrlBuilder::bbcode()->absolute() . '">BBCode</a></li>
 <li><i class="fab fa-fw fa-font-awesome-flag"></i> A tutorial about using icons from the <a href="' . SandboxUrlBuilder::icons()->absolute() . '">Font Awesome library</a></li>
-<li><i class="fa fa-fw fa-list"></i> Rendering of the <a href="' . SandboxUrlBuilder::menu()->absolute() . '">Cssmenu navigation menus</a>.</li>
+<li><i class="fa fa-fw fa-list"></i> Rendering of the <a href="' . SandboxUrlBuilder::menus()->absolute() . '">Cssmenu navigation menus</a>.</li>
 <li><i class="fa fa-fw fa-table"></i> The dynamic <a href="' . SandboxUrlBuilder::table()->absolute() . '">table generation</a></li>
-<li><i class="fa fa-fw fa-at"></i> <a href="' . SandboxUrlBuilder::mail()->absolute() . '">Emails sending</a></li>
+<li><i class="fa fa-fw fa-at"></i> <a href="' . SandboxUrlBuilder::email()->absolute() . '">Emails sending</a></li>
 <li><i class="fa fa-fw fa-code"></i> <a href="' . SandboxUrlBuilder::template()->absolute() . '">Template generation</a> with or without cache</li>
 </ul>
 <br />
 ';
 
-// --- Framework lorem
+// --- FWKBoost lorem
 
 $lang['lorem.short.content'] = 'Etiam hendrerit, tortor et faucibus dapibus, eros orci porta eros, in facilisis ipsum ipsum at nisl';
 $lang['lorem.medium.content'] = 'Fusce vitae consequat nisl. Fusce vestibulum porta ipsum ac consectetur. Duis finibus mauris eu feugiat congue.
@@ -75,36 +75,36 @@ $lang['wiki.contents'] = 'Wiki content';
 
 // --- Icônes Font-Awesome
 
-$lang['iconfa.sample'] = 'Some examples';
-$lang['iconfa.social'] = 'Social networks';
-$lang['iconfa.screen'] = 'Screen';
-$lang['iconfa.icon'] = 'Icon';
-$lang['iconfa.name'] = 'Name';
-$lang['iconfa.code'] = 'Code';
-$lang['iconfa.list'] = 'The complete list of icons and their own code : ';
+$lang['icons.sample'] = 'Some examples';
+$lang['icons.social'] = 'Social networks';
+$lang['icons.screen'] = 'Screen';
+$lang['icons.icon'] = 'Icon';
+$lang['icons.name'] = 'Name';
+$lang['icons.code'] = 'Code';
+$lang['icons.list'] = 'The complete list of icons and their own code : ';
 
-$lang['iconfa.howto'] = 'How to ?';
-$lang['iconfa.howto.explain'] = 'Font-Awesome is an icon-font, a font to simply display icons';
-$lang['iconfa.howto.update'] = 'It\'s integrated since the 4.1 PHPBoost version. Each update of Font-Awesome is integrated in the next PHPBoost update..';
-$lang['iconfa.howto.html'] = 'Html way';
-$lang['iconfa.howto.html.class'] = 'Set the icon name as a class : ';
-$lang['iconfa.howto.html.class.result.i'] = 'That gives the "edit" icon following by : ';
-$lang['iconfa.howto.html.class.result.a'] = 'That gives the link with ths "globe" icon first : ';
-$lang['iconfa.howto.html.class.result.all'] = 'You can play with all html tags.';
-$lang['iconfa.howto.css'] = 'CSS way';
-$lang['iconfa.howto.css.class'] = 'Set your class, then the icon code as content of ::before or ::after of the class :';
-$lang['iconfa.howto.css.css.code'] = 'CSS :';
-$lang['iconfa.howto.css.html.code'] = 'HTML :';
-$lang['iconfa.howto.bbcode'] = 'BBCode way';
-$lang['iconfa.howto.bbcode.some.icons'] = 'The icons mainly used in PHPBoost are already setted un the bbcode menu bar. You can select them by clicking on the flag icon menu:';
-$lang['iconfa.howto.bbcode.tag'] = 'If the icon you want is not in the list, you can use the [fa] tag like this:';
-$lang['iconfa.howto.bbcode.icon.name'] = '[fa]Icon name[/fa]';
-$lang['iconfa.howto.bbcode.icon.test'] = 'E.g., [fa]cubes[/fa] gives:';
-$lang['iconfa.howto.bbcode.icon.variants'] = 'Variants (see next paragraph) are usable with the BBCode and are explained in the PHPBoost documentation.';
-$lang['iconfa.howto.variants'] = 'Variants';
-$lang['iconfa.howto.variants.explain'] = 'Font-Awesome is setted with some variants like sizing the icon, animation, rotation, stacking and somelse.';
-$lang['iconfa.howto.variants.list'] = 'All variants are explained here : ';
-$lang['iconfa.howto.variants.spinner'] = 'That gives the "spinner" icon, setted in rotation and twice bigger than its initial size : ';
+$lang['icons.howto'] = 'How to ?';
+$lang['icons.howto.explain'] = 'Font-Awesome is an icon-font, a font to simply display icons';
+$lang['icons.howto.update'] = 'It\'s integrated since the 4.1 PHPBoost version. Each update of Font-Awesome is integrated in the next PHPBoost update..';
+$lang['icons.howto.html'] = 'Html way';
+$lang['icons.howto.html.class'] = 'Set the icon name as a class : ';
+$lang['icons.howto.html.class.result.i'] = 'That gives the "edit" icon following by : ';
+$lang['icons.howto.html.class.result.a'] = 'That gives the link with ths "globe" icon first : ';
+$lang['icons.howto.html.class.result.all'] = 'You can play with all html tags.';
+$lang['icons.howto.css'] = 'CSS way';
+$lang['icons.howto.css.class'] = 'Set your class, then the icon code as content of ::before or ::after of the class :';
+$lang['icons.howto.css.css.code'] = 'CSS :';
+$lang['icons.howto.css.html.code'] = 'HTML :';
+$lang['icons.howto.bbcode'] = 'BBCode way';
+$lang['icons.howto.bbcode.some.icons'] = 'The icons mainly used in PHPBoost are already setted un the bbcode menu bar. You can select them by clicking on the flag icon menu:';
+$lang['icons.howto.bbcode.tag'] = 'If the icon you want is not in the list, you can use the [fa] tag like this:';
+$lang['icons.howto.bbcode.icon.name'] = '[fa]Icon name[/fa]';
+$lang['icons.howto.bbcode.icon.test'] = 'E.g., [fa]cubes[/fa] gives:';
+$lang['icons.howto.bbcode.icon.variants'] = 'Variants (see next paragraph) are usable with the BBCode and are explained in the PHPBoost documentation.';
+$lang['icons.howto.variants'] = 'Variants';
+$lang['icons.howto.variants.explain'] = 'Font-Awesome is setted with some variants like sizing the icon, animation, rotation, stacking and somelse.';
+$lang['icons.howto.variants.list'] = 'All variants are explained here : ';
+$lang['icons.howto.variants.spinner'] = 'That gives the "spinner" icon, setted in rotation and twice bigger than its initial size : ';
 
 // --- Cssmenu
 

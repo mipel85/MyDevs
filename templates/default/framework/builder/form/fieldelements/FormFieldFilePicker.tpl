@@ -1,6 +1,6 @@
 <div class="dnd-area">
 	<div class="dnd-dropzone">
-		<label for="inputfiles" class="dnd-label"># IF C_MULTIPLE #{@drag.and.drop.files}# ELSE #{@drag.and.drop.file}# ENDIF #<p></p></label>
+		<label for="inputfiles" class="dnd-label"># IF C_MULTIPLE #{@drag.and.drop.files}# ELSE #{@drag.and.drop.file}# ENDIF #<span class="d-block"></span></label>
 		<input type="file" name="${escape(NAME)}# IF C_MULTIPLE #[]# ENDIF #" id="${escape(HTML_ID)}" class="ufiles"# IF C_DISABLED # disabled="disabled" # ENDIF # />
 	</div>
 	<input type="hidden" name="max_file_size" value="{MAX_FILE_SIZE}">
@@ -38,9 +38,9 @@
 		maxFileSize: '{MAX_FILE_SIZE}',
 		maxFilesSize: '{MAX_FILES_SIZE}',
 		allowedExtensions: ["{ALLOWED_EXTENSIONS}"],
-		warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'main'))},
-		warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'main'))},
-		warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'main'))},
-		warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.nbr', 'main'))},
+		warningText: ${escapejs(LangLoader::get_message('warning.upload.disabled', 'upload-common'))},
+		warningExtension: ${escapejs(LangLoader::get_message('warning.upload.extension', 'upload-common'))},
+		warningFileSize: ${escapejs(LangLoader::get_message('warning.upload.file.size', 'upload-common'))},
+		warningFilesNbr: ${escapejs(LangLoader::get_message('warning.upload.files.number', 'upload-common'))},
 	});
 </script>

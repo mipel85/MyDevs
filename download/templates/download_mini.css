@@ -1,11 +1,7 @@
 /*
-* Copy this file in your theme to customize the module.
+* Copy this file into your theme to customize the module.
 * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
 */
-
-.mini-download-table-name {
-	max-width: 5.236em;
-}
 
 #table-mini-download {
 	margin: 0;

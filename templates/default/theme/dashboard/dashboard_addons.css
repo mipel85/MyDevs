@@ -1,4 +1,7 @@
 /*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
  * Contains css for addons menu in modules/themes/langs administration page
 */
 
@@ -55,10 +58,6 @@
 
 .addon-menu-title:hover {
 	text-decoration: none;
-}
-
-.not-compatible {
-	font-weight: 900;
 }
 
 .not-compatible span.addon-menu-title {
@@ -150,6 +149,8 @@
 .addon-auth-content select {
 	max-height: 185px;
 }
+
+.advanced-auth-text { text-align: left; }
 
 .addon-auth-close {
 	display: block;

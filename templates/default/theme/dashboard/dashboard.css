@@ -1,8 +1,13 @@
 /*
- * Contains specific css properties for backend
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+ * Contains specific css properties for dashboard
 */
 
 /* --- Dashboard homepage --- */
+#admin-index .cell h3 { font-size: 1.482em; }
+
 .cell-body form { margin: -0.618em; }
 
 .cell-body fieldset,
@@ -17,11 +22,18 @@
     font-size: 1.482em;
 }
 
-.cell-body textarea {margin: 0;}
+.cell-body textarea { margin: 0; }
 
-#writing_pad_content {
-	height: 264px;
+#writing_pad_content { height: 264px; }
+
+/* --- Alerts --- */
+.alert-priority {
+	border-width: 1px;
+	border-style: solid;
+	border-color: transparent;
 }
+
+td.alert-priority { border-width: 0 0 1px 1px; }
 
 /* --- multitabs --- */
 .close-modal { width: calc(100% - 230px); }
@@ -58,8 +70,16 @@
 /* --- sortable menu edition --- */
 @media (min-width: 769px) {
     .menu-elements-container .sortable-selector,
-    .menu-elements-container .sortable-actions {
-        margin: 1.228em 0 0;
-    }
+    .menu-elements-container .sortable-actions { margin: 1.228em 0 0; }
 
 }
+
+/* --- push menu --- */
+
+.pushmenu .nav-container { width: 230px; }
+
+.pushmenu.nav-position-left .nav-container  { transform: translate3d(-230px, 0, 0); }
+.pushmenu.nav-position-right .nav-container { transform: translate3d(230px, 0, 0); }
+
+/* --- Debugger --- */
+.debugger { margin-left : 240px; }

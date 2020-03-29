@@ -2,7 +2,7 @@
  * Tooltip jQuery plugin - Version: 0.3
  * @copyright   &copy; 2005-2020 PHPBoost - 2019 babsolune
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
- * @author      Sebastien LARTIGUE <babso@labsoweb.fr>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @version     PHPBoost 5.3 - last update: 2019 11 15
  * @since       PHPBoost 5.3 - 2019 11 15
 */
@@ -22,7 +22,7 @@ jQuery.fn.tooltip = function(content,pos,classes) {
 
 	// Add Optional Classes
 	classes = classes || '';
-	var classAttr = (classes !== '')?'class="'+classes+'"': '';
+	var classAttr = (classes !== '')?'class="tooltip '+classes+'"': '';
 
 	var tooltipWidth = this.outerWidth(),
 		tooltipHeight = this.outerHeight(),
@@ -43,7 +43,7 @@ jQuery.fn.tooltip = function(content,pos,classes) {
 	if($('#tooltip')[0] === undefined)
 		$('body').append('<div id="tooltip" '+classAttr+' ></div>');  // Add one or...
 	else
-		$('#tooltip').attr("class",classes);  // Change the existing one...
+		$('#tooltip').attr("class", "tooltip " + classes);  // Change the existing one...
 
 	var $tooltip = $('#tooltip');
 

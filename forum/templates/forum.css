@@ -1,5 +1,5 @@
 /*
-* Copy this file in your theme to customize the module.
+* Copy this file into your theme to customize the module.
 * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
 */
 
@@ -29,8 +29,14 @@
 
 .forum-links .cssmenu-group > ul > li .cssmenu-title,
 .forum-links .cssmenu-group > ul > li:hover .cssmenu-title {
-	border: none;
-	background: none;
+	border-width: 0;
+	background-color: transparent;
+}
+
+.forum-links .cssmenu-title img + span,
+.forum-links .cssmenu-title i + span,
+.forum-links .cssmenu-title span + span {
+    margin-left: 0;
 }
 
 .forum-links .cssmenu.cssmenu-group > ul > li > .cssmenu-title {
@@ -114,15 +120,6 @@ article footer ul.pagination {
 	#article-forum-moderation #id-message-helper.notice {
 		width: 80%;
 	}
-}
-
-.moderation-type-block {
-	display: block;
-	text-align: center;
-}
-
-.moderation-type-block > span {
-	display: block;
 }
 
 

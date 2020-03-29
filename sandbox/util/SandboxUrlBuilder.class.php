@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2017 11 09
+ * @version     PHPBoost 5.3 - last update: 2020 03 03
  * @since       PHPBoost 4.1 - 2013 12 17
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -33,25 +33,42 @@ class SandboxUrlBuilder
 	 * @return Url
 	 */
 
-	public static function admin_form()
+	public static function admin_builder()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/admin/form/');
+		return DispatchManager::get_url(self::$dispatcher, '/admin/builder/');
 	}
 
 	/**
 	 * @return Url
 	 */
-	public static function form()
+
+	public static function admin_fwkboost()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/form');
+		return DispatchManager::get_url(self::$dispatcher, '/admin/fwkboost/');
 	}
 
 	/**
 	 * @return Url
 	 */
-	public static function css()
+	public static function builder()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/css');
+		return DispatchManager::get_url(self::$dispatcher, '/builder');
+	}
+
+	/**
+	 * @return Url
+	 */
+	public static function component()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/component');
+	}
+
+	/**
+	 * @return Url
+	 */
+	public static function layout()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/layout');
 	}
 
 	/**
@@ -89,9 +106,9 @@ class SandboxUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function menu()
+	public static function menus()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/menu');
+		return DispatchManager::get_url(self::$dispatcher, '/menus');
 	}
 
 	/**
@@ -105,9 +122,9 @@ class SandboxUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function mail()
+	public static function email()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/mail');
+		return DispatchManager::get_url(self::$dispatcher, '/email');
 	}
 
 	/**
