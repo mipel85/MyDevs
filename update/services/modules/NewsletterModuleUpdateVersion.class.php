@@ -23,6 +23,15 @@ class NewsletterModuleUpdateVersion extends ModuleUpdateVersion
 		);
 
 		$this->content_tables = array(PREFIX . 'newsletter_archives');
+		
+		$this->database_columns_to_add = array(
+			array(
+				'table_name' => PREFIX . 'newsletter_subscribers',
+				'columns' => array(
+					'subscription_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0)
+				)
+			)
+		);
 	}
 }
 ?>
