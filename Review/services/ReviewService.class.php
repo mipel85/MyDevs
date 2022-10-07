@@ -353,7 +353,7 @@ class ReviewService
 
     public static function get_wiki_title($id)
     {
-        $result = self::$db_querier->select('SELECT wa.title
+        $result = self::$db_querier->select('SELECT wa.id, wa.title
         FROM ' . PREFIX . 'wiki_articles wa
         LEFT JOIN ' . PREFIX . 'wiki_contents wc ON wc.id_article =  ' . $id . '
         WHERE wa.id = ' . $id . '
@@ -370,10 +370,11 @@ class ReviewService
 
     public static function get_topic_title($idtopic)
     {
-        $result = self::$db_querier->select('SELECT ft.title
+        $result = self::$db_querier->select('SELECT ft.id, ft.title
         FROM ' . PREFIX . 'forum_topics ft
-        WHERE ft.id = ' . $idtopic . '
-        ');
+        WHERE ft.id = :id_topic', array(
+            'id_topic' => $idtopic
+        ));
         if ($result->get_rows_count() > 0)
         {
             while($row = $result->fetch())
