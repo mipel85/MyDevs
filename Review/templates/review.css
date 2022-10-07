@@ -1,0 +1,119 @@
+/*
+* Copy this file into your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+/* datatables params */
+.dataTables_length label,
+.dataTables_filter label {
+    display: flex;
+    min-width: 350px;
+    align-items: center;
+    padding: 0.618em 0;
+}
+
+table.dataTable thead tr.filters th { padding: 0.309em; }
+
+.dataTables_filter input {
+    max-width: 250px;
+    margin-left: 0.618em;
+}
+
+.dataTables_length select {
+    max-width: 60px;
+    margin-left: 0.620em;
+}
+
+/* datatables overload */
+.dataTables_wrapper .dataTables_paginate { padding: 0 0 0.618em; }
+
+/* counters */
+.review-results header { padding: 1.618em 0 0.618em; }
+
+.counter-nolink {
+    font-weight: bold;
+    font-size: 1.228em;
+    padding: 0.309em 1em;
+    color : var(--error-tone);
+    font-style: italic;
+}
+
+.counter-helper-small {
+    cursor: help;
+    font-size: 0.700em;
+    display: inline-block;
+    padding: 0.309em 0.618em;
+    border: 1px solid var(--bdr-main);
+    border-radius: 50%;
+    margin-right: 0.618em;
+}
+
+.button{min-width: 60px};
+
+/* surcharge du texte dans aria-label */
+
+.tooltip-large {
+    font-size: 14px;
+    max-width: 500px;
+}
+
+/* tables */
+.review-table { text-align: left; }
+
+.review-table tr th { border: 1px solid var(--bdr-main); }
+
+.review-table tbody tr th,
+.review-table tbody tr td{
+    text-align: left;
+    position: relative;
+}
+
+table thead tr.filters th input { width: auto; }
+
+table thead tr.filters th {
+    text-align: left;
+    background-color: var(--bgc-alt);
+}
+
+.review-preview img,
+.review-preview embed {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.review-preview img { max-width: 250px; }
+
+.review-preview embed {
+    width: 350px;
+    height: 400px;
+}
+
+.review-preview:hover img,
+.review-preview:hover embed { display: block; }
+
+/* tags loader */
+.counter-loader {
+    display: none;
+    width: 80px;
+    height: 80px;
+}
+
+.counter-loader:after {
+    content: " ";
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 20px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #00AFF0 transparent;
+    animation: counter-loader 1.2s linear infinite;
+}
+
+@keyframes counter-loader {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
