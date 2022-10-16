@@ -288,7 +288,7 @@ class ReviewService
         $files_on_server = ReviewService::get_files_on_server($folder);
         if (in_array($file, $files_on_server)){
             $file_ext = substr(strrchr($file, '.'), 1);
-            $isPicture = array('jpg', 'jpeg', 'png', 'svg', 'gif');
+            $isPicture = array('jpg', 'jpeg', 'png', 'svg', 'gif', 'webp');
             return in_array($file_ext, $isPicture);
         }
     }
@@ -339,8 +339,8 @@ class ReviewService
                 break;
             case 'forum':
                 if (isset($data['idtopic'])){ // is a topic or a msg
-                    $page_get = (int)retrieve(GET, 'p', 2);
-                    $link = '/' . $db_name . '/forum/' . url('topic.php?id=' . $data['idtopic'] . '&pt=' . $page_get . '#m' . $data['id']);
+                     //'$pt=1' --> solution provisoire pour définir un n° de page --> utiliser les hook pour trouver le bon numéro
+                    $link = '/' . $db_name . '/forum/' . url('topic.php?id=' . $data['idtopic'] . '&pt=1' . '#m' . $data['id']);
                     return $link;
                 }else{ // is forum or subject
                     $link = '/' . $db_name . '/forum/' . url('forum.php?id=' . $data['id'], 'forum-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
