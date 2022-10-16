@@ -58,14 +58,16 @@ table.dataTable thead tr.filters th { padding: 0.309em; }
 }
 
 /* tables */
-.review-table { text-align: left; }
+.review-table { 
+    text-align: left; 
+    position: relative;
+}
 
 .review-table tr th { border: 1px solid var(--bdr-main); }
 
 .review-table tbody tr th,
 .review-table tbody tr td{
     text-align: left;
-    position: relative;
 }
 
 table thead tr.filters th input { width: auto; }
@@ -79,16 +81,16 @@ table thead tr.filters th {
 .review-preview embed {
     display: none;
     position: absolute;
-    bottom: 100%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 }
 
-.review-preview img { max-width: 250px; }
+.review-preview img { max-width: 80%; }
 
 .review-preview embed {
-    width: 350px;
-    height: 400px;
+    width: 80%;
+    height: 600px;
 }
 
 .review-preview:hover img,
