@@ -17,14 +17,65 @@ class ReviewService
         self::$files_in_content_table = PREFIX . 'review_files_in_content';
     }
 
+    public static function insert_files_in_content_table()
+    {
+        $result = ReviewService::get_tables_with_content_field();
+        foreach ($result as $values)
+        {
+            $matches = preg_match('`_([a-z]*)`us', $values['table'], $item_source); // récupération du module source du contenu
+            $req = PersistenceContext::get_querier()->select(' SELECT *
+            FROM ' . $values['table'] . '
+            WHERE ' . $values['column'] . ' LIKE "%/upload%"
+            ');
+            $module = $item_source[1];
+            if (ReviewService::check_module_compatibility($module)){
+                while($data = $req->fetch())
+                {
+                    $cat_name = ReviewService::get_category_name($module, $data);
+
+                    $id = array_values($data); // on cherche l'id (première valeur du tableau de résultats)
+                    $content = TextHelper::htmlspecialchars($data[$values['column']]);
+                    $matches = preg_match_all('`\/upload\/(\S+\.\w*+)`usU', $content, $files);
+                    $unique_files_path = array_unique($files[1]);
+
+                    if ($module == 'newsletter'){
+                        if (isset($data['stream_id'])) $data['title'] = Url::encode_rewrite(ReviewService::get_newsletter_title($data['stream_id']));
+                    }
+                    if ($module == 'wiki') $data['title'] = Url::encode_rewrite(ReviewService::get_wiki_title($data['id_article']));
+                    if ($module == 'forum') $data['title'] = isset($data['name']) ? Url::encode_rewrite($data['name']) : ReviewService::get_topic_title(isset($data['idtopic']) ? $data['idtopic'] : '');
+
+                    $file_link = ReviewService::create_file_link($module, $data);
+                    foreach ($unique_files_path as $file_path)
+                    {
+                        $upload_data = ReviewService::get_upload_data_file($file_path);
+                        PersistenceContext::get_querier()->insert(ReviewSetup::$files_in_content_table, array(
+                            'file_path'          => $file_path,
+                            'file_link'          => ReviewService::check_module_compatibility($module) ? $file_link : '',
+                            'file_size'          => isset($upload_data['file_size']) ? $upload_data['file_size'] : '',
+                            'upload_by'          => isset($upload_data['display_name']) ? $upload_data['display_name'] : '',
+                            'upload_date'        => isset($upload_data['timestamp']) ? $upload_data['timestamp'] : '',
+                            'module_source'      => $module,
+                            'id_module_category' => isset($data['id_category']) ? $data['id_category'] : 0,
+                            'category_name'      => isset($cat_name) ? $cat_name : '---',
+                            'item_id'            => isset($data['id_article']) ? $data['id_article'] : 0,
+                            'item_title'         => isset($data['title']) ? $data['title'] : $data['name'],
+                            'id_in_module'       => $id[0],
+                            'id_in_module'       => $id[0],
+                        ));
+                    }
+                }
+            }
+        }
+    }
+
     public static function check_module_compatibility($module)
     {
         $modules_list = array();
-        foreach (ModulesManager::get_installed_modules_map_sorted_by_localized_name() as $installed_module) {
+        foreach (ModulesManager::get_installed_modules_map_sorted_by_localized_name() as $installed_module)
+        {
             $modules_list[] = $installed_module->get_id();
         }
-        if (in_array($module, $modules_list))
-        {
+        if (in_array($module, $modules_list)){
             return true;
         }
     }
@@ -54,13 +105,11 @@ class ReviewService
     {
         $data = new Folder(PATH_TO_ROOT . $folder);
         $results = array();
-        if ($data->exists())
-        {
+        if ($data->exists()){
             $files = $data->get_files();
             foreach ($files as $file)
             {
-                if (!strpos($file->get_name(), '.') != 1) 
-                    $results[] = $file->get_name();
+                if (!strpos($file->get_name(), '.') != 1) $results[] = $file->get_name();
             }
         }
         return $results;
@@ -73,26 +122,28 @@ class ReviewService
             $req = self::$db_querier->select('SELECT * FROM ' . ReviewSetup::$files_in_content_table . '');
             while($row = $req->fetch())
             {
-                if (!empty($row)) 
-                    $files_in_content[] = $row;                
+                if (!empty($row)) $files_in_content[] = $row;
             }
             return $files_in_content;
-        } catch (RowNotFoundException $e) {}
+        }catch (RowNotFoundException $e){
+            
+        }
         $req->dispose();
     }
 
     public static function get_files_in_table($table)
     {
         $results = array();
-        if (ModulesManager::is_module_installed($table) && ModulesManager::is_module_activated($table)) 
-        {
+        if (ModulesManager::is_module_installed($table) && ModulesManager::is_module_activated($table)){
             $results = array();
             try {
                 $req = self::$db_querier->select('SELECT path
                 FROM ' . PREFIX . $table . ' 
                 ORDER BY path DESC'
                 );
-            } catch (RowNotFoundException $e) {}
+            }catch (RowNotFoundException $e){
+                
+            }
 
             while($row = $req->fetch())
             {
@@ -142,8 +193,7 @@ class ReviewService
             $result = self::$db_querier->select('SELECT file_path, module_source, item_title, id_module_category, id_in_module FROM ' . ReviewSetup::$files_in_content_table . '
             WHERE file_path = "' . $file . '"
             ');
-            if ($result->get_rows_count() > 0)
-            {
+            if ($result->get_rows_count() > 0){
                 while($row = $result->fetch())
                 {
                     $data_used_files[] = array('file_path' => $row['file_path'], 'module_source' => $row['module_source'], 'item_title' => $row['item_title'], 'id_module_category' => $row['id_module_category'], 'id_in_module' => $row['id_in_module']);
@@ -206,8 +256,7 @@ class ReviewService
             LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON upload.user_id = member.user_id
             WHERE upload.path = "' . $file . '"
             ');
-            if ($result->get_rows_count() > 0)
-            {
+            if ($result->get_rows_count() > 0){
                 while($row = $result->fetch())
                 {
                     $upload_data[] = array('file_path' => $row['path'], 'display_name' => $row['display_name'], 'timestamp' => $row['timestamp'], 'file_size' => $row['size']);
@@ -256,6 +305,7 @@ class ReviewService
 
     public static function create_file_link($module, $data)
     {
+        $request = AppContext::get_request();
         $db_name = PersistenceContext::get_dbms_utils()->get_database_name();
         switch($module)
         {
@@ -289,7 +339,8 @@ class ReviewService
                 break;
             case 'forum':
                 if (isset($data['idtopic'])){ // is a topic or a msg
-                    $link = '/' . $db_name . '/forum/' . url('topic.php?id=' . $data['idtopic'] . '&pt=' . $data['user_id'] . '#m' . $data['id']);
+                    $page_get = (int)retrieve(GET, 'p', 2);
+                    $link = '/' . $db_name . '/forum/' . url('topic.php?id=' . $data['idtopic'] . '&pt=' . $page_get . '#m' . $data['id']);
                     return $link;
                 }else{ // is forum or subject
                     $link = '/' . $db_name . '/forum/' . url('forum.php?id=' . $data['id'], 'forum-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
@@ -307,15 +358,12 @@ class ReviewService
                 }
                 break;
             default :
-                if (isset($data['id_category']))
-                {
+                if (isset($data['id_category'])){
                     $cat_name = self::get_category_name($module, $data);
                     $link = ItemsUrlBuilder::display($data['id_category'], $data['id_category'] != Category::ROOT_CATEGORY ? $cat_name : 'root', $data['id'], $data['rewrited_title'], $module);
                     return $link->absolute();
-                }
-                else // is a category
-                { 
-                    $link = ItemsUrlBuilder::display_category($data['id'], $data['rewrited_name'], $module);
+                }else{ // is not a category
+                    $link = ItemsUrlBuilder::display_category($data['id'], isset($data['rewrited_name']) ? $data['rewrited_name'] : '', $module);
                     return $link->absolute();
                 }
         }
@@ -323,8 +371,7 @@ class ReviewService
 
     public static function get_file_link($file)
     {
-        if ($file['id_module_category'] != 0) // if is not a category
-        {
+        if ($file['id_module_category'] != 0){ // if is not a category
             $req = self::$db_querier->select('SELECT rew.file_link, rew.file_path
             FROM ' . ReviewSetup::$files_in_content_table . ' AS rew
             WHERE rew.file_path = "' . $file['file_path'] . '"
@@ -334,9 +381,7 @@ class ReviewService
             {
                 return $row['file_link'];
             }
-        }
-        else // if is a category
-        {
+        }else{ // if is a category
             $req = self::$db_querier->select('SELECT rew.file_link, rew.file_path
             FROM ' . ReviewSetup::$files_in_content_table . ' AS rew
             WHERE rew.file_path = "' . $file['file_path'] . '"         
@@ -358,8 +403,7 @@ class ReviewService
         LEFT JOIN ' . PREFIX . 'wiki_contents wc ON wc.id_article =  ' . $id . '
         WHERE wa.id = ' . $id . '
         ');
-        if ($result->get_rows_count() > 0)
-        {
+        if ($result->get_rows_count() > 0){
             while($row = $result->fetch())
             {
                 return $row['title'];
@@ -375,12 +419,11 @@ class ReviewService
         WHERE ft.id = :id_topic', array(
             'id_topic' => $idtopic
         ));
-        if ($result->get_rows_count() > 0)
-        {
+        if ($result->get_rows_count() > 0){
             while($row = $result->fetch())
-                {
+            {
                 return $row['title'];
-                }
+            }
             $result->dispose();
         }
     }
@@ -391,9 +434,8 @@ class ReviewService
         FROM ' . PREFIX . 'newsletter_streams ns
         WHERE ns.id = ' . $stream_id . '
         ');
-        if ($result->get_rows_count() > 0)
-        {
-            while ($row = $result->fetch())
+        if ($result->get_rows_count() > 0){
+            while($row = $result->fetch())
             {
                 return $row['rewrited_name'];
             }
@@ -403,8 +445,7 @@ class ReviewService
 
     public static function get_category_name($module, $data)
     {
-        if (isset($data['id_category']) && ($data['id_category'] != 0))
-        {
+        if (isset($data['id_category']) && ($data['id_category'] != 0)){
             $result = self::$db_querier->select('SELECT cats.id, cats.rewrited_name
             FROM ' . PREFIX . $module . '_cats cats
             WHERE cats.id = ' . $data['id_category'] . '
@@ -414,13 +455,9 @@ class ReviewService
             {
                 return $row['rewrited_name'];
             }
-        }
-        elseif (isset($data['id_category']) && $data['id_category'] == 0)
-        {
+        }elseif (isset($data['id_category']) && $data['id_category'] == 0){
             return 'root';
-        }
-        elseif (isset($data['name']))
-            return $data['name'];
+        }elseif (isset($data['name'])) return $data['name'];
     }
 
     public static function get_upload_data_file($file)
@@ -431,7 +468,7 @@ class ReviewService
         LEFT JOIN ' . PREFIX . 'member me ON me.user_id = up.user_id 
         WHERE up.path ="' . $file . '" 
         ');
-        while ($row = $result->fetch())
+        while($row = $result->fetch())
         {
             $file_size = $row['size'] > 1024 ? NumberHelper::round($row['size'] / 1024, 2) . ' ' . LangLoader::get_message('common.unit.megabytes', 'common-lang') : NumberHelper::round($row['size'], 0) . ' ' . LangLoader::get_message('common.unit.kilobytes', 'common-lang');
             return $data[] = array('file_path' => $row['path'], 'display_name' => $row['display_name'], 'timestamp' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE), 'file_size' => $file_size);

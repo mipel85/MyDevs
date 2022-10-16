@@ -12,7 +12,7 @@ class ReviewHomeController extends DefaultAdminModuleController
 	public function execute(HTTPRequestCustom $request)
 	{
 		ReviewService::delete_files_in_content_table();
-        ReviewSetup::insert_files_in_content_table();
+        ReviewService::insert_files_in_content_table();
         
         $this->view = new FileTemplate('review/ReviewHomeController.tpl');
 		$this->view->add_lang($this->lang);
