@@ -32,8 +32,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 {
                     $file_data = ReviewService::get_upload_data_file($file);
                     $this->view->assign_block_vars('onserver', array(
-                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file, '/upload'),
-                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file, '/upload'),
+                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
+                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
                         'FILE_ON_SERVER'    => $file,
                     ));
                 }
@@ -45,8 +45,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 foreach (ReviewService::get_files_on_server('/gallery/pics') as $file)
                 {
                     $this->view->assign_block_vars('ingalleryfolder', array(
-                        'C_IS_PICTURE_FILE'      => ReviewService::is_picture_file($file, '/gallery/pics'),
-                        'C_IS_PDF_FILE'          => ReviewService::is_pdf_file($file, '/gallery/pics'),
+                        'C_IS_PICTURE_FILE'      => ReviewService::is_picture_file($file),
+                        'C_IS_PDF_FILE'          => ReviewService::is_pdf_file($file),
                         'FILE_IN_GALLERY_FOLDER' => $file,
                     ));
                 }
@@ -58,8 +58,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 foreach (ReviewService::get_files_in_table('gallery') as $file)
                 {
                     $this->view->assign_block_vars('ingallerytable', array(
-                        'C_IS_PICTURE_FILE'     => ReviewService::is_picture_file($file, '/gallery/pics'),
-                        'C_IS_PDF_FILE'         => ReviewService::is_pdf_file($file, '/gallery/pics'),
+                        'C_IS_PICTURE_FILE'     => ReviewService::is_picture_file($file),
+                        'C_IS_PDF_FILE'         => ReviewService::is_pdf_file($file),
                         'FILE_IN_GALLERY_TABLE' => $file,
                     ));
                 }
@@ -71,8 +71,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 foreach (ReviewService::get_files_in_table('upload') as $file)
                 {
                     $this->view->assign_block_vars('inupload', array(
-                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file, '/upload'),
-                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file, '/upload'),
+                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
+                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
                         'FILE_IN_UPLOAD'    => $file
                     ));
                 }
@@ -85,8 +85,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 {
                     $link = ReviewService::get_file_link($file);
                     $this->view->assign_block_vars('incontent', array(
-                        'C_IS_PICTURE_FILE'  => ReviewService::is_picture_file($file['file_path'], '/upload'),
-                        'C_IS_PDF_FILE'      => ReviewService::is_pdf_file($file, '/upload'),
+                        'C_IS_PICTURE_FILE'  => ReviewService::is_picture_file($file['file_path']),
+                        'C_IS_PDF_FILE'      => ReviewService::is_pdf_file($file),
                         'FILE_PATH'          => $file['file_path'],
                         'FILE_MODULE_SOURCE' => $file['module_source'],
                         'C_FILE_ITEM_TITLE'  => !empty($link),
@@ -102,8 +102,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 foreach (ReviewService::get_all_unused_files() as $file)
                 {
                     $this->view->assign_block_vars('allunused', array(
-                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file, '/upload'),
-                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file, '/upload'),
+                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
+                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
                         'FILE_PATH'         => $file,
                     ));
                 }
@@ -134,8 +134,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                     $file_size = $file['file_size'] > 1024 ? NumberHelper::round($file['file_size'] / 1024, 2) . ' ' . $this->lang['common.unit.megabytes'] : NumberHelper::round($file['file_size'], 0) . ' ' . $this->lang['common.unit.kilobytes'];
 
                     $this->view->assign_block_vars('unuseduser', array(
-                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file, '/upload'),
-                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file, '/upload'),
+                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
+                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
                         'FILE_PATH'         => $file['file_path'],
                         'FILE_USER'         => $file['display_name'],
                         'FILE_UPLOAD_DATE'  => $upload_date,
@@ -150,8 +150,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 foreach (ReviewService::get_orphan_files() as $file)
                 {
                     $this->view->assign_block_vars('orphan', array(
-                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file, '/upload'),
-                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file, '/upload'),
+                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
+                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
                         'FILE_PATH'         => $file,
                     ));
                 }

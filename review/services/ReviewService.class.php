@@ -283,24 +283,18 @@ class ReviewService
         return array_diff($unused_files, $files_with_users);
     }
 
-    public static function is_picture_file($file, $folder)
+    public static function is_picture_file($file)
     {
-        $files_on_server = ReviewService::get_files_on_server($folder);
-        if (in_array($file, $files_on_server)){
             $file_ext = substr(strrchr($file, '.'), 1);
             $isPicture = array('jpg', 'jpeg', 'png', 'svg', 'gif', 'webp');
             return in_array($file_ext, $isPicture);
-        }
     }
 
-    public static function is_pdf_file($file, $folder)
+    public static function is_pdf_file($file)
     {
-        $files_on_server = ReviewService::get_files_on_server($folder);
-        if (in_array($file, $files_on_server)){
             $file_ext = substr(strrchr($file, '.'), 1);
             $isPdf = array('pdf');
             return in_array($file_ext, $isPdf);
-        }
     }
 
     public static function create_file_link($module, $data)
