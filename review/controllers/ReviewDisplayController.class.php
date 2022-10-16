@@ -15,7 +15,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
         $this->view->add_lang($this->lang);
 
         ReviewService::delete_files_in_content_table();
-        ReviewSetup::insert_files_in_content_table();
+        ReviewService::insert_files_in_content_table();
 
         // call counters menu //        
         $this->view->put_all(array(
