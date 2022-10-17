@@ -18,6 +18,14 @@ class ReviewUrlBuilder
         $section = !empty($section) ? $section . '/' : '';
         return DispatchManager::get_url(self::$dispatcher, '/' . $section);
     }
+
+    /**
+     * @return Url
+     */
+    public static function documentation()
+    {
+        return new Url(ModulesManager::get_module('review')->get_configuration()->get_documentation());
+    }
 }
 ?>
 

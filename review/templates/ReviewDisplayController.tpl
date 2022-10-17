@@ -86,17 +86,6 @@
     });
 </script>
 
-<nav id="admin-quick-menu">
-    <ul>
-        <li>
-            <a href="${relative_url(ReviewUrlBuilder::home())}" class="quick-link">${LangLoader::get_message('common.home', 'common-lang')}</a>
-        </li>
-        <li>
-            <a href="${relative_url(DatabaseUrlBuilder::documentation())}" class="quick-link">${LangLoader::get_message('addon.modules.documentation', 'addon-lang')}</a>
-        </li>
-    </ul>
-</nav>
-
 <section id="admin-contents">
     # INCLUDE REVIEW_COUNTERS #
 
@@ -426,12 +415,29 @@
                         # START orphan #
                             <tr>
                                 # IF orphan.C_IS_PICTURE_FILE #
-                                    <td class="flex-between">{orphan.FILE_PATH}<span class="review-preview"><i class="fa fa-eye"></i><img src="{PATH_TO_ROOT}/upload/{orphan.FILE_PATH}"></span></td>
+                                    <td class="flex-between">
+                                        {orphan.FILE_PATH}
+                                        <span class="review-preview">
+                                            <i class="fa fa-eye"></i>
+                                            <img src="{PATH_TO_ROOT}/upload/{orphan.FILE_PATH}">
+                                        </span>
+                                    </td>
                                 # ELSE #
                                     # IF orphan.C_IS_PDF_FILE #
-                                        <td class="flex-between">{orphan.FILE_PATH}<span class="review-preview"><i class="fa fa-eye"></i><embed src="{PATH_TO_ROOT}/upload/{orphan.FILE_PATH}"></span></td>
+                                        <td class="flex-between">
+                                            {orphan.FILE_PATH}
+                                            <span class="review-preview">
+                                                <i class="fa fa-eye"></i>
+                                                <embed src="{PATH_TO_ROOT}/upload/{orphan.FILE_PATH}">
+                                            </span>
+                                        </td>
                                     # ELSE #
-                                        <td class="flex-between">{orphan.FILE_PATH}<span class="review-preview"><i class="fa fa-eye-slash"></i></span></td>
+                                        <td class="flex-between">
+                                            {orphan.FILE_PATH}
+                                            <span class="review-preview">
+                                                <i class="fa fa-eye-slash"></i>
+                                            </span>
+                                        </td>
                                     # ENDIF #
                                 # ENDIF #
                             </tr>

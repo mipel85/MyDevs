@@ -6,9 +6,9 @@
  * @version     PHPBoost 6.0 - last update: 2022 01 05
  * @since       PHPBoost 6.0 - 2022 01 10
  */
+
 class ReviewHomeController extends DefaultAdminModuleController
 {
-
 	public function execute(HTTPRequestCustom $request)
 	{
 		ReviewService::delete_files_in_content_table();
