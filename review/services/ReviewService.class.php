@@ -305,49 +305,52 @@ class ReviewService
         {
             case 'wiki' :
                 $wiki_title = Url::encode_rewrite(ReviewService::get_wiki_title($data['id_article']));
-                $link = '/' . $db_name . '/wiki/' . url('wiki.php?title=' . $wiki_title, $wiki_title);
+                $link = TPL_PATH_TO_ROOT . '/wiki/' . url('wiki.php?title=' . $wiki_title, $wiki_title);
                 return $link;
                 break;
             case 'media' :
                 if (isset($data['id_category'])){ // is not a category
-                    $link = '/' . $db_name . '/media/' . url('media.php?id=' . $data['id'], 'media-' . $data['id_category'] . '-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
+                    $link = TPL_PATH_TO_ROOT . '/media/' . url('media.php?id=' . $data['id'], 'media-' . $data['id_category'] . '-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
                     return $link;
                 }else{ //is a category
-                    $link = '/' . $db_name . '/media/' . url('media.php?cat=' . $data['id']);
+                    $link = TPL_PATH_TO_ROOT . '/media/' . url('media.php?cat=' . $data['id']);
                     return $link;
                 }
                 break;
             case 'gallery' : // voir dossier pics
-                $link = '/' . $db_name . '/gallery/gallery-' . $data['id'] . '+' . $data['rewrited_name'] . '.php';
+                $link = TPL_PATH_TO_ROOT . '/gallery/gallery-' . $data['id'] . '+' . $data['rewrited_name'] . '.php';
                 return $link;
                 break;
             case 'faq' :
-                if (isset($data['id_category'])){
+                if (isset($data['id_category']))
+                {
                     $cat_name = self::get_category_name($module, $data);
-                    $link = '/' . $db_name . '/faq/' . $data['id'] . '-' . $cat_name . '/#question' . $data['id'] . '';
+                    $link = TPL_PATH_TO_ROOT . '/faq/' . $data['id'] . '-' . $cat_name . '/#question' . $data['id'] . '';
                     return $link;
-                }else{ // is a category
-                    $link = '/' . $db_name . '/faq/' . $data['id'] . '-' . $data['rewrited_name'];
+                }
+                else // is a category
+                {
+                    $link = TPL_PATH_TO_ROOT . '/faq/' . $data['id'] . '-' . $data['rewrited_name'];
                     return $link;
                 }
                 break;
             case 'forum':
                 if (isset($data['idtopic'])){ // is a topic or a msg
                      //'$pt=1' --> solution provisoire pour définir un n° de page --> utiliser les hook pour trouver le bon numéro
-                    $link = '/' . $db_name . '/forum/' . url('topic.php?id=' . $data['idtopic'] . '&pt=1' . '#m' . $data['id']);
+                    $link = TPL_PATH_TO_ROOT . '/forum/' . url('topic.php?id=' . $data['idtopic'] . '&pt=1' . '#m' . $data['id']);
                     return $link;
                 }else{ // is forum or subject
-                    $link = '/' . $db_name . '/forum/' . url('forum.php?id=' . $data['id'], 'forum-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
+                    $link = TPL_PATH_TO_ROOT . '/forum/' . url('forum.php?id=' . $data['id'], 'forum-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
                     return $link;
                 }
                 break;
             case 'newsletter':
                 if (isset($data['stream_id'])){ // is a newsletter content
                     $newsletter_title = ReviewService::get_newsletter_title($data['stream_id']);
-                    $link = '/' . $db_name . '/newsletter/archives/' . $data['stream_id'] . '-' . $newsletter_title;
+                    $link = TPL_PATH_TO_ROOT . '/newsletter/archives/' . $data['stream_id'] . '-' . $newsletter_title;
                     return $link;
                 }else{
-                    $link = '/' . $db_name . '/newsletter/streams/';
+                    $link = TPL_PATH_TO_ROOT . '/newsletter/streams/';
                     return $link;
                 }
                 break;
