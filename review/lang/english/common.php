@@ -26,6 +26,7 @@ $lang['review.counters.files.no.gallery.table']         = 'Files missing from th
 $lang['review.counters.unused.files.users']             = 'Unused files (present in upload table)';
 $lang['review.counters.orphan.files']                   = 'Orphan files (unused and without bdd link)';
 $lang['review.counters.all.errors']                     = 'Total of all anomalies';
+$lang['review.no.gallery']                              = 'The Gallery module is not installed or activated';
 
 // lists 
 $lang['review.file.path']              = 'File name';
@@ -40,6 +41,7 @@ $lang['review.file.undetermined.link'] = 'undetermined link';
 $lang['review.onserver']        = ' on server';
 $lang['review.ingalleryfolder'] = ' in the Gallery folder';
 $lang['review.ingallerytable']  = ' in the Gallery table';
+$lang['review.nogalleryfolder'] = ' in the Gallery table but missing from Gallery folder';
 $lang['review.inupload']        = ' in the upload folder';
 $lang['review.incontent']       = ' in content';
 $lang['review.allunused']       = ' not used';

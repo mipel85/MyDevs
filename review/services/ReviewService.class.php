@@ -38,11 +38,15 @@ class ReviewService
                     $matches = preg_match_all('`\/upload\/(\S+\.\w*+)`usU', $content, $files);
                     $unique_files_path = array_unique($files[1]);
 
-                    if ($module == 'newsletter'){
-                        if (isset($data['stream_id'])) $data['title'] = Url::encode_rewrite(ReviewService::get_newsletter_title($data['stream_id']));
+                    if ($module == 'newsletter')
+                    {
+                        if (isset($data['stream_id'])) 
+                            $data['title'] = Url::encode_rewrite(ReviewService::get_newsletter_title($data['stream_id']));
                     }
-                    if ($module == 'wiki') $data['title'] = Url::encode_rewrite(ReviewService::get_wiki_title($data['id_article']));
-                    if ($module == 'forum') $data['title'] = isset($data['name']) ? Url::encode_rewrite($data['name']) : ReviewService::get_topic_title(isset($data['idtopic']) ? $data['idtopic'] : '');
+                    if ($module == 'wiki') 
+                        $data['title'] = Url::encode_rewrite(ReviewService::get_wiki_title($data['id_article']));
+                    if ($module == 'forum') 
+                        $data['title'] = isset($data['name']) ? Url::encode_rewrite($data['name']) : ReviewService::get_topic_title(isset($data['idtopic']) ? $data['idtopic'] : '');
 
                     $file_link = ReviewService::create_file_link($module, $data);
                     foreach ($unique_files_path as $file_path)
@@ -58,7 +62,7 @@ class ReviewService
                             'id_module_category' => isset($data['id_category']) ? $data['id_category'] : 0,
                             'category_name'      => isset($cat_name) ? $cat_name : '---',
                             'item_id'            => isset($data['id_article']) ? $data['id_article'] : 0,
-                            'item_title'         => isset($data['title']) ? $data['title'] : $data['name'],
+                            'item_title'         => isset($data['title']) ? $data['title'] : (isset($data['name']) ? $data['name'] : ''),
                             'id_in_module'       => $id[0],
                             'id_in_module'       => $id[0],
                         ));
@@ -134,23 +138,19 @@ class ReviewService
     public static function get_files_in_table($table)
     {
         $results = array();
-        if (ModulesManager::is_module_installed($table) && ModulesManager::is_module_activated($table)){
-            $results = array();
-            try {
-                $req = self::$db_querier->select('SELECT path
-                FROM ' . PREFIX . $table . ' 
-                ORDER BY path DESC'
-                );
-            }catch (RowNotFoundException $e){
-                
-            }
+        try {
+            $req = self::$db_querier->select('SELECT path
+            FROM ' . PREFIX . $table . ' 
+            ORDER BY path DESC'
+            );
+        } catch (RowNotFoundException $e) {}
 
-            while($row = $req->fetch())
-            {
-                $results[] = $row['path'];
-            }
-            $req->dispose();
+        while($row = $req->fetch())
+        {
+            $results[] = $row['path'];
         }
+        $req->dispose();
+        
         return $results;
     }
 

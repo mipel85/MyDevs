@@ -76,7 +76,9 @@
                     </li>
                     <li class="li-stretch">
                         <span>{@review.counters.title.files.in.gallery.table}</span>
-                        <a class="button bgc-full question text-strong small" href="{U_FILES_IN_GALLERY_TABLE}">{NB_FILES_IN_GALLERY_TABLE}</a>
+                        <a class="button bgc-full question text-strong small" href="{U_FILES_IN_GALLERY_TABLE}"# IF NOT C_GALLERY # aria-label="{@review.no.gallery}"# ENDIF #>
+                            # IF C_GALLERY #{NB_FILES_IN_GALLERY_TABLE}# ELSE #?# ENDIF #
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -90,12 +92,15 @@
                 <ul>
                     <li class="li-stretch">
                         <span>{@review.counters.files.no.gallery.folder}</span>
-                        <a class="button bgc-full question text-strong small" href="{U_FILES_NOT_IN_GALLERY_FOLDER}">{NB_FILES_NOT_IN_GALLERY_FOLDER}</a>
+                        <a class="button bgc-full question text-strong small" href="{U_FILES_NOT_IN_GALLERY_FOLDER}"# IF NOT C_GALLERY # aria-label="{@review.no.gallery}"# ENDIF #>
+                            # IF C_GALLERY #{NB_FILES_NOT_IN_GALLERY_FOLDER}# ELSE #?# ENDIF #
+                        </a>
                     </li>
                     <li class="li-stretch">
                         <span>{@review.counters.files.no.gallery.table}</span>
-                        <a class="button bgc-full question text-strong small" href="{U_FILES_NOT_IN_GALLERY_TABLE}">{NB_FILES_NOT_IN_GALLERY_TABLE}</a>
-                    </li>
+                        <a class="button bgc-full question text-strong small" href="{U_FILES_NOT_IN_GALLERY_TABLE}"# IF NOT C_GALLERY # aria-label="{@review.no.gallery}"# ENDIF #>
+                            # IF C_GALLERY #{NB_FILES_NOT_IN_GALLERY_TABLE}# ELSE #?# ENDIF #
+                        </a>
                     </li>
                 </ul>
             </div>
