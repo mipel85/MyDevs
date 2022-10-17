@@ -36,6 +36,17 @@ $lang['review.file.size']              = 'weight';
 $lang['review.file.item.link']         = 'Link to document';
 $lang['review.file.undetermined.link'] = 'undetermined link';
 
+// Pages
+$lang['review.onserver']        = ' on server';
+$lang['review.ingalleryfolder'] = ' in the Gallery folder';
+$lang['review.ingallerytable']  = ' in the Gallery table';
+$lang['review.inupload']        = ' in the upload folder';
+$lang['review.incontent']       = ' in content';
+$lang['review.allunused']       = ' not used';
+$lang['review.usednoserver']    = ' used but missing from server';
+$lang['review.unuseduser']      = ' not used but setted in upload table';
+$lang['review.orphan']          = ' orphans';
+
 // helpers
 $lang['review.help.all.unused.files'] = 'All unused files in all site documents, with or without links in the upload table.';
 

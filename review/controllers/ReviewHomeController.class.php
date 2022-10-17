@@ -20,7 +20,7 @@ class ReviewHomeController extends DefaultAdminModuleController
 		// call counters menu //        
 		$this->view->put('REVIEW_COUNTERS', ReviewCounters::get_counters());
 
-		return new AdminDisplayResponse($this->view);
+		return new ReviewDisplayResponse($this->view, $this->lang['review.module.title']);
 	}
 }
 ?>

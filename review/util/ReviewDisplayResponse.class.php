@@ -17,7 +17,7 @@ class ReviewDisplayResponse extends AdminMenuDisplayResponse
         $this->set_title($lang['review.module.title']);
 
         $env = $this->get_graphical_environment();
-        $env->set_page_title($title_page, $lang['review.module.title']);
+        $env->set_page_title($title_page);
     }
 
 }

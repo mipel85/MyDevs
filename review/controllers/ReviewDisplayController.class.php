@@ -18,9 +18,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
         ReviewService::insert_files_in_content_table();
 
         // call counters menu //        
-        $this->view->put_all(array(
-            'REVIEW_COUNTERS' => ReviewCounters::get_counters(),
-        ));
+        $this->view->put('REVIEW_COUNTERS', ReviewCounters::get_counters());
 
         $section = $request->get_string('section');
         switch($section)
@@ -179,7 +177,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 }
                 break;
         }
-        return new AdminDisplayResponse($this->view);
+
+		return new ReviewDisplayResponse($this->view, $this->lang['review.module.title'] . $this->lang['review.' . $section . '']);
     }
 }
 ?>
