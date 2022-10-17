@@ -67,6 +67,9 @@
         <div class="cell">
             <div class="cell-header">
                 <h5 class="cell-name">{@review.counters.files.status.gallery}</h5>
+                # IF NOT C_GALLERY #
+                <p class="alert-very-high-priority">{@review.no.gallery}</h5>
+                # ENDIF #
             </div>
             <div class="cell-list">
                 <ul>
