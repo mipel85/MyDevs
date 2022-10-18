@@ -84,7 +84,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
                     $link = ReviewService::get_file_link($file);
                     $this->view->assign_block_vars('incontent', array(
                         'C_IS_PICTURE_FILE'  => ReviewService::is_picture_file($file['file_path']),
-                        'C_IS_PDF_FILE'      => ReviewService::is_pdf_file($file),
+                        'C_IS_PDF_FILE'      => ReviewService::is_pdf_file($file['file_path']),
                         'FILE_PATH'          => $file['file_path'],
                         'FILE_MODULE_SOURCE' => $file['module_source'],
                         'C_FILE_ITEM_TITLE'  => !empty($link),
