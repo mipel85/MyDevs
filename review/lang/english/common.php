@@ -38,9 +38,11 @@ $lang['review.file.item.link']         = 'Link to document';
 $lang['review.file.undetermined.link'] = 'undetermined link';
 
 // Pages
+$lang['review.home']            = ' - Accueil';
 $lang['review.onserver']        = ' on server';
 $lang['review.ingalleryfolder'] = ' in the Gallery folder';
 $lang['review.ingallerytable']  = ' in the Gallery table';
+$lang['review.nogallerytable']  = ' in the Gallery folder but missing from Gallery table';
 $lang['review.nogalleryfolder'] = ' in the Gallery table but missing from Gallery folder';
 $lang['review.inupload']        = ' in the upload folder';
 $lang['review.incontent']       = ' in content';
