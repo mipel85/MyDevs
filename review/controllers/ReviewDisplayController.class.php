@@ -3,7 +3,7 @@
  * @copyright   &copy; 2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel <mipel@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 05
+ * @version     PHPBoost 6.0 - last update: 2022 10 19
  * @since       PHPBoost 6.0 - 2022 01 10
  */
 class ReviewDisplayController extends DefaultAdminModuleController
@@ -33,6 +33,9 @@ class ReviewDisplayController extends DefaultAdminModuleController
                         'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
                         'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
                         'FILE_ON_SERVER'    => $file,
+                        'FILE_UPLOAD_BY'    => isset($file_data['display_name']) ? $file_data['display_name'] : '---',
+                        'FILE_UPLOAD_DATE'  => isset($file_data['timestamp']) ? $file_data['timestamp'] : '---',
+                        'FILE_UPLOAD_SIZE'  => isset($file_data['file_size']) ? $file_data['file_size'] : '---',
                     ));
                 }
                 break;
@@ -178,7 +181,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 break;
         }
 
-		return new ReviewDisplayResponse($this->view, $this->lang['review.module.title'] . $this->lang['review.' . $section . '']);
+        return new ReviewDisplayResponse($this->view, $this->lang['review.module.title'] . $this->lang['review.' . $section . '']);
     }
 }
 ?>
