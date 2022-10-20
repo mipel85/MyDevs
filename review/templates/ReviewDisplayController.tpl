@@ -88,68 +88,55 @@
 # INCLUDE REVIEW_COUNTERS #
 
 # IF C_FILES_ON_SERVER #
-<article class="review-results">
-    <header>
-        <h2>{@review.counters.title.files.on.server}</h2>
-    </header>
-    <div class="content">
-        <table class="display review-table">
-            <thead>
-                <tr>
-                    <th>{@review.file.path}</th><th>{@review.file.upload.by}</th><th>{@review.file.timestamp}</th><th>{@review.file.size}</th>
-                </tr>
-            </thead>
-            <tbody>
-                # START onserver #
-                <tr>
-                    # IF onserver.C_IS_PICTURE_FILE #
-                    <td class="flex-between">
-                        {onserver.FILE_ON_SERVER}<span class="review-preview"><i class="fa fa-eye"></i><img src="{PATH_TO_ROOT}/upload/{onserver.FILE_ON_SERVER}" /></span>
-                    </td>
-                    <td>
-                        {onserver.FILE_UPLOAD_BY}
-                    </td>
-                    <td>
-                        {onserver.FILE_UPLOAD_DATE}
-                    </td>
-                    <td>
-                        {onserver.FILE_UPLOAD_SIZE}
-                    </td>
-                    # ELSE #
-                    # IF onserver.C_IS_PDF_FILE #
-                    <td class="flex-between">
-                        {onserver.FILE_ON_SERVER}<span class="review-preview"><i class="fa fa-eye"></i><embed src="{PATH_TO_ROOT}/upload/{onserver.FILE_ON_SERVER}" /></span>
-                    </td>
-                    <td>
-                        {onserver.FILE_UPLOAD_BY}
-                    </td>
-                    <td>
-                        {onserver.FILE_UPLOAD_DATE}
-                    </td>
-                    <td>
-                        {onserver.FILE_UPLOAD_SIZE}
-                    </td>
-                    # ELSE #
-                    <td class="flex-between">
-                        {onserver.FILE_ON_SERVER}<span class="review-preview"><i class="fa fa-eye-slash"></i></span>
-                    </td>
-                    <td>
-                        {onserver.FILE_UPLOAD_BY}
-                    </td>
-                    <td>
-                        {onserver.FILE_UPLOAD_DATE}
-                    </td>
-                    <td>
-                        {onserver.FILE_UPLOAD_SIZE}
-                    </td>
-                    # ENDIF #
-                    # ENDIF #
-                </tr>
-                # END onserver #
-            </tbody>
-        </table>
-    </div>            
-</article>
+    <article class="review-results">
+        <header>
+            <h2>{@review.counters.title.files.on.server}</h2>
+        </header>
+        <div class="content responsive-table">
+            <table class="display review-table">
+                <thead>
+                    <tr>
+                        <th>{@review.file.path}</th>
+                        <th>{@review.file.upload.by}</th>
+                        <th>{@review.file.timestamp}</th>
+                        <th>{@review.file.size}</th>
+                        <th aria-label="{@review.preview}"><i class="far fa-eye" aria-hidden></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    # START onserver #
+                        <tr>
+                            <td class="align-left">
+                                {onserver.FILE_NAME}
+                            </td>
+                            <td>
+                                {onserver.FILE_UPLOAD_BY}
+                            </td>
+                            <td>
+                                {onserver.FILE_UPLOAD_DATE}
+                            </td>
+                            <td>
+                                {onserver.FILE_UPLOAD_SIZE}
+                            </td>
+                            <td class="align-right">
+                                <span class="review-preview" aria-label="{@review.preview}">
+                                    # IF onserver.C_IS_PICTURE_FILE #
+                                        <i class="far fa-eye" aria-hidden></i><img src="{PATH_TO_ROOT}/upload/{onserver.FILE_NAME}" />
+                                    # ELSE #
+                                        # IF onserver.C_IS_PDF_FILE #
+                                            <i class="far fa-eye" aria-hidden></i><embed src="{PATH_TO_ROOT}/upload/{onserver.FILE_NAME}" />
+                                        # ELSE #
+                                            <i class="far fa-eye-slash" aria-hidden></i>
+                                        # ENDIF #
+                                    # ENDIF #
+                                </span>
+                            </td>
+                        </tr>
+                    # END onserver #
+                </tbody>
+            </table>
+        </div>
+    </article>
 # ENDIF #
 
 # IF C_FILES_IN_GALLERY_FOLDER #
