@@ -3,7 +3,7 @@
  * @copyright   &copy; 2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel <mipel@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 05
+ * @version     PHPBoost 6.0 - last update: 2022 10 20
  * @since       PHPBoost 6.0 - 2022 01 10
  */
 // Titles
@@ -29,6 +29,7 @@ $lang['review.counters.all.errors']                     = 'Total de toutes les a
 $lang['review.no.gallery']                              = 'Le module Galerie n\'est pas installé ou activé';
 
 // lists 
+$lang['review.preview']                = 'Visualiser le fichier';
 $lang['review.file.path']              = 'Nom du fichier';
 $lang['review.file.module.source']     = 'Module source';
 $lang['review.file.upload.by']         = 'uploadé par';
