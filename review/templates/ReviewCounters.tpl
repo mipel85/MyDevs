@@ -111,3 +111,11 @@
     </div>
 </article>
 <script type="text/javascript" src="{PATH_TO_ROOT}/review/templates/DataTables/js/jquery.dataTables.min.js"></script>
+<script>
+    jQuery('a.button').each(function() {
+        let button = jQuery(this).attr('href').split('/');
+            selectedButton = button[button.length - 2];
+        if(window.location.href.indexOf(selectedButton) > -1) 
+            jQuery(this).addClass('bgc').removeClass('bgc-full');
+    });
+</script>
