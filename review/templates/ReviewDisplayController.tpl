@@ -121,10 +121,10 @@
                             <td class="align-right">
                                 <span class="review-preview" aria-label="{@review.preview}">
                                     # IF onserver.C_IS_PICTURE_FILE #
-                                        <i class="far fa-eye" aria-hidden></i><img src="{PATH_TO_ROOT}/upload/{onserver.FILE_NAME}" />
+                                        <i class="far fa-eye" aria-hidden></i><img src="{PATH_TO_ROOT}/upload/{onserver.FILE_ON_SERVER}" />
                                     # ELSE #
                                         # IF onserver.C_IS_PDF_FILE #
-                                            <i class="far fa-eye" aria-hidden></i><embed src="{PATH_TO_ROOT}/upload/{onserver.FILE_NAME}" />
+                                            <i class="far fa-eye" aria-hidden></i><embed src="{PATH_TO_ROOT}/upload/{onserver.FILE_ON_SERVER}" />
                                         # ELSE #
                                             <i class="far fa-eye-slash" aria-hidden></i>
                                         # ENDIF #
