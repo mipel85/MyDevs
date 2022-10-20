@@ -107,7 +107,7 @@
                     # START onserver #
                         <tr>
                             <td class="align-left">
-                                {onserver.FILE_NAME}
+                                {onserver.FILE_ON_SERVER}
                             </td>
                             <td>
                                 {onserver.FILE_UPLOAD_BY}
