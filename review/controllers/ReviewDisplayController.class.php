@@ -135,8 +135,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
                     $file_size = $file['file_size'] > 1024 ? NumberHelper::round($file['file_size'] / 1024, 2) . ' ' . $this->lang['common.unit.megabytes'] : NumberHelper::round($file['file_size'], 0) . ' ' . $this->lang['common.unit.kilobytes'];
 
                     $this->view->assign_block_vars('unuseduser', array(
-                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
-                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
+                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file['file_path']),
+                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file['file_path']),
                         'FILE_PATH'         => $file['file_path'],
                         'FILE_USER'         => $file['display_name'],
                         'FILE_UPLOAD_DATE'  => $upload_date,
