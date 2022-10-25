@@ -13,7 +13,7 @@ class ReviewUrlBuilder
     /**
      * @return Url
      */
-    public static function home($section = 'home')
+    public static function home($section = '')
     {
         $section = !empty($section) ? $section . '/' : '';
         return DispatchManager::get_url(self::$dispatcher, '/' . $section);

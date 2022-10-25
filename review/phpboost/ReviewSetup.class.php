@@ -8,17 +8,17 @@
  */
 class ReviewSetup extends DefaultModuleSetup
 {
-    public static $files_in_content_table;
+    public static $files_incontenttable;
 
     public static function __static()
     {
-        self::$files_in_content_table = PREFIX . 'review_files_in_content';
+        self::$files_incontenttable = PREFIX . 'review_files_in_content';
     }
 
     public function install()
     {
         $this->drop_tables();
-        $this->create_fields_in_content_table();
+        $this->create_fields_incontenttable();
     }
 
     public function uninstall()
@@ -29,10 +29,10 @@ class ReviewSetup extends DefaultModuleSetup
 
     private function drop_tables()
     {
-        PersistenceContext::get_dbms_utils()->drop(array(self::$files_in_content_table));
+        PersistenceContext::get_dbms_utils()->drop(array(self::$files_incontenttable));
     }
 
-    private function create_fields_in_content_table()
+    private function create_fields_incontenttable()
     {
         $fields = array(
             'id'                 => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
@@ -51,7 +51,7 @@ class ReviewSetup extends DefaultModuleSetup
         $options = array(
             'primary' => array('id'),
         );
-        PersistenceContext::get_dbms_utils()->create_table(self::$files_in_content_table, $fields, $options);
+        PersistenceContext::get_dbms_utils()->create_table(self::$files_incontenttable, $fields, $options);
     }
 
 }

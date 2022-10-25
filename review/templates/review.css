@@ -3,6 +3,14 @@
 * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
 */
 
+/* form button */
+.fieldset-content,
+.fieldset-submit,
+.fieldset-inset,
+.fieldset-inset .button { margin: 0; }
+
+.fieldset-inset { padding: 0; }
+
 /* datatables params */
 .dataTables_length label,
 .dataTables_filter label {
@@ -48,7 +56,7 @@ table.dataTable thead tr.filters th { padding: 0.309em; }
     margin-right: 0.618em;
 }
 
-.button{min-width: 60px};
+.button {min-width: 60px};
 
 /* surcharge du texte dans aria-label */
 
@@ -58,17 +66,12 @@ table.dataTable thead tr.filters th { padding: 0.309em; }
 }
 
 /* tables */
-.review-table { 
-    text-align: left; 
-    position: relative;
+.review-responsive-table {
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 .review-table tr th { border: 1px solid var(--bdr-main); }
-
-.review-table tbody tr th,
-.review-table tbody tr td{
-    text-align: left;
-}
 
 table thead tr.filters th input { width: auto; }
 
@@ -86,10 +89,13 @@ table thead tr.filters th {
     transform: translate(-50%, -50%);
 }
 
-.review-preview img { max-width: 80%; }
+.review-preview img { 
+    max-width: 60%; 
+    max-height: 100%;
+}
 
 .review-preview embed {
-    width: 80%;
+    width: 60%;
     height: 600px;
 }
 

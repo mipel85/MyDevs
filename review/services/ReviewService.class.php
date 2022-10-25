@@ -6,18 +6,24 @@
  * @version     PHPBoost 6.0 - last update: 2022 01 05
  * @since       PHPBoost 6.0 - 2022 01 10
  */
+
 class ReviewService
 {
     private static $db_querier;
-    public static $files_in_content_table;
+    public static $files_incontenttable;
+    public static $cache_in_table;
+    public static $cache_in_folder;
+
 
     public static function __static()
     {
         self::$db_querier = PersistenceContext::get_querier();
-        self::$files_in_content_table = PREFIX . 'review_files_in_content';
+        self::$files_incontenttable = PREFIX . 'review_files_in_content';
+        self::$cache_in_table = ReviewCacheInTable::load();
+        self::$cache_in_folder = ReviewCacheInFolder::load();
     }
 
-    public static function insert_files_in_content_table()
+    public static function insert_files_incontenttable()
     {
         $result = ReviewService::get_tables_with_content_field();
         foreach ($result as $values)
@@ -52,9 +58,9 @@ class ReviewService
                     foreach ($unique_files_path as $file_path)
                     {
                         $upload_data = ReviewService::get_upload_data_file($file_path);
-                        PersistenceContext::get_querier()->insert(ReviewSetup::$files_in_content_table, array(
+                        PersistenceContext::get_querier()->insert(ReviewSetup::$files_incontenttable, array(
                             'file_path'          => $file_path,
-                            'file_link'          => ReviewService::check_module_compatibility($module) ? $file_link : '',
+                            'file_link'          => ReviewService::check_module_compatibility($module) ? $file_link : '#',
                             'file_size'          => isset($upload_data['file_size']) ? $upload_data['file_size'] : '',
                             'upload_by'          => isset($upload_data['display_name']) ? $upload_data['display_name'] : '',
                             'upload_date'        => isset($upload_data['timestamp']) ? $upload_data['timestamp'] : '',
@@ -63,7 +69,6 @@ class ReviewService
                             'category_name'      => isset($cat_name) ? $cat_name : '---',
                             'item_id'            => isset($data['id_article']) ? $data['id_article'] : 0,
                             'item_title'         => isset($data['title']) ? $data['title'] : (isset($data['name']) ? $data['name'] : ''),
-                            'id_in_module'       => $id[0],
                             'id_in_module'       => $id[0],
                         ));
                     }
@@ -84,9 +89,9 @@ class ReviewService
         }
     }
 
-    public static function delete_files_in_content_table()
+    public static function delete_files_incontenttable()
     {
-        PersistenceContext::get_dbms_utils()->truncate(array(self::$files_in_content_table));
+        PersistenceContext::get_dbms_utils()->truncate(array(self::$files_incontenttable));
     }
 
     public static function get_tables_with_content_field()
@@ -119,21 +124,19 @@ class ReviewService
         return $results;
     }
 
-    public static function get_files_in_content()
-    {
-        $files_in_content = array();
-        try {
-            $req = self::$db_querier->select('SELECT * FROM ' . ReviewSetup::$files_in_content_table . '');
-            while($row = $req->fetch())
-            {
-                if (!empty($row)) $files_in_content[] = $row;
-            }
-            return $files_in_content;
-        }catch (RowNotFoundException $e){
+    // public static function get_files_in_content()
+    // {
+    //     $files_in_content = array();
+    //     try {
+    //         foreach(ReviewCache::load()->get_files_in_content_list() as $file)
+    //         {
+    //             $files_in_content[] = $file;
+    //         }
+    //         return $files_in_content;
+    //     }catch (RowNotFoundException $e){
             
-        }
-        $req->dispose();
-    }
+    //     }
+    // }
 
     public static function get_files_in_table($table)
     {
@@ -154,15 +157,15 @@ class ReviewService
         return $results;
     }
 
-    public static function get_all_unused_files()
+    public static function get_allunused_files()
     {
         $files_on_server = array();
-        foreach (self::get_files_on_server('/upload') as $file)
+        foreach (self::$cache_in_folder->get_files_in_upload_list() as $file)
         {
             $files_on_server[] = $file;
         }
         $files_in_content = array();
-        foreach (self::get_files_in_content() as $file)
+        foreach (self::$cache_in_table->get_files_in_content_list() as $file)
         {
             $files_in_content[] = $file['file_path'];
         }
@@ -178,7 +181,7 @@ class ReviewService
             $files_on_server[] = $file;
         }
         $files_in_content = array();
-        foreach (self::get_files_in_content() as $file)
+        foreach (self::$cache_in_table->get_files_in_content_list() as $file)
         {
             $files_in_content[] = $file['file_path'];
         }
@@ -190,7 +193,8 @@ class ReviewService
         $data_used_files = array();
         foreach (self::get_count_used_files_not_on_server('/upload') as $file)
         {
-            $result = self::$db_querier->select('SELECT file_path, module_source, item_title, id_module_category, id_in_module FROM ' . ReviewSetup::$files_in_content_table . '
+            $result = self::$db_querier->select('SELECT file_path, module_source, item_title, id_module_category, id_in_module 
+            FROM ' . ReviewSetup::$files_incontenttable . '
             WHERE file_path = "' . $file . '"
             ');
             if ($result->get_rows_count() > 0){
@@ -204,7 +208,7 @@ class ReviewService
         return $data_used_files;
     }
 
-    public static function get_count_files_not_in_gallery_folder()
+    public static function get_count_files_not_ingalleryfolder()
     {
         $files_in_folder = array();
         foreach (self::get_files_on_server('/gallery/pics') as $file)
@@ -219,13 +223,13 @@ class ReviewService
         return array_diff($files_in_table, $files_in_folder);
     }
 
-    public static function get_files_not_in_gallery_folder()
+    public static function get_files_not_ingalleryfolder()
     {
-        $files = self::get_count_files_not_in_gallery_folder();
+        $files = self::get_count_files_not_ingalleryfolder();
         return $files;
     }
 
-    public static function get_count_files_not_in_gallery_table()
+    public static function get_count_files_not_in_ingallerytable()
     {
         $files_in_folder = array();
         foreach (self::get_files_on_server('/gallery/pics') as $file)
@@ -240,16 +244,16 @@ class ReviewService
         return array_diff($files_in_folder, $files_in_table);
     }
 
-    public static function get_files_not_in_gallery_table()
+    public static function get_files_not_in_ingallerytable()
     {
-        $files = self::get_count_files_not_in_gallery_table();
+        $files = self::get_count_files_not_in_ingallerytable();
         return $files;
     }
 
     public static function get_unused_files_with_users()
     {
         $upload_data = array();
-        foreach (self::get_all_unused_files() as $file)
+        foreach (self::get_allunused_files() as $file)
         {
             $result = self::$db_querier->select('SELECT id, upload.path, member.display_name, timestamp, size
             FROM ' . DB_TABLE_UPLOAD . ' upload
@@ -267,10 +271,10 @@ class ReviewService
         return $upload_data;
     }
 
-    public static function get_orphan_files()
+    public static function get_orphans_files()
     {
         $unused_files = array();
-        foreach (self::get_all_unused_files() as $file)
+        foreach (self::get_allunused_files() as $file)
         {
             $unused_files[] = $file;
         }
@@ -285,16 +289,16 @@ class ReviewService
 
     public static function is_picture_file($file)
     {
-            $file_ext = substr(strrchr($file, '.'), 1);
-            $isPicture = array('jpg', 'jpeg', 'png', 'svg', 'gif', 'webp');
-            return in_array($file_ext, $isPicture);
+        $file_ext = substr(strrchr($file, '.'), 1);
+        $isPicture = array('jpg', 'jpeg', 'png', 'svg', 'gif', 'webp');
+        return in_array($file_ext, $isPicture);
     }
 
     public static function is_pdf_file($file)
     {
-            $file_ext = substr(strrchr($file, '.'), 1);
-            $isPdf = array('pdf');
-            return in_array($file_ext, $isPdf);
+        $file_ext = substr(strrchr($file, '.'), 1);
+        $isPdf = array('pdf');
+        return in_array($file_ext, $isPdf);
     }
 
     public static function create_file_link($module, $data)
@@ -368,9 +372,10 @@ class ReviewService
 
     public static function get_file_link($file)
     {
-        if ($file['id_module_category'] != 0){ // if is not a category
+        if ($file['id_module_category'] != 0) // if is not a category
+        {
             $req = self::$db_querier->select('SELECT rew.file_link, rew.file_path
-            FROM ' . ReviewSetup::$files_in_content_table . ' AS rew
+            FROM ' . ReviewSetup::$files_incontenttable . ' AS rew
             WHERE rew.file_path = "' . $file['file_path'] . '"
             AND rew.id_module_category != 0
             ');
@@ -378,9 +383,11 @@ class ReviewService
             {
                 return $row['file_link'];
             }
-        }else{ // if is a category
+        }
+        else // if is a category
+        {
             $req = self::$db_querier->select('SELECT rew.file_link, rew.file_path
-            FROM ' . ReviewSetup::$files_in_content_table . ' AS rew
+            FROM ' . ReviewSetup::$files_incontenttable . ' AS rew
             WHERE rew.file_path = "' . $file['file_path'] . '"         
             AND rew.id_module_category = 0 
             AND rew.id_in_module = ' . $file['id_in_module'] . '
@@ -470,6 +477,12 @@ class ReviewService
             $file_size = $row['size'] > 1024 ? NumberHelper::round($row['size'] / 1024, 2) . ' ' . LangLoader::get_message('common.unit.megabytes', 'common-lang') : NumberHelper::round($row['size'], 0) . ' ' . LangLoader::get_message('common.unit.kilobytes', 'common-lang');
             return $data[] = array('file_path' => $row['path'], 'display_name' => $row['display_name'], 'timestamp' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE), 'file_size' => $file_size);
         }
+    }
+
+    public static function is_gallery_on_server()
+    {
+        $gallery = new Folder(PATH_TO_ROOT . '/gallery');
+        if ($gallery) return true;
     }
 
 }

@@ -3,36 +3,55 @@
  * @copyright   &copy; 2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel <mipel@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 19
+ * @version     PHPBoost 6.0 - last update: 2022 01 05
  * @since       PHPBoost 6.0 - 2022 01 10
  */
 class ReviewDisplayController extends DefaultAdminModuleController
 {
-
     public function execute(HTTPRequestCustom $request)
     {
+        $this->build_form();
+
         $this->view = new FileTemplate('review/ReviewDisplayController.tpl');
         $this->view->add_lang($this->lang);
 
-        ReviewService::delete_files_in_content_table();
-        ReviewService::insert_files_in_content_table();
+        $cache_in_table = ReviewCacheInTable::load();
+        $cache_in_folder = ReviewCacheInFolder::load();
 
-        // call counters menu //        
-        $this->view->put('REVIEW_COUNTERS', ReviewCounters::get_counters());
+        if ($this->submit_button->has_been_submited() && $this->form->validate()) {
+            ReviewConfig::load()->set_date(new Date());
+            ReviewConfig::save();
+            ReviewService::delete_files_incontenttable();
+            ReviewService::insert_files_incontenttable();
+            ReviewCacheInTable::invalidate();
+            ReviewCacheInFolder::invalidate();
+            AppContext::get_response()->redirect($request->get_url_referrer());
+        }
 
+        $date = ReviewConfig::load()->get_date()->get_timestamp();
+
+        $this->view->put_all(array(
+            'C_REVIEW_COUNTERS' => $cache_in_table->get_files_in_content_number(),
+            'C_GALLERY'         => ModulesManager::is_module_installed('gallery') && ModulesManager::is_module_activated('gallery') && ReviewService::is_gallery_on_server(),
+
+            'DATE'            => Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+            'REVIEW_COUNTERS' => ReviewCounters::get_counters(),
+            'CACHE_BUTTON'    => $this->form->display(),
+        ));
+        
         $section = $request->get_string('section');
         switch($section)
         {
-            case 'onserver':
-                $this->view->put('C_FILES_ON_SERVER', true);
+            case 'inuploadfolder':
+                $this->view->put('C_FILES_IN_UPLOAD_FOLDER', true);
 
-                foreach (ReviewService::get_files_on_server('/upload') as $file)
+                foreach ($cache_in_folder->get_files_in_upload_list() as $file)
                 {
                     $file_data = ReviewService::get_upload_data_file($file);
-                    $this->view->assign_block_vars('onserver', array(
+                    $this->view->assign_block_vars('inuploadfolder', array(
                         'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
                         'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
-                        'FILE_ON_SERVER'    => $file,
+                        'FILE_NAME'         => $file,                        
                         'FILE_UPLOAD_BY'    => isset($file_data['display_name']) ? $file_data['display_name'] : '---',
                         'FILE_UPLOAD_DATE'  => isset($file_data['timestamp']) ? $file_data['timestamp'] : '---',
                         'FILE_UPLOAD_SIZE'  => isset($file_data['file_size']) ? $file_data['file_size'] : '---',
@@ -40,52 +59,33 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 }
                 break;
 
-            case 'ingalleryfolder':
-                $this->view->put('C_FILES_IN_GALLERY_FOLDER', true);
+            case 'inuploadtable':
+                $this->view->put('C_FILES_IN_UPLOAD_TABLE', true);
 
-                foreach (ReviewService::get_files_on_server('/gallery/pics') as $file)
+                foreach ($cache_in_table->get_files_in_upload_list() as $file)
                 {
-                    $this->view->assign_block_vars('ingalleryfolder', array(
-                        'C_IS_PICTURE_FILE'      => ReviewService::is_picture_file($file),
-                        'C_IS_PDF_FILE'          => ReviewService::is_pdf_file($file),
-                        'FILE_IN_GALLERY_FOLDER' => $file,
+                    $file_in_upload = new File(PATH_TO_ROOT . '/upload/' . $file['path']);
+                    $this->view->assign_block_vars('inuploadtable', array(
+                        'C_FILE'            => $file_in_upload->exists(),
+                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file['path']),
+                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file['path']),
+                        'FILE_NAME'         => $file['path'],
+                        'FILE_UPLOAD_BY'    => isset($file['display_name']) ? $file['display_name'] : '---',
+                        'FILE_UPLOAD_DATE'  => isset($file['timestamp']) ? Date::to_format($file['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE) : '---',
+                        'FILE_UPLOAD_SIZE'  => isset($file['size']) ? ($file['size'] > 1024 ? NumberHelper::round($file['size'] / 1024, 2) . ' ' . LangLoader::get_message('common.unit.megabytes', 'common-lang') : NumberHelper::round($file['size'], 0) . ' ' . LangLoader::get_message('common.unit.kilobytes', 'common-lang')) : '---',
                     ));
                 }
                 break;
 
-            case 'ingallerytable':
-                $this->view->put('C_FILES_IN_GALLERY_TABLE', true);
-
-                foreach (ReviewService::get_files_in_table('gallery') as $file)
-                {
-                    $this->view->assign_block_vars('ingallerytable', array(
-                        'C_IS_PICTURE_FILE'     => ReviewService::is_picture_file($file),
-                        'C_IS_PDF_FILE'         => ReviewService::is_pdf_file($file),
-                        'FILE_IN_GALLERY_TABLE' => $file,
-                    ));
-                }
-                break;
-
-            case 'inupload':
-                $this->view->put('C_FILES_IN_UPLOAD', true);
-
-                foreach (ReviewService::get_files_in_table('upload') as $file)
-                {
-                    $this->view->assign_block_vars('inupload', array(
-                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
-                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
-                        'FILE_IN_UPLOAD'    => $file
-                    ));
-                }
-                break;
-
-            case 'incontent':
+            case 'incontenttable':
                 $this->view->put('C_FILES_IN_CONTENT', true);
 
-                foreach (ReviewService::get_files_in_content() as $file)
+                foreach ($cache_in_table->get_files_in_content_list() as $file)
                 {
                     $link = ReviewService::get_file_link($file);
-                    $this->view->assign_block_vars('incontent', array(
+                    $file_in_content = new File(PATH_TO_ROOT . '/upload/' . $file['file_path']);
+                    $this->view->assign_block_vars('incontenttable', array(
+                        'C_FILE'             => $file_in_content->exists(),
                         'C_IS_PICTURE_FILE'  => ReviewService::is_picture_file($file['file_path']),
                         'C_IS_PDF_FILE'      => ReviewService::is_pdf_file($file['file_path']),
                         'FILE_PATH'          => $file['file_path'],
@@ -100,7 +100,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
             case 'allunused':
                 $this->view->put('C_ALL_UNUSED_FILES', true);
 
-                foreach (ReviewService::get_all_unused_files() as $file)
+                foreach (ReviewService::get_allunused_files() as $file)
                 {
                     $this->view->assign_block_vars('allunused', array(
                         'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
@@ -110,47 +110,48 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 }
                 break;
 
-            case 'usednoserver':
+            case 'usedbutmissing':
                 $this->view->put('C_USED_FILES_NOT_ON_SERVER', true);
 
                 foreach (ReviewService::get_data_used_files_not_on_server() as $file)
                 {
                     $link = ReviewService::get_file_link($file);
-                    $this->view->assign_block_vars('usednoserver', array(
+                    $this->view->assign_block_vars('usedbutmissing', array(
+                        'C_FILE_ITEM_TITLE'  => !empty($link),
                         'FILE_PATH'          => $file['file_path'],
                         'FILE_MODULE_SOURCE' => $file['module_source'],
-                        'C_FILE_ITEM_TITLE'  => !empty($link),
                         'FILE_ITEM_TITLE'    => $file['item_title'],
                         'FILE_ITEM_LINK'     => isset($link) ? $link : ''
                     ));
                 }
                 break;
 
-            case 'unuseduser':
-                $this->view->put('C_UNUSED_FILES_USER', true);
+            case 'unusedbutintable':
+                $this->view->put('C_UNUSED_FILES_IN_TABLE', true);
 
                 foreach (ReviewService::get_unused_files_with_users() as $file)
                 {
-                    $upload_date = Date::to_format($file['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
                     $file_size = $file['file_size'] > 1024 ? NumberHelper::round($file['file_size'] / 1024, 2) . ' ' . $this->lang['common.unit.megabytes'] : NumberHelper::round($file['file_size'], 0) . ' ' . $this->lang['common.unit.kilobytes'];
 
-                    $this->view->assign_block_vars('unuseduser', array(
+                    $file_in_upload = new File(PATH_TO_ROOT . '/upload/' . $file['file_path']);
+                    $this->view->assign_block_vars('unusedbutintable', array(
+                        'C_FILE'            => $file_in_upload->exists(),
                         'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file['file_path']),
                         'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file['file_path']),
                         'FILE_PATH'         => $file['file_path'],
                         'FILE_USER'         => $file['display_name'],
-                        'FILE_UPLOAD_DATE'  => $upload_date,
+                        'FILE_UPLOAD_DATE'  => Date::to_format($file['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
                         'FILE_SIZE'         => $file_size,
                     ));
                 }
                 break;
 
-            case 'orphan':
+            case 'orphans':
                 $this->view->put('C_ORPHAN_FILES', true);
 
-                foreach (ReviewService::get_orphan_files() as $file)
+                foreach (ReviewService::get_orphans_files() as $file)
                 {
-                    $this->view->assign_block_vars('orphan', array(
+                    $this->view->assign_block_vars('orphans', array(
                         'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
                         'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
                         'FILE_PATH'         => $file,
@@ -158,30 +159,66 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 }
                 break;
 
-            case 'nogalleryfolder':
+            case 'ingalleryfolder':
+                $this->view->put('C_FILES_IN_GALLERY_FOLDER', true);
+
+                foreach ($cache_in_folder->get_files_in_gallery_list() as $file) {
+                    $this->view->assign_block_vars('ingalleryfolder', array(
+                        'C_IS_PICTURE_FILE'      => ReviewService::is_picture_file($file),
+                        'C_IS_PDF_FILE'          => ReviewService::is_pdf_file($file),
+                        'FILE_IN_GALLERY_FOLDER' => $file,
+                    ));
+                }
+                break;
+
+            case 'ingallerytable':
+                $this->view->put('C_FILES_IN_GALLERY_TABLE', true);
+
+                foreach ($cache_in_table->get_files_in_gallery_list() as $file) {                    
+                    $this->view->assign_block_vars('ingallerytable', array(
+                        'C_IS_PICTURE_FILE'     => ReviewService::is_picture_file($file['path']),
+                        'C_IS_PDF_FILE'         => ReviewService::is_pdf_file($file['path']),
+                        'FILE_IN_GALLERY_TABLE' => $file['path'],
+                        'FILE_USER'             => $file['display_name'],
+                        'FILE_UPLOAD_DATE'      => Date::to_format($file['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+                    ));
+                }
+                break;
+
+            case 'galleryusedbutmissing':
                 $this->view->put('C_FILES_NOT_IN_GALLERY_FOLDER', true);
 
-                foreach (ReviewService::get_files_not_in_gallery_folder() as $file)
+                foreach (ReviewService::get_files_not_ingalleryfolder() as $file)
                 {
-                    $this->view->assign_block_vars('nogalleryfolder', array(
+                    $this->view->assign_block_vars('galleryusedbutmissing', array(
                         'FILE_PATH' => $file,
                     ));
                 }
                 break;
 
-            case 'nogallerytable':
+            case 'galleryunusedbutintable':
                 $this->view->put('C_FILES_NOT_IN_GALLERY_TABLE', true);
 
-                foreach (ReviewService::get_files_not_in_gallery_table() as $file)
+                foreach (ReviewService::get_files_not_in_ingallerytable() as $file)
                 {
-                    $this->view->assign_block_vars('nogallerytable', array(
+                    $this->view->assign_block_vars('galleryunusedbutintable', array(
                         'FILE_PATH' => $file,
                     ));
                 }
                 break;
         }
 
-        return new ReviewDisplayResponse($this->view, $this->lang['review.module.title'] . $this->lang['review.' . $section . '']);
+		return new ReviewDisplayResponse($this->view, $this->lang['review.module.title'] . $this->lang['review.' . $section . '']);
+    }
+
+    private function build_form()
+    {
+        $files_in_content_number = ReviewCacheInTable::load()->get_files_in_content_number();
+        $form = new HTMLForm(__CLASS__);
+        $this->submit_button = new FormButtonSubmit($files_in_content_number == 0 ? $this->lang['review.cache'] : $this->lang['review.refresh'], '', '', 'submit preloader-button');
+        $form->add_button($this->submit_button);
+
+        $this->form = $form;
     }
 }
 ?>

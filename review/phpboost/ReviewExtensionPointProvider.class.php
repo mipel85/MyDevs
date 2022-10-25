@@ -8,7 +8,6 @@
  */
 class ReviewExtensionPointProvider extends ExtensionPointProvider
 {
-
     public function __construct()
     {
         parent::__construct('review');
