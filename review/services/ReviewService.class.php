@@ -124,20 +124,6 @@ class ReviewService
         return $results;
     }
 
-    // public static function get_files_in_content()
-    // {
-    //     $files_in_content = array();
-    //     try {
-    //         foreach(ReviewCache::load()->get_files_in_content_list() as $file)
-    //         {
-    //             $files_in_content[] = $file;
-    //         }
-    //         return $files_in_content;
-    //     }catch (RowNotFoundException $e){
-            
-    //     }
-    // }
-
     public static function get_files_in_table($table)
     {
         $results = array();
@@ -172,7 +158,7 @@ class ReviewService
         return array_diff($files_on_server, $files_in_content);
     }
 
-// errors files lists  
+    // errors files lists  
     public static function get_count_used_files_not_on_server($folder)
     {
         $files_on_server = array();
@@ -479,10 +465,15 @@ class ReviewService
         }
     }
 
-    public static function is_gallery_on_server()
+    public static function is_module_displayed($folder)
     {
-        $gallery = new Folder(PATH_TO_ROOT . '/gallery');
-        if ($gallery) return true;
+        return ModulesManager::is_module_installed($folder) && ModulesManager::is_module_activated($folder);
+    }
+
+    public static function is_folder_on_server($folder)
+    {
+        $folder_on_server = new Folder(PATH_TO_ROOT . $folder);
+        return $folder_on_server->exists();
     }
 
 }

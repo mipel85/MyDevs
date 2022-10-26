@@ -15,18 +15,13 @@ class ReviewCounters
         $cache_in_table = ReviewCacheInTable::load();
         $cache_in_folder = ReviewCacheInFolder::load();
 
-        $gallery_folder = new Folder(PATH_TO_ROOT . '/gallery/pics');
-
-        if (ModulesManager::is_module_installed('gallery') && ModulesManager::is_module_activated('gallery'))
+        if (ReviewService::is_module_displayed('gallery'))
         {
             $view->put_all(array(        
-                'C_GALLERY'                      => true,      
+                'C_GALLERY_DISPLAYED'                      => true,      
                 'NB_FILES_IN_GALLERY_TABLE'      => $cache_in_table->get_files_in_gallery_number(),
-                'U_FILES_IN_GALLERY_TABLE'       => ReviewUrlBuilder::home('ingallerytable')->rel(),
                 'NB_FILES_NOT_IN_GALLERY_TABLE'  => count(ReviewService::get_count_files_not_in_ingallerytable()),
-                'U_FILES_NOT_IN_GALLERY_TABLE'   => ReviewUrlBuilder::home('galleryunusedbutintable')->rel(),
                 'NB_FILES_NOT_IN_GALLERY_FOLDER' => count(ReviewService::get_count_files_not_ingalleryfolder()),
-                'U_FILES_NOT_IN_GALLERY_FOLDER'  => ReviewUrlBuilder::home('galleryusedbutmissing')->rel(),
             ));
         }
         
@@ -40,7 +35,10 @@ class ReviewCounters
             'NB_ALL_UNUSED_FILES'            => count(ReviewService::get_allunused_files()),
             'U_ALL_UNUSED_FILES'             => ReviewUrlBuilder::home('allunused')->rel(),
             // Gallery
-            'C_GALLERY_FOLDER'               => $gallery_folder->exists(),  
+            'U_FILES_IN_GALLERY_TABLE'       => ReviewUrlBuilder::home('ingallerytable')->rel(),
+            'U_FILES_NOT_IN_GALLERY_TABLE'   => ReviewUrlBuilder::home('galleryunusedbutintable')->rel(),
+            'U_FILES_NOT_IN_GALLERY_FOLDER'  => ReviewUrlBuilder::home('galleryusedbutmissing')->rel(),
+            'C_GALLERY_FOLDER'               => ReviewService::is_folder_on_server('/gallery/pics'),  
             'NB_FILES_IN_GALLERY_FOLDER'     => $cache_in_folder->get_files_in_gallery_number(),
             'U_FILES_IN_GALLERY_FOLDER'      => ReviewUrlBuilder::home('ingalleryfolder')->rel(),
             // errors files list

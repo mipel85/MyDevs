@@ -20,7 +20,7 @@
                 "sLoadingRecords": ${escapejs(@review.js.loading.records)},
                 "sProcessing": ${escapejs(@review.js.processing)},
                 "sSearch": ${escapejs(@review.js.search)},
-                "sZeroRecords": ${escapejs(@review.js.zero.records)},
+                "sZeroRecords": ${escapejs(@review.js.no.item)},
                 "oPaginate": {
                     "sFirst": ${escapejs(@review.js.first)},
                     "sLast": ${escapejs(@review.js.last)},
@@ -94,13 +94,13 @@
     <div class="more align-center">{@common.last.update} : {DATE}</div>
     # INCLUDE REVIEW_COUNTERS #
 # ELSE #
-    {@H|review.first.analyse}
+    {@H|review.first.scan}
 # ENDIF #
 
 # IF C_FILES_IN_UPLOAD_FOLDER #
     <article class="review-results">
         <header>
-            <h2>{@review.counters.title.files.on.server}</h2>
+            <h2>{@review.upload.folder.files}</h2>
         </header>
         <div class="content review-responsive-table">
             <table class="display review-table">
@@ -152,9 +152,9 @@
 # IF C_FILES_IN_UPLOAD_TABLE #
     <article class="review-results">
         <header>
-            <h2>{@review.counters.title.files.in.upload}</h2>
+            <h2>{@review.upload.table.files}</h2>
         </header>
-        <div class="content">
+        <div class="content review-responsive-table">
             <table class="display review-table">
                 <thead>
                     <tr>
@@ -194,7 +194,7 @@
                                         # ENDIF #
                                     </span>
                                 # ELSE #
-                                    {@review.missing}
+                                    {@review.js.missing}
                                 # ENDIF #
                             </td>
                         </tr>
@@ -208,9 +208,9 @@
 # IF C_FILES_IN_CONTENT #
     <article class="review-results">
         <header>
-            <h2>{@review.counters.title.files.in.content}</h2>
+            <h2>{@review.content.files}</h2>
         </header>
-        <div class="content">
+        <div class="content review-responsive-table">
             <table class="display review-table">
                 <thead>
                     <tr>
@@ -250,7 +250,7 @@
                                         # ENDIF #
                                     </span>
                                 # ELSE #
-                                    {@review.missing}
+                                    {@review.js.missing}
                                 # ENDIF #
                             </td>
                         </tr>
@@ -264,9 +264,9 @@
 # IF C_ALL_UNUSED_FILES #
     <article class="review-results">
         <header>
-            <h2>{@review.counters.title.all.unused.files}</h2>
+            <h2>{@review.upload.folder.unsued.files}</h2>
         </header>
-        <div class="content">
+        <div class="content review-responsive-table">
             <table class="display review-table">
                 <thead>
                     <tr>
@@ -296,9 +296,9 @@
 # IF C_USED_FILES_NOT_ON_SERVER #
     <article class="review-results">
         <header>
-            <h2>{@review.counters.used.files.no.server}</h2>
+            <h2>{@review.missing.used.files}</h2>
         </header>
-        <div class="content">
+        <div class="content review-responsive-table">
             <table class="display review-table">
                 <thead>
                     <tr>
@@ -334,9 +334,9 @@
 # IF C_UNUSED_FILES_IN_TABLE #
     <article class="review-results">
         <header>
-            <h2>{@review.counters.unused.files.users}</h2>
+            <h2>{@review.upload.table.unsued.files}</h2>
         </header>
-        <div class="content">
+        <div class="content review-responsive-table">
             <table class="display review-table">
                 <thead>
                     <tr>
@@ -376,7 +376,7 @@
                                         # ENDIF #
                                     </span>
                                 # ELSE #
-                                    {@review.missing}
+                                    {@review.js.missing}
                                 # ENDIF #
                             </td>
                         </tr>
@@ -390,9 +390,9 @@
 # IF C_ORPHAN_FILES #
     <article class="review-results">
         <header>
-            <h2>{@review.counters.orphans.files}</h2>
+            <h2>{@review.orphans.files}</h2>
         </header>
-        <div class="content">
+        <div class="content review-responsive-table">
             <table class="display review-table">
                 <thead>
                     <tr>
@@ -436,13 +436,13 @@
     </article>
 # ENDIF #
 
-# IF C_GALLERY #
+# IF C_GALLERY_FOLDER #
     # IF C_FILES_IN_GALLERY_FOLDER #
         <article class="review-results">
             <header>
-                <h2>{@review.counters.title.files.in.gallery.folder}</h2>
+                <h2>{@review.files.in.gallery.folder}</h2>
             </header>
-            <div class="content">
+            <div class="content review-responsive-table">
                 <table class="display review-table">
                     <thead>
                         <tr>
@@ -474,20 +474,21 @@
             </div>
         </article>
     # ENDIF #
-
-    # IF C_FILES_IN_GALLERY_TABLE #
-        <article class="review-results">
-            <header>
-                <h2>{@review.counters.title.files.in.gallery.table}</h2>
-            </header>
-            <div class="content">
-                <table class="display review-table">
-                    <thead>
-                        <tr>
-                            <th>{@review.file.path}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+# ENDIF #
+# IF C_FILES_IN_GALLERY_TABLE #
+    <article class="review-results">
+        <header>
+            <h2>{@review.files.in.gallery.table}</h2>
+        </header>
+        <div class="content review-responsive-table">
+            <table class="display review-table">
+                <thead>
+                    <tr>
+                        <th>{@review.file.path}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    # IF C_GALLERY_DISPLAYED #
                         # START ingallerytable #
                             <tr>
                                 # IF ingallerytable.C_IS_PICTURE_FILE #
@@ -506,60 +507,70 @@
                                     # ENDIF #
                                 # ENDIF #
                             </tr>
-                        # END ingallerytable #
-                    </tbody>
-                </table>
-            </div>
-        </article>
-    # ENDIF #
+                            # END ingallerytable #
+                    # ELSE #
+                        <div class="message-helper bgc warning">{@review.no.gallery}</div>
+                    # ENDIF #
+                </tbody>
+            </table>
+        </div>
+    </article>
+# ENDIF #
 
-    # IF C_FILES_NOT_IN_GALLERY_FOLDER #
-        <article class="review-results">
-            <header>
-                <h2>{@review.counters.files.no.gallery.folder}</h2>
-            </header>
-            <div class="content">
-                <table class="display review-table">
-                    <thead>
-                        <tr>
-                            <th>{@review.file.path}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+# IF C_FILES_NOT_IN_GALLERY_FOLDER #
+    <article class="review-results">
+        <header>
+            <h2>{@review.counters.files.no.gallery.folder}</h2>
+        </header>
+        <div class="content review-responsive-table">
+            <table class="display review-table">
+                <thead>
+                    <tr>
+                        <th>{@review.file.path}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    # IF C_GALLERY_DISPLAYED #
                         # START galleryusedbutmissing #
                             <tr>
                                 <td class="flex-between">{galleryusedbutmissing.FILE_PATH}</td>
                             </tr>
                         # END galleryusedbutmissing #
-                    </tbody>
-                </table>
-            </div>
-        </article>
-    # ENDIF #
+                    # ELSE #
+                        <div class="message-helper bgc warning">{@review.no.gallery}</div>
+                    # ENDIF #
+                </tbody>
+            </table>
+        </div>
+    </article>
+# ENDIF #
 
-    # IF C_FILES_NOT_IN_GALLERY_TABLE #
-        <article class="review-results">
-            <header>
-                <h2>{@review.counters.files.no.gallery.table}</h2>
-            </header>
-            <div class="content">
-                <table class="display review-table">
-                    <thead>
-                        <tr>
-                            <th>{@review.file.path}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+# IF C_FILES_NOT_IN_GALLERY_TABLE #
+    <article class="review-results">
+        <header>
+            <h2>{@review.counters.files.no.gallery.table}</h2>
+        </header>
+        <div class="content review-responsive-table">
+            <table class="display review-table">
+                <thead>
+                    <tr>
+                        <th>{@review.file.path}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    # IF C_GALLERY_DISPLAYED #
                         # START galleryunusedbutintable #
                             <tr>
                                 <td class="flex-between">{galleryunusedbutintable.FILE_PATH}</td>
                             </tr>
                         # END galleryunusedbutintable #
-                    </tbody>
-                </table>
-            </div>
-        </article>
-    # ENDIF #
+                    # ELSE #
+                        <div class="message-helper bgc warning">{@review.no.gallery}</div>
+                    # ENDIF #
+                </tbody>
+            </table>
+        </div>
+    </article>
 # ENDIF #
 
 <script>

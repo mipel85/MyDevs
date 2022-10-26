@@ -32,7 +32,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
 
         $this->view->put_all(array(
             'C_REVIEW_COUNTERS' => $cache_in_table->get_files_in_content_number(),
-            'C_GALLERY'         => ModulesManager::is_module_installed('gallery') && ModulesManager::is_module_activated('gallery') && ReviewService::is_gallery_on_server(),
+            'C_GALLERY_DISPLAYED'         => ReviewService::is_module_displayed('gallery'),
+            'C_GALLERY_FOLDER'  => ReviewService::is_folder_on_server('/gallery'),
 
             'DATE'            => Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
             'REVIEW_COUNTERS' => ReviewCounters::get_counters(),
@@ -208,14 +209,14 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 break;
         }
 
-		return new ReviewDisplayResponse($this->view, $this->lang['review.module.title'] . $this->lang['review.' . $section . '']);
+		return new ReviewDisplayResponse($this->view, $this->lang['review.' . $section . ''] . $this->lang['review.module.title']);
     }
 
     private function build_form()
     {
         $files_in_content_number = ReviewCacheInTable::load()->get_files_in_content_number();
         $form = new HTMLForm(__CLASS__);
-        $this->submit_button = new FormButtonSubmit($files_in_content_number == 0 ? $this->lang['review.cache'] : $this->lang['review.refresh'], '', '', 'submit preloader-button');
+        $this->submit_button = new FormButtonSubmit($files_in_content_number == 0 ? $this->lang['review.run.scan'] : $this->lang['review.restart.scan'], '', '', 'submit preloader-button');
         $form->add_button($this->submit_button);
 
         $this->form = $form;

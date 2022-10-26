@@ -15,7 +15,8 @@ $lang['review.js.length.menu']     = 'nb. lignes _MENU_';
 $lang['review.js.loading.records'] = 'Chargement...';
 $lang['review.js.processing']      = 'Traitement...';
 $lang['review.js.search']          = 'Rechercher :';
-$lang['review.js.zero.records']    = 'Aucun élément correspondant trouvé';
+$lang['review.js.no.item']         = 'Aucun élément correspondant n\'a été trouvé';
+$lang['review.js.missing']         = 'Absent';
 
 $lang['review.js.first']    = 'Premier';
 $lang['review.js.last']     = 'Dernier';

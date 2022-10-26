@@ -20,7 +20,7 @@ class ReviewCacheInTable implements CacheData
 		$this->files_in_upload = array();
 		$this->files_in_gallery = array();
 
-		if (ModulesManager::is_module_installed('review') && ModulesManager::is_module_activated('review')) 
+		if (ReviewService::is_module_displayed('review')) 
 		{
 			$result_files_in_content = PersistenceContext::get_querier()->select('SELECT review.*
 			FROM ' . ReviewSetup::$files_incontenttable . ' review
@@ -67,7 +67,7 @@ class ReviewCacheInTable implements CacheData
 		}
 		$result_files_in_upload->dispose();
 
-		if (ModulesManager::is_module_installed('gallery') && ModulesManager::is_module_activated('gallery')) 
+		if (ReviewService::is_module_displayed('gallery')) 
 		{
 			$result_files_in_gallery = PersistenceContext::get_querier()->select('SELECT gallery.*, member.display_name
 			FROM ' . GallerySetup::$gallery_table . ' gallery
