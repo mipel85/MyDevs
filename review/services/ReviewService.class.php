@@ -276,7 +276,7 @@ class ReviewService
     public static function is_picture_file($file)
     {
         $file_ext = substr(strrchr($file, '.'), 1);
-        $isPicture = array('jpg', 'jpeg', 'png', 'svg', 'gif', 'webp');
+        $isPicture = array('jpg', 'jpeg', 'png', 'svg', 'gif', 'webp', 'bmp');
         return in_array($file_ext, $isPicture);
     }
 
