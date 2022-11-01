@@ -9,7 +9,7 @@
             .addClass('filters')
             .appendTo('.display thead');
         var table = jQuery('.display').DataTable({
-            "sDom": '<"top">lfi<"bottom"pt><"clear">',
+            "sDom": '<"top">lfi<"bottom"pt><"clear">',  
             language: {
                 "sInfo": ${escapejs(@review.js.info)},
                 "sInfoEmpty": ${escapejs(@review.js.info.empty)},
@@ -38,7 +38,18 @@
             "iDisplayLength": 15,
 
             orderCellsTop: true,
-            fixedHeader: true,
+            fixedHeader: true,          
+            # IF C_FILES_IN_CONTENT #
+                "columns": [
+                    { "width": "20%" },
+                    { "width": "10%" },
+                    { "width": "35%" },
+                    { "width": "10%" },
+                    { "width": "15%" },
+                    { "width": "5%" },
+                    { "width": "5%" },
+                ],
+            # ENDIF #
             initComplete: function() {
                 var api = this.api();
                 // For each column
@@ -82,9 +93,6 @@
                         });
                     });
             },
-            // "columnDefs": [
-            //     { width: 50, targets: 5 }
-            // ],
         });
     });
 </script>

@@ -73,8 +73,6 @@ table.dataTable thead tr.filters th { padding: 0.309em; }
 
 .review-table tr th { border: 1px solid var(--bdr-main); }
 
-table thead tr.filters th input { width: auto; }
-
 table thead tr.filters th {
     text-align: left;
     background-color: var(--bgc-alt);
