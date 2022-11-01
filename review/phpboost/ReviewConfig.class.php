@@ -12,9 +12,9 @@ class ReviewConfig extends AbstractConfigData
 	const DATE = 'date';
 	const SCANNED_BY = 'scanned_by';
 
-	public function set_date(Date $value)
+	public function set_date(Date $date)
 	{
-		$this->set_property(self::DATE, $value);
+		$this->set_property(self::DATE, $date);
 	}
 
 	public function get_date()
@@ -36,7 +36,6 @@ class ReviewConfig extends AbstractConfigData
 	{
 		return array(
 			self::DATE => new Date(),
-			self::SCANNED_BY => AppContext::get_current_user()
 		);
 	}
 

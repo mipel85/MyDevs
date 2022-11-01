@@ -17,10 +17,11 @@ class ReviewDisplayController extends DefaultAdminModuleController
 
         $cache_in_table = ReviewCacheInTable::load();
         $cache_in_folder = ReviewCacheInFolder::load();
+        $config = ReviewConfig::load();
 
         if ($this->submit_button->has_been_submited() && $this->form->validate()) {
-            ReviewConfig::load()->set_date(new Date());
-            ReviewConfig::load()->set_scanned_by(new User(AppContext::get_current_user()));
+            $config->set_date(new Date());
+            $config->set_scanned_by(AppContext::get_current_user());
             ReviewConfig::save();
             ReviewService::delete_files_incontenttable();
             ReviewService::insert_files_incontenttable();
@@ -28,8 +29,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
             ReviewCacheInFolder::invalidate();
             AppContext::get_response()->redirect($request->get_url_referrer());
         }
-
-        $date = ReviewConfig::load()->get_date()->get_timestamp();
+        $date = $config->get_date()->get_timestamp();
         
         $this->view->put_all(array(
             'C_REVIEW_COUNTERS'   => $cache_in_table->get_files_in_content_number(),
@@ -37,7 +37,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
             'C_GALLERY_FOLDER'    => ReviewService::is_folder_on_server('/gallery'),
 
             'DATE'            => Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
-            'SCANNED_BY'      => ReviewConfig::load()->get_scanned_by()->get_display_name(),
+            'SCANNED_BY'      => $config->get_scanned_by()->get_display_name(),
             'REVIEW_COUNTERS' => ReviewCounters::get_counters(),
             'CACHE_BUTTON'    => $this->form->display(),
         ));
