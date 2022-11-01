@@ -10,6 +10,7 @@
 class ReviewConfig extends AbstractConfigData
 {
 	const DATE = 'date';
+	const SCANNED_BY = 'scanned_by';
 
 	public function set_date(Date $value)
 	{
@@ -20,11 +21,22 @@ class ReviewConfig extends AbstractConfigData
 	{
 		return $this->get_property(self::DATE);
 	}
+
+	public function set_scanned_by(User $user)
+	{
+		$this->set_property(self::SCANNED_BY, $user);
+	}
+
+	public function get_scanned_by()
+	{
+		return $this->get_property(self::SCANNED_BY);
+	}
 	
 	public function get_default_values()
 	{
 		return array(
 			self::DATE => new Date(),
+			self::SCANNED_BY => AppContext::get_current_user()
 		);
 	}
 

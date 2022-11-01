@@ -36,7 +36,7 @@ class ReviewSetup extends DefaultModuleSetup
     {
         $fields = array(
             'id'                 => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
-            'file_path'          => array('type' => 'text', 'length' => 16777215),
+            'path'               => array('type' => 'text', 'length' => 16777215),
             'file_link'          => array('type' => 'text', 'length' => 16777215),
             'file_size'          => array('type' => 'text', 'length' => 16777215),
             'upload_by'          => array('type' => 'string', 'length' => 255, 'notnull' => 1),

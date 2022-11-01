@@ -89,9 +89,11 @@
     });
 </script>
 # INCLUDE MESSAGE_HELPER #
-# INCLUDE CACHE_BUTTON #
-# IF C_REVIEW_COUNTERS #
-    <div class="more align-center">{@common.last.update} : {DATE}</div>
+<div class="flex-between">
+    # INCLUDE CACHE_BUTTON #
+    # IF C_REVIEW_COUNTERS #<span class="more align-center">{@common.last.update} : {DATE} ${TextHelper::lcfirst(@common.by)} {SCANNED_BY}</span># ENDIF #
+</div>
+# IF C_REVIEW_COUNTERS #    
     # INCLUDE REVIEW_COUNTERS #
 # ELSE #
     {@H|review.first.scan}
@@ -217,6 +219,9 @@
                         <th>{@review.file.path}</th>
                         <th>{@review.file.module.source}</th>
                         <th>{@review.file.item.link}</th>
+                        <th>{@review.file.upload.by}</th>
+                        <th>{@review.file.timestamp}</th>
+                        <th>{@review.file.size}</th>
                         <th aria-label="{@review.preview}"><i class="far fa-eye" aria-hidden></i></th>
                     </tr>
                 </thead>
@@ -236,6 +241,9 @@
                                     {@review.file.undetermined.link}
                                 # ENDIF #
                             </td>
+                            <td>{incontenttable.FILE_UPLOAD_BY}</td>
+                            <td>{incontenttable.FILE_UPLOAD_DATE}</td>
+                            <td>{incontenttable.FILE_UPLOAD_SIZE}</td>
                             <td class="align-right">
                                 # IF incontenttable.C_FILE #
                                     <span class="review-preview">

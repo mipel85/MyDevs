@@ -31,7 +31,7 @@ class ReviewCacheInTable implements CacheData
 			{
 				$this->files_in_content[$i] = array(
 					'id' 				 => $row['id'],
-					'file_path' 		 => $row['file_path'],
+					'path' 		         => $row['path'],
 					'file_link' 		 => $row['file_link'],
 					'file_size' 		 => $row['file_size'],
 					'upload_by' 		 => $row['upload_by'],
@@ -48,7 +48,7 @@ class ReviewCacheInTable implements CacheData
 			$result_files_in_content->dispose();
 		}
 		
-		$result_files_in_upload = PersistenceContext::get_querier()->select('SELECT upload.*, member.display_name
+		$result_files_in_upload = PersistenceContext::get_querier()->select('SELECT upload.*, member.*
 		FROM ' . DB_TABLE_UPLOAD . ' upload
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON upload.user_id = member.user_id
 		ORDER By upload.id');

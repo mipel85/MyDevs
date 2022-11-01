@@ -20,6 +20,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
 
         if ($this->submit_button->has_been_submited() && $this->form->validate()) {
             ReviewConfig::load()->set_date(new Date());
+            ReviewConfig::load()->set_scanned_by(new User(AppContext::get_current_user()));
             ReviewConfig::save();
             ReviewService::delete_files_incontenttable();
             ReviewService::insert_files_incontenttable();
@@ -29,13 +30,14 @@ class ReviewDisplayController extends DefaultAdminModuleController
         }
 
         $date = ReviewConfig::load()->get_date()->get_timestamp();
-
+        
         $this->view->put_all(array(
-            'C_REVIEW_COUNTERS' => $cache_in_table->get_files_in_content_number(),
-            'C_GALLERY_DISPLAYED'         => ReviewService::is_module_displayed('gallery'),
-            'C_GALLERY_FOLDER'  => ReviewService::is_folder_on_server('/gallery'),
+            'C_REVIEW_COUNTERS'   => $cache_in_table->get_files_in_content_number(),
+            'C_GALLERY_DISPLAYED' => ReviewService::is_module_displayed('gallery'),
+            'C_GALLERY_FOLDER'    => ReviewService::is_folder_on_server('/gallery'),
 
             'DATE'            => Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+            'SCANNED_BY'      => ReviewConfig::load()->get_scanned_by()->get_display_name(),
             'REVIEW_COUNTERS' => ReviewCounters::get_counters(),
             'CACHE_BUTTON'    => $this->form->display(),
         ));
@@ -84,16 +86,20 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 foreach ($cache_in_table->get_files_in_content_list() as $file)
                 {
                     $link = ReviewService::get_file_link($file);
-                    $file_in_content = new File(PATH_TO_ROOT . '/upload/' . $file['file_path']);
+                    $file_in_content = new File(PATH_TO_ROOT . '/upload/' . $file['path']);
                     $this->view->assign_block_vars('incontenttable', array(
                         'C_FILE'             => $file_in_content->exists(),
-                        'C_IS_PICTURE_FILE'  => ReviewService::is_picture_file($file['file_path']),
-                        'C_IS_PDF_FILE'      => ReviewService::is_pdf_file($file['file_path']),
-                        'FILE_PATH'          => $file['file_path'],
+                        'C_IS_PICTURE_FILE'  => ReviewService::is_picture_file($file['path']),
+                        'C_IS_PDF_FILE'      => ReviewService::is_pdf_file($file['path']),
+                        'FILE_PATH'          => $file['path'],
                         'FILE_MODULE_SOURCE' => $file['module_source'],
                         'C_FILE_ITEM_TITLE'  => !empty($link),
                         'FILE_ITEM_TITLE'    => $file['item_title'],
-                        'FILE_ITEM_LINK'     => isset($link) ? $link : ''
+                        'FILE_ITEM_LINK'     => isset($link) ? $link : '',
+                        'FILE_UPLOAD_BY'     => isset($file['upload_by']) ? $file['upload_by'] : '---',
+                        'FILE_UPLOAD_DATE'   => isset($file['upload_date']) ? $file['upload_date'] : '---',
+                        'FILE_UPLOAD_SIZE'   => isset($file['file_size']) ? $file['file_size'] : '---',
+                    
                     ));
                 }
                 break;
@@ -119,7 +125,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
                     $link = ReviewService::get_file_link($file);
                     $this->view->assign_block_vars('usedbutmissing', array(
                         'C_FILE_ITEM_TITLE'  => !empty($link),
-                        'FILE_PATH'          => $file['file_path'],
+                        'FILE_PATH'          => $file['path'],
                         'FILE_MODULE_SOURCE' => $file['module_source'],
                         'FILE_ITEM_TITLE'    => $file['item_title'],
                         'FILE_ITEM_LINK'     => isset($link) ? $link : ''
@@ -134,12 +140,12 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 {
                     $file_size = $file['file_size'] > 1024 ? NumberHelper::round($file['file_size'] / 1024, 2) . ' ' . $this->lang['common.unit.megabytes'] : NumberHelper::round($file['file_size'], 0) . ' ' . $this->lang['common.unit.kilobytes'];
 
-                    $file_in_upload = new File(PATH_TO_ROOT . '/upload/' . $file['file_path']);
+                    $file_in_upload = new File(PATH_TO_ROOT . '/upload/' . $file['path']);
                     $this->view->assign_block_vars('unusedbutintable', array(
                         'C_FILE'            => $file_in_upload->exists(),
-                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file['file_path']),
-                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file['file_path']),
-                        'FILE_PATH'         => $file['file_path'],
+                        'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file['path']),
+                        'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file['path']),
+                        'FILE_PATH'         => $file['path'],
                         'FILE_USER'         => $file['display_name'],
                         'FILE_UPLOAD_DATE'  => Date::to_format($file['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
                         'FILE_SIZE'         => $file_size,

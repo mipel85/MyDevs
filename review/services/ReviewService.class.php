@@ -55,11 +55,11 @@ class ReviewService
                         $data['title'] = isset($data['name']) ? Url::encode_rewrite($data['name']) : ReviewService::get_topic_title(isset($data['idtopic']) ? $data['idtopic'] : '');
 
                     $file_link = ReviewService::create_file_link($module, $data);
-                    foreach ($unique_files_path as $file_path)
+                    foreach ($unique_files_path as $path)
                     {
-                        $upload_data = ReviewService::get_upload_data_file($file_path);
+                        $upload_data = ReviewService::get_upload_data_file($path);
                         PersistenceContext::get_querier()->insert(ReviewSetup::$files_incontenttable, array(
-                            'file_path'          => $file_path,
+                            'path'          => $path,
                             'file_link'          => ReviewService::check_module_compatibility($module) ? $file_link : '#',
                             'file_size'          => isset($upload_data['file_size']) ? $upload_data['file_size'] : '',
                             'upload_by'          => isset($upload_data['display_name']) ? $upload_data['display_name'] : '',
@@ -153,7 +153,7 @@ class ReviewService
         $files_in_content = array();
         foreach (self::$cache_in_table->get_files_in_content_list() as $file)
         {
-            $files_in_content[] = $file['file_path'];
+            $files_in_content[] = $file['path'];
         }
         return array_diff($files_on_server, $files_in_content);
     }
@@ -169,7 +169,7 @@ class ReviewService
         $files_in_content = array();
         foreach (self::$cache_in_table->get_files_in_content_list() as $file)
         {
-            $files_in_content[] = $file['file_path'];
+            $files_in_content[] = $file['path'];
         }
         return array_diff($files_in_content, $files_on_server);
     }
@@ -179,14 +179,14 @@ class ReviewService
         $data_used_files = array();
         foreach (self::get_count_used_files_not_on_server('/upload') as $file)
         {
-            $result = self::$db_querier->select('SELECT file_path, module_source, item_title, id_module_category, id_in_module 
+            $result = self::$db_querier->select('SELECT path, module_source, item_title, id_module_category, id_in_module 
             FROM ' . ReviewSetup::$files_incontenttable . '
-            WHERE file_path = "' . $file . '"
+            WHERE path = "' . $file . '"
             ');
             if ($result->get_rows_count() > 0){
                 while($row = $result->fetch())
                 {
-                    $data_used_files[] = array('file_path' => $row['file_path'], 'module_source' => $row['module_source'], 'item_title' => $row['item_title'], 'id_module_category' => $row['id_module_category'], 'id_in_module' => $row['id_in_module']);
+                    $data_used_files[] = array('path' => $row['path'], 'module_source' => $row['module_source'], 'item_title' => $row['item_title'], 'id_module_category' => $row['id_module_category'], 'id_in_module' => $row['id_in_module']);
                 }
                 $result->dispose();
             }
@@ -249,7 +249,7 @@ class ReviewService
             if ($result->get_rows_count() > 0){
                 while($row = $result->fetch())
                 {
-                    $upload_data[] = array('file_path' => $row['path'], 'display_name' => $row['display_name'], 'timestamp' => $row['timestamp'], 'file_size' => $row['size']);
+                    $upload_data[] = array('path' => $row['path'], 'display_name' => $row['display_name'], 'timestamp' => $row['timestamp'], 'file_size' => $row['size']);
                 }
                 $result->dispose();
             }
@@ -267,7 +267,7 @@ class ReviewService
         $files_with_users = array();
         foreach (self::get_unused_files_with_users() as $file)
         {
-            $files_with_users[] = $file['file_path'];
+            $files_with_users[] = $file['path'];
         }
 
         return array_diff($unused_files, $files_with_users);
@@ -360,9 +360,9 @@ class ReviewService
     {
         if ($file['id_module_category'] != 0) // if is not a category
         {
-            $req = self::$db_querier->select('SELECT rew.file_link, rew.file_path
+            $req = self::$db_querier->select('SELECT rew.file_link, rew.path
             FROM ' . ReviewSetup::$files_incontenttable . ' AS rew
-            WHERE rew.file_path = "' . $file['file_path'] . '"
+            WHERE rew.path = "' . $file['path'] . '"
             AND rew.id_module_category != 0
             ');
             while($row = $req->fetch())
@@ -372,9 +372,9 @@ class ReviewService
         }
         else // if is a category
         {
-            $req = self::$db_querier->select('SELECT rew.file_link, rew.file_path
+            $req = self::$db_querier->select('SELECT rew.file_link, rew.path
             FROM ' . ReviewSetup::$files_incontenttable . ' AS rew
-            WHERE rew.file_path = "' . $file['file_path'] . '"         
+            WHERE rew.path = "' . $file['path'] . '"         
             AND rew.id_module_category = 0 
             AND rew.id_in_module = ' . $file['id_in_module'] . '
             ');
@@ -461,7 +461,7 @@ class ReviewService
         while($row = $result->fetch())
         {
             $file_size = $row['size'] > 1024 ? NumberHelper::round($row['size'] / 1024, 2) . ' ' . LangLoader::get_message('common.unit.megabytes', 'common-lang') : NumberHelper::round($row['size'], 0) . ' ' . LangLoader::get_message('common.unit.kilobytes', 'common-lang');
-            return $data[] = array('file_path' => $row['path'], 'display_name' => $row['display_name'], 'timestamp' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE), 'file_size' => $file_size);
+            return $data[] = array('path' => $row['path'], 'display_name' => $row['display_name'], 'timestamp' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE), 'file_size' => $file_size);
         }
     }
 

@@ -25,8 +25,11 @@
                         </div>
                     </li>
                     <li class="li-stretch">
-                        <span>{@review.total.anomalies}</span>
-                        <span class="button no-style counter-nolink">{NB_TOTAL_DISCARDED_FILES}</span>
+                        <span>{@review.upload.folder.unsued.files}</span>
+                        <div class="counter-area-helper">
+                            <span class="counter-helper-small" data-tooltip-class="tooltip-large" aria-label="{@review.help.all.unused.files}"><i class="fa fa-question" aria-hidden="true"></i></span>
+                            <a class="button bgc-full question preloader-button text-strong small" href="{U_ALL_UNUSED_FILES}">{NB_ALL_UNUSED_FILES}</a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -43,19 +46,16 @@
                         <a class="button bgc-full question preloader-button text-strong small" href="{U_USED_FILES_NOT_ON_SERVER}">{NB_USED_FILES_NOT_ON_SERVER}</a>
                     </li>
                     <li class="li-stretch">
-                        <span>{@review.upload.folder.unsued.files}</span>
-                        <div class="counter-area-helper">
-                            <span class="counter-helper-small" data-tooltip-class="tooltip-large" aria-label="{@review.help.all.unused.files}"><i class="fa fa-question" aria-hidden="true"></i></span>
-                            <a class="button bgc-full question preloader-button text-strong small" href="{U_ALL_UNUSED_FILES}">{NB_ALL_UNUSED_FILES}</a>
-                        </div>
-                    </li>
-                    <li class="li-stretch">
                         <span>{@review.upload.table.unsued.files}</span>
                         <a class="button bgc-full question preloader-button text-strong small" href="{U_UNUSED_FILES_USER}">{NB_UNUSED_FILES_USER}</a>
                     </li>
                     <li class="li-stretch">
                         <span>{@review.orphans.files}</span>
                         <a class="button bgc-full question preloader-button text-strong small" href="{U_ORPHAN_FILES}">{NB_ORPHAN_FILES}</a>
+                    </li>
+                    <li class="li-stretch">
+                        <span>{@review.total.anomalies}</span>
+                        <span class="button no-style counter-nolink">{NB_TOTAL_DISCARDED_FILES}</span>
                     </li>
                 </ul>
             </div>
