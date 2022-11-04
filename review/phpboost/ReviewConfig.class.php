@@ -36,6 +36,7 @@ class ReviewConfig extends AbstractConfigData
 	{
 		return array(
 			self::DATE => new Date(),
+			self::SCANNED_BY => AppContext::get_current_user(),
 		);
 	}
 

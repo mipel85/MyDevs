@@ -413,37 +413,26 @@
                 <thead>
                     <tr>
                         <th>{@review.file.path}</th>
+                        <th aria-label="{@review.preview}"><i class="far fa-eye" aria-hidden></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     # START orphans #
                         <tr>
-                            # IF orphans.C_IS_PICTURE_FILE #
-                                <td class="flex-between">
-                                    {orphans.FILE_PATH}
-                                    <span class="review-preview">
-                                        <i class="fa fa-eye"></i>
-                                        <img src="{PATH_TO_ROOT}/upload/{orphans.FILE_PATH}">
-                                    </span>
-                                </td>
-                            # ELSE #
-                                # IF orphans.C_IS_PDF_FILE #
-                                    <td class="flex-between">
-                                        {orphans.FILE_PATH}
-                                        <span class="review-preview">
-                                            <i class="fa fa-eye"></i>
-                                            <embed src="{PATH_TO_ROOT}/upload/{orphans.FILE_PATH}">
-                                        </span>
-                                    </td>
-                                # ELSE #
-                                    <td class="flex-between">
-                                        {orphans.FILE_PATH}
-                                        <span class="review-preview">
+                            <td class="align-left">{orphans.FILE_PATH}</td>
+                            <td class="align-right">
+                                <span class="review-preview">
+                                    # IF orphans.C_IS_PICTURE_FILE #
+                                        <i class="fa fa-eye"></i><img src="{PATH_TO_ROOT}/upload/{orphans.FILE_PATH}">
+                                    # ELSE #
+                                        # IF orphans.C_IS_PDF_FILE #
+                                            <i class="fa fa-eye"></i><embed src="{PATH_TO_ROOT}/upload/{orphans.FILE_PATH}">
+                                        # ELSE #
                                             <i class="fa fa-eye-slash"></i>
-                                        </span>
-                                    </td>
-                                # ENDIF #
-                            # ENDIF #
+                                        # ENDIF #
+                                    # ENDIF #
+                                </span>
+                            </td>
                         </tr>
                     # END orphans #
                 </tbody>
