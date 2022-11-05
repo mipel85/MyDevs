@@ -123,3 +123,16 @@ table thead tr.filters th {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.relative-search { position: relative; }
+
+.empty-search {
+    position: absolute;
+    right: 0.309em;
+    top: 50%;
+    transform: translateY(-50%);
+    visibility: hidden;
+    font-size: 1.5em;
+}
+
+.empty-search.visible { visibility: visible; }

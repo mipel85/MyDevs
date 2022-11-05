@@ -62,37 +62,47 @@
                             jQuery(api.column(colIdx).header()).index()
                         );
                         var title = jQuery(cell).text();
-                        jQuery(cell).html('<input type="text" placeholder="' + title + '" />');
+                        jQuery(cell).html('<div class="relative-search"><input class="search-input" type="text" placeholder="' + title + '" /><i class="far fa-circle-xmark error empty-search" aria-hidden="true"></i></div>');
                         // On every keypress in this input
-                        jQuery(
-                            'input',
-                            jQuery('.filters th').eq(jQuery(api.column(colIdx).header()).index())
-                        )
-                        .off('keyup change')
-                        .on('keyup change', function(e) {
-                            e.stopPropagation();
-                            // Get the search value
-                            jQuery(this).attr('title', jQuery(this).val());
-                            var regexr = '({search})'; //jQuery(this).parents('th').find('select').val();
+                        var empty = jQuery('.empty-search');
+                        jQuery('input', jQuery('.filters th').eq(jQuery(api.column(colIdx).header()).index()))
+                            .off('keyup change')
+                            .on('keyup change', function(e) {
+                                e.stopPropagation();
+                                // use empty button on input
+                                empty.addClass('visible');
+                                if (!jQuery(this).attr('title', '')) 
+                                    empty.removeClass('visible');
+                                // Get the search value
+                                jQuery(this).attr('title', jQuery(this).val());
+                                var regexr = '({search})'; //jQuery(this).parents('th').find('select').val();
 
-                            var cursorPosition = this.selectionStart;
-                            // Search the column for that value
+                                var cursorPosition = this.selectionStart;
+                                // Search the column for that value
+                                api
+                                    .column(colIdx)
+                                    .search(
+                                        this.value != ''
+                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                            : '',
+                                        this.value != '',
+                                        this.value === ''
+                                    )
+                                    .draw();
+                                jQuery(this)
+                                    .focus()[0]
+                                    .setSelectionRange(cursorPosition, cursorPosition);
+                            });
+                        empty.on('click', function() {
+                            jQuery(this).siblings().val('').attr('title', '');
+                            jQuery(this).removeClass('visible');
                             api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value === ''
-                            )
-                            .draw();
-                            jQuery(this)
-                                .focus()[0]
-                                .setSelectionRange(cursorPosition, cursorPosition);
+                                .column(colIdx)
+                                .search('', this.value != '', this.value === '')
+                                .draw();
                         });
                     });
-            },
+            }
         });
     });
 </script>
@@ -326,7 +336,7 @@
                 <tbody>
                     # START usedbutmissing #
                         <tr>
-                            <td class="align-left">
+                            <td>
                                 {usedbutmissing.FILE_PATH}
                             </td>
                             <td>
@@ -334,10 +344,7 @@
                             </td>
                             <td>
                                 # IF usedbutmissing.C_FILE_ITEM_TITLE #
-                                    <a class="flex-between" href="{usedbutmissing.FILE_ITEM_LINK}" target="_blank" rel="noopener noreferrer">
-                                        {usedbutmissing.FILE_ITEM_TITLE}
-                                        <i class="fa fa-share-from-square"></i>
-                                    </a>
+                                    <a href="{usedbutmissing.FILE_ITEM_LINK}">{usedbutmissing.FILE_ITEM_TITLE}</a>
                                 # ELSE #
                                     {@review.file.undetermined.link}
                                 # ENDIF #
@@ -416,26 +423,37 @@
                 <thead>
                     <tr>
                         <th>{@review.file.path}</th>
-                        <th aria-label="{@review.preview}"><i class="far fa-eye" aria-hidden></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     # START orphans #
                         <tr>
-                            <td class="align-left">{orphans.FILE_PATH}</td>
-                            <td class="align-right">
-                                <span class="review-preview">
-                                    # IF orphans.C_IS_PICTURE_FILE #
-                                        <i class="fa fa-eye"></i><img src="{PATH_TO_ROOT}/upload/{orphans.FILE_PATH}">
-                                    # ELSE #
-                                        # IF orphans.C_IS_PDF_FILE #
-                                            <i class="fa fa-eye"></i><embed src="{PATH_TO_ROOT}/upload/{orphans.FILE_PATH}">
-                                        # ELSE #
+                            # IF orphans.C_IS_PICTURE_FILE #
+                                <td class="flex-between">
+                                    {orphans.FILE_PATH}
+                                    <span class="review-preview">
+                                        <i class="fa fa-eye"></i>
+                                        <img src="{PATH_TO_ROOT}/upload/{orphans.FILE_PATH}">
+                                    </span>
+                                </td>
+                            # ELSE #
+                                # IF orphans.C_IS_PDF_FILE #
+                                    <td class="flex-between">
+                                        {orphans.FILE_PATH}
+                                        <span class="review-preview">
+                                            <i class="fa fa-eye"></i>
+                                            <embed src="{PATH_TO_ROOT}/upload/{orphans.FILE_PATH}">
+                                        </span>
+                                    </td>
+                                # ELSE #
+                                    <td class="flex-between">
+                                        {orphans.FILE_PATH}
+                                        <span class="review-preview">
                                             <i class="fa fa-eye-slash"></i>
-                                        # ENDIF #
-                                    # ENDIF #
-                                </span>
-                            </td>
+                                        </span>
+                                    </td>
+                                # ENDIF #
+                            # ENDIF #
                         </tr>
                     # END orphans #
                 </tbody>
