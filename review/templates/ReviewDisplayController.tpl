@@ -326,7 +326,7 @@
                 <tbody>
                     # START usedbutmissing #
                         <tr>
-                            <td>
+                            <td class="align-left">
                                 {usedbutmissing.FILE_PATH}
                             </td>
                             <td>
@@ -334,7 +334,10 @@
                             </td>
                             <td>
                                 # IF usedbutmissing.C_FILE_ITEM_TITLE #
-                                    <a href="{usedbutmissing.FILE_ITEM_LINK}">{usedbutmissing.FILE_ITEM_TITLE}</a>
+                                    <a class="flex-between" href="{usedbutmissing.FILE_ITEM_LINK}" target="_blank" rel="noopener noreferrer">
+                                        {usedbutmissing.FILE_ITEM_TITLE}
+                                        <i class="fa fa-share-from-square"></i>
+                                    </a>
                                 # ELSE #
                                     {@review.file.undetermined.link}
                                 # ENDIF #
