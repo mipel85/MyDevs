@@ -98,7 +98,7 @@
                             jQuery(this).removeClass('visible');
                             api
                                 .column(colIdx)
-                                .search('', this.value != '', this.value === '')
+                                .search('')
                                 .draw();
                         });
                     });
