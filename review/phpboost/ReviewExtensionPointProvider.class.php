@@ -24,7 +24,9 @@ class ReviewExtensionPointProvider extends ExtensionPointProvider
 
     public function url_mappings()
     {
-        return new UrlMappings(array(new DispatcherUrlMapping('/review/index.php')));
+        return new UrlMappings(array(
+            new DispatcherUrlMapping('/review/index.php', '?$', '', 'home/', true),
+            new DispatcherUrlMapping('/review/index.php')));
     }
 }
 ?>
