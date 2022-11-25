@@ -18,7 +18,7 @@ class ReviewCounters
         if (ReviewService::is_module_displayed('gallery'))
         {
             $view->put_all(array(        
-                'C_GALLERY_DISPLAYED'                      => true,      
+                'C_GALLERY_DISPLAYED'            => true,      
                 'NB_FILES_IN_GALLERY_TABLE'      => $cache_in_table->get_files_in_gallery_number(),
                 'NB_FILES_NOT_IN_GALLERY_TABLE'  => count(ReviewService::get_count_files_not_in_ingallerytable()),
                 'NB_FILES_NOT_IN_GALLERY_FOLDER' => count(ReviewService::get_count_files_not_ingalleryfolder()),

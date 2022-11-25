@@ -22,6 +22,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
         if ($this->submit_button->has_been_submited() && $this->form->validate()) {
             $config->set_date(new Date());
             $config->set_scanned_by(AppContext::get_current_user());
+            $config->set_first_scan(true);
             ReviewConfig::save();
             ReviewService::delete_files_incontenttable();
             ReviewService::insert_files_incontenttable();
@@ -32,7 +33,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
         $date = $config->get_date()->get_timestamp();
         
         $this->view->put_all(array(
-            'C_REVIEW_COUNTERS'   => $cache_in_table->get_files_in_content_number(),
+            'C_DISPLAY_COUNTERS'   => $config->get_first_scan(),
             'C_GALLERY_DISPLAYED' => ReviewService::is_module_displayed('gallery'),
             'C_GALLERY_FOLDER'    => ReviewService::is_folder_on_server('/gallery'),
 
@@ -219,10 +220,10 @@ class ReviewDisplayController extends DefaultAdminModuleController
     }
 
     private function build_form()
-    {
-        $files_in_content_number = ReviewCacheInTable::load()->get_files_in_content_number();
+    {        
+        $config = ReviewConfig::load();
         $form = new HTMLForm(__CLASS__);
-        $this->submit_button = new FormButtonSubmit($files_in_content_number == 0 ? $this->lang['review.run.scan'] : $this->lang['review.restart.scan'], '', '', 'submit preloader-button');
+        $this->submit_button = new FormButtonSubmit($config->get_first_scan() == 0 ? $this->lang['review.run.scan'] : $this->lang['review.restart.scan'], '', '', 'submit preloader-button');
         $form->add_button($this->submit_button);
 
         $this->form = $form;
