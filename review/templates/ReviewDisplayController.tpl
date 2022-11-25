@@ -111,11 +111,11 @@
     # INCLUDE CACHE_BUTTON #
     # IF C_REVIEW_COUNTERS #<span class="more align-center">{@common.last.update} : {DATE} ${TextHelper::lcfirst(@common.by)} {SCANNED_BY}</span># ENDIF #
 </div>
-# IF C_REVIEW_COUNTERS #    
-    # INCLUDE REVIEW_COUNTERS #
-# ELSE #
+# IF NOT C_REVIEW_COUNTERS #    
     {@H|review.first.scan}
 # ENDIF #
+
+# INCLUDE REVIEW_COUNTERS #
 
 # IF C_FILES_IN_UPLOAD_FOLDER #
     <article class="review-results">
@@ -501,6 +501,7 @@
         </article>
     # ENDIF #
 # ENDIF #
+
 # IF C_FILES_IN_GALLERY_TABLE #
     <article class="review-results">
         <header>
