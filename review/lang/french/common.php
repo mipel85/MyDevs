@@ -14,11 +14,8 @@ $lang['review.run.scan']     = 'Lancer une analyse';
 $lang['review.restart.scan'] = 'Relancer une analyse';
 $lang['review.first.scan']   = '
     <div class="message-helper bgc warning">
-        <ul>
-            <li>Aucun fichier n\'a été trouvé dans un contenu du site</li>
-            <li>Le module vient d\'être installé.</li>
-        </ul>
-        Une analyse doit être effectuée en cliquant sur le bouton ci-dessus.
+        Aucune analyse n\'a encore été effectuée.<br />
+        Cliquer sur le bouton ci-dessus.
     </div>
 ';
 
