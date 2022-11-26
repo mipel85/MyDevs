@@ -52,31 +52,46 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 		$root_folders = new Folder(PATH_TO_ROOT);
 		if($root_folders->exists())
 		{
+			$root_folders_exceptions = array('admin', 'database', 'install', 'kernel', 'lang', 'search', 'update', 'user');
+			$main_folders_exceptions = array('controllers', 'lang');
+			$sub_folders_exceptions = array('js', 'lang');
+			$last_folders_exceptions = array('js');
 			$rfi = 0;
-			foreach($root_folders->get_folders() as $main_folder)
-			{
-				$main_folder_name = explode('/', $main_folder->get_path() ?? '');
-				$main_folder_name = $main_folder_name != '..' ? end($main_folder_name) : '';
-				if(!in_array($main_folder_name, array('kernel', 'admin', 'install', 'update', '.vscode')))
+			foreach($root_folders->get_folders() as $root_folder)
+			{				
+				$root_folder_name = explode('/', $root_folder->get_path() ?? '');
+				$root_folder_name = $root_folder_name != '..' ? end($root_folder_name) : '';
+				if($this->check_content($root_folder) && !in_array($root_folder_name, $root_folders_exceptions))
 				{
-					$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $main_folder_name, $main_folder_name . '|' . $rfi);
+					$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $root_folder_name, $root_folder_name . '|' . $rfi);
 					
 					$mfi = 0;
-					foreach($main_folder->get_folders() as $folder)
+					foreach($root_folder->get_folders() as $folder)
 					{
 						$folder_name = explode('/', $folder->get_path() ?? '');
 						$folder_name = $folder_name != '..' ? end($folder_name) : '';
-						if(!in_array($folder_name, array('controllers', 'extension', 'fields', 'lang', 'phpboost', 'services', 'util', 'database', 'update')))
+						if($this->check_content($folder) && !in_array($folder_name, $main_folders_exceptions))
 						{
-							$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $main_folder_name . '-' . $folder_name, $folder_name. '|' . $rfi . '|' . $mfi);
+							$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $root_folder_name . '-' . $folder_name, $folder_name. '|' . $rfi . '|' . $mfi);
 							$sfi = 0;
 							foreach ($folder->get_folders() as $sub_folder) 
 							{
 								$sub_folder_name = explode('/', $sub_folder->get_path() ?? '');
 								$sub_folder_name = $sub_folder_name != '..' ? end($sub_folder_name) : '';
-								if(!in_array($sub_folder_name, array('js', 'lang', 'fields')))
+								if($this->check_content($sub_folder) && !in_array($sub_folder_name, $sub_folders_exceptions))
 								{
-									$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $main_folder_name . '-' . $folder_name . '-' . $sub_folder_name, $sub_folder_name . '|' . $rfi . '|' . $mfi . '|' . $sfi);
+									$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $root_folder_name . '-' . $folder_name . '-' . $sub_folder_name, $sub_folder_name . '|' . $rfi . '|' . $mfi . '|' . $sfi);
+									$lfi = 0;
+									foreach($sub_folder->get_folders() as $last_folder)
+									{
+										$last_folder_name = explode('/', $last_folder->get_path() ?? '');
+										$last_folder_name = $last_folder_name != '..' ? end($last_folder_name) : '';
+										if($this->check_content($last_folder) && !in_array($last_folder_name, $last_folders_exceptions))
+										{
+											$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $root_folder_name . '-' . $folder_name . '-' . $sub_folder_name . '-' . $last_folder_name, $last_folder_name . '|' . $rfi . '|' . $mfi . '|' . $sfi . '|' . $lfi);
+										}
+										$lfi++;
+									}
 								}
 								$sfi++;
 							}
@@ -88,6 +103,45 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 			}
 			return $folders_list;
 		}		
+	}
+
+	private function check_content($folder)
+	{
+		$upload_config = FileUploadConfig::load();
+		$folders = $folder->get_folders();
+		$files = $folder->get_files();
+		
+		$files_list = array();
+		foreach($files as $file)
+		{
+			if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
+				$files_list[] = $file;
+		}
+
+		$folders_list = array();
+		foreach($folders as $folder)
+		{
+			if($folder->get_folders())
+			{
+				$folders_list[] = $folder;
+			}
+
+			if($folder->get_files())
+			{
+				foreach($folder->get_files() as $file)
+				{
+					if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
+						$folders_list[] = $folder;
+				}
+			}				
+		}
+
+		$folders_nb = count($folders_list);
+		$files_nb = count($files_list);
+		
+		if ($folders_nb > 0 || $files_nb > 0)
+			return true;
+		return false;		
 	}
 
 	private function save()

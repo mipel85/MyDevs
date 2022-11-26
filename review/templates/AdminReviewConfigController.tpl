@@ -12,11 +12,16 @@
         let cbSpanSplit = cbSpanText.split('|'); // Split label to get data's from php ()
         cbSpan.text(cbSpanSplit[0]); // rename label
         let cbLabel = $cb.html(); // get whole html of cb with new name
-        
+
         // set data's depending on folder tree
-        if(cbSpanSplit.length == 4) // second row in root folders
+        if(cbSpanSplit.length == 5) // second row in root folders
         {
-            jQuery('<li/>', {id: 'li-s-' + cbSpanSplit[3], 'data-cb-id': cbSpanSplit[3], 'data-cb-parent' : cbSpanSplit[2], 'data-cb-order': cbSpanSplit[3]}).html(cbLabel).appendTo('#ul-' + cbSpanSplit[1] + '-' + cbSpanSplit[2]);
+            jQuery('<li/>', {id: 'li-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3] + cbSpanSplit[4], 'data-cb-id': cbSpanSplit[4], 'data-cb-parent' : cbSpanSplit[3], 'data-cb-order': cbSpanSplit[4]}).html(cbLabel).appendTo('#ul-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3]);
+        }
+        else if(cbSpanSplit.length == 4) // second row in root folders
+        {
+            jQuery('<li/>', {id: 'li-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3], 'data-cb-id': cbSpanSplit[3], 'data-cb-parent' : cbSpanSplit[2], 'data-cb-order': cbSpanSplit[3]}).html(cbLabel).appendTo('#ul-' + cbSpanSplit[1] + '-' + cbSpanSplit[2]);
+            jQuery('<ul/>', {id: 'ul-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3], class : 'level-3'}).appendTo(['#li-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3]]);
         }
         else if(cbSpanSplit.length == 3) // first row in root folders
         {
@@ -32,7 +37,7 @@
     });
 
     // Tree details
-    jQuery('.level-1, .level-2').each(function(){
+    jQuery('.level-1, .level-2, .level-3').each(function(){
         if(jQuery(this).children().length == 0)
             jQuery(this).remove(); // Remove ul if empty
         else
