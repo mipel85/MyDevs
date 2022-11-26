@@ -15,7 +15,6 @@ class AdminReviewConfigController extends DefaultAdminModuleController
         $this->view->add_lang($this->lang);
 
 		$this->build_form();
-		$this->get_folders_list();
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -33,9 +32,9 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 
 		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
-		
+				
 		$fieldset->add_field(new FormFieldMultipleCheckbox('multiple_check_box', 'checkbox',
-			array('root-images', 'root-upload', 'root-gallery-pics'),
+			array('root-gallery-pics', 'root-images', 'root-upload'),
 			$this->get_folders_id_list(),
 			array('required' => true, 'class' => 'mini-checkbox full-field')
 		));
@@ -45,44 +44,6 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 		$form->add_button(new FormButtonReset());
 
 		$this->form = $form;
-	}
-
-	private function get_folders_list()
-	{
-		$folders_list = array();
-		$root_folders = new Folder(PATH_TO_ROOT);
-		if($root_folders->exists())
-		{
-			foreach($root_folders->get_folders() as $main_folder)
-			{
-				$main_folder_name = explode('/', $main_folder->get_path() ?? '');
-				$main_folder_name = $main_folder_name != '..' ? end($main_folder_name) : '';
-				if(!in_array($main_folder_name, array('kernel', 'admin', 'install', 'update', '.vscode')))
-				{
-					$folders_list[] = new FormFieldMultipleCheckboxOption($main_folder_name, '+' . $main_folder_name);
-				
-					foreach($main_folder->get_folders() as $folder)
-					{
-						$folder_name = explode('/', $folder->get_path() ?? '');
-						$folder_name = $folder_name != '..' ? end($folder_name) : '';
-						if(!in_array($folder_name, array('controllers', 'extension', 'fields', 'lang', 'phpboost', 'services', 'util', 'database', 'update')))
-						{
-							$folders_list[] = new FormFieldMultipleCheckboxOption($folder_name, '-' . $folder_name);
-							foreach ($folder->get_folders() as $sub_folder) 
-							{
-								$sub_folder_name = explode('/', $sub_folder->get_path() ?? '');
-								$sub_folder_name = $sub_folder_name != '..' ? end($sub_folder_name) : '';
-								if(!in_array($sub_folder_name, array('js', 'lang')))
-								{
-									$folders_list[] = new FormFieldMultipleCheckboxOption($sub_folder_name, '_' . $sub_folder_name);
-								}
-							}
-						}
-					}
-				}
-			}
-			return $folders_list;
-		}		
 	}
 
 	private function get_folders_id_list()
