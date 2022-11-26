@@ -136,3 +136,52 @@ table thead tr.filters th {
 }
 
 .empty-search.visible { visibility: visible; }
+
+/* admin */
+#cb-list,
+#cb-list ul { 
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+}
+
+#cb-list li {
+    padding: 0.618em;
+    background-color: var(--bgc-main);
+}
+
+#cb-list .has-sub { 
+    position: relative;
+    display: block;
+    padding-left: 1.618em;
+}
+
+#cb-list .has-sub ul { 
+    margin-left: 1.618em; 
+    display: none;
+}
+
+#cb-list .has-sub.open > ul {  display: block; }
+
+#cb-list .has-sub > .swap-handle { 
+    position: absolute; 
+    left: 0;
+    top: 0;
+    width: 1.809em;
+    height: 3.456em;
+}
+
+#cb-list .has-sub > .swap-handle { cursor: zoom-in; }
+#cb-list .has-sub.open > .swap-handle { cursor: zoom-out; }
+
+#cb-list .has-sub > .swap-handle::after { 
+    position: absolute;
+    left: 0.456em;
+    top: 45%;
+    transform: translateY(-50%);
+    content: '\25BA';    
+}
+
+#cb-list .has-sub.open > .swap-handle::after { 
+    content: '\25BC';
+}
