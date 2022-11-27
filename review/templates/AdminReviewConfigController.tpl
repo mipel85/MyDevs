@@ -13,25 +13,54 @@
         cbSpan.text(cbSpanSplit[0]); // rename label
         let cbLabel = $cb.html(); // get whole html of cb with new name
 
+        let lv1 = cbSpanSplit[1],
+            lv2 = cbSpanSplit[2],
+            lv3 = cbSpanSplit[3],
+            lv4 = cbSpanSplit[4],
+            lv5 = cbSpanSplit[5],
+            lv6 = cbSpanSplit[6],
+            lv7 = cbSpanSplit[7],
+            lv8 = cbSpanSplit[8];
+
         // set data's depending on folder tree
-        if(cbSpanSplit.length == 5) // second row in root folders
+        if(cbSpanSplit.length == 9) // eighth row in root folders
         {
-            jQuery('<li/>', {id: 'li-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3] + cbSpanSplit[4], 'data-cb-id': cbSpanSplit[4], 'data-cb-parent' : cbSpanSplit[3], 'data-cb-order': cbSpanSplit[4]}).html(cbLabel).appendTo('#ul-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3]);
+            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7+'-'+lv8, 'data-cb-id': lv8, 'data-cb-parent' : lv7, 'data-cb-order': lv8}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv47+'-'+lv5+'-'+lv6+'-'+lv7);
         }
-        else if(cbSpanSplit.length == 4) // second row in root folders
+        else if(cbSpanSplit.length == 8) // seventh row in root folders
         {
-            jQuery('<li/>', {id: 'li-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3], 'data-cb-id': cbSpanSplit[3], 'data-cb-parent' : cbSpanSplit[2], 'data-cb-order': cbSpanSplit[3]}).html(cbLabel).appendTo('#ul-' + cbSpanSplit[1] + '-' + cbSpanSplit[2]);
-            jQuery('<ul/>', {id: 'ul-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3], class : 'level-3'}).appendTo(['#li-' + cbSpanSplit[1] + '-' + cbSpanSplit[2] + '-' + cbSpanSplit[3]]);
+            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7, 'data-cb-id': lv7, 'data-cb-parent' : lv6, 'data-cb-order': lv7}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv47+'-'+lv5+'-'+lv6);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6, class : 'level-3'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7]);
         }
-        else if(cbSpanSplit.length == 3) // first row in root folders
+        else if(cbSpanSplit.length == 7) // sixth row in root folders
         {
-            jQuery('<li/>', {id: 'li-' + cbSpanSplit[1] + '-' + cbSpanSplit[2], 'data-cb-id': cbSpanSplit[2], 'data-cb-parent' : cbSpanSplit[1], 'data-cb-order': cbSpanSplit[2]}).html(cbLabel).appendTo('#ul-' + cbSpanSplit[1]);
-            jQuery('<ul/>', {id: 'ul-' + cbSpanSplit[1] + '-' + cbSpanSplit[2], class : 'level-2'}).appendTo(['#li-' + cbSpanSplit[1] + '-' + cbSpanSplit[2]]);
+            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6, 'data-cb-id': lv6, 'data-cb-parent' : lv5, 'data-cb-order': lv6}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6, class : 'level-3'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6]);
         }
-        else if(cbSpanSplit.length == 2) // root folders
+        else if(cbSpanSplit.length == 6) // fifth row in root folders
         {
-            jQuery('<li/>', {id: 'li-' + cbSpanSplit[1], class: 'first-row', 'data-cb-id': cbSpanSplit[1], 'data-cb-parent' : 0, 'data-cb-order': cbSpanSplit[1]}).html(cbLabel).appendTo('#cb-list');
-            jQuery('<ul/>', {id: 'ul-' + cbSpanSplit[1], class : 'level-1'}).appendTo(['#li-' + cbSpanSplit[1]]);
+            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5, 'data-cb-id': lv5, 'data-cb-parent' : lv4, 'data-cb-order': lv5}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5, class : 'level-3'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5]);
+        }
+        else if(cbSpanSplit.length == 5) // forth row in root folders
+        {
+            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4, 'data-cb-id': lv4, 'data-cb-parent' : lv3, 'data-cb-order': lv4}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4, class : 'level-3'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4]);
+        }
+        else if(cbSpanSplit.length == 4) // third row in root folders
+        {
+            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3, 'data-cb-id': lv3, 'data-cb-parent' : lv2, 'data-cb-order': lv3}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3, class : 'level-3'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3]);
+        }
+        else if(cbSpanSplit.length == 3) // second row in root folders
+        {
+            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2, 'data-cb-id': lv2, 'data-cb-parent' : lv1, 'data-cb-order': lv2}).html(cbLabel).appendTo('#ul-'+lv1);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2, class : 'level-2'}).appendTo(['#li-'+lv1+'-'+lv2]);
+        }
+        else if(cbSpanSplit.length == 2) // first row in root folders
+        {
+            jQuery('<li/>', {id: 'li-'+lv1, class: 'first-row', 'data-cb-id': lv1, 'data-cb-parent' : 0, 'data-cb-order': lv1}).html(cbLabel).appendTo('#cb-list');
+            jQuery('<ul/>', {id: 'ul-'+lv1, class : 'level-1'}).appendTo(['#li-'+lv1]);
         }
         $cb.remove(); // remove FormFieldMultipleCheckBox initial content html
     });

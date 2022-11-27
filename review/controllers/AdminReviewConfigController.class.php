@@ -34,7 +34,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 		$form->add_fieldset($fieldset);
 				
 		$fieldset->add_field(new FormFieldMultipleCheckbox('multiple_check_box', 'checkbox',
-			array('root-gallery-pics', 'root-images', 'root-upload'),
+			array('root-gallery-pics', 'root-gallery-pics-thumbnails', 'root-images', 'root-upload'),
 			$this->get_folders_id_list(),
 			array('required' => true, 'class' => 'mini-checkbox full-field')
 		));
@@ -48,58 +48,107 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 
 	private function get_folders_id_list()
 	{
+		// TODO use recursive php functions https://www.php.net/manual/en/class.recursivedirectoryiterator.php
 		$folders_list = array();
-		$root_folders = new Folder(PATH_TO_ROOT);
-		if($root_folders->exists())
+		$path_folders = new Folder(PATH_TO_ROOT);
+		if($path_folders->exists())
 		{
-			$root_folders_exceptions = array('admin', 'database', 'install', 'kernel', 'lang', 'search', 'update', 'user');
-			$main_folders_exceptions = array('controllers', 'lang');
-			$sub_folders_exceptions = array('js', 'lang');
-			$last_folders_exceptions = array('js');
-			$rfi = 0;
-			foreach($root_folders->get_folders() as $root_folder)
+			$level_1_exceptions = array('admin', 'database', 'install', 'kernel', 'lang', 'search', 'update', 'user');
+			$level_2_exceptions = array('controllers', 'lang', 'update');
+			$level_3_exceptions = array('js', 'lang');
+			$level_4_exceptions = array();
+			$level_5_exceptions = array();
+			$level_6_exceptions = array();
+			$level_7_exceptions = array();
+			$level_8_exceptions = array();
+			$lv1 = 0;
+			foreach($path_folders->get_folders() as $level_1)
 			{				
-				$root_folder_name = explode('/', $root_folder->get_path() ?? '');
-				$root_folder_name = $root_folder_name != '..' ? end($root_folder_name) : '';
-				if($this->check_content($root_folder) && !in_array($root_folder_name, $root_folders_exceptions))
+				$level_1_name = explode('/', $level_1->get_path() ?? '');
+				$level_1_name = $level_1_name != '..' ? end($level_1_name) : '';
+				if($this->check_content($level_1) && !in_array($level_1_name, $level_1_exceptions))
 				{
-					$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $root_folder_name, $root_folder_name . '|' . $rfi);
+					$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name, $level_1_name.'|'.$lv1);
 					
-					$mfi = 0;
-					foreach($root_folder->get_folders() as $folder)
+					$lv2 = 0;
+					foreach($level_1->get_folders() as $level_2)
 					{
-						$folder_name = explode('/', $folder->get_path() ?? '');
-						$folder_name = $folder_name != '..' ? end($folder_name) : '';
-						if($this->check_content($folder) && !in_array($folder_name, $main_folders_exceptions))
+						$level_2_name = explode('/', $level_2->get_path() ?? '');
+						$level_2_name = $level_2_name != '..' ? end($level_2_name) : '';
+						if($this->check_content($level_2) && !in_array($level_2_name, $level_2_exceptions))
 						{
-							$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $root_folder_name . '-' . $folder_name, $folder_name. '|' . $rfi . '|' . $mfi);
-							$sfi = 0;
-							foreach ($folder->get_folders() as $sub_folder) 
+							$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name, $level_2_name. '|'.$lv1.'|'.$lv2);
+							$lv3 = 0;
+							foreach ($level_2->get_folders() as $level_3) 
 							{
-								$sub_folder_name = explode('/', $sub_folder->get_path() ?? '');
-								$sub_folder_name = $sub_folder_name != '..' ? end($sub_folder_name) : '';
-								if($this->check_content($sub_folder) && !in_array($sub_folder_name, $sub_folders_exceptions))
+								$level_3_name = explode('/', $level_3->get_path() ?? '');
+								$level_3_name = $level_3_name != '..' ? end($level_3_name) : '';
+								if($this->check_content($level_3) && !in_array($level_3_name, $level_3_exceptions))
 								{
-									$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $root_folder_name . '-' . $folder_name . '-' . $sub_folder_name, $sub_folder_name . '|' . $rfi . '|' . $mfi . '|' . $sfi);
-									$lfi = 0;
-									foreach($sub_folder->get_folders() as $last_folder)
+									$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name, $level_3_name.'|'.$lv1.'|'.$lv2.'|'.$lv3);
+									$lv4 = 0;
+									foreach($level_3->get_folders() as $level_4)
 									{
-										$last_folder_name = explode('/', $last_folder->get_path() ?? '');
-										$last_folder_name = $last_folder_name != '..' ? end($last_folder_name) : '';
-										if($this->check_content($last_folder) && !in_array($last_folder_name, $last_folders_exceptions))
+										$level_4_name = explode('/', $level_4->get_path() ?? '');
+										$level_4_name = $level_4_name != '..' ? end($level_4_name) : '';
+										if($this->check_content($level_4) && !in_array($level_4_name, $level_4_exceptions))
 										{
-											$folders_list[] = new FormFieldMultipleCheckboxOption('root-' . $root_folder_name . '-' . $folder_name . '-' . $sub_folder_name . '-' . $last_folder_name, $last_folder_name . '|' . $rfi . '|' . $mfi . '|' . $sfi . '|' . $lfi);
+											$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name, $level_4_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4);
+											$lv5 = 0;
+											foreach($level_4->get_folders() as $level_5)
+											{
+												$level_5_name = explode('/', $level_5->get_path() ?? '');
+												$level_5_name = $level_5_name != '..' ? end($level_5_name) : '';
+												if($this->check_content($level_5) && !in_array($level_5_name, $level_5_exceptions))
+												{
+													$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name, $level_5_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5);
+													$lv6 = 0;
+													foreach($level_5->get_folders() as $level_6)
+													{
+														$level_6_name = explode('/', $level_6->get_path() ?? '');
+														$level_6_name = $level_6_name != '..' ? end($level_6_name) : '';
+														if($this->check_content($level_6) && !in_array($level_6_name, $level_6_exceptions))
+														{
+															$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name, $level_6_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6);
+															$lv7 = 0;
+															foreach($level_6->get_folders() as $level_7)
+															{
+																$level_7_name = explode('/', $level_7->get_path() ?? '');
+																$level_7_name = $level_7_name != '..' ? end($level_7_name) : '';
+																if($this->check_content($level_7) && !in_array($level_7_name, $level_7_exceptions))
+																{
+																	$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name.'-'.$level_7_name, $level_7_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6.'|'.$lv7);
+																	$lv8 = 0;
+																	foreach($level_7->get_folders() as $level_8)
+																	{
+																		$level_8_name = explode('/', $level_8->get_path() ?? '');
+																		$level_8_name = $level_8_name != '..' ? end($level_8_name) : '';
+																		if($this->check_content($level_8) && !in_array($level_8_name, $level_8_exceptions))
+																		{
+																			$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name.'-'.$level_7_name.'-'.$level_8_name, $level_8_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6.'|'.$lv7.'|'.$lv8);
+																		}
+																		$lv8++;
+																	}
+																}
+																$lv7++;
+															}
+														}
+														$lv6++;
+													}
+												}
+												$lv5++;
+											}
 										}
-										$lfi++;
+										$lv4++;
 									}
 								}
-								$sfi++;
+								$lv3++;
 							}
 						}
-						$mfi++;
+						$lv2++;
 					}
 				}
-				$rfi++;
+				$lv1++;
 			}
 			return $folders_list;
 		}		
