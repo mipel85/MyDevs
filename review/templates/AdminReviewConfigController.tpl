@@ -3,9 +3,9 @@
 <script>
     // Create new list from FormFieldMultipleCheckBox
         // Create ul
-    jQuery('<ul/>', {id : 'cb-list'}).prependTo('#onblurContainerResponseAdminReviewConfigController_multiple_check_box').addClass('cell-flex cell-columns-4');
+    jQuery('<ul/>', {id : 'cb-list'}).prependTo('#onblurContainerResponseAdminReviewConfigController_folders_list').addClass('cell-flex cell-columns-4');
         // Create li For each checkbox
-    jQuery('#onblurContainerResponseAdminReviewConfigController_multiple_check_box .form-field-checkbox').each(function(){
+    jQuery('#onblurContainerResponseAdminReviewConfigController_folders_list .form-field-checkbox').each(function(){
         let $cb = jQuery(this);
         let cbSpan = $cb.find('span');
         let cbSpanText = $cb.find('span').text(); // Get label of cb
@@ -25,27 +25,27 @@
         // set data's depending on folder tree
         if(cbSpanSplit.length == 9) // eighth row in root folders
         {
-            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7+'-'+lv8, 'data-cb-id': lv8, 'data-cb-parent' : lv7, 'data-cb-order': lv8}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv47+'-'+lv5+'-'+lv6+'-'+lv7);
+            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7+'-'+lv8, 'data-cb-id': lv8, 'data-cb-parent' : lv7, 'data-cb-order': lv8}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7);
         }
         else if(cbSpanSplit.length == 8) // seventh row in root folders
         {
-            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7, 'data-cb-id': lv7, 'data-cb-parent' : lv6, 'data-cb-order': lv7}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv47+'-'+lv5+'-'+lv6);
-            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6, class : 'level-3'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7]);
+            jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7, 'data-cb-id': lv7, 'data-cb-parent' : lv6, 'data-cb-order': lv7}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7, class : 'level-7'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6+'-'+lv7]);
         }
         else if(cbSpanSplit.length == 7) // sixth row in root folders
         {
             jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6, 'data-cb-id': lv6, 'data-cb-parent' : lv5, 'data-cb-order': lv6}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5);
-            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6, class : 'level-3'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6]);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6, class : 'level-6'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5+'-'+lv6]);
         }
         else if(cbSpanSplit.length == 6) // fifth row in root folders
         {
             jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5, 'data-cb-id': lv5, 'data-cb-parent' : lv4, 'data-cb-order': lv5}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4);
-            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5, class : 'level-3'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5]);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5, class : 'level-5'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4+'-'+lv5]);
         }
         else if(cbSpanSplit.length == 5) // forth row in root folders
         {
             jQuery('<li/>', {id: 'li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4, 'data-cb-id': lv4, 'data-cb-parent' : lv3, 'data-cb-order': lv4}).html(cbLabel).appendTo('#ul-'+lv1+'-'+lv2+'-'+lv3);
-            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4, class : 'level-3'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4]);
+            jQuery('<ul/>', {id: 'ul-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4, class : 'level-4'}).appendTo(['#li-'+lv1+'-'+lv2+'-'+lv3+'-'+lv4]);
         }
         else if(cbSpanSplit.length == 4) // third row in root folders
         {
@@ -66,7 +66,7 @@
     });
 
     // Tree details
-    jQuery('.level-1, .level-2, .level-3').each(function(){
+    jQuery('.level-1, .level-2, .level-3, .level-43, .level-5, .level-6, .level-7').each(function(){
         if(jQuery(this).children().length == 0)
             jQuery(this).remove(); // Remove ul if empty
         else

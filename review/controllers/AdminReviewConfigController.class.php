@@ -32,11 +32,18 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 
 		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
+
+		$fieldset->add_field(new FormFieldFree('clue', '', $this->lang['review.set.folders.list.clue'],
+			array('class' => 'full-field')
+		));
 				
-		$fieldset->add_field(new FormFieldMultipleCheckbox('multiple_check_box', 'checkbox',
-			array('root-gallery-pics', 'root-gallery-pics-thumbnails', 'root-images', 'root-upload'),
+		$fieldset->add_field(new FormFieldMultipleCheckbox('folders_list', $this->lang['review.set.folders.list'],
+			TextHelper::deserialize($this->config->get_folders()),
 			$this->get_folders_id_list(),
-			array('required' => true, 'class' => 'mini-checkbox full-field')
+			array(
+				'required' => true, 
+				'class' => 'mini-checkbox full-field'
+			)
 		));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
@@ -53,9 +60,9 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 		$path_folders = new Folder(PATH_TO_ROOT);
 		if($path_folders->exists())
 		{
-			$level_1_exceptions = array('admin', 'database', 'install', 'kernel', 'lang', 'search', 'update', 'user');
+			$level_1_exceptions = array('admin', 'cache', 'database', 'install', 'kernel', 'lang', 'search', 'update', 'user');
 			$level_2_exceptions = array('controllers', 'lang', 'update');
-			$level_3_exceptions = array('js', 'lang');
+			$level_3_exceptions = array('lang');
 			$level_4_exceptions = array();
 			$level_5_exceptions = array();
 			$level_6_exceptions = array();
@@ -195,6 +202,13 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 
 	private function save()
 	{
+		$folders_list = array();
+		foreach($this->form->get_value('folders_list') as $id => $value)
+		{
+			$folders_list[] = $value;
+		}
+		$this->config->set_folders(TextHelper::serialize($folders_list));
+
 		ReviewConfig::save();
 
 		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));

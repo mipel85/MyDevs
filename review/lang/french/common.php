@@ -19,6 +19,17 @@ $lang['review.first.scan']   = '
     </div>
 ';
 
+// Configuration
+$lang['review.set.folders.list']      = 'Liste des dossiers à scanner';
+$lang['review.set.folders.list.clue'] = '
+    Les dossiers apparaissent automatiquement dès lors qu\'ils contiennent des sous-dossiers ou des fichiers dont les extensions sont autorisées dans la <a href="' . AdminFilesUrlBuilder::configuration()->rel() . '">configuration des fichiers</a>. <br />
+    Certains dossiers ont été désactivés : admin | cache | database | install | kernel | lang | search | update | user, ainsi que tous les sous-dossiers : controllers | lang | update
+    <span class="message-helper bgc warning">
+        La revue de fichiers ne s\'effectue que dans le dossier coché, pas dans ses dossiers enfants. 
+        Il faut donc les cocher si on veut qu\'ils soient pris en compte
+    </span>
+';
+
 // Upload Counters
 $lang['review.files.status']               = 'Situation des fichiers';
 $lang['review.upload.folder.files']        = 'Fichiers présents dans le dossier /upload';
