@@ -185,3 +185,16 @@ table thead tr.filters th {
 #cb-list .has-sub.open > .swap-handle::after { 
     content: '\25BC';
 }
+
+
+.mini-checkbox .checkbox input[type="checkbox"]:checked + span::before { background-color: var(--bgc-alt); }
+
+.mini-checkbox .checkbox input[type="checkbox"]:checked + span::after {
+    position: absolute;
+    content: '\f00c';
+    background-color: var(--bgc-alt);
+    color: var(--txt-alt);
+    top: 2px;
+    left: 2px;
+    transition: all .3s ease 0s;
+}
