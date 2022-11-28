@@ -65,7 +65,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 			{				
 				$level_1_name = explode('/', $level_1->get_path() ?? '');
 				$level_1_name = $level_1_name != '..' ? end($level_1_name) : '';
-				if($this->check_content($level_1) && !in_array($level_1_name, array('install', 'update')))
+				if($this->check_content($level_1) && !in_array($level_1_name, array('install', 'kernel', 'update')))
 				{
 					$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name, $level_1_name.'|'.$lv1);
 					
@@ -156,29 +156,72 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 	private function check_content($folder)
 	{
 		$upload_config = FileUploadConfig::load();
-		$folders = $folder->get_folders();
-		$files = $folder->get_files();		
-		$content = array();
+		$content = $folder->get_all_content();		
+		$content_nb = array();
 
-		foreach($files as $file)
+		foreach($content as $level_1)
 		{
-			if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
-				$content[] = $file;
-		}
-
-		foreach($folders as $folder)
-		{
-			if($folder->get_files())
+			if (is_dir($level_1->get_path()))
 			{
-				foreach($folder->get_files() as $file)
+				foreach($level_1->get_all_content() as $level_2)
 				{
-					if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
-						$content[] = $file;
+					if (is_dir($level_2->get_path()))
+					{
+						foreach($level_2->get_all_content() as $level_3)
+						{
+							if (is_dir($level_3->get_path()))
+							{
+								foreach($level_3->get_all_content() as $level_4)
+								{
+									if (is_dir($level_4->get_path()))
+									{
+										foreach($level_4->get_all_content() as $level_5)
+										{
+											if (is_dir($level_5->get_path()))
+											{
+												foreach($level_5->get_all_content() as $level_6)
+												{
+													if (is_dir($level_6->get_path()))
+													{
+														foreach($level_6->get_all_content() as $level_7)
+														{
+															if (is_dir($level_7->get_path()))
+															{
+																foreach($level_7->get_all_content() as $level_8)
+																{
+																	if (!is_dir($level_8->get_path()) && in_array($level_8->get_extension(), $upload_config->get_authorized_extensions()))
+																		$content_nb[] = 1;
+																}
+															}
+															elseif (in_array($level_7->get_extension(), $upload_config->get_authorized_extensions()))
+																$content_nb[] = 1;
+														}
+													}
+													elseif (in_array($level_6->get_extension(), $upload_config->get_authorized_extensions()))
+														$content_nb[] = 1;
+												}
+											}
+											elseif (in_array($level_5->get_extension(), $upload_config->get_authorized_extensions()))
+												$content_nb[] = 1;
+										}
+									}
+									elseif (in_array($level_4->get_extension(), $upload_config->get_authorized_extensions()))
+										$content_nb[] = 1;
+								}
+							}
+							elseif (in_array($level_3->get_extension(), $upload_config->get_authorized_extensions()))
+								$content_nb[] = 1;
+						}
+					}
+					elseif (in_array($level_2->get_extension(), $upload_config->get_authorized_extensions()))
+						$content_nb[] = 1;
 				}
-			}				
+			}
+			elseif (file_exists($level_1->get_path()) && in_array($level_1->get_extension(), $upload_config->get_authorized_extensions()))
+				$content_nb[] = 1;
 		}
-		
-		if (count($content) > 0)
+
+		if (count($content_nb) > 0)
 			return true;
 		return false;		
 	}
