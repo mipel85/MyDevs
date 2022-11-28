@@ -69,8 +69,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 				$file = new File($file->getPath() . '/' . $file->getFileName());
 				if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
 				{
-					$path = $file->get_path();
-					$path = explode('/', $path);
+					$path = explode('/', $file->get_path());
 					$content_list[] = $path[1];
 					$f++;
 				}
