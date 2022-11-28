@@ -63,6 +63,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 			$content_list = array();
 			$dir = new RecursiveDirectoryIterator($object->get_path(), RecursiveDirectoryIterator::SKIP_DOTS);
 			$files = new RecursiveIteratorIterator($dir);
+			$f = 0;
 			foreach ($files as $file)
 			{
 				$file = new File($file->getPath() . '/' . $file->getFileName());
@@ -71,6 +72,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 					$path = $file->get_path();
 					$path = explode('/', $path);
 					$content_list[] = $path[1];
+					$f++;
 				}
 			}
 			$folders = array_unique($content_list);
@@ -78,7 +80,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 			{
 				if (!is_null($folder) && !in_array($folder, array('install', 'kernel', 'update')))
 				{
-					$folders_list[] = new FormFieldMultipleCheckboxOption($folder, $folder);
+					$folders_list[] = new FormFieldMultipleCheckboxOption($folder, $folder . ' (' . $f . ')');
 				}					
 			}
 		}
