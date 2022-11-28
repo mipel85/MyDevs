@@ -63,8 +63,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 			$lv1 = 0;
 			foreach($path_folders->get_folders() as $level_1)
 			{				
-				$level_1_name = explode('/', $level_1->get_path() ?? '');
-				$level_1_name = $level_1_name != '..' ? end($level_1_name) : '';
+				$level_1_name = $level_1->get_name();
 				if($this->check_content($level_1) && !in_array($level_1_name, array('install', 'kernel', 'update')))
 				{
 					$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name, $level_1_name.'|'.$lv1);
@@ -72,56 +71,49 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 					$lv2 = 0;
 					foreach($level_1->get_folders() as $level_2)
 					{
-						$level_2_name = explode('/', $level_2->get_path() ?? '');
-						$level_2_name = $level_2_name != '..' ? end($level_2_name) : '';
+						$level_2_name = $level_2->get_name();
 						if($this->check_content($level_2))
 						{
 							$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name, $level_2_name. '|'.$lv1.'|'.$lv2);
 							$lv3 = 0;
 							foreach ($level_2->get_folders() as $level_3) 
 							{
-								$level_3_name = explode('/', $level_3->get_path() ?? '');
-								$level_3_name = $level_3_name != '..' ? end($level_3_name) : '';
+								$level_3_name = $level_3->get_name();
 								if($this->check_content($level_3))
 								{
 									$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name, $level_3_name.'|'.$lv1.'|'.$lv2.'|'.$lv3);
 									$lv4 = 0;
 									foreach($level_3->get_folders() as $level_4)
 									{
-										$level_4_name = explode('/', $level_4->get_path() ?? '');
-										$level_4_name = $level_4_name != '..' ? end($level_4_name) : '';
+										$level_4_name = $level_4->get_name();
 										if($this->check_content($level_4))
 										{
 											$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name, $level_4_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4);
 											$lv5 = 0;
 											foreach($level_4->get_folders() as $level_5)
 											{
-												$level_5_name = explode('/', $level_5->get_path() ?? '');
-												$level_5_name = $level_5_name != '..' ? end($level_5_name) : '';
+												$level_5_name = $level_5->get_name();
 												if($this->check_content($level_5))
 												{
 													$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name, $level_5_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5);
 													$lv6 = 0;
 													foreach($level_5->get_folders() as $level_6)
 													{
-														$level_6_name = explode('/', $level_6->get_path() ?? '');
-														$level_6_name = $level_6_name != '..' ? end($level_6_name) : '';
+														$level_6_name = $level_6->get_name();
 														if($this->check_content($level_6))
 														{
 															$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name, $level_6_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6);
 															$lv7 = 0;
 															foreach($level_6->get_folders() as $level_7)
 															{
-																$level_7_name = explode('/', $level_7->get_path() ?? '');
-																$level_7_name = $level_7_name != '..' ? end($level_7_name) : '';
+																$level_7_name = $level_7->get_name();
 																if($this->check_content($level_7))
 																{
 																	$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name.'-'.$level_7_name, $level_7_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6.'|'.$lv7);
 																	$lv8 = 0;
 																	foreach($level_7->get_folders() as $level_8)
 																	{
-																		$level_8_name = explode('/', $level_8->get_path() ?? '');
-																		$level_8_name = $level_8_name != '..' ? end($level_8_name) : '';
+																		$level_8_name = $level_8->get_name();
 																		if($this->check_content($level_8))
 																		{
 																			$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name.'-'.$level_7_name.'-'.$level_8_name, $level_8_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6.'|'.$lv7.'|'.$lv8);

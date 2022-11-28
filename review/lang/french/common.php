@@ -22,7 +22,7 @@ $lang['review.first.scan']   = '
 // Configuration
 $lang['review.set.folders.list']      = 'Liste des dossiers à scanner';
 $lang['review.set.folders.list.clue'] = '
-    Les dossiers apparaissent automatiquement dès lors qu\'ils contiennent des fichiers dont les extensions sont autorisées dans la <a href="' . AdminFilesUrlBuilder::configuration()->rel() . '">configuration des fichiers</a>. <br />
+    Les dossiers apparaissent automatiquement dès lors qu\'ils contiennent des fichiers ou des sous-dossier contennant des fichiers dont les extensions sont autorisées dans la <a href="' . AdminFilesUrlBuilder::configuration()->rel() . '">configuration des fichiers</a>. <br />
     Certains dossiers ont été désactivés : install | kernel | update.
     <span class="message-helper bgc warning">
         La revue de fichiers ne s\'effectue que dans le dossier coché, pas dans ses dossiers enfants. 
