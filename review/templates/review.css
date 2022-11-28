@@ -198,3 +198,5 @@ table thead tr.filters th {
     left: 2px;
     transition: all .3s ease 0s;
 }
+
+.has-files > label > span { color: var(--success-tone); }
