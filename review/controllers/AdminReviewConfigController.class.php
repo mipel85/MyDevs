@@ -36,7 +36,6 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 		$fieldset->add_field(new FormFieldFree('clue', '', $this->lang['review.set.folders.list.clue'],
 			array('class' => 'full-field')
 		));
-// Debug::stop($this->config->get_folders());
 		$fieldset->add_field(new FormFieldMultipleCheckbox('folders_list', $this->lang['review.set.folders.list'],
 			TextHelper::deserialize($this->config->get_folders()),
 			$this->get_recursive_content(),
@@ -56,27 +55,17 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 	private function get_recursive_content()
 	{		
 		$upload_config = FileUploadConfig::load();
-		$path_folders = new Folder(PATH_TO_ROOT);
+		$root = new Folder(PATH_TO_ROOT);
 		
 		$folders_list = array();
-		foreach($path_folders->get_folders() as $object)
+		foreach($root->get_folders() as $object)
 		{
 			$content_list = array();
 			$dir = new RecursiveDirectoryIterator($object->get_path(), RecursiveDirectoryIterator::SKIP_DOTS);
 			$files = new RecursiveIteratorIterator($dir);
-			$files_list = array();
 			foreach ($files as $file)
 			{
-				$files_list[] = $file->getPath() . '/' . $file->getFileName();
-			}
-			foreach ($files_list as $value)
-			{
-				$file = new SplFileInfo($value);
-				$files_list[] = $file->getPath() . '/' . $file->getFileName();
-			} 
-			foreach($files_list as $file)
-			{
-				$file = new File($file);
+				$file = new File($file->getPath() . '/' . $file->getFileName());
 				if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
 				{
 					$path = $file->get_path();
@@ -88,7 +77,9 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 			foreach($folders as $folder)
 			{
 				if (!is_null($folder) && !in_array($folder, array('install', 'kernel', 'update')))
+				{
 					$folders_list[] = new FormFieldMultipleCheckboxOption($folder, $folder);
+				}					
 			}
 		}
 		return $folders_list;
