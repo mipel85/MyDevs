@@ -36,10 +36,10 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 		$fieldset->add_field(new FormFieldFree('clue', '', $this->lang['review.set.folders.list.clue'],
 			array('class' => 'full-field')
 		));
-				
+// Debug::stop($this->config->get_folders());
 		$fieldset->add_field(new FormFieldMultipleCheckbox('folders_list', $this->lang['review.set.folders.list'],
 			TextHelper::deserialize($this->config->get_folders()),
-			$this->get_folders_id_list(),
+			$this->get_recursive_content(),
 			array(
 				'required' => true, 
 				'class' => 'mini-checkbox full-field'
@@ -53,189 +53,45 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function get_folders_id_list()
-	{
-		// TODO use recursive php functions https://www.php.net/manual/en/class.recursivedirectoryiterator.php
-		$folders_list = array();
-		$path_folders = new Folder(PATH_TO_ROOT);
-		if($path_folders->exists())
-		{
-			$lv1 = 0;
-			foreach($path_folders->get_folders() as $level_1)
-			{				
-				$level_1_name = $level_1->get_name();
-				$has_files_1 = $this->has_files($level_1);
-				if($this->check_content($level_1) && !in_array($level_1_name, array('install', 'kernel', 'update')))
-				{
-					$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name, $level_1_name.'|'.$has_files_1.'|'.$lv1);
-					
-					$lv2 = 0;
-					foreach($level_1->get_folders() as $level_2)
-					{
-						$level_2_name = $level_2->get_name();
-						$has_files_2 = $this->has_files($level_2);
-						if($this->check_content($level_2))
-						{
-							$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name, $level_2_name.'|'.$has_files_2.'|'.$lv1.'|'.$lv2);
-							$lv3 = 0;
-							foreach ($level_2->get_folders() as $level_3) 
-							{
-								$level_3_name = $level_3->get_name();
-								$has_files_3 = $this->has_files($level_3);
-								if($this->check_content($level_3))
-								{
-									$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name, $level_3_name.'|'.$has_files_3.'|'.$lv1.'|'.$lv2.'|'.$lv3);
-									$lv4 = 0;
-									foreach($level_3->get_folders() as $level_4)
-									{
-										$level_4_name = $level_4->get_name();
-										$has_files_4 = $this->has_files($level_4);
-										if($this->check_content($level_4))
-										{
-											$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name, $level_4_name.'|'.$has_files_4.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4);
-											$lv5 = 0;
-											foreach($level_4->get_folders() as $level_5)
-											{
-												$level_5_name = $level_5->get_name();
-												$has_files_5 = $this->has_files($level_5);
-												if($this->check_content($level_5))
-												{
-													$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name, $level_5_name.'|'.$has_files_5.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5);
-													$lv6 = 0;
-													foreach($level_5->get_folders() as $level_6)
-													{
-														$level_6_name = $level_6->get_name();
-														$has_files_6 = $this->has_files($level_6);
-														if($this->check_content($level_6))
-														{
-															$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name, $level_6_name.'|'.$has_files_6.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6);
-															$lv7 = 0;
-															foreach($level_6->get_folders() as $level_7)
-															{
-																$level_7_name = $level_7->get_name();
-																$has_files_7 = $this->has_files($level_7);
-																if($this->check_content($level_7))
-																{
-																	$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name.'-'.$level_7_name, $level_7_name.'|'.$has_files_7.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6.'|'.$lv7);
-																	$lv8 = 0;
-																	foreach($level_7->get_folders() as $level_8)
-																	{
-																		$level_8_name = $level_8->get_name();
-																		$has_files_8 = $this->has_files($level_8);
-																		if($this->check_content($level_8))
-																		{
-																			$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name.'-'.$level_7_name.'-'.$level_8_name, $level_8_name.'|'.$has_files_8.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6.'|'.$lv7.'|'.$lv8);
-																		}
-																		$lv8++;
-																	}
-																}
-																$lv7++;
-															}
-														}
-														$lv6++;
-													}
-												}
-												$lv5++;
-											}
-										}
-										$lv4++;
-									}
-								}
-								$lv3++;
-							}
-						}
-						$lv2++;
-					}
-				}
-				$lv1++;
-			}
-			return $folders_list;
-		}		
-	}
-
-	private function check_content($folder)
-	{
-		$upload_config = FileUploadConfig::load();
-		$content = $folder->get_all_content();		
-		$content_nb = array();
-
-		foreach($content as $level_1)
-		{
-			if (is_dir($level_1->get_path()))
-			{
-				foreach($level_1->get_all_content() as $level_2)
-				{
-					if (is_dir($level_2->get_path()))
-					{
-						foreach($level_2->get_all_content() as $level_3)
-						{
-							if (is_dir($level_3->get_path()))
-							{
-								foreach($level_3->get_all_content() as $level_4)
-								{
-									if (is_dir($level_4->get_path()))
-									{
-										foreach($level_4->get_all_content() as $level_5)
-										{
-											if (is_dir($level_5->get_path()))
-											{
-												foreach($level_5->get_all_content() as $level_6)
-												{
-													if (is_dir($level_6->get_path()))
-													{
-														foreach($level_6->get_all_content() as $level_7)
-														{
-															if (is_dir($level_7->get_path()))
-															{
-																foreach($level_7->get_all_content() as $level_8)
-																{
-																	if (!is_dir($level_8->get_path()) && in_array($level_8->get_extension(), $upload_config->get_authorized_extensions()))
-																		$content_nb[] = 1;
-																}
-															}
-															elseif (in_array($level_7->get_extension(), $upload_config->get_authorized_extensions()))
-																$content_nb[] = 1;
-														}
-													}
-													elseif (in_array($level_6->get_extension(), $upload_config->get_authorized_extensions()))
-														$content_nb[] = 1;
-												}
-											}
-											elseif (in_array($level_5->get_extension(), $upload_config->get_authorized_extensions()))
-												$content_nb[] = 1;
-										}
-									}
-									elseif (in_array($level_4->get_extension(), $upload_config->get_authorized_extensions()))
-										$content_nb[] = 1;
-								}
-							}
-							elseif (in_array($level_3->get_extension(), $upload_config->get_authorized_extensions()))
-								$content_nb[] = 1;
-						}
-					}
-					elseif (in_array($level_2->get_extension(), $upload_config->get_authorized_extensions()))
-						$content_nb[] = 1;
-				}
-			}
-			elseif (file_exists($level_1->get_path()) && in_array($level_1->get_extension(), $upload_config->get_authorized_extensions()))
-				$content_nb[] = 1;
-		}
-
-		if (count($content_nb) > 0)
-			return true;
-		return false;		
-	}
-
-	private function has_files($folder)
+	private function get_recursive_content()
 	{		
 		$upload_config = FileUploadConfig::load();
-		foreach($folder->get_all_content() as $object)
+		$path_folders = new Folder(PATH_TO_ROOT);
+		
+		$folders_list = array();
+		foreach($path_folders->get_folders() as $object)
 		{
-			if (is_dir($object->get_path()))
-				return 'no_files';
-			if (in_array($object->get_extension(), $upload_config->get_authorized_extensions()))
-				return 'has_files';
+			$content_list = array();
+			$dir = new RecursiveDirectoryIterator($object->get_path(), RecursiveDirectoryIterator::SKIP_DOTS);
+			$files = new RecursiveIteratorIterator($dir);
+			$files_list = array();
+			foreach ($files as $file)
+			{
+				$files_list[] = $file->getPath() . '/' . $file->getFileName();
+			}
+			foreach ($files_list as $value)
+			{
+				$file = new SplFileInfo($value);
+				$files_list[] = $file->getPath() . '/' . $file->getFileName();
+			} 
+			foreach($files_list as $file)
+			{
+				$file = new File($file);
+				if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
+				{
+					$path = $file->get_path();
+					$path = explode('/', $path);
+					$content_list[] = $path[1];
+				}
+			}
+			$folders = array_unique($content_list);
+			foreach($folders as $folder)
+			{
+				if (!is_null($folder) && !in_array($folder, array('install', 'kernel', 'update')))
+					$folders_list[] = new FormFieldMultipleCheckboxOption($folder, $folder);
+			}
 		}
+		return $folders_list;
 	}
 
 	private function save()

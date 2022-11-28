@@ -23,13 +23,8 @@ $lang['review.first.scan']   = '
 $lang['review.set.folders.list']      = 'Liste des dossiers à scanner';
 $lang['review.set.folders.list.clue'] = '
     Les fichiers cible sont des fichiers dont l\'extension est autorisée dans la <a href="' . AdminFilesUrlBuilder::configuration()->rel() . '">configuration des fichiers</a>. <br />
-    Les dossiers apparaissent automatiquement dès lors qu\'ils contiennent des fichiers cible ou des sous-dossiers contennant des fichiers cible. <br />
-    Seuls les dossiers et sous-dossiers <span class="success">en vert</span> contiennent des fichiers cibles. <br />
+    Les dossiers apparaissent automatiquement dès lors qu\'ils contiennent des fichiers cible. <br />
     Certains dossiers ont été désactivés : install | kernel | update.
-    <span class="message-helper bgc warning">
-        La revue de fichiers ne s\'effectue que dans le dossier coché, pas dans ses dossiers enfants. 
-        Il faut donc les cocher si on veut qu\'ils soient pris en compte
-    </span>
 ';
 
 // Upload Counters
