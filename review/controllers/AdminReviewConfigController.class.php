@@ -60,20 +60,12 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 		$path_folders = new Folder(PATH_TO_ROOT);
 		if($path_folders->exists())
 		{
-			$level_1_exceptions = array('admin', 'cache', 'database', 'install', 'kernel', 'lang', 'search', 'update', 'user');
-			$level_2_exceptions = array('controllers', 'lang', 'update');
-			$level_3_exceptions = array('lang');
-			$level_4_exceptions = array();
-			$level_5_exceptions = array();
-			$level_6_exceptions = array();
-			$level_7_exceptions = array();
-			$level_8_exceptions = array();
 			$lv1 = 0;
 			foreach($path_folders->get_folders() as $level_1)
 			{				
 				$level_1_name = explode('/', $level_1->get_path() ?? '');
 				$level_1_name = $level_1_name != '..' ? end($level_1_name) : '';
-				if($this->check_content($level_1) && !in_array($level_1_name, $level_1_exceptions))
+				if($this->check_content($level_1) && !in_array($level_1_name, array('install', 'update')))
 				{
 					$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name, $level_1_name.'|'.$lv1);
 					
@@ -82,7 +74,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 					{
 						$level_2_name = explode('/', $level_2->get_path() ?? '');
 						$level_2_name = $level_2_name != '..' ? end($level_2_name) : '';
-						if($this->check_content($level_2) && !in_array($level_2_name, $level_2_exceptions))
+						if($this->check_content($level_2))
 						{
 							$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name, $level_2_name. '|'.$lv1.'|'.$lv2);
 							$lv3 = 0;
@@ -90,7 +82,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 							{
 								$level_3_name = explode('/', $level_3->get_path() ?? '');
 								$level_3_name = $level_3_name != '..' ? end($level_3_name) : '';
-								if($this->check_content($level_3) && !in_array($level_3_name, $level_3_exceptions))
+								if($this->check_content($level_3))
 								{
 									$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name, $level_3_name.'|'.$lv1.'|'.$lv2.'|'.$lv3);
 									$lv4 = 0;
@@ -98,7 +90,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 									{
 										$level_4_name = explode('/', $level_4->get_path() ?? '');
 										$level_4_name = $level_4_name != '..' ? end($level_4_name) : '';
-										if($this->check_content($level_4) && !in_array($level_4_name, $level_4_exceptions))
+										if($this->check_content($level_4))
 										{
 											$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name, $level_4_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4);
 											$lv5 = 0;
@@ -106,7 +98,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 											{
 												$level_5_name = explode('/', $level_5->get_path() ?? '');
 												$level_5_name = $level_5_name != '..' ? end($level_5_name) : '';
-												if($this->check_content($level_5) && !in_array($level_5_name, $level_5_exceptions))
+												if($this->check_content($level_5))
 												{
 													$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name, $level_5_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5);
 													$lv6 = 0;
@@ -114,7 +106,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 													{
 														$level_6_name = explode('/', $level_6->get_path() ?? '');
 														$level_6_name = $level_6_name != '..' ? end($level_6_name) : '';
-														if($this->check_content($level_6) && !in_array($level_6_name, $level_6_exceptions))
+														if($this->check_content($level_6))
 														{
 															$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name, $level_6_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6);
 															$lv7 = 0;
@@ -122,7 +114,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 															{
 																$level_7_name = explode('/', $level_7->get_path() ?? '');
 																$level_7_name = $level_7_name != '..' ? end($level_7_name) : '';
-																if($this->check_content($level_7) && !in_array($level_7_name, $level_7_exceptions))
+																if($this->check_content($level_7))
 																{
 																	$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name.'-'.$level_7_name, $level_7_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6.'|'.$lv7);
 																	$lv8 = 0;
@@ -130,7 +122,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 																	{
 																		$level_8_name = explode('/', $level_8->get_path() ?? '');
 																		$level_8_name = $level_8_name != '..' ? end($level_8_name) : '';
-																		if($this->check_content($level_8) && !in_array($level_8_name, $level_8_exceptions))
+																		if($this->check_content($level_8))
 																		{
 																			$folders_list[] = new FormFieldMultipleCheckboxOption('root-'.$level_1_name.'-'.$level_2_name.'-'.$level_3_name.'-'.$level_4_name.'-'.$level_5_name.'-'.$level_6_name.'-'.$level_7_name.'-'.$level_8_name, $level_8_name.'|'.$lv1.'|'.$lv2.'|'.$lv3.'|'.$lv4.'|'.$lv5.'|'.$lv6.'|'.$lv7.'|'.$lv8);
 																		}
@@ -165,37 +157,28 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 	{
 		$upload_config = FileUploadConfig::load();
 		$folders = $folder->get_folders();
-		$files = $folder->get_files();
-		
-		$files_list = array();
+		$files = $folder->get_files();		
+		$content = array();
+
 		foreach($files as $file)
 		{
 			if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
-				$files_list[] = $file;
+				$content[] = $file;
 		}
 
-		$folders_list = array();
 		foreach($folders as $folder)
 		{
-			if($folder->get_folders())
-			{
-				$folders_list[] = $folder;
-			}
-
 			if($folder->get_files())
 			{
 				foreach($folder->get_files() as $file)
 				{
 					if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
-						$folders_list[] = $folder;
+						$content[] = $file;
 				}
 			}				
 		}
-
-		$folders_nb = count($folders_list);
-		$files_nb = count($files_list);
 		
-		if ($folders_nb > 0 || $files_nb > 0)
+		if (count($content) > 0)
 			return true;
 		return false;		
 	}

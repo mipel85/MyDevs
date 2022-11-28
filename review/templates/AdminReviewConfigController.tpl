@@ -70,7 +70,7 @@
         if(jQuery(this).children().length == 0)
             jQuery(this).remove(); // Remove ul if empty
         else
-            jQuery(this).parent().addClass('has-sub').prepend('<span class="swap-handle"></span>');  // add arrow if ul not empty         
+            jQuery(this).parent().addClass('has-sub').prepend('<span class="swap-handle"></span>');  // add arrow if ul not empty 
     });
 
     // Animate tree on arrow click
