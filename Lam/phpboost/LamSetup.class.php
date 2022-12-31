@@ -35,14 +35,15 @@ class LamSetup extends DefaultModuleSetup
     private function create_saved_forms_table()
     {
         $fields = array(
-            'id'                         => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
-            'form_name'                  => array('type' => 'text', 'length' => 16777215),
-            'club_name'                  => array('type' => 'text', 'length' => 16777215),
-            'club_ffam_number'           => array('type' => 'text', 'length' => 16777215),
-            'club_activity_date'         => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-            'club_activity_location'     => array('type' => 'text', 'length' => 16777215),
-            'club_activity_city'         => array('type' => 'text', 'length' => 16777215),
-            'club_activity_description'  => array('type' => 'string', 'length' => 255, 'notnull' => 1),
+            'id'                        => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
+            'form_name'                 => array('type' => 'text', 'length' => 16777215),
+            'club_name'                 => array('type' => 'text', 'length' => 16777215),
+            'club_ffam_number'          => array('type' => 'text', 'length' => 16777215),
+            'club_activity_date'        => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+            'club_activity_location'    => array('type' => 'text', 'length' => 16777215),
+            'club_activity_city'        => array('type' => 'text', 'length' => 16777215),
+            'club_activity_description' => array('type' => 'string', 'length' => 255, 'notnull' => 1),
+            'form_date'                 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
         );
         $options = array(
             'primary' => array('id'),

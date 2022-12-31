@@ -98,7 +98,6 @@ class LamActivityController extends DefaultModuleController
 
     private function save()
     {
-
         $item = $this->get_item();
         $item->set_form_date(new Date());
         $item->set_form_name($this->form->get_value('form_radio')->get_raw_value());
@@ -125,38 +124,15 @@ class LamActivityController extends DefaultModuleController
 
         return $response;
     }
- /*   
-    private function send_item_email()
-	{
-		$item_message = '';
-		$item_subject = $this->item->get_title();
-		$item_sender_name = $this->email_form->get_value('sender_name');
-		$item_sender_email = $this->email_form->get_value('sender_email');
-		$item_message = $this->email_form->get_value('sender_message');
-		$item_recipient_email = $this->item->get_custom_author_email();
-
-		$item_email = new Mail();
-		$item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['smallads.module.title']);
-		$item_email->set_reply_to($item_sender_email, $item_sender_name);
-		$item_email->set_subject($item_subject);
-		$item_email->set_content(TextHelper::html_entity_decode($item_message));
-		$item_email->add_recipient($item_recipient_email);
-
-		$send_email = AppContext::get_mail_service();
-
-		return $send_email->try_to_send($item_email);
-	}
-*/
+ 
     private function send_form_email()
     {
-       // $activity_date = Date::to_format($this->form->get_value('club_activity_date')->get_timestamp(), Date::FORMAT_DAY_MONTH_YEAR);
-                
         $item_message = '';
         $item_subject = $this->lang['lam.activity.desc'] . ' : ' . $this->form->get_value('form_radio')->get_raw_value();
         $item_sender_name = $this->form->get_value('club_sender_name');
         $item_sender_email = $this->form->get_value('club_sender_email');
         
-        //msg content
+    //msg content
         $item_message = StringVars::replace_vars($this->lang['lam.mail.msg'], array(
         'club_sender_name' => $this->form->get_value('club_sender_name'),
         'club_sender_mail' => $this->form->get_value('club_sender_mail'),
@@ -168,10 +144,7 @@ class LamActivityController extends DefaultModuleController
         'club_activity_city' => $this->form->get_value('club_activity_city'),
         
         ));
-         
-     
-       
-//        $item_recipient_email = $this->item->get_custom_author_email();
+      
         $item_recipient_email = 'mipel85@gmail.com';
 
         $item_email = new Mail();
@@ -181,7 +154,6 @@ class LamActivityController extends DefaultModuleController
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
        
         $item_email->add_recipient($item_recipient_email);
- //Debug::stop($item_email);
         $send_email = AppContext::get_mail_service();
 
         return $send_email->try_to_send($item_email);
