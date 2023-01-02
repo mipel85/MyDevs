@@ -12,7 +12,7 @@
 
 // commmon
 $lang['lam.form'] = 'Formulaires de demande d\'aide';
-$lang['lam.form.choices'] = 'Choisir la nature de votre activité';
+$lang['lam.form.radio.choices'] = 'Type d\'activité';
 $lang['lam.form.activity.type'] = 'Organisation d\'une activité : ';
 $lang['lam.fill.form'] = 'Remplir le formulaire';
 $lang['lam.activity.desc'] = 'Demande d\'aide pour une activité';
