@@ -12,7 +12,7 @@
 
 // commmon
 $lang['lam.form'] = 'Formulaires de demande d\'aide';
-$lang['lam.form.choices'] = 'Choisir la nature de votre activité';
+$lang['lam.form.radio.choices'] = 'Type d\'activité';
 $lang['lam.form.activity.type'] = 'Organisation d\'une activité : ';
 $lang['lam.fill.form'] = 'Remplir le formulaire';
 $lang['lam.activity.desc'] = 'Demande d\'aide pour une activité';
@@ -36,8 +36,11 @@ $lang['lam.club.sender.name'] = 'Nom du correspondant :';
 $lang['lam.club.sender.mail'] = 'Adresse mail du correspondant :';
 
 //mail
-$lang['lam.mail.msg'] = 'Bonjour,'
-        . 'Le club de :club_name souhaite obtenir une aide.';
-
+$lang['lam.mail.msg'] = 'Bonjour, <br /><br />
+	<i>Dossier suivi par :club_sender_name (:club_sender_mail)</i><br /><br /> 
+        Le club <b>:club_name</b> (affiliation FFAM n° :club_ffam_number) souhaite obtenir une aide pour l\'organisation d\'une :activity prévue le :club_activity_date<br />
+        Lieu de l\'activité : :club_activity_location
+        Ville : :club_activity_city. 
+        ';
 ?>
 
