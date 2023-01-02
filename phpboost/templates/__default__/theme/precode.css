@@ -1,0 +1,28 @@
+pre.precode {
+    display: flex;
+    overflow: auto;
+    padding: 0.1618em 0.228em;
+    white-space: pre;
+}
+
+pre.precode code,
+pre.precode .line-number {
+    font-family: Monospace;
+    display: block;
+}
+
+pre.precode .line-number {
+    margin: 0 1em 0 -1em;
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    border-color: transparent;
+    text-align: right;
+    user-select: none;
+}
+
+pre.precode .line-number span {
+    display: block;
+    padding: 0 .5em 0 1em;
+}
+
+pre.precode.precode-inline { display: inline-flex; }

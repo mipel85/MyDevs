@@ -1,0 +1,127 @@
+/*
+* Copy this file into your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+/* --- User Profile --- */
+#profile-container { margin: 2em auto; }
+
+.preview-img {
+	max-height: 180px;
+	vertical-align: top;
+}
+
+.user-agreement {
+	width: 90%;
+	max-width: none;
+	max-height: 250px;
+	overflow-y: auto !important;
+}
+
+.user-group-select { margin-bottom: 1.309em; }
+
+.user-group-select fieldset { margin: 0; }
+
+.user-group-select label {
+	width: auto;
+	vertical-align: middle;
+}
+
+#module-user-messages .cell-name { padding-left: 0.309em;}
+
+/* --- Contribution --- */
+#module-user-contribution-list hr { margin: 1.309em 0; }
+
+.module-contribution-element {
+	float: left;
+	margin: 1.309em 0;
+	text-align: center;
+}
+
+#module-user-moderation-panel .content { padding-bottom: 75px; }
+
+#module-user-moderation-panel .bt td:before { display: none; }
+
+#module-user-moderation-panel .bt-content {
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+.contribution-module-container {
+	float: left;
+	margin: 1.309em 0;
+	text-align: center;
+}
+
+table.announce-legend td { width: calc(100% / 3); }
+
+/* --- Error 403/404 --- */
+#module-user-error-403 .content,
+#module-user-error-404 .content {
+	text-align: center;
+	font-size: 1.482em;
+}
+
+#module-user-error-403 .message-error,
+#module-user-error-404 .message-error { padding: 1.309em 0; }
+
+#module-user-error-403 .type-error,
+#module-user-error-404 .type-error { padding: 0.618em 0; }
+
+/* --- group --- */
+.group-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.list-members-container { flex: 0 0 auto; }
+
+.list-members-container > .user-card {
+	overflow: hidden;
+	max-height: 0;
+	transition: 0.3s ease;
+}
+
+.list-members-container.selected > .user-card { max-height: 9999px; }
+
+.list-group-container.reorder-top { order : 1; }
+.list-admins-container 			  { order : 2; }
+.list-modos-container			  { order : 3; }
+.list-members-container 		  { order : 4; }
+
+.list-members-container-action {
+	float: right;
+	font-size: 0.618em;
+}
+
+.list-members-container-action a {
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	font-size: 0.809em;
+}
+
+.list-members-container-action i { vertical-align: middle; }
+
+.action-less 		   { display: none; }
+.selected .action-less { display: inline-block; }
+
+.action-more 		   { display: inline-block; }
+.selected .action-more { display: none; }
+
+.group-button {
+	opacity: 0.5;
+	display: inline-block;
+}
+
+.group-button.selected { opacity: 1; }
+
+.user-card-avatar,
+.group-has-img img { max-height: 3em; }
+
+/* --- PM --- */
+
+.message-announce,
+.message-announce-new,
+.message-announce-track { font-size: 1.618em; }

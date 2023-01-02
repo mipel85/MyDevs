@@ -1,0 +1,170 @@
+/*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+*/
+
+.message-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0.809em 0;
+    position: relative;
+}
+
+.badges { float: right; }
+
+/* Message header */
+.message-user-avatar { max-height: 65px; }
+
+.message-header-container h3 { font-size: 1.456em; }
+
+.message-header-container,
+.message-content {
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.message-header-container {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.message-header-infos { padding: 0.309em 0.618em; }
+
+.message-header-infos,
+.message-user-container,
+.message-infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 auto;
+}
+
+.message-user-infos-preview,
+.message-infos { text-align: right; }
+
+@media (min-width: 769px) {
+    .message-user-container,
+    .message-infos { flex-direction: row; }
+}
+
+.message-container .checkbox input { margin-top: -0.228em; }
+
+/* message actions */
+.message-actions a,
+.message-actions .checkbox { padding: 0 0.309em; }
+
+[class^="message-actions-container"] { position: relative; }
+
+[class^="message-actions-toggle-"] {
+	border-radius: 50%;
+	padding: 0.228em 0.809em;
+	font-size: 0.809em;
+}
+
+[class^="message-actions-content"] {
+	position: absolute;
+	right: -0.618em;
+	top: 0;
+	display: flex;
+	flex-direction: row;
+	background-color: var(--bgc-sub);
+	opacity: 0;
+	visibility: hidden;
+    transition: 0.3s;
+}
+
+[class^="message-actions-container"].opened [class^="message-actions-content"] {
+	opacity: 1;
+	visibility: visible;
+	z-index: 2;
+	top: 100%;
+    transition: 0.3s;
+}
+
+@media (min-width: 769px) {
+    [class^="message-actions-container"] .controls a { padding: 0 0.456em; }
+
+    [class^="message-actions-toggle-"] { display: none; }
+
+    [class^="message-actions-content"] {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* User datas */
+.message-container .button { width: auto; }
+
+/* Message content */
+.message-content {
+    border-width: 0 1px 1px;
+    flex: 1 1 auto;
+    padding: 1em 0.618em;
+}
+
+.message-edition {
+	margin-top: 2.618em;
+	padding: 0.618em 0;
+	font-size: 0.809em;
+	font-style: italic;
+	display: block;
+}
+
+/* --- Current user --- */
+.current-user-message .message-user-avatar  { order: 2 }
+.current-user-message .message-header-infos { order: 1 }
+
+@media (min-width: 769px) {
+    .current-user-message .message-infos { flex-direction: row-reverse; }
+}
+
+.current-user-message .message-user-infos-preview,
+.current-user-message .message-infos { text-align: left; }
+
+/* --- message offset --- */
+.message-container.message-offset { justify-content: flex-start; }
+
+.message-offset .message-header-container,
+.message-offset .message-content { width: 90%; }
+
+.message-offset .current-user-message.message-header-container,
+.message-offset .current-user-message.message-content { align-self: flex-end; }
+
+/* --- view message --- */
+.view-topic { padding: 0.809em 0; }
+
+.view-topic i { margin: 0 0 0.1618em 0.309em; }
+
+/* hexagon  -- set img.-picture in div.-avatar*/
+/* .message-user-avatar {
+    width: 60px;
+    height: 120px;
+}
+
+.message-user-picture {
+    display: block;
+    top: 0;
+    left: -8%;
+    position: absolute;
+    clip-path: polygon(5% 25%, 5% 75%, 50% 100%, 95% 75%, 95% 25%, 50% 0%);
+    margin: 0 auto;
+}
+
+.message-user-picture::after {
+    content: "";
+    position: absolute;
+    top: 4%;
+    left: 4%;
+    right: 4%;
+    bottom: 4%;
+    margin: 0 auto;
+    clip-path: polygon(5% 25%, 5% 75%, 50% 100%, 95% 75%, 95% 25%, 50% 0%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+} */

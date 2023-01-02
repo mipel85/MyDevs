@@ -1,0 +1,7 @@
+/*
+ * Copy this file into your theme to customize it.
+ * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-theme
+ *
+*/
+
+* { background-image: linear-gradient(rgba(var(--bgc-rgb-a), 0.05), rgba(var(--bgc-rgb-a), 0.05)); }
