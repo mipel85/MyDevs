@@ -11,7 +11,7 @@
 ####################################################
 
 // commmon
-$lang['lam.form'] = 'Formulaire de demande d\'aide';
+$lang['lam.form'] = 'Formulaire de demande d\'aide financière';
 $lang['lam.form.radio.choices'] = 'Type d\'activité';
 $lang['lam.form.activity.type'] = 'Organisation d\'une activité : ';
 $lang['lam.fill.form'] = 'Remplir le formulaire';
