@@ -18,7 +18,6 @@ class LamDisplayResponse extends AdminMenuDisplayResponse
 		
 		$env = $this->get_graphical_environment();
 		$env->set_page_title($title_page, $lang['Lam']);
-//        $this->add_link('add', LamUrlBuilder::add_item());
 	}
 }
 ?>

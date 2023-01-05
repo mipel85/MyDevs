@@ -129,7 +129,7 @@ class LamItem
     {
         return $this->club_sender_mail;
     }
-
+    
     public function get_properties()
     {
         return array(
@@ -157,35 +157,5 @@ class LamItem
         $this->set_club_activity_city = $properties['club_activity_city'];
         $this->set_club_activity_description = $properties['club_activity_description'];
     }
-//	public function init_default_properties($id_category = Category::ROOT_CATEGORY)
-//	{
-//		if(SmalladsConfig::load()->is_max_weeks_number_displayed())
-//			$max_weeks_config_number = SmalladsConfig::load()->get_max_weeks_number();
-//		else
-//			$max_weeks_config_number = null;
-//
-//		$this->id_category = $id_category;
-//        $this->content = SmalladsConfig::load()->get_default_content();
-//		$this->completed = self::NOT_COMPLETED;
-//		$this->archived = self::NOT_ARCHIVED;
-//		$this->displayed_author_name = self::DISPLAYED_AUTHOR_NAME;
-//		$this->author_user = AppContext::get_current_user();
-//		$this->published = self::PUBLISHED_NOW;
-//		$this->publishing_start_date = new Date();
-//		$this->publishing_end_date = new Date();
-//		$this->creation_date = new Date();
-//		$this->sources = array();
-//		$this->carousel = array();
-//		$this->thumbnail_url = FormFieldThumbnail::DEFAULT_VALUE;
-//		$this->views_number = 0;
-//		$this->price = 0;
-//		$this->max_weeks = $max_weeks_config_number;
-//		$this->custom_author_email = $this->author_user->get_email();
-//		$this->custom_author_name = $this->author_user->get_display_name();
-//		$this->enabled_author_email_customization = false;
-//		$this->enabled_author_name_customization = false;
-//		$this->displayed_author_pm = true;
-//	}
-
 }
 ?>

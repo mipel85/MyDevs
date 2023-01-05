@@ -10,6 +10,14 @@
 class LamUrlBuilder
 {
     private static $dispatcher = '/Lam';
+    
+    /**
+	 * @return Url
+	 */
+	public static function configuration()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/admin/config');
+	}
 
     public static function activity()
 	{

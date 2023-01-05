@@ -29,7 +29,7 @@ class LamService
 
     /**
      * @desc Create a new entry in the database table.
-     * @param string[] $item : new DownloadItem
+     * @param string[] $item : new LamItem
      */
     public static function add(LamItem $item)
     {
@@ -39,7 +39,7 @@ class LamService
 
     /**
      * @desc Update an entry.
-     * @param string[] $item : DownloadItem to update
+     * @param string[] $item : LamItem to update
      */
     public static function update(LamItem $item)
     {

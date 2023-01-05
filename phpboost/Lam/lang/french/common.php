@@ -9,12 +9,11 @@
 ####################################################
 #                    French                        #
 ####################################################
-
 // commmon
 $lang['lam.form'] = 'Formulaire de demande d\'aide financière';
 $lang['lam.form.radio.choices'] = 'Type d\'activité';
 $lang['lam.form.activity.type'] = 'Organisation d\'une activité : ';
-$lang['lam.fill.form'] = 'Remplir le formulaire';
+$lang['lam.fill.form'] = 'Remplir le formulaire (informations transmises)';
 $lang['lam.activity.desc'] = 'Demande d\'aide pour une activité';
 $lang['lam.handicap.desc'] = 'Demande d\'aide pour un aménagement lié au Handicap';
 $lang['lam.security.desc'] = 'Demande d\'aide pour un aménagement de sécurité';
@@ -27,15 +26,20 @@ $lang['lam.activity.help'] = 'texte de présentation';
 
 // club
 $lang['lam.club.name'] = 'Nom du club :';
-$lang['lam.club.ffam.number'] = 'Numéro d\'affiliation :';
+$lang['lam.club.ffam.number'] = 'Numéro d\'affiliation FFAM :';
 $lang['lam.club.activity.date'] = 'Date de l\'évènement :';
 $lang['lam.club.activity.location'] = 'Adresse de l\'activité :';
 $lang['lam.club.activity.city'] = 'Ville de l\'activité :';
-$lang['lam.club.activity.description'] = 'Description de l\'activité :';
+$lang['lam.club.activity.description'] = 'Description de l\'activité (facultatif) :';
 $lang['lam.club.sender.name'] = 'Nom du correspondant :';
 $lang['lam.club.sender.mail'] = 'Adresse mail du correspondant :';
 
 //mail
+$lang['lam.not_registred_fields'] = 'Informations non enregistrées ni conservées :';
+
+$lang['lam.recipient.mail_1'] = 'Adresse du destinataire principal :';
+$lang['lam.recipient.mail_2'] = 'Adresse du destinataire n° 2 :';
+$lang['lam.recipient.mail_3'] = 'Adresse du destinataire n° 3 :';
 $lang['lam.mail.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_mail)</i><br /><br /> 
         Le club <b>:club_name</b> (affiliation FFAM n° :club_ffam_number) souhaite obtenir une aide pour l\'organisation d\'une :activity prévue le :club_activity_date<br />

@@ -41,21 +41,28 @@ class LamActivityController extends DefaultModuleController
         $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lam.form.activity.type'], '', array(
             new FormFieldRadioChoiceOption($this->lang['lam.jpo'], $this->lang['lam.jpo']),
             new FormFieldRadioChoiceOption($this->lang['lam.qpdd'], $this->lang['lam.qpdd'])
-                ), array('required' => true, 'class' => 'css-class')
+                ), array('required' => true, 'class' => 'lam-radio inline-radio')
         ));
 
         // other fields
-        $fieldset->add_field(new FormFieldTextEditor('club_name', $this->lang['lam.club.name'], '', array('required' => true, 'class' => 'css-class')));
-        $fieldset->add_field(new FormFieldNumberEditor('club_ffam_number', $this->lang['lam.club.ffam.number'], '', array('required' => true, 'class' => 'css-class')));
-        $fieldset->add_field(new FormFieldDate('club_activity_date', $this->lang['lam.club.activity.date'], null, array('required' => true, 'class' => 'css-class')));
-        $fieldset->add_field(new FormFieldTextEditor('club_activity_location', $this->lang['lam.club.activity.location'], '', array('required' => true, 'class' => 'css-class')));
-        $fieldset->add_field(new FormFieldTextEditor('club_activity_city', $this->lang['lam.club.activity.city'], ''));
+        $fieldset->add_field(new FormFieldTextEditor('club_name', $this->lang['lam.club.name'], '', array('required' => true)));
+        $fieldset->add_field(new FormFieldNumberEditor('club_ffam_number', $this->lang['lam.club.ffam.number'], '', array('required' => true, 'min' => 0, 'max' => 1000)));
+        $fieldset->add_field(new FormFieldDate('club_activity_date', $this->lang['lam.club.activity.date'], null, array('required' => true)));
+        $fieldset->add_field(new FormFieldTextEditor('club_activity_location', $this->lang['lam.club.activity.location'], '', array('required' => true)));
+        $fieldset->add_field(new FormFieldTextEditor('club_activity_city', $this->lang['lam.club.activity.city'], '', array('required' => true)));
         $fieldset->add_field(new FormFieldTextEditor('club_activity_description', $this->lang['lam.club.activity.description'], ''));
 
-        $fieldset->add_field(new FormFieldTextEditor('club_sender_name', $this->lang['lam.club.sender.name'], ''));
-        $fieldset->add_field(new FormFieldMailEditor('club_sender_mail', $this->lang['lam.club.sender.mail'], ''));
-
         $form->add_fieldset($fieldset);
+        
+        $mail_fieldset = new FormFieldsetHTML('mail_form', $this->lang['lam.not_registred_fields']);
+        $mail_fieldset->add_field(new FormFieldFree('not_registred_fields', '', ''));
+        $mail_fieldset->add_field(new FormFieldTextEditor('club_sender_name', $this->lang['lam.club.sender.name'], '', array('required' => true)));
+        $mail_fieldset->add_field(new FormFieldMailEditor('club_sender_mail', $this->lang['lam.club.sender.mail'], '', array('required' => true)));
+        
+        $form->add_fieldset($mail_fieldset);
+        
+        
+
 
         $this->submit_button = new FormButtonDefaultSubmit('Envoyer la demande', '', '');
         $form->add_button($this->submit_button);
@@ -145,22 +152,15 @@ class LamActivityController extends DefaultModuleController
                     'club_activity_city'     => $this->form->get_value('club_activity_city'),
         ));
 
-        $item_recipient_email = 'mp.pelissier@orange.fr';
-//        $item_recipient_email = 'babsolune@phpboost.com';
-//        $item_recipient_email = "mp.pelissier@orange.fr, mipel85@gmail.com";
-
-//        $item_recipient_email = implode(",", [
-//            "mp.pelissier@orange.fr",
-//            "mipel85@gmail.com"
-//        ]);
-
         $item_email = new Mail();
         $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['lam.form']);
         $item_email->set_reply_to($item_sender_email, $item_sender_name);
         $item_email->set_subject($item_subject);
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
-        $item_email->add_recipient($item_recipient_email);
+        $item_email->add_recipient(LamConfig::load()->get_recipient_mail_1());
+        $item_email->add_recipient(!empty(LamConfig::load()->get_recipient_mail_2()) ? LamConfig::load()->get_recipient_mail_2() : '');
+        $item_email->add_recipient(!empty(LamConfig::load()->get_recipient_mail_3()) ? LamConfig::load()->get_recipient_mail_3() : '');
         $send_email = AppContext::get_mail_service();
 
         return $send_email->try_to_send($item_email);
