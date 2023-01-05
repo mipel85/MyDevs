@@ -2,7 +2,7 @@
 /**
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
- * @author      Mipel85 <mipel85@phpboost.com>
+ * @author      Mipel85 <mipel@phpboost.com>
  * @version     PHPBoost 6.0 - last update: 2022 12 27
  * @since       PHPBoost 6.0 - 2022 12 20
  */
@@ -35,6 +35,7 @@ $lang['lam.club.sender.name'] = 'Nom du correspondant :';
 $lang['lam.club.sender.mail'] = 'Adresse mail du correspondant :';
 
 //mail
+$lang['lam.email.sent'] = 'Votre demande a bien été envoyée à la Ligue';
 $lang['lam.not_registred_fields'] = 'Informations non enregistrées ni conservées :';
 
 $lang['lam.recipient.mail_1'] = 'Adresse du destinataire principal :';

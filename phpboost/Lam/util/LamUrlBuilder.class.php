@@ -23,6 +23,14 @@ class LamUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/activity/');
 	}
+    
+    /**
+	 * @return Url
+	 */
+	public static function manage_items()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/manage/');
+	}
 
     public static function home()
     {

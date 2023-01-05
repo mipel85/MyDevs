@@ -1,14 +1,10 @@
 <?php
-/**
- * @copyright   &copy; 2005-2022 PHPBoost
+/*
+ * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
- * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 11
- * @since       PHPBoost 3.0 - 2012 11 20
- * @contributor Arnaud GENET <elenwii@phpboost.com>
- * @contributor Mipel <mipel@phpboost.com>
- * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
- * @contributor xela <xela@phpboost.com>
+ * @author      Mipel85 <mipel@phpboost.com>
+ * @version     PHPBoost 6.0 - last update: 2022 12 27
+ * @since       PHPBoost 6.0 - 2022 12 20
  */
 class AdminLamConfigController extends DefaultAdminModuleController
 {

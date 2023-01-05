@@ -2,14 +2,13 @@
 /**
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
- * @author      Mipel85 <mipel85@phpboost.com>
+ * @author      Mipel85 <mipel@phpboost.com>
  * @version     PHPBoost 6.0 - last update: 2022 12 27
  * @since       PHPBoost 6.0 - 2022 12 20
  */
+
 class LamActivityController extends DefaultModuleController
 {
-    private $email_form;
-
     public function execute(HTTPRequestCustom $request)
     {
         $this->check_authorizations();
@@ -18,7 +17,7 @@ class LamActivityController extends DefaultModuleController
         if ($this->submit_button->has_been_submited() && $this->form->validate()){
             $this->save();
             $this->send_form_email();
-            // $this->redirect();
+            $this->redirect();
         }
 
         $this->view->put('CONTENT', $this->form->display());
@@ -164,6 +163,12 @@ class LamActivityController extends DefaultModuleController
         $send_email = AppContext::get_mail_service();
 
         return $send_email->try_to_send($item_email);
+    }
+    
+    private function redirect()
+	{
+        AppContext::get_response()->redirect(LamUrlBuilder::home(), $this->lang['lam.email.sent']);
+
     }
 }
 ?>
