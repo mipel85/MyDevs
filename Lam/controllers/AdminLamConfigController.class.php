@@ -21,31 +21,53 @@ class AdminLamConfigController extends DefaultAdminModuleController
 
         return new DefaultAdminDisplayResponse($this->view);
     }
-
     private function init()
     {
+        
     }
-
     private function build_form()
     {
         $form = new HTMLForm(__CLASS__);
 
-        $fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
+// configuration fieldset
+        $fieldset = new FormFieldsetHTML('configuration', $this->lang['lam.email.configuration']);
         $form->add_fieldset($fieldset);
+        $fieldset->add_field(new FormFieldMailEditor('recipient_mail_1', $this->lang['lam.recipient.mail_1'], $this->config->get_recipient_mail_1(), array(
+            'description' => StringVars::replace_vars($this->lang['lam.email.configuration.default'], array('default_mail' => LamConfig::load()->get_recipient_mail_1())),
+            'required'    => true,
+            'class'       => 'top-field third-field'
+            )
+        ));
+        $fieldset->add_field(new FormFieldMailEditor('recipient_mail_2', $this->lang['lam.recipient.mail_2'], $this->config->get_recipient_mail_2(), array(
+            'description' => $this->lang['lam.email.configuration.optional'],
+            'class' => 'top-field third-field'
+            )
+        ));
+        $fieldset->add_field(new FormFieldMailEditor('recipient_mail_3', $this->lang['lam.recipient.mail_3'], $this->config->get_recipient_mail_3(), array(
+            'description' => $this->lang['lam.email.configuration.optional'],
+            'class' => 'top-field third-field'
+            )
+        ));
 
-        $fieldset->add_field(new FormFieldMailEditor('recipient_mail_1', $this->lang['lam.recipient.mail_1'], $this->config->get_recipient_mail_1(), array('required' => true, 'class' => 'top-field')
+// financial fieldset
+        $financial_fieldset = new FormFieldsetHTML('financial', $this->lang['lam.financial.part']);
+        $form->add_fieldset($financial_fieldset);
+        $financial_fieldset->add_field(new FormFieldDecimalNumberEditor('financial_jpo', $this->lang['lam.financial.jpo'], '', array(
+            'description' => $this->lang['lam.financial.maximum'],
+            'required'    => true,
+            'min'         => 0, 'max'         => 5000
+            )
         ));
-        $fieldset->add_field(new FormFieldMailEditor('recipient_mail_2', $this->lang['lam.recipient.mail_2'], $this->config->get_recipient_mail_2(), array('class' => 'top-field')
+        $financial_fieldset->add_field(new FormFieldDecimalNumberEditor('financial_qpdd', $this->lang['lam.financial.qpdd'], '', array(
+            'description' => $this->lang['lam.financial.maximum'],
+            'required'    => true,
+            'min'         => 0, 'max'         => 5000
+            )
         ));
-        $fieldset->add_field(new FormFieldMailEditor('recipient_mail_3', $this->lang['lam.recipient.mail_3'], $this->config->get_recipient_mail_3(), array('class' => 'top-field')
-        ));
-
-        $fieldset->add_field(new FormFieldSpacer('display', ''));
 
 //        $fieldset->add_field(new FormFieldRichTextEditor('default_content', $this->lang['form.item.default.content'], $this->config->get_default_content(),
 //			array('rows' => 8, 'cols' => 47)
 //		));
-
 //        $fieldset = new FormFieldsetHTML('authorizations_fieldset', $this->lang['form.authorizations'], array('description' => $this->lang['form.authorizations.clue'])
 //        );
 //        $form->add_fieldset($fieldset);
@@ -60,12 +82,13 @@ class AdminLamConfigController extends DefaultAdminModuleController
 
         $this->form = $form;
     }
-
     private function save()
     {
         $this->config->set_recipient_mail_1($this->form->get_value('recipient_mail_1'));
         $this->config->set_recipient_mail_2($this->form->get_value('recipient_mail_2'));
         $this->config->set_recipient_mail_3($this->form->get_value('recipient_mail_3'));
+        $this->config->set_financial_jpo($this->form->get_value('financial_jpo'));
+        $this->config->set_financial_qpdd($this->form->get_value('financial_qpdd'));
 
 //        $this->config->set_default_content($this->form->get_value('default_content'));
 //        $this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());

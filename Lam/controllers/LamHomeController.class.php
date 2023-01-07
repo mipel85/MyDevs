@@ -43,7 +43,7 @@ class LamHomeController extends DefaultModuleController
 
 	public static function get_view()
 	{
-		$object = new self('lam.form');
+		$object = new self('Lam');
 		$object->build_view(AppContext::get_request());
 		return $object->view;
 	}

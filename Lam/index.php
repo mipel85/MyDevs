@@ -13,7 +13,8 @@ $url_controller_mappers = array(
     new UrlControllerMapper('LamActivityController', '`^/activity/?$`'),
     new UrlControllerMapper('LamHomeController', '`^(?:/([0-9]+))?/?$`'),
     new UrlControllerMapper('AdminLamConfigController', '`^/admin(?:/config)?/?$`'),
-    new UrlControllerMapper('LamItemsManagerController', '`^/manage/?$`'),
+    
+    new UrlControllerMapper('LamItemsManagerController', '`^/stats/?$`'),
 );
 DispatchManager::dispatch($url_controller_mappers);
 ?>

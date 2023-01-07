@@ -31,6 +31,14 @@ class LamUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/manage/');
 	}
+    
+    /**
+	 * @return Url
+	 */
+	public static function stats()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/stats/');
+	}
 
     public static function home()
     {

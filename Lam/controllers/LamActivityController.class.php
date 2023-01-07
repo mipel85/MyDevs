@@ -16,7 +16,7 @@ class LamActivityController extends DefaultModuleController
 
         if ($this->submit_button->has_been_submited() && $this->form->validate()){
             $this->save();
-            $this->send_form_email();
+//            $this->send_form_email();
             $this->redirect();
         }
 
@@ -45,7 +45,7 @@ class LamActivityController extends DefaultModuleController
 
         // other fields
         $fieldset->add_field(new FormFieldTextEditor('club_name', $this->lang['lam.club.name'], '', array('required' => true)));
-        $fieldset->add_field(new FormFieldNumberEditor('club_ffam_number', $this->lang['lam.club.ffam.number'], '', array('required' => true, 'min' => 0, 'max' => 1000)));
+        $fieldset->add_field(new FormFieldNumberEditor('club_ffam_number', $this->lang['lam.club.ffam.number'], '', array('required' => true, 'min' => 0, 'max' => 9999)));
         $fieldset->add_field(new FormFieldDate('club_activity_date', $this->lang['lam.club.activity.date'], null, array('required' => true)));
         $fieldset->add_field(new FormFieldTextEditor('club_activity_location', $this->lang['lam.club.activity.location'], '', array('required' => true)));
         $fieldset->add_field(new FormFieldTextEditor('club_activity_city', $this->lang['lam.club.activity.city'], '', array('required' => true)));

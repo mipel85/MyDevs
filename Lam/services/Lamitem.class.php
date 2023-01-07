@@ -147,15 +147,15 @@ class LamItem
 
     public function set_properties(array $properties)
     {
-        $this->set_id = $properties['id'];
-        $this->set_form_date = $properties['form_date'];
-        $this->set_form_name = $properties['form_name'];
-        $this->set_club_name = $properties['club_name'];
-        $this->set_club_ffam_number = $properties['club_ffam_number'];
-        $this->set_club_activity_date = !empty($properties['club_activity_date']) ? new Date($properties['club_activity_date'], Timezone::SERVER_TIMEZONE) : null;
-        $this->set_club_activity_location = $properties['club_activity_location'];
-        $this->set_club_activity_city = $properties['club_activity_city'];
-        $this->set_club_activity_description = $properties['club_activity_description'];
+        $this->id = $properties['id'];
+        $this->form_date = $properties['form_date'];
+        $this->form_name = $properties['form_name'];
+        $this->club_name = $properties['club_name'];
+        $this->club_ffam_number = $properties['club_ffam_number'];
+        $this->club_activity_date = !empty($properties['club_activity_date']) ? new Date($properties['club_activity_date'], Timezone::SERVER_TIMEZONE) : null;
+        $this->club_activity_location = $properties['club_activity_location'];
+        $this->club_activity_city = $properties['club_activity_city'];
+        $this->club_activity_description = $properties['club_activity_description'];
     }
 }
 ?>

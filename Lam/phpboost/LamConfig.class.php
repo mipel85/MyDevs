@@ -12,6 +12,9 @@ class LamConfig extends AbstractConfigData
     const RECIPIENT_MAIL_1 = 'recipient_mail_1';
     const RECIPIENT_MAIL_2 = 'recipient_mail_2';
     const RECIPIENT_MAIL_3 = 'recipient_mail_3';
+    
+    const FINANCIAL_JPO = 'financial_jpo';
+    const FINANCIAL_QPDD = 'financial_qpdd';
 
 //	const AUTHORIZATIONS = 'authorizations';
 
@@ -46,6 +49,26 @@ class LamConfig extends AbstractConfigData
         $this->set_property(self::RECIPIENT_MAIL_3, $recipient_mail_3);
 	}
     
+	public function get_financial_jpo()
+	{
+		return $this->get_property(self::FINANCIAL_JPO);
+	}
+
+	public function set_financial_jpo($financial_jpo)
+	{
+        $this->set_property(self::FINANCIAL_JPO, $financial_jpo);
+	}
+    
+	public function get_financial_qpdd()
+	{
+		return $this->get_property(self::FINANCIAL_QPDD);
+	}
+
+	public function set_financial_qpdd($financial_qpdd)
+	{
+        $this->set_property(self::FINANCIAL_QPDD, $financial_qpdd);
+	}
+    
 
 //	
 //	 /**
@@ -71,7 +94,7 @@ class LamConfig extends AbstractConfigData
 	public function get_default_values()
 	{
 		return array(
-			self::RECIPIENT_MAIL_1 => '',
+			self::RECIPIENT_MAIL_1 => 'mipel@phpboost.com',
 			self::RECIPIENT_MAIL_2 => '',
 			self::RECIPIENT_MAIL_3 => '',
 //			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 15)
