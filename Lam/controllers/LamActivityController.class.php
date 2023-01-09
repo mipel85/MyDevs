@@ -33,6 +33,7 @@ class LamActivityController extends DefaultModuleController
 
         //radio buttons
         $fieldset = new FormFieldsetHTML('activity', $this->lang['lam.fill.form']);
+        $form->add_fieldset($fieldset);
 
         $choices = new FormFieldsetHTML('form_name', $this->lang['lam.form.radio.choices']);
         $form->add_fieldset($choices);
@@ -51,7 +52,6 @@ class LamActivityController extends DefaultModuleController
         $fieldset->add_field(new FormFieldTextEditor('club_activity_city', $this->lang['lam.club.activity.city'], '', array('required' => true)));
         $fieldset->add_field(new FormFieldTextEditor('club_activity_description', $this->lang['lam.club.activity.description'], ''));
 
-        $form->add_fieldset($fieldset);
         
         $mail_fieldset = new FormFieldsetHTML('mail_form', $this->lang['lam.not_registred_fields']);
         $mail_fieldset->add_field(new FormFieldFree('not_registred_fields', '', ''));
@@ -59,9 +59,6 @@ class LamActivityController extends DefaultModuleController
         $mail_fieldset->add_field(new FormFieldMailEditor('club_sender_mail', $this->lang['lam.club.sender.mail'], '', array('required' => true)));
         
         $form->add_fieldset($mail_fieldset);
-        
-        
-
 
         $this->submit_button = new FormButtonDefaultSubmit('Envoyer la demande', '', '');
         $form->add_button($this->submit_button);

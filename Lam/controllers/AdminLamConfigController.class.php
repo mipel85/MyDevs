@@ -40,41 +40,48 @@ class AdminLamConfigController extends DefaultAdminModuleController
         ));
         $fieldset->add_field(new FormFieldMailEditor('recipient_mail_2', $this->lang['lam.recipient.mail_2'], $this->config->get_recipient_mail_2(), array(
             'description' => $this->lang['lam.email.configuration.optional'],
-            'class' => 'top-field third-field'
+            'class'       => 'top-field third-field'
             )
         ));
         $fieldset->add_field(new FormFieldMailEditor('recipient_mail_3', $this->lang['lam.recipient.mail_3'], $this->config->get_recipient_mail_3(), array(
             'description' => $this->lang['lam.email.configuration.optional'],
-            'class' => 'top-field third-field'
+            'class'       => 'top-field third-field'
             )
         ));
 
-// financial fieldset
-        $financial_fieldset = new FormFieldsetHTML('financial', $this->lang['lam.financial.part']);
-        $form->add_fieldset($financial_fieldset);
-        $financial_fieldset->add_field(new FormFieldDecimalNumberEditor('financial_jpo', $this->lang['lam.financial.jpo'], '', array(
+// financial jpo fieldset
+        $financial_jpo_fieldset = new FormFieldsetHTML('financial_jpo', $this->lang['lam.financial.jpo.part']);
+        $form->add_fieldset($financial_jpo_fieldset);
+
+        $financial_jpo_fieldset->add_field(new FormFieldDecimalNumberEditor('jpo_total_amount', $this->lang['lam.financial.total.amount'], '', array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
             'min'         => 0, 'max'         => 5000
             )
         ));
-        $financial_fieldset->add_field(new FormFieldDecimalNumberEditor('financial_qpdd', $this->lang['lam.financial.qpdd'], '', array(
+        $financial_jpo_fieldset->add_field(new FormFieldDecimalNumberEditor('jpo_day_amount', $this->lang['lam.financial.day.amount'], '', array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
             'min'         => 0, 'max'         => 5000
             )
         ));
 
-//        $fieldset->add_field(new FormFieldRichTextEditor('default_content', $this->lang['form.item.default.content'], $this->config->get_default_content(),
-//			array('rows' => 8, 'cols' => 47)
-//		));
-//        $fieldset = new FormFieldsetHTML('authorizations_fieldset', $this->lang['form.authorizations'], array('description' => $this->lang['form.authorizations.clue'])
-//        );
-//        $form->add_fieldset($fieldset);
-//
-//        $auth_settings = new AuthorizationsSettings(RootCategory::get_authorizations_settings());
-//        $auth_settings->build_from_auth_array($this->config->get_authorizations());
-//        $fieldset->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
+// financial qpdd fieldset
+        $financial_qpdd_fieldset = new FormFieldsetHTML('financial_qpdd', $this->lang['lam.financial.exam.part']);
+        $form->add_fieldset($financial_qpdd_fieldset);
+//         
+        $financial_qpdd_fieldset->add_field(new FormFieldDecimalNumberEditor('exam_total_amount', $this->lang['lam.financial.total.amount'], '', array(
+            'description' => $this->lang['lam.financial.maximum'],
+            'required'    => true,
+            'min'         => 0, 'max'         => 5000,
+            )
+        ));
+        $financial_qpdd_fieldset->add_field(new FormFieldDecimalNumberEditor('exam_day_amount', $this->lang['lam.financial.day.amount'], '', array(
+            'description' => $this->lang['lam.financial.maximum'],
+            'required'    => true,
+            'min'         => 0, 'max'         => 5000,
+            )
+        ));
 
         $this->submit_button = new FormButtonDefaultSubmit();
         $form->add_button($this->submit_button);
@@ -87,11 +94,12 @@ class AdminLamConfigController extends DefaultAdminModuleController
         $this->config->set_recipient_mail_1($this->form->get_value('recipient_mail_1'));
         $this->config->set_recipient_mail_2($this->form->get_value('recipient_mail_2'));
         $this->config->set_recipient_mail_3($this->form->get_value('recipient_mail_3'));
-        $this->config->set_financial_jpo($this->form->get_value('financial_jpo'));
-        $this->config->set_financial_qpdd($this->form->get_value('financial_qpdd'));
 
-//        $this->config->set_default_content($this->form->get_value('default_content'));
-//        $this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
+        $this->config->set_jpo_total_amount($this->form->get_value('jpo_total_amount'));
+        $this->config->set_jpo_day_amount($this->form->get_value('jpo_day_amount'));
+
+        $this->config->set_exam_total_amount($this->form->get_value('exam_total_amount'));
+        $this->config->set_exam_day_amount($this->form->get_value('exam_day_amount'));
 
         LamConfig::save();
 
