@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel85 <mipel@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 27
+ * @version     PHPBoost 6.0 - last update: 2023 01 23
  * @since       PHPBoost 6.0 - 2022 12 20
  */
 class LamConfig extends AbstractConfigData
@@ -16,7 +16,6 @@ class LamConfig extends AbstractConfigData
     const JPO_DAY_AMOUNT = 'jpo_day_amount';
     const EXAM_TOTAL_AMOUNT = 'exam_total_amount';
     const EXAM_DAY_AMOUNT = 'exam_day_amount';
-//	const AUTHORIZATIONS = 'authorizations';
 
 
     public function get_recipient_mail_1()
@@ -43,6 +42,7 @@ class LamConfig extends AbstractConfigData
     {
         $this->set_property(self::RECIPIENT_MAIL_3, $recipient_mail_3);
     }
+
 // financial  
  
     // jpo
@@ -81,35 +81,20 @@ class LamConfig extends AbstractConfigData
         $this->set_property(self::EXAM_DAY_AMOUNT, $exam_day_amount);
     }
     
-    
-    
-//	
-//	 /**
-//	 * @method Get authorizations
-//	 */
-//	public function get_authorizations()
-//	{
-//		return $this->get_property(self::AUTHORIZATIONS);
-//	}
-//
-//	 /**
-//	 * @method Set authorizations
-//	 * @params string[] $array Array of authorizations
-//	 */
-//	public function set_authorizations(Array $authorizations)
-//	{
-//		$this->set_property(self::AUTHORIZATIONS, $authorizations);
-//	}
     /**
      * @method Get default values.
      */
     public function get_default_values()
     {
         return array(
-            self::RECIPIENT_MAIL_1 => 'mipel@phpboost.com',
+            self::RECIPIENT_MAIL_1 => 'dev.mipel@gmail.com',
             self::RECIPIENT_MAIL_2 => '',
             self::RECIPIENT_MAIL_3 => '',
-//			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 15)
+            
+            self::JPO_TOTAL_AMOUNT => '',
+            self::JPO_DAY_AMOUNT => '',
+            self::EXAM_TOTAL_AMOUNT => '',
+            self::EXAM_DAY_AMOUNT => '',
         );
     }
     public static function load()

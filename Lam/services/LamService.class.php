@@ -3,19 +3,17 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel85 <mipel@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 27
+ * @version     PHPBoost 6.0 - last update: 2023 01 23
  * @since       PHPBoost 6.0 - 2022 12 20
  */
 class LamService
 {
     private static $db_querier;
     protected static $module_id = 'Lam';
-
     public static function __static()
     {
         self::$db_querier = PersistenceContext::get_querier();
     }
-
     /**
      * @desc Count items number.
      * @param string $condition (optional) : Restriction to apply to the list of items
@@ -24,7 +22,6 @@ class LamService
     {
         return self::$db_querier->count(LamSetup::$lam_forms, $condition, $parameters);
     }
-
     /**
      * @desc Create a new entry in the database table.
      * @param string[] $item : new LamItem
@@ -34,7 +31,6 @@ class LamService
         $result = self::$db_querier->insert(LamSetup::$lam_forms, $item->get_properties());
         return $result->get_last_inserted_id();
     }
-
     /**
      * @desc Update an entry.
      * @param string[] $item : LamItem to update
@@ -43,7 +39,6 @@ class LamService
     {
         self::$db_querier->update(LamSetup::$lam_forms, $item->get_properties(), 'WHERE id=:id', array('id' => $item->get_id()));
     }
-
     /**
      * @desc Delete an entry.
      * @param string $condition : Restriction to apply to the list
@@ -63,7 +58,6 @@ class LamService
 //			KeywordsService::get_keywords_manager()->delete_relations($id);
 //			NotationService::delete_notes_id_in_module('download', $id);
     }
-
     /**
      * @desc Return the item with all its properties from its id.
      * @param int $id Item identifier
@@ -79,5 +73,15 @@ class LamService
         $item->set_properties($row);
         return $item;
     }
+    public static function get_requests_number($activity)
+    {
+        $nb_activity_requests = self::$db_querier->select_single_row_query('SELECT COUNT(form_name) AS nb
+		FROM ' . LamSetup::$lam_forms . ' 
+		WHERE  form_name LIKE "' . $activity . '"'
+        );
+        
+        return $nb_activity_requests;
+    }
+
 }
 ?>

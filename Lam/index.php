@@ -10,11 +10,11 @@ define('PATH_TO_ROOT', '..');
 
 require_once PATH_TO_ROOT . '/kernel/init.php';
 $url_controller_mappers = array(
-    new UrlControllerMapper('LamActivityController', '`^/activity/?$`'),
+    new UrlControllerMapper('LamFormActivityController', '`^/activity/?$`'),
     new UrlControllerMapper('LamHomeController', '`^(?:/([0-9]+))?/?$`'),
     new UrlControllerMapper('AdminLamConfigController', '`^/admin(?:/config)?/?$`'),
     
-    new UrlControllerMapper('LamItemsManagerController', '`^/stats/?$`'),
+    new UrlControllerMapper('LamItemsManagerController', '`^/activity_manager/?$`'),
 );
 DispatchManager::dispatch($url_controller_mappers);
 ?>

@@ -20,7 +20,7 @@ $lang['lam.security.desc'] = 'Demande d\'aide pour un aménagement de sécurité
 $lang['lam.sanitary.desc'] = 'Demande d\'aide pour un aménagement sanitaire';
 $lang['lam.jpo'] = 'Journée Portes-Ouvertes';
 $lang['lam.jpo.desc'] = 'Organisation d\'une Journée Portes-Ouvertes';
-$lang['lam.exam'] = 'Journée d\examen';
+$lang['lam.exam'] = 'Journée examen';
 $lang['lam.exam.desc'] = 'Organisation d\'une journée d\'examen';
 $lang['lam.activity'] = 'Type de demande';
 
@@ -55,12 +55,18 @@ $lang['lam.financial.part'] = 'Partie financière';
 $lang['lam.financial.jpo.part'] = 'Configuration financière - Journée Portes-Ouvertes';
 $lang['lam.financial.exam.part'] = 'Configuration financière - Journée d\'examen <span style="font-size: 13px"><i>(QPDD, ailes, brevets...)</i></span>';
 $lang['lam.financial.total.amount'] = 'Montant total attribué';
+$lang['lam.total.planned.budget'] = 'Budget total prévu';
+$lang['lam.provisional.budget.balance'] = 'Solde budget provisoire';
 $lang['lam.financial.day.amount'] = 'Montant attribué par Journée';
 $lang['lam.financial.maximum'] = 'Montant maximum en euros';
 
 //lists
-$lang['lam.stats'] = 'Statistiques';
 $lang['lam.filter.items'] = 'Filtres';
+$lang['lam.activity.requests'] = 'Suivi des demandes';
+$lang['lam.financial.statement'] = 'Suivi financier';
+$lang['lam.activity.nb.requests'] = 'Nb. de demandes';
+$lang['lam.activity.total.amount.requests'] = 'Total des demandes';
+$lang['lam.activity.amount.available'] = 'Montant disponible';
 
 ?>
 

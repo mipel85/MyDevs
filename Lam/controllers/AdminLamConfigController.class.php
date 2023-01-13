@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel85 <mipel@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 27
+ * @version     PHPBoost 6.0 - last update: 2023 01 23
  * @since       PHPBoost 6.0 - 2022 12 20
  */
 class AdminLamConfigController extends DefaultAdminModuleController
@@ -53,33 +53,33 @@ class AdminLamConfigController extends DefaultAdminModuleController
         $financial_jpo_fieldset = new FormFieldsetHTML('financial_jpo', $this->lang['lam.financial.jpo.part']);
         $form->add_fieldset($financial_jpo_fieldset);
 
-        $financial_jpo_fieldset->add_field(new FormFieldDecimalNumberEditor('jpo_total_amount', $this->lang['lam.financial.total.amount'], '', array(
+        $financial_jpo_fieldset->add_field(new FormFieldDecimalNumberEditor('jpo_total_amount', $this->lang['lam.financial.total.amount'], $this->config->get_jpo_total_amount(), array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
-            'min'         => 0, 'max'         => 5000
+            'min'         => 0, 'max'         => 10000
             )
         ));
-        $financial_jpo_fieldset->add_field(new FormFieldDecimalNumberEditor('jpo_day_amount', $this->lang['lam.financial.day.amount'], '', array(
+        $financial_jpo_fieldset->add_field(new FormFieldDecimalNumberEditor('jpo_day_amount', $this->lang['lam.financial.day.amount'], $this->config->get_jpo_day_amount(), array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
-            'min'         => 0, 'max'         => 5000
+            'min'         => 0, 'max'         => 10000
             )
         ));
 
-// financial qpdd fieldset
+// financial exam fieldset
         $financial_qpdd_fieldset = new FormFieldsetHTML('financial_qpdd', $this->lang['lam.financial.exam.part']);
         $form->add_fieldset($financial_qpdd_fieldset);
 //         
-        $financial_qpdd_fieldset->add_field(new FormFieldDecimalNumberEditor('exam_total_amount', $this->lang['lam.financial.total.amount'], '', array(
+        $financial_qpdd_fieldset->add_field(new FormFieldDecimalNumberEditor('exam_total_amount', $this->lang['lam.financial.total.amount'],$this->config->get_exam_total_amount(), array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
-            'min'         => 0, 'max'         => 5000,
+            'min'         => 0, 'max'         => 10000,
             )
         ));
-        $financial_qpdd_fieldset->add_field(new FormFieldDecimalNumberEditor('exam_day_amount', $this->lang['lam.financial.day.amount'], '', array(
+        $financial_qpdd_fieldset->add_field(new FormFieldDecimalNumberEditor('exam_day_amount', $this->lang['lam.financial.day.amount'], $this->config->get_exam_day_amount(), array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
-            'min'         => 0, 'max'         => 5000,
+            'min'         => 0, 'max'         => 10000,
             )
         ));
 
