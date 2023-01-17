@@ -6,9 +6,9 @@
  * @version     PHPBoost 6.0 - last update: 2023 01 23
  * @since       PHPBoost 6.0 - 2022 12 20
  */
-
 class LamFormActivityController extends DefaultModuleController
 {
+
     public function execute(HTTPRequestCustom $request)
     {
         $this->check_authorizations();
@@ -38,7 +38,7 @@ class LamFormActivityController extends DefaultModuleController
         $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lam.form.activity.type'], '', array(
             new FormFieldRadioChoiceOption($this->lang['lam.jpo'], $this->lang['lam.jpo']),
             new FormFieldRadioChoiceOption($this->lang['lam.exam'], $this->lang['lam.exam'])
-                ), array('required' => true, 'class' => 'lam-radio inline-radio')
+            ), array('required' => true, 'class' => 'lam-radio inline-radio')
         ));
         $form->add_fieldset($fieldset);
 
@@ -50,12 +50,12 @@ class LamFormActivityController extends DefaultModuleController
         $fieldset->add_field(new FormFieldTextEditor('club_activity_city', $this->lang['lam.club.activity.city'], '', array('required' => true)));
         $fieldset->add_field(new FormFieldTextEditor('club_activity_description', $this->lang['lam.club.activity.description'], ''));
 
-        
+
         $mail_fieldset = new FormFieldsetHTML('mail_form', $this->lang['lam.not_registred_fields']);
         $mail_fieldset->add_field(new FormFieldFree('not_registred_fields', '', ''));
         $mail_fieldset->add_field(new FormFieldTextEditor('club_sender_name', $this->lang['lam.club.sender.name'], '', array('required' => true)));
         $mail_fieldset->add_field(new FormFieldMailEditor('club_sender_mail', $this->lang['lam.club.sender.mail'], '', array('required' => true)));
-        
+
         $form->add_fieldset($mail_fieldset);
 
         $this->submit_button = new FormButtonDefaultSubmit('Envoyer la demande', '', '');
@@ -130,14 +130,14 @@ class LamFormActivityController extends DefaultModuleController
 
         //msg content
         $item_message = StringVars::replace_vars($this->lang['lam.mail.msg'], array(
-                    'club_sender_name'       => $this->form->get_value('club_sender_name'),
-                    'club_sender_mail'       => $this->form->get_value('club_sender_mail'),
-                    'club_name'              => $this->form->get_value('club_name'),
-                    'club_ffam_number'       => $this->form->get_value('club_ffam_number'),
-                    'activity'               => $this->form->get_value('form_radio')->get_raw_value(),
-                    'club_activity_date'     => Date::to_format($this->form->get_value('club_activity_date')->get_timestamp(), Date::FORMAT_DAY_MONTH_YEAR),
-                    'club_activity_location' => $this->form->get_value('club_activity_location'),
-                    'club_activity_city'     => $this->form->get_value('club_activity_city'),
+                'club_sender_name'       => $this->form->get_value('club_sender_name'),
+                'club_sender_mail'       => $this->form->get_value('club_sender_mail'),
+                'club_name'              => $this->form->get_value('club_name'),
+                'club_ffam_number'       => $this->form->get_value('club_ffam_number'),
+                'activity'               => $this->form->get_value('form_radio')->get_raw_value(),
+                'club_activity_date'     => Date::to_format($this->form->get_value('club_activity_date')->get_timestamp(), Date::FORMAT_DAY_MONTH_YEAR),
+                'club_activity_location' => $this->form->get_value('club_activity_location'),
+                'club_activity_city'     => $this->form->get_value('club_activity_city'),
         ));
 
         $item_email = new Mail();
@@ -153,11 +153,10 @@ class LamFormActivityController extends DefaultModuleController
 
         return $send_email->try_to_send($item_email);
     }
-    
-    private function redirect()
-	{
-        AppContext::get_response()->redirect(LamUrlBuilder::home(), $this->lang['lam.email.sent']);
 
+    private function redirect()
+    {
+        AppContext::get_response()->redirect(LamUrlBuilder::home(), $this->lang['lam.email.sent']);
     }
 }
 ?>

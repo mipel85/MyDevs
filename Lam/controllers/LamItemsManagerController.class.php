@@ -8,44 +8,45 @@
  */
 class LamItemsManagerController extends DefaultModuleController
 {
-//    private $config;
     private $activity;
     private $items_number = 0;
     private $ids = array();
+
     protected function get_template_to_use()
     {
         return new FileTemplate('Lam/LamItemsManagerController.tpl');
     }
+
     public function execute(HTTPRequestCustom $request)
     {
         $this->build_activity_table();
         $this->build_financial_statement();
-        $this->config = LamConfig::load();
 
         $this->view->put('ACTIVITY_TABLE', $this->activity->display());
         return $this->generate_response();
     }
-    
+
     private function build_financial_statement()
     {
+        $this->config = LamConfig::load();
         $nb_activity_requests = LamService::get_requests_number($this->lang['lam.jpo'])['nb'];
         $nb_exam_requests = LamService::get_requests_number($this->lang['lam.exam'])['nb'];
-        
+
         $this->view->put_all(array(
-            'C_IS_AUTHORIZED'      => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level() == 2,
+            'C_IS_AUTHORIZED'      => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level(user::ADMINISTRATOR_LEVEL),
             'JPO'                  => $this->lang['lam.jpo'],
             'JPO_TOTAL_AMOUNT'     => $this->config->get_jpo_total_amount(),
             'JPO_DAY_AMOUNT'       => $this->config->get_jpo_day_amount(),
             'JPO_NB_REQUESTS'      => $nb_activity_requests,
             'JPO_REMAINING_AMOUNT' => $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $nb_activity_requests,
-            
-            'EXAM'                 => $this->lang['lam.exam'],
+            'EXAM'                  => $this->lang['lam.exam'],
             'EXAM_TOTAL_AMOUNT'     => $this->config->get_exam_total_amount(),
             'EXAM_DAY_AMOUNT'       => $this->config->get_exam_day_amount(),
             'EXAM_NB_REQUESTS'      => $nb_exam_requests,
             'EXAM_REMAINING_AMOUNT' => $this->config->get_exam_total_amount() - $this->config->get_exam_day_amount() * $nb_exam_requests
         ));
     }
+
     private function build_activity_table()
     {
         $columns = array(
@@ -62,6 +63,7 @@ class LamItemsManagerController extends DefaultModuleController
         $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('form_name', 'activityfilter', $this->lang['lam.activity'], $activity));
         $activity_table = new HTMLTable($table_model);
         $activity_table->set_filters_fieldset_class_HTML();
+        $activity_table->hide_multiple_delete();
 
         $results = array();
         $result = $table_model->get_sql_results('activity_manager');
@@ -71,13 +73,9 @@ class LamItemsManagerController extends DefaultModuleController
             $item->set_properties($row);
             $this->items_number++;
             $this->ids[$this->items_number] = $item->get_id();
-//
-//			$edit_link = new EditLinkHTMLElement(CalendarUrlBuilder::edit_item(!$item->get_parent_id() ? $item->get_id() : $item->get_parent_id()));
-//			$delete_link = new DeleteLinkHTMLElement(CalendarUrlBuilder::delete_item($item->get_id()), '', array('data-confirmation' => !$item->belongs_to_a_serie() ? 'delete-element' : ''));
-//
-//			$br = new BrHTMLElement();
+
             $row = array(
-                new HTMLTableRowCell($item->get_form_name()),
+                new HTMLTableRowCell($item->get_form_name(), 'align-left'),
                 new HTMLTableRowCell($item->get_club_name()),
                 new HTMLTableRowCell($item->get_club_activity_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
             );
@@ -90,41 +88,6 @@ class LamItemsManagerController extends DefaultModuleController
 
         return $activity_table->get_page_number();
     }
-//    private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
-//    {
-//        if ($request->get_string('delete-selected-elements', false)){
-//            for ($i = 1; $i <= $this->items_number; $i++)
-//            {
-//                if ($request->get_value('delete-checkbox-' . $i, 'off') == 'on'){
-//                    if (isset($this->ids[$i])){
-//                        $item = '';
-//                        try {
-//                            $item = CalendarService::get_item($this->ids[$i]);
-//                        }catch (RowNotFoundException $e){
-//                            
-//                        }
-//
-//                        if ($item){
-//                            $items_list = CalendarService::get_serie_items($item->get_content()->get_id());
-//
-//                            //Delete item
-//                            CalendarService::delete_item($item->get_id(), $item->get_parent_id());
-//
-//                            if (!$item->belongs_to_a_serie() || count($items_list) == 1){
-//                                CalendarService::delete_item_content($item->get_id());
-//                            }
-//
-//                            HooksService::execute_hook_action('delete', self::$module_id, array_merge($item->get_content()->get_properties(), $item->get_properties()));
-//                        }
-//                    }
-//                }
-//            }
-//
-//            CalendarService::clear_cache();
-//
-//            AppContext::get_response()->redirect(CalendarUrlBuilder::manage_items(), $this->lang['warning.process.success']);
-//        }
-//    }
 
     private function generate_response($page = 1)
     {

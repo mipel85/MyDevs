@@ -6,7 +6,7 @@
 </h1>
 
 <div>
-    <table class>
+    <table>
         <thead>
             <tr>
                 <th>{@lam.activity}</th><th>{@lam.total.planned.budget}</th><th>{@lam.financial.day.amount}</th><th>{@lam.activity.nb.requests}</th><th>{@lam.provisional.budget.balance}</th>
@@ -29,6 +29,7 @@
             </tr>
         </tbody>
     </table>
+</div>
 # ENDIF #
 
-    <div class="cell-table cell-flex cell-columns-2"># INCLUDE ACTIVITY_TABLE #</div>
+# INCLUDE ACTIVITY_TABLE #
