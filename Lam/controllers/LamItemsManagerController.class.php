@@ -19,11 +19,20 @@ class LamItemsManagerController extends DefaultModuleController
 
     public function execute(HTTPRequestCustom $request)
     {
+        $this->check_authorizations();
         $this->build_activity_table();
         $this->build_financial_statement();
 
         $this->view->put('ACTIVITY_TABLE', $this->activity->display());
         return $this->generate_response();
+    }
+
+    private function check_authorizations()
+    {
+        if (!AppContext::get_current_user()->check_level(User::MEMBER_LEVEL)){
+            $controller = PHPBoostErrors::user_not_authorized();
+            DispatchManager::redirect($controller);
+        }
     }
 
     private function build_financial_statement()
@@ -33,12 +42,12 @@ class LamItemsManagerController extends DefaultModuleController
         $nb_exam_requests = LamService::get_requests_number($this->lang['lam.exam'])['nb'];
 
         $this->view->put_all(array(
-            'C_IS_AUTHORIZED'      => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level(user::ADMINISTRATOR_LEVEL),
-            'JPO'                  => $this->lang['lam.jpo'],
-            'JPO_TOTAL_AMOUNT'     => $this->config->get_jpo_total_amount(),
-            'JPO_DAY_AMOUNT'       => $this->config->get_jpo_day_amount(),
-            'JPO_NB_REQUESTS'      => $nb_activity_requests,
-            'JPO_REMAINING_AMOUNT' => $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $nb_activity_requests,
+            'C_IS_AUTHORIZED'       => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level(user::ADMINISTRATOR_LEVEL),
+            'JPO'                   => $this->lang['lam.jpo'],
+            'JPO_TOTAL_AMOUNT'      => $this->config->get_jpo_total_amount(),
+            'JPO_DAY_AMOUNT'        => $this->config->get_jpo_day_amount(),
+            'JPO_NB_REQUESTS'       => $nb_activity_requests,
+            'JPO_REMAINING_AMOUNT'  => $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $nb_activity_requests,
             'EXAM'                  => $this->lang['lam.exam'],
             'EXAM_TOTAL_AMOUNT'     => $this->config->get_exam_total_amount(),
             'EXAM_DAY_AMOUNT'       => $this->config->get_exam_day_amount(),
