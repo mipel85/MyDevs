@@ -25,6 +25,8 @@ $lang['lam.exam.desc'] = 'Organisation d\'une journée d\'examen';
 $lang['lam.activity'] = 'Type de demande';
 
 // club_form
+$lang['lam.club.infos'] = 'Infos du club <b>*</b>';
+$lang['lam.club.infos.clue'] = 'Commencez à taper, puis sélectionnez votre club dans la liste déroulante';
 $lang['lam.club.name'] = 'Nom du club :';
 $lang['lam.club.ffam.number'] = 'Numéro d\'affiliation FFAM :';
 $lang['lam.club.activity.date'] = 'Date de l\'évènement :';

@@ -8,13 +8,14 @@
  */
 class LamConfig extends AbstractConfigData
 {
-    const RECIPIENT_MAIL_1 = 'recipient_mail_1';
-    const RECIPIENT_MAIL_2 = 'recipient_mail_2';
-    const RECIPIENT_MAIL_3 = 'recipient_mail_3';
-    const JPO_TOTAL_AMOUNT = 'jpo_total_amount';
-    const JPO_DAY_AMOUNT = 'jpo_day_amount';
+    const RECIPIENT_MAIL_1  = 'recipient_mail_1';
+    const RECIPIENT_MAIL_2  = 'recipient_mail_2';
+    const RECIPIENT_MAIL_3  = 'recipient_mail_3';
+    const JPO_TOTAL_AMOUNT  = 'jpo_total_amount';
+    const JPO_DAY_AMOUNT    = 'jpo_day_amount';
     const EXAM_TOTAL_AMOUNT = 'exam_total_amount';
-    const EXAM_DAY_AMOUNT = 'exam_day_amount';
+    const EXAM_DAY_AMOUNT   = 'exam_day_amount';
+    const AUTHORIZATIONS    = 'authorizations';
 
     public function get_recipient_mail_1()
     {
@@ -89,19 +90,30 @@ class LamConfig extends AbstractConfigData
         $this->set_property(self::EXAM_DAY_AMOUNT, $exam_day_amount);
     }
 
+    public function get_authorizations()
+    {
+        return $this->get_property(self::AUTHORIZATIONS);
+    }
+
+    public function set_authorizations($authorizations)
+    {
+        $this->set_property(self::AUTHORIZATIONS, $authorizations);
+    }
+
     /**
      * @method Get default values.
      */
     public function get_default_values()
     {
         return array(
-            self::RECIPIENT_MAIL_1 => 'dev.mipel@gmail.com',
-            self::RECIPIENT_MAIL_2 => '',
-            self::RECIPIENT_MAIL_3 => '',
+            self::RECIPIENT_MAIL_1  => 'dev.mipel@gmail.com',
+            self::RECIPIENT_MAIL_2  => '',
+            self::RECIPIENT_MAIL_3  => '',
             self::JPO_TOTAL_AMOUNT  => 0,
             self::JPO_DAY_AMOUNT    => 0,
             self::EXAM_TOTAL_AMOUNT => 0,
             self::EXAM_DAY_AMOUNT   => 0,
+            self::AUTHORIZATIONS    => array('r-1' => 1, 'r0' => 5, 'r1' => 15),
         );
     }
 

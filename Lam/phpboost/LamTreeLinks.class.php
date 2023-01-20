@@ -7,14 +7,18 @@
  * @since       PHPBoost 6.0 - 2022 12 20
  */
 
-class LamTreeLinks extends DefaultTreeLinks
+class LamTreeLinks implements ModuleTreeLinksExtensionPoint
 {
-
-    protected function get_module_additional_actions_tree_links(&$tree)
+    public function get_actions_tree_links()
     {
         $module_id = 'Lam';
         $lang = LangLoader::get_all_langs($module_id);
+		$tree = new ModuleTreeLinks();
+
         $tree->add_link(new ModuleLink($lang['lam.activity.requests'], LamUrlBuilder::activity_manager(), AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL) || !AppContext::get_current_user()->check_level(User::VISITOR_LEVEL) || AppContext::get_current_user()->get_groups()[1] == 1));
+        $tree->add_link(new AdminModuleLink($lang['form.configuration'], LamUrlBuilder::configuration()));
+
+        return $tree;
     }
 }
 ?>

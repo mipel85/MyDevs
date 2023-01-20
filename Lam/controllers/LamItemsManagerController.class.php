@@ -85,7 +85,7 @@ class LamItemsManagerController extends DefaultModuleController
 
             $row = array(
                 new HTMLTableRowCell($item->get_form_name(), 'align-left'),
-                new HTMLTableRowCell($item->get_club_name()),
+                new HTMLTableRowCell($item->get_club_ffam_number() . ' | ' . $item->get_club_name()),
                 new HTMLTableRowCell($item->get_club_activity_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
             );
 
