@@ -20,10 +20,8 @@ class LamFormActivityController extends DefaultModuleController
         $this->check_authorizations();
         $this->build_form($request);
 
-        if ($this->max_amount != 0)
-        {
-            if ($this->submit_button->has_been_submited() && $this->form->validate())
-            {
+        if ($this->max_amount != 0){
+            if ($this->submit_button->has_been_submited() && $this->form->validate()){
                 $this->save();
                 $this->send_form_email();
                 $this->redirect();
@@ -48,8 +46,7 @@ class LamFormActivityController extends DefaultModuleController
         $form = new HTMLForm(__CLASS__);
         $form->set_layout_title($this->lang['lam.form']);
 
-        if ($this->max_amount != 0)
-        {
+        if ($this->max_amount != 0){
             //radio buttons
             $choices = new FormFieldsetHTML('form_name', $this->lang['lam.form.radio.choices']);
             $form->add_fieldset($choices);
@@ -57,10 +54,9 @@ class LamFormActivityController extends DefaultModuleController
             $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lam.form.activity.type'], '', array(
                 new FormFieldRadioChoiceOption($this->lang['lam.jpo'], $this->lang['lam.jpo'], array('disable' => $this->jpo_remaining_amount == 0)),
                 new FormFieldRadioChoiceOption($this->lang['lam.exam'], $this->lang['lam.exam'], array('disable' => $this->exam_remaining_amount == 0))
-                ),
-                array(
-                    'required' => true, 'class' => 'lam-radio inline-radio',
-                    'description' => $this->jpo_remaining_amount == 0 || $this->exam_remaining_amount == 0 ? 'en rouge = finito' : '',
+                ), array(
+                'required'    => true, 'class'       => 'lam-radio inline-radio',
+                'description' => $this->jpo_remaining_amount == 0 || $this->exam_remaining_amount == 0 ? 'en rouge = finito' : '',
                 )
             ));
 
@@ -85,9 +81,7 @@ class LamFormActivityController extends DefaultModuleController
             $this->submit_button = new FormButtonDefaultSubmit('Envoyer la demande', '', '');
             $form->add_button($this->submit_button);
             $form->add_button(new FormButtonReset('Annuler'));
-        }
-        else
-        {
+        }else{
             $end = new FormFieldsetHTML('form_name', 'Fin d\'activité');
             $form->add_fieldset($end);
             $end->set_description('<span class="message-helper bgc warning">y en a plus des brouzoufs</span>');
@@ -128,7 +122,7 @@ class LamFormActivityController extends DefaultModuleController
         $item = $this->get_item();
         $item->set_form_date(new Date());
         $item->set_form_name($this->form->get_value('form_radio')->get_raw_value());
-        foreach($this->form->get_value('club_infos') as $id => $club)
+        foreach ($this->form->get_value('club_infos') as $id => $club)
         {
             $club = explode(' - ', $club);
             $item->set_club_name($club[1]);
