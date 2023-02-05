@@ -94,46 +94,48 @@
 			# ELSE #
 				<div class="cell-list cell-list-inline connected-contents">
 					<a href="#" class="js-menu-button" onclick="open_submenu('module-connect', 'active-connect');return false;">
-						# IF C_USER_AVATAR #
-                            <span class="avatar-picture" style="background-image: url('{U_USER_AVATAR}')"></span>
-						# ELSE #
-							# IF IS_MODERATOR #
-								<i class="fa fa-user-tie" aria-hidden="true"></i>
-							# ELSE #
-								<i class="fa fa-user" aria-hidden="true"></i>
-							# ENDIF #
-						# ENDIF #
-						<span aria-label="{@user.my.profile}" class="{USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{USER_GROUP_COLOR}"# ENDIF #>{USER_DISPLAYED_NAME}</span>
-						# IF C_HAS_PM #
-							<span class="stacked member">
-								<i class="fa fa-fw fa-lg fa-people-arrows" aria-hidden="true"></i>
-								<span class="stack-event stack-circle stack-top-right bgc-full member blink">{PM_NUMBER}</span>
-							</span>
-						# ENDIF #
-						# IF IS_ADMIN #
-							# IF C_UNREAD_ALERTS #
-								<span class="stacked administrator">
-									<i class="fa fa-fw fa-lg fa-wrench" aria-hidden="true"></i>
-									<span class="stack-event stack-circle stack-top-right bgc-full administrator blink">{UNREAD_ALERTS_NUMBER}</span>
-								</span>
-							# ENDIF #
-						# ENDIF #
-						# IF C_UNREAD_CONTRIBUTIONS #
-							<span class="stacked moderator">
-								<i class="fa fa-fw fa-lg fa-file-alt" aria-hidden="true"></i>
-								<span class="stack-event stack-circle stack-top-right bgc-full moderator blink">{UNREAD_CONTRIBUTIONS_NUMBER}</span>
-							</span>
-						# ENDIF #
-						# START additional_menus #
-							# IF additional_menus.C_DISPLAY #
-								# IF additional_menus.C_UNREAD_ELEMENTS #
-									<span class="stacked {additional_menus.LEVEL_CLASS}">
-										<i class="fa-fw fa-lg# IF additional_menus.C_ICON # {additional_menus.ICON}# ELSE # far fa-file-alt# ENDIF #" aria-hidden="true"></i>
-										<span class="stack-event stack-circle stack-top-right bgc-full {additional_menus.LEVEL_CLASS} blink">{additional_menus.UNREAD_ELEMENTS_NUMBER}</span>
-									</span>
-								# ENDIF #
-							# ENDIF #
-						# END additional_menus #
+                        <span class="avatar-link">
+                            # IF C_USER_AVATAR #
+                                <span class="avatar-picture" style="background-image: url('{U_USER_AVATAR}')"></span>
+                            # ELSE #
+                                # IF IS_MODERATOR #
+                                    <i class="fa fa-user-tie" aria-hidden="true"></i>
+                                # ELSE #
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                # ENDIF #
+                            # ENDIF #
+                            <span aria-label="{@user.my.profile}" class="{USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{USER_GROUP_COLOR}"# ENDIF #>{USER_DISPLAYED_NAME}</span>
+                            # IF C_HAS_PM #
+                                <span class="stacked member">
+                                    <i class="fa fa-fw fa-lg fa-people-arrows" aria-hidden="true"></i>
+                                    <span class="stack-event stack-circle stack-top-right bgc-full member blink">{PM_NUMBER}</span>
+                                </span>
+                            # ENDIF #
+                            # IF IS_ADMIN #
+                                # IF C_UNREAD_ALERTS #
+                                    <span class="stacked administrator">
+                                        <i class="fa fa-fw fa-lg fa-wrench" aria-hidden="true"></i>
+                                        <span class="stack-event stack-circle stack-top-right bgc-full administrator blink">{UNREAD_ALERTS_NUMBER}</span>
+                                    </span>
+                                # ENDIF #
+                            # ENDIF #
+                            # IF C_UNREAD_CONTRIBUTIONS #
+                                <span class="stacked moderator">
+                                    <i class="fa fa-fw fa-lg fa-file-alt" aria-hidden="true"></i>
+                                    <span class="stack-event stack-circle stack-top-right bgc-full moderator blink">{UNREAD_CONTRIBUTIONS_NUMBER}</span>
+                                </span>
+                            # ENDIF #
+                            # START additional_menus #
+                                # IF additional_menus.C_DISPLAY #
+                                    # IF additional_menus.C_UNREAD_ELEMENTS #
+                                        <span class="stacked {additional_menus.LEVEL_CLASS}">
+                                            <i class="fa-fw fa-lg# IF additional_menus.C_ICON # {additional_menus.ICON}# ELSE # far fa-file-alt# ENDIF #" aria-hidden="true"></i>
+                                            <span class="stack-event stack-circle stack-top-right bgc-full {additional_menus.LEVEL_CLASS} blink">{additional_menus.UNREAD_ELEMENTS_NUMBER}</span>
+                                        </span>
+                                    # ENDIF #
+                                # ENDIF #
+                            # END additional_menus #
+                        </span>
 					</a>
 			# ENDIF #
 					<ul class="connect-container# IF C_HORIZONTAL # connect-container-horizontal# ENDIF #">
@@ -148,7 +150,7 @@
 									<span>{@user.my.account}</span>
 								</a>
 							# ELSE #
-								<a href="${relative_url(UserUrlBuilder::home_profile())}" class="offload" aria-label="{@user.my.account}: {USER_DISPLAYED_NAME}">
+								<a href="${relative_url(UserUrlBuilder::home_profile())}" class="offload avatar-link" aria-label="{@user.my.account}: {USER_DISPLAYED_NAME}">
 									# IF C_USER_AVATAR #
                                         <span class="avatar-picture" style="background-image: url({U_USER_AVATAR})"></span>
 									# ELSE #

@@ -23,6 +23,7 @@
 	font-weight: 900;
 	content: '\f0d7';
 	right: 0.809em;
+    top: 0.6618em;
 }
 
 #module-connect.active-connect .js-menu-button::after { content: '\f0d8'; }
@@ -70,6 +71,19 @@
 .active-connect .js-menu-button,
 .js-menu-button:hover { text-decoration: none; }
 
+#header #module-connect.user-connected .avatar-link {
+    display: flex;
+    align-items: center;
+}
+
+#header #module-connect.user-connected .avatar-picture {
+    height: 22px;
+    width: 26px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
 @media (min-width: 769px) {
 	#module-connect .connect-container-horizontal {
 		opacity: 1;
@@ -85,15 +99,6 @@
 		border-style: solid;
 		border-color: var(--bdr-alt)
 	}
-
-	#header #module-connect.user-connected .avatar-picture {
-        display: block;
-        height: 22px;
-        width: 25px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
 
 	#header #module-connect input[type="text"] { width: 200px; }
 
