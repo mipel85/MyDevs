@@ -18,8 +18,8 @@
                     <div id="site-name-container">
                         <span id="site-name" class="align-center">
                             <span class="d-block">
-                                <span class="first-letter">L</span>igue d'
-                                <span class="first-letter">A</span>éro<span class="first-letter">M</span>odélisme
+                                <span class="first-letter">L</span>igue 
+                                d'<span class="first-letter">A</span>éro<span class="first-letter">M</span>odélisme
                             </span>
                             <span class="d-block">
                                 <span class="first-letter">P</span>ays <span class="first-letter">d</span>e <span class="first-letter">L</span>oire</span>

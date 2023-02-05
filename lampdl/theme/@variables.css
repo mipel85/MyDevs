@@ -44,11 +44,11 @@
 
 /* .logo-color */
     --logo-rgb-d: 111, 158, 64;
-    --logo-dark:  #6F9E40;
+    --logo-dark:  #212121;
     --logo-rgb-t: 141, 202, 81;
-    --logo-tone:  #8DCA51;
+    --logo-tone:  #313131;
     --logo-rgb-l: 178, 253, 104;
-    --logo-light: #B2FD68;
+    --logo-light: #414141;
 
 /* .notice */
     --notice-rgb-d: 103, 81, 61;

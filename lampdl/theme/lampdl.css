@@ -11,7 +11,8 @@
 /* --- cssmenu --- */
 #sub-header .level-0 > li > .cssmenu-title > span {
     font-family: 'Goudy Bookletter 1911', serif;
-    font-size: 1.809rem; 
+    font-size: 1.809rem;
+    cursor: pointer;
 }
 
 @media (min-width: 769px) {
