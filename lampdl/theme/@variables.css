@@ -18,9 +18,9 @@
     --bgc-rgb-m: 255, 255, 255;
     --bgc-main:  #FFFFFF;
     --bgc-rgb-s: 208, 208, 208;
-    --bgc-sub:  #D0D0D0;
+    --bgc-sub:  #EFEFEF;
     --bgc-rgb-a: 12, 207, 186;
-    --bgc-alt:   #0CCEB9;
+    --bgc-alt:   #0094AF;
     --bgc-rgb-t: 48, 48, 48;
     --bgc-top:   #313131;
 
@@ -29,26 +29,26 @@
     --bdr-rgb-s: 224, 224, 224;
     --bdr-sub:   #E0E0E0;
     --bdr-rgb-a: 12, 207, 186;
-    --bdr-alt:   #0CCEB9;
+    --bdr-alt:   #0094AF;
 
     --darken :   0, 0, 0;
     --lighten:   255, 255, 255;
 
 /* .link-color */
     --main-rgb-d: 34, 34, 34;
-    --main-dark:  #222222;
+    --main-dark:  #037A8F;
     --main-rgb-t: 51, 51, 51;
-    --main-tone:  #333333;
+    --main-tone:  #0094AF;
     --main-rgb-l: 68, 68, 68;
-    --main-light: #444444;
+    --main-light: #1FBDDA;
 
 /* .logo-color */
     --logo-rgb-d: 9, 159, 143;
-    --logo-dark:  #099F8F;
+    --logo-dark:  #6F9E40;
     --logo-rgb-t: 12, 207, 186;
-    --logo-tone:  #0CCEB9;
+    --logo-tone:  #8DCA51;
     --logo-rgb-l: 59, 242, 222;
-    --logo-light: #3BF2DE;
+    --logo-light: #B2FD68;
 
 /* .notice */
     --notice-rgb-d: 103, 81, 61;

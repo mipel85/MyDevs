@@ -17,6 +17,17 @@ body {
     color: var(--txt-main);
 }
 
+#header-container {
+    background-color: rgba(var(--bgc-rgb-m), 0.70);
+        box-shadow: 0 0 3px 2px rgba(var(--darken), 0.2);
+}
+@media (min-width: 769px) {
+    #header-container {
+        background-color: transparent;
+        box-shadow: 0 0 3px 2px rgba(var(--darken), 0);
+    }
+}
+
 #top-header {
 	background-color: var(--bgc-top);
 	color: var(--txt-alt);
@@ -26,16 +37,10 @@ body {
 
 #top-header .administrator { color: var(--logo-tone); }
 
-/*#inner-header { background-color: var(--bgc-sub); }*/
+.first-letter{ color: var(--main-tone); }
 
-#site-logo {
-	background-image: none;
-	/*background-color: var(--logo-tone);*/
-	/*border-color: var(--bdr-alt);*/
-}
-
-#global-container {
-	/*background-color: var(--bgc-main);*/
+#global-container,
+#footer {
 	background-color: rgba(var(--bgc-rgb-m), 0.70);
 	box-shadow: 0 0 3px 2px rgba(var(--darken), 0.2);
 }
@@ -59,7 +64,7 @@ body {
 	.item-thumbnail { background-color: var(--bgc-main); }
 }
 
-.section-header h1::first-letter { color: var(--txt-alt); }
+/* .section-header h1::first-letter { color: var(--txt-alt); } */
 
 /* --- Cookies --- */
 .cookiebar-container { background-color: var(--bgc-sub); }
@@ -476,8 +481,11 @@ pre.precode .line-number { border-color: var(--bdr-sub); }
 .cssmenu-actionslinks > ul ul { box-shadow: -7px 0 10px rgba(var(--main-rgb-t), 0.15); }
 
 @media (min-width: 769px) {
-	.cssmenu ul > li:hover > .cssmenu-title  { background-color: rgba(var(--main-rgb-t), 0.1); }
-	.cssmenu ul > li.current > .cssmenu-title  { background-color: rgba(var(--main-rgb-t), 0.1); }
+	.cssmenu ul > li:hover > .cssmenu-title,
+	.cssmenu ul > li.current > .cssmenu-title  { 
+        background-color: var(--logo-tone);
+        color: var(--txt-alt);
+    }
 
 	.cssmenu-group .cssmenu-title { border-color: var(--bdr-alt); }
 
@@ -523,6 +531,13 @@ pre.precode .line-number { border-color: var(--bdr-sub); }
 
 .small-screen .menu-button.menu-opened:after,
 .small-screen .submenu-button.submenu-opened:after { background-color: rgba(var(--main-rgb-t), 0.1); }
+
+/* --- sub header --- */
+@media (min-width: 769px) {
+    #sub-header .cssmenu > .level-0 { background-color: var(--bgc-alt); }
+    #sub-header .cssmenu > .level-0 > li > .cssmenu-title { color: var(--txt-alt); }
+}
+
 
 /* --- pushmenu ------------------------------------------------------------- */
 

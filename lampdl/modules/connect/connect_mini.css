@@ -84,7 +84,7 @@
 		color: var(--txt-alt);
 		border-width: 1px;
 		border-style: solid;
-		border-color: var(--bdr-main)
+		border-color: var(--bdr-alt)
 	}
 
 	#header #module-connect input[type="text"] { width: 200px; }

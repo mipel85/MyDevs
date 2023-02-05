@@ -1,63 +1,71 @@
 # INCLUDE MAINTAIN #
 <header id="header">
-    <div id="top-header">
-        # IF C_MENUS_TOP_HEADER_CONTENT #
-        <div id="top-header-content" class="content-wrapper">
-            # START menus_top_header #
-            {menus_top_header.MENU}
-            # END menus_top_header #
-            <div class="spacer"></div>
-        </div>
-        # ENDIF #
-    </div>
-    <div id="inner-header">
-        <div id="inner-header-container" class="content-wrapper">
-            # IF C_MENUS_HEADER_CONTENT #
-            <div id="inner-header-content">
-                # START menus_header #
-                {menus_header.MENU}
-                # END menus_header #
+    <div id="header-container">
+        <div id="top-header">
+            # IF C_MENUS_TOP_HEADER_CONTENT #
+            <div id="top-header-content" class="content-wrapper">
+                # START menus_top_header #
+                {menus_top_header.MENU}
+                # END menus_top_header #
                 <div class="spacer"></div>
             </div>
             # ENDIF #
-            <div id="site-infos" role="banner">
-                <div id="site-name-container">
-                    <span id="site-name">
-                        <span class=""><span class="first-letter">L</span>igue d'<span class="first-letter">A</span>éro<span class="first-letter">M</span>odélisme <br />
-                            <p class="align-center">
-                                <span class="first-letter">P</span>ays <span class="first-letter">d</span>e <span class="first-letter">L</span>oire</p>
-                            </p>
+        </div>
+        <div id="inner-header">
+            <div id="inner-header-container" class="content-wrapper">
+                <div id="site-infos" role="banner">
+                    <div id="site-logo-0" class="site-logo" # IF C_HEADER_LOGO #style="background-image: url({U_HEADER_LOGO});"# ENDIF #></div>
+                    <div id="site-name-container">
+                        <span id="site-name" class="align-center">
+                            <span class="d-block">
+                                <span class="first-letter">L</span>igue d'
+                                <span class="first-letter">A</span>éro<span class="first-letter">M</span>odélisme
+                            </span>
+                            <span class="d-block">
+                                <span class="first-letter">P</span>ays <span class="first-letter">d</span>e <span class="first-letter">L</span>oire</span>
+                            </span>
                         </span>
+                    </div>
+                    <div id="site-logo-1" class="site-logo"></div>
                 </div>
-                <div id="site-logo" # IF C_HEADER_LOGO #style="background-image: url({U_HEADER_LOGO});"# ENDIF #></div>
-            </div>
 
-            # IF C_VISIT_COUNTER #
-            <div id="visit-counter" class="hidden-small-screens">
-                <div class="visit-counter-total flex-between">
-                    <span class="text-strong">{@user.guests} &nbsp;</span>
-                    <span class="pinned visitor small">{VISIT_COUNTER_TOTAL}</span>
+                # IF C_VISIT_COUNTER #
+                <div id="visit-counter" class="hidden-small-screens">
+                    <div class="visit-counter-total flex-between">
+                        <span class="text-strong">{@user.guests} &nbsp;</span>
+                        <span class="pinned visitor small">{VISIT_COUNTER_TOTAL}</span>
+                    </div>
+                    <div class="visit-counter-today flex-between">
+                        <span class="text-strong">{@date.today}</span>
+                        <span class="pinned visitor small">{VISIT_COUNTER_DAY}</span>
+                    </div>
                 </div>
-                <div class="visit-counter-today flex-between">
-                    <span class="text-strong">{@date.today}</span>
-                    <span class="pinned visitor small">{VISIT_COUNTER_DAY}</span>
+                # ENDIF #
+
+            </div>
+        </div>
+        <div class="content-wrapper">
+            # IF C_MENUS_HEADER_CONTENT #
+                <div id="inner-header-content">
+                    # IF NOT IS_USER_CONNECTED #<span></span># ENDIF #
+                    # START menus_header #
+                    {menus_header.MENU}
+                    # END menus_header #
                 </div>
+            # ENDIF #
+        </div>
+        <div id="sub-header">
+            # IF C_MENUS_SUB_HEADER_CONTENT #
+            <div id="sub-header-content" class="content-wrapper">
+                # START menus_sub_header #
+                {menus_sub_header.MENU}
+                # END menus_sub_header #
+                <div class="spacer"></div>
             </div>
             # ENDIF #
-
         </div>
+        <div class="spacer"></div>
     </div>
-    <div id="sub-header">
-        # IF C_MENUS_SUB_HEADER_CONTENT #
-        <div id="sub-header-content" class="content-wrapper">
-            # START menus_sub_header #
-            {menus_sub_header.MENU}
-            # END menus_sub_header #
-            <div class="spacer"></div>
-        </div>
-        # ENDIF #
-    </div>
-    <div class="spacer"></div>
 </header>
 
 <main id="global" class="content-preloader" role="main">
@@ -127,20 +135,24 @@
 <footer id="footer">
 
     # IF C_MENUS_TOP_FOOTER_CONTENT #
-    <div id="top-footer" class="content-wrapper">
-        # START menus_top_footer #
-        {menus_top_footer.MENU}
-        # END menus_top_footer #
-        <div class="spacer"></div>
-    </div>
+        <div id="top-footer" class="content-wrapper">
+            # START menus_top_footer #
+            {menus_top_footer.MENU}
+            # END menus_top_footer #
+            <div class="spacer"></div>
+        </div>
     # ENDIF #
 
-    # IF C_MENUS_FOOTER_CONTENT #
-    <div id="footer-content" class="content-wrapper">
-        # START menus_footer #
-        {menus_footer.MENU}
-        # END menus_footer #
+    <div id="lam-infos" class="content-wrapper align-center">
+        <span class="d-block"><i class="fa fa-home"></i> Ligue Régionale d'Aéromodélisme des Pays de la Loire - Maison des Sports, 44, rue Romain Rolland, BP 90312, 44100 Nantes</span>
     </div>
+
+    # IF C_MENUS_FOOTER_CONTENT #
+        <div id="footer-content" class="content-wrapper">
+            # START menus_footer #
+            {menus_footer.MENU}
+            # END menus_footer #
+        </div>
     # ENDIF #
 
     <div id="footer-infos" class="content-wrapper" role="contentinfo">

@@ -1,50 +1,36 @@
-/* perso */
-
-.first-letter{
-    color: #0cceb9;
-}
-
-
 /* --- shape --- */
-body{
-    background-image: url(images/bg.webp);
-    background-attachment: fixed;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-#site-infos { justify-content: space-between; }
-
-#site-name-container { 
-    margin: 0 0.618em 0 0;
-    font-size: 16px;
-    font-family: serif;
-}
-
-#site-logo {
-    width: 190px;
-    height: 190px;
-    padding: 1.309em 1.618em 1.618em;
-    background-image: url('images/logo-lampdl.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-@media (min-width: 769px) {
-    #site-logo {
-        width: 120px;
-        height: 120px;
-    }
-}
 
 #inner-header .grouped-inputs { justify-content: flex-start !important; }
 
 #sub-header-content { padding: 0.456em 0;}
 
 #global-container { 
-    padding: 0 0.618em; 
+    padding: 0 0.618em;
+}
 
+/* --- cssmenu --- */
+#sub-header .level-0 > li > .cssmenu-title > span {
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: 1.809rem; 
+}
+
+@media (min-width: 769px) {
+    #sub-header .cssmenu-horizontal {
+        display: block;
+        text-align: center;
+    }
+
+    #sub-header .cssmenu-horizontal > .level-0 > li:not(:last-child) {
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: var(--bdr-main);
+    }
+
+    #footer .cssmenu-static { text-align: center; }
+}
+
+@media (min-width: 1025px) {
+    #sub-header .level-0 > li > .cssmenu-title > span { font-size: 2.618rem; }
 }
 
 /* --- cell --- */
@@ -62,27 +48,11 @@ body{
 }
 
 /* --- content --- */
-.section-header h1::first-letter {
-    margin-right: 0.1618em;
-}
-
 .section-header h1 {
     position: relative;
     padding-left: 0.809em;
     letter-spacing: 0.1618em;
     z-index: 1;
-}
-
-.section-header h1::after {
-    left: 5px;
-    top: -4px;
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    width: 1.618em;
-    height: 1.618em;
-    background-color: var(--logo-tone);
-    z-index: -1;
 }
 
 .formatter-title { text-decoration: none !important; }
@@ -93,4 +63,16 @@ body{
 #module-mini-calendar .grouped-inputs { margin: 0.456em 0 !important; }
 
 .cell-mini #shoutbox-bbcode-container { margin: 0.456em 0 !important; }
+
+#module-mini-search { padding: 0.309em; }
+
+#module-mini-search [type="search"] {
+    background-color: var(--bgc-main);
+    border-color: var(--bdr-alt);
+}
+
+@media (min-width: 769px) {
+    #module-mini-search { padding: 0; }
+}
+
 
