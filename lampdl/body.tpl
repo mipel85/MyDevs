@@ -28,20 +28,20 @@
                     </div>
                     <div id="site-logo-1" class="site-logo"></div>
                 </div>
-
-                # IF C_VISIT_COUNTER #
-                <div id="visit-counter" class="hidden-small-screens">
-                    <div class="visit-counter-total flex-between">
-                        <span class="text-strong">{@user.guests} &nbsp;</span>
-                        <span class="pinned visitor small">{VISIT_COUNTER_TOTAL}</span>
-                    </div>
-                    <div class="visit-counter-today flex-between">
-                        <span class="text-strong">{@date.today}</span>
-                        <span class="pinned visitor small">{VISIT_COUNTER_DAY}</span>
-                    </div>
-                </div>
+                # IF IS_ADMIN #
+                    # IF C_VISIT_COUNTER #
+                        <div id="visit-counter" class="hidden-small-screens flex-between">
+                            <div class="visit-counter-total">
+                                <span>{@user.guests} &nbsp;</span>
+                                <span class="pinned star small">{VISIT_COUNTER_TOTAL}</span>
+                            </div>
+                            <div class="visit-counter-today">
+                                <span>{@date.today}</span>
+                                <span class="pinned star small">{VISIT_COUNTER_DAY}</span>
+                            </div>
+                        </div>
+                    # ENDIF #
                 # ENDIF #
-
             </div>
         </div>
         <div class="content-wrapper">
@@ -56,15 +56,14 @@
         </div>
         <div id="sub-header">
             # IF C_MENUS_SUB_HEADER_CONTENT #
-            <div id="sub-header-content" class="content-wrapper">
-                # START menus_sub_header #
-                {menus_sub_header.MENU}
-                # END menus_sub_header #
-                <div class="spacer"></div>
-            </div>
+                <div id="sub-header-content" class="content-wrapper">
+                    # START menus_sub_header #
+                    {menus_sub_header.MENU}
+                    # END menus_sub_header #
+                    <div class="spacer"></div>
+                </div>
             # ENDIF #
         </div>
-        <div class="spacer"></div>
     </div>
 </header>
 

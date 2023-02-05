@@ -39,6 +39,8 @@ body {
 
 .first-letter{ color: var(--main-tone); }
 
+#visit-counter { color: var(--txt-alt); }
+
 #global-container,
 #footer {
 	background-color: rgba(var(--bgc-rgb-m), 0.70);
