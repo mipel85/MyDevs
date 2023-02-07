@@ -92,6 +92,7 @@
 	}
 
 	#header #module-connect.user-connected a {
+        background-color: rgba(var(--darken), 0.2);
 		padding: 0.618em 0.456em;
 		border-radius: 50%;
 		color: var(--txt-alt);
