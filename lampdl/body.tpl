@@ -22,7 +22,7 @@
                                 d'<span class="first-letter">A</span>éro<span class="first-letter">M</span>odélisme
                             </span>
                             <span class="d-block">
-                                <span class="first-letter">P</span>ays <span class="first-letter">d</span>e <span class="first-letter">L</span>oire</span>
+                                 des <span class="first-letter">P</span>ays <span class="first-letter">d</span>e la <span class="first-letter">L</span>oire</span>
                             </span>
                         </span>
                     </div>
