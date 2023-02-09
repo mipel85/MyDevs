@@ -94,14 +94,14 @@
 			# ELSE #
 				<div class="cell-list cell-list-inline connected-contents">
 					<a href="#" class="js-menu-button" onclick="open_submenu('module-connect', 'active-connect');return false;">
-                        <span class="avatar-link">
+                        <span # IF C_USER_AVATAR #class="avatar-link"# ENDIF #>
                             # IF C_USER_AVATAR #
                                 <span class="avatar-picture" style="background-image: url('{U_USER_AVATAR}')"></span>
                             # ELSE #
                                 # IF IS_MODERATOR #
-                                    <i class="fa fa-user-tie" aria-hidden="true"></i>
+                                    <span><i class="fa fa-fw fa-user-tie" aria-hidden="true"></i></span>
                                 # ELSE #
-                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span><i class="fa fa-fw fa-user" aria-hidden="true"></i></span>
                                 # ENDIF #
                             # ENDIF #
                             <span aria-label="{@user.my.profile}" class="{USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{USER_GROUP_COLOR}"# ENDIF #>{USER_DISPLAYED_NAME}</span>
