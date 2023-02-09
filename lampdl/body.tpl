@@ -143,7 +143,7 @@
     # ENDIF #
 
     <div id="lam-infos" class="content-wrapper align-center">
-        <span class="d-block"><i class="fa fa-home"></i> Ligue Régionale d'Aéromodélisme des Pays de la Loire - Maison des Sports, 44, rue Romain Rolland, BP 90312, 44100 Nantes</span>
+        <span class="d-block"><i class="fa fa-home"></i> Maison des Sports, 44, rue Romain Rolland, BP 90312, 44100 Nantes</span>
     </div>
 
     # IF C_MENUS_FOOTER_CONTENT #
