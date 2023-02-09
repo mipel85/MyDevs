@@ -11,6 +11,8 @@
 
 #header-container { border-radius: var(--radius); }
 
+#visit-counter .counter { border-radius: var(--radius); }
+
 .content-container { border-radius: var(--radius); }
 
 #breadcrumb { border-radius: var(--radius); }

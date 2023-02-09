@@ -28,20 +28,6 @@
                     </div>
                     <div id="site-logo-1" class="site-logo"></div>
                 </div>
-                # IF IS_ADMIN #
-                    # IF C_VISIT_COUNTER #
-                        <div id="visit-counter" class="hidden-small-screens flex-between">
-                            <div class="visit-counter-total">
-                                <span>{@user.guests} &nbsp;</span>
-                                <span class="pinned star small">{VISIT_COUNTER_TOTAL}</span>
-                            </div>
-                            <div class="visit-counter-today">
-                                <span>{@date.today}</span>
-                                <span class="pinned star small">{VISIT_COUNTER_DAY}</span>
-                            </div>
-                        </div>
-                    # ENDIF #
-                # ENDIF #
             </div>
         </div>
         <div class="content-wrapper">
@@ -66,6 +52,24 @@
         </div>
     </div>
 </header>
+
+# IF IS_ADMIN #
+    # IF C_VISIT_COUNTER #
+        <div id="visit-counter" class="hidden-small-screens flex-between content-wrapper">
+            <div></div>
+            <div class="counter flex-between">
+                <div class="visit-counter-total m-20">
+                    <span class="m-10">{@user.guests} &nbsp;</span>
+                    <span class="pinned star small">{VISIT_COUNTER_TOTAL}</span>
+                </div>
+                <div class="visit-counter-today">
+                    <span class="m-10">{@date.today}</span>
+                    <span class="pinned star small">{VISIT_COUNTER_DAY}</span>
+                </div>
+            </div>
+        </div>
+    # ENDIF #
+# ENDIF #
 
 <main id="global" class="content-preloader" role="main">
     <div id="global-container" class="content-wrapper">
