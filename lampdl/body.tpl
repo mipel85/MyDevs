@@ -59,12 +59,12 @@
             <div></div>
             <div class="counter flex-between">
                 <div class="visit-counter-total m-20">
-                    <span class="m-10">{@user.guests} &nbsp;</span>
-                    <span class="pinned star small">{VISIT_COUNTER_TOTAL}</span>
+                    <span class="lam-counter">{@user.guests} &nbsp;</span>
+                    <span class="lam-counter">{VISIT_COUNTER_TOTAL}</span>
                 </div>
                 <div class="visit-counter-today">
-                    <span class="m-10">{@date.today}</span>
-                    <span class="pinned star small">{VISIT_COUNTER_DAY}</span>
+                    <span class="lam-counter">{@date.today}</span>
+                    <span class="lam-counter">{VISIT_COUNTER_DAY}</span>
                 </div>
             </div>
         </div>
@@ -147,7 +147,7 @@
     # ENDIF #
 
     <div id="lam-infos" class="content-wrapper align-center">
-        <span class="d-block"><i class="fa fa-home"></i> Maison des Sports, 44, rue Romain Rolland, BP 90312, 44100 Nantes</span>
+        <span class="d-block"><i class="fa fa-home"></i> Ligue d'Aéromodélisme des Pays de la Loire<br />Maison des Sports, 44, rue Romain Rolland, BP 90312, 44100 Nantes</span>
     </div>
 
     # IF C_MENUS_FOOTER_CONTENT #

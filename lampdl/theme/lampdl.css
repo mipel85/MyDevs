@@ -76,4 +76,15 @@
     #module-mini-search { padding: 0; }
 }
 
+/* personnalisation */
+.lam-table {
+    font-weight: bold;
+    color: #0094af;
+}
+
+.lam-counter {
+    color: black;
+    font-weight: bold;
+    font-size: 0.850em;
+}
 
