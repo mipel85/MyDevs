@@ -38,21 +38,21 @@ class LamItemsManagerController extends DefaultModuleController
     private function build_financial_statement()
     {
         $this->config = LamConfig::load();
-        $nb_activity_requests = LamService::get_requests_number($this->lang['lam.jpo'])['nb'];
-        $nb_exam_requests = LamService::get_requests_number($this->lang['lam.exam'])['nb'];
+        $nb_jpo_requests = LamService::get_requests_number($this->lang['lam.jpo']);
+        $nb_exam_requests = LamService::get_requests_number($this->lang['lam.exam']);
 
         $this->view->put_all(array(
             'C_IS_AUTHORIZED'       => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level(user::ADMINISTRATOR_LEVEL),
             'JPO'                   => $this->lang['lam.jpo'],
             'JPO_TOTAL_AMOUNT'      => $this->config->get_jpo_total_amount(),
             'JPO_DAY_AMOUNT'        => $this->config->get_jpo_day_amount(),
-            'JPO_NB_REQUESTS'       => $nb_activity_requests,
-            'JPO_REMAINING_AMOUNT'  => $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $nb_activity_requests,
+            'JPO_NB_REQUESTS'       => $nb_jpo_requests[$this->lang['lam.jpo']],
+            'JPO_REMAINING_AMOUNT'  => $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $nb_jpo_requests[$this->lang['lam.jpo']],
             'EXAM'                  => $this->lang['lam.exam'],
             'EXAM_TOTAL_AMOUNT'     => $this->config->get_exam_total_amount(),
             'EXAM_DAY_AMOUNT'       => $this->config->get_exam_day_amount(),
-            'EXAM_NB_REQUESTS'      => $nb_exam_requests,
-            'EXAM_REMAINING_AMOUNT' => $this->config->get_exam_total_amount() - $this->config->get_exam_day_amount() * $nb_exam_requests
+            'EXAM_NB_REQUESTS'      => $nb_exam_requests[$this->lang['lam.exam']],
+            'EXAM_REMAINING_AMOUNT' => $this->config->get_exam_total_amount() - $this->config->get_exam_day_amount() * $nb_exam_requests[$this->lang['lam.exam']]
         ));
     }
 
@@ -69,7 +69,7 @@ class LamItemsManagerController extends DefaultModuleController
 
         //filtres
         $activity = array($this->lang['lam.jpo'] => $this->lang['lam.jpo'], $this->lang['lam.exam'] => $this->lang['lam.exam']);
-        $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('form_name', 'activityfilter', $this->lang['lam.activity'], $activity));
+        $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('form_name', 'activityfilter', $this->lang['lam.jpo'], $activity));
         $activity_table = new HTMLTable($table_model);
         $activity_table->set_filters_fieldset_class_HTML();
         $activity_table->hide_multiple_delete();
@@ -103,12 +103,12 @@ class LamItemsManagerController extends DefaultModuleController
         $response = new SiteDisplayResponse($this->view);
 
         $graphical_environment = $response->get_graphical_environment();
-        $graphical_environment->set_page_title($this->lang['lam.activity'], $this->lang['lam.activity'], $page);
+        $graphical_environment->set_page_title($this->lang['lam.jpo'], $this->lang['lam.jpo'], $page);
         $graphical_environment->get_seo_meta_data()->set_canonical_url(LamUrlBuilder::activity_manager());
 
         $breadcrumb = $graphical_environment->get_breadcrumb();
-        $breadcrumb->add($this->lang['lam.activity'], LamUrlBuilder::home());
-        $breadcrumb->add($this->lang['lam.activity'], LamUrlBuilder::activity_manager());
+        $breadcrumb->add($this->lang['lam.jpo'], LamUrlBuilder::home());
+        $breadcrumb->add($this->lang['lam.jpo'], LamUrlBuilder::activity_manager());
 
         return $response;
     }

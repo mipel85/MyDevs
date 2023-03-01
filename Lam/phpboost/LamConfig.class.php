@@ -48,6 +48,7 @@ class LamConfig extends AbstractConfigData
     }
 
 // financial  
+
     // jpo
     public function get_jpo_total_amount()
     {

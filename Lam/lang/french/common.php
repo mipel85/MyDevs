@@ -11,7 +11,7 @@
 ####################################################
 // commmon
 $lang['lam.form'] = 'Formulaire de demande d\'aide financière';
-$lang['lam.form.radio.choices'] = 'Type d\'activité';
+$lang['lam.form.radio.choices'] = 'Nature de la demande';
 $lang['lam.form.activity.type'] = 'Organisation d\'une activité : ';
 $lang['lam.fill.form'] = 'Remplir le formulaire <i><span color:red>(informations transmises)</span></i>';
 $lang['lam.activity.desc'] = 'Demande d\'aide pour une activité';
@@ -20,9 +20,9 @@ $lang['lam.security.desc'] = 'Demande d\'aide pour un aménagement de sécurité
 $lang['lam.sanitary.desc'] = 'Demande d\'aide pour un aménagement sanitaire';
 $lang['lam.jpo'] = 'Journée Portes-Ouvertes';
 $lang['lam.jpo.desc'] = 'Organisation d\'une Journée Portes-Ouvertes';
+$lang['lam.exam.title'] = 'Journée d\'examen';
 $lang['lam.exam'] = 'Journée examen';
 $lang['lam.exam.desc'] = 'Organisation d\'une journée d\'examen';
-$lang['lam.activity'] = 'Type de demande';
 
 // club_form
 $lang['lam.club.infos'] = 'Infos du club <b>*</b>';
@@ -61,6 +61,12 @@ $lang['lam.total.planned.budget'] = 'Budget total prévu';
 $lang['lam.provisional.budget.balance'] = 'Solde budget provisoire';
 $lang['lam.financial.day.amount'] = 'Montant attribué par Journée';
 $lang['lam.financial.maximum'] = 'Montant maximum en euros';
+$lang['lam.financial.maximum.amount.reached'] = 'Montant prévisionnel atteint';
+
+// status
+$lang['lam.requests.status'] = 'Situation des demandes';
+$lang['lam.jpo.status.requests'] = 'demandes restantes : :jpo_status_requests';
+$lang['lam.exam.status.requests'] = 'Demandes restantes : :exam_status_requests';
 
 //lists
 $lang['lam.filter.items'] = 'Filtres';

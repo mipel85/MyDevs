@@ -24,6 +24,7 @@
   background-color: #e3e3e3;
   border: 1px solid transparent;
   transition: all 0.2s ease-in-out;
+  display: inline-block;
 }
 
 .lam-radio span:hover {
@@ -41,4 +42,11 @@
   background-color: rgba(var(--error-rgb-t), 0.2);
   color: var(--error-tone);
   opacity: 0.5;
+}
+
+.toto{
+    text-align: center;
+    font-style: italic;
+    font-size: 10px;
+    padding-top: 3px;
 }

@@ -34,58 +34,65 @@ class LamFormActivityController extends DefaultModuleController
 
     public function init()
     {
-        $this->nb_activity_requests = LamService::get_requests_number($this->lang['lam.jpo'])['nb'];
-        $this->nb_exam_requests = LamService::get_requests_number($this->lang['lam.exam'])['nb'];
-        $this->jpo_remaining_amount = $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $this->nb_activity_requests;
-        $this->exam_remaining_amount = $this->config->get_exam_total_amount() - $this->config->get_exam_day_amount() * $this->nb_exam_requests;
-        $this->max_amount = $this->jpo_remaining_amount + $this->exam_remaining_amount;
+//        $this->max_amount = $this->jpo_remaining_amount + $this->exam_remaining_amount;
     }
 
     private function build_form()
     {
         $form = new HTMLForm(__CLASS__);
         $form->set_layout_title($this->lang['lam.form']);
+        
+//        if ($this->max_amount == 0){
+        $choices = new FormFieldsetHTML('form_name', $this->lang['lam.form.radio.choices']);
+        $form->add_fieldset($choices);
 
-        if ($this->max_amount != 0){
-            //radio buttons
-            $choices = new FormFieldsetHTML('form_name', $this->lang['lam.form.radio.choices']);
-            $form->add_fieldset($choices);
+        
+        
+        //radio buttons
+        $nb_requests = LamService::get_remaining_requests_activity(array($this->lang['lam.jpo'], $this->lang['lam.exam']));
+//        Debug::dump($nb_requests);
+        
+        $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lam.form.activity.type'], '', array(
+            new FormFieldRadioChoiceOption($this->lang['lam.jpo'] .'<div class="toto">'.StringVars::replace_vars($this->lang['lam.jpo.status.requests'], array(
+            'jpo_status_requests' => $nb_requests['nb_jpo_remaining'].'/'. $nb_requests['nb_jpo_max'])).'</div>', $this->lang['lam.jpo'], array(
+                'disable' => $nb_requests['nb_jpo_remaining'] == 0,
+                )),
+            new FormFieldRadioChoiceOption($this->lang['lam.exam.title'] .'<div class="toto">'.StringVars::replace_vars($this->lang['lam.exam.status.requests'], array(
+            'exam_status_requests' => $nb_requests['nb_exam_remaining'].'/'. $nb_requests['nb_exam_max'])).'</div>', $this->lang['lam.exam'], array(
+                'disable' => $nb_requests['nb_exam_remaining'] == 0))
+            ), array(
+            'required' => true, 
+            'class'    => 'lam-radio inline-radio',
+//                'description' => $this->jpo_remaining_amount == 0 || $this->exam_remaining_amount == 0 ? 'en rouge = finito' : '',
+            )
+        ));
 
-            $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lam.form.activity.type'], '', array(
-                new FormFieldRadioChoiceOption($this->lang['lam.jpo'], $this->lang['lam.jpo'], array('disable' => $this->jpo_remaining_amount == 0)),
-                new FormFieldRadioChoiceOption($this->lang['lam.exam'], $this->lang['lam.exam'], array('disable' => $this->exam_remaining_amount == 0))
-                ), array(
-                'required'    => true, 'class'       => 'lam-radio inline-radio',
-                'description' => $this->jpo_remaining_amount == 0 || $this->exam_remaining_amount == 0 ? 'en rouge = finito' : '',
-                )
-            ));
+        $fieldset = new FormFieldsetHTML('activity', $this->lang['lam.fill.form']);
+        $form->add_fieldset($fieldset);
 
-            $fieldset = new FormFieldsetHTML('activity', $this->lang['lam.fill.form']);
-            $form->add_fieldset($fieldset);
-
-            // other fields
-            $fieldset->add_field(new LamFormFieldClubsEditor('club_infos', $this->lang['lam.club.infos'], array(), array('description' => $this->lang['lam.club.infos.clue'])));
-            $fieldset->add_field(new FormFieldDate('club_activity_date', $this->lang['lam.club.activity.date'], null, array('required' => true)));
-            $fieldset->add_field(new FormFieldTextEditor('club_activity_location', $this->lang['lam.club.activity.location'], '', array('required' => true)));
-            $fieldset->add_field(new FormFieldTextEditor('club_activity_city', $this->lang['lam.club.activity.city'], '', array('required' => true)));
-            $fieldset->add_field(new FormFieldTextEditor('club_activity_description', $this->lang['lam.club.activity.description'], ''));
+        // other fields
+//            $fieldset->add_field(new LamFormFieldClubsEditor('club_infos', $this->lang['lam.club.infos'], array(), array('description' => $this->lang['lam.club.infos.clue'])));
+        $fieldset->add_field(new FormFieldDate('club_activity_date', $this->lang['lam.club.activity.date'], null, array('required' => true)));
+//            $fieldset->add_field(new FormFieldTextEditor('club_activity_location', $this->lang['lam.club.activity.location'], '', array('required' => true)));
+//            $fieldset->add_field(new FormFieldTextEditor('club_activity_city', $this->lang['lam.club.activity.city'], '', array('required' => true)));
+        $fieldset->add_field(new FormFieldTextEditor('club_activity_description', $this->lang['lam.club.activity.description'], ''));
 
 
-            $mail_fieldset = new FormFieldsetHTML('mail_form', $this->lang['lam.not_registred_fields']);
-            $mail_fieldset->add_field(new FormFieldFree('not_registred_fields', '', ''));
-            $mail_fieldset->add_field(new FormFieldTextEditor('club_sender_name', $this->lang['lam.club.sender.name'], '', array('required' => true)));
-            $mail_fieldset->add_field(new FormFieldMailEditor('club_sender_mail', $this->lang['lam.club.sender.mail'], '', array('required' => true)));
+        $mail_fieldset = new FormFieldsetHTML('mail_form', $this->lang['lam.not_registred_fields']);
+        $mail_fieldset->add_field(new FormFieldFree('not_registred_fields', '', ''));
+//            $mail_fieldset->add_field(new FormFieldTextEditor('club_sender_name', $this->lang['lam.club.sender.name'], '', array('required' => true)));
+//            $mail_fieldset->add_field(new FormFieldMailEditor('club_sender_mail', $this->lang['lam.club.sender.mail'], '', array('required' => true)));
 
-            $form->add_fieldset($mail_fieldset);
+        $form->add_fieldset($mail_fieldset);
 
-            $this->submit_button = new FormButtonDefaultSubmit('Envoyer la demande', '', '');
-            $form->add_button($this->submit_button);
-            $form->add_button(new FormButtonReset('Annuler'));
-        }else{
-            $end = new FormFieldsetHTML('form_name', 'Fin d\'activité');
-            $form->add_fieldset($end);
-            $end->set_description('<span class="message-helper bgc warning">y en a plus des brouzoufs</span>');
-        }
+        $this->submit_button = new FormButtonDefaultSubmit('Envoyer la demande', '', '');
+        $form->add_button($this->submit_button);
+        $form->add_button(new FormButtonReset('Annuler'));
+//        }else{
+//            $end = new FormFieldsetHTML('form_name', 'Fin d\'activité');
+//            $form->add_fieldset($end);
+//            $end->set_description('<span class="message-helper bgc warning">' . $this->lang['lam.financial.maximum.amount.reached'] . '</span>');
+//        }
 
         $this->form = $form;
     }
@@ -119,6 +126,9 @@ class LamFormActivityController extends DefaultModuleController
 
     private function save()
     {
+        $activity = $this->form->get_value('form_radio')->get_raw_value();
+//        Debug::stop(LamService::check_amount($activity));
+
         $item = $this->get_item();
         $item->set_form_date(new Date());
         $item->set_form_name($this->form->get_value('form_radio')->get_raw_value());

@@ -54,12 +54,34 @@ class LamService
 
     public static function get_requests_number($activity)
     {
-        $nb_activity_requests = self::$db_querier->select_single_row_query('SELECT COUNT(form_name) AS nb
+        $nb_activity_requests = self::$db_querier->select_single_row_query('SELECT COUNT(form_name) AS "' . $activity . '"
 		FROM ' . LamSetup::$lam_forms . ' 
 		WHERE  form_name LIKE "' . $activity . '"'
         );
-
         return $nb_activity_requests;
+    }
+
+    /** remaining requests :
+     * nb_max_activity = jpo_total_amount/jpo_day_amount 
+     * 
+     */
+    public static function get_remaining_requests_activity($type)
+    {
+        $config = LamConfig::load();
+        // activity
+        $nb_jpo_requests = self::get_requests_number($type[0]);
+        $nb_jpo_max = round($config->get_jpo_total_amount() / $config->get_jpo_day_amount());
+        $nb_jpo_remaining = $nb_jpo_max - $nb_jpo_requests[$type[0]];
+
+        // examen
+        $nb_exam_requests = self::get_requests_number($type[1]);
+        $nb_exam_max = round($config->get_exam_total_amount() / $config->get_exam_day_amount());
+        $nb_exam_remaining = $nb_exam_max - $nb_exam_requests[$type[1]];
+
+        return array(
+            'nb_jpo_max'        => $nb_jpo_max, 'nb_jpo_remaining'  => $nb_jpo_remaining,
+            'nb_exam_max'       => $nb_exam_max, 'nb_exam_remaining' => $nb_exam_remaining,
+        );
     }
 }
 ?>
