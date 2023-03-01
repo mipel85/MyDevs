@@ -52,17 +52,22 @@ class LamFormActivityController extends DefaultModuleController
         $nb_requests = LamService::get_remaining_requests_activity(array($this->lang['lam.jpo'], $this->lang['lam.exam']));
 //        Debug::dump($nb_requests);
         
-        $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lam.form.activity.type'], '', array(
-            new FormFieldRadioChoiceOption($this->lang['lam.jpo'] .'<div class="toto">'.StringVars::replace_vars($this->lang['lam.jpo.status.requests'], array(
-            'jpo_status_requests' => $nb_requests['nb_jpo_remaining'].'/'. $nb_requests['nb_jpo_max'])).'</div>', $this->lang['lam.jpo'], array(
-                'disable' => $nb_requests['nb_jpo_remaining'] == 0,
-                )),
-            new FormFieldRadioChoiceOption($this->lang['lam.exam.title'] .'<div class="toto">'.StringVars::replace_vars($this->lang['lam.exam.status.requests'], array(
-            'exam_status_requests' => $nb_requests['nb_exam_remaining'].'/'. $nb_requests['nb_exam_max'])).'</div>', $this->lang['lam.exam'], array(
-                'disable' => $nb_requests['nb_exam_remaining'] == 0))
-            ), array(
-            'required' => true, 
-            'class'    => 'lam-radio inline-radio',
+        $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lam.form.activity.type'], '', 
+            array(
+                new FormFieldRadioChoiceOption(
+                    StringVars::replace_vars($this->lang['lam.jpo.status.requests'], array('jpo_status_requests' => $nb_requests['nb_jpo_remaining'].'/'. $nb_requests['nb_jpo_max'])), 
+                    $this->lang['lam.jpo'], 
+                    array('disable' => $nb_requests['nb_jpo_remaining'] == 0)
+                ),
+                new FormFieldRadioChoiceOption(
+                    StringVars::replace_vars($this->lang['lam.exam.status.requests'], array('exam_status_requests' => $nb_requests['nb_exam_remaining'].'/'. $nb_requests['nb_exam_max'])), 
+                    $this->lang['lam.exam'], 
+                    array('disable' => $nb_requests['nb_exam_remaining'] == 0)
+                )
+            ), 
+            array(
+                'required' => true, 
+                'class'    => 'lam-radio inline-radio',
 //                'description' => $this->jpo_remaining_amount == 0 || $this->exam_remaining_amount == 0 ? 'en rouge = finito' : '',
             )
         ));

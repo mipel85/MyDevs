@@ -36,6 +36,20 @@
   background-color: #2ECC71;
 }
 
+.lam-radio input[type="radio"] + span .radio-target::before{
+    content: "\f0c8";
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+}
+
+.lam-radio input[type="radio"]:checked + span .radio-target::before{
+    content: "\f14a";
+}
+
 [list="clubs-choice"] { width: 100%; }
 
 .lam-radio input[disabled] + span {

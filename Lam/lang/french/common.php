@@ -36,6 +36,9 @@ $lang['lam.club.activity.description'] = 'Description de l\'activité (facultati
 $lang['lam.club.sender.name'] = 'Nom du correspondant :';
 $lang['lam.club.sender.mail'] = 'Adresse mail du correspondant :';
 
+$lang['lam.jpo.id'] = 'open-house-day';
+$lang['lam.exam.id'] = 'exam-day';
+
 //mail
 $lang['lam.email.configuration'] = 'Configuration des adresses des destinataires';
 $lang['lam.email.configuration.default'] = 'Adresse mail obligatoire. par défaut : :default_mail';
@@ -65,8 +68,8 @@ $lang['lam.financial.maximum.amount.reached'] = 'Montant prévisionnel atteint';
 
 // status
 $lang['lam.requests.status'] = 'Situation des demandes';
-$lang['lam.jpo.status.requests'] = 'demandes restantes : :jpo_status_requests';
-$lang['lam.exam.status.requests'] = 'Demandes restantes : :exam_status_requests';
+$lang['lam.jpo.status.requests'] = '<i class="radio-target" aria-hidden="true"></i> Journée Portes-Ouvertes <span class="d-block small">Demandes restantes : :jpo_status_requests</span>';
+$lang['lam.exam.status.requests'] = '<i class="radio-target" aria-hidden="true"></i> Journée d\'examen<span class="d-block small">Demandes restantes : :exam_status_requests</span>';
 
 //lists
 $lang['lam.filter.items'] = 'Filtres';
