@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 16
+ * @version     PHPBoost 6.0 - last update: 2023 03 03
  * @since       PHPBoost 5.1 - 2018 03 15
 */
 
@@ -59,7 +59,7 @@ class LamFormFieldClubsEditor extends AbstractFormField
 				$num = count($data);
 				for ($c = 0; $c < $num; $c++) {
 					$club = explode(';', $data[$c]);
-					$club[0] = str_pad($club[0], 4, "0", STR_PAD_LEFT); // force culb number to be 4 digits
+					$club[0] = str_pad($club[0], 4, "0", STR_PAD_LEFT); // force club number to be 4 digits
 					$club[3] = ucwords(TextHelper::strtolower($club[3]));
 					$view->assign_block_vars('fieldelements.clubs', array(
 						'CLUB_NB' => $club[0],

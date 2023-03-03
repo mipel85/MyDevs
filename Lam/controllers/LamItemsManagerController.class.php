@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel85 <mipel@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 01 23
+ * @version     PHPBoost 6.0 - last update: 2023 03 03
  * @since       PHPBoost 6.0 - 2022 12 20
  */
 class LamItemsManagerController extends DefaultModuleController
@@ -67,7 +67,7 @@ class LamItemsManagerController extends DefaultModuleController
         $table_model->set_layout_title($this->lang['lam.activity.requests']);
         $table_model->set_filters_menu_title($this->lang['lam.filter.items']);
 
-        //filtres
+        //filters
         $activity = array($this->lang['lam.jpo'] => $this->lang['lam.jpo'], $this->lang['lam.exam'] => $this->lang['lam.exam']);
         $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('form_name', 'activityfilter', $this->lang['lam.jpo'], $activity));
         $activity_table = new HTMLTable($table_model);

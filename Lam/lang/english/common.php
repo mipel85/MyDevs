@@ -1,37 +1,71 @@
 <?php
-  /* ###################################################
-   * 
-    project              : v51-local
-    file                 : common.php
-    encodage             : UTF-8
-    begin                : 12-2-2017
-    copyright            : (C) 2017 - wikilist
-    email                : wikilist@phpboost.com
-   *
-    ###################################################
+/**
+ * @copyright   &copy; 2005-2023 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Mipel85 <mipel@phpboost.com>
+ * @version     PHPBoost 6.0 - last update: 2023 03 03
+ * @since       PHPBoost 6.0 - 2022 12 20
+ */
+####################################################
+#                    French                        #
+####################################################
+// commmon
+$lang['lam.form'] = 'Financial aid application form';
+$lang['lam.form.radio.choices'] = 'Nature of the request';
+$lang['lam.form.activity.type'] = 'Organization of a day : ';
+$lang['lam.fill.form'] = 'Fill in the form <i><span class="smaller">(information sent in the email)</span></i>';
+$lang['lam.activity.desc'] = 'Help request for the organization of a day (open house, qpdd, wings...)';
+$lang['lam.jpo'] = 'Open day';
+$lang['lam.exam'] = 'Exam day';
 
-   * This program is free software; you can redistribute it and/or
-   * modify it under the terms of the GNU General Public License
-   * as published by the Free Software Foundation; either version 2
-   * of the License, or (at your option) any later version.
-   *
-   * This program is distributed in the hope that it will be useful,
-   * but WITHOUT ANY WARRANTY; without even the implied warranty of
-   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   * GNU General Public License for more details.
-   *
-   * You should have received a copy of the GNU General Public License
-   * along with this program; if not, write to the Free Software
-   * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+// club_form
+$lang['lam.club.infos'] = 'Select your club <b>*</b>';
+$lang['lam.club.infos.clue'] = 'Start typing, then select your club from the drop-down list';
+$lang['lam.club.name'] = 'club name :';
+$lang['lam.club.activity.date'] = 'Event date :';
+$lang['lam.club.activity.location'] = 'Activity adress :';
+$lang['lam.club.activity.city'] = 'City of activity :';
+$lang['lam.club.activity.description'] = 'Description of the activity (optional) :';
+$lang['lam.club.sender.name'] = 'Correspondent\'s name :';
+$lang['lam.club.sender.mail'] = 'Correspondent\'s email address :';
+$lang['lam.not_registred_fields'] = '<i><span class = "smaller"> The following information is neither recorded nor stored on the site (RGPD) </span></i>';
 
-    ################################################### */
+// config
+$lang['lam.email.configuration'] = 'Configuring recipient addresses';
+$lang['lam.email.configuration.default'] = 'Adresse mail obligatoire. par défaut : :default_mail';
+$lang['lam.email.configuration.optional'] = 'Optional email address';
+$lang['lam.recipient.mail_1'] = 'Main consignee address :';
+$lang['lam.recipient.mail_2'] = 'Address of consignee n°. 2 :';
+$lang['lam.recipient.mail_3'] = 'Address of consignee n°. 3 :';
+$lang['lam.financial.jpo.part'] = 'Financial Setup - Open Day';
+$lang['lam.financial.exam.part'] = 'Financial Setup - Exam Day <span style="font-size: 13px"><i>(QPDD, Wings, Patents...)</i></span>';
+$lang['lam.financial.total.amount'] = 'Total amount awarded';
+$lang['lam.financial.maximum'] = 'Maximum amount in euros';
 
-// AdminManager
-  $lang['AdminManager'] = 'Administration d\'un site';
-  $lang['AdminManager.info'] = 'Dans ce module, vous allez retrouver les principaux liens nécessaires à l\'administration de votre site.';
-  $lang['AdminManager.admin_only'] = 'Ce module n\'est accessible qu\'aux administrateurs.';
-  $lang['AdminManager.nb_lines'] = 'Nombre de lignes=';
-  
+//mail
+$lang['lam.email.sent'] = 'Your request has been sent to the League';
+$lang['lam.mail.msg'] = 'Good morning, <br /><br />
+	<i>Activity followed by :club_sender_name (:club_sender_mail)</i><br /><br /> 
+        Le club <b>:club_name</b> (FFAM affiliation n° :club_ffam_number) would like to obtain assistance for the organization of a :activity scheduled on :club_activity_date<br />
+        Location of the activity : :club_activity_location
+        City : :club_activity_city.';
+
+// financial 
+$lang['lam.total.planned.budget'] = 'Total planned budget';
+$lang['lam.financial.day.amount'] = 'Amount allocated per Day';
+$lang['lam.provisional.budget.balance'] = 'Provisional budget balance';
+
+// radio buttons
+$lang['lam.requests.status'] = 'Status of requests';
+$lang['lam.jpo.status.requests'] = '<i class="radio-target" aria-hidden="true"></i> open doors <span class="d-block small">remaining requests : :jpo_status_requests</span>';
+$lang['lam.exam.status.requests'] = '<i class="radio-target" aria-hidden="true"></i> Exam (wings, qpdd...) <span class="d-block small">remaining requests : :exam_status_requests</span>';
+
+//lists
+$lang['lam.filter.items'] = 'Filters';
+$lang['lam.activity.requests'] = 'Follow-up of requests';
+$lang['lam.financial.statement'] = 'Financial monitoring';
+$lang['lam.activity.nb.requests'] = 'number of requests';
+
 ?>
 
 

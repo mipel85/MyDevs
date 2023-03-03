@@ -1,12 +1,4 @@
-.admin_only{
-    text-align: left;
-    font-family:sans-serif;
-    font-style:italic;
-    font-weight: bold;
-}
-
 /* form-radio custom*/
-
 .lam-radio input[type="radio"]{
     display: none;
 }
@@ -56,11 +48,4 @@
   background-color: rgba(var(--error-rgb-t), 0.2);
   color: var(--error-tone);
   opacity: 0.5;
-}
-
-.toto{
-    text-align: center;
-    font-style: italic;
-    font-size: 10px;
-    padding-top: 3px;
 }
