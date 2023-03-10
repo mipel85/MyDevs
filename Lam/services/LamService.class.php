@@ -87,8 +87,9 @@ class LamService
     public static function check_config()
     {
         $config = LamConfig::load();
-        if ($config->get_property('jpo_total_amount') != 0 && $config->get_property('jpo_day_amount') != 0 &&
-            $config->get_property('exam_total_amount') != 0 && $config->get_property('exam_day_amount') != 0){
+        if ($config->get_property('jpo_total_amount') != 1 && $config->get_property('jpo_day_amount') != 1 &&
+            $config->get_property('exam_total_amount') != 1 && $config->get_property('exam_day_amount') != 1){
+
             return true;
         }
     }

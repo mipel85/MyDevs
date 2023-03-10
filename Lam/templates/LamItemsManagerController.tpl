@@ -9,7 +9,7 @@
     <table>
         <thead>
             <tr>
-                <th>{@lam.jpo}</th><th>{@lam.total.planned.budget}</th><th>{@lam.list.day.amount}</th><th>{@lam.activity.nb.requests}</th><th>{@lam.provisional.budget.balance}</th>
+                <th>{@lam.form.radio.choices}</th><th>{@lam.total.planned.budget}</th><th>{@lam.list.day.amount}</th><th>{@lam.activity.nb.requests}</th><th>{@lam.provisional.budget.balance}</th>
             </tr>
         </thead>
         <tbody>

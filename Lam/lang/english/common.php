@@ -31,19 +31,20 @@ $lang['lam.club.sender.mail'] = 'Correspondent\'s email address :';
 $lang['lam.not_registred_fields'] = '<i><span class = "smaller"> The following information is neither recorded nor stored on the site (RGPD) </span></i>';
 
 // config
+$lang['lam.check.configuration'] = 'The configuration of this module has not been carried out, it is here : <a href="../Lam/admin/config">Setup page</a>';
 $lang['lam.email.configuration'] = 'Configuring recipient addresses';
 $lang['lam.email.configuration.default'] = 'Adresse mail obligatoire. par défaut : :default_mail';
 $lang['lam.email.configuration.optional'] = 'Optional email address';
 $lang['lam.recipient.mail_1'] = 'Main consignee address :';
-$lang['lam.recipient.mail_2'] = 'Address of consignee n°. 2 :';
-$lang['lam.recipient.mail_3'] = 'Address of consignee n°. 3 :';
+$lang['lam.recipient.mail_2'] = 'Address of consignee 2 :';
+$lang['lam.recipient.mail_3'] = 'Address of consignee 3 :';
 $lang['lam.financial.jpo.part'] = 'Financial Setup - Open Day';
 $lang['lam.financial.exam.part'] = 'Financial Setup - Exam Day <span style="font-size: 13px"><i>(QPDD, Wings, Patents...)</i></span>';
-$lang['lam.jpo.total.amount'] = 'Montant total attribué pour les portes-ouvertes';
-$lang['lam.jpo.day.amount'] = 'Montant attribué par journée portes-ouvertes';
-$lang['lam.exam.total.amount'] = 'Montant total attribué par journée d\'examen';
-$lang['lam.exam.day.amount'] = 'Montant attribué par journée d\'examen';
-$lang['lam.financial.maximum'] = 'Maximum amount in euros (must be less than total amount)';
+$lang['lam.jpo.total.amount'] = 'Total amount allocated for open days';
+$lang['lam.jpo.day.amount'] = 'Amount allocated for one open day';
+$lang['lam.exam.total.amount'] = 'Total amount allocated for exam days';
+$lang['lam.exam.day.amount'] = 'Amount allocated for one exam day';
+$lang['lam.financial.maximum'] = 'Maximum amount in euros';
 
 //mail
 $lang['lam.email.sent'] = 'Your request has been sent to the League';

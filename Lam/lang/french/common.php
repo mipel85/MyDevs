@@ -44,7 +44,7 @@ $lang['lam.jpo.total.amount'] = 'Montant total attribué pour les portes-ouverte
 $lang['lam.jpo.day.amount'] = 'Montant attribué par journée portes-ouvertes';
 $lang['lam.exam.total.amount'] = 'Montant total attribué par journée d\'examen';
 $lang['lam.exam.day.amount'] = 'Montant attribué par journée d\'examen';
-$lang['lam.financial.maximum'] = 'Montant maximum en euros (doit être inférieur au montant total)';
+$lang['lam.financial.maximum'] = 'Montant maximum en euros';
 
 //mail
 $lang['lam.email.sent'] = 'Votre demande a bien été envoyée à la Ligue';

@@ -26,7 +26,7 @@ class LamFormActivityController extends DefaultModuleController
 
     public function init()
     {
-        
+        LamService::check_config();
     }
 
     private function build_form()
