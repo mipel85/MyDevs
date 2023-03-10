@@ -110,10 +110,10 @@ class LamConfig extends AbstractConfigData
             self::RECIPIENT_MAIL_1  => 'dev.mipel@gmail.com',
             self::RECIPIENT_MAIL_2  => '',
             self::RECIPIENT_MAIL_3  => '',
-            self::JPO_TOTAL_AMOUNT  => 0,
-            self::JPO_DAY_AMOUNT    => 0,
-            self::EXAM_TOTAL_AMOUNT => 0,
-            self::EXAM_DAY_AMOUNT   => 0,
+            self::JPO_TOTAL_AMOUNT  => 1,
+            self::JPO_DAY_AMOUNT    => 1,
+            self::EXAM_TOTAL_AMOUNT => 1,
+            self::EXAM_DAY_AMOUNT   => 1,
             self::AUTHORIZATIONS    => array('r-1' => 1, 'r0' => 5, 'r1' => 15),
         );
     }

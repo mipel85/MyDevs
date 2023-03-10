@@ -24,7 +24,8 @@ class LamHomeController extends DefaultModuleController
     private function build_view()
     {
         $this->view->put_all(array(
-            'TITLE' => $this->lang['lam.form']
+            'TITLE'          => $this->lang['lam.form'],
+            'C_CHECK_CONFIG' => LamService::check_config()
         ));
     }
 

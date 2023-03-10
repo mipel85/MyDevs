@@ -55,36 +55,41 @@ class AdminLamConfigController extends DefaultAdminModuleController
         $financial_jpo_fieldset = new FormFieldsetHTML('financial_jpo', $this->lang['lam.financial.jpo.part']);
         $form->add_fieldset($financial_jpo_fieldset);
 
-        $financial_jpo_fieldset->add_field(new FormFieldDecimalNumberEditor('jpo_total_amount', $this->lang['lam.financial.total.amount'], (int)$this->config->get_jpo_total_amount(), array(
+        $financial_jpo_fieldset->add_field($jpo_total_amount = new FormFieldDecimalNumberEditor('jpo_total_amount', $this->lang['lam.jpo.total.amount'], (int)$this->config->get_jpo_total_amount(), array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
-            'min'         => 0, 'max'         => 10000
+            'min'         => 1, 'max'         => 10000
             )
         ));
-        $financial_jpo_fieldset->add_field(new FormFieldDecimalNumberEditor('jpo_day_amount', $this->lang['lam.financial.day.amount'], (int)$this->config->get_jpo_day_amount(), array(
+        $financial_jpo_fieldset->add_field($jpo_day_amount = new FormFieldDecimalNumberEditor('jpo_day_amount', $this->lang['lam.jpo.day.amount'], (int)$this->config->get_jpo_day_amount(), array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
-            'min'         => 0, 'max'         => 10000
+            'min'         => 1, 'max'         => 10000
             )
         ));
+        
+        $form->add_constraint(new FormConstraintFieldsDifferenceInferior($jpo_total_amount, $jpo_day_amount));
 
 // financial exam fieldset
-        $financial_qpdd_fieldset = new FormFieldsetHTML('financial_qpdd', $this->lang['lam.financial.exam.part']);
-        $form->add_fieldset($financial_qpdd_fieldset);
-//         
-        $financial_qpdd_fieldset->add_field(new FormFieldDecimalNumberEditor('exam_total_amount', $this->lang['lam.financial.total.amount'], (int)$this->config->get_exam_total_amount(), array(
+        $financial_exam_fieldset = new FormFieldsetHTML('financial_qpdd', $this->lang['lam.financial.exam.part']);
+        $form->add_fieldset($financial_exam_fieldset);
+         
+        $financial_exam_fieldset->add_field($exam_total_amount = new FormFieldDecimalNumberEditor('exam_total_amount', $this->lang['lam.exam.total.amount'], (int)$this->config->get_exam_total_amount(), array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
-            'min'         => 0, 'max'         => 10000,
+            'min'         => 1, 'max'         => 10000,
             )
         ));
-        $financial_qpdd_fieldset->add_field(new FormFieldDecimalNumberEditor('exam_day_amount', $this->lang['lam.financial.day.amount'], (int)$this->config->get_exam_day_amount(), array(
+        $financial_exam_fieldset->add_field($exam_day_amount = new FormFieldDecimalNumberEditor('exam_day_amount', $this->lang['lam.exam.day.amount'], (int)$this->config->get_exam_day_amount(), array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
-            'min'         => 0, 'max'         => 10000,
+            'min'         => 1, 'max'         => 10000,
             )
         ));
 
+        $form->add_constraint(new FormConstraintFieldsDifferenceInferior($exam_total_amount, $exam_day_amount));
+
+// validation
         $this->submit_button = new FormButtonDefaultSubmit();
         $form->add_button($this->submit_button);
         $form->add_button(new FormButtonReset());
@@ -94,6 +99,7 @@ class AdminLamConfigController extends DefaultAdminModuleController
 
     private function save()
     {
+
         $this->config->set_recipient_mail_1($this->form->get_value('recipient_mail_1'));
         $this->config->set_recipient_mail_2($this->form->get_value('recipient_mail_2'));
         $this->config->set_recipient_mail_3($this->form->get_value('recipient_mail_3'));

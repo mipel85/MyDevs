@@ -39,21 +39,21 @@ $lang['lam.recipient.mail_2'] = 'Address of consignee n°. 2 :';
 $lang['lam.recipient.mail_3'] = 'Address of consignee n°. 3 :';
 $lang['lam.financial.jpo.part'] = 'Financial Setup - Open Day';
 $lang['lam.financial.exam.part'] = 'Financial Setup - Exam Day <span style="font-size: 13px"><i>(QPDD, Wings, Patents...)</i></span>';
-$lang['lam.financial.total.amount'] = 'Total amount awarded';
-$lang['lam.financial.maximum'] = 'Maximum amount in euros';
+$lang['lam.jpo.total.amount'] = 'Montant total attribué pour les portes-ouvertes';
+$lang['lam.jpo.day.amount'] = 'Montant attribué par journée portes-ouvertes';
+$lang['lam.exam.total.amount'] = 'Montant total attribué par journée d\'examen';
+$lang['lam.exam.day.amount'] = 'Montant attribué par journée d\'examen';
+$lang['lam.financial.maximum'] = 'Maximum amount in euros (must be less than total amount)';
 
 //mail
 $lang['lam.email.sent'] = 'Your request has been sent to the League';
 $lang['lam.mail.msg'] = 'Good morning, <br /><br />
 	<i>Activity followed by :club_sender_name (:club_sender_mail)</i><br /><br /> 
-        Le club <b>:club_name</b> (FFAM affiliation n° :club_ffam_number) would like to obtain assistance for the organization of a :activity scheduled on :club_activity_date<br />
-        Location of the activity : :club_activity_location
-        City : :club_activity_city.';
+        Le club <b>:club_name</b> (FFAM affiliation n° :club_ffam_number) would like to obtain assistance for the organization of a :activity scheduled on :club_activity_date<br /><br />
+        <b>Location of the activity :</b> :club_activity_location<br /><br /> 
+        <b>City :</b> :club_activity_city.';
 
 // financial 
-$lang['lam.total.planned.budget'] = 'Total planned budget';
-$lang['lam.financial.day.amount'] = 'Amount allocated per Day';
-$lang['lam.provisional.budget.balance'] = 'Provisional budget balance';
 
 // radio buttons
 $lang['lam.requests.status'] = 'Status of requests';
@@ -64,7 +64,11 @@ $lang['lam.exam.status.requests'] = '<i class="radio-target" aria-hidden="true">
 $lang['lam.filter.items'] = 'Filters';
 $lang['lam.activity.requests'] = 'Follow-up of requests';
 $lang['lam.financial.statement'] = 'Financial monitoring';
+$lang['lam.total.planned.budget'] = 'Total planned budget';
+$lang['lam.list.day.amount'] = 'Amount allocated per Day';
 $lang['lam.activity.nb.requests'] = 'number of requests';
+$lang['lam.provisional.budget.balance'] = 'Provisional balance';
+
 
 ?>
 

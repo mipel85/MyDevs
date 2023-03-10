@@ -83,5 +83,14 @@ class LamService
             'nb_exam_max'       => $nb_exam_max, 'nb_exam_remaining' => $nb_exam_remaining,
         );
     }
+
+    public static function check_config()
+    {
+        $config = LamConfig::load();
+        if ($config->get_property('jpo_total_amount') != 0 && $config->get_property('jpo_day_amount') != 0 &&
+            $config->get_property('exam_total_amount') != 0 && $config->get_property('exam_day_amount') != 0){
+            return true;
+        }
+    }
 }
 ?>

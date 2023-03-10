@@ -35,9 +35,9 @@ class LamFormActivityController extends DefaultModuleController
         $form->set_layout_title($this->lang['lam.form']);
 
         $choices = new FormFieldsetHTML('form_name', $this->lang['lam.form.radio.choices']);
+       
+        
         $form->add_fieldset($choices);
-
-
 
         //radio buttons
         $nb_requests = LamService::get_remaining_requests_activity(array($this->lang['lam.jpo'], $this->lang['lam.exam']));
