@@ -51,11 +51,9 @@ $lang['lam.financial.maximum'] = 'Maximum amount in euros';
 $lang['lam.email.sent'] = 'Your request has been sent to the League';
 $lang['lam.mail.msg'] = 'Good morning, <br /><br />
 	<i>Activity followed by :club_sender_name (:club_sender_mail)</i><br /><br /> 
-        Le club <b>:club_name</b> (FFAM affiliation n° :club_ffam_number) would like to obtain assistance for the organization of a :activity scheduled on :club_activity_date<br /><br />
+        The club <b>:club_name</b> (FFAM affiliation n° :club_ffam_number) would like to obtain assistance for the organization of a :activity scheduled on :club_activity_date<br /><br />
         <b>Location of the activity :</b> :club_activity_location<br /><br /> 
         <b>City :</b> :club_activity_city.';
-
-// financial 
 
 // radio buttons
 $lang['lam.requests.status'] = 'Status of requests';
@@ -64,7 +62,7 @@ $lang['lam.exam.status.requests'] = '<i class="radio-target" aria-hidden="true">
 
 //lists
 $lang['lam.filter.items'] = 'Filters';
-$lang['lam.filter.choice'] = 'choose an activity';
+$lang['lam.filter.choice'] = 'Choose an activity';
 $lang['lam.activity.requests'] = 'Follow-up of requests';
 $lang['lam.financial.statement'] = 'Financial monitoring';
 $lang['lam.total.planned.budget'] = 'Total planned budget';

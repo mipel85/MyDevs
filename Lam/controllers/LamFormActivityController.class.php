@@ -8,6 +8,7 @@
  */
 class LamFormActivityController extends DefaultModuleController
 {
+
     public function execute(HTTPRequestCustom $request)
     {
         $this->init();
@@ -35,8 +36,8 @@ class LamFormActivityController extends DefaultModuleController
         $form->set_layout_title($this->lang['lam.form']);
 
         $choices = new FormFieldsetHTML('activity_type', $this->lang['lam.form.radio.choices']);
-       
-        
+
+
         $form->add_fieldset($choices);
 
         //radio buttons
@@ -143,7 +144,8 @@ class LamFormActivityController extends DefaultModuleController
     private function send_form_email()
     {
         $item_message = '';
-        $item_subject = $this->lang['lam.activity.desc'] . ' : ' . $this->form->get_value('form_radio')->get_raw_value();
+        $activity_type = $this->form->get_value('form_radio')->get_raw_value() == 'jpo' ? $this->lang['lam.jpo'] : $this->lang['lam.exam'];
+        $item_subject = $this->lang['lam.activity.desc'] . ' --- ' . $activity_type;
         $item_sender_name = $this->form->get_value('club_sender_name');
         $item_sender_email = $this->form->get_value('club_sender_email');
 
@@ -153,7 +155,7 @@ class LamFormActivityController extends DefaultModuleController
                 'club_sender_mail'       => $this->form->get_value('club_sender_mail'),
                 'club_name'              => $this->item->get_club_name(),
                 'club_ffam_number'       => $this->item->get_club_ffam_number(),
-                'activity'               => $this->form->get_value('form_radio')->get_raw_value(),
+                'activity'               => $activity_type,
                 'club_activity_date'     => Date::to_format($this->form->get_value('club_activity_date')->get_timestamp(), Date::FORMAT_DAY_MONTH_YEAR),
                 'club_activity_location' => $this->form->get_value('club_activity_location'),
                 'club_activity_city'     => $this->form->get_value('club_activity_city'),
