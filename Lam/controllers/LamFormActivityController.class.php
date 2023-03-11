@@ -34,20 +34,20 @@ class LamFormActivityController extends DefaultModuleController
         $form = new HTMLForm(__CLASS__);
         $form->set_layout_title($this->lang['lam.form']);
 
-        $choices = new FormFieldsetHTML('form_name', $this->lang['lam.form.radio.choices']);
+        $choices = new FormFieldsetHTML('activity_type', $this->lang['lam.form.radio.choices']);
        
         
         $form->add_fieldset($choices);
 
         //radio buttons
-        $nb_requests = LamService::get_remaining_requests_activity(array($this->lang['lam.jpo'], $this->lang['lam.exam']));
+        $nb_requests = LamService::get_remaining_requests_activity(array('jpo', 'exam'));
 
         $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lam.form.activity.type'], '', array(
             new FormFieldRadioChoiceOption(
-                StringVars::replace_vars($this->lang['lam.jpo.status.requests'], array('jpo_status_requests' => $nb_requests['nb_jpo_remaining'] . '/' . $nb_requests['nb_jpo_max'])), $this->lang['lam.jpo'], array('disable' => $nb_requests['nb_jpo_remaining'] == 0)
+                StringVars::replace_vars($this->lang['lam.jpo.status.requests'], array('jpo_status_requests' => $nb_requests['nb_jpo_remaining'] . '/' . $nb_requests['nb_jpo_max'])), 'jpo', array('disable' => $nb_requests['nb_jpo_remaining'] == 0)
             ),
             new FormFieldRadioChoiceOption(
-                StringVars::replace_vars($this->lang['lam.exam.status.requests'], array('exam_status_requests' => $nb_requests['nb_exam_remaining'] . '/' . $nb_requests['nb_exam_max'])), $this->lang['lam.exam'], array('disable' => $nb_requests['nb_exam_remaining'] == 0)
+                StringVars::replace_vars($this->lang['lam.exam.status.requests'], array('exam_status_requests' => $nb_requests['nb_exam_remaining'] . '/' . $nb_requests['nb_exam_max'])), 'exam', array('disable' => $nb_requests['nb_exam_remaining'] == 0)
             )
             ), array(
             'required' => true,
@@ -111,7 +111,7 @@ class LamFormActivityController extends DefaultModuleController
     {
         $item = $this->get_item();
         $item->set_form_date(new Date());
-        $item->set_form_name($this->form->get_value('form_radio')->get_raw_value());
+        $item->set_activity_type($this->form->get_value('form_radio')->get_raw_value());
         foreach ($this->form->get_value('club_infos') as $id => $club)
         {
             $club = explode(' - ', $club);

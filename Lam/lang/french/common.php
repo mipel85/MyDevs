@@ -16,13 +16,14 @@ $lang['lam.form.activity.type'] = 'Organisation d\'une journée : ';
 $lang['lam.fill.form'] = 'Remplir le formulaire <i><span class="smaller">(informations transmises dans le mail)</span></i>';
 $lang['lam.activity.desc'] = 'Demande d\'aide pour l\'organisation d\'une journée (portes-ouvertes, qpdd, ailes...)';
 $lang['lam.jpo'] = 'Journée portes-ouvertes';
-$lang['lam.exam'] = 'Journée examen';
+$lang['lam.exam'] = 'Journée d\'examen';
 
 // club_form
 $lang['lam.club.infos'] = 'Sélectionner votre club <b>*</b>';
 $lang['lam.club.infos.clue'] = 'Commencez à taper, puis sélectionnez votre club dans la liste déroulante';
-$lang['lam.club.name'] = 'Nom du club :';
-$lang['lam.club.activity.date'] = 'Date de l\'évènement :';
+$lang['lam.club.name'] = 'Club';
+$lang['lam.club.ffam.number'] = 'N°. FFAM';
+$lang['lam.club.activity.date'] = 'Date de l\'évènement';
 $lang['lam.club.activity.location'] = 'Adresse de l\'activité :';
 $lang['lam.club.activity.city'] = 'Ville de l\'activité :';
 $lang['lam.club.activity.description'] = 'Description de l\'activité (facultatif) :';
@@ -61,6 +62,7 @@ $lang['lam.exam.status.requests'] = '<i class="radio-target" aria-hidden="true">
 
 //lists
 $lang['lam.filter.items'] = 'Filtres';
+$lang['lam.filter.choice'] = 'Choisir une activité';
 $lang['lam.activity.requests'] = 'Suivi des demandes';
 $lang['lam.financial.statement'] = 'Suivi financier';
 $lang['lam.total.planned.budget'] = 'Budget total prévu';

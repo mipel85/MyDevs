@@ -36,7 +36,7 @@ class LamSetup extends DefaultModuleSetup
     {
         $fields = array(
             'id'                        => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
-            'form_name'                 => array('type' => 'text', 'length' => 16777215),
+            'activity_type'             => array('type' => 'text', 'length' => 16777215),
             'club_name'                 => array('type' => 'text', 'length' => 16777215),
             'club_ffam_number'          => array('type' => 'text', 'length' => 16777215),
             'club_activity_date'        => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),

@@ -36,27 +36,11 @@ class LamService
         self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'Lam', 'id' => $id));
     }
 
-    /**
-     * @desc Return the item with all its properties from its id.
-     * @param int $id Item identifier
-     */
-    public static function get_item(int $id)
-    {
-        $row = self::$db_querier->select_single_row_query('SELECT ' . self::$module_id . '.*
-		FROM ' . LamSetup::$lam_forms . ' ' . self::$module_id . '
-		WHERE ' . self::$module_id . '.id=:id', array(
-            'id' => $id
-        ));
-        $item = new LamItem();
-        $item->set_properties($row);
-        return $item;
-    }
-
     public static function get_requests_number($activity)
     {
-        $nb_activity_requests = self::$db_querier->select_single_row_query('SELECT COUNT(form_name) AS "' . $activity . '"
+        $nb_activity_requests = self::$db_querier->select_single_row_query('SELECT COUNT(activity_type) AS "' . $activity . '"
 		FROM ' . LamSetup::$lam_forms . ' 
-		WHERE  form_name LIKE "' . $activity . '"'
+		WHERE  activity_type LIKE "' . $activity . '"'
         );
         return $nb_activity_requests;
     }

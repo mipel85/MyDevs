@@ -9,7 +9,7 @@
 class LamItem
 {
     private $id;
-    private $form_name;
+    private $activity_type;
     private $form_date;
     private $club_name;
     private $club_ffam_number;
@@ -30,14 +30,14 @@ class LamItem
         return $this->id;
     }
 
-    public function set_form_name($form_name)
+    public function set_activity_type($activity_type)
     {
-        $this->form_name = $form_name;
+        $this->activity_type = $activity_type;
     }
 
-    public function get_form_name()
+    public function get_activity_type()
     {
-        return $this->form_name;
+        return $this->activity_type;
     }
 
     public function set_form_date($form_date)
@@ -135,7 +135,7 @@ class LamItem
         return array(
             'id'                        => $this->get_id(),
             'form_date'                 => $this->get_form_date() !== null ? $this->get_form_date()->get_timestamp() : 0,
-            'form_name'                 => $this->get_form_name(),
+            'activity_type'             => $this->get_activity_type(),
             'club_name'                 => $this->get_club_name(),
             'club_ffam_number'          => $this->get_club_ffam_number(),
             'club_activity_date'        => $this->get_club_activity_date() !== null ? $this->get_club_activity_date()->get_timestamp() : 0,
@@ -149,7 +149,7 @@ class LamItem
     {
         $this->id = $properties['id'];
         $this->form_date = $properties['form_date'];
-        $this->form_name = $properties['form_name'];
+        $this->activity_type = $properties['activity_type'];
         $this->club_name = $properties['club_name'];
         $this->club_ffam_number = $properties['club_ffam_number'];
         $this->club_activity_date = !empty($properties['club_activity_date']) ? new Date($properties['club_activity_date'], Timezone::SERVER_TIMEZONE) : null;

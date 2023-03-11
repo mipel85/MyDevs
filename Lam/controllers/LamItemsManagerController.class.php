@@ -38,38 +38,39 @@ class LamItemsManagerController extends DefaultModuleController
     private function build_financial_statement()
     {
         $this->config = LamConfig::load();
-        $nb_jpo_requests = LamService::get_requests_number($this->lang['lam.jpo']);
-        $nb_exam_requests = LamService::get_requests_number($this->lang['lam.exam']);
+        $nb_jpo_requests = LamService::get_requests_number('jpo');
+        $nb_exam_requests = LamService::get_requests_number('exam');
 
         $this->view->put_all(array(
             'C_IS_AUTHORIZED'       => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level(user::ADMINISTRATOR_LEVEL),
             'JPO'                   => $this->lang['lam.jpo'],
             'JPO_TOTAL_AMOUNT'      => $this->config->get_jpo_total_amount(),
             'JPO_DAY_AMOUNT'        => $this->config->get_jpo_day_amount(),
-            'JPO_NB_REQUESTS'       => $nb_jpo_requests[$this->lang['lam.jpo']],
-            'JPO_REMAINING_AMOUNT'  => $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $nb_jpo_requests[$this->lang['lam.jpo']],
+            'JPO_NB_REQUESTS'       => $nb_jpo_requests['jpo'],
+            'JPO_REMAINING_AMOUNT'  => $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $nb_jpo_requests['jpo'],
             'EXAM'                  => $this->lang['lam.exam'],
             'EXAM_TOTAL_AMOUNT'     => $this->config->get_exam_total_amount(),
             'EXAM_DAY_AMOUNT'       => $this->config->get_exam_day_amount(),
-            'EXAM_NB_REQUESTS'      => $nb_exam_requests[$this->lang['lam.exam']],
-            'EXAM_REMAINING_AMOUNT' => $this->config->get_exam_total_amount() - $this->config->get_exam_day_amount() * $nb_exam_requests[$this->lang['lam.exam']]
+            'EXAM_NB_REQUESTS'      => $nb_exam_requests['exam'],
+            'EXAM_REMAINING_AMOUNT' => $this->config->get_exam_total_amount() - $this->config->get_exam_day_amount() * $nb_exam_requests['exam']
         ));
     }
 
     private function build_activity_table()
     {
         $columns = array(
-            new HTMLTableColumn($this->lang['lam.form.radio.choices'], 'form_name'),
+            new HTMLTableColumn($this->lang['lam.form.radio.choices'], 'activity_type'),
             new HTMLTableColumn($this->lang['lam.club.name'], 'club_name'),
+            new HTMLTableColumn($this->lang['lam.club.ffam.number'], 'club_ffam_number'),
             new HTMLTableColumn($this->lang['lam.club.activity.date'], 'club_activity_date'),
         );
-        $table_model = new SQLHTMLTableModel(LamSetup::$lam_forms, 'items-manager', $columns, new HTMLTableSortingRule('form_name', HTMLTableSortingRule::DESC));
+        $table_model = new SQLHTMLTableModel(LamSetup::$lam_forms, 'items-manager', $columns, new HTMLTableSortingRule('activity_type', HTMLTableSortingRule::DESC));
         $table_model->set_layout_title($this->lang['lam.activity.requests']);
         $table_model->set_filters_menu_title($this->lang['lam.filter.items']);
 
         //filters
-        $activity = array($this->lang['lam.jpo'] => $this->lang['lam.jpo'], $this->lang['lam.exam'] => $this->lang['lam.exam']);
-        $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('form_name', 'activityfilter', $this->lang['lam.jpo'], $activity));
+        $activity = array('jpo' => $this->lang['lam.jpo'], 'exam' => $this->lang['lam.exam']);
+        $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('activity_type', 'activityfilter', $this->lang['lam.filter.choice'], $activity));
         $activity_table = new HTMLTable($table_model);
         $activity_table->set_filters_fieldset_class_HTML();
         $activity_table->hide_multiple_delete();
@@ -82,10 +83,10 @@ class LamItemsManagerController extends DefaultModuleController
             $item->set_properties($row);
             $this->items_number++;
             $this->ids[$this->items_number] = $item->get_id();
-
             $row = array(
-                new HTMLTableRowCell($item->get_form_name(), 'align-left'),
-                new HTMLTableRowCell($item->get_club_ffam_number() . ' | ' . $item->get_club_name()),
+                new HTMLTableRowCell($item->get_activity_type() == 'jpo' ? $this->lang['lam.jpo'] : $this->lang['lam.exam'], 'align-left'),
+                new HTMLTableRowCell($item->get_club_name()),
+                new HTMLTableRowCell($item->get_club_ffam_number()),
                 new HTMLTableRowCell($item->get_club_activity_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
             );
 

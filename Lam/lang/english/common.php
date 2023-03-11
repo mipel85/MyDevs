@@ -21,8 +21,9 @@ $lang['lam.exam'] = 'Exam day';
 // club_form
 $lang['lam.club.infos'] = 'Select your club <b>*</b>';
 $lang['lam.club.infos.clue'] = 'Start typing, then select your club from the drop-down list';
-$lang['lam.club.name'] = 'club name :';
-$lang['lam.club.activity.date'] = 'Event date :';
+$lang['lam.club.name'] = 'Club';
+$lang['lam.club.ffam.number'] = 'FFAM number';
+$lang['lam.club.activity.date'] = 'Event date';
 $lang['lam.club.activity.location'] = 'Activity adress :';
 $lang['lam.club.activity.city'] = 'City of activity :';
 $lang['lam.club.activity.description'] = 'Description of the activity (optional) :';
@@ -63,6 +64,7 @@ $lang['lam.exam.status.requests'] = '<i class="radio-target" aria-hidden="true">
 
 //lists
 $lang['lam.filter.items'] = 'Filters';
+$lang['lam.filter.choice'] = 'choose an activity';
 $lang['lam.activity.requests'] = 'Follow-up of requests';
 $lang['lam.financial.statement'] = 'Financial monitoring';
 $lang['lam.total.planned.budget'] = 'Total planned budget';
