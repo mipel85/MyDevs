@@ -1,0 +1,51 @@
+/* form-radio custom*/
+.lam-radio input[type="radio"]{
+    display: none;
+}
+
+.lam-radio label {
+    display: inline-block;
+}
+
+.lam-radio input + span {
+  padding: 1rem 1rem;
+  font-size: 1.4rem;
+  font-family: sans-serif; 
+  border-radius: 0.3rem;
+  color: black;
+  background-color: #e3e3e3;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+
+.lam-radio span:hover {
+  background-color: #d6e9c6;
+  border-color: #1e7e34;
+}
+
+.lam-radio input[type="radio"]:checked + span {
+  background-color: #2ECC71;
+}
+
+.lam-radio input[type="radio"] + span .radio-target::before{
+    content: "\f0c8";
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+}
+
+.lam-radio input[type="radio"]:checked + span .radio-target::before{
+    content: "\f14a";
+}
+
+[list="clubs-choice"] { width: 100%; }
+
+.lam-radio input[disabled] + span {
+  background-color: rgba(var(--error-rgb-t), 0.2);
+  color: var(--error-tone);
+  opacity: 0.5;
+}
