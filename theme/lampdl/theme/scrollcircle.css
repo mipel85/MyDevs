@@ -1,0 +1,46 @@
+#scroll-circle {
+    position: fixed;
+    z-index: 9999;
+    bottom: 1.618em;
+    right: 1.618em;
+    width: 40px;
+}
+
+#scroll-circle .progression {
+    width: 40px;
+    height: 40px;
+    background-color: var(--bgc-alt);
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--bdr-alt);
+}
+
+#scroll-circle .percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-color: var(--bgc-main);
+    border-radius: 50% !important;
+    text-align: center;
+    line-height: 8.809em;
+    font-size: 0.618em;
+    font-weight: 600;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--bdr-alt);
+}
+
+#scroll-circle .back-to-top {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.618rem;
+    cursor: pointer;
+}
+
+@media (min-width: 769px) {
+    #scroll-circle .percentage { line-height: 7.809em; }
+}
