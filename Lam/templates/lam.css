@@ -1,3 +1,16 @@
+/* activity link */
+.activity-button {
+    color: black;
+    font-size: 1.50rem;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.activity-button:hover {
+    color: green;
+    background-color: #e3e3e3;
+}
+
 /* form-radio custom*/
 .lam-radio input[type="radio"]{
     display: none;
@@ -8,24 +21,26 @@
 }
 
 .lam-radio input + span {
-  padding: 1rem 1rem;
-  font-size: 1.4rem;
-  font-family: sans-serif; 
-  border-radius: 0.3rem;
-  color: black;
-  background-color: #e3e3e3;
-  border: 1px solid transparent;
-  transition: all 0.2s ease-in-out;
-  display: inline-block;
+    padding: 1rem 1rem;
+    color: black;
+    font-size: 1.45rem;
+    font-style: italic;
+    font-weight: bold;
+    font-family: sans-serif; 
+    border-radius: 1.2rem;
+    background-color: #e3e3e3;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
 }
 
 .lam-radio span:hover {
-  background-color: #d6e9c6;
-  border-color: #1e7e34;
+    background-color: #d6e9c6;
+    border-color: #1e7e34;
 }
 
 .lam-radio input[type="radio"]:checked + span {
-  background-color: #2ECC71;
+    background-color: #2dc26b;
 }
 
 .lam-radio input[type="radio"] + span .radio-target::before{
@@ -45,7 +60,7 @@
 [list="clubs-choice"] { width: 100%; }
 
 .lam-radio input[disabled] + span {
-  background-color: rgba(var(--error-rgb-t), 0.2);
-  color: var(--error-tone);
-  opacity: 0.5;
+    background-color: rgba(var(--error-rgb-t), 0.2);
+    color: var(--error-tone);
+    opacity: 0.5;
 }

@@ -111,7 +111,7 @@ class LamFormActivityController extends DefaultModuleController
     private function save()
     {
         $item = $this->get_item();
-        $item->set_form_date(new Date());
+        $item->set_club_request_date(new Date());
         $item->set_activity_type($this->form->get_value('form_radio')->get_raw_value());
         foreach ($this->form->get_value('club_infos') as $id => $club)
         {

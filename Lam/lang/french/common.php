@@ -20,7 +20,7 @@ $lang['lam.exam'] = 'Journée d\'examen';
 
 // club_form
 $lang['lam.club.infos'] = 'Sélectionner votre club <b>*</b>';
-$lang['lam.club.infos.clue'] = 'Commencez à taper, puis sélectionnez votre club dans la liste déroulante';
+$lang['lam.club.infos.clue'] = 'Commencez la saisie, puis sélectionnez votre club dans la liste déroulante';
 $lang['lam.club.name'] = 'Club';
 $lang['lam.club.ffam.number'] = 'N°. FFAM';
 $lang['lam.club.activity.date'] = 'Date de l\'évènement';

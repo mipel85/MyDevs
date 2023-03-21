@@ -10,13 +10,14 @@ class LamItem
 {
     private $id;
     private $activity_type;
-    private $form_date;
     private $club_name;
     private $club_ffam_number;
     private $club_activity_date;
     private $club_activity_location;
     private $club_activity_city;
     private $club_activity_description;
+    private $club_request_date;
+    
     private $club_sender_name;
     private $club_sender_mail;
 
@@ -40,14 +41,14 @@ class LamItem
         return $this->activity_type;
     }
 
-    public function set_form_date($form_date)
+    public function set_club_request_date($club_request_date)
     {
-        $this->form_date = $form_date;
+        $this->club_request_date = $club_request_date;
     }
 
-    public function get_form_date()
+    public function get_club_request_date()
     {
-        return $this->form_date;
+        return $this->club_request_date;
     }
 
     public function set_club_name($club_name)
@@ -134,7 +135,6 @@ class LamItem
     {
         return array(
             'id'                        => $this->get_id(),
-            'form_date'                 => $this->get_form_date() !== null ? $this->get_form_date()->get_timestamp() : 0,
             'activity_type'             => $this->get_activity_type(),
             'club_name'                 => $this->get_club_name(),
             'club_ffam_number'          => $this->get_club_ffam_number(),
@@ -142,13 +142,13 @@ class LamItem
             'club_activity_location'    => $this->get_club_activity_location(),
             'club_activity_city'        => $this->get_club_activity_city(),
             'club_activity_description' => $this->get_club_activity_description(),
+            'club_request_date'         => $this->get_club_request_date() !== null ? $this->get_club_request_date()->get_timestamp() : 0,
         );
     }
 
     public function set_properties(array $properties)
     {
         $this->id = $properties['id'];
-        $this->form_date = $properties['form_date'];
         $this->activity_type = $properties['activity_type'];
         $this->club_name = $properties['club_name'];
         $this->club_ffam_number = $properties['club_ffam_number'];
@@ -156,6 +156,7 @@ class LamItem
         $this->club_activity_location = $properties['club_activity_location'];
         $this->club_activity_city = $properties['club_activity_city'];
         $this->club_activity_description = $properties['club_activity_description'];
+        $this->club_request_date = $properties['club_request_date'];
     }
 }
 ?>
