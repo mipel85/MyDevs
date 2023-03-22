@@ -41,7 +41,7 @@ class LamItem
         return $this->activity_type;
     }
 
-    public function set_club_request_date($club_request_date)
+    public function set_club_request_date(Date $club_request_date)
     {
         $this->club_request_date = $club_request_date;
     }
@@ -156,7 +156,7 @@ class LamItem
         $this->club_activity_location = $properties['club_activity_location'];
         $this->club_activity_city = $properties['club_activity_city'];
         $this->club_activity_description = $properties['club_activity_description'];
-        $this->club_request_date = $properties['club_request_date'];
+        $this->club_request_date = !empty($properties['club_request_date']) ? new Date($properties['club_request_date'], Timezone::SERVER_TIMEZONE) : null;
     }
 }
 ?>

@@ -37,7 +37,6 @@ class LamItemsManagerController extends DefaultModuleController
 
     private function build_financial_statement()
     {
-        $this->config = LamConfig::load();
         $nb_jpo_requests = LamService::get_requests_number('jpo');
         $nb_exam_requests = LamService::get_requests_number('exam');
 
@@ -63,6 +62,7 @@ class LamItemsManagerController extends DefaultModuleController
             new HTMLTableColumn($this->lang['lam.club.name'], 'club_name'),
             new HTMLTableColumn($this->lang['lam.club.ffam.number'], 'club_ffam_number'),
             new HTMLTableColumn($this->lang['lam.club.activity.date'], 'club_activity_date'),
+            new HTMLTableColumn($this->lang['lam.club.request.date'], 'club_request_date'),
         );
         $table_model = new SQLHTMLTableModel(LamSetup::$lam_forms, 'items-manager', $columns, new HTMLTableSortingRule('activity_type', HTMLTableSortingRule::DESC));
         $table_model->set_layout_title($this->lang['lam.activity.requests']);
@@ -88,6 +88,7 @@ class LamItemsManagerController extends DefaultModuleController
                 new HTMLTableRowCell($item->get_club_name()),
                 new HTMLTableRowCell($item->get_club_ffam_number()),
                 new HTMLTableRowCell($item->get_club_activity_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
+                new HTMLTableRowCell($item->get_club_request_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
             );
 
             $results[] = new HTMLTableRow($row);

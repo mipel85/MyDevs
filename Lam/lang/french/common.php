@@ -68,6 +68,7 @@ $lang['lam.financial.statement'] = 'Suivi financier';
 $lang['lam.total.planned.budget'] = 'Budget total prévu';
 $lang['lam.list.day.amount'] = 'Montant attribué par journée';
 $lang['lam.activity.nb.requests'] = 'Nb. de demandes';
+$lang['lam.club.request.date'] = 'Date de demande';
 $lang['lam.provisional.budget.balance'] = 'Solde provisoire';
 
 ?>
