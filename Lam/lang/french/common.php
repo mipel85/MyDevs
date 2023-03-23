@@ -32,7 +32,7 @@ $lang['lam.club.sender.mail'] = 'Adresse mail du correspondant :';
 $lang['lam.not_registred_fields'] = '<i><span class = "smaller"> Les informations suivantes ne sont ni enregistrées ni conservées sur le site (RGPD) </span></i>';
 
 // config
-$lang['lam.check.configuration'] = 'La configuration de ce module n\'a pas été effectuée, c\'est ici : <a href="../Lam/admin/config">Page de configuration</a>';
+$lang['lam.check.configuration'] = 'La configuration financière de ce module n\'a pas été effectuée, c\'est ici : <a href="../Lam/admin/config">Page de configuration</a>';
 $lang['lam.email.configuration'] = 'Configuration des adresses des destinataires';
 $lang['lam.email.configuration.default'] = 'Adresse mail obligatoire. par défaut : :default_mail';
 $lang['lam.email.configuration.optional'] = 'Adresse mail optionnelle';

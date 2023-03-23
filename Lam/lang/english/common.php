@@ -32,7 +32,7 @@ $lang['lam.club.sender.mail'] = 'Correspondent\'s email address :';
 $lang['lam.not_registred_fields'] = '<i><span class = "smaller"> The following information is neither recorded nor stored on the site (RGPD) </span></i>';
 
 // config
-$lang['lam.check.configuration'] = 'The configuration of this module has not been carried out, it is here : <a href="../Lam/admin/config">Setup page</a>';
+$lang['lam.check.configuration'] = 'The financial configuration of this module has not been made, it is here : <a href="../Lam/admin/config">Setup page</a>';
 $lang['lam.email.configuration'] = 'Configuring recipient addresses';
 $lang['lam.email.configuration.default'] = 'Adresse mail obligatoire. par défaut : :default_mail';
 $lang['lam.email.configuration.optional'] = 'Optional email address';
