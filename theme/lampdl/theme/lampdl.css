@@ -77,6 +77,12 @@
 }
 
 /* personnalisation */
+
+/* site title */
+.first-letter {
+    color: #e40715;
+}
+
 .lam-table {
     font-weight: bold;
     color: #0094af;
@@ -87,4 +93,3 @@
     font-weight: bold;
     font-size: 0.850em;
 }
-
