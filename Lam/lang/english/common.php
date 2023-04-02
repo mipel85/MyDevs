@@ -61,7 +61,6 @@ $lang['lam.jpo.status.requests'] = '<i class="radio-target" aria-hidden="true"><
 $lang['lam.exam.status.requests'] = '<i class="radio-target" aria-hidden="true"></i> Exam (wings, qpdd...) <span class="d-block small">remaining requests : :exam_status_requests</span>';
 
 //lists
-$lang['lam.filter.items'] = 'Filters';
 $lang['lam.filter.choice'] = 'Choose an activity';
 $lang['lam.activity.requests'] = 'Follow-up of requests';
 $lang['lam.financial.statement'] = 'Financial monitoring';
@@ -70,7 +69,7 @@ $lang['lam.list.day.amount'] = 'Amount allocated per Day';
 $lang['lam.activity.nb.requests'] = 'number of requests';
 $lang['lam.club.request.date'] = 'request date';
 $lang['lam.provisional.budget.balance'] = 'Provisional balance';
-
+$lang['lam.archived.requests'] = 'archived requests';
 
 ?>
 

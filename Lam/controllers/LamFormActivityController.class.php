@@ -123,6 +123,8 @@ class LamFormActivityController extends DefaultModuleController
         $item->set_club_activity_location($this->form->get_value('club_activity_location'));
         $item->set_club_activity_city($this->form->get_value('club_activity_city'));
         $item->set_club_activity_description($this->form->get_value('club_activity_description'));
+        $item->set_amount_paid(0);
+        $item->set_archived(0);
 
         $id = LamService::add($item);
         $item->set_id($id);

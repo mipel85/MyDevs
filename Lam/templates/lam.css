@@ -35,7 +35,6 @@
 }
 
 .lam-radio span:hover {
-    background-color: #d6e9c6;
     border-color: #1e7e34;
 }
 
@@ -63,4 +62,45 @@
     background-color: rgba(var(--error-rgb-t), 0.2);
     color: var(--error-tone);
     opacity: 0.5;
+}
+
+.payment-validation{
+    background-color: #A5F0EC;
+    font-style: italic; 
+    color: black;
+    font-weight: bold;
+}
+
+/* datatables params */
+.dataTables_length label,
+.dataTables_filter label {
+    display: flex;
+    min-width: 350px;
+    align-items: center;
+    padding: 0.618em 0;
+}
+
+table.dataTable thead tr.filters th { padding: 0.309em; }
+
+.dataTables_filter input {
+    max-width: 250px;
+    margin-left: 0.618em;
+}
+
+.dataTables_length select {
+    max-width: 60px;
+    margin-left: 0.620em;
+}
+
+/* datatables overload */
+.dataTables_wrapper .dataTables_paginate { padding: 0 0 0.618em; }
+
+.filters input {
+    max-width: 120px;
+    border-radius: 5px;
+    font-size: 10.5px;
+    text-align: center;
+}
+
+input.search-input {
 }

@@ -17,7 +17,9 @@ class LamItem
     private $club_activity_city;
     private $club_activity_description;
     private $club_request_date;
-    
+    private $amount_paid;
+    private $archived;
+    private $archived_date;
     private $club_sender_name;
     private $club_sender_mail;
 
@@ -39,16 +41,6 @@ class LamItem
     public function get_activity_type()
     {
         return $this->activity_type;
-    }
-
-    public function set_club_request_date(Date $club_request_date)
-    {
-        $this->club_request_date = $club_request_date;
-    }
-
-    public function get_club_request_date()
-    {
-        return $this->club_request_date;
     }
 
     public function set_club_name($club_name)
@@ -111,6 +103,46 @@ class LamItem
         return $this->club_activity_description;
     }
 
+    public function set_club_request_date(Date $club_request_date)
+    {
+        $this->club_request_date = $club_request_date;
+    }
+
+    public function get_club_request_date()
+    {
+        return $this->club_request_date;
+    }
+
+    public function set_amount_paid($amount_paid)
+    {
+        $this->amount_paid = $amount_paid;
+    }
+
+    public function get_amount_paid()
+    {
+        return $this->amount_paid;
+    }
+
+    public function set_archived($archived)
+    {
+        $this->archived = $archived;
+    }
+
+    public function get_archived()
+    {
+        return $this->archived;
+    }
+
+    public function set_archived_date(Date $archived_date)
+    {
+        $this->archived_date = $archived_date;
+    }
+
+    public function get_archived_date()
+    {
+        return $this->archived_date;
+    }
+
     public function set_club_sender_name($club_sender_name)
     {
         return $this->club_sender_name = $club_sender_name;
@@ -130,7 +162,7 @@ class LamItem
     {
         return $this->club_sender_mail;
     }
-    
+
     public function get_properties()
     {
         return array(
@@ -143,6 +175,9 @@ class LamItem
             'club_activity_city'        => $this->get_club_activity_city(),
             'club_activity_description' => $this->get_club_activity_description(),
             'club_request_date'         => $this->get_club_request_date() !== null ? $this->get_club_request_date()->get_timestamp() : 0,
+            'amount_paid'               => $this->get_amount_paid(),
+            'archived'                  => $this->get_archived(),
+            'archived_date'             => $this->get_archived_date() !== null ? $this->get_archived_date()->get_timestamp() : 0,
         );
     }
 
@@ -157,6 +192,9 @@ class LamItem
         $this->club_activity_city = $properties['club_activity_city'];
         $this->club_activity_description = $properties['club_activity_description'];
         $this->club_request_date = !empty($properties['club_request_date']) ? new Date($properties['club_request_date'], Timezone::SERVER_TIMEZONE) : null;
+        $this->amount_paid = $properties['amount_paid'];
+        $this->archived = $properties['archived'];
+        $this->archived_date = !empty($properties['archived_date']) ? new Date($properties['archived_date'], Timezone::SERVER_TIMEZONE) : null;
     }
 }
 ?>

@@ -27,9 +27,33 @@ class LamUrlBuilder
     /**
 	 * @return Url
 	 */
-	public static function activity_manager()
+	public static function pending_requests()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/activity_manager/');
+		return DispatchManager::get_url(self::$dispatcher, '/pending_requests/');
+	}
+    
+    /**
+	 * @return Url
+	 */
+	public static function financial_statement()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/financial_statement/');
+	}
+    
+    /**
+	 * @return Url
+	 */
+	public static function archived_requests()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/archived_requests/');
+	}
+    
+    /**
+	 * @return Url
+	 */
+	public static function payment_validation()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/payment_validation/');
 	}
     
     public static function home()

@@ -44,6 +44,9 @@ class LamSetup extends DefaultModuleSetup
             'club_activity_city'        => array('type' => 'text', 'length' => 16777215),
             'club_activity_description' => array('type' => 'string', 'length' => 255, 'notnull' => 1),
             'club_request_date'         => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+            'amount_paid'               => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+            'archived'                  => array('type' => 'boolean', 'length' => 1, 'notnull' => 1, 'default' => 0),
+            'archived_date'             => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),
         );
         $options = array(
             'primary' => array('id'),

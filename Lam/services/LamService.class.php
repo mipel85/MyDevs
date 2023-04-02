@@ -36,6 +36,32 @@ class LamService
         self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'Lam', 'id' => $id));
     }
 
+    public static function payment_validation(int $id, int $amount_paid)
+    {
+        if (AppContext::get_current_user()->is_readonly()){
+            $controller = PHPBoostErrors::user_in_read_only();
+            DispatchManager::redirect($controller);
+        }
+        $now = new Date();
+        self::$db_querier->update(LamSetup::$lam_forms, array('archived' => '1', 'archived_date' => $now->get_timestamp(), 'amount_paid' => $amount_paid), 'WHERE id=:id', array(
+            'id' => $id
+        ));
+    }
+
+    public static function get_requests($archived)
+    {
+        $result = array();
+        $req = self::$db_querier->select('SELECT *
+		FROM ' . LamSetup::$lam_forms . '
+        WHERE  archived = "' . $archived . '"');
+        while($row = $req->fetch())
+        {
+            $result[] = $row;
+        }
+        $req->dispose();
+        return $result;
+    }
+
     public static function get_requests_number($activity)
     {
         $nb_activity_requests = self::$db_querier->select_single_row_query('SELECT COUNT(activity_type) AS "' . $activity . '"
@@ -66,6 +92,18 @@ class LamService
             'nb_jpo_max'        => $nb_jpo_max, 'nb_jpo_remaining'  => $nb_jpo_remaining,
             'nb_exam_max'       => $nb_exam_max, 'nb_exam_remaining' => $nb_exam_remaining,
         );
+    }
+
+    public static function get_archived_date()
+    {
+        $req = self::$db_querier->select('SELECT fiscal_year
+		FROM ' . LamSetup::$lam_forms);
+        while($row = $req->fetch())
+        {
+            $result[] = $row;
+        }
+        $req->dispose();
+        return $result;
     }
 
     public static function check_config()

@@ -38,10 +38,9 @@
 @import url('../../__default__/theme/global.css') screen;
 @import url('../../__default__/theme/content.css') screen;
 
-@import url('../../__default__/theme/colors_code.css') screen;
 @import url('../../lampdl/theme/colors.css') screen;
-
 @import url('../../lampdl/theme/radius.css') screen;
 @import url('../../lampdl/theme/lampdl.css') screen;
 
 @import url('../../lampdl/theme/scrollcircle.css') screen;
+

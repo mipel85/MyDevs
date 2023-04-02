@@ -14,7 +14,11 @@ $url_controller_mappers = array(
     new UrlControllerMapper('LamHomeController', '`^(?:/([0-9]+))?/?$`'),
     new UrlControllerMapper('AdminLamConfigController', '`^/admin(?:/config)?/?$`'),
     
-    new UrlControllerMapper('LamItemsManagerController', '`^/activity_manager/?$`'),
+    new UrlControllerMapper('LamPendingRequestsController', '`^/pending_requests/?$`'),
+    new UrlControllerMapper('LamFinancialStatementController', '`^/financial_statement/?$`'),
+    new UrlControllerMapper('LamAjaxPaymentController', '`^/payment_validation/?$`'),
+    
+    new UrlControllerMapper('LamArchivedRequestsController', '`^/archived_requests/?$`'),
 );
 DispatchManager::dispatch($url_controller_mappers);
 ?>

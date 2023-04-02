@@ -15,7 +15,10 @@ class LamTreeLinks implements ModuleTreeLinksExtensionPoint
         $lang = LangLoader::get_all_langs($module_id);
 		$tree = new ModuleTreeLinks();
 
-        $tree->add_link(new ModuleLink($lang['lam.activity.requests'], LamUrlBuilder::activity_manager(), AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL) || !AppContext::get_current_user()->check_level(User::VISITOR_LEVEL) || AppContext::get_current_user()->get_groups()[1] == 1));
+        $tree->add_link(new ModuleLink($lang['lam.pending.requests'], LamUrlBuilder::pending_requests(), AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL) || !AppContext::get_current_user()->check_level(User::VISITOR_LEVEL) || AppContext::get_current_user()->get_groups()[1] == 1));
+        $tree->add_link(new ModuleLink($lang['lam.financial.statement'], LamUrlBuilder::financial_statement(), AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL) || !AppContext::get_current_user()->check_level(User::VISITOR_LEVEL) || AppContext::get_current_user()->get_groups()[1] == 1));
+        $tree->add_link(new ModuleLink($lang['lam.archived.requests'], LamUrlBuilder::archived_requests(), AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL) || !AppContext::get_current_user()->check_level(User::VISITOR_LEVEL) || AppContext::get_current_user()->get_groups()[1] == 1));
+        
         $tree->add_link(new AdminModuleLink($lang['form.configuration'], LamUrlBuilder::configuration()));
 
         return $tree;
