@@ -8,21 +8,21 @@
  */
 
 // Titles
-$lang['lam.js.info']            = 'Affichage de l\'élément _START_ à _END_ sur _TOTAL_ éléments';
-$lang['review.js.info.empty']      = 'Affichage de l\'élément 0 à 0 sur 0 élément';
-$lang['review.js.info.filtered']   = '(filtré à partir de _MAX_ éléments au total)';
-$lang['review.js.length.menu']     = 'nb. lignes _MENU_';
-$lang['review.js.loading.records'] = 'Chargement...';
-$lang['review.js.processing']      = 'Traitement...';
-$lang['review.js.search']          = 'Rechercher :';
-$lang['review.js.no.item']         = 'Aucun élément correspondant n\'a été trouvé';
-$lang['review.js.missing']         = 'Absent';
+$lang['lam.js.info'] = 'Affichage de l\'élément _START_ à _END_ sur _TOTAL_ éléments';
+$lang['lam.js.info.empty'] = 'Affichage de l\'élément 0 à 0 sur 0 élément';
+$lang['lam.js.info.filtered'] = '(filtré à partir de _MAX_ éléments au total)';
+$lang['lam.js.length.menu'] = 'nb. lignes _MENU_';
+$lang['lam.js.loading.records'] = 'Chargement...';
+$lang['lam.js.processing'] = 'Traitement...';
+$lang['lam.js.search'] = 'Rechercher :';
+$lang['lam.js.no.item'] = 'Aucun élément correspondant n\'a été trouvé';
+$lang['lam.js.missing'] = 'Absent';
 
-$lang['review.js.first']    = 'Premier';
-$lang['review.js.last']     = 'Dernier';
-$lang['review.js.next']     = 'Suivant';
-$lang['review.js.previous'] = 'Précédent';
+$lang['lam.js.first'] = 'Premier';
+$lang['lam.js.last'] = 'Dernier';
+$lang['lam.js.next'] = 'Suivant';
+$lang['lam.js.previous'] = 'Précédent';
 
-$lang['review.js.sort.asc']  = '<br />Cliquer pour trier la colonne par ordre croissant';
-$lang['review.js.sort.desc'] = '<br />Cliquer pour trier la colonne par ordre décroissant';
+$lang['lam.js.sort.asc'] = '<br />Cliquer pour trier la colonne par ordre croissant';
+$lang['lam.js.sort.desc'] = '<br />Cliquer pour trier la colonne par ordre décroissant';
 ?>

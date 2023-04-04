@@ -100,7 +100,5 @@ table.dataTable thead tr.filters th { padding: 0.309em; }
     border-radius: 5px;
     font-size: 10.5px;
     text-align: center;
-}
-
-input.search-input {
+    margin-right: 0.309em
 }

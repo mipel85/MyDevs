@@ -11,7 +11,7 @@
 ####################################################
 // commmon
 $lang['lam.form'] = 'Formulaire de demande d\'aide financière';
-$lang['lam.form.radio.choices'] = 'Nature de la demande';
+$lang['lam.form.radio.choices'] = 'Demande';
 $lang['lam.form.activity.type'] = 'Organisation d\'une journée : ';
 $lang['lam.fill.form'] = 'Remplir le formulaire <i><span class="smaller">(informations transmises dans le mail)</span></i>';
 $lang['lam.activity.desc'] = 'Demande d\'aide pour l\'organisation d\'une journée (portes-ouvertes, qpdd, ailes...)';
@@ -67,7 +67,7 @@ $lang['lam.filter.choice'] = 'Choisir une activité';
 $lang['lam.pending.requests'] = 'Demandes en cours';
 $lang['lam.financial.statement'] = 'Suivi financier';
 $lang['lam.total.planned.budget'] = 'Budget total prévu';
-$lang['lam.list.day.amount'] = 'Montant attribué par journée';
+$lang['lam.list.day.amount'] = 'Budget par journée';
 $lang['lam.activity.nb.requests'] = 'Nb. de demandes';
 $lang['lam.club.request.date'] = 'Date de demande';
 $lang['lam.estimated.amount'] = 'Solde estimé';

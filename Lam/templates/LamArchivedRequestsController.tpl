@@ -1,5 +1,4 @@
 <script type="text/javascript" src="{PATH_TO_ROOT}/Lam/templates/DataTables/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="{PATH_TO_ROOT}/Lam/templates/DataTables/js/fixedHeader.min.js"></script>
 
 <script>
     jQuery('.display thead tr')
@@ -10,40 +9,40 @@
         "sDom": '<"top">lfi<"bottom"pt><"clear">',
         language: {
             "sInfo": ${escapejs(@lam.js.info)},
-            "sInfoEmpty": ${escapejs(@review.js.info.empty)},
-            "sInfoFiltered": ${escapejs(@review.js.info.filtered)},
+            "sInfoEmpty": ${escapejs(@lam.js.info.empty)},
+            "sInfoFiltered": ${escapejs(@lam.js.info.filtered)},
             "sInfoPostFix": "",
             "sInfoThousands": ",",
-            "sLengthMenu": ${escapejs(@review.js.length.menu)},
-            "sLoadingRecords": ${escapejs(@review.js.loading.records)},
-            "sProcessing": ${escapejs(@review.js.processing)},
-            "sSearch": ${escapejs(@review.js.search)},
-            "sZeroRecords": ${escapejs(@review.js.no.item)},
+            "sLengthMenu": ${escapejs(@lam.js.length.menu)},
+            "sLoadingRecords": ${escapejs(@lam.js.loading.records)},
+            "sProcessing": ${escapejs(@lam.js.processing)},
+            "sSearch": ${escapejs(@lam.js.search)},
+            "sZeroRecords": ${escapejs(@lam.js.no.item)},
             "oPaginate": {
-                "sFirst": ${escapejs(@review.js.first)},
-                "sLast": ${escapejs(@review.js.last)},
-                "sNext": ${escapejs(@review.js.next)},
-                "sPrevious": ${escapejs(@review.js.previous)}
+                "sFirst": ${escapejs(@lam.js.first)},
+                "sLast": ${escapejs(@lam.js.last)},
+                "sNext": ${escapejs(@lam.js.next)},
+                "sPrevious": ${escapejs(@lam.js.previous)}
             },
             "oAria": {
-                "sSortAscending": ${escapejs(@H|review.js.sort.asc)},
-                "sSortDescending": ${escapejs(@H|review.js.sort.desc)}
+                "sSortAscending": ${escapejs(@H|lam.js.sort.asc)},
+                "sSortDescending": ${escapejs(@H|lam.js.sort.desc)}
             }
         },
         "aLengthMenu": [15, 25, 50, 100],
         "sPaginationType": "full_numbers",
-         "sScrollY": "auto",
+        "sScrollY": "auto",
         "iDisplayLength": 15,
         orderCellsTop: true,
         fixedHeader: false,
         "columns": [
-    {"width": "10%"},
-    {"width": "10%"},
-    {"width": "15%"},
-    {"width": "10%"},
-    {"width": "15%"},
-    {"width": "5%"},
-    {"width": "5%"},
+    {"width": "14%"},
+    {"width": "14%"},
+    {"width": "14%"},
+    {"width": "14%"},
+    {"width": "14%"},
+    {"width": "14%"},
+    {"width": "14%"}
         ],
         initComplete: function() {
             var api = this.api();
@@ -109,7 +108,7 @@
 <br />
 <br />
 <div>
-    <table id="requests" class="display">
+    <table id="archived_requests" class="display">
         <thead>
             <tr>
                 <th>{@lam.form.radio.choices}</th><th>{@lam.club.name}</th><th>{@lam.club.ffam.number}</th><th>{@lam.club.activity.date}</th>
