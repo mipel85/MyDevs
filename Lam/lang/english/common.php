@@ -34,7 +34,7 @@ $lang['lam.not_registred_fields'] = '<i><span class = "smaller"> The following i
 // config
 $lang['lam.check.configuration'] = 'The financial configuration of this module has not been made, it is here : <a href="../Lam/admin/config">Setup page</a>';
 $lang['lam.email.configuration'] = 'Configuring recipient addresses';
-$lang['lam.email.configuration.default'] = 'Adresse mail obligatoire. par défaut : :default_mail';
+$lang['lam.email.configuration.default'] = 'Mandatory email address. By default: :default_mail';
 $lang['lam.email.configuration.optional'] = 'Optional email address';
 $lang['lam.recipient.mail_1'] = 'Main consignee address :';
 $lang['lam.recipient.mail_2'] = 'Address of consignee 2 :';
@@ -61,16 +61,25 @@ $lang['lam.jpo.status.requests'] = '<i class="radio-target" aria-hidden="true"><
 $lang['lam.exam.status.requests'] = '<i class="radio-target" aria-hidden="true"></i> Exam (wings, qpdd...) <span class="d-block small">remaining requests : :exam_status_requests</span>';
 
 //lists
-$lang['lam.filter.choice'] = 'Choose an activity';
-$lang['lam.activity.requests'] = 'Follow-up of requests';
-$lang['lam.financial.statement'] = 'Financial monitoring';
-$lang['lam.total.planned.budget'] = 'Total planned budget';
-$lang['lam.list.day.amount'] = 'Amount allocated per Day';
-$lang['lam.activity.nb.requests'] = 'number of requests';
-$lang['lam.club.request.date'] = 'request date';
-$lang['lam.provisional.budget.balance'] = 'Provisional balance';
-$lang['lam.archived.requests'] = 'archived requests';
+$lang['lam.no.current.items']      = 'No request in progress!';
+$lang['lam.no.archived.items']     = 'No archived request!';
+$lang['lam.filter.choice']         = 'Choose an activity';
+$lang['lam.pending.requests']      = 'Follow-up of requests';
+$lang['lam.financial.statement']   = 'Financial monitoring';
+$lang['lam.total.planned.budget']  = 'Total planned budget';
+$lang['lam.list.day.amount']       = 'Amount allocated per Day';
+$lang['lam.activity.nb.requests']  = 'number of requests';
+$lang['lam.club.request.date']     = 'request date';
+$lang['lam.estimated.amount']      = 'Provisional balance';
+$lang['lam.archived.requests']     = 'archived requests';
+$lang['lam.real.amount']           = 'Real amount';
+$lang['lam.archived.date']         = 'Archive date';
+$lang['lam.amount.paid']           = 'Total cost to pay';
+$lang['lam.amount.real.paid']      = 'Payroll amount';
+$lang['lam.club.payment']          = 'Validate payment and archive';
+$lang['lam.archived.year.choice']  = 'Choose the year of archiving';
 
+// Authorizations
+$lang['lam.authorization.requests'] = 'Authorization of requests';
+$lang['lam.authorization.treasurer'] = 'Financial Tracking Authorization';
 ?>
-
-

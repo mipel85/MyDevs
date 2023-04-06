@@ -42,7 +42,7 @@
     {"width": "14%"},
     {"width": "14%"},
     {"width": "14%"},
-    {"width": "14%"}
+    # IF C_CONTROLS #{"width": "14%"}# ENDIF #
         ],
         initComplete: function() {
             var api = this.api();
@@ -130,39 +130,46 @@
     });
 </script>
 
-<h1>
-    <span>
-        {@lam.pending.requests}
-    </span>
-</h1>
-<div>
-    <div id="info" class = "payment-validation"></div>
-    <table id="pending_requests" class="display">
-        <thead>
-            <tr>
-                <th>{@lam.form.radio.choices}</th><th>{@lam.club.name}</th><th>{@lam.club.ffam.number}</th><th>{@lam.club.activity.date}</th><th>{@lam.club.request.date}</th><th>{@lam.amount.paid}</th><th>{@lam.club.payment}</th>
-            </tr>
-        </thead>
-        # IF C_IS_AUTHORIZED #     
-        # IF C_ITEM #
-        <tbody>
-            # START pending_requests #
-            <tr>
-                <td>{pending_requests.ACTIVITY_TYPE}</td>
-                <td>{pending_requests.CLUB_NAME}</td>
-                <td>{pending_requests.CLUB_FFAM_NUMBER}</td>
-                <td>{pending_requests.CLUB_ACTIVITY_DATE}</td>
-                <td>{pending_requests.CLUB_REQUEST_DATE}</td>
-                <td>{pending_requests.AMOUNT_PAID}</td>
-                <td><input id = "{pending_requests.CHECKBOX_ID}" type ="checkbox" name = "payment" aria-label = "{@lam.club.payment}" value = "{pending_requests.ACTIVITY_TYPE} de {pending_requests.CLUB_NAME}"</td>
-            </tr>
-            # END pending_requests #
-            # ENDIF #
+<section id="module-lam">
+    <header class="section-header">
+        <h1>{@lam.pending.requests}</h1>
+    </header>
+    <div class="sub-section">
+        <div class="content-container responsive-table">
+            <div id="info" class = "payment-validation"></div>
+            # IF C_ITEMS #
+                <table id="requests" class="display">
+                    <thead>
+                        <tr>
+                            <th>{@lam.form.radio.choices}</th>
+                            <th>{@lam.club.name}</th>
+                            <th>{@lam.club.ffam.number}</th>
+                            <th>{@lam.club.activity.date}</th>
+                            <th>{@lam.club.request.date}</th>
+                            <th>{@lam.amount.paid}</th>
+                            # IF C_CONTROLS #<th>{@lam.club.payment}</th># ENDIF #
+                        </tr>
+                    </thead>
+                    <tbody>
+                        # START pending_requests #
+                            <tr>
+                                <td>{pending_requests.ACTIVITY_TYPE}</td>
+                                <td>{pending_requests.CLUB_NAME}</td>
+                                <td>{pending_requests.CLUB_FFAM_NUMBER}</td>
+                                <td>{pending_requests.CLUB_ACTIVITY_DATE}</td>
+                                <td>{pending_requests.CLUB_REQUEST_DATE}</td>
+                                <td>{pending_requests.AMOUNT_PAID}</td>
+                                # IF C_CONTROLS #
+                                    <td><input id="{pending_requests.CHECKBOX_ID}" type="checkbox" name="payment" aria-label="{@lam.club.payment}" value="{pending_requests.ACTIVITY_TYPE} de {pending_requests.CLUB_NAME}" /></td>
+                                # ENDIF #
+                            </tr>
+                        # END pending_requests #
+                    </tbody>
+                </table>
             # ELSE #
-            <tr>
-                <td colspan = 7>{@lam.no.current.items}</td>
-            </tr>
-        </tbody>
-        # ENDIF #
-    </table>
-</div>
+                <sapn class="message-helper bgc notice">{@lam.no.current.items}</sapn>
+            # ENDIF #
+        </div>
+    </div>
+    <footer></footer>
+</section>

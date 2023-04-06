@@ -79,16 +79,23 @@
 
 /* site title */
 .first-letter {
-    color: #e40715;
+    color: var(--error-tone);
 }
 
 .lam-table {
     font-weight: bold;
-    color: #0094af;
+    color: var(--bgc-alt);
 }
 
 .lam-counter {
-    color: black;
+    color: rgb(var(--darken));
     font-weight: bold;
     font-size: 0.850em;
+}
+
+/* Datatable */
+thead tr + tr th { 
+    background-color: var(--logo-tone);
+    border-color: var(--logo-tone) !important;
+    border-radius: 0 !important;
 }

@@ -8,8 +8,6 @@
  */
 class LamPendingRequestsController extends DefaultModuleController
 {
-    private $activity;
-
     protected function get_template_to_use()
     {
         return new FileTemplate('Lam/LamPendingRequestsController.tpl');
@@ -25,7 +23,7 @@ class LamPendingRequestsController extends DefaultModuleController
 
     private function check_authorizations()
     {
-        if (!AppContext::get_current_user()->check_level(User::MEMBER_LEVEL)){
+        if (!LamAuthorizationsService::check_authorizations()->officer()){
             $controller = PHPBoostErrors::user_not_authorized();
             DispatchManager::redirect($controller);
         }
@@ -34,13 +32,13 @@ class LamPendingRequestsController extends DefaultModuleController
     private function build_pending_requests()
     {
         $req = LamService::get_requests('0');
+        $this->view->put_all(array(
+            'C_CONTROLS' => LamAuthorizationsService::check_authorizations()->manager(),
+            'C_ITEMS'    => !empty($req),
+        ));
+
         foreach ($req as $value)
         {
-            $this->view->put_all(array(
-                'C_IS_AUTHORIZED' => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level(user::ADMINISTRATOR_LEVEL),
-                'C_ITEM'          => isset($value),
-            ));
-
             $this->view->assign_block_vars('pending_requests', array(
                 'ACTIVITY_TYPE'      => $value['activity_type'] == 'jpo' ? $this->lang['lam.jpo'] : $this->lang['lam.exam'], 'align-left',
                 'CLUB_NAME'          => $value['club_name'],

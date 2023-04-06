@@ -99,42 +99,43 @@
         }
     });
 </script>
-
-<h1>
-    <span>
-        {@lam.archived.requests}
-    </span>
-</h1>
-<br />
-<br />
-<div>
-    <table id="archived_requests" class="display">
-        <thead>
-            <tr>
-                <th>{@lam.form.radio.choices}</th><th>{@lam.club.name}</th><th>{@lam.club.ffam.number}</th><th>{@lam.club.activity.date}</th>
-                <th>{@lam.club.request.date}</th><th>{@lam.amount.real.paid}</th><th>{@lam.archived.date}</th>
-            </tr>
-        </thead>
-        # IF C_IS_AUTHORIZED #     
-        # IF C_ITEM #
-        <tbody>
-            # START archived_requests #
-            <tr>
-                <td>{archived_requests.ACTIVITY_TYPE}</td>
-                <td>{archived_requests.CLUB_NAME}</td>
-                <td>{archived_requests.CLUB_FFAM_NUMBER}</td>
-                <td>{archived_requests.CLUB_ACTIVITY_DATE}</td>
-                <td>{archived_requests.CLUB_REQUEST_DATE}</td>
-                <td>{archived_requests.AMOUNT_PAID}</td>
-                <td>{archived_requests.ARCHIVED_DATE}</td>
-            </tr>
-            # END archived_requests #
-            # ENDIF #
+<section id="module-lam">
+    <header class="section-header">
+        <h1>{@lam.archived.requests}</h1>
+    </header>
+    <div class="sub-section">
+        <div class="content-container responsive-table">
+            # IF C_ITEM #
+                <table id="archived_requests" class="display">
+                    <thead>
+                        <tr>
+                            <th>{@lam.form.radio.choices}</th>
+                            <th>{@lam.club.name}</th>
+                            <th>{@lam.club.ffam.number}</th>
+                            <th>{@lam.club.activity.date}</th>
+                            <th>{@lam.club.request.date}</th>
+                            <th>{@lam.amount.real.paid}</th>
+                            <th>{@lam.archived.date}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        # START archived_requests #
+                        <tr>
+                            <td>{archived_requests.ACTIVITY_TYPE}</td>
+                            <td>{archived_requests.CLUB_NAME}</td>
+                            <td>{archived_requests.CLUB_FFAM_NUMBER}</td>
+                            <td>{archived_requests.CLUB_ACTIVITY_DATE}</td>
+                            <td>{archived_requests.CLUB_REQUEST_DATE}</td>
+                            <td>{archived_requests.AMOUNT_PAID}</td>
+                            <td>{archived_requests.ARCHIVED_DATE}</td>
+                        </tr>
+                        # END archived_requests #
+                    </tbody>
+                </table>
             # ELSE #
-            <tr>
-                <td colspan = 7>{@lam.no.archived.items}</td>
-            </tr>
-        </tbody>
-        # ENDIF #
-    </table>
-</div>
+                <div class="message-helper bgc notice">{@lam.no.archived.items}</div>
+            # ENDIF #
+        </div>
+    </div>
+    <footer></footer>
+</section>

@@ -24,7 +24,7 @@ class LamArchivedRequestsController extends DefaultModuleController
 
     private function check_authorizations()
     {
-        if (!AppContext::get_current_user()->check_level(User::MEMBER_LEVEL)){
+        if (!LamAuthorizationsService::check_authorizations()->manager()){
             $controller = PHPBoostErrors::user_not_authorized();
             DispatchManager::redirect($controller);
         }
@@ -33,12 +33,11 @@ class LamArchivedRequestsController extends DefaultModuleController
     private function build_archived_requests()
     {
         $req = LamService::get_requests('1');
+
+        $this->view->put('C_ITEM', !empty($req));
+
         foreach ($req as $value)
         {
-            $this->view->put_all(array(
-                'C_IS_AUTHORIZED' => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level(user::ADMINISTRATOR_LEVEL),
-                'C_ITEM'          => isset($value),
-            ));
             $this->view->assign_block_vars('archived_requests', array(
                 'ACTIVITY_TYPE'      => $value['activity_type'] == 'jpo' ? $this->lang['lam.jpo'] : $this->lang['lam.exam'], 'align-left',
                 'CLUB_NAME'          => $value['club_name'],

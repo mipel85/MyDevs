@@ -102,7 +102,7 @@ class LamFormActivityController extends DefaultModuleController
 
     private function check_authorizations()
     {
-        if (!AppContext::get_current_user()->check_level(User::MEMBER_LEVEL)){
+        if (!LamAuthorizationsService::check_authorizations()->officer()){
             $controller = PHPBoostErrors::user_not_authorized();
             DispatchManager::redirect($controller);
         }

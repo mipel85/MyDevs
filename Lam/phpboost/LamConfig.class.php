@@ -114,7 +114,7 @@ class LamConfig extends AbstractConfigData
             self::JPO_DAY_AMOUNT    => 1,
             self::EXAM_TOTAL_AMOUNT => 1,
             self::EXAM_DAY_AMOUNT   => 1,
-            self::AUTHORIZATIONS    => array('r-1' => 1, 'r0' => 5, 'r1' => 15),
+            self::AUTHORIZATIONS    => array('r-1' => 0, 'r0' => 0, 'r1' => 15),
         );
     }
 

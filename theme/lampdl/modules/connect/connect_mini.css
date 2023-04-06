@@ -3,9 +3,9 @@
 * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
 */
 
-#module-connect  #login { cursor: help; }
+#module-connect #login { cursor: help; }
 
-#module-connect  .stacked { text-shadow: 0 0 2px rgba(var(--darken), 0.5)}
+#module-connect .stacked { text-shadow: 0 0 2px rgba(var(--darken), 0.5)}
 
 #module-connect .social-connect { display: inline-block; }
 
@@ -130,6 +130,4 @@
 	#header #module-connect input[type="text"] { width: auto; }
 }
 
-#module-connect.user-not-connected {
-    display: none;
-}
+#module-connect.user-not-connected { display: none;}

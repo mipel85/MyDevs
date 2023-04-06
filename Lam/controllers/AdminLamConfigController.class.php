@@ -73,7 +73,7 @@ class AdminLamConfigController extends DefaultAdminModuleController
 // financial exam fieldset
         $financial_exam_fieldset = new FormFieldsetHTML('financial_qpdd', $this->lang['lam.financial.exam.part']);
         $form->add_fieldset($financial_exam_fieldset);
-         
+
         $financial_exam_fieldset->add_field($exam_total_amount = new FormFieldDecimalNumberEditor('exam_total_amount', $this->lang['lam.exam.total.amount'], (int)$this->config->get_exam_total_amount(), array(
             'description' => $this->lang['lam.financial.maximum'],
             'required'    => true,
@@ -89,6 +89,17 @@ class AdminLamConfigController extends DefaultAdminModuleController
 
         $form->add_constraint(new FormConstraintFieldsDifferenceInferior($exam_total_amount, $exam_day_amount));
 
+// Authorizations
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $this->lang['form.authorizations']);
+		$form->add_fieldset($fieldset_authorizations);
+
+		$auth_settings = new AuthorizationsSettings(array(
+            new ActionAuthorization($this->lang['lam.authorization.requests'], LamAuthorizationsService::REQUESTS_AUTHORIZATIONS),
+            new MemberDisabledActionAuthorization($this->lang['lam.authorization.treasurer'], LamAuthorizationsService::MANAGE_AUTHORIZATIONS)
+        ));
+		$auth_settings->build_from_auth_array($this->config->get_authorizations());
+		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
+
 // validation
         $this->submit_button = new FormButtonDefaultSubmit();
         $form->add_button($this->submit_button);
@@ -99,7 +110,6 @@ class AdminLamConfigController extends DefaultAdminModuleController
 
     private function save()
     {
-
         $this->config->set_recipient_mail_1($this->form->get_value('recipient_mail_1'));
         $this->config->set_recipient_mail_2($this->form->get_value('recipient_mail_2'));
         $this->config->set_recipient_mail_3($this->form->get_value('recipient_mail_3'));
@@ -109,6 +119,8 @@ class AdminLamConfigController extends DefaultAdminModuleController
 
         $this->config->set_exam_total_amount((int)$this->form->get_value('exam_total_amount'));
         $this->config->set_exam_day_amount((int)$this->form->get_value('exam_day_amount'));
+        
+        $this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 
         LamConfig::save();
 

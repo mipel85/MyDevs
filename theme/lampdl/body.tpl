@@ -3,12 +3,12 @@
     <div id="header-container">
         <div id="top-header">
             # IF C_MENUS_TOP_HEADER_CONTENT #
-            <div id="top-header-content" class="content-wrapper">
-                # START menus_top_header #
-                {menus_top_header.MENU}
-                # END menus_top_header #
-                <div class="spacer"></div>
-            </div>
+                <div id="top-header-content" class="content-wrapper">
+                    # START menus_top_header #
+                        {menus_top_header.MENU}
+                    # END menus_top_header #
+                    <div class="spacer"></div>
+                </div>
             # ENDIF #
         </div>
         <div id="inner-header">
@@ -16,6 +16,7 @@
                 <div id="site-infos" role="banner">
                     <div id="site-logo-0" class="site-logo" # IF C_HEADER_LOGO #style="background-image: url({U_HEADER_LOGO});"# ENDIF #></div>
                     <div id="site-name-container">
+                        <span id="site-name-seo">{SITE_NAME}</span>
                         <span id="site-name" class="align-center">
                             <span class="d-block">
                                 <span class="first-letter">L</span>igue 
@@ -35,7 +36,7 @@
                 <div id="inner-header-content">
                     # IF NOT IS_USER_CONNECTED #<span></span># ENDIF #
                     # START menus_header #
-                    {menus_header.MENU}
+                        {menus_header.MENU}
                     # END menus_header #
                 </div>
             # ENDIF #
@@ -44,7 +45,7 @@
             # IF C_MENUS_SUB_HEADER_CONTENT #
                 <div id="sub-header-content" class="content-wrapper">
                     # START menus_sub_header #
-                    {menus_sub_header.MENU}
+                        {menus_sub_header.MENU}
                     # END menus_sub_header #
                     <div class="spacer"></div>
                 </div>
@@ -74,21 +75,21 @@
 <main id="global" class="content-preloader" role="main">
     <div id="global-container" class="content-wrapper">
         # IF C_MENUS_LEFT_CONTENT #
-        <aside id="menu-left" class="aside-menu# IF C_MENUS_RIGHT_CONTENT # narrow-menu narrow-menu-left# ENDIF #">
-            # START menus_left #
-            {menus_left.MENU}
-            # END menus_left #
-        </aside>
+            <aside id="menu-left" class="aside-menu# IF C_MENUS_RIGHT_CONTENT # narrow-menu narrow-menu-left# ENDIF #">
+                # START menus_left #
+                    {menus_left.MENU}
+                # END menus_left #
+            </aside>
         # ENDIF #
 
         <div id="main" class="# IF C_MENUS_LEFT_CONTENT #main-with-left# ENDIF ## IF C_MENUS_RIGHT_CONTENT # main-with-right# ENDIF #" role="main">
             # IF C_MENUS_TOPCENTRAL_CONTENT #
-            <div id="top-content">
-                # START menus_top_central #
-                {menus_top_central.MENU}
-                # END menus_top_central #
-            </div>
-            <div class="spacer"></div>
+                <div id="top-content">
+                    # START menus_top_central #
+                        {menus_top_central.MENU}
+                    # END menus_top_central #
+                </div>
+                <div class="spacer"></div>
             # ENDIF #
 
             <div id="main-content" itemprop="mainContentOfPage">
@@ -102,12 +103,12 @@
                             </a>
                         </li>
                         # START link_bread_crumb #
-                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" # IF link_bread_crumb.C_CURRENT # class="current" # ENDIF #>
-                            <a class="offload" href="{link_bread_crumb.URL}" itemprop="item">
-                                <span itemprop="name">{link_bread_crumb.TITLE}</span>
-                                <meta itemprop="position" content="{link_bread_crumb.POSITION}" />
-                            </a>
-                        </li>
+                            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" # IF link_bread_crumb.C_CURRENT # class="current" # ENDIF #>
+                                <a class="offload" href="{link_bread_crumb.URL}" itemprop="item">
+                                    <span itemprop="name">{link_bread_crumb.TITLE}</span>
+                                    <meta itemprop="position" content="{link_bread_crumb.POSITION}" />
+                                </a>
+                            </li>
                         # END link_bread_crumb #
                     </ol>
                 </nav>
@@ -116,20 +117,20 @@
             </div>
 
             # IF C_MENUS_BOTTOM_CENTRAL_CONTENT #
-            <div id="bottom-content">
-                # START menus_bottom_central #
-                {menus_bottom_central.MENU}
-                # END menus_bottom_central #
-            </div>
+                <div id="bottom-content">
+                    # START menus_bottom_central #
+                        {menus_bottom_central.MENU}
+                    # END menus_bottom_central #
+                </div>
             # ENDIF #
         </div>
 
         # IF C_MENUS_RIGHT_CONTENT #
-        <aside id="menu-right" class="aside-menu# IF C_MENUS_LEFT_CONTENT # narrow-menu narrow-menu-right# ENDIF #">
-            # START menus_right #
-            {menus_right.MENU}
-            # END menus_right #
-        </aside>
+            <aside id="menu-right" class="aside-menu# IF C_MENUS_LEFT_CONTENT # narrow-menu narrow-menu-right# ENDIF #">
+                # START menus_right #
+                    {menus_right.MENU}
+                # END menus_right #
+            </aside>
         # ENDIF #
     </div>
 
@@ -140,7 +141,7 @@
     # IF C_MENUS_TOP_FOOTER_CONTENT #
         <div id="top-footer" class="content-wrapper">
             # START menus_top_footer #
-            {menus_top_footer.MENU}
+                {menus_top_footer.MENU}
             # END menus_top_footer #
             <div class="spacer"></div>
         </div>
@@ -153,7 +154,7 @@
     # IF C_MENUS_FOOTER_CONTENT #
         <div id="footer-content" class="content-wrapper">
             # START menus_footer #
-            {menus_footer.MENU}
+                {menus_footer.MENU}
             # END menus_footer #
         </div>
     # ENDIF #
@@ -161,10 +162,10 @@
     <div id="footer-infos" class="content-wrapper" role="contentinfo">
         <span class="footer-infos-powered-by">{@common.powered.by} <i class="fa iboost fa-iboost-logo" aria-hidden="true"></i> <a class="offload" href="https://www.phpboost.com" aria-label="{@common.phpboost.link}">PHPBoost</a></span> | <span aria-label="{@common.phpboost.right}"><i class="fab fa-osi" aria-hidden="true"></i></span>
         # IF C_DISPLAY_BENCH #
-        <span class="footer-infos-benchmark">| {@common.achieved} {BENCH}{@date.unit.seconds} - {REQ} {@common.sql.request} - {MEMORY_USED}</span>
+            <span class="footer-infos-benchmark">| {@common.achieved} {BENCH}{@date.unit.seconds} - {REQ} {@common.sql.request} - {MEMORY_USED}</span>
         # ENDIF #
         # IF C_DISPLAY_AUTHOR_THEME #
-        <span class="footer-infos-template-author">| {@common.theme} {L_THEME_NAME} ${TextHelper::lcfirst(@common.by)} <a class="offload" href="{U_THEME_AUTHOR_LINK}">{L_THEME_AUTHOR}</a></span>
+            <span class="footer-infos-template-author">| {@common.theme} {L_THEME_NAME} ${TextHelper::lcfirst(@common.by)} <a class="offload" href="{U_THEME_AUTHOR_LINK}">{L_THEME_AUTHOR}</a></span>
         # ENDIF #
     </div>
 </footer>
@@ -178,7 +179,7 @@
 
 <script src="{PATH_TO_ROOT}/templates/lampdl/js/scroll.circle# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
 <script>
-    jQuery(window).on("load scroll", function() {  PxScrollCircle();  });
+    jQuery(window).on("load scroll", function() { PxScrollCircle(); });
     jQuery('#scroll-circle .back-to-top').on('click', function(){
         jQuery("html, body").animate({ scrollTop: 0 }, "slow");
         return false;

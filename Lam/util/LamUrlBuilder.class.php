@@ -10,7 +10,7 @@
 class LamUrlBuilder
 {
     private static $dispatcher = '/Lam';
-    
+
     /**
 	 * @return Url
 	 */
@@ -23,7 +23,7 @@ class LamUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/activity/');
 	}
-    
+
     /**
 	 * @return Url
 	 */
@@ -31,7 +31,7 @@ class LamUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/pending_requests/');
 	}
-    
+
     /**
 	 * @return Url
 	 */
@@ -39,7 +39,7 @@ class LamUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/financial_statement/');
 	}
-    
+
     /**
 	 * @return Url
 	 */
@@ -47,7 +47,7 @@ class LamUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/archived_requests/');
 	}
-    
+
     /**
 	 * @return Url
 	 */
@@ -55,7 +55,7 @@ class LamUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/payment_validation/');
 	}
-    
+
     public static function home()
     {
         return DispatchManager::get_url(self::$dispatcher, '/');

@@ -61,22 +61,25 @@ $lang['lam.jpo.status.requests'] = '<i class="radio-target" aria-hidden="true"><
 $lang['lam.exam.status.requests'] = '<i class="radio-target" aria-hidden="true"></i> Examen (ailes, qpdd...) <span class="d-block small">Demandes restantes : :exam_status_requests</span>';
 
 //lists
-$lang['lam.no.current.items'] = 'Aucune demande en cours !';
-$lang['lam.no.archived.items'] = 'Aucune demande archivée !';
-$lang['lam.filter.choice'] = 'Choisir une activité';
-$lang['lam.pending.requests'] = 'Demandes en cours';
-$lang['lam.financial.statement'] = 'Suivi financier';
-$lang['lam.total.planned.budget'] = 'Budget total prévu';
-$lang['lam.list.day.amount'] = 'Budget par journée';
-$lang['lam.activity.nb.requests'] = 'Nb. de demandes';
-$lang['lam.club.request.date'] = 'Date de demande';
-$lang['lam.estimated.amount'] = 'Solde estimé';
-$lang['lam.real.amount'] = 'Solde réel';
-$lang['lam.archived.requests'] = 'Demandes archivées';
-$lang['lam.archived.date'] = 'Date d\'archivage';
-$lang['lam.amount.paid'] = 'Montant à verser';
-$lang['lam.amount.real.paid'] = 'Montant payé';
-$lang['lam.club.payment'] = 'Valider paiement et archiver';
-$lang['lam.archived.year.choice'] = 'Choisir l\'année d\'archivage';
-?>
+$lang['lam.no.current.items']      = 'Aucune demande en cours !';
+$lang['lam.no.archived.items']     = 'Aucune demande archivée !';
+$lang['lam.filter.choice']         = 'Choisir une activité';
+$lang['lam.pending.requests']      = 'Demandes en cours';
+$lang['lam.financial.statement']   = 'Suivi financier';
+$lang['lam.total.planned.budget']  = 'Budget total prévu';
+$lang['lam.list.day.amount']       = 'Budget par journée';
+$lang['lam.activity.nb.requests']  = 'Nb. de demandes';
+$lang['lam.club.request.date']     = 'Date de demande';
+$lang['lam.estimated.amount']      = 'Solde estimé';
+$lang['lam.real.amount']           = 'Solde réel';
+$lang['lam.archived.requests']     = 'Demandes archivées';
+$lang['lam.archived.date']         = 'Date d\'archivage';
+$lang['lam.amount.paid']           = 'Montant à verser';
+$lang['lam.amount.real.paid']      = 'Montant payé';
+$lang['lam.club.payment']          = 'Valider paiement et archiver';
+$lang['lam.archived.year.choice']  = 'Choisir l\'année d\'archivage';
 
+// Authorizations
+$lang['lam.authorization.requests'] = 'Autorisation des demandes';
+$lang['lam.authorization.treasurer'] = 'Autorisation du suivi financier';
+?>
