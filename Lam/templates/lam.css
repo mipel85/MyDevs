@@ -1,4 +1,13 @@
 /* activity link */
+.requests-button {
+    color: #0094af;
+    font-size: 1.50rem;
+    font-style: italic;
+    font-weight: bold;
+    display: inline-block;
+    float: right;
+}
+
 .activity-button {
     color: black;
     font-size: 1.50rem;

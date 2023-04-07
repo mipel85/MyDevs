@@ -15,6 +15,7 @@ $lang['lam.form.radio.choices'] = 'Demande';
 $lang['lam.form.activity.type'] = 'Organisation d\'une journée : ';
 $lang['lam.fill.form'] = 'Remplir le formulaire <i><span class="smaller">(informations transmises dans le mail)</span></i>';
 $lang['lam.activity.desc'] = 'Demande d\'aide pour l\'organisation d\'une journée (portes-ouvertes, qpdd, ailes...)';
+$lang['lam.pending.requests.link'] = 'Consulter les demandes en cours';
 $lang['lam.jpo'] = 'Journée portes-ouvertes';
 $lang['lam.exam'] = 'Journée d\'examen';
 

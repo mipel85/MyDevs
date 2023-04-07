@@ -15,6 +15,7 @@ $lang['lam.form.radio.choices'] = 'Nature of the request';
 $lang['lam.form.activity.type'] = 'Organization of a day : ';
 $lang['lam.fill.form'] = 'Fill in the form <i><span class="smaller">(information sent in the email)</span></i>';
 $lang['lam.activity.desc'] = 'Help request for the organization of a day (open house, qpdd, wings...)';
+$lang['lam.pending.requests.link'] = 'View current requests';
 $lang['lam.jpo'] = 'Open day';
 $lang['lam.exam'] = 'Exam day';
 
