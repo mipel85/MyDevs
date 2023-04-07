@@ -10,6 +10,9 @@
 #                    French                        #
 ####################################################
 // commmon
+$lang['lam.requests.description.title'] = '<span class = "requests-description-title">How the application form works</span>';
+$lang['lam.requests.description'] = '<span class = "requests-description">Choose the type of day envisaged then fill in the form. Once validated, it will be automatically sent by email'
+    . ' to the League. <br /> You can consult current requests on this list : <a href = "../pending_requests/"><b>Pending requests</b></a></span>';
 $lang['lam.form'] = 'Financial aid application form';
 $lang['lam.form.radio.choices'] = 'Nature of the request';
 $lang['lam.form.activity.type'] = 'Organization of a day : ';
