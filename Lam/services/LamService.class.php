@@ -94,18 +94,6 @@ class LamService
         );
     }
 
-    public static function get_archived_date()
-    {
-        $req = self::$db_querier->select('SELECT fiscal_year
-		FROM ' . LamSetup::$lam_forms);
-        while($row = $req->fetch())
-        {
-            $result[] = $row;
-        }
-        $req->dispose();
-        return $result;
-    }
-
     public static function check_config()
     {
         $config = LamConfig::load();
