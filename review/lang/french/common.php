@@ -60,6 +60,7 @@ $lang['review.file.undetermined.link'] = 'Lien indéterminé';
 
 // Pages titles
 $lang['review.home']                    = '';
+$lang['review.admin']                   = '';
 $lang['review.inuploadfolder']          = 'Fichiers dans le dossier upload ';
 $lang['review.ingalleryfolder']         = 'Fichiers dans le dossier Galerie ';
 $lang['review.ingallerytable']          = 'Fichiers dans la table Galerie ';

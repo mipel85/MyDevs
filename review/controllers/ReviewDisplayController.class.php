@@ -13,7 +13,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
         $this->build_form();
 
         $this->view = new FileTemplate('review/ReviewDisplayController.tpl');
-        $this->view->add_lang($this->lang);
+		$this->view->add_lang($this->lang);
 
         $cache_in_table = ReviewCacheInTable::load();
         $cache_in_folder = ReviewCacheInFolder::load();

@@ -12,7 +12,6 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 	public function execute(HTTPRequestCustom $request)
 	{
         $this->view = new FileTemplate('review/AdminReviewConfigController.tpl');
-        $this->view->add_lang($this->lang);
 
 		$this->build_form();
 

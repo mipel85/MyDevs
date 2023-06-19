@@ -23,7 +23,7 @@ class ReviewUrlBuilder
      */
     public static function home($section = '')
     {
-        $section = !empty($section) ? $section . '/' : '';
+        $section = !empty($section) ? '/admin/' . $section . '/' : '';
         return DispatchManager::get_url(self::$dispatcher, '/' . $section);
     }
 
