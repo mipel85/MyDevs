@@ -3,11 +3,12 @@
  * @copyright   &copy; 2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel <mipel@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 05
+ * @version     PHPBoost 6.0 - last update: 2023 06 20
  * @since       PHPBoost 6.0 - 2022 01 10
  */
 class ReviewDisplayController extends DefaultAdminModuleController
 {
+
     public function execute(HTTPRequestCustom $request)
     {
         $this->build_form();
@@ -19,7 +20,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
         $cache_in_folder = ReviewCacheInFolder::load();
         $config = ReviewConfig::load();
 
-        if ($this->submit_button->has_been_submited() && $this->form->validate()) {
+
+        if ($this->submit_button->has_been_submited() && $this->form->validate()){
             $config->set_date(new Date());
             $config->set_scanned_by(AppContext::get_current_user());
             $config->set_first_scan(true);
@@ -31,18 +33,25 @@ class ReviewDisplayController extends DefaultAdminModuleController
             AppContext::get_response()->redirect($request->get_url_referrer());
         }
         $date = $config->get_date()->get_timestamp();
-        
+
+        $folders_scanned_list = unserialize($config->get_folders());
+        foreach ($folders_scanned_list as $folder)
+        {
+           $this->view->assign_block_vars('scannedfolders', array(
+                'SCANNED_FOLDERS' => $folder->get_id().', ',
+            ));
+        }
+
         $this->view->put_all(array(
-            'C_DISPLAY_COUNTERS'   => $config->get_first_scan(),
+            'C_DISPLAY_COUNTERS'  => $config->get_first_scan(),
             'C_GALLERY_DISPLAYED' => ReviewService::is_module_displayed('gallery'),
             'C_GALLERY_FOLDER'    => ReviewService::is_folder_on_server('/gallery'),
-
-            'DATE'            => Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
-            'SCANNED_BY'      => $config->get_scanned_by()->get_display_name(),
-            'REVIEW_COUNTERS' => ReviewCounters::get_counters(),
-            'CACHE_BUTTON'    => $this->form->display(),
+            'DATE'                => Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+            'SCANNED_BY'          => $config->get_scanned_by()->get_display_name(),
+            'REVIEW_COUNTERS'     => ReviewCounters::get_counters(),
+            'CACHE_BUTTON'        => $this->form->display(),
         ));
-        
+
         $section = $request->get_string('section');
         switch($section)
         {
@@ -55,7 +64,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
                     $this->view->assign_block_vars('inuploadfolder', array(
                         'C_IS_PICTURE_FILE' => ReviewService::is_picture_file($file),
                         'C_IS_PDF_FILE'     => ReviewService::is_pdf_file($file),
-                        'FILE_NAME'         => $file,                        
+                        'FILE_NAME'         => $file,
                         'FILE_UPLOAD_BY'    => isset($file_data['display_name']) ? $file_data['display_name'] : '---',
                         'FILE_UPLOAD_DATE'  => isset($file_data['timestamp']) ? $file_data['timestamp'] : '---',
                         'FILE_UPLOAD_SIZE'  => isset($file_data['file_size']) ? $file_data['file_size'] : '---',
@@ -100,7 +109,6 @@ class ReviewDisplayController extends DefaultAdminModuleController
                         'FILE_UPLOAD_BY'     => isset($file['upload_by']) ? $file['upload_by'] : '---',
                         'FILE_UPLOAD_DATE'   => isset($file['upload_date']) ? $file['upload_date'] : '---',
                         'FILE_UPLOAD_SIZE'   => isset($file['file_size']) ? $file['file_size'] : '---',
-                    
                     ));
                 }
                 break;
@@ -170,7 +178,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
             case 'ingalleryfolder':
                 $this->view->put('C_FILES_IN_GALLERY_FOLDER', true);
 
-                foreach ($cache_in_folder->get_files_in_gallery_list() as $file) {
+                foreach ($cache_in_folder->get_files_in_gallery_list() as $file)
+                {
                     $this->view->assign_block_vars('ingalleryfolder', array(
                         'C_IS_PICTURE_FILE'      => ReviewService::is_picture_file($file),
                         'C_IS_PDF_FILE'          => ReviewService::is_pdf_file($file),
@@ -182,7 +191,8 @@ class ReviewDisplayController extends DefaultAdminModuleController
             case 'ingallerytable':
                 $this->view->put('C_FILES_IN_GALLERY_TABLE', true);
 
-                foreach ($cache_in_table->get_files_in_gallery_list() as $file) {                    
+                foreach ($cache_in_table->get_files_in_gallery_list() as $file)
+                {
                     $this->view->assign_block_vars('ingallerytable', array(
                         'C_IS_PICTURE_FILE'     => ReviewService::is_picture_file($file['path']),
                         'C_IS_PDF_FILE'         => ReviewService::is_pdf_file($file['path']),
@@ -216,11 +226,11 @@ class ReviewDisplayController extends DefaultAdminModuleController
                 break;
         }
 
-		return new ReviewDisplayResponse($this->view, $this->lang['review.' . $section . ''] . $this->lang['review.module.title']);
+        return new ReviewDisplayResponse($this->view, $this->lang['review.' . $section . ''] . $this->lang['review.module.title']);
     }
 
     private function build_form()
-    {        
+    {
         $config = ReviewConfig::load();
         $form = new HTMLForm(__CLASS__);
         $this->submit_button = new FormButtonSubmit($config->get_first_scan() == 0 ? $this->lang['review.run.scan'] : $this->lang['review.restart.scan'], '', '', 'submit preloader-button');
