@@ -11,7 +11,8 @@ define('PATH_TO_ROOT', '..');
 require_once PATH_TO_ROOT . '/kernel/init.php';
 
 $url_controller_mappers = array(
-    new UrlControllerMapper('ReviewDisplayController', '`^/([a-z]+)/?$`', array('section')),
+    new UrlControllerMapper('AdminReviewConfigController', '`^/admin(?:/config)?/?$`'),
+    new UrlControllerMapper('ReviewDisplayController', '`^/admin/([a-z]+)/?$`', array('section')),
 );
 DispatchManager::dispatch($url_controller_mappers);
 ?>

@@ -12,6 +12,7 @@ class ReviewConfig extends AbstractConfigData
 	const DATE = 'date';
 	const SCANNED_BY = 'scanned_by';
 	const FIRST_SCAN = 'first_scan';
+	const FOLDERS = 'folders';
 
 	public function set_date(Date $date)
 	{
@@ -42,6 +43,16 @@ class ReviewConfig extends AbstractConfigData
 	{
 		return $this->get_property(self::FIRST_SCAN);
 	}
+
+	public function set_folders($folders)
+	{
+		$this->set_property(self::FOLDERS, $folders);
+	}
+
+	public function get_folders()
+	{
+		return $this->get_property(self::FOLDERS);
+	}
 	
 	public function get_default_values()
 	{
@@ -49,6 +60,7 @@ class ReviewConfig extends AbstractConfigData
 			self::DATE => new Date(),
 			self::SCANNED_BY => AppContext::get_current_user(),
 			self::FIRST_SCAN => false,
+			self::FOLDERS => TextHelper::serialize(array()),
 		);
 	}
 

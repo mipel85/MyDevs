@@ -16,6 +16,7 @@ class ReviewDisplayResponse extends AdminMenuDisplayResponse
         $lang = LangLoader::get_all_langs('review');
 
         $this->add_link($lang['common.home'], ReviewUrlBuilder::home('home'));
+        $this->add_link($lang['form.configuration'], ReviewUrlBuilder::configuration());
         $this->add_link($lang['form.documentation'], $this->module->get_configuration()->get_documentation());
 
         $env = $this->get_graphical_environment();

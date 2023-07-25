@@ -112,7 +112,7 @@
         </div>
     # ENDIF #
 </article>
-<script type="text/javascript" src="{PATH_TO_ROOT}/review/templates/DataTables/js/jquery.dataTables.min.js"></script>
+<script src="{PATH_TO_ROOT}/review/templates/DataTables/js/jquery.dataTables.min.js"></script>
 <script>
     jQuery('a.button').each(function() {
         let button = jQuery(this).attr('href').split('/')

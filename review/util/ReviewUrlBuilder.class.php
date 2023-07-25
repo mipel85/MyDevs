@@ -13,9 +13,17 @@ class ReviewUrlBuilder
     /**
      * @return Url
      */
+    public static function configuration()
+    {
+        return DispatchManager::get_url(self::$dispatcher, '/admin/config');
+    }
+
+    /**
+     * @return Url
+     */
     public static function home($section = '')
     {
-        $section = !empty($section) ? $section . '/' : '';
+        $section = !empty($section) ? '/admin/' . $section . '/' : '';
         return DispatchManager::get_url(self::$dispatcher, '/' . $section);
     }
 

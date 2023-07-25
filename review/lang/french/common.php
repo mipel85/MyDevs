@@ -12,11 +12,24 @@ $lang['review.module.title'] = 'Revue de fichiers';
 
 $lang['review.run.scan']     = 'Lancer une analyse';
 $lang['review.restart.scan'] = 'Relancer une analyse';
+$lang['review.folders.configured.for.scanning'] = 'Voir les dossiers configurés pour l\'analyse';
 $lang['review.first.scan']   = '
     <div class="message-helper bgc warning">
         Aucune analyse n\'a encore été effectuée.<br />
         Cliquer sur le bouton ci-dessus.
     </div>
+';
+$lang['review.no.scan.available']   = '
+        Aucune analyse ne peut être effectuée.<br />
+        Ajouter des dossier à scanner dans la <a href="' . ReviewUrlBuilder::configuration()->rel() . '">configuration du module</a>
+';
+
+// Configuration
+$lang['review.set.folders.list']      = 'Liste des dossiers à scanner';
+$lang['review.set.folders.list.clue'] = '
+    Les fichiers cible sont des fichiers dont l\'extension est autorisée dans la <a href="' . AdminFilesUrlBuilder::configuration()->rel() . '">configuration des fichiers</a>. <br />
+    Les dossiers apparaissent automatiquement dès lors qu\'ils contiennent des fichiers cible. <br />
+    Certains dossiers ont été désactivés : install | kernel | update.
 ';
 
 // Upload Counters
@@ -52,6 +65,7 @@ $lang['review.file.undetermined.link'] = 'Lien indéterminé';
 
 // Pages titles
 $lang['review.home']                    = '';
+$lang['review.admin']                   = '';
 $lang['review.inuploadfolder']          = 'Fichiers dans le dossier upload ';
 $lang['review.ingalleryfolder']         = 'Fichiers dans le dossier Galerie ';
 $lang['review.ingallerytable']          = 'Fichiers dans la table Galerie ';

@@ -453,7 +453,8 @@ table.dataTable td {
 }
 
 .dataTables_wrapper .dataTables_paginate .ellipsis {
-    padding: 0 1em
+    padding: 0 1em;
+    display: inline-block;
 }
 
 .dataTables_wrapper .dataTables_processing {
