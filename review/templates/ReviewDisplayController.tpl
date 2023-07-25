@@ -3,34 +3,34 @@
 
 <script>
     jQuery(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    jQuery('.display thead tr')
+        // Setup - add a text input to each footer cell
+        jQuery('.display thead tr')
             .clone(true)
             .addClass('filters')
             .appendTo('.display thead');
-            var table = jQuery('.display').DataTable({
-    "sDom": '<"top">lfi<"bottom"pt><"clear">',
+        var table = jQuery('.display').DataTable({
+            "sDom": '<"top">lfi<"bottom"pt><"clear">',
             language: {
-            "sInfo": ${escapejs(@review.js.info)},
-                    "sInfoEmpty": ${escapejs(@review.js.info.empty)},
-                    "sInfoFiltered": ${escapejs(@review.js.info.filtered)},
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ",",
-                    "sLengthMenu": ${escapejs(@review.js.length.menu)},
-                    "sLoadingRecords": ${escapejs(@review.js.loading.records)},
-                    "sProcessing": ${escapejs(@review.js.processing)},
-                    "sSearch": ${escapejs(@review.js.search)},
-                    "sZeroRecords": ${escapejs(@review.js.no.item)},
-                    "oPaginate": {
+                "sInfo": ${escapejs(@review.js.info)},
+                "sInfoEmpty": ${escapejs(@review.js.info.empty)},
+                "sInfoFiltered": ${escapejs(@review.js.info.filtered)},
+                "sInfoPostFix": "",
+                "sInfoThousands": ",",
+                "sLengthMenu": ${escapejs(@review.js.length.menu)},
+                "sLoadingRecords": ${escapejs(@review.js.loading.records)},
+                "sProcessing": ${escapejs(@review.js.processing)},
+                "sSearch": ${escapejs(@review.js.search)},
+                "sZeroRecords": ${escapejs(@review.js.no.item)},
+                "oPaginate": {
                     "sFirst": ${escapejs(@review.js.first)},
-                            "sLast": ${escapejs(@review.js.last)},
-                            "sNext": ${escapejs(@review.js.next)},
-                            "sPrevious": ${escapejs(@review.js.previous)}
-                    },
-                    "oAria": {
+                    "sLast": ${escapejs(@review.js.last)},
+                    "sNext": ${escapejs(@review.js.next)},
+                    "sPrevious": ${escapejs(@review.js.previous)}
+                },
+                "oAria": {
                     "sSortAscending": ${escapejs(@H|review.js.sort.asc)},
-                            "sSortDescending": ${escapejs(@H|review.js.sort.desc)}
-                    }
+                    "sSortDescending": ${escapejs(@H|review.js.sort.desc)}
+                }
             },
             "aLengthMenu": [15, 25, 50, 100],
             "sPaginationType": "full_numbers",
@@ -39,72 +39,65 @@
             orderCellsTop: true,
             fixedHeader: true,
             # IF C_FILES_IN_CONTENT #
-            "columns": [
-            { "width": "20%" },
-            { "width": "10%" },
-            { "width": "35%" },
-            { "width": "10%" },
-            { "width": "15%" },
-            { "width": "5%" },
-            { "width": "5%" },
-            ],
+                "columns": [
+                    { "width": "20%" },
+                    { "width": "10%" },
+                    { "width": "35%" },
+                    { "width": "10%" },
+                    { "width": "15%" },
+                    { "width": "5%" },
+                    { "width": "5%" },
+                ],
             # ENDIF #
             initComplete: function() {
-            var api = this.api();
-                    // For each column
-                    api
-                    .columns()
-                    .eq(0)
-                    .each(function(colIdx) {
+                var api = this.api();
+                // For each column
+                api.columns()
+                .eq(0)
+                .each(function(colIdx) {
                     // Set the header cell to contain the input element
                     var cell = jQuery('.filters th').eq(
-                            jQuery(api.column(colIdx).header()).index()
-                            );
-                            var title = jQuery(cell).text();
-                            jQuery(cell).html('<div class="relative-search"><input class="search-input" type="text" placeholder="' + title + '" /><i class="far fa-circle-xmark error empty-search" aria-hidden="true"></i></div>');
-                            // On every keypress in this input
-                            var empty = jQuery('.empty-search');
-                            jQuery('input', jQuery('.filters th').eq(jQuery(api.column(colIdx).header()).index()))
-                            .off('keyup change')
-                            .on('keyup change', function(e) {
+                        jQuery(api.column(colIdx).header()).index()
+                    );
+                    var title = jQuery(cell).text();
+                    jQuery(cell).html('<div class="relative-search"><input class="search-input" type="text" placeholder="' + title + '" /><i class="far fa-circle-xmark error empty-search" aria-hidden="true"></i></div>');
+                    // On every keypress in this input
+                    var empty = jQuery('.empty-search');
+                    jQuery('input', jQuery('.filters th').eq(jQuery(api.column(colIdx).header()).index()))
+                        .off('keyup change')
+                        .on('keyup change', function(e) {
                             e.stopPropagation();
-                                    // use empty button on input
-                                    empty.addClass('visible');
-                                    if (!jQuery(this).attr('title', ''))
-                                    empty.removeClass('visible');
-                                    // Get the search value
-                                    jQuery(this).attr('title', jQuery(this).val());
-                                    var regexr = '({search})'; //jQuery(this).parents('th').find('select').val();
+                            // use empty button on input
+                            empty.addClass('visible');
+                            if (!jQuery(this).attr('title', ''))
+                                empty.removeClass('visible');
+                            // Get the search value
+                            jQuery(this).attr('title', jQuery(this).val());
+                            var regexr = '({search})'; //jQuery(this).parents('th').find('select').val();
 
-                                    var cursorPosition = this.selectionStart;
-                                    // Search the column for that value
-                                    api
-                                    .column(colIdx)
-                                    .search(
-                                            this.value != ''
-                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                            : '',
-                                            this.value != '',
-                                            this.value === ''
-                                            )
-                                    .draw();
-                                    jQuery(this)
-                                    .focus()[0]
-                                    .setSelectionRange(cursorPosition, cursorPosition);
-                            });
-                            empty.on('click', function() {
+                            var cursorPosition = this.selectionStart;
+                            // Search the column for that value
+                            api.column(colIdx)
+                                .search(
+                                    this.value != '' ? regexr.replace('{search}', '(((' + this.value + ')))') : '',
+                                    this.value != '',
+                                    this.value === ''
+                                )
+                                .draw();
+                            jQuery(this).focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                        empty.on('click', function() {
                             jQuery(this).siblings().val('').attr('title', '');
-                                    jQuery(this).removeClass('visible');
-                                    api
-                                    .column(colIdx)
-                                    .search('')
-                                    .draw();
-                            });
-                    });
+                            jQuery(this).removeClass('visible');
+                            api.column(colIdx)
+                                .search('')
+                                .draw();
+                        });
+                });
             }
+        });
     });
-    },
-    );
 </script>
 # INCLUDE MESSAGE_HELPER #
 # IF C_FOLDERS_TO_SCAN #
