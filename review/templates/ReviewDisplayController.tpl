@@ -116,7 +116,7 @@
     </div>
 
     # INCLUDE CACHE_BUTTON #
-    # IF C_REVIEW_COUNTERS #<span class="more align-center">{@common.last.update} : {DATE} ${TextHelper::lcfirst(@common.by)} {SCANNED_BY}</span># ENDIF #
+    # IF C_DISPLAY_COUNTERS #<span class="more align-center message-helper bgc warning">{@common.last.update} : <span class="text-strong">{DATE}</span> ${TextHelper::lcfirst(@common.by)} {SCANNED_BY}</span># ENDIF #
 </div>
 <br />
 
