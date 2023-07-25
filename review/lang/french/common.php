@@ -18,6 +18,10 @@ $lang['review.first.scan']   = '
         Cliquer sur le bouton ci-dessus.
     </div>
 ';
+$lang['review.no.scan.available']   = '
+        Aucune analyse ne peut être effectuée.<br />
+        Ajouter des dossier à scanner dans la <a href="' . ReviewUrlBuilder::configuration()->rel() . '">configuration du module</a>
+';
 
 // Configuration
 $lang['review.set.folders.list']      = 'Liste des dossiers à scanner';

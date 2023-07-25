@@ -200,3 +200,16 @@ table thead tr.filters th {
 }
 
 .has-files > label > span { color: var(--success-tone); }
+
+.folders-list {
+    max-width: 300px;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.folders-to-scan:hover .folders-list {
+    opacity: 1;
+    visibility: visible;
+}

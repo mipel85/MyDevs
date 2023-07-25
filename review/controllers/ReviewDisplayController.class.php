@@ -19,7 +19,6 @@ class ReviewDisplayController extends DefaultAdminModuleController
         $cache_in_table = ReviewCacheInTable::load();
         $cache_in_folder = ReviewCacheInFolder::load();
 
-
         if ($this->submit_button->has_been_submited() && $this->form->validate()){
             $this->config->set_date(new Date());
             $this->config->set_scanned_by(AppContext::get_current_user());
@@ -33,15 +32,20 @@ class ReviewDisplayController extends DefaultAdminModuleController
         }
         $date = $this->config->get_date()->get_timestamp();
 
-        $folders_scanned_list = unserialize($this->config->get_folders());
-        foreach ($folders_scanned_list as $folder)
+        $folders_to_scan = unserialize($this->config->get_folders());
+        $folders_number = count($folders_to_scan);
+        $i = 1;
+        foreach ($folders_to_scan as $folder)
         {
-            $this->view->assign_block_vars('scannedfolders', array(
-                'SCANNED_FOLDERS' => $folder->get_id().', ',
+            $this->view->assign_block_vars('folderstoscan', array(
+                'C_SEPARATOR' => $i < $folders_number,
+                'FOLDERS_TO_SCAN' => $folder->get_id(),
             ));
+            $i++;
         }
 
         $this->view->put_all(array(
+            'C_FOLDERS_TO_SCAN'   => !empty($folders_to_scan),
             'C_DISPLAY_COUNTERS'  => $this->config->get_first_scan(),
             'C_GALLERY_DISPLAYED' => ReviewService::is_module_displayed('gallery'),
             'C_GALLERY_FOLDER'    => ReviewService::is_folder_on_server('/gallery'),

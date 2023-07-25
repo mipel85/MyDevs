@@ -52,10 +52,10 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 	}
 
 	private function get_recursive_content()
-	{		
+	{
 		$upload_config = FileUploadConfig::load();
 		$root = new Folder(PATH_TO_ROOT);
-		
+
 		$folders_list = array();
 		foreach($root->get_folders() as $object)
 		{
@@ -66,7 +66,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 			foreach ($files as $file)
 			{
 				$file = new File($file->getPath() . '/' . $file->getFileName());
-				if (in_array($file->get_extension(), $upload_config->get_authorized_extensions()))
+				if (in_array($file->get_extension(), (array)$upload_config->get_authorized_extensions()))
 				{
 					$path = explode('/', $file->get_path());
 					$content_list[] = $path[1];
@@ -79,7 +79,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 				if (!is_null($folder) && !in_array($folder, array('install', 'kernel', 'update')))
 				{
 					$folders_list[] = new FormFieldMultipleCheckboxOption($folder, $folder . ' (' . $f . ')');
-				}					
+				}
 			}
 		}
 		return $folders_list;
