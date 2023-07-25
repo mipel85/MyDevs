@@ -21,7 +21,7 @@ $lang['review.first.scan']   = '
 ';
 $lang['review.no.scan.available']   = '
         Aucune analyse ne peut être effectuée.<br />
-        Ajouter des dossier à scanner dans la <a href="' . ReviewUrlBuilder::configuration()->rel() . '">configuration du module</a>
+        Ajouter des dossiers à scanner dans la <a href="' . ReviewUrlBuilder::configuration()->rel() . '">configuration du module</a>
 ';
 
 // Configuration
