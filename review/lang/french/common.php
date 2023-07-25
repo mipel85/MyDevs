@@ -12,6 +12,7 @@ $lang['review.module.title'] = 'Revue de fichiers';
 
 $lang['review.run.scan']     = 'Lancer une analyse';
 $lang['review.restart.scan'] = 'Relancer une analyse';
+$lang['review.folders.configured.for.scanning'] = 'Voir les dossiers configurés pour l\'analyse';
 $lang['review.first.scan']   = '
     <div class="message-helper bgc warning">
         Aucune analyse n\'a encore été effectuée.<br />

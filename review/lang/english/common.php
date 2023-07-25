@@ -11,6 +11,7 @@ $lang['review.module.title'] = 'Files review';
 
 $lang['review.run.scan'] = 'Run scan';
 $lang['review.restart.scan'] = 'Restart scan';
+$lang['review.folders.configured.for.scanning'] = 'View folders configured for scanning';
 $lang['review.first.scan'] = '
     <div class="message-helper bgc warning">
         No analysis has been performed yet.<br />

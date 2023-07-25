@@ -103,38 +103,38 @@
                     });
             }
     });
-    }
+    },
     );
 </script>
 # INCLUDE MESSAGE_HELPER #
 # IF C_FOLDERS_TO_SCAN #
-    <div class="flex-between cell-tile">
-        # INCLUDE CACHE_BUTTON #
-        <div class="folders-to-scan">
-            <span> <i class="fa fa-eye fa-fw"></i> Dossiers configurés pour l'analyse</span>
-            <div class="folders-list cell">
-                <div class="cell-body cell-content">
-                    # START folderstoscan #
-                        <span class="pinned bgc question">{folderstoscan.FOLDERS_TO_SCAN}</span># IF folderstoscan.C_SEPARATOR # &nbsp;&nbsp; # ENDIF #
-                    # END folderstoscan #
-                </div>
+<div class="flex-between cell-tile">
+    # INCLUDE CACHE_BUTTON #
+    <div class="folders-to-scan">
+        <span> <i class="fa fa-eye fa-fw"></i> {@review.folders.configured.for.scanning}</span>
+        <div class="folders-list cell">
+            <div class="cell-body cell-content">
+                # START folderstoscan #
+                <span class="pinned bgc question">{folderstoscan.FOLDERS_TO_SCAN}</span># IF folderstoscan.C_SEPARATOR # &nbsp;&nbsp; # ENDIF #
+                # END folderstoscan #
             </div>
         </div>
-        # IF C_DISPLAY_COUNTERS #
-            <span class="more align-center message-helper bgc warning">{@common.last.update} : <span class="text-strong">{DATE}</span> ${TextHelper::lcfirst(@common.by)} {SCANNED_BY}</span>
-        # ELSE # 
-            <span></span>
-        # ENDIF #
     </div>
-    <br />
-
-    # IF C_DISPLAY_COUNTERS #    
-    # INCLUDE REVIEW_COUNTERS #
-    # ELSE #
-    {@H|review.first.scan}
+    # IF C_DISPLAY_COUNTERS #
+    <span class="align-center message-helper bgc warning">{@common.last.update} : <span class="text-strong">{DATE}</span> ${TextHelper::lcfirst(@common.by)} {SCANNED_BY}</span>
+    # ELSE # 
+    <span></span>
     # ENDIF #
+</div>
+<br />
+
+# IF C_DISPLAY_COUNTERS #    
+# INCLUDE REVIEW_COUNTERS #
 # ELSE #
-    <div class="message-helper bgc warning">{@H|review.no.scan.available}</div>
+{@H|review.first.scan}
+# ENDIF #
+# ELSE #
+<div class="message-helper bgc warning">{@H|review.no.scan.available}</div>
 # ENDIF #
 
 # IF C_FILES_IN_UPLOAD_FOLDER #
