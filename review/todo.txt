@@ -1,0 +1,21 @@
+17/11/2022
+rajouter le dossier image  
+
+pouvoir rajouter un dossier de module  
+
+config
+liste des extensions autorisées dans l'analyse
+
+several
+restitution de l'inventaire de tous les dossiers contenant des fichiers cibles
+
+dossier upload => x fichiers => bouton analyse
+dossier gallery/pics => x fichiers => bouton analyse
+dossier machin => x fichiers => bouton analyse
+dossier machin/sous-machin => x fichiers => bouton analyse
+...
+total des dossiers/sous-dossiers / nb total de dossiers
+
+single
+résultat de l'action sur bouton analyse
+*****************************
