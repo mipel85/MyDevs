@@ -1,11 +1,8 @@
-<header>
-    <h2>{@review.module.title}</h2>
-</header>
 <article class="cell-tile">
     <div class="cell-flex cell-columns-2">
         <div class="cell">
             <div class="cell-header">
-                <h5 class="cell-name">{@review.files.status}</h5>
+                <h5 class="cell-name">{@review.files.status.upload}</h5>
             </div>
             <div class="cell-list">
                 <ul>
@@ -37,7 +34,7 @@
 
         <div class="cell">
             <div class="cell-header">
-                <h5 class="cell-name">{@review.anomalies.lists}</h5>
+                <h5 class="cell-name">{@review.anomalies.lists.upload}</h5>
             </div>
             <div class="cell-list">
                 <ul>

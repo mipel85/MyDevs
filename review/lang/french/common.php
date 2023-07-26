@@ -21,7 +21,7 @@ $lang['review.first.scan']   = '
 ';
 $lang['review.no.scan.available']   = '
         Aucune analyse ne peut être effectuée.<br />
-        Ajouter des dossier à scanner dans la <a href="' . ReviewUrlBuilder::configuration()->rel() . '">configuration du module</a>
+        Ajouter des dossiers à scanner dans la <a href="' . ReviewUrlBuilder::configuration()->rel() . '">configuration du module</a>
 ';
 
 // Configuration
@@ -34,10 +34,12 @@ $lang['review.set.folders.list.clue'] = '
 
 // Upload Counters
 $lang['review.files.status']               = 'Situation des fichiers';
+$lang['review.files.status.upload']        = 'Situation des fichiers - dossier upload';
 $lang['review.upload.folder.files']        = 'Fichiers présents dans le dossier /upload';
 $lang['review.upload.table.files']         = 'Fichiers présents dans la table upload';
 $lang['review.content.files']              = 'Fichiers présents dans un contenu (sans doublons)';
 $lang['review.anomalies.lists']            = 'Listes des anomalies';
+$lang['review.anomalies.lists.upload']     = 'Listes des anomalies du dossier upload';
 $lang['review.missing.used.files']         = 'Fichiers utilisés mais absents du dossier /upload (404)';
 $lang['review.upload.folder.unsued.files'] = 'Fichiers non utilisés mais présents dans le dossier /upload';
 $lang['review.upload.table.unsued.files']  = 'Fichiers non utilisés mais présents dans table upload';
