@@ -6,6 +6,7 @@
  * @version     PHPBoost 6.0 - last update: 2023 06 20
  * @since       PHPBoost 6.0 - 2022 01 10
  */
+
 class ReviewDisplayController extends DefaultAdminModuleController
 {
 
