@@ -78,23 +78,21 @@ table thead tr.filters th {
     background-color: var(--bgc-alt);
 }
 
+table tbody tr { position: relative;}
+
 .review-preview img,
 .review-preview embed {
     display: none;
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    right: 40px;
+    transform: translateY(-50%);
+    z-index: 10;
 }
 
-.review-preview img { 
-    max-width: 60%; 
-    max-height: 100%;
-}
-
+.review-preview img,
 .review-preview embed {
-    width: 60%;
-    height: 600px;
+    max-width: 260px;
 }
 
 .review-preview:hover img,
