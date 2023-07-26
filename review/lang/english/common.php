@@ -3,9 +3,10 @@
  * @copyright   &copy; 2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel <mipel@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2023 06 20
+ * @version     PHPBoost 6.0 - last update: 2023 07 26
  * @since       PHPBoost 6.0 - 2022 01 10
  */
+
 // Titles
 $lang['review.module.title'] = 'Files review';
 
@@ -24,7 +25,7 @@ $lang['review.no.scan.available']   = '
 ';
 
 // Configuration
-$lang['review.set.folders.list'] = 'Liste des dossiers à scanner';
+$lang['review.set.folders.list'] = 'List of folders to scan';
 $lang['review.set.folders.list.clue'] = '
     Target files are files whose extension is allowed in the <a href="' . AdminFilesUrlBuilder::configuration()->rel() . '">file setup</a>. <br />
     Folders appear automatically when they contain target files. <br />
