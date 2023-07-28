@@ -28,7 +28,7 @@ class ReviewService
         $result = ReviewService::get_tables_with_content_field();
         foreach ($result as $values)
         {
-            preg_match('`_([a-z]*)`ius', $values['table'], $item_source); // récupération du module source du contenu
+            preg_match('`_([a-z]*)`iusU', $values['table'], $item_source); // récupération du module source du contenu
             $req = PersistenceContext::get_querier()->select(' SELECT *
             FROM ' . $values['table'] . '
             WHERE '. $values['column'] . ' LIKE "%/' . $folder . '%"
@@ -139,7 +139,7 @@ class ReviewService
             $results[] = $row['path'];
         }
         $req->dispose();
-        
+
         return $results;
     }
 

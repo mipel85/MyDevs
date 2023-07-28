@@ -18,6 +18,7 @@ class ReviewDisplayController extends DefaultAdminModuleController
 
         $cache_in_table = ReviewCacheInTable::load();
         $cache_in_folder = ReviewCacheInFolder::load();
+        $folders_to_scan = TextHelper::deserialize($this->config->get_folders());
 
         if ($this->submit_button->has_been_submited() && $this->form->validate()){
             $this->config->set_date(new Date());
@@ -25,10 +26,9 @@ class ReviewDisplayController extends DefaultAdminModuleController
             $this->config->set_first_scan(true);
             ReviewConfig::save();
             ReviewService::delete_files_incontenttable();
-            $config = ReviewConfig::load()->get_folders();
-            foreach(TextHelper::deserialize($config) as $k => $value)
+            foreach(TextHelper::deserialize($folders_to_scan) as $k => $folder)
             {
-                ReviewService::insert_files_incontenttable($value->get_id());
+                ReviewService::insert_files_incontenttable($folder->get_id());
             }
             ReviewCacheInTable::invalidate();
             ReviewCacheInFolder::invalidate();
@@ -36,7 +36,6 @@ class ReviewDisplayController extends DefaultAdminModuleController
         }
         $date = $this->config->get_date()->get_timestamp();
 
-        $folders_to_scan = unserialize($this->config->get_folders());
         $folders_number = count($folders_to_scan);
         $i = 1;
         foreach ($folders_to_scan as $folder)
