@@ -39,7 +39,7 @@ class AdminReviewConfigController extends DefaultAdminModuleController
 			TextHelper::deserialize($this->config->get_folders()),
 			$this->get_recursive_content(),
 			array(
-				'required' => true, 
+				'required' => true,
 				'class' => 'mini-checkbox full-field'
 			)
 		));

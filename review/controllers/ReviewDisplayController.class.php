@@ -3,13 +3,12 @@
  * @copyright   &copy; 2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel <mipel@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2023 06 20
+ * @version     PHPBoost 6.0 - last update: 2023 07 28
  * @since       PHPBoost 6.0 - 2022 01 10
  */
 
 class ReviewDisplayController extends DefaultAdminModuleController
 {
-
     public function execute(HTTPRequestCustom $request)
     {
         $this->build_form();
@@ -26,7 +25,11 @@ class ReviewDisplayController extends DefaultAdminModuleController
             $this->config->set_first_scan(true);
             ReviewConfig::save();
             ReviewService::delete_files_incontenttable();
-            ReviewService::insert_files_incontenttable();
+            $config = ReviewConfig::load()->get_folders();
+            foreach(TextHelper::deserialize($config) as $k => $value)
+            {
+                ReviewService::insert_files_incontenttable($value->get_id());
+            }
             ReviewCacheInTable::invalidate();
             ReviewCacheInFolder::invalidate();
             AppContext::get_response()->redirect($request->get_url_referrer());
