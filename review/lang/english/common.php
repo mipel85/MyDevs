@@ -6,7 +6,6 @@
  * @version     PHPBoost 6.0 - last update: 2023 07 26
  * @since       PHPBoost 6.0 - 2022 01 10
  */
-
 // Titles
 $lang['review.module.title'] = 'Files review';
 

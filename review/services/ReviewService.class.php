@@ -3,7 +3,7 @@
  * @copyright   &copy; 2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Mipel <mipel@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 05
+ * @version     PHPBoost 6.0 - last update: 2023 07 28
  * @since       PHPBoost 6.0 - 2022 01 10
  */
 
@@ -23,15 +23,15 @@ class ReviewService
         self::$cache_in_folder = ReviewCacheInFolder::load();
     }
 
-    public static function insert_files_incontenttable()
+    public static function insert_files_incontenttable(string $folder)
     {
         $result = ReviewService::get_tables_with_content_field();
         foreach ($result as $values)
         {
-            $matches = preg_match('`_([a-z]*)`us', $values['table'], $item_source); // récupération du module source du contenu
+            preg_match('`_([a-z]*)`ius', $values['table'], $item_source); // récupération du module source du contenu
             $req = PersistenceContext::get_querier()->select(' SELECT *
             FROM ' . $values['table'] . '
-            WHERE ' . $values['column'] . ' LIKE "%/upload%"
+            WHERE '. $values['column'] . ' LIKE "%/' . $folder . '%"
             ');
             $module = $item_source[1];
             if (ReviewService::check_module_compatibility($module)){
@@ -41,7 +41,7 @@ class ReviewService
 
                     $id = array_values($data); // on cherche l'id (première valeur du tableau de résultats)
                     $content = TextHelper::htmlspecialchars($data[$values['column']]);
-                    $matches = preg_match_all('`\/upload\/(\S+\.\w*+)`usU', $content, $files);
+                    preg_match_all('`\/' . $folder . '\/(\S+\.\w*+)`usU', $content, $files);
                     $unique_files_path = array_unique($files[1]);
 
                     if ($module == 'newsletter')
@@ -59,7 +59,7 @@ class ReviewService
                     {
                         $upload_data = ReviewService::get_upload_data_file($path);
                         PersistenceContext::get_querier()->insert(ReviewSetup::$files_incontenttable, array(
-                            'path'          => $path,
+                            'path'               => $path,
                             'file_link'          => ReviewService::check_module_compatibility($module) ? $file_link : '#',
                             'file_size'          => isset($upload_data['file_size']) ? $upload_data['file_size'] : '',
                             'upload_by'          => isset($upload_data['display_name']) ? $upload_data['display_name'] : '',
@@ -295,52 +295,52 @@ class ReviewService
         {
             case 'wiki' :
                 $wiki_title = Url::encode_rewrite(ReviewService::get_wiki_title($data['id_article']));
-                $link = TPL_PATH_TO_ROOT . '/wiki/' . url('wiki.php?title=' . $wiki_title, $wiki_title);
+                $link = Url::to_rel('/wiki/wiki.php?title=' . $wiki_title, $wiki_title);
                 return $link;
                 break;
             case 'media' :
                 if (isset($data['id_category'])){ // is not a category
-                    $link = TPL_PATH_TO_ROOT . '/media/' . url('media.php?id=' . $data['id'], 'media-' . $data['id_category'] . '-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
+                    $link = Url::to_rel('/media/media.php?id=' . $data['id'], 'media-' . $data['id_category'] . '-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
                     return $link;
                 }else{ //is a category
-                    $link = TPL_PATH_TO_ROOT . '/media/' . url('media.php?cat=' . $data['id']);
+                    $link = Url::to_rel('/media/media.php?cat=' . $data['id']);
                     return $link;
                 }
                 break;
             case 'gallery' : // voir dossier pics
-                $link = TPL_PATH_TO_ROOT . '/gallery/gallery-' . $data['id'] . '+' . $data['rewrited_name'] . '.php';
+                $link = Url::to_rel('/gallery/gallery-' . $data['id'] . '+' . $data['rewrited_name'] . '.php');
                 return $link;
                 break;
             case 'faq' :
                 if (isset($data['id_category']))
                 {
                     $cat_name = self::get_category_name($module, $data);
-                    $link = TPL_PATH_TO_ROOT . '/faq/' . $data['id'] . '-' . $cat_name . '/#question' . $data['id'] . '';
+                    $link = Url::to_rel('/faq/' . $data['id'] . '-' . $cat_name . '/#question' . $data['id'] . '');
                     return $link;
                 }
                 else // is a category
                 {
-                    $link = TPL_PATH_TO_ROOT . '/faq/' . $data['id'] . '-' . $data['rewrited_name'];
+                    $link = Url::to_rel('/faq/' . $data['id'] . '-' . $data['rewrited_name']);
                     return $link;
                 }
                 break;
             case 'forum':
                 if (isset($data['idtopic'])){ // is a topic or a msg
                      //'$pt=1' --> solution provisoire pour définir un n° de page --> utiliser les hook pour trouver le bon numéro
-                    $link = TPL_PATH_TO_ROOT . '/forum/' . url('topic.php?id=' . $data['idtopic'] . '&pt=1' . '#m' . $data['id']);
+                    $link = Url::to_rel('/forum/topic.php?id=' . $data['idtopic'] . '&pt=1' . '#m' . $data['id']);
                     return $link;
                 }else{ // is forum or subject
-                    $link = TPL_PATH_TO_ROOT . '/forum/' . url('forum.php?id=' . $data['id'], 'forum-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
+                    $link = Url::to_rel('/forum/forum.php?id=' . $data['id'], 'forum-' . $data['id'] . '+' . Url::encode_rewrite($data['title']) . '.php');
                     return $link;
                 }
                 break;
             case 'newsletter':
                 if (isset($data['stream_id'])){ // is a newsletter content
                     $newsletter_title = ReviewService::get_newsletter_title($data['stream_id']);
-                    $link = TPL_PATH_TO_ROOT . '/newsletter/archives/' . $data['stream_id'] . '-' . $newsletter_title;
+                    $link = Url::to_rel('/newsletter/archives/' . $data['stream_id'] . '-' . $newsletter_title);
                     return $link;
                 }else{
-                    $link = TPL_PATH_TO_ROOT . '/newsletter/streams/';
+                    $link = Url::to_rel('/newsletter/streams/');
                     return $link;
                 }
                 break;
