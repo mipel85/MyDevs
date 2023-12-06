@@ -3,15 +3,15 @@
  * Cette classe permet de se connecter à la base de données et d'executer des requetes.
  */
 
-require_once('connexion_config.class.php');
+require_once('connection_config.class.php');
 
 class Connexion
 {
     static private $DB = null;
-    static private $DB_ADDR = CONNEXION_CONFIG::DB_ADDR;
-    static private $DB_NAME = CONNEXION_CONFIG::DB_NAME;
-    static private $DB_USER = CONNEXION_CONFIG::DB_USER;
-    static private $DB_PSWD = CONNEXION_CONFIG::DB_PSWD;
+    static private $DB_ADDR = CONNECTION_CONFIG::DB_ADDR;
+    static private $DB_NAME = CONNECTION_CONFIG::DB_NAME;
+    static private $DB_USER = CONNECTION_CONFIG::DB_USER;
+    static private $DB_PSWD = CONNECTION_CONFIG::DB_PSWD;
     static private $table;
 
     function __construct($table = NULL)
