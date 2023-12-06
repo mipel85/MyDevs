@@ -23,6 +23,8 @@ main {
     padding: 0 15px;
 }
 
+#top-header a { color: #FFFFFF; }
+
 #logo {
     width: 128px;
     height: 128px;

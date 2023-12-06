@@ -43,16 +43,24 @@
                         <?php
                             foreach (Joueurs::liste_joueurs_connus() as $joueur)
                             {
+                                $checked = '';
+                                if ($joueur['fav'])
+                                    $checked = ' checked';
                                 echo '<tr>
                                     <td>' . $joueur['id'] . '</td>
                                     <td>' . $joueur['nom'] . '</td>
-                                    <td><input type="button" id="' . $joueur['id'] . '" class="btn-fav-joueur" /></td>
+                                    <td><input type="checkbox" id="' . $joueur['id'] . '" class="btn-fav-joueur" /></td>
                                     <td><input type="button" id="' . $joueur['id'] . '" class="btn-sup-joueur" /></td>
                                 </tr>';
                             }
                         ?>
                     </tbody>
                 </table>
+                <div class="line flex-between">
+                    <span>&nbsp;</span>
+                    <input type="button" id="btn_valid_favs" onclick="location.reload();" class="button submit" value="Valider les favoris" />
+                    <input type="button" id="btn_reset_favs" class="button btn-reset-present" value="Décocher tout" />
+                </div>
             </div>
         </article>
         <article id="parties" class="tab-content cell-flex cell-columns-2">

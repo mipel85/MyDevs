@@ -9,6 +9,7 @@
                     <tr>
                         <th>N°</th>
                         <th>Nom</th>
+                        <th>fav</th>
                         <th>Choisir</th>
                     </tr>
                 </thead>
@@ -16,12 +17,12 @@
                     <?php
                         foreach (Joueurs::liste_joueurs_connus() as $joueur)
                         {
-                            $checked = '';
-                            if ($joueur['present'])
-                                $checked = ' checked';
+                            $checked = $joueur['present'] ? ' checked' : '';
+                            $fav = $joueur['fav'] ? '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>';
                             echo '<tr>
                                 <td>' . $joueur['id'] . '</td>
                                 <td>' . $joueur['nom'] . '</td>
+                                <td>' . $fav . '</td>
                                 <td><input type="checkbox" id="' . $joueur['id'] . '" class="checkbox-choix-joueur"' . $checked . ' /></td>
                             </tr>';
                         }

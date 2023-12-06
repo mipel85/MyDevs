@@ -118,7 +118,7 @@ class Joueurs {
     static function liste_joueurs_connus()
     {
         $liste_joueurs = array();
-        $req = 'SELECT id, nom, present FROM joueurs ORDER BY `nom` ASC';
+        $req = 'SELECT id, nom, fav, present FROM joueurs ORDER BY `nom` ASC';
         if ($result = Connexion::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)

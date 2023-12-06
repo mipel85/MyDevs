@@ -55,6 +55,23 @@ switch($actions)
         $reset->reset_all_presents();
         break;
 
+    case 'favory':
+        $favory = new Joueurs();
+        $favory->setId($_POST['id']);
+        $favory->select_fav();
+        break;
+    
+    case 'anonyme':
+        $anonyme = new Joueurs();
+        $anonyme->setId($_POST['id']);
+        $anonyme->reset_fav();
+        break;
+
+    case 'reset_all_favs':
+        $reset = new Joueurs();
+        $reset->reset_all_favs();
+        break;
+
     default:
         break;
 }
