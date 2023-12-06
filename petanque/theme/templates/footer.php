@@ -6,6 +6,6 @@
     else $year = $startYear . ' - ' . $currentYear;
 ?>
         </main>
-        <footer id="footer">&copy; PLSF <?php echo $year ?></footer>
+        <footer id="footer">&copy; PLSF <?= $year ?></footer>
     </body>
 </html>

@@ -1,6 +1,5 @@
 <?php
-$title = 'Configuration';
-require_once('./functions/header.php');
+$title = 'Joueurs';
 ?>
     <section>
         <header class="section-header">
@@ -47,6 +46,3 @@ require_once('./functions/header.php');
             </article>
         </div>
     </section>
-<?php
-require_once('./functions/footer.php');
-?>

@@ -1,9 +1,7 @@
 <?php
-    $title = 'Partie';
-    require_once('./functions/header.php');
-    require_once('classes/joueurs.class.php');
-    require_once('classes/parties.class.php');
-    require_once('classes/manches.class.php');
+    require_once('./classes/joueurs.class.php');
+    require_once('./classes/parties.class.php');
+    require_once('./classes/manches.class.php');
 ?>
 <section>
     <header class="section-header">
@@ -45,8 +43,4 @@
         </script>
     </div>
 </section>
-
-<?php
-require_once('./functions/footer.php');
-?>
 

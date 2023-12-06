@@ -1,4 +1,4 @@
-# Script to manage a Petanque casual competition
+# Petanque casual competition manager
 
 ## Connect to the database
 - create database
@@ -17,4 +17,5 @@ class CONNECTION_CONFIG
     const DB_USER = ''; // username to connect to the database
     const DB_PSWD = ''; // password to connect to the database
 }
-?>```
+?>
+```

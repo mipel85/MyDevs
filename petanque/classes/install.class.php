@@ -11,10 +11,11 @@ class install {
     static function create_players_table()
     {
         $requete = 'CREATE TABLE IF NOT EXISTS petanque.joueurs (
-           `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-           `nom` varchar(200) NOT NULL,
-           `present` tinyint(1) DEFAULT NULL
-           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
+                        `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                        `nom` varchar(200) NOT NULL,
+                        `present` tinyint(1) DEFAULT NULL,
+                        `fav` tinyint(1) DEFAULT NULL
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
 
         return Connexion::query($requete);
     }

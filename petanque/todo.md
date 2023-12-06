@@ -1,7 +1,8 @@
-# Connection
-    Séparer les identifiants de connexion à la bdd pour ne pas le transmettre dans github
+# TODO
+## Connection
+    ~~Séparer les identifiants de connexion à la bdd pour ne pas le transmettre dans github~~
 
-# Partie
+## Partie
     initialisation d'une partie = bouton d'ajout + récupérer la date de façon cachée
     si partie existe déjà
         - bouton d'ajout => disabled
@@ -11,16 +12,16 @@
         - disactiver le boutton d'ajout
         - afficher formulaire de manches
 
-# Manche
+## Manche
     formulaire caché par default si aucune partie créée
     si moins de 4 joueurs sélectionnés, désactiver le bouton d'ajout +  message error = "sélectionnez au moins 4 joueurs"
 
     manche max = 4
     ajouter un index de 1 à 4 à chaque manche (index: i_order = 1 ; i_order++)
-    à la création de la manche 
+    à la création de la manche
         - afficher liste des équipes + vérif rules.php
         - créer rencontres + afficher les rencontres dans la page rencontre
 
-# Admin
+## Admin
     bouton reset all sauf joueurs
 
