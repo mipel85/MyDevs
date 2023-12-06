@@ -1,0 +1,172 @@
+/* --- Reset generic tags for different browsers --------------------------- */
+* {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	outline: none;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+    font-size: 10px;
+}
+
+img, table, td, blockquote, code, pre, textarea, input, audio, video, object, iframe { max-width: 100%; }
+
+iframe { border: none; }
+
+input, button, label, select, textarea, legend {
+	font-family: inherit;
+	font-size: inherit;
+	vertical-align: middle;
+}
+
+optgroup, select, label, button, .button, [type="radio"], [type="checkbox"], [type="color"], .notation .star { cursor: pointer; }
+
+button::-moz-focus-inner, .button::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+div, textarea, table, td, th, code, pre, samp {
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	hyphens: auto;
+	-ms-hyphens: auto;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
+}
+
+/* --- Fix for no wrap for button --- */
+button, .button {
+	word-wrap: normal;
+	overflow-wrap: normal;
+	hyphens: auto;
+	-ms-hyphens: auto;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
+}
+
+/* --- Fix for chrome word-wrap --- */
+fieldset { min-width: 0 !important; }
+
+hr {
+	border: none;
+	margin: 0.228em auto;
+	height: 1px;
+	width: 99%;
+}
+
+ul, ol {
+	line-height: normal;
+	margin-left: 2.618em;
+	margin-bottom: 0.809em;
+}
+
+p {
+	margin-bottom: 0.618em;
+	font-size: 1em;
+}
+
+a { text-decoration: none; }
+
+a:hover {
+	text-decoration: underline;
+	transition: all 0.3s ease;
+}
+
+/* --- Titles --- */
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 700;
+	word-wrap: break-word;
+	overflow-wrap: break-word ;
+	hyphens: auto;
+	line-height: normal;
+    margin: 0;
+}
+
+@media (min-width:769px) {
+	h1, h2, h3, h4, h5, h6 {
+		word-wrap: normal;
+		overflow-wrap: normal;
+		hyphens: none;
+	}
+}
+
+table {
+	width: 100%;
+    margin: 0 auto;
+    clear: both;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+th {
+	padding: 0.228em;
+	font-size: 1.2em;
+	text-align: center;
+	font-weight: normal;
+	border-width: 1px 0 1px 1px;
+	border-style: solid;
+	border-color: transparent;
+}
+
+th:last-child { border-width: 1px; }
+
+td {
+	padding: 0.456em;
+	text-align: center;
+	border-width: 0 0 1px 1px;
+	border-style: solid;
+	border-color: transparent;
+}
+
+td:last-child { border-width: 0 1px 1px 1px; }
+
+pre { white-space: pre-wrap; }
+
+abbr {
+	cursor: help;
+	font-variant: none;
+	text-decoration: none;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: transparent;
+}
+
+/* --- Print --- */
+@media print {
+	* {
+		background-color: transparent;
+		text-shadow: none;
+		box-shadow: none;
+		color: #000000;
+	}
+}
+
+/* --- Blink animation effect ----------------------------------------------- */
+@keyframes blink {
+	0%   { opacity: 0; }
+	30%  { opacity: 1; }
+	70%  { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+.blink { animation: blink 1.5s ease-in-out infinite; }
+
+
+/* --- Basic font ----------------------------------------------------------- */
+/* --- open-sans-300 - latin --- */
+/* @font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+	src: local('Open Sans Light'), local('OpenSans-Light'),
+		url('fonts/open-sans/open-sans-v13-latin-300.woff2') format('woff2'),
+		url('fonts/open-sans/open-sans-v13-latin-300.woff') format('woff'),
+		url('fonts/open-sans/open-sans-v13-latin-300.ttf') format('truetype');
+} */

@@ -1,0 +1,165 @@
+body {
+    margin: 0;
+    height: auto;
+    min-height: 100%;
+    font-size: 1.6em;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+main {
+    flex: 1 1 auto;
+}
+
+#top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2cbf8e;
+    color: #FFFFFF;
+    padding: 0 15px;
+}
+
+#logo {
+    width: 128px;
+    height: 128px;
+    background: url('../images/stefoy115-106.png') no-repeat center;
+}
+
+#site-name {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+@media (min-width: 769px) {
+    #logo {
+        width: 128px;
+        height: 128px;
+    }
+
+    #site-name { font-size: 40px; }
+}
+
+section { padding: 20px; }
+
+section header { font-style: italic; }
+
+.content { padding: 0 20px; }
+
+h1, h2, h3, h4, h5, h6 {
+    padding: 15px;
+}
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.809em; }
+h3 { font-size: 1.618em; }
+h4 { font-size: 1.456em; }
+h5 { font-size: 1.228em; }
+h6 { font-size: 1em; }
+
+@media (min-width: 769px) {
+    h1 { font-size: 2.456em; }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.809em; }
+    h4 { font-size: 1.618em; }
+    h5 { font-size: 1.456em; }
+    h6 { font-size: 1.228em; }
+}
+
+.equipes-title{
+    font-size: 28px;
+    font-weight: bold;
+    position: relative;
+    top: 97px;
+    left: 542px;
+    font-style: italic;
+}
+
+.button {
+    padding: .5em 1em;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    font-size: 0.88em;
+}
+
+.button:hover {
+    border: 1px solid #666;
+    background-color: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom, rgba(153, 153, 153, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
+}
+
+/* affichage de la table des joueurs connus */
+.table th {
+    text-align: center !important;
+    background-color: #007fff;
+    color: #ccffff;
+}
+
+.table td {
+    text-align: center;
+    max-width: 80px;
+    border-color: #DED983;
+    background-color: #ccffff;
+}
+
+.is_empty{
+    background-color: #f1a899;
+}
+
+.nom-ajout{
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+.checkbox-choix-joueur{
+    cursor: pointer;
+    border: 0px;
+    text-decoration: none;
+    background: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+}
+
+.btn-sup-joueur{
+    cursor: pointer;
+    border: 0px;
+    text-decoration: none;
+    background: transparent;
+    background-image: url(../images/drop.png);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100px;
+    height: 25px;
+}
+
+select,
+input:not([type="submit"]) {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    color: inherit;    
+}
+
+/* datatables button print */
+div.dt-buttons {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 0;
+}
+
+#footer {
+    text-align: center;
+    padding: 10px;
+}

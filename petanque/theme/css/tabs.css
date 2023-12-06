@@ -1,0 +1,58 @@
+
+
+/* --- Tabs ---------------------------------------------------------------- */
+.tabs-container {
+    display: block;
+}
+
+.tabs-menu {
+    border: 1px solid #444444;
+    border-bottom: 0;
+    background-color: #2cbf8e;
+    display: flex;
+    padding: 5px 5px 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.tab-trigger {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 0.309em;
+    transition: 0.3s;
+    background-color: #2cbf8e;
+    color: #FFFFFF;
+}
+
+/* Change background color of buttons on hover */
+.tab-trigger:hover {
+    background-color: #FFFFFF;
+    color: #444444;
+}
+
+/* Create an active/current tablink class */
+.tab-trigger.active-tab {
+    background-color: #FFFFFF;
+    color: #444444;
+}
+
+/* Style the tab content */
+.tab-content {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tab-content.active-tab {
+    border: 1px solid #444444;
+    border-top: none;
+    padding: 10px;
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+    transition: opacity 0.3s ease;
+}
