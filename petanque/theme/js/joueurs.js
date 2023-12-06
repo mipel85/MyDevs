@@ -18,6 +18,28 @@ $(document).ready(function() {
             "columns": [
                 {type: "num"},
                 {type: "text"},
+                {type: "text"},
+                {orderable: false}
+            ]
+        }
+    );
+    $('#table_select_joueurs').DataTable(
+        {
+            dom: 'lfrip<t>B',
+            buttons: [
+                'print'
+            ],
+            language: {
+                url: './js/lib/language.json'
+            },
+            "aLengthMenu": [10, 20, 30, 50],
+            "paginationType": "simple_numbers",
+            "pageLength": 10,
+            "fixedHeader": true,
+            "paging": true,
+            "columns": [
+                {type: "num"},
+                {type: "text"},
                 {orderable: false}
             ]
         }

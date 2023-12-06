@@ -2,6 +2,9 @@
 ## Connection
     ~~Séparer les identifiants de connexion à la bdd pour ne pas le transmettre dans github~~
 
+## Accueil
+créer la doc dans /theme/templates/home.php
+
 ## Partie
     initialisation d'une partie = bouton d'ajout + récupérer la date de façon cachée
     si partie existe déjà

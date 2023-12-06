@@ -4,7 +4,7 @@
     </header>
     <div class="cell-flex cell-columns-2">
         <article class="content">
-            <table id="table_joueurs_connus" class="table">
+            <table id="table_select_joueurs" class="table">
                 <thead>
                     <tr>
                         <th>N°</th>

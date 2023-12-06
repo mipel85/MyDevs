@@ -1,9 +1,12 @@
 <?php
-require_once('./functions/header.php');
 require_once('./functions/rules.php');
 require_once('./classes/connexion.class.php');
 require_once('./classes/connexion.class.php');
 require_once('./classes/joueurs.class.php');
+?>
+<section>
+    <article class="content">
+<?php
 
 $nb_presents = count(joueurs::liste_joueurs_presents());
 echo 'Joueurs présents = ' . $nb_presents . ' <br /> composition trouvée = ' . rules($nb_presents) . ' <br /><br />';
@@ -20,5 +23,7 @@ require_once('./functions/creerEquipes.php');
 echo '<br /><br />';
 
 require_once('./functions/creerMatchs.php');
-require_once('./functions/footer.php');
 ?>
+
+</article>
+</section>

@@ -155,32 +155,4 @@ class Joueurs {
             echo '<tr><td>' . $val['nom'] . '</td><td><button id="' . $val['id'] . '" class="btn-sup"></button></td></tr>';
         }
     }
-
-    static function creation_equipes($liste)
-    {
-        foreach ($liste as $val)
-        {
-            $data = array('nom' => $val->getNom_joueur(), 'choix' => '<input type="checkbox" id="' . $val->getId() . '" class="btn-choix-joueur"></button>');
-            return $data;
-        }
-    }
-
-    static function creation_partie($num_partie)
-    {
-        $partie = array();
-        var_dump($num_partie);
-        exit();
-        $req = 'SELECT * FROM partie p'
-            . 'LEFT JOIN joueurs ON joueurs.id = p.id'
-            . 'WHERE present = 1';
-        if ($result = Connexion::query($req)){
-            if (!empty($result)){
-                foreach ($result as $value)
-                {
-                    $partie = $value;
-                }
-            }
-        }
-        return $partie;
-    }
 }

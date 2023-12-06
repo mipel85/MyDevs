@@ -57,26 +57,6 @@ $(document).ready(function() {
         //     $('#nom_joueur').addClass('is_empty');
         // }
     });
-
-// suppression de joueur
-    $("#table_joueurs_connus").on('click', "input.btn-sup-joueur", function() {
-        var id = $(this).attr('id');
-        $.ajax({
-            url: './ajax/actions.php',
-            type: 'POST',
-            data: {
-                action: 'sup',
-                id: id
-            },
-            success: function(r) {
-                if (r.erreur){
-                    alert(r.erreur);
-                }else{
-                    location.reload(true);
-                }
-            }
-        });
-    });
 });
 
 

@@ -19,10 +19,9 @@
     switch($page)
     {
         case ('config') : $title = 'Administration'; break;
-        case ('players') : $title = 'Joueurs'; break;
         case ('selection') : $title = 'Sélection'; break;
-        case ('game') : $title = 'Partie'; break;
-        case ('matches') : $title = 'Rencontres'; break;
+        case ('partie') : $title = 'Partie'; break;
+        case ('rencontre') : $title = 'Rencontres'; break;
         case ('dev') : $title = 'Dev'; break;
         default : $title = 'Accueil'; break;
     }
@@ -37,16 +36,13 @@
         case ('config') :
             require_once('./theme/templates/config.php');
             break;
-        case ('players') :
-            require_once('./theme/templates/joueurs.php');
-            break;
         case ('selection') :
             require_once('./theme/templates/selection.php');
             break;
-        case ('game') :
+        case ('partie') :
             require_once('./theme/templates/partie.php');
             break;
-        case ('matches') :
+        case ('rencontres') :
             require_once('./theme/templates/partie.php');
             break;
         case ('dev') :

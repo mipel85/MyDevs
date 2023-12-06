@@ -13,7 +13,14 @@ switch($actions)
         }else{
             foreach ($liste as $joueur)
             {
-                echo '<tbody><tr><td>' . $joueur['id'] . '</td><td>' . $joueur['nom'] . '</td><td><input type = "button" class="btn-sup-joueur" id="' . $joueur['id'] . '"</td></tr></body>';
+                echo '<tbody>
+                    <tr>
+                        <td>' . $joueur['id'] . '</td>
+                        <td>' . $joueur['nom'] . '</td>
+                        <td><input type = "button" class="btn-fav-joueur" id="' . $joueur['id'] . '"</td>
+                        <td><input type = "button" class="btn-sup-joueur" id="' . $joueur['id'] . '"</td>
+                    </tr>
+                </tbody>';
             }
         }
         return $liste;

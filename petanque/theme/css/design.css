@@ -143,6 +143,10 @@ h6 { font-size: 1em; }
     height: 25px;
 }
 
+#player-list {
+    padding-bottom: 30px;
+}
+
 select,
 input:not([type="submit"]) {
     border: 1px solid #aaa;

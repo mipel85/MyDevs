@@ -4,8 +4,8 @@ function affiche_menu()
 {
     $template = '';
     // tableaux contenant les liens d'accès et le texte à afficher
-    $tab_menu_lien = array("home", "players", "selection", "game", "matches", "", "", "dev");
-    $tab_menu_texte = array("Accueil", "Joueurs", "Sélection", "Partie", "Rencontres", "Scores", "Résultats", "dev");
+    $tab_menu_lien = array("home", "selection", "partie", "rencontres", "dev");
+    $tab_menu_texte = array("Accueil", "Sélection", "Partie", "Rencontres", "dev");
 
     // informations sur la page
     $get = $_GET['page'];
