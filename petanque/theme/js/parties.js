@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-// Insertion de nouveaux enregistrements
+// Ajout d'une partie
     $('#add_partie').on('click', function() {
         var date_partie = $('#date_partie').val();
         if (date_partie !== ''){
@@ -8,7 +8,7 @@ $(document).ready(function() {
                 url: './ajax/AjaxParties.php',
                 type: 'POST',
                 data: {
-                    action: 'insert_partie',
+                    action: 'insert_party',
                     date_partie: date_partie
                 },
                 success: function(r) {
@@ -30,7 +30,7 @@ $(document).ready(function() {
             url: './ajax/AjaxParties.php',
             type: 'POST',
             data: {
-                action: 'sup',
+                action: 'delete_party',
                 id: id
             },
             success: function(r) {
@@ -48,7 +48,7 @@ $(document).ready(function() {
             url: './ajax/AjaxParties.php',
             type: 'POST',
             data: {
-                action: 'delete_all'
+                action: 'delete_all_parties'
             },
             success: function(r) {
                 location.reload(true);
@@ -56,6 +56,29 @@ $(document).ready(function() {
             error : function(r) {
                 alert(r.error)
             }
+        });
+    });
+
+    // Ajout d'une manche
+    $('#add-manche').on('click', function() {
+        let j_id = $(this).data('j_id'),
+            i_order = $(this).data('i_order'),
+            nbj = $(this).data('nbj');
+        $.ajax({
+            url: './ajax/AjaxParties.php',
+            type: 'POST',
+            data: {
+                action: 'insert_round',
+                j_id: j_id,
+                i_order: i_order,
+                nbj: nbj,
+            },
+            success: function(r) {
+                $('#manche_ajoutee').removeClass('hidden').addClass('floatting');
+                if (i_order > 4) $('#add-manche').attr('disabled', 'disabled');
+                setTimeout(location.reload.bind(location), 3000);
+            },
+            error: function(r) {}
         });
     });
 });

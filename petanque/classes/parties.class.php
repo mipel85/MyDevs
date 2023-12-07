@@ -76,4 +76,15 @@ class Parties {
         }
         return $liste_parties;
     }
+
+    static function partie_id($date)
+    {
+        $id = [];
+        foreach (self::liste_parties() as $values)
+        {
+            if($values['date'] == $date)
+                $id[] = $values['id'];
+        }
+        return $id[0];
+    }
 }

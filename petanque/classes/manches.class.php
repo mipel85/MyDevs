@@ -62,21 +62,19 @@ class Manches {
         $this->nb_joueurs = $nb_joueurs;
     }
 
-// fin  --- getters setters  
-    function insert()
+// fin  --- getters setters
+    function ajouter_manche()
     {
-        $liste_joueurs = Joueurs::liste_joueurs_presents();
-        $nb_joueurs = count($liste_joueurs);
         $req = 'INSERT INTO manches values (
                     NULL,
                     "' . $this->getJ_id() . '",
                     "' . $this->getI_order() . '",
-                    "' . $nb_joueurs . '"
+                    "' . $this->getNbJoueurs() . '"
                 )';
         return Connexion::query($req);
     }
 
-    function suppression()
+    function supprimer_manche()
     {
         $req = 'DELETE FROM manches WHERE id = "' . $this->getId() . '"';
         return Connexion::query($req);
@@ -98,6 +96,36 @@ class Manches {
             }
         }
         return $manches;
+    }
+
+    static function liste_partie_manches($j_id)
+    {
+        $manches = array();
+        $req = 'SELECT manches.id, manches.j_id, manches.i_order, parties.date AS date FROM manches '
+            . ' LEFT JOIN parties ON parties.id = manches.j_id'
+            . ' ORDER BY manches.i_order';
+
+        if ($result = Connexion::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    if($value['j_id'] = $j_id)
+                        $manches[] = $value;
+                }
+            }
+        }
+        return $manches;
+    }
+
+    static function manche_i_order($j_id)
+    {
+        $i_order = [];
+        foreach (self::liste_manches() as $values)
+        {
+            if($values['j_id'] = $j_id)
+                $i_order[] = $values['i_order'];
+        }
+        return $i_order;
     }
 
     static function choix_terrain()
