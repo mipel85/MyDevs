@@ -26,7 +26,7 @@ $(document).ready(function() {
         var id = $(this).prop('id');
         if ((this.checked)){
             $.ajax({
-                url: './ajax/actions.php',
+                url: './ajax/AjaxJoueurs.php',
                 type: 'POST',
                 data: {
                     action: 'present',
@@ -36,7 +36,7 @@ $(document).ready(function() {
             });
         }else{
             $.ajax({
-                url: './ajax/actions.php',
+                url: './ajax/AjaxJoueurs.php',
                 type: 'POST',
                 data: {
                     action: 'absent',
@@ -50,7 +50,7 @@ $(document).ready(function() {
     // reset checkbox
     $('#btn_reset_present').on('click', function() {
         $.ajax({
-            url: './ajax/actions.php',
+            url: './ajax/AjaxJoueurs.php',
             type: 'POST',
             data: {
                 action: 'reset_all_presents'
@@ -67,7 +67,7 @@ $(document).ready(function() {
     //  affichage liste des joueurs enregistrés
     function view_joueurs_presents() {
         $.ajax({
-            url: './ajax/actions.php',
+            url: './ajax/AjaxJoueurs.php',
             type: 'POST',
             data: {
                 action: 'liste-joueurs'

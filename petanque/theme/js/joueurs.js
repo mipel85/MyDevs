@@ -28,10 +28,10 @@ $(document).ready(function() {
 
     // dé/Sélectionner les fav un par un
     $('#table_joueurs_connus').on('change', "input.btn-fav-joueur", function() {
-        var id = $(this).prop('id');
+        var id = $(this).attr('data-id');
         if ((this.checked)){
             $.ajax({
-                url: './ajax/actions.php',
+                url: './ajax/AjaxJoueurs.php',
                 type: 'POST',
                 data: {
                     action: 'favory',
@@ -41,7 +41,7 @@ $(document).ready(function() {
             });
         }else{
             $.ajax({
-                url: './ajax/actions.php',
+                url: './ajax/AjaxJoueurs.php',
                 type: 'POST',
                 data: {
                     action: 'anonyme',
@@ -55,7 +55,7 @@ $(document).ready(function() {
     // désélectionner tous les favoris
     $('#btn_reset_favs').on('click', function() {
         $.ajax({
-            url: './ajax/actions.php',
+            url: './ajax/AjaxJoueurs.php',
             type: 'POST',
             data: {
                 action: 'reset_all_favs'
@@ -74,7 +74,7 @@ $(document).ready(function() {
         var nom_joueur = $('#nom_joueur').val();
         if (nom_joueur !== ''){
             $.ajax({
-                url: './ajax/actions.php',
+                url: './ajax/AjaxJoueurs.php',
                 type: 'POST',
                 data: {
                     action: 'insert',
@@ -102,7 +102,7 @@ $(document).ready(function() {
     $("#table_joueurs_connus").on('click', "input.btn-sup-joueur", function() {
         var id = $(this).attr('id');
         $.ajax({
-            url: './ajax/actions.php',
+            url: './ajax/AjaxJoueurs.php',
             type: 'POST',
             data: {
                 action: 'sup',

@@ -18,6 +18,7 @@
     $title = '';
     switch($page)
     {
+        case ('404') : $title = 'Erreur 404'; break;
         case ('config') : $title = 'Administration'; break;
         case ('selection') : $title = 'Sélection'; break;
         case ('partie') : $title = 'Partie'; break;
@@ -26,33 +27,33 @@
         default : $title = 'Accueil'; break;
     }
 
-    require_once('./theme/templates/header.php');
+    require_once('./theme/templates/header.controller.php');
     
     switch($page)
     {
         case ('404') :
-            require_once('./theme/templates/404.php');
+            require_once('./theme/templates/404.controller.php');
             break;
         case ('config') :
-            require_once('./theme/templates/config.php');
+            require_once('./theme/templates/config.controller.php');
             break;
         case ('selection') :
-            require_once('./theme/templates/selection.php');
+            require_once('./theme/templates/selection.controller.php');
             break;
         case ('partie') :
-            require_once('./theme/templates/partie.php');
+            require_once('./theme/templates/partie.controller.php');
             break;
         case ('rencontres') :
-            require_once('./theme/templates/partie.php');
+            require_once('./theme/templates/partie.controller.php');
             break;
         case ('dev') :
-            require_once('./theme/templates/dev.php');
+            require_once('./theme/templates/dev.controller.php');
             break;
         default :
-            require_once('./theme/templates/home.php');
+            require_once('./theme/templates/home.controller.php');
             break;
     }
 
-    require_once('./theme/templates/footer.php');
+    require_once('./theme/templates/footer.controller.php');
 ?>
 

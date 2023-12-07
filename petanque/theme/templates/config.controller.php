@@ -35,7 +35,7 @@
                         <tr>
                             <th>N°</th>
                             <th>Nom</th>
-                            <th>Fav</th>
+                            <th>Habitués</th>
                             <th>Sup</th>
                         </tr>
                         </thead>
@@ -43,13 +43,11 @@
                         <?php
                             foreach (Joueurs::liste_joueurs_connus() as $joueur)
                             {
-                                $checked = '';
-                                if ($joueur['fav'])
-                                    $checked = ' checked';
+                                $checked = $joueur['fav'] ? ' checked' : '';
                                 echo '<tr>
                                     <td>' . $joueur['id'] . '</td>
                                     <td>' . $joueur['nom'] . '</td>
-                                    <td><input type="checkbox" id="' . $joueur['id'] . '" class="btn-fav-joueur" /></td>
+                                    <td><input type="checkbox" data-id="' . $joueur['id'] . '" class="btn-fav-joueur"' . $checked . ' /></td>
                                     <td><input type="button" id="' . $joueur['id'] . '" class="btn-sup-joueur" /></td>
                                 </tr>';
                             }
@@ -90,6 +88,30 @@
                 <div class="content">
                     <input class="submit button" type="submit" id="delete_all_parties" name="all_games" value="Tout supprimer" />
                 </div>
+            </div>
+            <div id="parties-list" class="cell-100 content">
+                <header>
+                    <h3>Liste des parties</h3>
+                </header>
+                <table id="table_parties" class="table">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                    <tbody>
+                        <?php
+                            foreach (Parties::liste_parties() as $partie)
+                            {
+                                echo '<tr>
+                                    <td>' . $partie['id'] . '</td>
+                                    <td>' . $partie['date'] . '</td>
+                                </tr>';
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </article>
         <article id="manches" class="tab-content">

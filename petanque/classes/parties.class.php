@@ -41,7 +41,7 @@ class Parties {
 
 // fin  --- getters setters
 
-    function ajout()
+    function ajouter_partie()
     {
         $req = 'INSERT INTO parties values (
                     NULL,
@@ -50,13 +50,13 @@ class Parties {
         return Connexion::query($req);
     }
 
-    function suppression()
+    function supprimer_partie()
     {
         $req = 'DELETE FROM parties WHERE id = "' . $this->getId() . '"';
         return Connexion::query($req);
     }
 
-    function reset_all()
+    function reset_all_parties()
     {
         $req = 'UPDATE parties SET `present` = 0';
         return Connexion::query($req);

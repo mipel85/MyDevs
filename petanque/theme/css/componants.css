@@ -83,3 +83,29 @@
 
 .align-right { text-align: right; }
 .align-center { text-align: center; }
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.message-helper {
+    padding: 10px;
+    color: #FFFFFF
+}
+
+.success {
+    background-color: #019601;
+}
+
+.notice {
+    background-color: #019696;
+}
+
+.warning {
+    background-color: #ca6c00;
+}
+
+.error {
+    background-color: #aa0000;
+}

@@ -147,7 +147,7 @@ abbr {
 	}
 }
 
-/* --- Blink animation effect ----------------------------------------------- */
+/* --- animation effect ----------------------------------------------- */
 @keyframes blink {
 	0%   { opacity: 0; }
 	30%  { opacity: 1; }
@@ -156,6 +156,20 @@ abbr {
 }
 
 .blink { animation: blink 1.5s ease-in-out infinite; }
+
+@keyframes floatting {
+	0%   { opacity: 1; }
+	70%  { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+.floatting {
+    animation: floatting 3s ease-in-out;
+    animation-fill-mode: forwards;
+    position: absolute;
+    top: 150px;
+    left: 20px;
+}
 
 
 /* --- Basic font ----------------------------------------------------------- */

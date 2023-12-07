@@ -9,7 +9,7 @@
                     <tr>
                         <th>N°</th>
                         <th>Nom</th>
-                        <th>fav</th>
+                        <th>Habitués</th>
                         <th>Choisir</th>
                     </tr>
                 </thead>

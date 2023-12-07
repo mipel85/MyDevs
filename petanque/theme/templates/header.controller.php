@@ -1,7 +1,7 @@
 <?php
 require_once('./classes/connexion.class.php');
 require_once('./classes/install.class.php');
-require_once('menu.php');
+require_once('menu.controller.php');
 require_once('./classes/joueurs.class.php');
 $menu = affiche_menu();
 
@@ -28,7 +28,7 @@ $menu = affiche_menu();
         <script src="./theme/js/lib/FixedHeader-3.4.0/js/fixedHeader.dataTables.min.js"></script>
         <script src="./theme/js/joueurs.js"></script>
         <script src="./theme/js/selection.js"></script>
-        <script src="./theme/js/partie.js"></script>
+        <script src="./theme/js/parties.js"></script>
         <script src="./theme/js/tabs.js"></script>
     </head>
     <body>
