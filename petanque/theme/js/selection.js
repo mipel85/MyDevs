@@ -17,7 +17,7 @@ $(document).ready(function() {
             {type: "num"},
             {type: "text"},
             {type: "text"},
-            {orderable: false}
+            {orderable: true}
         ]
     });
 

@@ -6,7 +6,7 @@
 créer la doc dans /theme/templates/home.php
 
 ## Partie
-    initialisation d'une partie = bouton d'ajout + récupérer la date de façon cachée
+    ~~initialisation d'une partie = bouton d'ajout + récupérer la date de façon cachée~~
     si partie existe déjà
         - bouton d'ajout => disabled
         - message notice = "Partie déjà créée"
@@ -17,7 +17,7 @@ créer la doc dans /theme/templates/home.php
 
 ## Manche
     formulaire caché par default si aucune partie créée
-    si moins de 4 joueurs sélectionnés, désactiver le bouton d'ajout +  message error = "sélectionnez au moins 4 joueurs"
+    exception si 7 joueurs sélectionnés, désactiver le bouton d'ajout +  message error = "sélectionnez au moins 4 joueurs"
 
     manche max = 4
     ajouter un index de 1 à 4 à chaque manche (index: i_order = 1 ; i_order++)
@@ -27,4 +27,13 @@ créer la doc dans /theme/templates/home.php
 
 ## Admin
     bouton reset all sauf joueurs
+    input nb de joueurs min
+    bouton fin de journée => décocher la présence de tous les joueurs
+
+## Language
+party/partie => la journée commence on crée une partie
+    > round/manche => de 1 à 4 manches dans une partie
+        > game/rencontre => chaque rencontre entre 2 équipes dans une manche
+            > team/equipe => un groupe de 2 ou 3 participants
+                > player/joueur => un participant
 

@@ -97,23 +97,42 @@
                 </table>
             </div>
         </article>
-        <article id="manches" class="tab-content">
-            <header>
-                <h3>Supprimer une manche :</h3>
-            </header>
-            <div class="content">
-                <label for="choix_manche">Choix de la manche : </label>
-                <select name="" id="choix_manche">
-                    <option value="0"></option>
-                    <!-- foreach des manches -->
-                    <?php
-                        foreach(Manches::liste_manches() as $manche)
-                        {
-                            echo '<option value="'. $manche['id'] . '">Manche '. $manche['id'] . ' de la Partie ' . $manche['j_id'] . ' du ' . $manche['date'] . '</option>';
-                        }
-                    ?>
-                </select>
-                <input class="submit button" type="submit" id="delete_manche" name="round" value="Supprimer" />
+        <article id="manches" class="tab-content cell-flex cell-columns-2">
+            <div id="del-all">
+                <header>
+                    <h3>Supprimer toutes les manches :</h3>
+                </header>
+                <div class="content">
+                    <button class="submit button" type="submit" id="delete-all-manches" name="all_games">Tout supprimer</button>
+                </div>
+            </div>
+            <div id="manches-list" class="content">
+                <header>
+                    <h3>Liste des manches</h3>
+                </header>
+                <table id="table_liste_manches" class="table">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Partie</th>
+                            <th>Manche</th>
+                            <th>Suppr</th>
+                        </tr>
+                        </thead>
+                    <tbody>
+                        <?php
+                            foreach (Manches::liste_manches() as $manche)
+                            {
+                                echo '<tr>
+                                    <td>' . $manche['id'] . '</td>
+                                    <td>' . $manche['j_id'] . '</td>
+                                    <td>' . $manche['i_order'] . '</td>
+                                    <td><button type="submit" id="' . $manche['id'] . '" class="button btn-sup-manche" /><i class="fa fa-fx fa-square-xmark error"></i></button></td>
+                                </tr>';
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </article>
     </div>

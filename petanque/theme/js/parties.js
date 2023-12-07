@@ -60,7 +60,7 @@ $(document).ready(function() {
     });
 
     // Ajout d'une manche
-    $('#add-manche').on('click', function() {
+    $('#add_manche').on('click', function() {
         let j_id = $(this).data('j_id'),
             i_order = $(this).data('i_order'),
             nbj = $(this).data('nbj');
@@ -71,14 +71,50 @@ $(document).ready(function() {
                 action: 'insert_round',
                 j_id: j_id,
                 i_order: i_order,
-                nbj: nbj,
+                nbj: nbj
             },
             success: function(r) {
                 $('#manche_ajoutee').removeClass('hidden').addClass('floatting');
                 if (i_order > 4) $('#add-manche').attr('disabled', 'disabled');
-                setTimeout(location.reload.bind(location), 3000);
+                setTimeout(location.reload.bind(location), 1500);
             },
             error: function(r) {}
+        });
+    });
+    
+    // Supprimer une partie
+    $("#table_liste_manches").on('click', "button.btn-sup-manche", function() {
+        var id = $(this).attr('id');
+        $.ajax({
+            url: './ajax/AjaxParties.php',
+            type: 'POST',
+            data: {
+                action: 'delete_round',
+                id: id
+            },
+            success: function(r) {
+                location.reload(true);
+            },
+            error : function(r) {
+                alert(r.error)
+            }
+        });
+    });
+
+    // Supprimer toutes les manches
+    $("#delete-all-manches").on('click', function() {
+        $.ajax({
+            url: './ajax/AjaxParties.php',
+            type: 'POST',
+            data: {
+                action: 'delete_all_manches'
+            },
+            success: function(r) {
+                location.reload(true);
+            },
+            error : function(r) {
+                alert(r.error)
+            }
         });
     });
 });

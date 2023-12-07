@@ -5,6 +5,7 @@ ini_set('display_errors', true);
 class Manches {
     private $id;
     private $j_id;
+    private $i_order;
     private $nb_joueurs;
 
     public function __construct($id = null)
@@ -44,12 +45,12 @@ class Manches {
 
     public function getI_order()
     {
-        return $this->j_id;
+        return $this->i_order;
     }
 
-    public function setI_order($j_id)
+    public function setI_order($i_order)
     {
-        $this->j_id = $j_id;
+        $this->i_order = $i_order;
     }
 
     public function getNbJoueurs()
@@ -71,12 +72,19 @@ class Manches {
                     "' . $this->getI_order() . '",
                     "' . $this->getNbJoueurs() . '"
                 )';
+        var_dump($req);
         return Connexion::query($req);
     }
 
     function supprimer_manche()
     {
         $req = 'DELETE FROM manches WHERE id = "' . $this->getId() . '"';
+        return Connexion::query($req);
+    }
+
+    function delete_all_manches()
+    {
+        $req = 'DELETE FROM manches';
         return Connexion::query($req);
     }
 
