@@ -23,6 +23,7 @@ $(document).ready(function() {
         }
     });
 
+    // Supprimer une partie
     $("#table_liste_parties").on('click', "button.btn-sup-partie", function() {
         var id = $(this).attr('id');
         $.ajax({
@@ -31,6 +32,23 @@ $(document).ready(function() {
             data: {
                 action: 'sup',
                 id: id
+            },
+            success: function(r) {
+                location.reload(true);
+            },
+            error : function(r) {
+                alert(r.error)
+            }
+        });
+    });
+
+    // Supprimer toutes les parties
+    $("#delete-all-parties").on('click', function() {
+        $.ajax({
+            url: './ajax/AjaxParties.php',
+            type: 'POST',
+            data: {
+                action: 'delete_all'
             },
             success: function(r) {
                 location.reload(true);

@@ -67,7 +67,7 @@
                     <h3>Supprimer toutes les parties :</h3>
                 </header>
                 <div class="content">
-                    <input class="submit button" type="submit" id="delete_all_parties" name="all_games" value="Tout supprimer" />
+                    <button class="submit button" type="submit" id="delete-all-parties" name="all_games">Tout supprimer</button>
                 </div>
             </div>
             <div id="parties-list" class="content">
@@ -89,7 +89,7 @@
                                 echo '<tr>
                                     <td>' . $partie['id'] . '</td>
                                     <td>' . $partie['date'] . '</td>
-                                    <td><button type="submit" id="' . $partie['id'] . '" class="btn-sup-partie" /><i class="fa fa-fx fa-square-xmark error"></i></button></td>
+                                    <td><button type="submit" id="' . $partie['id'] . '" class="button btn-sup-partie" /><i class="fa fa-fx fa-square-xmark error"></i></button></td>
                                 </tr>';
                             }
                         ?>

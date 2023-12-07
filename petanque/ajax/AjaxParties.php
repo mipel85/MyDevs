@@ -22,9 +22,9 @@ switch($actions)
         $sup->supprimer_partie();
         break;
 
-    case 'reset_all':
-        $reset = new Parties();
-        $reset->reset_all();
+    case 'delete_all':
+        $delete = new Parties();
+        $delete->delete_all_parties();
         break;
 
     default:

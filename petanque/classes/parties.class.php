@@ -56,9 +56,9 @@ class Parties {
         return Connexion::query($req);
     }
 
-    function reset_all_parties()
+    function delete_all_parties()
     {
-        $req = 'UPDATE parties SET `present` = 0';
+        $req = 'DELETE FROM parties';
         return Connexion::query($req);
     }
 
