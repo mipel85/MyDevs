@@ -2,10 +2,9 @@
 
 function affiche_menu()
 {
-    $template = '';
     // tableaux contenant les liens d'accès et le texte à afficher
-    $tab_menu_lien = array("home", "selection", "partie", "rencontres", "dev");
-    $tab_menu_texte = array("Accueil", "Sélection", "Partie", "Rencontres", "dev");
+    $menu_links = array("home", "selection", "party", 'ranking');
+    $menu_labels = array("Accueil", "Sélection", "Partie", 'Classement');
 
     // informations sur la page
     $get = $_GET['page'];
@@ -13,16 +12,16 @@ function affiche_menu()
     $menu = "\n<nav id=\"menu\">\n    <ul id=\"onglets\">\n";
 
     // boucle qui parcours les deux tableaux
-    foreach ($tab_menu_lien as $cle => $lien)
+    foreach ($menu_links as $k => $link)
     {
         $menu .= "    <li";
 
         // si le nom du fichier correspond à celui pointé par l'indice, alors on l'active
-        if ($get == $lien){
+        if ($get == $link){
             $menu .= " class=\"active\"";
         }
 
-        $menu .= "><a href=\"index.php?page=" . $lien . "\">" . $tab_menu_texte[$cle] . "</a></li>\n";
+        $menu .= "><a href=\"index.php?page=" . $link . "\">" . $menu_labels[$k] . "</a></li>\n";
     }
     $menu .= "</ul>\n</nav>";
     return $menu;

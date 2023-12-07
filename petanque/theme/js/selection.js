@@ -21,7 +21,7 @@ $(document).ready(function() {
         ]
     });
 
-    // dé/Sélectionner les joueurs un par un
+    // Select/unselect player as present/absent
     $('#table_select_joueurs').on('change', "input.checkbox-choix-joueur", function() {
         var id = $(this).prop('id');
         if ((this.checked)){
@@ -47,8 +47,8 @@ $(document).ready(function() {
         }
     });
 
-    // reset checkbox
-    $('#btn_reset_present').on('click', function() {
+    // Reset all players as absent
+    $('#reset-all-players').on('click', function() {
         $.ajax({
             url: './ajax/AjaxJoueurs.php',
             type: 'POST',
@@ -64,7 +64,7 @@ $(document).ready(function() {
         });
     });
 
-    //  affichage liste des joueurs enregistrés
+    //  Display the list of present players
     function view_joueurs_presents() {
         $.ajax({
             url: './ajax/AjaxJoueurs.php',

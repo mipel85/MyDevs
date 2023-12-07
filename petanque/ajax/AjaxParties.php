@@ -16,18 +16,22 @@ switch($actions)
 
     case 'delete_party':
         $idSup = $_POST['id'];
+        $sup = new Manches();
+        $sup->delete_manches_serie($idSup);
         $sup = new Parties($idSup);
         $sup->supprimer_partie();
         break;
 
     case 'delete_all_parties':
+        $delete = new Manches();
+        $delete->delete_all_manches();
         $delete = new Parties();
         $delete->delete_all_parties();
         break;
 
     case 'insert_round':
         $insert = new Manches();
-        $insert->setJ_id($_POST['j_id']);
+        $insert->setP_id($_POST['p_id']);
         $insert->setI_order($_POST['i_order']);
         $insert->setNbJoueurs($_POST['nbj']);
         $insert->ajouter_manche();

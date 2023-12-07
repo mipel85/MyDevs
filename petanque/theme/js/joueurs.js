@@ -26,7 +26,7 @@ $(document).ready(function() {
         }
     );
 
-    // dé/Sélectionner les fav un par un
+    // Select/unselect players as favourite
     $('#table_joueurs_connus').on('change', "input.btn-fav-joueur", function() {
         var id = $(this).attr('data-id');
         if ((this.checked)){
@@ -69,7 +69,7 @@ $(document).ready(function() {
         });
     });
 
-    // Insertion de nouveaux enregistrements
+    // Add new player
     $('#btn_ajout').on('click', function() {
         var nom_joueur = $('#nom_joueur').val();
         if (nom_joueur !== ''){
@@ -98,7 +98,7 @@ $(document).ready(function() {
         }
     });
 
-    // suppression de joueur
+    // Remove player
     $("#table_joueurs_connus").on('click', "input.btn-sup-joueur", function() {
         var id = $(this).attr('id');
         $.ajax({

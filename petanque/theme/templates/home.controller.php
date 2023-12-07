@@ -1,5 +1,6 @@
 <section>
-    <header class="section-header"><h1>Présentation du logiciel</h1></header>
+    
+    <header class="section-header"><h1><?= $lang['home.title'] ?></h1></header>
     <article>
         <header><h3>Configuration</h3></header>
         <div class="content">On peut ajouter ou supprimer des joueurs</div>

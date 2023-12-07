@@ -13,6 +13,7 @@ function openTab(event, id) {
     }
     event.currentTarget.className += " active-tab";
     window.location.hash = event.currentTarget.dataset.trigger;
+    return false;
 }
 
 window.addEventListener("load", () => {

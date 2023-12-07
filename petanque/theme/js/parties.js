@@ -61,7 +61,7 @@ $(document).ready(function() {
 
     // Ajout d'une manche
     $('#add_manche').on('click', function() {
-        let j_id = $(this).data('j_id'),
+        let p_id = $(this).data('p_id'),
             i_order = $(this).data('i_order'),
             nbj = $(this).data('nbj');
         $.ajax({
@@ -69,7 +69,7 @@ $(document).ready(function() {
             type: 'POST',
             data: {
                 action: 'insert_round',
-                j_id: j_id,
+                p_id: p_id,
                 i_order: i_order,
                 nbj: nbj
             },

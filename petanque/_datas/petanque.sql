@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `equipes` (
   `id` int(11) NOT NULL,
-  `j_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
   `m_id` int(11) NOT NULL,
   `j1_id` int(11) NOT NULL,
   `j1_nom` varchar(255) NOT NULL,
@@ -126,7 +126,7 @@ INSERT INTO `joueurs` (`id`, `nom`, `present`, `fav`) VALUES
 
 CREATE TABLE `manches` (
   `id` int(11) NOT NULL,
-  `j_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
   `i_order` int(11) NOT NULL,
   `nombre_joueurs` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -135,7 +135,7 @@ CREATE TABLE `manches` (
 -- Déchargement des données de la table `manches`
 --
 
-INSERT INTO `manches` (`id`, `j_id`, `i_order`, `nombre_joueurs`) VALUES
+INSERT INTO `manches` (`id`, `p_id`, `i_order`, `nombre_joueurs`) VALUES
 (1, 1, 1, 12);
 
 -- --------------------------------------------------------
@@ -164,7 +164,7 @@ INSERT INTO `parties` (`id`, `date`) VALUES
 
 CREATE TABLE `rencontres` (
   `id` int(11) NOT NULL,
-  `j_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
   `r_id` int(11) NOT NULL,
   `terrain` int(11) NOT NULL,
   `eq1_id` int(11) NOT NULL,

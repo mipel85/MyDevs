@@ -4,7 +4,7 @@ ini_set('display_errors', true);
 
 class Equipes {
     private $id;
-    private $j_id;
+    private $p_id;
     private $m_id;
     private $j1_id;
     private $j1_nom;
@@ -20,7 +20,7 @@ class Equipes {
             if ($result = Connexion::query($req)){
                 $result = $result[0];
                 $this->setId($result['id']);
-                $this->setJ_id($result['j_id']);
+                $this->setp_id($result['p_id']);
                 $this->setM_id($result['m_id']);
                 $this->setJ1_id($result['j1_id']);
                 $this->setJ1_nom($result['j1_nom']);
@@ -43,14 +43,14 @@ class Equipes {
         $this->id = $id;
     }
 
-    public function getJ_id()
+    public function getP_id()
     {
-        return $this->j_id;
+        return $this->p_id;
     }
 
-    public function setJ_id($j_id)
+    public function setP_id($p_id)
     {
-        $this->j_id = $j_id;
+        $this->p_id = $p_id;
     }
 
     public function getM_id()
@@ -123,7 +123,7 @@ class Equipes {
         $this->j3_nom = $j3_nom;
     }
 
-    static function creation_equipes($j_id, $m_id)
+    static function creation_equipes($p_id, $m_id)
     {
         // Liste de joueurs présents
         $liste_joueurs = Joueurs::liste_joueurs_presents();

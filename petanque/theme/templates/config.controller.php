@@ -9,132 +9,40 @@
     </header>
     <div class="tabs-container">
         <div class="tabs-menu">
-            <a data-trigger="joueurs" class="tab-trigger active-tab" onclick="openTab(event, 'joueurs');">Joueurs</a>
-            <a data-trigger="parties" class="tab-trigger" onclick="openTab(event, 'parties');">Parties</a>
-            <a data-trigger="manches" class="tab-trigger" onclick="openTab(event, 'manches');">Manches</a>
+            <span data-trigger="joueurs" class="tab-trigger active-tab" onclick="openTab(event, 'joueurs');">Joueurs</span>
+            <span data-trigger="parties" class="tab-trigger" onclick="openTab(event, 'parties');">Parties</span>
+            <span data-trigger="manches" class="tab-trigger" onclick="openTab(event, 'manches');">Manches</span>
+            <!-- <a data-trigger="config" class="tab-trigger" onclick="openTab(event, 'config');">Manches</a> -->
         </div>
         <article id="joueurs" class="tab-content active-tab cell-flex cell-columns-2">
-            <div id="add-joueur" class="cell-1-3">
-                <header>
-                    <h3>Ajouter des joueurs</h3>
-                </header>
-                <div id="config_saisie">
-                    <label>Nom du joueur : </label>
-                    <input type="text" id="nom_joueur" class="nom-ajout" />
-                    <div class="line align-center">
-                        <input type="submit" id="btn_ajout" class="button btn-ajout" value="Ajouter" />
-                    </div>
-                </div>
-            </div>
-            <div id="player-list" class="cell-2-3 content">
-                <header>
-                    <h3>Liste des joueurs</h3>
-                </header>
-                <table id="table_joueurs_connus" class="table">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Nom</th>
-                            <th>Habitués</th>
-                            <th>Sup</th>
-                        </tr>
-                        </thead>
-                    <tbody>
-                        <?php
-                            foreach (Joueurs::liste_joueurs_connus() as $joueur)
-                            {
-                                $checked = $joueur['fav'] ? ' checked' : '';
-                                echo '<tr>
-                                    <td>' . $joueur['id'] . '</td>
-                                    <td>' . $joueur['nom'] . '</td>
-                                    <td><input type="checkbox" data-id="' . $joueur['id'] . '" class="btn-fav-joueur"' . $checked . ' /></td>
-                                    <td><input type="button" id="' . $joueur['id'] . '" class="btn-sup-joueur" /></td>
-                                </tr>';
-                            }
-                        ?>
-                    </tbody>
-                </table>
-                <div class="line flex-between">
-                    <span>&nbsp;</span>
-                    <input type="button" id="btn_valid_favs" onclick="location.reload();" class="button submit" value="Valider les favoris" />
-                    <input type="button" id="btn_reset_favs" class="button btn-reset-present" value="Décocher tout" />
-                </div>
-            </div>
+            <?php include './includes/config.players.php'; ?>
         </article>
         <article id="parties" class="tab-content cell-flex cell-columns-2">
-            <div id="del-all">
-                <header>
-                    <h3>Supprimer toutes les parties :</h3>
-                </header>
-                <div class="content">
-                    <button class="submit button" type="submit" id="delete-all-parties" name="all_games">Tout supprimer</button>
-                </div>
-            </div>
-            <div id="parties-list" class="content">
-                <header>
-                    <h3>Liste des parties</h3>
-                </header>
-                <table id="table_liste_parties" class="table">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Date</th>
-                            <th>Suppr</th>
-                        </tr>
-                        </thead>
-                    <tbody>
-                        <?php
-                            foreach (Parties::liste_parties() as $partie)
-                            {
-                                echo '<tr>
-                                    <td>' . $partie['id'] . '</td>
-                                    <td>' . $partie['date'] . '</td>
-                                    <td><button type="submit" id="' . $partie['id'] . '" class="button btn-sup-partie" /><i class="fa fa-fx fa-square-xmark error"></i></button></td>
-                                </tr>';
-                            }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+            <?php include './includes/config.parties.php'; ?>
         </article>
         <article id="manches" class="tab-content cell-flex cell-columns-2">
-            <div id="del-all">
+            <?php include './includes/config.manches.php'; ?>
+        </article>
+        <!-- <article id="config" class="tab-content cell-flex cell-columns-2">
+            <div id="max-round">
                 <header>
-                    <h3>Supprimer toutes les manches :</h3>
+                    <h3>Limiter le nombre de manches par partie</h3>
                 </header>
                 <div class="content">
-                    <button class="submit button" type="submit" id="delete-all-manches" name="all_games">Tout supprimer</button>
+                    <input id="max-round-value" type="text" value="" class="" />
+                    <button class="submit button" type="submit" id="delete-all-manches" name="all_games">Valider</button>
                 </div>
             </div>
-            <div id="manches-list" class="content">
+            <div id="playground">
                 <header>
-                    <h3>Liste des manches</h3>
+                    <h3>Nombre de terrains définis</h3>
                 </header>
-                <table id="table_liste_manches" class="table">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Partie</th>
-                            <th>Manche</th>
-                            <th>Suppr</th>
-                        </tr>
-                        </thead>
-                    <tbody>
-                        <?php
-                            foreach (Manches::liste_manches() as $manche)
-                            {
-                                echo '<tr>
-                                    <td>' . $manche['id'] . '</td>
-                                    <td>' . $manche['j_id'] . '</td>
-                                    <td>' . $manche['i_order'] . '</td>
-                                    <td><button type="submit" id="' . $manche['id'] . '" class="button btn-sup-manche" /><i class="fa fa-fx fa-square-xmark error"></i></button></td>
-                                </tr>';
-                            }
-                        ?>
-                    </tbody>
-                </table>
+                <div class="content">
+                    <input id="playground-value" type="text" value="" class="" />
+                    <button class="submit button" type="submit" id="delete-all-manches" name="all_games">Valider</button>
+                </div>
             </div>
-        </article>
+        </article> -->
     </div>
 </section>
 

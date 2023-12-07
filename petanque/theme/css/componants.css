@@ -1,8 +1,4 @@
-.line {
-    clear: both;
-    padding: 15px 0;
-}
-
+/* grid */
 .cell-flex {
 	display: flex;
 	flex-direction: column;
@@ -63,22 +59,16 @@
     justify-content: space-between;
 }
 
-.grow-0,
-.grow-1,
-.grow-2,
-.grow-3,
-.grow-4,
-.grow-5,
-.grow-6 { flex-grow: 0; }
+.line {
+    clear: both;
+    padding: 15px 0;
+}
 
-@media (min-width: 769px) {
-    .grow-0 { flex-grow: 0; }
-    .grow-1 { flex-grow: 1; }
-    .grow-2 { flex-grow: 2; }
-    .grow-3 { flex-grow: 3; }
-    .grow-4 { flex-grow: 4; }
-    .grow-5 { flex-grow: 5; }
-    .grow-6 { flex-grow: 6; }
+.description {
+    display: block;
+    font-style: italic;
+    font-size: 0.809em;
+    padding: 5px;
 }
 
 .align-right { text-align: right; }

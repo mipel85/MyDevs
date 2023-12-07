@@ -1,6 +1,8 @@
 <?php
+
 require_once('./classes/connexion.class.php');
 require_once('./classes/install.class.php');
+require_once('./functions/lang.php');
 require_once('menu.controller.php');
 require_once('./classes/joueurs.class.php');
 $menu = affiche_menu();
@@ -35,7 +37,9 @@ $menu = affiche_menu();
         <header id="top-header">
             <div id="logo"></div>
             <div id="site-name">Pétanque Loisir Sainte-Foy</div>
-            <div><a href="index.php?page=config"><i class="fa fa-cog"></i></a></div>
+            <div>
+                <a href="index.php?page=config"><i class="fa fa-cog"></i></a>
+            </div>
         </header>
         <main>
             <div id="menu-container">

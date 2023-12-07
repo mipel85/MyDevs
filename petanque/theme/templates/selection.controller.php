@@ -32,7 +32,7 @@
             <div class="line flex-between">
                 <span>&nbsp;</span>
                 <input type="button" id="btn_valid_present" onclick="location.reload();" class="button submit" value="Valider les présents" />
-                <input type="button" id="btn_reset_present" class="button btn-reset-present" value="Décocher tout" />
+                <input type="button" id="reset-all-players" class="button btn-reset-present" value="Décocher tout" />
             </div>
         </article>
         <article class="content">
