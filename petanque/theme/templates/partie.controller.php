@@ -15,10 +15,10 @@
     if (in_array($today, $liste)) {
         $disabled_partie = ' disabled';
         $hidden = ' hidden';
-        $label_partie = 'La partie du jour est créée';
+        $label_partie = 'La partie du jour est créée (<a class="small text-italic" href="./index.php?page=config#parties">Voir la liste</a>)';
     }
 ?>
-<div id="partie_ajoutee" class="message-helper success hidden">La partie a bien été ajoutée</div>
+<div id="partie_ajoutee" class="message-helper bgc-full success hidden">La partie a bien été ajoutée</div>
 <section>
     <header class="section-header">
         <h1>Création</h1>

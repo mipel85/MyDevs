@@ -62,26 +62,7 @@
             </div>
         </article>
         <article id="parties" class="tab-content cell-flex cell-columns-2">
-            <div class="del-one">
-                <header>
-                    <h3>Supprimer une partie :</h3>
-                </header>
-                <div class="content">
-                    <label for="choix_partie">Partie du :</label>
-                    <select name="" id="choix_partie">
-                        <option value="0"></option>
-                        <!-- foreach des parties -->
-                        <?php
-                            foreach(Parties::liste_parties() as $partie)
-                            {
-                                echo '<option value="'. $partie['id'] . '">Partie '. $partie['id'] . ' du '. $partie['date'] . '</option>';
-                            }
-                        ?>
-                    </select>
-                    <input class="submit button" type="submit" id="delete_partie" name="game" value="Supprimer" />
-                </div>
-            </div>
-            <div class="del-all">
+            <div id="del-all">
                 <header>
                     <h3>Supprimer toutes les parties :</h3>
                 </header>
@@ -89,15 +70,16 @@
                     <input class="submit button" type="submit" id="delete_all_parties" name="all_games" value="Tout supprimer" />
                 </div>
             </div>
-            <div id="parties-list" class="cell-100 content">
+            <div id="parties-list" class="content">
                 <header>
                     <h3>Liste des parties</h3>
                 </header>
-                <table id="table_parties" class="table">
+                <table id="table_liste_parties" class="table">
                     <thead>
                         <tr>
                             <th>N°</th>
                             <th>Date</th>
+                            <th>Suppr</th>
                         </tr>
                         </thead>
                     <tbody>
@@ -107,6 +89,7 @@
                                 echo '<tr>
                                     <td>' . $partie['id'] . '</td>
                                     <td>' . $partie['date'] . '</td>
+                                    <td><button type="submit" id="' . $partie['id'] . '" class="btn-sup-partie" /><i class="fa fa-fx fa-square-xmark error"></i></button></td>
                                 </tr>';
                             }
                         ?>
@@ -135,4 +118,6 @@
         </article>
     </div>
 </section>
+
+<script></script>
 

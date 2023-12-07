@@ -84,28 +84,22 @@
 .align-right { text-align: right; }
 .align-center { text-align: center; }
 
-.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
+.hidden { display: none; }
+
+.text-italic { font-style: italic; }
+
+.small { font-size: 0.809em; }
 
 .message-helper {
     padding: 10px;
-    color: #FFFFFF
 }
 
-.success {
-    background-color: #019601;
-}
+.success { color: #019601; }
+.notice  { color: #019696; }
+.warning { color: #CA6C00; }
+.error   { color: #AA0000; }
 
-.notice {
-    background-color: #019696;
-}
-
-.warning {
-    background-color: #ca6c00;
-}
-
-.error {
-    background-color: #aa0000;
-}
+.bgc-full.success { background-color: #019601; color: #FFFFFF;}
+.bgc-full.notice  { background-color: #019696; color: #FFFFFF;}
+.bgc-full.warning { background-color: #ca6c00; color: #FFFFFF;}
+.bgc-full.error   { background-color: #aa0000; color: #FFFFFF;}

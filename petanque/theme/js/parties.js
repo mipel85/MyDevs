@@ -23,21 +23,20 @@ $(document).ready(function() {
         }
     });
 
-    $("#delete_partie").on('click', "input.btn-sup-joueur", function() {
+    $("#table_liste_parties").on('click', "button.btn-sup-partie", function() {
         var id = $(this).attr('id');
         $.ajax({
-            url: './ajax/AjaxJoueurs.php',
+            url: './ajax/AjaxParties.php',
             type: 'POST',
             data: {
                 action: 'sup',
                 id: id
             },
             success: function(r) {
-                if (r.erreur){
-                    alert(r.erreur);
-                }else{
-                    location.reload(true);
-                }
+                location.reload(true);
+            },
+            error : function(r) {
+                alert(r.error)
             }
         });
     });
