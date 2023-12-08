@@ -112,11 +112,12 @@ class Manches {
         return $manches;
     }
 
-    static function liste_partie_manches($p_id)
+    static function party_rounds_list($p_id)
     {
         $manches = array();
         $req = 'SELECT manches.id, manches.p_id, manches.i_order, parties.date AS date FROM manches '
             . ' LEFT JOIN parties ON parties.id = manches.p_id'
+            . ' WHERE manches.p_id = ' . $p_id
             . ' ORDER BY manches.i_order';
 
         if ($result = Connexion::query($req)){
@@ -134,7 +135,7 @@ class Manches {
     static function manche_i_order($p_id)
     {
         $i_order = [];
-        foreach (self::liste_manches() as $values)
+        foreach (self::party_rounds_list($p_id) as $values)
         {
             if($values['p_id'] = $p_id)
                 $i_order[] = $values['i_order'];
