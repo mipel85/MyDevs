@@ -1,5 +1,4 @@
 <section>
-    
     <header class="section-header"><h1><?= $lang['home.title'] ?></h1></header>
     <article>
         <header><h3>Configuration</h3></header>

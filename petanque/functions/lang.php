@@ -9,7 +9,7 @@ include_once "./lang/fr.php";
 //     include_once "./lang/{$lang}.php";
 // }
 
-// // Vérifie si la langue est définie dans la session, sinon utilise la langue par défaut (en)
+// // Vérifie si la langue est définie dans la session, sinon utilise la langue par défaut (fr)
 // $currentLang = isset($_SESSION['lang']) ? $_SESSION['lang'] : 'fr';
 // loadLanguage($currentLang);
 ?>
