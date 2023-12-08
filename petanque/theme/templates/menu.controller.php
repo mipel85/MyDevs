@@ -4,7 +4,7 @@ function affiche_menu()
 {
     // tableaux contenant les liens d'accès et le texte à afficher
     $menu_links = array("home", "selection", "party", 'ranking');
-    $menu_labels = array("Accueil", "Choix des joueurs", "Demarrage", 'Classement');
+    $menu_labels = array("Accueil", "Choix des joueurs", "Démarrage", 'Classement');
 
     // informations sur la page
     $get = $_GET['page'];
