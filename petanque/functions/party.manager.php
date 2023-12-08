@@ -17,8 +17,7 @@ if (in_array($today, $date)) {
 
 // Rounds
 // get p_id
-$party = count(Parties::liste_parties());
-$p_id = $party ? Parties::partie_id($today) : '';
+$p_id = in_array($today, $date) ? Parties::partie_id($today) : '';
 // set i_order
 $i_order = count(Manches::manche_i_order($p_id)) + 1;
 // get players number
