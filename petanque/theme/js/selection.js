@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // DataTable
-    $('#table_select_joueurs').DataTable({
+    $('#select-players').DataTable({
         dom: 'lfrip<t>B',
         buttons: [
             'print'
@@ -22,11 +22,11 @@ $(document).ready(function() {
     });
 
     // Select/unselect player as present/absent
-    $('#table_select_joueurs').on('change', "input.checkbox-choix-joueur", function() {
+    $('#select-players').on('change', "input.checkbox-choix-joueur", function() {
         var id = $(this).prop('id');
-        if ((this.checked)){
+        if ((this.checked)) {
             $.ajax({
-                url: './ajax/AjaxPlayer.php',
+                url: './ajax/AjaxPlayers.php',
                 type: 'POST',
                 data: {
                     action: 'present',
@@ -34,9 +34,9 @@ $(document).ready(function() {
                 },
                 success: function() {}
             });
-        }else{
+        } else {
             $.ajax({
-                url: './ajax/AjaxPlayer.php',
+                url: './ajax/AjaxPlayers.php',
                 type: 'POST',
                 data: {
                     action: 'absent',
@@ -50,7 +50,7 @@ $(document).ready(function() {
     // Reset all players as absent
     $('#reset-all-players').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxPlayer.php',
+            url: './ajax/AjaxPlayers.php',
             type: 'POST',
             data: {
                 action: 'reset_all_presents'
@@ -59,18 +59,18 @@ $(document).ready(function() {
                 $('input[type=checkbox]').each(function() {
                     this.checked = false;
                 });
-                $('#table_joueurs_presents').html('');
+                $('#selected-players').html('');
             }
         });
     });
 
     //  Display the list of present players
-    function view_joueurs_presents() {
+    function show_present_players() {
         $.ajax({
-            url: './ajax/AjaxPlayer.php',
+            url: './ajax/AjaxPlayers.php',
             type: 'POST',
             data: {
-                action: 'liste-joueurs'
+                action: 'players_list'
             },
             success: function(data) {
                 $('#table_joueurs_connus').html(data);

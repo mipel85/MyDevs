@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 06 déc. 2023 à 09:00
+-- Généré le : ven. 08 déc. 2023 à 12:27
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -24,49 +24,67 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `equipes`
+-- Structure de la table `fights`
 --
 
-CREATE TABLE `equipes` (
+CREATE TABLE `fights` (
   `id` int(11) NOT NULL,
-  `p_id` int(11) NOT NULL,
-  `m_id` int(11) NOT NULL,
-  `j1_id` int(11) NOT NULL,
-  `j1_nom` varchar(255) NOT NULL,
-  `j2_id` int(11) NOT NULL,
-  `j2_nom` varchar(255) NOT NULL,
-  `j3_id` int(11) DEFAULT NULL,
-  `j3_nom` varchar(255) DEFAULT NULL
+  `party_id` int(11) NOT NULL,
+  `round_id` int(11) NOT NULL,
+  `team_1_id` int(11) NOT NULL,
+  `score_team_1` int(11) DEFAULT NULL,
+  `score_team_2` int(11) DEFAULT NULL,
+  `team_2_id` int(11) NOT NULL,
+  `playground` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `joueurs`
+-- Structure de la table `parties`
 --
 
-CREATE TABLE `joueurs` (
+CREATE TABLE `parties` (
   `id` int(11) NOT NULL,
-  `nom` varchar(200) NOT NULL,
+  `date` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `parties`
+--
+
+INSERT INTO `parties` (`id`, `date`) VALUES
+(1, '07-12-2023'),
+(2, '08-12-2023');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `players`
+--
+
+CREATE TABLE `players` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
   `present` tinyint(1) DEFAULT NULL,
   `fav` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `joueurs`
+-- Déchargement des données de la table `players`
 --
 
-INSERT INTO `joueurs` (`id`, `nom`, `present`, `fav`) VALUES
-(1, ' Alain.G', 1, 0),
-(2, ' Alain.M', 1, 0),
-(3, ' Annick.G', 1, 0),
+INSERT INTO `players` (`id`, `name`, `present`, `fav`) VALUES
+(1, ' Alain.G', 1, 1),
+(2, ' Alain.M', 1, 1),
+(3, ' Annick.G', 1, 1),
 (4, ' Christophe.B', 1, 0),
 (5, ' Claudie.F', 1, 0),
-(6, ' Daniel.E', 0, 0),
-(7, ' Daniel.R', 0, 0),
-(8, ' Daniel.T', 0, 0),
+(6, ' Daniel.E', 1, 0),
+(7, ' Daniel.R', 1, 0),
+(8, ' Daniel.T', 1, 0),
 (9, ' Danielle.L', 0, 0),
-(10, ' Dany.R', 0, 0),
+(10, ' Dany.R', 0, 1),
 (11, ' Denis.D', 0, 0),
 (12, ' Denis.G', 0, 0),
 (13, ' Dominique.B', 0, 0),
@@ -109,68 +127,57 @@ INSERT INTO `joueurs` (`id`, `nom`, `present`, `fav`) VALUES
 (51, ' Philippe.R', 0, 0),
 (52, ' Roland.C', 0, 0),
 (53, ' Yannick.G', 0, 0),
-(54, ' Claire.S', 1, 0),
+(54, ' Claire.S', 0, 0),
 (55, ' Marc.S', 0, 0),
 (56, ' Sylvain.B', 0, 0),
 (57, ' Mathieu.M', 0, 0),
 (58, ' Gilles.T', 0, 0),
-(59, ' Catherine.D', 1, 0),
-(60, ' Jean-Louis.D', 0, 0),
-(569, 'Babso.L', 0, 0);
+(59, ' Catherine.D', 0, 0),
+(60, ' Jean-Louis.D', 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `manches`
+-- Structure de la table `rounds`
 --
 
-CREATE TABLE `manches` (
+CREATE TABLE `rounds` (
   `id` int(11) NOT NULL,
-  `p_id` int(11) NOT NULL,
+  `party_id` int(11) NOT NULL,
   `i_order` int(11) NOT NULL,
-  `nombre_joueurs` int(11) NOT NULL
+  `players_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `manches`
+-- Déchargement des données de la table `rounds`
 --
 
-INSERT INTO `manches` (`id`, `p_id`, `i_order`, `nombre_joueurs`) VALUES
-(1, 1, 1, 12);
+INSERT INTO `rounds` (`id`, `party_id`, `i_order`, `players_number`) VALUES
+(1, 1, 1, 8),
+(2, 1, 2, 8),
+(3, 1, 3, 8),
+(4, 1, 4, 8),
+(5, 2, 1, 8),
+(6, 2, 2, 8),
+(7, 2, 3, 8),
+(8, 2, 4, 8);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `parties`
+-- Structure de la table `teams`
 --
 
-CREATE TABLE `parties` (
+CREATE TABLE `teams` (
   `id` int(11) NOT NULL,
-  `date` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `parties`
---
-
-INSERT INTO `parties` (`id`, `date`) VALUES
-(1, '04-12-2023');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `rencontres`
---
-
-CREATE TABLE `rencontres` (
-  `id` int(11) NOT NULL,
-  `p_id` int(11) NOT NULL,
-  `r_id` int(11) NOT NULL,
-  `terrain` int(11) NOT NULL,
-  `eq1_id` int(11) NOT NULL,
-  `res_eq1` int(11) DEFAULT NULL,
-  `eq2_id` int(11) NOT NULL,
-  `res_eq2` int(11) DEFAULT NULL
+  `party_id` int(11) NOT NULL,
+  `round_id` int(11) NOT NULL,
+  `player_1_id` int(11) NOT NULL,
+  `player_1_name` varchar(255) NOT NULL,
+  `player_2_id` int(11) DEFAULT NULL,
+  `player_2_name` varchar(255) DEFAULT NULL,
+  `player_3_id` int(11) DEFAULT NULL,
+  `player_3_name` char(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -178,21 +185,9 @@ CREATE TABLE `rencontres` (
 --
 
 --
--- Index pour la table `equipes`
+-- Index pour la table `fights`
 --
-ALTER TABLE `equipes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `joueurs`
---
-ALTER TABLE `joueurs`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `manches`
---
-ALTER TABLE `manches`
+ALTER TABLE `fights`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -202,9 +197,21 @@ ALTER TABLE `parties`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `rencontres`
+-- Index pour la table `players`
 --
-ALTER TABLE `rencontres`
+ALTER TABLE `players`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `rounds`
+--
+ALTER TABLE `rounds`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `teams`
+--
+ALTER TABLE `teams`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -212,33 +219,33 @@ ALTER TABLE `rencontres`
 --
 
 --
--- AUTO_INCREMENT pour la table `equipes`
+-- AUTO_INCREMENT pour la table `fights`
 --
-ALTER TABLE `equipes`
+ALTER TABLE `fights`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `joueurs`
---
-ALTER TABLE `joueurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=570;
-
---
--- AUTO_INCREMENT pour la table `manches`
---
-ALTER TABLE `manches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `parties`
 --
 ALTER TABLE `parties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT pour la table `rencontres`
+-- AUTO_INCREMENT pour la table `players`
 --
-ALTER TABLE `rencontres`
+ALTER TABLE `players`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT pour la table `rounds`
+--
+ALTER TABLE `rounds`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `teams`
+--
+ALTER TABLE `teams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

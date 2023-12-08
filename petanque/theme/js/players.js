@@ -31,7 +31,7 @@ $(document).ready(function() {
         var id = $(this).attr('data-id');
         if ((this.checked)){
             $.ajax({
-                url: './ajax/AjaxPlayer.php',
+                url: './ajax/AjaxPlayers.php',
                 type: 'POST',
                 data: {
                     action: 'favory',
@@ -41,7 +41,7 @@ $(document).ready(function() {
             });
         }else{
             $.ajax({
-                url: './ajax/AjaxPlayer.php',
+                url: './ajax/AjaxPlayers.php',
                 type: 'POST',
                 data: {
                     action: 'anonyme',
@@ -55,7 +55,7 @@ $(document).ready(function() {
     // désélectionner tous les favoris
     $('#btn_reset_favs').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxPlayer.php',
+            url: './ajax/AjaxPlayers.php',
             type: 'POST',
             data: {
                 action: 'reset_all_favs'
@@ -71,14 +71,14 @@ $(document).ready(function() {
 
     // Add new player
     $('#add-player').on('click', function() {
-        var player_name = $('#player_name').val();
-        if (player_name !== ''){
+        var name = $('#player_name').val();
+        if (name !== ''){
             $.ajax({
-                url: './ajax/AjaxPlayer.php',
+                url: './ajax/AjaxPlayers.php',
                 type: 'POST',
                 data: {
-                    action: 'insert',
-                    player_name: player_name
+                    action: 'insert_player',
+                    name: name
                 },
                 success: function(r) {
                     $('#player_name').val('');
@@ -102,10 +102,10 @@ $(document).ready(function() {
         $(this).on('click', function() {
             var id = $(this).attr('id');
             $.ajax({
-                url: './ajax/AjaxPlayer.php',
+                url: './ajax/AjaxPlayers.php',
                 type: 'POST',
                 data: {
-                    action: 'sup',
+                    action: 'remove_player',
                     id: id
                 },
                 success: function(r) {

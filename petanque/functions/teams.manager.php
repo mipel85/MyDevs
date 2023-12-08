@@ -1,7 +1,10 @@
 <?php
+require_once('../classes/Teams.class.php');
+require_once('../classes/Players.class.php');
+require_once('../classes/Connection.class.php');
 
 // Liste de joueurs présents
-$liste = Joueurs::liste_joueurs_presents();
+$liste = Players::present_players_list();
 $joueurs = [];
 foreach ($liste as $joueur)
 {
@@ -51,15 +54,13 @@ function formerEquipes($joueurs) {
     return $equipes;
 }
 
-if (count($joueurs) < 4)
-    echo 'Pas assez de joueurs pour lancer une partie';
-else {
-    // Former les équipes
-    $equipes = formerEquipes($joueurs);
 
-    // Afficher les équipes formées
-    foreach ($equipes as $index => $equipe) {
-        echo "Équipe " . ($index + 1) . " => [ " . implode(', ', $equipe) . " ]<br>";
-    }
+// Former les équipes
+$equipes = formerEquipes($joueurs);
+
+// Afficher les équipes formées
+foreach ($equipes as $index => $equipe) {
+    echo "Équipe " . ($index + 1) . " => [ " . implode(', ', $equipe) . " ]<br>";
 }
+
 ?>

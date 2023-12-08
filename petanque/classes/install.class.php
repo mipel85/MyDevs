@@ -1,6 +1,6 @@
 <?php
 
-require_once('connection.class.php');
+require_once('Connection.class.php');
 
 class install {
 
@@ -38,10 +38,10 @@ class install {
 
     static function insert_data_players()
     {
-        $req = 'SELECT COUNT(*) AS NB FROM `joueurs`';
+        $req = 'SELECT COUNT(*) AS NB FROM `players`';
         $empty_table = Connection::query($req);
         if ($empty_table[0]['NB'] === 0){
-            $requete = 'INSERT INTO `joueurs` (`nom`) VALUES
+            $requete = 'INSERT INTO `players` (`nom`) VALUES
             ("Alain.G"),
             ("Alain.M"),
             ("Annick.G"),

@@ -1,13 +1,13 @@
 <?php
 
-include '../classes/connection.class.php';
-include '../classes/joueurs.class.php';
+include '../classes/Connection.class.php';
+include '../classes/Players.class.php';
 
 $actions = $_POST['action'];
 switch($actions)
 {
-    case 'liste-joueurs':
-        $liste = Joueurs::liste_joueurs_connus();
+    case 'players_list':
+        $liste = Players::players_list();
         if (!$liste){
             echo '</br>Erreur dans la requête<br />';
         }else{
@@ -26,49 +26,49 @@ switch($actions)
         return $liste;
         break;
     
-    case 'insert':
-        $creation = new Joueurs();
-        $creation->setNom_joueur($_POST['nom_joueur']);
-        $creation->insert();
+    case 'insert_player':
+        $creation = new Players();
+        $creation->set_name($_POST['name']);
+        $creation->insert_player();
         break;
     
-    case 'sup':
+    case 'remove_player':
         $idSup = $_POST['id'];
-        $sup = new Joueurs($idSup);
-        $sup->suppression();
+        $sup = new Players($idSup);
+        $sup->remove_player();
         break;
     
     case 'present':
-        $present = new Joueurs();
-        $present->setId($_POST['id']);
+        $present = new Players();
+        $present->set_id($_POST['id']);
         $present->select_present();
         break;
     
     case 'absent':
-        $absent = new Joueurs();
-        $absent->setId($_POST['id']);
+        $absent = new Players();
+        $absent->set_id($_POST['id']);
         $absent->reset_present();
         break;
     
     case 'reset_all_presents':
-        $reset = new Joueurs();
+        $reset = new Players();
         $reset->reset_all_presents();
         break;
     
     case 'favory':
-        $favory = new Joueurs();
-        $favory->setId($_POST['id']);
+        $favory = new Players();
+        $favory->set_id($_POST['id']);
         $favory->select_fav();
         break;
     
     case 'anonyme':
-        $anonyme = new Joueurs();
-        $anonyme->setId($_POST['id']);
+        $anonyme = new Players();
+        $anonyme->set_id($_POST['id']);
         $anonyme->reset_fav();
         break;
     
     case 'reset_all_favs':
-        $reset = new Joueurs();
+        $reset = new Players();
         $reset->reset_all_favs();
         break;
     

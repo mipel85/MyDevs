@@ -1,28 +1,28 @@
 <?php
 
-require_once('./classes/joueurs.class.php');
-require_once('./classes/parties.class.php');
-require_once('./classes/manches.class.php');
+require_once('./classes/Players.class.php');
+require_once('./classes/Parties.class.php');
+require_once('./classes/Rounds.class.php');
 ?>
 <section>
     <header class="section-header">
-        <h1>Administration</h1>
+        <h1>Configuration</h1>
     </header>
     <div class="tabs-container">
         <div class="tabs-menu">
-            <span data-trigger="joueurs" class="tab-trigger active-tab" onclick="openTab(event, 'joueurs');">Joueurs</span>
+            <span data-trigger="players" class="tab-trigger active-tab" onclick="openTab(event, 'players');">Joueurs</span>
             <span data-trigger="parties" class="tab-trigger" onclick="openTab(event, 'parties');">Parties</span>
-            <span data-trigger="manches" class="tab-trigger" onclick="openTab(event, 'manches');">Manches</span>
-            <!-- <a data-trigger="config" class="tab-trigger" onclick="openTab(event, 'config');">Manches</a> -->
+            <span data-trigger="rounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Manches</span>
+            <!-- <a data-trigger="config" class="tab-trigger" onclick="openTab(event, 'config');">Rounds</a> -->
         </div>
-        <article id="joueurs" class="tab-content active-tab cell-flex cell-columns-2">
+        <article id="joueplayersurs" class="tab-content active-tab cell-flex cell-columns-2">
             <?php include './theme/templates/config/config.players.php'; ?>
         </article>
         <article id="parties" class="tab-content cell-flex cell-columns-2">
             <?php include './theme/templates/config/config.parties.php'; ?>
         </article>
-        <article id="manches" class="tab-content cell-flex cell-columns-2">
-            <?php include './theme/templates/config/config.manches.php'; ?>
+        <article id="rounds" class="tab-content cell-flex cell-columns-2">
+            <?php include './theme/templates/config/config.rounds.php'; ?>
         </article>
         <!-- <article id="config" class="tab-content cell-flex cell-columns-2">
             <div id="max-round">

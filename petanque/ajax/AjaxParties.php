@@ -1,51 +1,51 @@
 <?php
 
-include '../classes/connection.class.php';
-include '../classes/parties.class.php';
-include '../classes/manches.class.php';
-include '../classes/joueurs.class.php';
+include '../classes/Connection.class.php';
+include '../classes/Parties.class.php';
+include '../classes/Rounds.class.php';
+include '../classes/Players.class.php';
 
 $actions = $_POST['action'];
 switch($actions)
 {
     case 'insert_party':
         $creation = new Parties();
-        $creation->setDate($_POST['date_partie']);
-        $creation->ajouter_partie();
+        $creation->set_date($_POST['party_date']);
+        $creation->add_party();
         break;
 
-    case 'delete_party':
+    case 'remove_party':
         $idSup = $_POST['id'];
-        $sup = new Manches();
-        $sup->delete_manches_serie($idSup);
+        $sup = new Rounds();
+        $sup->remove_rounds_serie($idSup);
         $sup = new Parties($idSup);
-        $sup->supprimer_partie();
+        $sup->remove_party();
         break;
 
-    case 'delete_all_parties':
-        $delete = new Manches();
-        $delete->delete_all_manches();
+    case 'remove_all_parties':
+        $delete = new Rounds();
+        $delete->remove_all_rounds();
         $delete = new Parties();
-        $delete->delete_all_parties();
+        $delete->remove_all_parties();
         break;
 
     case 'insert_round':
-        $insert = new Manches();
-        $insert->setP_id($_POST['party_id']);
-        $insert->setI_order($_POST['i_order']);
-        $insert->setNbJoueurs($_POST['players_number']);
-        $insert->ajouter_manche();
+        $insert = new Rounds();
+        $insert->set_party_id($_POST['party_id']);
+        $insert->set_i_order($_POST['i_order']);
+        $insert->set_players_number($_POST['players_number']);
+        $insert->add_round();
         break;
 
-    case 'delete_round':
+    case 'remove_round':
         $deleted_id = $_POST['id'];
-        $delete = new Manches($deleted_id);
-        $delete->supprimer_manche();
+        $delete = new Rounds($deleted_id);
+        $delete->remove_round();
         break;
 
-    case 'delete_all_manches':
-        $delete = new Manches();
-        $delete->delete_all_manches();
+    case 'remove_all_manches':
+        $delete = new Rounds();
+        $delete->remove_all_rounds();
         break;
 
     default:

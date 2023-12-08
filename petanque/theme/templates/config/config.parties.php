@@ -27,7 +27,7 @@
             </tr>
             </thead>
         <tbody>
-            <?php foreach (Parties::liste_parties() as $partie): ?>
+            <?php foreach (Parties::parties_list() as $partie): ?>
                 <tr>
                     <td><?= $partie['id'] ?></td>
                     <td><?= $partie['date'] ?></td>

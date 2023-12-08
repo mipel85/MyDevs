@@ -24,13 +24,13 @@
             </tr>
             </thead>
         <tbody>
-            <?php foreach (Joueurs::liste_joueurs_connus() as $joueur): ?>
-                <?php $checked = $joueur['fav'] ? ' checked' : ''; ?>
+            <?php foreach (Players::players_list() as $player): ?>
+                <?php $checked = $player['fav'] ? ' checked' : ''; ?>
                 <tr>
-                    <td><?= $joueur['id'] ?></td>
-                    <td><?= $joueur['nom'] ?></td>
-                    <td><input type="checkbox" data-id="<?= $joueur['id'] ?>" class="btn-fav-joueur"<?= $checked ?> /></td>
-                    <td><button type="button" id="<?= $joueur['id'] ?>" class="delete-player"><i class="fa fa-fw fa-square-xmark error"></i></button></td>
+                    <td><?= $player['id'] ?></td>
+                    <td><?= $player['name'] ?></td>
+                    <td><input type="checkbox" data-id="<?= $player['id'] ?>" class="btn-fav-joueur"<?= $checked ?> /></td>
+                    <td><button type="button" id="<?= $player['id'] ?>" class="delete-player"><i class="fa fa-fw fa-square-xmark error"></i></button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>

@@ -4,7 +4,7 @@
     </header>
     <div class="cell-flex cell-columns-2">
         <article class="content">
-            <table id="table_select_joueurs" class="table">
+            <table id="select-players" class="table">
                 <thead>
                     <tr>
                         <th>N°</th>
@@ -14,16 +14,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach (Joueurs::liste_joueurs_connus() as $joueur): ?>
+                    <?php foreach (Players::players_list() as $player): ?>
                         <?php
-                            $checked = $joueur['present'] ? ' checked' : '';
-                            $fav = $joueur['fav'] ? '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>';
+                            $checked = $player['present'] ? ' checked' : '';
+                            $fav = $player['fav'] ? '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>';
                         ?>
                         <tr>
-                            <td><?= $joueur['id'] ?></td>
-                            <td><?= $joueur['nom'] ?></td>
+                            <td><?= $player['id'] ?></td>
+                            <td><?= $player['name'] ?></td>
                             <td><?= $fav ?></td>
-                            <td><input type="checkbox" id="<?= $joueur['id'] ?>" class="checkbox-choix-joueur"<?= $checked ?> /></td>
+                            <td><input type="checkbox" id="<?= $player['id'] ?>" class="checkbox-choix-joueur"<?= $checked ?> /></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -34,11 +34,11 @@
                 <input type="button" id="reset-all-players" class="button btn-reset-present" value="Décocher tout" />
             </div>
         </article>
-        <article class="content">
+        <article id="selected-players" class="content">
             <header>
-                <h3><?= count(Joueurs::liste_joueurs_presents()); ?> joueurs présents</h3>
+                <h3><?= count(Players::present_players_list()); ?> joueurs présents</h3>
             </header>
-            <table id="table_joueurs_presents" class="table">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>N°</th>
@@ -46,10 +46,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach (Joueurs::liste_joueurs_presents() as $present): ?>
+                    <?php foreach (Players::present_players_list() as $present): ?>
                         <tr>
                             <td><?= $present['id'] ?></td>
-                            <td><?= $present['nom'] ?></td>
+                            <td><?= $present['name'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

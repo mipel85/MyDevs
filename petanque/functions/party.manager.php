@@ -3,7 +3,7 @@
 // Parties
 $today = date('d-m-Y');
 $date = [];
-foreach(Parties::liste_parties() as $values)
+foreach(Parties::parties_list() as $values)
 {
     $date[] = $values['date'];
 }
@@ -17,13 +17,13 @@ if (in_array($today, $date)) {
 
 // Rounds
 // get party_id
-$party_id = in_array($today, $date) ? Parties::partie_id($today) : '';
+$party_id = in_array($today, $date) ? Parties::party_id($today) : '';
 // set i_order
 if ($party_id)
 {
-    $i_order = count(Manches::manche_i_order($party_id)) + 1;
+    $i_order = count(Rounds::round_i_order($party_id)) + 1;
     // get players number
-    $players_number = count(Joueurs::liste_joueurs_presents());
+    $players_number = count(Players::present_players_list());
     // en/disable add button
     $disabled_manche = $hidden_manche = '';
     if ($i_order > 4 || $players_number < 8) {

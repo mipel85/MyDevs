@@ -2,19 +2,19 @@ $(document).ready(function() {
 
 // Ajout d'une partie
     $('#add-party').on('click', function() {
-        var date_partie = $('#date_partie').val();
-        if (date_partie !== ''){
+        var party_date = $('#party-date').val();
+        if (party_date !== ''){
             $.ajax({
                 url: './ajax/AjaxParties.php',
                 type: 'POST',
                 data: {
                     action: 'insert_party',
-                    date_partie: date_partie
+                    party_date: party_date
                 },
                 success: function(r) {
                     $('#partie_ajoutee').removeClass('hidden').addClass('floatting');
                     $('#add-party').attr('disabled', 'disabled');
-                    setTimeout(location.reload.bind(location), 3000);
+                    setTimeout(location.reload.bind(location), 1000);
                 },
                 error: function(r) {}
             });
@@ -30,7 +30,7 @@ $(document).ready(function() {
             url: './ajax/AjaxParties.php',
             type: 'POST',
             data: {
-                action: 'delete_party',
+                action: 'remove_party',
                 id: id
             },
             success: function(r) {
@@ -48,7 +48,7 @@ $(document).ready(function() {
             url: './ajax/AjaxParties.php',
             type: 'POST',
             data: {
-                action: 'delete_all_parties'
+                action: 'remove_all_parties'
             },
             success: function(r) {
                 location.reload(true);
@@ -75,8 +75,8 @@ $(document).ready(function() {
             },
             success: function(r) {
                 $('#manche_ajoutee').removeClass('hidden').addClass('floatting');
-                if (i_order > 4) $('#add-manche').attr('disabled', 'disabled');
-                setTimeout(location.reload.bind(location), 1500);
+                if (i_order > 4) $('#add-round').attr('disabled', 'disabled');
+                setTimeout(location.reload.bind(location), 1000);
             },
             error: function(r) {}
         });
@@ -89,7 +89,7 @@ $(document).ready(function() {
             url: './ajax/AjaxParties.php',
             type: 'POST',
             data: {
-                action: 'delete_round',
+                action: 'remove_round',
                 id: id
             },
             success: function(r) {
@@ -107,7 +107,7 @@ $(document).ready(function() {
             url: './ajax/AjaxParties.php',
             type: 'POST',
             data: {
-                action: 'delete_all_manches'
+                action: 'remove_all_manches'
             },
             success: function(r) {
                 location.reload(true);

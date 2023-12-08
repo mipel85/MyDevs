@@ -1,7 +1,7 @@
 <?php
 
 // Liste de joueurs présents
-$liste = Joueurs::liste_joueurs_presents();
+$liste = Players::present_players_list();
 $joueurs = [];
 foreach ($liste as $joueur)
 {

@@ -1,6 +1,6 @@
 <?php
 
-require_once('./classes/install.class.php');
+require_once('./classes/Install.class.php');
 
 // automatic installation of database and tables
 install::create_database();

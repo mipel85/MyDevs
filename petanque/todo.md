@@ -33,7 +33,10 @@ créer la doc dans /theme/templates/home.php
 ## Language
 party/partie => la journée commence on crée une partie
     > round/manche => de 1 à 4 manches dans une partie
-        > game/rencontre => chaque rencontre entre 2 équipes dans une manche
+        > fight/rencontre => chaque rencontre entre 2 équipes dans une manche
             > team/equipe => un groupe de 2 ou 3 participants
                 > player/joueur => un participant
+
+win = score + diff
+lose = score
 

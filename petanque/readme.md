@@ -3,14 +3,14 @@
 ## Connect to the database
 - create database
 - import /_datas/petanque.sql
-- create file connection_config.class.php in /classes directory
+- create file ConnectionConfig.class.php in /classes directory
 ```
 <?php
 /*
- * identifiants de connexion à la base de données
+ * Database login credentials
  */
 
-class CONNECTION_CONFIG
+class ConnexionConfig
 {
     const DB_ADDR = ''; // address of server
     const DB_NAME = ''; // name of the database
