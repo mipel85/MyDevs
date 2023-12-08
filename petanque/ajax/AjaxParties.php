@@ -31,9 +31,9 @@ switch($actions)
 
     case 'insert_round':
         $insert = new Manches();
-        $insert->setP_id($_POST['p_id']);
+        $insert->setP_id($_POST['party_id']);
         $insert->setI_order($_POST['i_order']);
-        $insert->setNbJoueurs($_POST['nbj']);
+        $insert->setNbJoueurs($_POST['players_number']);
         $insert->ajouter_manche();
         break;
 
