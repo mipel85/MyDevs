@@ -15,7 +15,7 @@ require_once('./classes/Rounds.class.php');
             <span data-trigger="rounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Manches</span>
             <!-- <a data-trigger="config" class="tab-trigger" onclick="openTab(event, 'config');">Rounds</a> -->
         </div>
-        <article id="joueplayersurs" class="tab-content active-tab cell-flex cell-columns-2">
+        <article id="players" class="tab-content active-tab cell-flex cell-columns-2">
             <?php include './theme/templates/config/config.players.php'; ?>
         </article>
         <article id="parties" class="tab-content cell-flex cell-columns-2">

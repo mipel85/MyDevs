@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // DataTable
-    $('#select-players').DataTable({
+    $('#players-list').DataTable({
         dom: 'lfrip<t>B',
         buttons: [
             'print'
@@ -8,7 +8,10 @@ $(document).ready(function() {
         language: {
             url: './theme/js/lib/language.json'
         },
-        "aLengthMenu": [10, 20, 30, 50],
+        "aLengthMenu": [
+            [10, 20, 30, 50, -1],
+            [10, 20, 30, 50, 'Tous']
+    ],
         "paginationType": "simple_numbers",
         "pageLength": 10,
         "fixedHeader": true,
@@ -22,29 +25,31 @@ $(document).ready(function() {
     });
 
     // Select/unselect player as present/absent
-    $('#select-players').on('change', "input.checkbox-choix-joueur", function() {
-        var id = $(this).prop('id');
-        if ((this.checked)) {
-            $.ajax({
-                url: './ajax/AjaxPlayers.php',
-                type: 'POST',
-                data: {
-                    action: 'present',
-                    id: id
-                },
-                success: function() {}
-            });
-        } else {
-            $.ajax({
-                url: './ajax/AjaxPlayers.php',
-                type: 'POST',
-                data: {
-                    action: 'absent',
-                    id: id
-                },
-                success: function() {}
-            });
-        }
+    $('.select-player').each(function(){
+        $(this).on('change', function() {
+            var id = $(this).prop('id');
+            if ((this.checked)) {
+                $.ajax({
+                    url: './ajax/AjaxPlayers.php',
+                    type: 'POST',
+                    data: {
+                        action: 'present',
+                        id: id
+                    },
+                    success: function() {}
+                });
+            } else {
+                $.ajax({
+                    url: './ajax/AjaxPlayers.php',
+                    type: 'POST',
+                    data: {
+                        action: 'absent',
+                        id: id
+                    },
+                    success: function() {}
+                });
+            }
+        })
     });
 
     // Reset all players as absent

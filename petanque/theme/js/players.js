@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#player_name').removeClass('is_empty');
 
     // DataTable
-    $('#table_joueurs_connus').DataTable(
+    $('#registred-players').DataTable(
         {
             dom: 'lfrip<t>B',
             buttons: [
@@ -12,7 +12,10 @@ $(document).ready(function() {
             language: {
                 url: './theme/js/lib/language.json'
             },
-            "aLengthMenu": [10, 20, 30, 50],
+            "aLengthMenu": [
+                [10, 20, 30, 50, -1],
+                [10, 20, 30, 50, 'Tous']
+            ],
             "paginationType": "simple_numbers",
             "pageLength": 10,
             "fixedHeader": true,
@@ -27,33 +30,35 @@ $(document).ready(function() {
     );
 
     // Select/unselect players as favourite
-    $('#table_joueurs_connus').on('change', "input.btn-fav-joueur", function() {
-        var id = $(this).attr('data-id');
-        if ((this.checked)){
-            $.ajax({
-                url: './ajax/AjaxPlayers.php',
-                type: 'POST',
-                data: {
-                    action: 'favory',
-                    id: id
-                },
-                success: function() {}
-            });
-        }else{
-            $.ajax({
-                url: './ajax/AjaxPlayers.php',
-                type: 'POST',
-                data: {
-                    action: 'anonyme',
-                    id: id
-                },
-                success: function() {}
-            });
-        }
+    $('.fav-player').each(function() {
+        $(this).on('change', function() {
+            var id = $(this).attr('data-id');
+            if ((this.checked)){
+                $.ajax({
+                    url: './ajax/AjaxPlayers.php',
+                    type: 'POST',
+                    data: {
+                        action: 'favory',
+                        id: id
+                    },
+                    success: function() {}
+                });
+            }else{
+                $.ajax({
+                    url: './ajax/AjaxPlayers.php',
+                    type: 'POST',
+                    data: {
+                        action: 'anonyme',
+                        id: id
+                    },
+                    success: function() {}
+                });
+            }
+        });
     });
 
     // désélectionner tous les favoris
-    $('#btn_reset_favs').on('click', function() {
+    $('#reset-all-favs').on('click', function() {
         $.ajax({
             url: './ajax/AjaxPlayers.php',
             type: 'POST',

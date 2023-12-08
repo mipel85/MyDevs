@@ -14,7 +14,7 @@
     <header>
         <h3>Liste des joueurs</h3>
     </header>
-    <table id="table_joueurs_connus" class="table">
+    <table id="registred-players" class="table">
         <thead>
             <tr>
                 <th>N°</th>
@@ -29,7 +29,7 @@
                 <tr>
                     <td><?= $player['id'] ?></td>
                     <td><?= $player['name'] ?></td>
-                    <td><input type="checkbox" data-id="<?= $player['id'] ?>" class="btn-fav-joueur"<?= $checked ?> /></td>
+                    <td><input type="checkbox" data-id="<?= $player['id'] ?>" class="fav-player"<?= $checked ?> /></td>
                     <td><button type="button" id="<?= $player['id'] ?>" class="delete-player"><i class="fa fa-fw fa-square-xmark error"></i></button></td>
                 </tr>
             <?php endforeach ?>
@@ -37,7 +37,7 @@
     </table>
     <div class="line flex-between">
         <span>&nbsp;</span>
-        <input type="button" id="btn_valid_favs" onclick="location.reload();" class="button submit" value="Valider les favoris" />
-        <input type="button" id="btn_reset_favs" class="button btn-reset-present" value="Décocher tout" />
+        <button type="button" onclick="location.reload(true);" class="button submit">Valider les favoris</button>
+        <button type="button" id="reset-all-favs" class="button btn-reset-present">Décocher tout</button>
     </div>
 </div>

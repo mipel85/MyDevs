@@ -4,7 +4,7 @@
     </header>
     <div class="cell-flex cell-columns-2">
         <article class="content">
-            <table id="select-players" class="table">
+            <table id="players-list" class="table">
                 <thead>
                     <tr>
                         <th>N°</th>
@@ -23,7 +23,7 @@
                             <td><?= $player['id'] ?></td>
                             <td><?= $player['name'] ?></td>
                             <td><?= $fav ?></td>
-                            <td><input type="checkbox" id="<?= $player['id'] ?>" class="checkbox-choix-joueur"<?= $checked ?> /></td>
+                            <td><input type="checkbox" id="<?= $player['id'] ?>" class="select-player"<?= $checked ?> /></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
