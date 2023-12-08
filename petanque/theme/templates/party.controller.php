@@ -45,46 +45,38 @@
         </div>
     </article>
     <article class="cell-flex cell-columns-2">
-        <div id="rounds-list">
-            <?php 
-                foreach(Manches::liste_partie_manches($p_id) as $values)
-                {
-                    echo '
-                        <div>
-                            <header>
-                                <h3>Manche ' . $values['i_order'] . ' - Équipes</h3>
-                            </header>';
-                            // require_once('./functions/teams.manager.php');
-                    echo '</div> ';
-                }
-            ?>
+        <div id="teams-list">
+            <?php foreach(Manches::party_rounds_list($p_id) as $values): ?>
+                <div>
+                    <header>
+                        <h3>Manche <?= $values['i_order'] ?> - Équipes</h3>
+                    </header>
+                    <!-- <?php require_once('./functions/teams.manager.php'); ?> -->
+                </div>
+            <?php endforeach ?>
         </div>
         <div id="games-list">
-            <?php 
-                foreach(Manches::liste_partie_manches($p_id) as $values)
-                {
-                    echo '
-                        <div>
-                            <header>
-                                <h3>Manche ' . $values['i_order'] . ' - Matches</h3>
-                            </header>';
-                            // require_once('./functions/teams.manager.php');
-                    echo '</div> ';
-                }
-            ?>
+            <?php foreach(Manches::party_rounds_list($p_id) as $values): ?>
+                <div>
+                    <header>
+                        <h3>Manche <?= $values['i_order'] ?> - Matches</h3>
+                    </header
+                    <!-- <?php require_once('./functions/teams.manager.php'); ?> -->
+                </div>
+            <?php endforeach; ?>
         </div>
     </article>
-        <script>
-            // set today format
-            let date = new Date(), d = date.getDate(), m = date.getMonth() + 1, y = date.getFullYear();
-            if (d < 10) d = '0' + d;
-            if (m < 10) m = '0' + m;
-            const formatDate = d + '-' + m + '-' + y;
-            // send today to hidden input of partie
-            document.getElementById('date_partie').value = formatDate;
+    <script>
+        // set today format
+        let date = new Date(), d = date.getDate(), m = date.getMonth() + 1, y = date.getFullYear();
+        if (d < 10) d = '0' + d;
+        if (m < 10) m = '0' + m;
+        const formatDate = d + '-' + m + '-' + y;
+        // send today to hidden input of partie
+        document.getElementById('date_partie').value = formatDate;
 
-            if ($('#add_partie').attr('disabled'))
-                $('#add-manche').removeClass('hidden');
-        </script>
+        if ($('#add_partie').attr('disabled'))
+            $('#add-manche').removeClass('hidden');
+    </script>
 </section>
 
