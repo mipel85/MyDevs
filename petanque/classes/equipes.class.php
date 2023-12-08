@@ -17,10 +17,10 @@ class Equipes {
     {
         if (!is_null($id)){
             $req = 'SELECT * FROM equipes WHERE id = ' . $id;
-            if ($result = Connexion::query($req)){
+            if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->setId($result['id']);
-                $this->setp_id($result['p_id']);
+                $this->setP_id($result['p_id']);
                 $this->setM_id($result['m_id']);
                 $this->setJ1_id($result['j1_id']);
                 $this->setJ1_nom($result['j1_nom']);
@@ -180,6 +180,6 @@ class Equipes {
                     NULL,
                     "' . $this->getNom_joueur() . '",
             "0")';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -10,7 +11,7 @@ class Parties {
     {
         if (!is_null($id)){
             $req = 'SELECT * FROM parties WHERE id = ' . $id;
-            if ($result = Connexion::query($req)){
+            if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->setId($result['id']);
                 $this->setDate(date('d-m-Y'));
@@ -47,26 +48,26 @@ class Parties {
                     NULL,
                     "' . $this->getDate() . '"
                 )';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function supprimer_partie()
     {
         $req = 'DELETE FROM parties WHERE id = "' . $this->getId() . '"';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function delete_all_parties()
     {
         $req = 'DELETE FROM parties';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     static function liste_parties()
     {
         $liste_parties = array();
         $req = 'SELECT id, date FROM parties ORDER BY `date` DESC';
-        if ($result = Connexion::query($req)){
+        if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
                 {

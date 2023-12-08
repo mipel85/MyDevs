@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -12,7 +13,7 @@ class Manches {
     {
         if (!is_null($id)){
             $req = 'SELECT * FROM manches WHERE id = ' . $id;
-            if ($result = Connexion::query($req)){
+            if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->setId($result['id']);
                 $this->setp_id($result['p_id']);
@@ -73,25 +74,25 @@ class Manches {
                     "' . $this->getNbJoueurs() . '"
                 )';
         var_dump($req);
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function supprimer_manche()
     {
         $req = 'DELETE FROM manches WHERE id = "' . $this->getId() . '"';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
-    function delete_manches_serie($p_id)
+    function delete_manches_serie($party_id)
     {
-        $req = 'DELETE FROM manches WHERE p_id = "' . $p_id . '"';
-        return Connexion::query($req);
+        $req = 'DELETE FROM manches WHERE p_id = "' . $party_id . '"';
+        return Connection::query($req);
     }
 
     function delete_all_manches()
     {
         $req = 'DELETE FROM manches';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     static function liste_manches()
@@ -101,7 +102,7 @@ class Manches {
             . ' LEFT JOIN parties ON parties.id = manches.p_id'
             . ' ORDER BY manches.p_id, manches.i_order';
 
-        if ($result = Connexion::query($req)){
+        if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
                 {
@@ -112,19 +113,19 @@ class Manches {
         return $manches;
     }
 
-    static function party_rounds_list($p_id)
+    static function party_rounds_list($party_id)
     {
         $manches = array();
         $req = 'SELECT manches.id, manches.p_id, manches.i_order, parties.date AS date FROM manches '
             . ' LEFT JOIN parties ON parties.id = manches.p_id'
-            . ' WHERE manches.p_id = ' . $p_id
+            . ' WHERE manches.p_id = ' . $party_id
             . ' ORDER BY manches.i_order';
 
-        if ($result = Connexion::query($req)){
+        if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
                 {
-                    if($value['p_id'] = $p_id)
+                    if($value['p_id'] = $party_id)
                         $manches[] = $value;
                 }
             }
@@ -132,12 +133,12 @@ class Manches {
         return $manches;
     }
 
-    static function manche_i_order($p_id)
+    static function manche_i_order($party_id)
     {
         $i_order = [];
-        foreach (self::party_rounds_list($p_id) as $values)
+        foreach (self::party_rounds_list($party_id) as $values)
         {
-            if($values['p_id'] = $p_id)
+            if($values['p_id'] = $party_id)
                 $i_order[] = $values['i_order'];
         }
         return $i_order;

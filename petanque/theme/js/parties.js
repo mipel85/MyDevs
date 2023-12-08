@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 // Ajout d'une partie
-    $('#add_partie').on('click', function() {
+    $('#add-party').on('click', function() {
         var date_partie = $('#date_partie').val();
         if (date_partie !== ''){
             $.ajax({
@@ -13,7 +13,7 @@ $(document).ready(function() {
                 },
                 success: function(r) {
                     $('#partie_ajoutee').removeClass('hidden').addClass('floatting');
-                    $('#add_partie').attr('disabled', 'disabled');
+                    $('#add-party').attr('disabled', 'disabled');
                     setTimeout(location.reload.bind(location), 3000);
                 },
                 error: function(r) {}
@@ -61,17 +61,17 @@ $(document).ready(function() {
 
     // Ajout d'une manche
     $('#add_manche').on('click', function() {
-        let p_id = $(this).data('p_id'),
+        let party_id = $(this).data('party_id'),
             i_order = $(this).data('i_order'),
-            nbj = $(this).data('nbj');
+            players_number = $(this).data('players_number');
         $.ajax({
             url: './ajax/AjaxParties.php',
             type: 'POST',
             data: {
                 action: 'insert_round',
-                p_id: p_id,
+                party_id: party_id,
                 i_order: i_order,
-                nbj: nbj
+                players_number: players_number
             },
             success: function(r) {
                 $('#manche_ajoutee').removeClass('hidden').addClass('floatting');

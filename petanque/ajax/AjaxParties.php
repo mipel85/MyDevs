@@ -1,6 +1,6 @@
-
 <?php
-include '../classes/connexion.class.php';
+
+include '../classes/connection.class.php';
 include '../classes/parties.class.php';
 include '../classes/manches.class.php';
 include '../classes/joueurs.class.php';

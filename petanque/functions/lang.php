@@ -1,4 +1,5 @@
 <?php
+
 include_once "./lang/en.php";
 include_once "./lang/fr.php";
 // session_start();

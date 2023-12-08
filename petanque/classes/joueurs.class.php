@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -12,7 +13,7 @@ class Joueurs {
     {
         if (!is_null($id)){
             $req = 'SELECT * FROM joueurs WHERE id = ' . $id;
-            if ($result = Connexion::query($req)){
+            if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->setId($result['id']);
                 $this->setNom_joueur($result['nom']);
@@ -70,56 +71,56 @@ class Joueurs {
                     "0",
                     "0")
                 ';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function suppression()
     {
         $req = 'DELETE FROM joueurs WHERE id = "' . $this->getId() . '"';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function select_present()
     {
         $req = 'UPDATE joueurs SET `present` = 1 WHERE `joueurs`.`id` = ' . $this->getId() . '';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function reset_present()
     {
         $req = 'UPDATE joueurs SET `present` = 0 WHERE `joueurs`.`id` = ' . $this->getId() . '';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function reset_all_presents()
     {
         $req = 'UPDATE joueurs SET `present` = 0';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function select_fav()
     {
         $req = 'UPDATE joueurs SET `fav` = 1 WHERE `joueurs`.`id` = ' . $this->getId() . '';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function reset_fav()
     {
         $req = 'UPDATE joueurs SET `fav` = 0 WHERE `joueurs`.`id` = ' . $this->getId() . '';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     function reset_all_favs()
     {
         $req = 'UPDATE joueurs SET `fav` = 0';
-        return Connexion::query($req);
+        return Connection::query($req);
     }
 
     static function liste_joueurs_connus()
     {
         $liste_joueurs = array();
         $req = 'SELECT id, nom, fav, present FROM joueurs ORDER BY `fav` DESC, `nom` ASC';
-        if ($result = Connexion::query($req)){
+        if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
                 {
@@ -137,7 +138,7 @@ class Joueurs {
             . ' WHERE `present` = 1'
             . ' ORDER BY `nom` ASC';
 
-        if ($result = Connexion::query($req)){
+        if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
                 {
