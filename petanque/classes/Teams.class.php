@@ -147,7 +147,7 @@ class Teams {
 
     function remove_round_teams($party_id, $round_id)
     {
-        $req = 'DELETE FROM rounds WHERE party_id = "' . $party_id . '" AND round_id = "' . $round_id . '"';
+        $req = 'DELETE FROM teams WHERE party_id = "' . $party_id . '" AND round_id = "' . $round_id . '"';
         return Connection::query($req);
     }
 
