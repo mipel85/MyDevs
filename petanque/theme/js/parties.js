@@ -1,9 +1,11 @@
 $(document).ready(function() {
 
 // Ajout d'une partie
-    $('#add-party').on('click', function() {
-        var party_date = $('#party-date').val();
-        if (party_date !== ''){
+    // $('#add-party').on('click', function() {
+    $(document).ready(function() {
+        let init_party = $('#party-manager').data('party_ready'),
+            party_date = $('#party-date').val();
+        if (init_party == '') {
             $.ajax({
                 url: './ajax/AjaxParties.php',
                 type: 'POST',
@@ -19,8 +21,6 @@ $(document).ready(function() {
                     alert(r.error);
                 }
             });
-        } else {
-            alert('no ajax');
         }
     });
 
@@ -125,25 +125,49 @@ $(document).ready(function() {
     });
 
     // Ajout des équipes d'une manche
-    $('[id*="add-teams-"').each(function() {
-        $(this).on('click', function() {
-            let party_id = $(this).data('party_id'),
+    // Debug
+    // $('[id*="add-teams-]"').each(function() {
+    //     $(this).on('click', function() {
+    //         let party_id = $(this).data('party_id'),
+    //             round_id = $(this).data('round_id');
+    //         $.ajax({
+    //             url: './ajax/AjaxTeams.php',
+    //             type: 'POST',
+    //             data: {
+    //                 action: 'insert_teams',
+    //                 party_id: party_id,
+    //                 round_id: round_id
+    //             },
+    //             success: function(r) {
+    //                 location.reload(true);
+    //             },
+    //             error: function(r) {}
+    //         });
+    //     });
+    // });
+
+    $(document).ready(function() {
+        $('[id*="teams-list-"]').each(function() {
+            let round_ready = $(this).data('round_ready'),
+                party_id = $(this).data('party_id'),
                 round_id = $(this).data('round_id');
-            $.ajax({
-                url: './ajax/AjaxTeams.php',
-                type: 'POST',
-                data: {
-                    action: 'insert_teams',
-                    party_id: party_id,
-                    round_id: round_id
-                },
-                success: function(r) {
-                    location.reload(true);
-                },
-                error: function(r) {}
-            });
+            if(round_ready == '') {
+                $.ajax({
+                    url: './ajax/AjaxTeams.php',
+                    type: 'POST',
+                    data: {
+                        action: 'insert_teams',
+                        party_id: party_id,
+                        round_id: round_id
+                    },
+                    success: function(r) {
+                        location.reload(true);
+                    },
+                    error: function(r) {}
+                });
+            }
         });
-    })
+    });
 });
 
 

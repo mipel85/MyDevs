@@ -13,8 +13,8 @@ require_once('./functions/party.manager.php');
         <h1>Création</h1>
     </header>
     <article class="cell-flex cell-columns-2">
-        <div id="party-manager" class="content">
-            <header class="<?= $hidden_party ?>">
+        <div id="party-manager" class="content<?= $hidden_party ?>" data-party_ready="<?= $party_id ?>">
+            <header>
                 <h3>Initialiser une Partie :</h3>
                 <!-- <a href="index.php?page=config#party"><i class="fa fa-cog"></i></a> -->
             </header>
@@ -48,7 +48,10 @@ require_once('./functions/party.manager.php');
                     $hidden_teams_btn = Teams::round_teams_list($party_id, $round_id) ? ' hidden' : '';
                 ?>
                 <div class="cell-flex cell-columns-2">
-                    <div id="teams-list">
+                    <div id="teams-list-<?= $round_id ?>"
+                            data-round_ready="<?= $hidden_teams_btn ?>"
+                            data-party_id="<?= $party_id ?>"
+                            data-round_id="<?= $round_id ?>">
                         <header>
                             <div class="flex-between">
                                 <h3>Manche <?= $round['i_order'] ?> - Équipes</h3>
@@ -84,7 +87,7 @@ require_once('./functions/party.manager.php');
                             </tbody>
                         </table>
                     </div>
-                    <div id="games-list" class="<?= $hidden_teams_list ?>">
+                    <div id="games-list" class="<?= $hidden_teams_list ?>" data-team_ready="<?= $round_id ?>">
                         <header>
                             <h3>Manche <?= $round['i_order'] ?> - Rencontres</h3>
                         </header>
