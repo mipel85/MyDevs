@@ -35,8 +35,9 @@
             </div>
         </article>
         <article id="selected-players" class="content">
-            <header>
+            <header class="flex-between">
                 <h3><?= count(Players::present_players_list()); ?> joueurs présents</h3>
+                <span class="description">Equipes proposées : <?= rules(count(Players::present_players_list())); ?> </span>
             </header>
             <table class="table">
                 <thead>
