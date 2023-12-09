@@ -7,6 +7,7 @@ créer la doc dans /theme/templates/home.php
 
 ## Partie
     ~~initialisation d'une partie = bouton d'ajout + récupérer la date de façon cachée~~
+    A CHANGER initialisation d'une partie = créer la partie au chargement de la page + récupérer la date de façon cachée
     si partie existe déjà
         - bouton d'ajout => disabled
         - message notice = "Partie déjà créée"
