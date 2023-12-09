@@ -47,6 +47,10 @@ main {
     #site-name { font-size: 40px; }
 }
 
+a {
+    color: #2cbf8e;
+}
+
 section { padding: 20px; }
 
 section header { font-style: italic; }
