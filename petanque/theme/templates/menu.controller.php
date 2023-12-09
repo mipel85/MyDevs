@@ -1,6 +1,6 @@
 <?php
 
-function affiche_menu()
+function display_menu()
 {
     // tableaux contenant les liens d'accès et le texte à afficher
     $menu_links = array("home", "selection", "party", "score", "ranking");
