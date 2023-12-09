@@ -31,8 +31,8 @@ if ($party_id)
         $hidden_round = ' hidden';
     }
     // set label
-    $label_manche = 'Ajouter la manche ' . $i_order . ' avec les ' . $players_number . ' participant.e.s sélectionné.e.s : ';
+    $label_manche = 'Ajouter la manche ' . $i_order . ' avec les ' . $players_number . ' joueurs sélectionnés : ';
     if ($i_order > 4) $label_manche = 'Le nombre maximum de manches est atteint. ';
-    if ($players_number < 8) $label_manche = 'Il faut sélectionner au moins 8 participant.e.s pour créer une manche.';
+    if ($players_number < 8) $label_manche = 'Il faut sélectionner au moins 8 joueurs pour créer une manche.';
 }
 ?>
