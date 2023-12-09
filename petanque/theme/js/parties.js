@@ -12,13 +12,14 @@ $(document).ready(function() {
                     party_date: party_date
                 },
                 success: function(r) {
-                    $('#added-round').removeClass('hidden').addClass('floatting');
                     $('#add-party').attr('disabled', 'disabled');
-                    setTimeout(location.reload.bind(location), 1000);
+                    location.reload(true);
                 },
-                error: function(r) {}
+                error: function(r) {
+                    alert(r.error);
+                }
             });
-        }else{
+        } else {
             alert('no ajax');
         }
     });
@@ -38,11 +39,11 @@ $(document).ready(function() {
                     location.reload(true);
                 },
                 error : function(r) {
-                    alert(r.error)
+                    alert(r.error);
                 }
             });
         });
-    })
+    });
 
     // Supprimer toutes les parties
     $("#remove-all-parties").on('click', function() {
@@ -76,9 +77,8 @@ $(document).ready(function() {
                 players_number: players_number
             },
             success: function(r) {
-                $('#added-round').removeClass('hidden').addClass('floatting');
                 if (i_order > 4) $('#add-round').attr('disabled', 'disabled');
-                setTimeout(location.reload.bind(location), 1000);
+                location.reload(true);
             },
             error: function(r) {}
         });
@@ -98,7 +98,7 @@ $(document).ready(function() {
                     round_id: round_id
                 },
                 success: function(r) {
-                    // location.reload(true);
+                    location.reload(true);
                 },
                 error : function(r) {
                     alert(r.error)
@@ -138,8 +138,7 @@ $(document).ready(function() {
                     round_id: round_id
                 },
                 success: function(r) {
-                    $('#added-teams').removeClass('hidden').addClass('floatting');
-                    setTimeout(location.reload.bind(location), 1000);
+                    location.reload(true);
                 },
                 error: function(r) {}
             });
