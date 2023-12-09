@@ -3,7 +3,7 @@
         <h3>Supprimer toutes les manches :</h3>
     </header>
     <div class="content">
-        <button class="submit button" type="submit" id="remove-all-roundss" name="all_games">Tout supprimer</button>
+        <button class="submit button" type="submit" id="remove-all-rounds" name="all_games">Tout supprimer</button>
     </div>
 </div>
 <div id="manches-list" class="content">
