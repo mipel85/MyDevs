@@ -83,7 +83,7 @@ class Rounds {
         return Connection::query($req);
     }
 
-    function remove_rounds_serie($party_id)
+    function remove_party_rounds($party_id)
     {
         $req = 'DELETE FROM rounds WHERE party_id = "' . $party_id . '"';
         return Connection::query($req);
@@ -116,7 +116,7 @@ class Rounds {
     static function party_rounds_list($party_id)
     {
         $rounds = array();
-        $req = 'SELECT rounds.id, rounds.party_id, rounds.i_order, parties.date AS date FROM rounds '
+        $req = 'SELECT rounds.*, parties.date AS date FROM rounds '
             . ' LEFT JOIN parties ON parties.id = rounds.party_id'
             . ' WHERE rounds.party_id = ' . $party_id
             . ' ORDER BY rounds.i_order';
@@ -142,6 +142,17 @@ class Rounds {
                 $i_order[] = $values['i_order'];
         }
         return $i_order;
+    }
+
+    static function round_ids($party_id)
+    {
+        $ids = [];
+        foreach (self::party_rounds_list($party_id) as $values)
+        {
+            if($values['party_id'] = $party_id)
+                $ids[] = $values['id'];
+        }
+        return $ids;
     }
 
     static function choix_terrain()

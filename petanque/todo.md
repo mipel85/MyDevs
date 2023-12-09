@@ -25,10 +25,11 @@ créer la doc dans /theme/templates/home.php
         - afficher liste des équipes + vérif rules.php
         - créer rencontres + afficher les rencontres dans la page rencontre
 
-## Admin
+## Config
     bouton reset all sauf joueurs
     input nb de joueurs min
-    bouton fin de journée => décocher la présence de tous les joueurs
+    ~~bouton fin de journée => décocher la présence de tous les joueurs~~
+    js forcer le haut de page quand on click sur un onglet de tabs
 
 ## Language
 party/partie => la journée commence on crée une partie
@@ -36,7 +37,15 @@ party/partie => la journée commence on crée une partie
         > fight/rencontre => chaque rencontre entre 2 équipes dans une manche
             > team/equipe => un groupe de 2 ou 3 participants
                 > player/joueur => un participant
+## algo
+### création des équipes
+1 se déclenche à la création d'une manche
+2 on récupère la liste des joueurs sélectionnés (id + nom)
 
+### création des rencontres
+1 se déclenche à la création d'une manche
+
+### création du classement
 win = score + diff
 lose = score
 

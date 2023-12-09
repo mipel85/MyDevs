@@ -25,16 +25,14 @@ if ($party_id)
     // get players number
     $players_number = count(Players::present_players_list());
     // en/disable add button
-    $disabled_manche = $hidden_manche = '';
+    $disabled_round = $hidden_round = '';
     if ($i_order > 4 || $players_number < 8) {
-        $disabled_manche = ' disabled';
-        $hidden_manche = ' hidden';
+        $disabled_round = ' disabled';
+        $hidden_round = ' hidden';
     }
     // set label
     $label_manche = 'Ajouter la manche ' . $i_order . ' avec les ' . $players_number . ' participant.e.s sélectionné.e.s : ';
     if ($i_order > 4) $label_manche = 'Le nombre maximum de manches est atteint. ';
     if ($players_number < 8) $label_manche = 'Il faut sélectionner au moins 8 participant.e.s pour créer une manche.';
 }
-
-
 ?>

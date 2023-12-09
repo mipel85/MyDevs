@@ -3,14 +3,14 @@
         <h3>Supprimer toutes les manches :</h3>
     </header>
     <div class="content">
-        <button class="submit button" type="submit" id="delete-all-manches" name="all_games">Tout supprimer</button>
+        <button class="submit button" type="submit" id="remove-all-roundss" name="all_games">Tout supprimer</button>
     </div>
 </div>
 <div id="manches-list" class="content">
     <header>
         <h3>Supprimer une manche</h3>
     </header>
-    <table id="table_liste_manches" class="table">
+    <table id="rounds-list" class="table">
         <thead>
             <tr>
                 <th>N°</th>
@@ -25,7 +25,7 @@
                     <td><?= $round['id'] ?></td>
                     <td><?= $round['party_id'] ?></td>
                     <td><?= $round['i_order'] ?></td>
-                    <td><button type="submit" id="<?= $round['id'] ?>" class="button btn-sup-manche" /><i class="fa fa-fx fa-square-xmark error"></i></button></td>
+                    <td><button type="submit" data-party_id="<?= $round['party_id'] ?>" data-round_id="<?= $round['id'] ?>" class="button remove-round" /><i class="fa fa-fx fa-square-xmark error"></i></button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>

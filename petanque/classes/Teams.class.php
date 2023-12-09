@@ -122,64 +122,57 @@ class Teams {
     {
         $this->player_3_name = $player_3_name;
     }
-
-    static function creation_teams($party_id, $round_id)
-    {
-        // Liste de joueurs présents
-        $players_list = Players::present_players_list();
-        $joueurs = [];
-        foreach ($players_list as $joueur)
-        {
-            $joueurs[] = $joueur['nom'];
-        }
-
-        // Mélanger la liste de joueurs de manière aléatoire
-        shuffle($joueurs);
-
-        $teams = [];
-        
-        $nbJoueurs = count($joueurs);
-        $equipeDe2 = floor($nbJoueurs / 2);
-        $equipeDe2Pair = $equipeDe2 % 2 == 0;
-        $equipeDe3 = floor($nbJoueurs / 3);
-        $equipeDe3Pair = $equipeDe3 % 2 == 0;
-        
-        // Tant qu'il y a des joueurs dans la liste
-        while (!empty($joueurs)) {
-            // Si nb d'équipes de 2 possibles est pair et nb d'équipes de 3 possibles est pair
-            // ou si nb d'équipes de 2 possibles est pair et nb d'équipes de 3 possibles est impair
-            if (($equipeDe2Pair && $equipeDe3Pair) || ($equipeDe2Pair && !$equipeDe3Pair))
-            {
-                if (count($joueurs) <= 3) {
-                    $equipe = array_splice($joueurs, 0, 3);
-                } else {
-                    $equipe = array_splice($joueurs, 0, 2); // Sinon, prend les joueurs 2 par 2
-                }
-            }
-            // Si nb d'équipes de 2 possibles est impair et nb d'équipes de 3 possibles est pair
-            // ou si nb d'équipes de 2 possibles est impair et nb d'équipes de 3 possibles est impair
-            elseif ((!$equipeDe2Pair && $equipeDe3Pair) || (!$equipeDe2Pair && !$equipeDe3Pair))
-            {
-                if (count($joueurs) <= 9) {
-                    $equipe = array_splice($joueurs, 0, 3);
-                } else {
-                    $equipe = array_splice($joueurs, 0, 2); // Sinon, prend les joueurs 2 par 2
-                }
-            }
-            
-            // Ajoute l'équipe formée à la liste des équipes
-            $teams[] = $equipe;
-        }
-        
-        return $teams;
-    }
     
-    function insert_team()
+    function add_team()
     {
         $req = 'INSERT INTO teams values (
                     NULL,
-                    "' . $this->getNom_joueur() . '",
-            "0")';
+                    "' . $this->get_party_id() . '",
+                    "' . $this->get_round_id() . '",
+                    "' . $this->get_player_1_id() . '",
+                    "' . $this->get_player_1_name() . '",
+                    "' . $this->get_player_2_id() . '",
+                    "' . $this->get_player_2_name() . '",
+                    "' . $this->get_player_3_id() . '",
+                    "' . $this->get_player_3_name() . '"
+                )';
         return Connection::query($req);
+    }
+
+    function remove_party_teams($party_id)
+    {
+        $req = 'DELETE FROM teams WHERE party_id = "' . $party_id . '"';
+        return Connection::query($req);
+    }
+
+    function remove_round_teams($party_id, $round_id)
+    {
+        $req = 'DELETE FROM rounds WHERE party_id = "' . $party_id . '" AND round_id = "' . $round_id . '"';
+        return Connection::query($req);
+    }
+
+    function remove_all_teams()
+    {
+        $req = 'DELETE FROM teams';
+        return Connection::query($req);
+    }
+
+    static function round_teams_list($party_id, $round_id)
+    {
+        $teams = array();
+        $req = 'SELECT teams.* FROM teams '
+            . ' LEFT JOIN parties ON parties.id = teams.party_id'
+            . ' LEFT JOIN rounds ON rounds.id = teams.round_id'
+            . ' WHERE teams.party_id = "' . $party_id . '" AND teams.round_id = "' . $round_id . '"';
+
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    $teams[] = $value;
+                }
+            }
+        }
+        return $teams;
     }
 }

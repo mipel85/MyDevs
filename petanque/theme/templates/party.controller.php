@@ -1,13 +1,16 @@
 <?php
 
+require_once('./classes/Connection.class.php');
 require_once('./classes/Players.class.php');
 require_once('./classes/Parties.class.php');
 require_once('./classes/Rounds.class.php');
+require_once('./classes/Teams.class.php');
 require_once('./functions/party.manager.php');
 
 ?>
-<div id="partie_ajoutee" class="message-helper bgc-full success hidden">La partie a bien été ajoutée.<br /> La page va être rechargée.</div>
-<div id="manche_ajoutee" class="message-helper bgc-full success hidden">La manche <?= $i_order ?> a bien été ajoutée.<br /> La page va être rechargée.</div>
+<div id="added-party" class="message-helper bgc-full success hidden">La partie a bien été ajoutée.<br /> La page va être rechargée.</div>
+<div id="added-round" class="message-helper bgc-full success hidden">La manche <?= $i_order ?> a bien été ajoutée.<br /> La page va être rechargée.</div>
+<div id="added-teams" class="message-helper bgc-full success hidden">Les équipes de la manche <?= $i_order ?> ont bien été ajoutées.<br /> La page va être rechargée.</div>
 <section>
     <header class="section-header">
         <h1>Création</h1>
@@ -22,44 +25,80 @@ require_once('./functions/party.manager.php');
             <input type="hidden" id="party-date" name="party-date" value="" />
             <button class="submit button<?= $hidden_party ?>" type="submit" id="add-party" name="day"<?= $disabled_partie ?>>Ajouter</button>
         </div>
-        <div id="add-round" class="content hidden">
+        <div id="add-round-container" class="content hidden">
             <header>
                 <h3>Créer une manche :</h3>
                 <!-- <a href="index.php?page=config#manches"><i class="fa fa-cog"></i></a> -->
             </header>
             <label for="choix_partie"><?= $label_manche ?></label>
             <button
-                    class="submit button<?= $hidden_manche ?>"
+                    class="submit button<?= $hidden_round ?>"
                     data-party_id="<?= $party_id ?>"
                     data-i_order="<?= $i_order ?>"
                     data-players_number="<?= $players_number ?>"
-                    id="add_manche"
-                    name="round"
-                    <?= $disabled_manche ?>>
+                    id="add-round"
+                    <?= $disabled_round ?>>
                 Ajouter
             </button>
         </div>
     </article>
     <?php if($party_id): ?>
-        <article class="cell-flex cell-columns-2">
-            <div id="teams-list">
-                <?php foreach(Rounds::party_rounds_list($party_id) as $values): ?>
-                    <div>
+        <article id="rounds-list">
+            <?php foreach(Rounds::party_rounds_list($party_id) as $round): ?>
+                <?php 
+                    $round_id = $round['id']; 
+                    $hidden_teams_list = Teams::round_teams_list($party_id, $round_id) ? '' : ' hidden';
+                    $hidden_teams_btn = Teams::round_teams_list($party_id, $round_id) ? ' hidden' : '';
+                    $hidden_fights_btn = '';
+                ?>
+                <div class="cell-flex cell-columns-2">
+                    <div id="teams-list">
                         <header>
-                            <h3>Manche <?= $values['i_order'] ?> - Équipes</h3>
+                            <h3>Manche <?= $round['i_order'] ?> - Équipes</h3>
+                            <span class="description"><?= $round['players_number'] ?> joueurs</span>
                         </header>
+                        <button
+                                id="add-teams-<?= $round['i_order'] ?>"
+                                data-party_id="<?= $party_id ?>"
+                                data-round_id="<?= $round_id ?>"
+                                class="button<?= $hidden_teams_btn ?>">
+                            Créer les équipes de la manche
+                        </button>
+                        <table id="teams-list-round-<?= $round_id ?>" class="table<?= $hidden_teams_list ?>">
+                            <thead>
+                                <tr>
+                                    <th>Équipe</th>
+                                    <th>Joueur 1</th>
+                                    <th>Joueur 2</th>
+                                    <th>Joueur 3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach (Teams::round_teams_list($party_id, $round_id) as $index => $team): ?>
+                                    <tr>
+                                        <td><?= $index + 1 ?></td>
+                                        <td><?= $team['player_1_name'] ?></td>
+                                        <td><?= $team['player_2_name'] ?></td>
+                                        <td><?= $team['player_3_name'] ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
                     </div>
-                <?php endforeach ?>
-            </div>
-            <div id="games-list">
-                <?php foreach(Rounds::party_rounds_list($party_id) as $values): ?>
-                    <div>
+                    <div id="games-list">
                         <header>
-                            <h3>Manche <?= $values['i_order'] ?> - Matches</h3>
-                        </header
+                            <h3>Manche <?= $round['i_order'] ?> - Rencontres</h3>
+                        </header>
+                        <button
+                                id="add-fights-<?= $round['i_order'] ?>"
+                                data-party_id="<?= $party_id ?>"
+                                data-round_id="<?= $round_id ?>"
+                                class="button<?= $hidden_teams_list ?><?= $hidden_fights_btn ?>">
+                            Créer les rencontres de la manche
+                        </button>
                     </div>
-                <?php endforeach; ?>
-            </div>
+                </div>
+            <?php endforeach ?>
         </article>
     <?php endif ?>
     <script>
@@ -72,7 +111,7 @@ require_once('./functions/party.manager.php');
         document.getElementById('party-date').value = formatDate;
 
         if ($('#add-party').hasClass('hidden'))
-            $('#add-round').removeClass('hidden');
+            $('#add-round-container').removeClass('hidden');
     </script>
 </section>
 

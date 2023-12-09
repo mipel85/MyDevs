@@ -104,6 +104,12 @@ table {
     border-spacing: 0;
 }
 
+caption {
+    text-align: left;
+    padding: 5px;
+    font-style: italic;
+}
+
 th {
 	padding: 0.228em;
 	font-size: 1.2em;

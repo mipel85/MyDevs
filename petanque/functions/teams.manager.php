@@ -1,66 +1,57 @@
 <?php
+require_once('../classes/Connection.class.php');
 require_once('../classes/Teams.class.php');
 require_once('../classes/Players.class.php');
-require_once('../classes/Connection.class.php');
 
 // Liste de joueurs présents
-$liste = Players::present_players_list();
-$joueurs = [];
-foreach ($liste as $joueur)
+$selected_players_list = Players::present_players_list();
+$players = [];
+foreach ($selected_players_list as $player)
 {
-    $joueurs[] = $joueur['nom'];
+    $players[] = $player['id'].':'.$player['name'];
 }
 
-// Mélanger la liste de joueurs de manière aléatoire
-shuffle($joueurs);
+// Mélanger la liste de players de manière aléatoire
+shuffle($players);
 
 // Fonction pour former les équipes
-function formerEquipes($joueurs) {
-    $equipes = [];
+function build_teams($players) {
+    $teams = [];
 
-    $nbJoueurs = count($joueurs);
-    $equipeDe2 = floor($nbJoueurs / 2);
-    $equipeDe2Pair = $equipeDe2 % 2 == 0;
-    $equipeDe3 = floor($nbJoueurs / 3);
-    $equipeDe3Pair = $equipeDe3 % 2 == 0;
+    $players_number = count($players);
+    $teams_of_2 = floor($players_number / 2);
+    $teams_of_2_odd = $teams_of_2 % 2 == 0;
+    $teams_of_3 = floor($players_number / 3);
+    $teams_of_3_odd = $teams_of_3 % 2 == 0;
     
     // Tant qu'il y a des joueurs dans la liste
-    while (!empty($joueurs)) {
+    while (!empty($players)) {
         // Si nb d'équipes de 2 possibles est pair et nb d'équipes de 3 possibles est pair
         // ou si nb d'équipes de 2 possibles est pair et nb d'équipes de 3 possibles est impair
-        if (($equipeDe2Pair && $equipeDe3Pair) || ($equipeDe2Pair && !$equipeDe3Pair))
+        if (($teams_of_2_odd && $teams_of_3_odd) || ($teams_of_2_odd && !$teams_of_3_odd))
         {
-            if (count($joueurs) <= 3) {
-                $equipe = array_splice($joueurs, 0, 3);
+            if (count($players) <= 3) {
+                $team = array_splice($players, 0, 3);
             } else {
-                $equipe = array_splice($joueurs, 0, 2); // Sinon, prend les joueurs 2 par 2
+                $team = array_splice($players, 0, 2); // Sinon, prend les joueurs 2 par 2
             }
         }
         // Si nb d'équipes de 2 possibles est impair et nb d'équipes de 3 possibles est pair
         // ou si nb d'équipes de 2 possibles est impair et nb d'équipes de 3 possibles est impair
-        elseif ((!$equipeDe2Pair && $equipeDe3Pair) || (!$equipeDe2Pair && !$equipeDe3Pair))
+        elseif ((!$teams_of_2_odd && $teams_of_3_odd) || (!$teams_of_2_odd && !$teams_of_3_odd))
         {
-            if (count($joueurs) <= 9) {
-                $equipe = array_splice($joueurs, 0, 3);
+            if (count($players) <= 9) {
+                $team = array_splice($players, 0, 3);
             } else {
-                $equipe = array_splice($joueurs, 0, 2); // Sinon, prend les joueurs 2 par 2
+                $team = array_splice($players, 0, 2); // Sinon, prend les joueurs 2 par 2
             }
         }
 
         // Ajoute l'équipe formée à la liste des équipes
-        $equipes[] = $equipe;
+        $teams[] = $team;
     }
     
-    return $equipes;
-}
-
-
-// Former les équipes
-$equipes = formerEquipes($joueurs);
-
-// Afficher les équipes formées
-foreach ($equipes as $index => $equipe) {
-    echo "Équipe " . ($index + 1) . " => [ " . implode(', ', $equipe) . " ]<br>";
+    return $teams;
 }
 
 ?>

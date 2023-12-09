@@ -41,6 +41,9 @@ switch($page)
     case ('party') :
         require_once('./theme/templates/party.controller.php');
         break;
+    case ('score') :
+        require_once('./theme/templates/party.controller.php');
+        break;
     case ('ranking') :
         require_once('./theme/templates/ranking.controller.php');
         break;
