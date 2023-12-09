@@ -1,5 +1,5 @@
 function openTab(event, id) {
-    var i, tabcontent, tabtrigger;
+    let i, tabcontent, tabtrigger;
     
     tabcontent = document.getElementsByClassName("tab-content");
     for (i = 0; i < tabcontent.length; i++) {
@@ -13,11 +13,12 @@ function openTab(event, id) {
     }
     event.currentTarget.className += " active-tab";
     window.location.hash = event.currentTarget.dataset.trigger;
-    return false;
+    
+    window.scrollTo(0, -(window.scrollY));
 }
 
 window.addEventListener("load", () => {
-    var id = window.location.hash.slice(1);
+    let id = window.location.hash.slice(1);
 
     if (id.length !== 0)
     {
@@ -33,4 +34,5 @@ window.addEventListener("load", () => {
         }
         document.querySelector('[data-trigger=' + id + ']').className += " active-tab";
     }
+    window.scrollTo(0, -(window.scrollY));
 });
