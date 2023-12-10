@@ -15,7 +15,7 @@ switch($actions)
         $build_fights = build_fights($teams);
         shuffle($build_fights);
 
-        $playgrounds_number = '14';
+        $playgrounds_number = '10';
         $playground = playground($playgrounds_number);
         shuffle($playground);
         $first = true;

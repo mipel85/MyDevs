@@ -52,6 +52,9 @@ require_once('./functions/party.manager.php');
                     $hidden_fights_btn = Fights::round_fights_list($party_id, $round_id) ? ' hidden' : '';
                 ?>
                 <div class="cell-flex cell-columns-2">
+                    <header class="cell-100 flex-between">
+                        <h3>Manche <?= $round['i_order'] ?></h3>
+                    </header>
                     <div id="teams-list-<?= $round_id ?>"
                             data-round_ready="<?= $hidden_teams_btn ?>"
                             data-party_id="<?= $party_id ?>"
@@ -70,7 +73,6 @@ require_once('./functions/party.manager.php');
                         <table id="teams-list-round-<?= $round_id ?>" class="table<?= $hidden_teams_list ?>">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>Équipe</th>
                                     <th>Joueur 1</th>
                                     <th>Joueur 2</th>
@@ -80,7 +82,6 @@ require_once('./functions/party.manager.php');
                             <tbody>
                                 <?php foreach (Teams::round_teams_list($party_id, $round_id) as $index => $team): ?>
                                     <tr>
-                                        <td><?= $index + 1 ?></td>
                                         <td><?= $team['id'] ?></td>
                                         <td><?= $team['player_1_name'] ?></td>
                                         <td><?= $team['player_2_name'] ?></td>
@@ -113,18 +114,16 @@ require_once('./functions/party.manager.php');
                         <table id="fight-list-round-<?= $round_id ?>" class="table<?= $hidden_fights_list ?>">
                             <thead>
                                 <tr>
-                                    <th>Rencontre</th>
-                                    <th>Équipe 1</th>
-                                    <th>Équipe 2</th>
+                                    <th>Équipe A</th>
+                                    <th>Équipe B</th>
                                     <th>Terrain</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach (Fights::round_fights_list($party_id, $round_id) as $index => $fight): ?>
                                     <tr>
-                                        <td><?= $index + 1 ?></td>
-                                        <td>Équipe <?= $fight['team_1_id'] ?></td>
-                                        <td>Équipe <?= $fight['team_2_id'] ?></td>
+                                        <td><?php player_from_list($fight['team_1_id']); ?></td>
+                                        <td><?php player_from_list($fight['team_2_id']); ?></td>
                                         <td><?= $fight['playground'] ?></td>
                                     </tr>
                                 <?php endforeach ?>

@@ -35,4 +35,11 @@ if ($party_id)
     if ($i_order > 4) $label_round = '<span class="message-helper bgc-full success">Le nombre maximum de manches est atteint.</span>';
     if ($players_number < 8) $label_round = '<span class="message-helper bgc-full warning">Il faut sélectionner au moins 8 joueurs pour créer une manche.</span>';
 }
+
+function player_from_list($team_id) 
+{
+    foreach (Teams::get_team_players($team_id) as $player) {
+        echo '<span class="fight-player"></span>' . implode('</span><span class="fight-player">', $player) . '</span>';
+    }
+}
 ?>

@@ -71,6 +71,10 @@
     padding: 15px 0;
 }
 
+.fight-player {
+    display: block;
+}
+
 .description {
     display: block;
     font-style: italic;

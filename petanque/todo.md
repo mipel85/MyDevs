@@ -16,11 +16,11 @@
     ~~ ajouter un index de 1 à 4 à chaque manche (index: i_order = 1 ; i_order++) ~~
     création
         - ~~ afficher liste des équipes + vérif rules.php ~~
+        - après création la manche 1, impossible de créer une manche suivante si scores manche en cours non saisis
     suppression
         - une par une
-            - interdire la suppression d'une manche si 
-                - une manche supérieure de la même partie est présente
-                - des scores sont déclarés pour la manche
+            - uniquement sur la manche en cours
+            - interdire la suppression d'une manche si des scores sont déclarés pour la manche
         - par paquet
             - pertinence du bouton `supprimer toutes les manches` car ça ne supprime pas les parties auquelles elles appartiennent
 

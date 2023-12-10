@@ -112,4 +112,22 @@ class Teams {
         }
         return $teams;
     }
+
+    static function get_team_players($team_id)
+    {
+        $players = [];
+        $req = 'SELECT teams.* FROM teams '
+            . ' WHERE teams.id = "' . $team_id . '"';
+
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    $players[] = [$value['player_1_name'], $value['player_2_name'], $value['player_3_name']];
+                }
+            }
+        }
+        return $players;
+
+    }
 }

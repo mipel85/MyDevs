@@ -25,14 +25,14 @@ switch($actions)
         $remove->remove_round();
         break;
 
-    case 'remove_all_rounds':
-        $remove = new Fights();
-        $remove->remove_all_fights();
-        $remove = new Teams();
-        $remove->remove_all_teams();
-        $remove = new Rounds();
-        $remove->remove_all_rounds();
-        break;
+    // case 'remove_all_rounds':
+    //     $remove = new Fights();
+    //     $remove->remove_all_fights();
+    //     $remove = new Teams();
+    //     $remove->remove_all_teams();
+    //     $remove = new Rounds();
+    //     $remove->remove_all_rounds();
+    //     break;
 
     default:
         break;
