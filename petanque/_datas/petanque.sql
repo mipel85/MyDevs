@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 08 déc. 2023 à 12:27
+-- Généré le : dim. 10 déc. 2023 à 07:52
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -32,9 +32,9 @@ CREATE TABLE `fights` (
   `party_id` int(11) NOT NULL,
   `round_id` int(11) NOT NULL,
   `team_1_id` int(11) NOT NULL,
-  `score_team_1` int(11) DEFAULT NULL,
-  `score_team_2` int(11) DEFAULT NULL,
+  `team_1_score` int(11) DEFAULT NULL,
   `team_2_id` int(11) NOT NULL,
+  `team_2_score` int(11) DEFAULT NULL,
   `playground` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -48,14 +48,6 @@ CREATE TABLE `parties` (
   `id` int(11) NOT NULL,
   `date` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `parties`
---
-
-INSERT INTO `parties` (`id`, `date`) VALUES
-(1, '07-12-2023'),
-(2, '08-12-2023');
 
 -- --------------------------------------------------------
 
@@ -85,16 +77,16 @@ INSERT INTO `players` (`id`, `name`, `present`, `fav`) VALUES
 (8, ' Daniel.T', 1, 0),
 (9, ' Danielle.L', 0, 0),
 (10, ' Dany.R', 0, 1),
-(11, ' Denis.D', 0, 0),
-(12, ' Denis.G', 0, 0),
-(13, ' Dominique.B', 0, 0),
-(14, ' Eric.E', 0, 0),
-(15, ' Fernand.D', 0, 0),
-(16, ' Fernando.L', 0, 0),
-(17, ' Franck.H', 0, 0),
-(18, ' Frederic.D', 0, 0),
-(19, ' Francois.S', 0, 0),
-(20, ' Gaetan.F', 0, 0),
+(11, ' Denis.D', 1, 0),
+(12, ' Denis.G', 1, 0),
+(13, ' Dominique.B', 1, 0),
+(14, ' Eric.E', 1, 0),
+(15, ' Fernand.D', 1, 0),
+(16, ' Fernando.L', 1, 0),
+(17, ' Franck.H', 1, 0),
+(18, ' Frederic.D', 1, 0),
+(19, ' Francois.S', 1, 0),
+(20, ' Gaetan.F', 1, 0),
 (21, ' Gerard.F', 0, 0),
 (22, ' Gerard.M', 0, 0),
 (23, ' Ghislain.G', 0, 0),
@@ -147,20 +139,6 @@ CREATE TABLE `rounds` (
   `i_order` int(11) NOT NULL,
   `players_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `rounds`
---
-
-INSERT INTO `rounds` (`id`, `party_id`, `i_order`, `players_number`) VALUES
-(1, 1, 1, 8),
-(2, 1, 2, 8),
-(3, 1, 3, 8),
-(4, 1, 4, 8),
-(5, 2, 1, 8),
-(6, 2, 2, 8),
-(7, 2, 3, 8),
-(8, 2, 4, 8);
 
 -- --------------------------------------------------------
 
@@ -228,7 +206,7 @@ ALTER TABLE `fights`
 -- AUTO_INCREMENT pour la table `parties`
 --
 ALTER TABLE `parties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `players`
@@ -240,7 +218,7 @@ ALTER TABLE `players`
 -- AUTO_INCREMENT pour la table `rounds`
 --
 ALTER TABLE `rounds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `teams`
