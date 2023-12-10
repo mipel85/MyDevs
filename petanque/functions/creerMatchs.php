@@ -1,52 +1,68 @@
 <?php
+require_once('../classes/Connection.class.php');
+require_once('../classes/Teams.class.php');
 
-// Liste d'équipes (exemple)
-$equipes = ['Equipe 1', 'Equipe 2', 'Equipe 3', 'Equipe 4', 'Equipe 5', 'Equipe 6', 'Equipe 7', 'Equipe 8', 'Equipe 9', 'Equipe 10'];
+$party_id = '53';
+$round_id = '37';
+
+// Liste des équipes
+$selected_teams_list = Teams::round_teams_list($party_id, $round_id);
+$teams = [];
+foreach ($selected_teams_list as $team)
+{
+    $teams[] = $team['id'];
+}
+
+shuffle($teams);
 
 // Fonction pour créer le championnat
-function creerChampionnat($equipes) {
-    $calendrier = [];
-    $nombreEquipes = count($equipes);
+// Fonction pour créer le championnat
+function build_fights($teams) {
+    $calendar = [];
+    $teams_number = count($teams);
 
     // Assure que le nombre d'équipes est pair
-    if ($nombreEquipes % 2 != 0) {
-        array_push($equipes, '<strong>Exempte</strong>');
-        $nombreEquipes++;
+    if ($teams_number % 2 != 0) {
+        array_push($teams, '<strong>Exempte</strong>');
+        $teams_number++;
     }
 
     // Boucle sur chaque journée
-    for ($journee = 1; $journee < $nombreEquipes; $journee++) {
-        $calendrier[$journee] = [];
+    for ($day = 1; $day < $teams_number; $day++) {
+        $calendar[$day] = [];
 
         // Boucle pour créer les matchs de la journée
-        for ($i = 0; $i < $nombreEquipes / 2; $i++) {
-            $equipe1 = $equipes[$i];
-            $equipe2 = $equipes[$nombreEquipes - 1 - $i];
+        for ($i = 0; $i < $teams_number / 2; $i++) {
+            $team1 = $teams[$i];
+            $team2 = $teams[$teams_number - 1 - $i];
 
-            $calendrier[$journee][] = [$equipe1, $equipe2];
+            $calendar[$day][] = [$team1, $team2];
         }
 
         // Rotation des équipes pour la prochaine journée
-        $equipeDebut = array_shift($equipes);
-        array_unshift($equipes, array_pop($equipes));
-        array_unshift($equipes, $equipeDebut);
+        $teamDebut = array_shift($teams);
+        array_unshift($teams, array_pop($teams));
+        array_unshift($teams, $teamDebut);
     }
 
-    return $calendrier;
+    return $calendar;
 }
 
-// Créer le championnat
-$championnat = creerChampionnat($equipes);
-shuffle($championnat);
+// Créer le champ
+$champ = build_fights($teams);
+shuffle($champ);
+// var_dump($champ);
 
-// Afficher le calendrier
-foreach ($championnat as $journee => $matches) {
-    echo "Rencontres " . $journee + 1 . ": <br />";
-    foreach ($matches as $id => $equipes) {
-        $id = $id+1;
-        echo "Rencontre ".$id." : " . $equipes[0] . " vs " . $equipes[1] . "<br />";
+$first = true;
+// Afficher le calendar
+foreach ($champ as $day => $matches) {
+    if ($first) {
+        foreach ($matches as $id => $teams) {
+            $id = $id+1;
+            echo "Rencontre ".$id." : " . $teams[0] . " vs " . $teams[1] . "<br />";
+        }
+        echo "<br>";
+        $first = false;
     }
-    echo "<br>";
-    exit();
 }
 ?>

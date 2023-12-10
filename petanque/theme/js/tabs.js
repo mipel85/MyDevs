@@ -34,5 +34,6 @@ window.addEventListener("load", () => {
         }
         document.querySelector('[data-trigger=' + id + ']').className += " active-tab";
     }
+    
     window.scrollTo(0, -(window.scrollY));
 });
