@@ -108,21 +108,21 @@ $(document).ready(function() {
     })
 
     // Supprimer toutes les manches
-    $("#remove-all-rounds").on('click', function() {
-        $.ajax({
-            url: './ajax/AjaxRounds.php',
-            type: 'POST',
-            data: {
-                action: 'remove_all_rounds'
-            },
-            success: function(r) {
-                location.reload(true);
-            },
-            error : function(r) {
-                alert(r.error)
-            }
-        });
-    });
+    // $("#remove-all-rounds").on('click', function() {
+    //     $.ajax({
+    //         url: './ajax/AjaxRounds.php',
+    //         type: 'POST',
+    //         data: {
+    //             action: 'remove_all_rounds'
+    //         },
+    //         success: function(r) {
+    //             location.reload(true);
+    //         },
+    //         error : function(r) {
+    //             alert(r.error)
+    //         }
+    //     });
+    // });
 
     // Ajout des équipes d'une manche
     // Debug

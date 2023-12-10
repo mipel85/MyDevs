@@ -122,8 +122,18 @@ require_once('./functions/party.manager.php');
                             <tbody>
                                 <?php foreach (Fights::round_fights_list($party_id, $round_id) as $index => $fight): ?>
                                     <tr>
-                                        <td><?php player_from_list($fight['team_1_id']); ?></td>
-                                        <td><?php player_from_list($fight['team_2_id']); ?></td>
+                                        <td>
+                                            <div class="flex-around-center">
+                                                <span><?= $fight['team_1_id'] ?></span>
+                                                <div class="fight-player-list"><?php player_from_list($fight['team_1_id']); ?></div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="flex-around-center">
+                                                <span><?= $fight['team_2_id'] ?></span>
+                                                <div class="fight-player-list"><?php player_from_list($fight['team_2_id']); ?></div>
+                                            </div>
+                                        </td>
                                         <td><?= $fight['playground'] ?></td>
                                     </tr>
                                 <?php endforeach ?>
