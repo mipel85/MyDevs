@@ -84,8 +84,7 @@
 }
 
 .fight-player-list {
-    padding: 0 5px;
-    flex-grow: 1;
+    width: 60%;
     text-align: left;
 }
 
