@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 // Ajout d'une partie
-    // $('#add-party').on('click', function() {
+    // $('#add-party').on('click', function() { // debug
     $(document).ready(function() {
         let init_party = $('#party-manager').data('party_ready'),
             party_date = $('#party-date').val();
@@ -126,7 +126,7 @@ $(document).ready(function() {
 
     // Ajout des équipes d'une manche
     // Debug
-    // $('[id*="add-teams-]"').each(function() {
+    // $('[id*="add-fights-]"').each(function() {
     //     $(this).on('click', function() {
     //         let party_id = $(this).data('party_id'),
     //             round_id = $(this).data('round_id');
@@ -134,7 +134,7 @@ $(document).ready(function() {
     //             url: './ajax/AjaxTeams.php',
     //             type: 'POST',
     //             data: {
-    //                 action: 'insert_teams',
+    //                 action: 'insert_fights',
     //                 party_id: party_id,
     //                 round_id: round_id
     //             },
@@ -157,6 +157,52 @@ $(document).ready(function() {
                     type: 'POST',
                     data: {
                         action: 'insert_teams',
+                        party_id: party_id,
+                        round_id: round_id
+                    },
+                    success: function(r) {
+                        location.reload(true);
+                    },
+                    error: function(r) {}
+                });
+            }
+        });
+    });
+
+    // Ajout des rencontres d'une manche
+    // Debug
+    // $('[id*="add-fights-"]').each(function() {
+    //     $(this).on('click', function() {
+    //         let party_id = $(this).data('party_id'),
+    //             round_id = $(this).data('round_id');
+    //         $.ajax({
+    //             url: './ajax/AjaxFights.php',
+    //             type: 'POST',
+    //             data: {
+    //                 action: 'insert_fights',
+    //                 party_id: party_id,
+    //                 round_id: round_id
+    //             },
+    //             success: function(r) {
+    //                 location.reload(true);
+    //             },
+    //             error: function(r) {}
+    //         });
+    //     });
+    // });
+
+    $(document).ready(function() {
+        $('[id*="fights-list-"]').each(function() {
+            let teams_ready = $(this).data('teams_ready'),
+                fights_ready = $(this).data('fights_ready'),
+                party_id = $(this).data('party_id'),
+                round_id = $(this).data('round_id');
+            if(teams_ready != '0' && fights_ready == '') {
+                $.ajax({
+                    url: './ajax/AjaxFights.php',
+                    type: 'POST',
+                    data: {
+                        action: 'insert_fights',
                         party_id: party_id,
                         round_id: round_id
                     },

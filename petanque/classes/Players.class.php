@@ -21,47 +21,19 @@ class Players {
         }
     }
 
-// getters setters
-    public function get_id()
-    {
-        return $this->id;
-    }
+// start getters setters
+    public function get_id() { return $this->id; }
+    public function set_id($id) { $this->id = $id; }
 
-    public function set_id($id)
-    {
-        $this->id = $id;
-    }
+    public function get_name() { return $this->name; }
+    public function set_name($name) { $this->name = $name; }
 
-    public function get_name()
-    {
-        return $this->name;
-    }
+    public function get_present() { return $this->present; }
+    public function set_present($present) { $this->present = $present; }
 
-    public function set_name($name)
-    {
-        $this->name = $name;
-    }
-
-    public function get_present()
-    {
-        return $this->present;
-    }
-
-    public function set_present($present)
-    {
-        $this->present = $present;
-    }
-
-    public function get_fav()
-    {
-        return $this->fav;
-    }
-
-    public function set_fav($fav)
-    {
-        $this->fav = $fav;
-    }
-// fin  --- getters setters
+    public function get_fav() { return $this->fav; }
+    public function set_fav($fav) { $this->fav = $fav; }
+// end getters setters
 
     function insert_player()
     {
@@ -119,7 +91,7 @@ class Players {
     static function players_list()
     {
         $players_list = array();
-        $req = 'SELECT id, name, present, fav FROM players ORDER BY `fav` DESC, `name` ASC';
+        $req = 'SELECT * FROM players ORDER BY `fav` DESC, `name` ASC';
         // var_dump(Connection::query($req));
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -135,7 +107,7 @@ class Players {
     static function present_players_list()
     {
         $present_players_list = array();
-        $req = 'SELECT id, name FROM players'
+        $req = 'SELECT * FROM players'
             . ' WHERE `present` = 1'
             . ' ORDER BY `name` ASC';
 
@@ -148,13 +120,5 @@ class Players {
             }
         }
         return $present_players_list;
-    }
-
-    static function display_players_list($list)
-    {
-        foreach ($list as $values)
-        {
-            echo '<tr><td>' . $values['name'] . '</td><td><button id="' . $values['id'] . '" class="btn-sup"></button></td></tr>';
-        }
     }
 }

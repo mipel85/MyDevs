@@ -25,7 +25,7 @@ switch($actions)
             if (array_key_exists(2, $team)) $player_3 = explode(':', $team[2]);
             $insert->set_player_3_id(array_key_exists(2, $team) ? array_shift($player_3) : 0);
             $insert->set_player_3_name(array_key_exists(2, $team) ? array_pop($player_3) : '');
-            
+
             $insert->add_team();
         }
         break;

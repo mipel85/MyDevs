@@ -32,96 +32,33 @@ class Teams {
         }
     }
 
-// getters setters 
-    public function get_id()
-    {
-        return $this->id;
-    }
+// start getters setters 
+    public function get_id() { return $this->id; }
+    public function set_id($id) { $this->id = $id; }
 
-    public function set_id($id)
-    {
-        $this->id = $id;
-    }
+    public function get_party_id() { return $this->party_id; }
+    public function set_party_id($party_id) { $this->party_id = $party_id; }
 
-    public function get_party_id()
-    {
-        return $this->party_id;
-    }
+    public function get_round_id() { return $this->round_id; }
+    public function set_round_id($round_id) { $this->round_id = $round_id; }
 
-    public function set_party_id($party_id)
-    {
-        $this->party_id = $party_id;
-    }
+    public function get_player_1_id() { return $this->player_1_id; }
+    public function set_player_1_id($player_1_id) { $this->player_1_id = $player_1_id; }
 
-    public function get_round_id()
-    {
-        return $this->round_id;
-    }
+    public function get_player_1_name() { return $this->player_1_name; }
+    public function set_player_1_name($player_1_name) { $this->player_1_name = $player_1_name; }
 
-    public function set_round_id($round_id)
-    {
-        $this->round_id = $round_id;
-    }
+    public function get_player_2_id() { return $this->player_2_id; }
+    public function set_player_2_id($player_2_id) { $this->player_2_id = $player_2_id; }
 
-    public function get_player_1_id()
-    {
-        return $this->player_1_id;
-    }
+    public function get_player_2_name() { return $this->player_2_name; }
+    public function set_player_2_name($player_2_name) { $this->player_2_name = $player_2_name; }
 
-    public function set_player_1_id($player_1_id)
-    {
-        $this->player_1_id = $player_1_id;
-    }
+    public function get_player_3_id() { return $this->player_3_id; }
+    public function set_player_3_id($player_3_id) { $this->player_3_id = $player_3_id; }
 
-    public function get_player_1_name()
-    {
-        return $this->player_1_name;
-    }
-
-    public function set_player_1_name($player_1_name)
-    {
-        $this->player_1_name = $player_1_name;
-    }
-
-    public function get_player_2_id()
-    {
-        return $this->player_2_id;
-    }
-
-    public function set_player_2_id($player_2_id)
-    {
-        $this->player_2_id = $player_2_id;
-    }
-
-    public function get_player_2_name()
-    {
-        return $this->player_2_name;
-    }
-
-    public function set_player_2_name($player_2_name)
-    {
-        $this->player_2_name = $player_2_name;
-    }
-
-    public function get_player_3_id()
-    {
-        return $this->player_3_id;
-    }
-
-    public function set_player_3_id($player_3_id)
-    {
-        $this->player_3_id = $player_3_id;
-    }
-
-    public function get_player_3_name()
-    {
-        return $this->player_3_name;
-    }
-
-    public function set_player_3_name($player_3_name)
-    {
-        $this->player_3_name = $player_3_name;
-    }
+    public function get_player_3_name() { return $this->player_3_name; }
+    public function set_player_3_name($player_3_name) { $this->player_3_name = $player_3_name; }
     
     function add_team()
     {

@@ -91,12 +91,21 @@
     padding: 10px;
 }
 
-.success { color: #019601; }
+.message-helper a { font-size: bold; }
+
+.success { color: #3AC456; }
 .notice  { color: #019696; }
-.warning { color: #CA6C00; }
+.warning { color: #F99E36; }
 .error   { color: #AA0000; }
 
-.bgc-full.success { background-color: #019601; color: #FFFFFF;}
+.success a { color: #3AC456; }
+.notice  a { color: #019696; }
+.warning a { color: #F99E36; }
+.error   a { color: #AA0000; }
+
+.bgc-full.success { background-color: #3AC456; color: #FFFFFF;}
 .bgc-full.notice  { background-color: #019696; color: #FFFFFF;}
-.bgc-full.warning { background-color: #ca6c00; color: #FFFFFF;}
+.bgc-full.warning { background-color: #F99E36; color: #FFFFFF;}
 .bgc-full.error   { background-color: #aa0000; color: #FFFFFF;}
+
+.message-helper.bgc-full a { color: #FFFFFF; }

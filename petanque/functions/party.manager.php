@@ -32,7 +32,7 @@ if ($party_id)
     }
     // set label
     $label_round = 'Ajouter la manche ' . $i_order . ' avec les ' . $players_number . ' joueurs sélectionnés : ';
-    if ($i_order > 4) $label_round = 'Le nombre maximum de manches est atteint. ';
-    if ($players_number < 8) $label_round = 'Il faut sélectionner au moins 8 joueurs pour créer une manche.';
+    if ($i_order > 4) $label_round = '<span class="message-helper bgc-full success">Le nombre maximum de manches est atteint.</span>';
+    if ($players_number < 8) $label_round = '<span class="message-helper bgc-full warning">Il faut sélectionner au moins 8 joueurs pour créer une manche.</span>';
 }
 ?>

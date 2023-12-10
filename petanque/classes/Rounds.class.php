@@ -23,48 +23,20 @@ class Rounds {
         }
     }
 
-// getters setters 
-    public function get_id()
-    {
-        return $this->id;
-    }
+// start getters setters
+    public function get_id() { return $this->id; }
+    public function set_id($id) { $this->id = $id; }
 
-    public function set_id($id)
-    {
-        $this->id = $id;
-    }
+    public function get_party_id() { return $this->party_id; }
+    public function set_party_id($party_id) { $this->party_id = $party_id; }
 
-    public function get_party_id()
-    {
-        return $this->party_id;
-    }
+    public function get_i_order() { return $this->i_order; }
+    public function set_i_order($i_order) { $this->i_order = $i_order; }
 
-    public function set_party_id($party_id)
-    {
-        $this->party_id = $party_id;
-    }
+    public function get_players_number() { return $this->players_number; }
+    public function set_players_number($players_number) { $this->players_number = $players_number; }
+// end getters setters
 
-    public function get_i_order()
-    {
-        return $this->i_order;
-    }
-
-    public function set_i_order($i_order)
-    {
-        $this->i_order = $i_order;
-    }
-
-    public function get_players_number()
-    {
-        return $this->players_number;
-    }
-
-    public function set_players_number($players_number)
-    {
-        $this->players_number = $players_number;
-    }
-
-// fin  --- getters setters
     function add_round()
     {
         $req = 'INSERT INTO rounds values (
@@ -98,7 +70,7 @@ class Rounds {
     static function rounds_list()
     {
         $rounds = array();
-        $req = 'SELECT rounds.id, rounds.party_id, rounds.i_order, parties.date AS date FROM rounds '
+        $req = 'SELECT rounds.*, parties.date AS date FROM rounds '
             . ' LEFT JOIN parties ON parties.id = rounds.party_id'
             . ' ORDER BY rounds.party_id DESC, rounds.i_order DESC';
 
@@ -153,19 +125,5 @@ class Rounds {
                 $ids[] = $values['id'];
         }
         return $ids;
-    }
-
-    static function choix_terrain()
-    {
-        // Liste de terrain
-        $listeTerrains = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-
-        // Choisir un terrain aléatoire
-        $terrainChoisi = array_rand($listeTerrains);
-
-        // Supprimer le terrain de la liste
-        unset($listeTerrains[$terrainChoisi]);
-
-        return $listeTerrains[$terrainChoisi];
     }
 }

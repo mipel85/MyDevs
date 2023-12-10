@@ -5,6 +5,7 @@ require_once('./classes/Players.class.php');
 require_once('./classes/Parties.class.php');
 require_once('./classes/Rounds.class.php');
 require_once('./classes/Teams.class.php');
+require_once('./classes/Fights.class.php');
 require_once('./functions/party.manager.php');
 
 ?>
@@ -47,15 +48,17 @@ require_once('./functions/party.manager.php');
                     $round_id = $round['id']; 
                     $hidden_teams_list = Teams::round_teams_list($party_id, $round_id) ? '' : ' hidden';
                     $hidden_teams_btn = Teams::round_teams_list($party_id, $round_id) ? ' hidden' : '';
+                    $hidden_fights_list = Fights::round_fights_list($party_id, $round_id) ? '' : ' hidden';
+                    $hidden_fights_btn = Fights::round_fights_list($party_id, $round_id) ? ' hidden' : '';
                 ?>
                 <div class="cell-flex cell-columns-2">
                     <div id="teams-list-<?= $round_id ?>"
                             data-round_ready="<?= $hidden_teams_btn ?>"
                             data-party_id="<?= $party_id ?>"
                             data-round_id="<?= $round_id ?>">
-                        <header>
-                            <h4>Manche <?= $round['i_order'] ?> - Liste des équipes</h4>
-                            <span class="description"><?= $round['players_number'] ?> joueurs - <?= rules($round['players_number']) ?></span>
+                        <header class="flex-between">
+                            <h4><?= $round['players_number'] ?> joueurs</h4>
+                            <span class="description"><strong>Manche <?= $round['i_order'] ?></strong> - <?= rules($round['players_number']) ?></span>
                         </header>
                         <button
                                 id="add-teams-<?= $round['i_order'] ?>"
@@ -67,6 +70,7 @@ require_once('./functions/party.manager.php');
                         <table id="teams-list-round-<?= $round_id ?>" class="table<?= $hidden_teams_list ?>">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Équipe</th>
                                     <th>Joueur 1</th>
                                     <th>Joueur 2</th>
@@ -77,6 +81,7 @@ require_once('./functions/party.manager.php');
                                 <?php foreach (Teams::round_teams_list($party_id, $round_id) as $index => $team): ?>
                                     <tr>
                                         <td><?= $index + 1 ?></td>
+                                        <td><?= $team['id'] ?></td>
                                         <td><?= $team['player_1_name'] ?></td>
                                         <td><?= $team['player_2_name'] ?></td>
                                         <td><?= $team['player_3_name'] ?></td>
@@ -85,17 +90,46 @@ require_once('./functions/party.manager.php');
                             </tbody>
                         </table>
                     </div>
-                    <div id="games-list" class="<?= $hidden_teams_list ?>" data-team_ready="<?= $round_id ?>">
-                        <header>
-                            <h4>Manche <?= $round['i_order'] ?> - Liste des rencontres</h4>
+                    <?php
+                        $team_ready = count(Teams::round_teams_list($party_id, $round_id));
+                    ?>
+                    <div id="fights-list-<?= $round_id ?>" 
+                            class="<?= $hidden_teams_list ?>"
+                            data-party_id="<?= $party_id ?>"
+                            data-round_id="<?= $round_id ?>"
+                            data-teams_ready="<?= $team_ready ?>"
+                            data-fights_ready="<?= $hidden_fights_btn ?>">
+                        <header class="flex-between">
+                            <h4>Liste des rencontres</h4>
+                            <span class="description"><strong>Manche <?= $round['i_order'] ?></strong></span>
                         </header>
                         <button
                                 id="add-fights-<?= $round['i_order'] ?>"
                                 data-party_id="<?= $party_id ?>"
                                 data-round_id="<?= $round_id ?>"
-                                class="button">
+                                class="button<?= $hidden_fights_btn ?>">
                             Créer les rencontres de la manche
                         </button>
+                        <table id="fight-list-round-<?= $round_id ?>" class="table<?= $hidden_fights_list ?>">
+                            <thead>
+                                <tr>
+                                    <th>Rencontre</th>
+                                    <th>Équipe 1</th>
+                                    <th>Équipe 2</th>
+                                    <th>Terrain</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach (Fights::round_fights_list($party_id, $round_id) as $index => $fight): ?>
+                                    <tr>
+                                        <td><?= $index + 1 ?></td>
+                                        <td>Équipe <?= $fight['team_1_id'] ?></td>
+                                        <td>Équipe <?= $fight['team_2_id'] ?></td>
+                                        <td><?= $fight['playground'] ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             <?php endforeach ?>
@@ -109,9 +143,11 @@ require_once('./functions/party.manager.php');
         const formatDate = d + '-' + m + '-' + y;
         // send today to hidden input of partie
         document.getElementById('party-date').value = formatDate;
-
+        
+        // if no party hide round
         if ($('#add-party').hasClass('hidden'))
             $('#add-round-container').removeClass('hidden');
+
     </script>
 </section>
 

@@ -14,7 +14,7 @@ $menu = display_menu();
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" href="./theme/images/favicon.ico" />
+        <link rel="shortcut icon" href="./favicon.ico" />
         <link rel="stylesheet" href="./theme/js/lib/FixedHeader-3.4.0/css/fixedHeader.dataTables.min.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/js/lib/datatables.min.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/default.css" type="text/css" media="screen, print" />

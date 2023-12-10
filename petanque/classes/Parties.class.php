@@ -23,28 +23,13 @@ class Parties {
         }
     }
 
-// getters setters
-    public function get_id()
-    {
-        return $this->id;
-    }
+// start getters setters
+    public function get_id() { return $this->id; }
+    public function set_id($id) { $this->id = $id; }
 
-    public function set_id($id)
-    {
-        $this->id = $id;
-    }
-
-    public function get_date()
-    {
-        return $this->date;
-    }
-
-    public function set_date($date)
-    {
-        $this->date = $date;
-    }
-
-// fin  --- getters setters
+    public function get_date() { return $this->date; }
+    public function set_date($date) { $this->date = $date; }
+// end getters setters
 
     function add_party()
     {
@@ -70,7 +55,7 @@ class Parties {
     static function parties_list()
     {
         $liste_parties = array();
-        $req = 'SELECT id, date FROM parties ORDER BY `date` DESC';
+        $req = 'SELECT * FROM parties ORDER BY `date` DESC';
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
