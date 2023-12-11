@@ -48,10 +48,10 @@ require_once('./functions/party.manager.php');
                                                 </div>
                                             </td>
                                             <td>
-                                                <input class="team-score" type="number" min="0" name="score-1" value="<?= $fight['team_1_score'] ?>">
+                                                <input class="team-score" type="number" min="0" max="13" name="score-1" value="<?= $fight['team_1_score'] ?>">
                                             </td>
                                             <td>
-                                                <input class="team-score" type="number" min="0" name="score-2" value="<?= $fight['team_2_score'] ?>">
+                                                <input class="team-score" type="number" min="0" max="13" name="score-2" value="<?= $fight['team_2_score'] ?>">
                                             </td>
                                             <td>
                                                 <div class="flex-between-center">
