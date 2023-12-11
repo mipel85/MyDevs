@@ -20,15 +20,15 @@ function build_teams($players) {
 
     $players_number = count($players);
     $teams_of_2 = floor($players_number / 2);
-    $teams_of_2_odd = $teams_of_2 % 2 == 0;
+    $teams_of_2_even = $teams_of_2 % 2 == 0;
     $teams_of_3 = floor($players_number / 3);
-    $teams_of_3_odd = $teams_of_3 % 2 == 0;
+    $teams_of_3_even = $teams_of_3 % 2 == 0;
     
     // Tant qu'il y a des joueurs dans la liste
     while (!empty($players)) {
         // Si nb d'équipes de 2 possibles est pair et nb d'équipes de 3 possibles est pair
         // ou si nb d'équipes de 2 possibles est pair et nb d'équipes de 3 possibles est impair
-        if (($teams_of_2_odd && $teams_of_3_odd) || ($teams_of_2_odd && !$teams_of_3_odd))
+        if (($teams_of_2_even && $teams_of_3_even) || ($teams_of_2_even && !$teams_of_3_even))
         {
             if (count($players) <= 3) {
                 $team = array_splice($players, 0, 3);
@@ -38,7 +38,7 @@ function build_teams($players) {
         }
         // Si nb d'équipes de 2 possibles est impair et nb d'équipes de 3 possibles est pair
         // ou si nb d'équipes de 2 possibles est impair et nb d'équipes de 3 possibles est impair
-        elseif ((!$teams_of_2_odd && $teams_of_3_odd) || (!$teams_of_2_odd && !$teams_of_3_odd))
+        elseif ((!$teams_of_2_even && $teams_of_3_even) || (!$teams_of_2_even && !$teams_of_3_even))
         {
             if (count($players) <= 9) {
                 $team = array_splice($players, 0, 3);
@@ -52,6 +52,11 @@ function build_teams($players) {
     }
     
     return $teams;
+}
+
+foreach (build_teams($players) as $index => $equipe) {
+    var_dump($equipe);
+    echo "Équipe " . ($index + 1) . " => [ " . implode(', ', $equipe) . " ]<br>";
 }
 
 ?>

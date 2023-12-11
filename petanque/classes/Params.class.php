@@ -8,7 +8,7 @@ class Params {
     private $party_id;
     private $max_rounds_number;
     private $team_type;
-    private $playgmax_rounds_number;
+    private $playgrounds_number;
 
     public function __construct($id = null)
     {
@@ -20,7 +20,7 @@ class Params {
                 $this->set_party_id($result['party_id']);
                 $this->set_max_rounds_number($result['max_rounds_number']);
                 $this->set_team_type($result['team_type']);
-                $this->set_playgmax_rounds_number($result['playground_number']);
+                $this->set_playgrounds_number($result['playground_number']);
             }
         }
     }
@@ -38,8 +38,8 @@ class Params {
     public function get_team_type() { return $this->team_type; }
     public function set_team_type($team_type) { $this->team_type = $team_type; }
 
-    public function get_playgmax_rounds_number() { return $this->playgmax_rounds_number; }
-    public function set_playgmax_rounds_number($playgmax_rounds_number) { $this->playgmax_rounds_number = $playgmax_rounds_number; }
+    public function get_playgrounds_number() { return $this->playgrounds_number; }
+    public function set_playgrounds_number($playgrounds_number) { $this->playgrounds_number = $playgrounds_number; }
 // end getters setters
 
     function insert_param()

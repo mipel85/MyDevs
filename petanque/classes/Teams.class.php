@@ -128,6 +128,5 @@ class Teams {
             }
         }
         return $players;
-
     }
 }

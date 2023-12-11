@@ -48,25 +48,4 @@ function build_fights($teams) {
 
     return $calendar;
 }
-
-// $playgrounds_number = '14';
-// $playground = playground($playgrounds_number);
-// shuffle($playground);
-
-// // Créer le champ
-// $champ = build_fights($teams);
-// shuffle($champ);
-// // var_dump($champ);
-
-// $first = true;
-// // Afficher le calendar
-// foreach ($champ as $day => $matches) {
-//     if ($first) {
-//         foreach ($matches as $teams) {
-//             echo "équipe " . $teams[0] . " vs équipe " . $teams[1] . " => terrain: " . array_shift($playground) . "<br />";
-//         }
-//         echo "<br>";
-//         $first = false;
-//     }
-// }
 ?>
