@@ -169,7 +169,7 @@ require_once('./functions/party.manager.php');
         add_button.removeClass('hidden');
         if (first == '') {
             add_button.addClass('hidden');
-            $('#round-description').html("Aucun score de la manche en cours n'est renseigné.<br />L'ajout est désactivé.")
+            $('#round-description').html("Aucun score de la manche en cours n'est renseigné.<br />L'ajout d'une nouvelle manche est désactivé.")
         }
 
     </script>
