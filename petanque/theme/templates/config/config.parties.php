@@ -31,7 +31,7 @@
                 <tr>
                     <td><?= $partie['id'] ?></td>
                     <td><?= $partie['date'] ?></td>
-                    <td><button type="submit" id="<?= $partie['id'] ?>" class="button remove-party" /><i class="fa fa-fx fa-square-xmark error"></i></button></td>
+                    <td><button type="submit" id="<?= $partie['id'] ?>" class="remove-button remove-party" /><i class="fa fa-fx fa-lg fa-square-xmark error"></i></button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>

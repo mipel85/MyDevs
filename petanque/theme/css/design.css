@@ -103,6 +103,16 @@ h6 { font-size: 1em; }
     background: linear-gradient(to bottom, rgba(153, 153, 153, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
 }
 
+.remove-button {
+    background-color: transparent;
+    color: transparent;
+    border: 0px;
+}
+
+[type="checkbox"] {
+    transform: scale(1.2);
+}
+
 /* affichage de la table des joueurs connus */
 .table th {
     text-align: center !important;

@@ -30,7 +30,7 @@
                     <td><?= $player['id'] ?></td>
                     <td><?= $player['name'] ?></td>
                     <td><input type="checkbox" data-id="<?= $player['id'] ?>" class="fav-player"<?= $checked ?> /></td>
-                    <td><button type="button" id="<?= $player['id'] ?>" class="delete-player"><i class="fa fa-fw fa-square-xmark error"></i></button></td>
+                    <td><button type="button" id="<?= $player['id'] ?>" class="remove-button"><i class="fa fa-fw fa-lg fa-square-xmark error"></i></button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>
