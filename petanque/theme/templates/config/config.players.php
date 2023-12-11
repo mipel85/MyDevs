@@ -9,6 +9,12 @@
             <button type="submit" id="add-player" class="button btn-ajout">Ajouter</button>
         </div>
     </div>
+    <header>
+        <h3>Réinitialiser la liste des présents :</h3>
+    </header>
+    <div class="content">
+        <input type="button" id="reset-all-players" class="button btn-reset-present" value="Décocher tout" />
+    </div>
 </div>
 <div id="player-list" class="cell-2-3 content">
     <header>

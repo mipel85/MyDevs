@@ -6,12 +6,6 @@
     <div class="content">
         <button class="submit button" type="submit" id="remove-all-parties" name="all_games">Tout supprimer</button>
     </div>
-    <header>
-        <h3>Réinitialiser la liste des présents :</h3>
-    </header>
-    <div class="content">
-        <input type="button" id="reset-all-players" class="button btn-reset-present" value="Décocher tout" />
-    </div>
 </div>
 <div id="parties-list" class="content">
     <header>
