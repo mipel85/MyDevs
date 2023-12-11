@@ -38,6 +38,14 @@ switch($actions)
 
         }
         break;
+        
+    case 'insert_scores':
+        $insert = new Fights();
+        $insert->set_id($_POST['id']);
+
+        $insert->update_score_1($_POST['score_1']);
+        $insert->update_score_2($_POST['score_2']);
+        break;
 
     default:
         break;

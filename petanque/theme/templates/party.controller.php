@@ -17,7 +17,6 @@ require_once('./functions/party.manager.php');
         <div id="party-manager" class="content<?= $hidden_party ?>" data-party_ready="<?= $party_id ?>">
             <header>
                 <h3>Initialiser une Partie :</h3>
-                <!-- <a href="index.php?page=config#party"><i class="fa fa-cog"></i></a> -->
             </header>
             <label for="party-date"><?= $label_partie ?></label>
             <input type="hidden" id="party-date" name="party-date" value="" />
@@ -26,26 +25,26 @@ require_once('./functions/party.manager.php');
         <div id="add-round-container" class="content hero hidden">
             <header class="flex-between">
                 <h3>Créer une manche :</h3>
-                <a href="index.php?page=config#rounds"><i class="fa fa-cog"></i></a>
+                <button
+                        class="submit button<?= $hidden_round ?>"
+                        data-party_id="<?= $party_id ?>"
+                        data-i_order="<?= $i_order ?>"
+                        data-players_number="<?= $players_number ?>"
+                        id="add-round"
+                        <?= $disabled_round ?>>
+                    Ajouter
+                </button>
             </header>
             <label for="choix_partie"><?= $label_round ?></label>
-            <button
-                    class="submit button<?= $hidden_round ?>"
-                    data-party_id="<?= $party_id ?>"
-                    data-i_order="<?= $i_order ?>"
-                    data-players_number="<?= $players_number ?>"
-                    id="add-round"
-                    <?= $disabled_round ?>>
-                Ajouter
-            </button>
         </div>
     </article>
     <?php if($party_id): ?>
         <article id="rounds-list">
             <?php $party_round_list = array_reverse(Rounds::party_rounds_list($party_id)); ?>
             <?php foreach($party_round_list as $round): ?>
-                <?php 
-                    $round_id = $round['id']; 
+                <?php
+                    $round_id = $round['id'];
+                    $hidden_rounds_btn = last_round_id($party_id) != $round['id'] ? '' : ' hidden';
                     $hidden_teams_list = Teams::round_teams_list($party_id, $round_id) ? '' : ' hidden';
                     $hidden_teams_btn = Teams::round_teams_list($party_id, $round_id) ? ' hidden' : '';
                     $hidden_fights_list = Fights::round_fights_list($party_id, $round_id) ? '' : ' hidden';
@@ -54,6 +53,12 @@ require_once('./functions/party.manager.php');
                 <div class="cell-flex cell-columns-2">
                     <header class="cell-100 flex-between">
                         <h3>Manche <?= $round['i_order'] ?></h3>
+                        <button type="submit" 
+                                class="remove-button remove-round<?= $hidden_rounds_btn ?>" 
+                                data-party_id="<?= $party_id ?>" 
+                                data-round_id="<?= $round['id'] ?>">
+                            <i class="fa fa-fw fa-2x fa-square-xmark error"></i>
+                        </button>
                     </header>
                     <div id="teams-list-<?= $round_id ?>"
                             data-round_ready="<?= $hidden_teams_btn ?>"

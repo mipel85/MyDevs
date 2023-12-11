@@ -92,6 +92,10 @@
     display: block;
 }
 
+.set-scores {
+    width: 120px;
+}
+
 .description {
     display: block;
     font-style: italic;

@@ -90,21 +90,21 @@ class Params {
         return $params;
     }
 
-    function select_max_rounds_number()
+    function select_max_rounds_number($value)
     {
-        $req = 'UPDATE params SET `max_rounds_number` = 1 WHERE `params`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE params SET `max_rounds_number` = "' . $value . '" WHERE `params`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
-    function select_team_type()
+    function select_team_type($value)
     {
-        $req = 'UPDATE params SET `team_type` = 1 WHERE `params`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE params SET `team_type` = "' . $value . '" WHERE `params`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
-    function select_playgrounds_number()
+    function select_playgrounds_number($value)
     {
-        $req = 'UPDATE params SET `playgrounds_number` = 1 WHERE `params`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE params SET `playgrounds_number` = "' . $value . '" WHERE `params`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 

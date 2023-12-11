@@ -89,6 +89,18 @@ class Fights {
         return Connection::query($req);
     }
 
+    function update_score_1($value)
+    {
+        $req = 'UPDATE fights SET `team_1_score` = "' . $value . '" WHERE `fights`.`id` = ' . $this->get_id() . '';
+        return Connection::query($req);
+    }
+
+    function update_score_2($value)
+    {
+        $req = 'UPDATE fights SET `team_2_score` = "' . $value . '" WHERE `fights`.`id` = ' . $this->get_id() . '';
+        return Connection::query($req);
+    }
+
     static function round_fights_list($party_id, $round_id)
     {
         $fights = array();
@@ -107,4 +119,5 @@ class Fights {
         }
         return $fights;
     }
+
 }

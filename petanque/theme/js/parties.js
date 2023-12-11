@@ -124,8 +124,7 @@ $(document).ready(function() {
     //     });
     // });
 
-    // Ajout des équipes d'une manche
-    // Debug
+    // Debug Ajout des équipes d'une manche
     // $('[id*="add-fights-]"').each(function() {
     //     $(this).on('click', function() {
     //         let party_id = $(this).data('party_id'),
@@ -212,6 +211,32 @@ $(document).ready(function() {
                     error: function(r) {}
                 });
             }
+        });
+    });
+
+    // Mettre à jour les scores
+    $('#submit-scores').on('click', () => {
+        $('[id*="fights-score-"]').each(function() {
+        console.log($(this));
+            let id = $(this).data('fight_id'),
+                score_1 = $(this).find('input[name="score-1"]').val(),
+                score_2 = $(this).find('input[name="score-2"]').val();
+        console.log(score_1);
+        console.log(score_2);
+                
+            $.ajax({
+                url: './ajax/AjaxFights.php',
+                type: 'POST',
+                data: {
+                    action: 'insert_scores',
+                    id: id,
+                    score_1: score_1,
+                    score_2: score_2
+                },
+                success: function() {
+                    // location.reload(true);
+                }
+            });
         });
     });
 });

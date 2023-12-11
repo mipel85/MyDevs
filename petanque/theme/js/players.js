@@ -32,7 +32,7 @@ $(document).ready(function() {
     // Select/unselect players as favourite
     $('.fav-player').each(function() {
         $(this).on('change', function() {
-            var id = $(this).attr('data-id');
+            var id = $(this).data('id');
             if ((this.checked)){
                 $.ajax({
                     url: './ajax/AjaxPlayers.php',

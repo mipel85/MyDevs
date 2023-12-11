@@ -21,6 +21,7 @@ switch($page)
     case ('config') : $title = 'Administration'; break;
     case ('selection') : $title = 'Sélection'; break;
     case ('party') : $title = 'Partie'; break;
+    case ('score') : $title = 'Scores'; break;
     case ('ranking') : $title = 'Classement'; break;
     default : $title = 'Accueil'; break;
 }
@@ -42,7 +43,7 @@ switch($page)
         require_once('./theme/templates/party.controller.php');
         break;
     case ('score') :
-        require_once('./theme/templates/party.controller.php');
+        require_once('./theme/templates/scores.controller.php');
         break;
     case ('ranking') :
         require_once('./theme/templates/ranking.controller.php');
