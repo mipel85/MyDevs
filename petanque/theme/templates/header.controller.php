@@ -3,7 +3,6 @@
 require_once('./classes/Connection.class.php');
 require_once('./classes/Install.class.php');
 require_once('./classes/Players.class.php');
-require_once('./functions/lang.php');
 require_once('./functions/rules.php');
 require_once('menu.controller.php');
 $menu = display_menu();
