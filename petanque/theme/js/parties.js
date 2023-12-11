@@ -221,9 +221,6 @@ $(document).ready(function() {
             let id = $(this).data('fight_id'),
                 score_1 = $(this).find('input[name="score-1"]').val(),
                 score_2 = $(this).find('input[name="score-2"]').val();
-        console.log(score_1);
-        console.log(score_2);
-                
             $.ajax({
                 url: './ajax/AjaxFights.php',
                 type: 'POST',
@@ -234,7 +231,7 @@ $(document).ready(function() {
                     score_2: score_2
                 },
                 success: function() {
-                    // location.reload(true);
+                    location.reload(true);
                 }
             });
         });

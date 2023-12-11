@@ -35,7 +35,7 @@ require_once('./functions/party.manager.php');
                     Ajouter
                 </button>
             </header>
-            <label for="choix_partie"><?= $label_round ?></label>
+            <span id="round-description"><?= $label_round ?></span>
         </div>
     </article>
     <?php if($party_id): ?>
@@ -44,17 +44,17 @@ require_once('./functions/party.manager.php');
             <?php foreach($party_round_list as $round): ?>
                 <?php
                     $round_id = $round['id'];
-                    $hidden_rounds_btn = last_round_id($party_id) != $round['id'] ? '' : ' hidden';
+                    $hidden_remove_round = !already_scored($party_id, $round['id']) && last_round_id($party_id) == $round['id'] ? '' : ' hidden';
                     $hidden_teams_list = Teams::round_teams_list($party_id, $round_id) ? '' : ' hidden';
                     $hidden_teams_btn = Teams::round_teams_list($party_id, $round_id) ? ' hidden' : '';
                     $hidden_fights_list = Fights::round_fights_list($party_id, $round_id) ? '' : ' hidden';
                     $hidden_fights_btn = Fights::round_fights_list($party_id, $round_id) ? ' hidden' : '';
                 ?>
-                <div class="cell-flex cell-columns-2">
+                <div class="cell-flex cell-columns-2" data-scored="<?= already_scored($party_id, $round['id']) ?>">
                     <header class="cell-100 flex-between">
                         <h3>Manche <?= $round['i_order'] ?></h3>
                         <button type="submit" 
-                                class="remove-button remove-round<?= $hidden_rounds_btn ?>" 
+                                class="remove-button remove-round<?= $hidden_remove_round ?>" 
                                 data-party_id="<?= $party_id ?>" 
                                 data-round_id="<?= $round['id'] ?>">
                             <i class="fa fa-fw fa-2x fa-square-xmark error"></i>
@@ -161,6 +161,16 @@ require_once('./functions/party.manager.php');
         // if no party hide round
         if ($('#add-party').hasClass('hidden'))
             $('#add-round-container').removeClass('hidden');
+
+        // hidden add round
+        // get data-scored of first of rounds in the dom if exists
+        let first = $('[data-scored]').first().data('scored');
+            add_button = $('#add-round');
+        add_button.removeClass('hidden');
+        if (first == '') {
+            add_button.addClass('hidden');
+            $('#round-description').html("Aucun score de la manche en cours n'est renseigné.<br />L'ajout est désactivé.")
+        }
 
     </script>
 </section>

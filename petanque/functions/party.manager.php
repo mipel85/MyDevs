@@ -49,11 +49,34 @@ function player_from_list($team_id)
 
 function last_round_id($party_id)
 {
+    // attention ordre desc donc le dernier id est en premier
     $rounds = Rounds::rounds_list($party_id);
     $ids = [];
-    foreach ( $rounds as $values) {
-        $ids[] = $values['id'];
+    $last_element = true;
+    foreach ($rounds as $round) {
+        if($last_element) {
+            $ids[] = $round['id'];
+            $last_element = false;
+        }
     }
     return end($ids);
+}
+
+function already_scored($party_id, $round_id)
+{
+    $scores = [];
+    foreach (Fights::round_fights_list($party_id, $round_id) as $fight) {
+        // la rencontre a un score
+        $score = true;
+        // si 0:0 la rencontre n'a pas de score
+        if($fight['team_1_score'] == 0 && $fight['team_1_score'] == 0)
+            $score = false;
+        $scores[] = $score;
+    }
+    // si une des rencontre a un score
+    if (in_array(true, $scores))
+        return true;
+
+    return false;
 }
 ?>
