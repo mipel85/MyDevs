@@ -233,7 +233,7 @@ $(document).ready(function() {
                         score_2: score_2
                     },
                     success: function() {
-                        // location.reload(true);
+                        location.reload(true);
                     }
                 });
             });

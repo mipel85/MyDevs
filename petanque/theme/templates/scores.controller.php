@@ -40,59 +40,55 @@ $possible_scores = 13;
                                     <br />L'autre score (13) est renseigné automatiquement.
                                 </span>
                             </div>
-                            <div class="responsive-table">
-                                <span id="expand-<?= $round_id ?>"></span>
-                                <table id="match-list-round-<?= $round_id ?>" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Équipe A</th>
-                                            <th class="set-scores">Score A</th>
-                                            <th class="set-scores">Score B</th>
-                                            <th>Équipe B</th>
+                            <table id="match-list-round-<?= $round_id ?>" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Équipe A</th>
+                                        <th class="set-scores">Score A</th>
+                                        <th class="set-scores">Score B</th>
+                                        <th>Équipe B</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach (Matches::round_matches_list($party_id, $round_id) as $index => $match): ?>
+                                        <tr
+                                                id="matches-score-<?= $match['id'] ?>"
+                                                data-round_id="<?= $round['id'] ?>"
+                                                data-match_id="<?= $match['id'] ?>">
+                                            <td>
+                                                <div class="flex-between-center">
+                                                    <span><?= $match['team_1_id'] ?></span>
+                                                    <div class="score-member-list align-right">
+                                                        <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
+                                                            <span class="match-player" data-player_id_score="<?= $players[0] ?>"><?= $players[1] ?></span>
+                                                            <span class="match-player" data-player_id_score="<?= $players[2] ?>"><?= $players[3] ?></span>
+                                                            <span class="match-player" data-player_id_score="<?= $players[4] ?>"><?= $players[5] ?></span>
+                                                        <?php endforeach ?>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input data-round_id="<?= $round['id'] ?>" class="team-score" type="text" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>">
+                                            </td>
+                                            <td>
+                                                <input data-round_id="<?= $round['id'] ?>" class="team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>">
+                                            </td>
+                                            <td>
+                                                <div class="flex-between-center">
+                                                    <div class="score-member-list align-left">
+                                                        <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
+                                                            <span class="match-player" data-player_id_score="<?= $players[0] ?>"><?= $players[1] ?></span>
+                                                            <span class="match-player" data-player_id_score="<?= $players[2] ?>"><?= $players[3] ?></span>
+                                                            <span class="match-player" data-player_id_score="<?= $players[4] ?>"><?= $players[5] ?></span>
+                                                        <?php endforeach ?>
+                                                    </div>
+                                                    <span><?= $match['team_2_id'] ?></span>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach (Matches::round_matches_list($party_id, $round_id) as $index => $match): ?>
-                                            <tr
-                                                    id="matches-score-<?= $match['id'] ?>"
-                                                    data-round_id="<?= $round['id'] ?>"
-                                                    data-match_id="<?= $match['id'] ?>">
-                                                <td>
-                                                    <div class="flex-between-center">
-                                                        <span><?= $match['team_1_id'] ?></span>
-                                                        <div class="score-member-list align-right">
-                                                            <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
-                                                                <span class="match-player" data-player_id_score="<?= $players[0] ?>"><?= $players[1] ?></span>
-                                                                <span class="match-player" data-player_id_score="<?= $players[2] ?>"><?= $players[3] ?></span>
-                                                                <span class="match-player" data-player_id_score="<?= $players[4] ?>"><?= $players[5] ?></span>
-                                                            <?php endforeach ?>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <input data-round_id="<?= $round['id'] ?>" class="team-score" type="text" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>">
-                                                </td>
-                                                <td>
-                                                    <input data-round_id="<?= $round['id'] ?>" class="team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>">
-                                                </td>
-                                                <td>
-                                                    <div class="flex-between-center">
-                                                        <div class="score-member-list align-left">
-                                                            <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
-                                                                <span class="match-player" data-player_id_score="<?= $players[0] ?>"><?= $players[1] ?></span>
-                                                                <span class="match-player" data-player_id_score="<?= $players[2] ?>"><?= $players[3] ?></span>
-                                                                <span class="match-player" data-player_id_score="<?= $players[4] ?>"><?= $players[5] ?></span>
-                                                            <?php endforeach ?>
-                                                        </div>
-                                                        <span><?= $match['team_2_id'] ?></span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
-
-                            </div>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
                         </div>
                     <?php endforeach ?>
                 </div>
@@ -120,18 +116,6 @@ $possible_scores = 13;
                 looser.val(score).removeClass('focused-score');
             })
         });
-
-        // Expand/reduce score table
-        $('[id*="expand-"').each(function() {
-            $(this).html('<i class="fa fa-lg fa-fw fa-expand"></i>');
-            $(this).on('click', function() {
-                $(this).toggleClass('expanded')
-                $(this).hasClass('expanded') ? 
-                    $(this).html('<i class="fa fa-lg fa-fw fa-minimize"></i>') : 
-                    $(this).html('<i class="fa fa-lg fa-fw fa-expand"></i>');
-                $(this).closest('.matches-list').find('.responsive-table').toggleClass('expanded-scores');
-            })
-        })
     </script>
 </section>
 

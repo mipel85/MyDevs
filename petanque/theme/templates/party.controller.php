@@ -116,46 +116,49 @@ require_once('./functions/rules.php');
                                 class="button<?= $hidden_matches_btn ?>">
                             Créer les rencontres de la manche
                         </button>
-                        <table id="match-list-round-<?= $round_id ?>" class="table<?= $hidden_matches_list ?>">
-                            <thead>
-                                <tr>
-                                    <th>Équipe A</th>
-                                    <th>Équipe B</th>
-                                    <th>Terrain</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach (Matches::round_matches_list($party_id, $round_id) as $index => $match): ?>
+                        <div class="responsive-table">
+                            <span class="expand-button" id="expand-<?= $round_id ?>"></span>
+                            <table id="match-list-round-<?= $round_id ?>" class="table<?= $hidden_matches_list ?>">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <div class="flex-around-center">
-                                                <span><?= $match['team_1_id'] ?></span>
-                                                <div class="match-player-list">
-                                                    <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
-                                                        <span class="match-player"><?= $players[1] ?></span>
-                                                        <span class="match-player"><?= $players[3] ?></span>
-                                                        <span class="match-player"><?= $players[5] ?></span>
-                                                    <?php endforeach ?>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="flex-around-center">
-                                                <span><?= $match['team_2_id'] ?></span>
-                                                <div class="match-player-list">
-                                                    <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
-                                                        <span class="match-player"><?= $players[1] ?></span>
-                                                        <span class="match-player"><?= $players[3] ?></span>
-                                                        <span class="match-player"><?= $players[5] ?></span>
-                                                    <?php endforeach ?>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><?= $match['playground'] ?></td>
+                                        <th>Équipe A</th>
+                                        <th>Équipe B</th>
+                                        <th>Terrain</th>
                                     </tr>
-                                <?php endforeach ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach (Matches::round_matches_list($party_id, $round_id) as $index => $match): ?>
+                                        <tr>
+                                            <td>
+                                                <div class="flex-around-center">
+                                                    <span><?= $match['team_1_id'] ?></span>
+                                                    <div class="match-player-list">
+                                                        <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
+                                                            <span class="match-player"><?= $players[1] ?></span>
+                                                            <span class="match-player"><?= $players[3] ?></span>
+                                                            <span class="match-player"><?= $players[5] ?></span>
+                                                        <?php endforeach ?>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="flex-around-center">
+                                                    <span><?= $match['team_2_id'] ?></span>
+                                                    <div class="match-player-list">
+                                                        <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
+                                                            <span class="match-player"><?= $players[1] ?></span>
+                                                            <span class="match-player"><?= $players[3] ?></span>
+                                                            <span class="match-player"><?= $players[5] ?></span>
+                                                        <?php endforeach ?>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><?= $match['playground'] ?></td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             <?php endforeach ?>
@@ -169,7 +172,7 @@ require_once('./functions/rules.php');
         const formatDate = d + '-' + m + '-' + y;
         // send today to hidden input of partie
         document.getElementById('party-date').value = formatDate;
-        
+
         // if no party hide round
         if ($('#add-party').hasClass('hidden'))
             $('#add-round-container').removeClass('hidden');
@@ -183,6 +186,18 @@ require_once('./functions/rules.php');
             add_button.addClass('hidden');
             $('#round-description').html("Aucun score de la manche en cours n'est renseigné.<br />L'ajout d'une nouvelle manche est désactivé.")
         }
+
+        // Expand/reduce score table
+        $('[id*="expand-"').each(function() {
+            $(this).html('<i class="fa fa-lg fa-fw fa-expand"></i>');
+            $(this).on('click', function() {
+                $(this).toggleClass('expanded');
+                $(this).hasClass('expanded') ? 
+                    $(this).html('<i class="fa fa-lg fa-fw fa-minimize"></i>') :
+                    $(this).html('<i class="fa fa-lg fa-fw fa-expand"></i>');
+                $(this).parent('.responsive-table').toggleClass('expanded-list');
+            })
+        })
     </script>
 </section>
 
