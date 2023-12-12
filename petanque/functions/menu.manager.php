@@ -12,7 +12,7 @@ function display_menu()
 
     // informations sur la page
     $get = $_GET['page'];
-    $no_selected_members = count(Members::selected_members_list()) < 2 || count(Members::selected_members_list()) == 7;
+    $no_selected_members = count(Members::selected_members_list()) < 4 || count(Members::selected_members_list()) == 7;
     
     $menu = '<nav id="menu"><ul id="onglets">';
 
