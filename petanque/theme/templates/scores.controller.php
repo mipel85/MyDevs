@@ -100,8 +100,8 @@ $possible_scores = 13;
     <script>
         // Déclaration des scores
         $('input.team-score').each(function() {
-            $(this).removeClass('focused-score');
-            $(this).on('click', function(){
+            $(this).on('click', function() {
+                $(this).closest('table').find('input').removeClass('focused-score');
                 $(this).addClass('focused-score')
             });
         });
