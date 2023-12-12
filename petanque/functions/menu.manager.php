@@ -1,5 +1,7 @@
 <?php
 
+require_once('./classes/Members.class.php');
+require_once('./classes/Parties.class.php');
 
 function display_menu()
 {
@@ -10,17 +12,29 @@ function display_menu()
 
     // informations sur la page
     $get = $_GET['page'];
-
+    $no_selected_members = count(Members::selected_members_list()) < 2 || count(Members::selected_members_list()) == 7;
+    
     $menu = '<nav id="menu"><ul id="onglets">';
 
     // boucle qui parcours les deux tableaux
     foreach ($menu_links as $k => $link)
     {
+        $party_items = in_array($link, ['party', 'scores', 'ranking']);
         $menu .= '    <li class="menu-item';
 
         // si le nom du fichier correspond à celui pointé par l'indice, alors on l'active
-        if ($get == $link){
+        if ($get == $link)
             $menu .= ' active';
+
+        // Si la partie n'est pas commencée
+        if ($no_selected_members && $party_items) {
+            $menu .= ' bgc-full error';
+            $link = 'members';
+        }
+        elseif (!Parties::party_started() && $party_items) {
+            $menu .= ' bgc-full warning';
+            if (in_array($link, ['scores', 'ranking']))
+                $link = 'party';
         }
 
         $menu .= '"><a href="index.php?page=' . $link . '"><i class="fa fa-fw fa-' . $menu_icons[$k] . '"></i><br />' . $menu_labels[$k] . '</a></li>';

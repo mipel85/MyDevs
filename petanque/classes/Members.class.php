@@ -104,9 +104,9 @@ class Members {
         return $members_list;
     }
 
-    static function present_members_list()
+    static function selected_members_list()
     {
-        $present_members_list = array();
+        $selected_members_list = array();
         $req = 'SELECT * FROM members'
             . ' WHERE `present` = 1'
             . ' ORDER BY `name` ASC';
@@ -115,10 +115,10 @@ class Members {
             if (!empty($result)){
                 foreach ($result as $values)
                 {
-                    $present_members_list[] = $values;
+                    $selected_members_list[] = $values;
                 }
             }
         }
-        return $present_members_list;
+        return $selected_members_list;
     }
 }

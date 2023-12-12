@@ -115,9 +115,13 @@
 
 .message-helper {
     padding: 10px;
+    display: block;
+    margin-bottom: 5px;
 }
 
-.message-helper a { font-size: bold; }
+.message-helper a {
+    font-size: bold;
+}
 
 .success { color: #3AC456; }
 .notice  { color: #019696; }
@@ -134,4 +138,4 @@
 .bgc-full.warning { background-color: #F99E36; color: #FFFFFF;}
 .bgc-full.error   { background-color: #aa0000; color: #FFFFFF;}
 
-.message-helper.bgc-full a { color: #FFFFFF; }
+.bgc-full a { color: #FFFFFF; }

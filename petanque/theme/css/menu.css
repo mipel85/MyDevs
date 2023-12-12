@@ -40,10 +40,10 @@
     list-style-type : none;
     display: flex;
     flex-direction: column;
+    background-color: #F4F9FD;
 }
 
 #onglets li {
-    background-color: #F4F9FD;
     border-width: 1px 1px 0 1px;
     border-style: solid;
     border-color: #9EA0A1;
@@ -51,13 +51,13 @@
 
 #onglets li:last-child { border-width: 1px; }
 
-#onglets li.active {
+.active {
     background-color: #ccffff;
 }
 
-#onglets a {
+#onglets li a {
     display : block;
-    color : #666666;
+    /* color : #666666; */
     text-decoration : none;
     padding : 14px;
 }

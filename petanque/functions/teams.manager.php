@@ -4,7 +4,7 @@ require_once('../classes/Teams.class.php');
 require_once('../classes/Members.class.php');
 
 // Liste de joueurs présents
-$selected_members_list = Members::present_members_list();
+$selected_members_list = Members::selected_members_list();
 $members = [];
 foreach ($selected_members_list as $member)
 {

@@ -23,17 +23,18 @@ if ($party_id)
 {
     $i_order = count(Rounds::round_i_order($party_id)) + 1;
     // get members number
-    $players_number = count(Members::present_members_list());
+    $players_number = count(Members::selected_members_list());
     // en/disable add button
     $disabled_round = $hidden_round = '';
-    if ($i_order > 4 || $players_number < 8) {
+    if ($players_number < 2 || $players_number == 7) {
         $disabled_round = ' disabled';
         $hidden_round = ' hidden';
     }
     // set label
     $label_round = 'Ajouter la manche ' . $i_order . ' avec les ' . $players_number . ' joueurs sélectionnés.';
     if ($i_order > 4) $label_round = '<span class="message-helper bgc-full success">Le nombre maximum de manches est atteint.</span>';
-    if ($players_number < 8) $label_round = '<span class="message-helper bgc-full warning">Il faut sélectionner au moins 8 joueurs pour créer une manche.</span>';
+    if ($players_number < 2) $label_round = '<span class="message-helper bgc-full warning">Il faut sélectionner au moins 2 joueurs pour créer une manche.</span>';
+    if ($players_number == 7) $label_round = '<span class="message-helper bgc-full warning">Il n\'est pas possible de jouer avec 7 joueurs.</span>';
 }
 
 function member_from_list($team_id) 
