@@ -1,5 +1,7 @@
 # Petanque casual competition manager
 
+Version 1.0 Alpha
+
 ## Connect to the database
 - create database
 - import /_datas/petanque.sql

@@ -1,12 +1,12 @@
 <?php
 
-require_once('./classes/Connection.class.php');
-require_once('./classes/Players.class.php');
 require_once('./classes/Parties.class.php');
+require_once('./classes/Members.class.php');
 require_once('./classes/Rounds.class.php');
 require_once('./classes/Teams.class.php');
-require_once('./classes/Fights.class.php');
+require_once('./classes/Matches.class.php');
 require_once('./functions/party.manager.php');
+require_once('./functions/rules.php');
 
 ?>
 <section>
@@ -44,13 +44,13 @@ require_once('./functions/party.manager.php');
             <?php foreach($party_round_list as $round): ?>
                 <?php
                     $round_id = $round['id'];
-                    $hidden_remove_round = !already_scored($party_id, $round['id']) && last_round_id($party_id) == $round['id'] ? '' : ' hidden';
+                    $hidden_remove_round = !is_scored($party_id, $round['id']) && last_round_id($party_id) == $round['id'] ? '' : ' hidden';
                     $hidden_teams_list = Teams::round_teams_list($party_id, $round_id) ? '' : ' hidden';
                     $hidden_teams_btn = Teams::round_teams_list($party_id, $round_id) ? ' hidden' : '';
-                    $hidden_fights_list = Fights::round_fights_list($party_id, $round_id) ? '' : ' hidden';
-                    $hidden_fights_btn = Fights::round_fights_list($party_id, $round_id) ? ' hidden' : '';
+                    $hidden_matches_list = Matches::round_matches_list($party_id, $round_id) ? '' : ' hidden';
+                    $hidden_matches_btn = Matches::round_matches_list($party_id, $round_id) ? ' hidden' : '';
                 ?>
-                <div class="cell-flex cell-columns-2" data-scored="<?= already_scored($party_id, $round['id']) ?>">
+                <div class="cell-flex cell-columns-2" data-scored="<?= is_scored($party_id, $round['id']) ?>">
                     <header class="cell-100 flex-between">
                         <h3>Manche <?= $round['i_order'] ?></h3>
                         <button type="submit" 
@@ -99,24 +99,24 @@ require_once('./functions/party.manager.php');
                     <?php
                         $team_ready = count(Teams::round_teams_list($party_id, $round_id));
                     ?>
-                    <div id="fights-list-<?= $round_id ?>" 
+                    <div id="matches-list-<?= $round_id ?>" 
                             class="<?= $hidden_teams_list ?>"
                             data-party_id="<?= $party_id ?>"
                             data-round_id="<?= $round_id ?>"
                             data-teams_ready="<?= $team_ready ?>"
-                            data-fights_ready="<?= $hidden_fights_btn ?>">
+                            data-matches_ready="<?= $hidden_matches_btn ?>">
                         <header class="flex-between">
                             <h4>Liste des rencontres</h4>
                             <span class="description"><strong>Manche <?= $round['i_order'] ?></strong></span>
                         </header>
                         <button
-                                id="add-fights-<?= $round['i_order'] ?>"
+                                id="add-matches-<?= $round['i_order'] ?>"
                                 data-party_id="<?= $party_id ?>"
                                 data-round_id="<?= $round_id ?>"
-                                class="button<?= $hidden_fights_btn ?>">
+                                class="button<?= $hidden_matches_btn ?>">
                             Créer les rencontres de la manche
                         </button>
-                        <table id="fight-list-round-<?= $round_id ?>" class="table<?= $hidden_fights_list ?>">
+                        <table id="match-list-round-<?= $round_id ?>" class="table<?= $hidden_matches_list ?>">
                             <thead>
                                 <tr>
                                     <th>Équipe A</th>
@@ -125,21 +125,21 @@ require_once('./functions/party.manager.php');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach (Fights::round_fights_list($party_id, $round_id) as $index => $fight): ?>
+                                <?php foreach (Matches::round_matches_list($party_id, $round_id) as $index => $match): ?>
                                     <tr>
                                         <td>
                                             <div class="flex-around-center">
-                                                <span><?= $fight['team_1_id'] ?></span>
-                                                <div class="fight-player-list"><?php player_from_list($fight['team_1_id']); ?></div>
+                                                <span><?= $match['team_1_id'] ?></span>
+                                                <div class="match-member-list"><?php member_from_list($match['team_1_id']); ?></div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="flex-around-center">
-                                                <span><?= $fight['team_2_id'] ?></span>
-                                                <div class="fight-player-list"><?php player_from_list($fight['team_2_id']); ?></div>
+                                                <span><?= $match['team_2_id'] ?></span>
+                                                <div class="match-member-list"><?php member_from_list($match['team_2_id']); ?></div>
                                             </div>
                                         </td>
-                                        <td><?= $fight['playground'] ?></td>
+                                        <td><?= $match['playground'] ?></td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>

@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // DataTable
-    $('#players-list').DataTable({
+    $('#members-list').DataTable({
         dom: 'lfrip<t>B',
         buttons: [
             'print'
@@ -20,17 +20,17 @@ $(document).ready(function() {
             {type: "num"},
             {type: "text"},
             {type: "text"},
-            {orderable: true}
+            {orderable: false}
         ]
     });
 
-    // Select/unselect player as present/absent
-    $('.select-player').each(function(){
+    // Select/unselect member as present/absent
+    $('.select-member').each(function(){
         $(this).on('change', function() {
             var id = $(this).prop('id');
             if ((this.checked)) {
                 $.ajax({
-                    url: './ajax/AjaxPlayers.php',
+                    url: './ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
                         action: 'present',
@@ -40,7 +40,7 @@ $(document).ready(function() {
                 });
             } else {
                 $.ajax({
-                    url: './ajax/AjaxPlayers.php',
+                    url: './ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
                         action: 'absent',
@@ -52,10 +52,10 @@ $(document).ready(function() {
         })
     });
 
-    // Reset all players as absent
-    $('#reset-all-players').on('click', function() {
+    // Reset all members as absent
+    $('#reset-all-members').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxPlayers.php',
+            url: './ajax/AjaxMembers.php',
             type: 'POST',
             data: {
                 action: 'reset_all_presents'
@@ -64,18 +64,18 @@ $(document).ready(function() {
                 $('input[type=checkbox]').each(function() {
                     this.checked = false;
                 });
-                $('#selected-players').html('');
+                $('#selected-members').html('');
             }
         });
     });
 
-    //  Display the list of present players
-    function show_present_players() {
+    //  Display the list of present members
+    function show_present_members() {
         $.ajax({
-            url: './ajax/AjaxPlayers.php',
+            url: './ajax/AjaxMembers.php',
             type: 'POST',
             data: {
-                action: 'players_list'
+                action: 'members_list'
             },
             success: function(data) {
                 $('#table_joueurs_connus').html(data);

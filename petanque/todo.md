@@ -76,7 +76,7 @@
     > matches/rencontre => chaque rencontre entre 2 équipes dans une manche
     ~~ > team/equipe => un groupe de 2 ou 3 participants ~~
     > member/membre => un membre
-    > player/joueur => un participant à une partie
+    > member/joueur => un participant à une partie
     > ranking/classement
 
 ## Terrains

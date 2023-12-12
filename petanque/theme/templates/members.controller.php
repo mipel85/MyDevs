@@ -1,10 +1,14 @@
+<?php
+require_once('./classes/Members.class.php');
+require_once('./functions/rules.php');
+?>
 <section>
     <header class="section-header">
-        <h1>Sélection des joueurs présents</h1>
+        <h1>Sélection des membres</h1>
     </header>
     <div class="cell-flex cell-columns-2">
         <article class="content">
-            <table id="players-list" class="table">
+            <table id="members-list" class="table">
                 <thead>
                     <tr>
                         <th>N°</th>
@@ -14,16 +18,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach (Players::players_list() as $player): ?>
+                    <?php foreach (Members::members_list() as $member): ?>
                         <?php
-                            $checked = $player['present'] ? ' checked' : '';
-                            $fav = $player['fav'] ? '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>';
+                            $checked = $member['present'] ? ' checked' : '';
+                            $fav = $member['fav'] ? '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>';
                         ?>
                         <tr>
-                            <td><?= $player['id'] ?></td>
-                            <td><?= $player['name'] ?></td>
+                            <td><?= $member['id'] ?></td>
+                            <td><?= $member['name'] ?></td>
                             <td><?= $fav ?></td>
-                            <td><input type="checkbox" id="<?= $player['id'] ?>" class="select-player"<?= $checked ?> /></td>
+                            <td><input type="checkbox" id="<?= $member['id'] ?>" class="select-member"<?= $checked ?> /></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -31,13 +35,13 @@
             <div class="line flex-between">
                 <span>&nbsp;</span>
                 <input type="button" id="btn_valid_present" onclick="location.reload();" class="button submit" value="Valider les présents" />
-                <input type="button" id="reset-all-players" class="button btn-reset-present" value="Décocher tout" />
+                <input type="button" id="reset-all-members" class="button btn-reset-present" value="Décocher tout" />
             </div>
         </article>
-        <article id="selected-players" class="content">
+        <article id="selected-members" class="content">
             <header class="flex-between">
-                <h3><?= count(Players::present_players_list()); ?> joueurs présents</h3>
-                <span class="description">Equipes proposées : <?= rules(count(Players::present_players_list())); ?> </span>
+                <h3><?= count(Members::present_members_list()); ?> membres sélectionnés</h3>
+                <span class="description">Equipes proposées : <?= rules(count(Members::present_members_list())); ?> </span>
             </header>
             <table class="table">
                 <thead>
@@ -47,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach (Players::present_players_list() as $present): ?>
+                    <?php foreach (Members::present_members_list() as $present): ?>
                         <tr>
                             <td><?= $present['id'] ?></td>
                             <td><?= $present['name'] ?></td>

@@ -1,10 +1,6 @@
 <?php
 
-require_once('./classes/Connection.class.php');
-require_once('./classes/Install.class.php');
-require_once('./classes/Players.class.php');
-require_once('./functions/rules.php');
-require_once('menu.controller.php');
+require_once('./functions/menu.manager.php');
 $menu = display_menu();
 
 ?>
@@ -28,7 +24,7 @@ $menu = display_menu();
         <script src="./theme/js/lib/datatables.min.js"></script>
         <script src="./theme/js/lib/Buttons-2.4.2/js/buttons.dataTables.min.js"></script>
         <script src="./theme/js/lib/FixedHeader-3.4.0/js/fixedHeader.dataTables.min.js"></script>
-        <script src="./theme/js/players.js"></script>
+        <script src="./theme/js/members.js"></script>
         <script src="./theme/js/selection.js"></script>
         <script src="./theme/js/parties.js"></script>
         <script src="./theme/js/tabs.js"></script>

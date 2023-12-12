@@ -21,19 +21,22 @@ class install {
                         `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
                         `party_id` int(11) NOT NULL,
                         `round_id` int(11) NOT NULL,
-                        `player_1` int(11) NOT NULL,
-                        `player_2` int(11) NOT NULL,
-                        `player_3` int(11) NOT NULL,
+                        `player_1_id` int(11) NOT NULL,
+                        `player_1_name` varchar(255) NOT NULL,
+                        `player_2_id` int(11) DEFAULT NULL,
+                        `player_2_name` varchar(255) DEFAULT NULL,
+                        `player_3_id` int(11) DEFAULT NULL,
+                        `player_3_name` varchar(255) DEFAULT NULL,
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
 
         return Connection::query($requete);
     }
 
-    static function create_players_table()
+    static function create_members_table()
     {
-        $requete = 'CREATE TABLE IF NOT EXISTS petanque.players (
+        $requete = 'CREATE TABLE IF NOT EXISTS petanque.members (
                         `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                        `name` varchar(200) NOT NULL,
+                        `name` varchar(255) NOT NULL,
                         `present` tinyint(1) DEFAULT NULL,
                         `fav` tinyint(1) DEFAULT NULL
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
@@ -41,12 +44,12 @@ class install {
         return Connection::query($requete);
     }
 
-    static function insert_data_players()
+    static function insert_data_members()
     {
-        $req = 'SELECT COUNT(*) AS NB FROM `players`';
+        $req = 'SELECT COUNT(*) AS NB FROM `members`';
         $empty_table = Connection::query($req);
         if ($empty_table[0]['NB'] === 0){
-            $requete = 'INSERT INTO `players` (`nom`) VALUES
+            $requete = 'INSERT INTO `members` (`nom`) VALUES
             ("Alain.G"),
             ("Alain.M"),
             ("Annick.G"),

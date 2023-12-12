@@ -1,11 +1,10 @@
 <?php
 
-require_once('./classes/Connection.class.php');
-require_once('./classes/Players.class.php');
+require_once('./classes/Members.class.php');
 require_once('./classes/Parties.class.php');
 require_once('./classes/Rounds.class.php');
 require_once('./classes/Teams.class.php');
-require_once('./classes/Fights.class.php');
+require_once('./classes/Matches.class.php');
 require_once('./functions/party.manager.php');
 
 ?>
@@ -13,7 +12,7 @@ require_once('./functions/party.manager.php');
     <header class="section-header flex-between-center">
         <h1>Scores</h1>
         <span><button id="submit-scores" type="submit" class="button">Valider les scores</button></span>
-        <?php if($party_id): ?><span class="description"><?= end($date) ?></span><?php endif ?>
+        <?php if(Parties::party_started()): ?><span class="description"><?= $today ?></span><?php endif ?>
     </header>
     <?php if($party_id): ?>
         <article id="rounds-list">
@@ -22,13 +21,13 @@ require_once('./functions/party.manager.php');
                 <div class="cell-flex cell-columns-2">
                     <?php foreach($party_round_list as $round): ?>
                         <?php $round_id = $round['id']; ?>
-                        <div id="fights-list-<?= $round_id ?>"
+                        <div id="matches-list-<?= $round_id ?>"
                                 data-party_id="<?= $party_id ?>"
                                 data-round_id="<?= $round_id ?>">
                             <header class="flex-between">
                                 <h3>Manche <?= $round['i_order'] ?></h3>
                             </header>
-                            <table id="fight-list-round-<?= $round_id ?>" class="table">
+                            <table id="match-list-round-<?= $round_id ?>" class="table">
                                 <thead>
                                     <tr>
                                         <th>Équipe A</th>
@@ -38,25 +37,25 @@ require_once('./functions/party.manager.php');
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach (Fights::round_fights_list($party_id, $round_id) as $index => $fight): ?>
-                                        <tr id="fights-score-<?= $fight['id'] ?>"
-                                                data-fight_id="<?= $fight['id'] ?>">
+                                    <?php foreach (Matches::round_matches_list($party_id, $round_id) as $index => $match): ?>
+                                        <tr id="matches-score-<?= $match['id'] ?>"
+                                                data-match_id="<?= $match['id'] ?>">
                                             <td>
                                                 <div class="flex-between-center">
-                                                    <span><?= $fight['team_1_id'] ?></span>
-                                                    <div class="score-player-list align-right"><?php player_from_list($fight['team_1_id']); ?></div>
+                                                    <span><?= $match['team_1_id'] ?></span>
+                                                    <div class="score-member-list align-right"><?php member_from_list($match['team_1_id']); ?></div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <input class="team-score" type="number" min="0" max="13" name="score-1" value="<?= $fight['team_1_score'] ?>">
+                                                <input class="team-score" type="number" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>">
                                             </td>
                                             <td>
-                                                <input class="team-score" type="number" min="0" max="13" name="score-2" value="<?= $fight['team_2_score'] ?>">
+                                                <input class="team-score" type="number" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>">
                                             </td>
                                             <td>
                                                 <div class="flex-between-center">
-                                                    <div class="score-player-list align-left"><?php player_from_list($fight['team_2_id']); ?></div>
-                                                    <span><?= $fight['team_2_id'] ?></span>
+                                                    <div class="score-member-list align-left"><?php member_from_list($match['team_2_id']); ?></div>
+                                                    <span><?= $match['team_2_id'] ?></span>
                                                 </div>
                                             </td>
                                         </tr>

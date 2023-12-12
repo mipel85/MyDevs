@@ -77,4 +77,16 @@ class Parties {
         }
         return $id[0];
     }
+
+    static function party_started()
+    {
+        $today = date('d-m-Y');
+        $dates = [];
+        foreach(self::parties_list() as $values) {
+            $dates[] = $values['date'];
+        }
+        if (in_array($today, $dates)) return true;
+
+        return false;
+    }
 }

@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `fights`
+-- Structure de la table `matches`
 --
 
-CREATE TABLE `fights` (
+CREATE TABLE `matches` (
   `id` int(11) NOT NULL,
   `party_id` int(11) NOT NULL,
   `round_id` int(11) NOT NULL,
@@ -52,10 +52,10 @@ CREATE TABLE `parties` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `players`
+-- Structure de la table `members`
 --
 
-CREATE TABLE `players` (
+CREATE TABLE `members` (
   `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `present` tinyint(1) DEFAULT NULL,
@@ -63,10 +63,10 @@ CREATE TABLE `players` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `players`
+-- Déchargement des données de la table `members`
 --
 
-INSERT INTO `players` (`id`, `name`, `present`, `fav`) VALUES
+INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (1, ' Alain.G', 1, 1),
 (2, ' Alain.M', 1, 1),
 (3, ' Annick.G', 1, 1),
@@ -163,9 +163,9 @@ CREATE TABLE `teams` (
 --
 
 --
--- Index pour la table `fights`
+-- Index pour la table `matches`
 --
-ALTER TABLE `fights`
+ALTER TABLE `matches`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -175,9 +175,9 @@ ALTER TABLE `parties`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `players`
+-- Index pour la table `members`
 --
-ALTER TABLE `players`
+ALTER TABLE `members`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -197,9 +197,9 @@ ALTER TABLE `teams`
 --
 
 --
--- AUTO_INCREMENT pour la table `fights`
+-- AUTO_INCREMENT pour la table `matches`
 --
-ALTER TABLE `fights`
+ALTER TABLE `matches`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -209,9 +209,9 @@ ALTER TABLE `parties`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `players`
+-- AUTO_INCREMENT pour la table `members`
 --
-ALTER TABLE `players`
+ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --

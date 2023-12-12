@@ -24,7 +24,7 @@ function playground($playgrounds_number)
 }
 
 // Fonction pour créer le championnat
-function build_fights($teams) {
+function build_matches($teams) {
     $calendar = [];
     $teams_number = count($teams);
 

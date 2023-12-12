@@ -83,12 +83,12 @@
     padding: 15px 0;
 }
 
-.fight-player-list {
+.match-member-list {
     width: 60%;
     text-align: left;
 }
 
-.fight-player {
+.match-member {
     display: block;
 }
 

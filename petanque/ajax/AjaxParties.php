@@ -4,7 +4,7 @@ include '../classes/Connection.class.php';
 include '../classes/Parties.class.php';
 include '../classes/Rounds.class.php';
 include '../classes/Teams.class.php';
-include '../classes/Fights.class.php';
+include '../classes/Matches.class.php';
 
 $actions = $_POST['action'];
 switch($actions)
@@ -16,8 +16,8 @@ switch($actions)
         break;
 
     case 'remove_party':
-        $remove = new Fights();
-        $remove->remove_party_fights($_POST['party_id']);
+        $remove = new Matches();
+        $remove->remove_party_matches($_POST['party_id']);
         $remove = new Teams();
         $remove->remove_party_teams($_POST['party_id']);
         $remove = new Rounds();
@@ -27,8 +27,8 @@ switch($actions)
         break;
 
     case 'remove_all_parties':
-        $remove = new Fights();
-        $remove->remove_all_fights();
+        $remove = new Matches();
+        $remove->remove_all_matches();
         $remove = new Teams();
         $remove->remove_all_teams();
         $remove = new Rounds();

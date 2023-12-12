@@ -1,28 +1,28 @@
 <?php
 
 include '../classes/Connection.class.php';
-include '../classes/Fights.class.php';
+include '../classes/Matches.class.php';
 
 // Afficher les équipes formées
 
 $actions = $_POST['action'];
 switch($actions)
 {
-    case 'insert_fights':
+    case 'insert_matches':
         $party_id = $_POST['party_id'];
         $round_id = $_POST['round_id'];
-        include '../functions/fights.manager.php';
-        $build_fights = build_fights($teams);
-        shuffle($build_fights);
+        include '../functions/matches.manager.php';
+        $build_matches = build_matches($teams);
+        shuffle($build_matches);
 
         $playgrounds_number = '10';
         $playground = playground($playgrounds_number);
         shuffle($playground);
         $first = true;
-        foreach ($build_fights as $fights) {
+        foreach ($build_matches as $matches) {
             if ($first) {
-                foreach ($fights as $teams) {
-                    $insert = new Fights();
+                foreach ($matches as $teams) {
+                    $insert = new Matches();
                     $insert->set_party_id($_POST['party_id']);
                     $insert->set_round_id($_POST['round_id']);
                     $insert->set_team_1_id($teams[0]);
@@ -31,7 +31,7 @@ switch($actions)
                     $insert->set_team_2_score(0);
                     $insert->set_playground(array_shift($playground));
 
-                    $insert->add_fight();
+                    $insert->add_match();
                 }
                 $first = false;
             }
@@ -40,7 +40,7 @@ switch($actions)
         break;
         
     case 'insert_scores':
-        $insert = new Fights();
+        $insert = new Matches();
         $insert->set_id($_POST['id']);
 
         $insert->update_score_1($_POST['score_1']);

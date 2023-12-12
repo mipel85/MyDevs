@@ -62,8 +62,12 @@
     padding : 14px;
 }
 
-#onglets a:hover {
+#onglets li:hover {
     background-color: #2cbf8e;
+    color: #ffffff;
+}
+
+#onglets li:hover a {
     color: #ffffff;
 }
 

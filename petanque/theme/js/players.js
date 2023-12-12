@@ -1,9 +1,9 @@
 $(document).ready(function() {
-    $('#player_name').focus();
-    $('#player_name').removeClass('is_empty');
+    $('#member_name').focus();
+    $('#member_name').removeClass('is_empty');
 
     // DataTable
-    $('#registred-players').DataTable(
+    $('#registred-members').DataTable(
         {
             dom: 'lfrip<t>B',
             buttons: [
@@ -29,13 +29,13 @@ $(document).ready(function() {
         }
     );
 
-    // Select/unselect players as favourite
-    $('.fav-player').each(function() {
+    // Select/unselect members as favourite
+    $('.fav-member').each(function() {
         $(this).on('change', function() {
             var id = $(this).data('id');
             if ((this.checked)){
                 $.ajax({
-                    url: './ajax/AjaxPlayers.php',
+                    url: './ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
                         action: 'favory',
@@ -45,7 +45,7 @@ $(document).ready(function() {
                 });
             }else{
                 $.ajax({
-                    url: './ajax/AjaxPlayers.php',
+                    url: './ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
                         action: 'anonyme',
@@ -60,7 +60,7 @@ $(document).ready(function() {
     // désélectionner tous les favoris
     $('#reset-all-favs').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxPlayers.php',
+            url: './ajax/AjaxMembers.php',
             type: 'POST',
             data: {
                 action: 'reset_all_favs'
@@ -74,22 +74,22 @@ $(document).ready(function() {
         });
     });
 
-    // Add new player
-    $('#add-player').on('click', function() {
-        var name = $('#player_name').val();
+    // Add new member
+    $('#add-member').on('click', function() {
+        var name = $('#member_name').val();
         if (name !== ''){
             $.ajax({
-                url: './ajax/AjaxPlayers.php',
+                url: './ajax/AjaxMembers.php',
                 type: 'POST',
                 data: {
-                    action: 'insert_player',
+                    action: 'insert_member',
                     name: name
                 },
                 success: function(r) {
-                    $('#player_name').val('');
-                    $('#player_name').removeClass('is_empty');
+                    $('#member_name').val('');
+                    $('#member_name').removeClass('is_empty');
                     location.reload(true);
-                    $('#player_name').focus();
+                    $('#member_name').focus();
                 },
                 error: function(r) {
                     alert(r.error);
@@ -97,20 +97,20 @@ $(document).ready(function() {
             });
         }else{
             alert('Le nom du joueur doit être renseigné');
-            $('#player_name').focus();
-            $('#player_name').addClass('is_empty');
+            $('#member_name').focus();
+            $('#member_name').addClass('is_empty');
         }
     });
 
-    // Remove player
-    $(".delete-player").each(function() {
+    // Remove member
+    $(".delete-member").each(function() {
         $(this).on('click', function() {
             var id = $(this).attr('id');
             $.ajax({
-                url: './ajax/AjaxPlayers.php',
+                url: './ajax/AjaxMembers.php',
                 type: 'POST',
                 data: {
-                    action: 'remove_player',
+                    action: 'remove_member',
                     id: id
                 },
                 success: function(r) {

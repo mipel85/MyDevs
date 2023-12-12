@@ -1,6 +1,6 @@
 <?php
 
-require_once('./classes/Players.class.php');
+require_once('./classes/Members.class.php');
 require_once('./classes/Parties.class.php');
 require_once('./classes/Rounds.class.php');
 ?>
@@ -10,13 +10,13 @@ require_once('./classes/Rounds.class.php');
     </header>
     <div class="tabs-container">
         <div class="tabs-menu">
-            <span data-trigger="players" class="tab-trigger active-tab" onclick="openTab(event, 'players');">Joueurs</span>
+            <span data-trigger="members" class="tab-trigger active-tab" onclick="openTab(event, 'members');">Joueurs</span>
             <span data-trigger="parties" class="tab-trigger" onclick="openTab(event, 'parties');">Parties</span>
             <span data-trigger="rounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Manches</span>
             <!-- <a data-trigger="config" class="tab-trigger" onclick="openTab(event, 'config');">Rounds</a> -->
         </div>
-        <article id="players" class="tab-content active-tab cell-flex cell-columns-2">
-            <?php include './theme/templates/config/config.players.php'; ?>
+        <article id="members" class="tab-content active-tab cell-flex cell-columns-2">
+            <?php include './theme/templates/config/config.members.php'; ?>
         </article>
         <article id="parties" class="tab-content cell-flex cell-columns-2">
             <?php include './theme/templates/config/config.parties.php'; ?>

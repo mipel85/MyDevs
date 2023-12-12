@@ -125,7 +125,7 @@ $(document).ready(function() {
     // });
 
     // Debug Ajout des équipes d'une manche
-    // $('[id*="add-fights-]"').each(function() {
+    // $('[id*="add-matches-]"').each(function() {
     //     $(this).on('click', function() {
     //         let party_id = $(this).data('party_id'),
     //             round_id = $(this).data('round_id');
@@ -133,7 +133,7 @@ $(document).ready(function() {
     //             url: './ajax/AjaxTeams.php',
     //             type: 'POST',
     //             data: {
-    //                 action: 'insert_fights',
+    //                 action: 'insert_matches',
     //                 party_id: party_id,
     //                 round_id: round_id
     //             },
@@ -170,15 +170,15 @@ $(document).ready(function() {
 
     // Ajout des rencontres d'une manche
     // Debug
-    // $('[id*="add-fights-"]').each(function() {
+    // $('[id*="add-matches-"]').each(function() {
     //     $(this).on('click', function() {
     //         let party_id = $(this).data('party_id'),
     //             round_id = $(this).data('round_id');
     //         $.ajax({
-    //             url: './ajax/AjaxFights.php',
+    //             url: './ajax/AjaxMatches.php',
     //             type: 'POST',
     //             data: {
-    //                 action: 'insert_fights',
+    //                 action: 'insert_matches',
     //                 party_id: party_id,
     //                 round_id: round_id
     //             },
@@ -191,17 +191,17 @@ $(document).ready(function() {
     // });
 
     $(document).ready(function() {
-        $('[id*="fights-list-"]').each(function() {
+        $('[id*="matches-list-"]').each(function() {
             let teams_ready = $(this).data('teams_ready'),
-                fights_ready = $(this).data('fights_ready'),
+                matches_ready = $(this).data('matches_ready'),
                 party_id = $(this).data('party_id'),
                 round_id = $(this).data('round_id');
-            if(teams_ready != '0' && fights_ready == '') {
+            if(teams_ready != '0' && matches_ready == '') {
                 $.ajax({
-                    url: './ajax/AjaxFights.php',
+                    url: './ajax/AjaxMatches.php',
                     type: 'POST',
                     data: {
-                        action: 'insert_fights',
+                        action: 'insert_matches',
                         party_id: party_id,
                         round_id: round_id
                     },
@@ -216,13 +216,13 @@ $(document).ready(function() {
 
     // Mettre à jour les scores
     $('#submit-scores').on('click', () => {
-        $('[id*="fights-score-"]').each(function() {
+        $('[id*="matches-score-"]').each(function() {
         console.log($(this));
-            let id = $(this).data('fight_id'),
+            let id = $(this).data('match_id'),
                 score_1 = $(this).find('input[name="score-1"]').val(),
                 score_2 = $(this).find('input[name="score-2"]').val();
             $.ajax({
-                url: './ajax/AjaxFights.php',
+                url: './ajax/AjaxMatches.php',
                 type: 'POST',
                 data: {
                     action: 'insert_scores',

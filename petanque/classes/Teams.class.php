@@ -113,9 +113,9 @@ class Teams {
         return $teams;
     }
 
-    static function get_team_players($team_id)
+    static function get_team_members($team_id)
     {
-        $players = [];
+        $members = [];
         $req = 'SELECT teams.* FROM teams '
             . ' WHERE teams.id = "' . $team_id . '"';
 
@@ -123,10 +123,10 @@ class Teams {
             if (!empty($result)){
                 foreach ($result as $value)
                 {
-                    $players[] = [$value['player_1_name'], $value['player_2_name'], $value['player_3_name']];
+                    $members[] = [$value['player_1_name'], $value['player_2_name'], $value['player_3_name']];
                 }
             }
         }
-        return $players;
+        return $members;
     }
 }

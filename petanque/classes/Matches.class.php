@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-class Fights {
+class Matches {
     private $id;
     private $party_id;
     private $round_id;
@@ -15,7 +15,7 @@ class Fights {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM fights WHERE id = ' . $id;
+            $req = 'SELECT * FROM matches WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -56,9 +56,9 @@ class Fights {
     public function set_playground($playground) { $this->playground = $playground; }
 // end getters setters
     
-    function add_fight()
+    function add_match()
     {
-        $req = 'INSERT INTO fights values (
+        $req = 'INSERT INTO matches values (
                     NULL,
                     "' . $this->get_party_id() . '",
                     "' . $this->get_round_id() . '",
@@ -71,53 +71,53 @@ class Fights {
         return Connection::query($req);
     }
 
-    function remove_party_fights($party_id)
+    function remove_party_matches($party_id)
     {
-        $req = 'DELETE FROM fights WHERE party_id = "' . $party_id . '"';
+        $req = 'DELETE FROM matches WHERE party_id = "' . $party_id . '"';
         return Connection::query($req);
     }
 
-    function remove_round_fights($party_id, $round_id)
+    function remove_round_matches($party_id, $round_id)
     {
-        $req = 'DELETE FROM fights WHERE party_id = "' . $party_id . '" AND round_id = "' . $round_id . '"';
+        $req = 'DELETE FROM matches WHERE party_id = "' . $party_id . '" AND round_id = "' . $round_id . '"';
         return Connection::query($req);
     }
 
-    function remove_all_fights()
+    function remove_all_matches()
     {
-        $req = 'DELETE FROM fights';
+        $req = 'DELETE FROM matches';
         return Connection::query($req);
     }
 
     function update_score_1($value)
     {
-        $req = 'UPDATE fights SET `team_1_score` = "' . $value . '" WHERE `fights`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE matches SET `team_1_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
     function update_score_2($value)
     {
-        $req = 'UPDATE fights SET `team_2_score` = "' . $value . '" WHERE `fights`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE matches SET `team_2_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
-    static function round_fights_list($party_id, $round_id)
+    static function round_matches_list($party_id, $round_id)
     {
-        $fights = array();
-        $req = 'SELECT fights.* FROM fights '
-            . ' LEFT JOIN parties ON parties.id = fights.party_id'
-            . ' LEFT JOIN rounds ON rounds.id = fights.round_id'
-            . ' WHERE fights.party_id = "' . $party_id . '" AND fights.round_id = "' . $round_id . '"';
+        $matches = array();
+        $req = 'SELECT matches.* FROM matches '
+            . ' LEFT JOIN parties ON parties.id = matches.party_id'
+            . ' LEFT JOIN rounds ON rounds.id = matches.round_id'
+            . ' WHERE matches.party_id = "' . $party_id . '" AND matches.round_id = "' . $round_id . '"';
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
                 {
-                    $fights[] = $value;
+                    $matches[] = $value;
                 }
             }
         }
-        return $fights;
+        return $matches;
     }
 
 }
