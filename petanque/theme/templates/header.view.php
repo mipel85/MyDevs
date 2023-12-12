@@ -25,8 +25,9 @@ $menu = display_menu();
         <script src="./theme/js/lib/Buttons-2.4.2/js/buttons.dataTables.min.js"></script>
         <script src="./theme/js/lib/FixedHeader-3.4.0/js/fixedHeader.dataTables.min.js"></script>
         <script src="./theme/js/members.js"></script>
-        <script src="./theme/js/selection.js"></script>
+        <script src="./theme/js/players.js"></script>
         <script src="./theme/js/parties.js"></script>
+        <script src="./theme/js/expand.js"></script>
         <script src="./theme/js/tabs.js"></script>
     </head>
     <body>

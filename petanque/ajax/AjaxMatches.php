@@ -35,10 +35,9 @@ switch($actions)
                 }
                 $first = false;
             }
-
         }
         break;
-        
+
     case 'insert_scores':
         $insert = new Matches();
         $insert->set_id($_POST['id']);

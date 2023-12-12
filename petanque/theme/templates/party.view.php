@@ -10,8 +10,21 @@ require_once('./functions/rules.php');
 
 ?>
 <section>
-    <header class="section-header">
+    <header class="section-header flex-between">
         <h1>Création</h1>
+        <div id="add-round-container" class="flex-between-center hero hidden">
+            <span>
+                <button
+                        class="submit button<?= $hidden_round ?>"
+                        data-party_id="<?= $party_id ?>"
+                        data-i_order="<?= $i_order ?>"
+                        data-players_number="<?= $players_number ?>"
+                        id="add-round"
+                        <?= $disabled_round ?>>
+                    Ajouter une partie
+                </button>
+            </span><span id="round-description"><?= $label_round ?></span>
+        </div>
     </header>
     <article class="cell-flex cell-columns-2">
         <div id="party-manager" class="content<?= $hidden_party ?>" data-party_ready="<?= $party_id ?>">
@@ -22,26 +35,19 @@ require_once('./functions/rules.php');
             <input type="hidden" id="party-date" name="party-date" value="" />
             <button class="submit button<?= $hidden_party ?>" type="submit" id="add-party" name="day"<?= $disabled_partie ?>>Ajouter</button>
         </div>
-        <div id="add-round-container" class="content hero hidden">
-            <header class="flex-between">
-                <h3>Créer une manche :</h3>
-                <button
-                        class="submit button<?= $hidden_round ?>"
-                        data-party_id="<?= $party_id ?>"
-                        data-i_order="<?= $i_order ?>"
-                        data-players_number="<?= $players_number ?>"
-                        id="add-round"
-                        <?= $disabled_round ?>>
-                    Ajouter
-                </button>
-            </header>
-            <span id="round-description"><?= $label_round ?></span>
-        </div>
     </article>
     <?php if($party_id): ?>
-        <article id="rounds-list">
+        <article id="rounds-list" class="tabs-container">
             <?php $party_round_list = array_reverse(Rounds::party_rounds_list($party_id)); ?>
+            <div class="tabs-menu">
+                <?php foreach($party_round_list as $round): ?>
+                    <?php $active_tab = last_round_id($party_id) == $round['id'] ? ' active-tab' : ''; ?>
+                    <span data-trigger="tab-content-<?= $round['i_order'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'tab-content-<?= $round['i_order'] ?>');">Manche <?= $round['i_order'] ?></span>
+                <?php endforeach ?>
+            </div>
             <?php foreach($party_round_list as $round): ?>
+                <?php $active_tab = last_round_id($party_id) == $round['id'] ? ' active-tab' : ''; ?>
+                <?php $active_tab = last_round_id($party_id) == $round['id'] ? ' active-tab' : ''; ?>
                 <?php
                     $round_id = $round['id'];
                     $hidden_remove_round = !is_scored($party_id, $round['id']) && last_round_id($party_id) == $round['id'] ? '' : ' hidden';
@@ -50,8 +56,8 @@ require_once('./functions/rules.php');
                     $hidden_matches_list = Matches::round_matches_list($party_id, $round_id) ? '' : ' hidden';
                     $hidden_matches_btn = Matches::round_matches_list($party_id, $round_id) ? ' hidden' : '';
                 ?>
-                <div class="cell-flex cell-columns-2" data-scored="<?= is_scored($party_id, $round['id']) ?>">
-                    <header class="cell-100 flex-between">
+                <div id="tab-content-<?= $round['i_order'] ?>" class="cell-flex cell-columns-2 tab-content<?= $active_tab ?>" data-scored="<?= is_scored($party_id, $round['id']) ?>">
+                    <div class="cell-100 flex-between">
                         <h3>Manche <?= $round['i_order'] ?></h3>
                         <button type="submit" 
                                 class="remove-button remove-round<?= $hidden_remove_round ?>" 
@@ -59,7 +65,7 @@ require_once('./functions/rules.php');
                                 data-round_id="<?= $round['id'] ?>">
                             <i class="fa fa-fw fa-2x fa-square-xmark error"></i>
                         </button>
-                    </header>
+                    </div>
                     <div id="teams-list-<?= $round_id ?>"
                             data-round_ready="<?= $hidden_teams_btn ?>"
                             data-party_id="<?= $party_id ?>"
@@ -116,7 +122,7 @@ require_once('./functions/rules.php');
                                 class="button<?= $hidden_matches_btn ?>">
                             Créer les rencontres de la manche
                         </button>
-                        <div class="responsive-table">
+                        <div class="expand-container">
                             <span class="expand-button" id="expand-<?= $round_id ?>"></span>
                             <table id="match-list-round-<?= $round_id ?>" class="table<?= $hidden_matches_list ?>">
                                 <thead>
@@ -184,20 +190,8 @@ require_once('./functions/rules.php');
         add_button.removeClass('hidden');
         if (first == '') {
             add_button.addClass('hidden');
-            $('#round-description').html("Aucun score de la manche en cours n'est renseigné.<br />L'ajout d'une nouvelle manche est désactivé.")
+            $('#round-description').html("Aucun score de la partie en cours n'est renseigné.<br />L'ajout d'une nouvelle partie est désactivé.")
         }
-
-        // Expand/reduce score table
-        $('[id*="expand-"').each(function() {
-            $(this).html('<i class="fa fa-lg fa-fw fa-expand"></i>');
-            $(this).on('click', function() {
-                $(this).toggleClass('expanded');
-                $(this).hasClass('expanded') ? 
-                    $(this).html('<i class="fa fa-lg fa-fw fa-minimize"></i>') :
-                    $(this).html('<i class="fa fa-lg fa-fw fa-expand"></i>');
-                $(this).parent('.responsive-table').toggleClass('expanded-list');
-            })
-        })
     </script>
 </section>
 

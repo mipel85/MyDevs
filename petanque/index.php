@@ -28,33 +28,33 @@ switch($page)
     default : $title = 'Accueil'; break;
 }
 
-require_once('./theme/templates/header.controller.php');
+require_once('./theme/templates/header.view.php');
 
 switch($page)
 {
     case ('config') :
-        require_once('./theme/templates/config/config.controller.php');
+        require_once('./theme/templates/config/config.view.php');
         break;
     case ('home') :
-        require_once('./theme/templates/home.controller.php');
+        require_once('./theme/templates/home.view.php');
         break;
     case ('members') :
-        require_once('./theme/templates/members.controller.php');
+        require_once('./theme/templates/members.view.php');
         break;
     case ('party') :
-        require_once('./theme/templates/party.controller.php');
+        require_once('./theme/templates/party.view.php');
         break;
     case ('scores') :
-        require_once('./theme/templates/scores.controller.php');
+        require_once('./theme/templates/scores.view.php');
         break;
     case ('ranking') :
-        require_once('./theme/templates/ranking.controller.php');
+        require_once('./theme/templates/ranking.view.php');
         break;
     default :
-        require_once('./theme/templates/404.controller.php');
+        require_once('./theme/templates/404.view.php');
         break;
 }
 
-require_once('./theme/templates/footer.controller.php');
+require_once('./theme/templates/footer.view.php');
 ?>
 

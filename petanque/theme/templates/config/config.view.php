@@ -13,16 +13,19 @@ require_once('./classes/Rounds.class.php');
             <span data-trigger="members" class="tab-trigger active-tab" onclick="openTab(event, 'members');">Joueurs</span>
             <span data-trigger="parties" class="tab-trigger" onclick="openTab(event, 'parties');">Parties</span>
             <span data-trigger="rounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Manches</span>
-            <!-- <a data-trigger="config" class="tab-trigger" onclick="openTab(event, 'config');">Rounds</a> -->
+            <span data-trigger="playgrounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Terrains</span>
         </div>
         <article id="members" class="tab-content active-tab cell-flex cell-columns-2">
-            <?php include './theme/templates/config/config.members.php'; ?>
+            <?php include './theme/templates/config/config.members.view.php'; ?>
         </article>
         <article id="parties" class="tab-content cell-flex cell-columns-2">
-            <?php include './theme/templates/config/config.parties.php'; ?>
+            <?php include './theme/templates/config/config.parties.view.php'; ?>
         </article>
         <article id="rounds" class="tab-content cell-flex cell-columns-2">
-            <?php include './theme/templates/config/config.rounds.php'; ?>
+            <?php include './theme/templates/config/config.rounds.view.php'; ?>
+        </article>
+        <article id="playgrounds" class="tab-content cell-flex cell-columns-2">
+            <?php include './theme/templates/config/config.playgrounds.view.php'; ?>
         </article>
         <!-- <article id="config" class="tab-content cell-flex cell-columns-2">
             <div id="max-round">
