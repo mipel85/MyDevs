@@ -79,10 +79,10 @@ $possible_scores = 12;
                                                 </div>
                                             </td>
                                             <td>
-                                                <input class="team-score" type="text" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>"<?= $disabled_score ?>>
+                                                <input readonly class="team-score" type="text" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>"<?= $disabled_score ?>>
                                             </td>
                                             <td>
-                                                <input class="team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>"<?= $disabled_score ?>>
+                                                <input readonly class="team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>"<?= $disabled_score ?>>
                                             </td>
                                             <td>
                                                 <div class="flex-between-center">
