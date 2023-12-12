@@ -33,18 +33,18 @@ $possible_scores = 12;
                         <header class="flex-between">
                             <h3>Manche <?= $round['i_order'] ?></h3>
                         </header>
-                        <div class="score-buttons-list">
-                            <?php for($i = 0; $i <= $possible_scores; $i++): ?>
-                                <button data-score_button="<?= $i ?>" class="score-button" type="submit"><?= $i ?></button>
-                            <?php endfor ?>
-                        </div>
-                        <div class="flex-between">
-                            <span class="description">
-                                Sélectionner le score des perdants puis sélectionner un nombre dans la liste ci-dessus.
-                                <br />L'autre score (13) est renseigné automatiquement.
-                            </span>
-                        </div>
                         <div class="expand-container">
+                            <div class="score-buttons-list">
+                                <?php for($i = 0; $i <= $possible_scores; $i++): ?>
+                                    <button data-score_button="<?= $i ?>" class="score-button" type="submit"><?= $i ?></button>
+                                <?php endfor ?>
+                            </div>
+                            <div class="flex-between">
+                                <span class="description">
+                                    Sélectionner le score des perdants puis sélectionner un nombre dans la liste ci-dessus.
+                                    <br />L'autre score (13) est renseigné automatiquement.
+                                </span>
+                            </div>
                             <span class="expand-button" id="expand-<?= $round['id'] ?>"></span>
                             <table id="match-list-round-<?= $round['id'] ?>" class="table">
                                 <thead>

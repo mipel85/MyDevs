@@ -56,7 +56,7 @@
         ~~ - cliquer sur sur un des numéros de la liste ~~
         ~~ - envoyer automatiquement le 13 sur l'autre score ~~
         ~~ - tester si une des 2 équipes a 13 ~~
-    - empêcher de mettre du texte dans les input ou score >= 13 si taper au clavier ou interdire la frappe
+    ~~ - empêcher de mettre du texte dans les input ou score >= 13 si taper au clavier ou interdire la frappe ~~
 
 ### Classement
     - ids joueurs
