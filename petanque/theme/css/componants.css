@@ -102,6 +102,14 @@
     width: 120px;
 }
 
+.team-score {
+    text-align: center;
+}
+
+.team-score:disabled {
+    background-color: #2cbf8e;
+}
+
 .score-buttons-list {
     display: flex;
     flex-wrap: wrap;

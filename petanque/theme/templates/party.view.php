@@ -47,7 +47,6 @@ require_once('./functions/rules.php');
             </div>
             <?php foreach($party_round_list as $round): ?>
                 <?php $active_tab = last_round_id($party_id) == $round['id'] ? ' active-tab' : ''; ?>
-                <?php $active_tab = last_round_id($party_id) == $round['id'] ? ' active-tab' : ''; ?>
                 <?php
                     $round_id = $round['id'];
                     $hidden_remove_round = !is_scored($party_id, $round['id']) && last_round_id($party_id) == $round['id'] ? '' : ' hidden';
@@ -58,7 +57,7 @@ require_once('./functions/rules.php');
                 ?>
                 <div id="tab-content-<?= $round['i_order'] ?>" class="cell-flex cell-columns-2 tab-content<?= $active_tab ?>" data-scored="<?= is_scored($party_id, $round['id']) ?>">
                     <div class="cell-100 flex-between">
-                        <h3>Manche <?= $round['i_order'] ?></h3>
+                        <!-- <h3>Manche <?= $round['i_order'] ?></h3> --> <span></span>
                         <button type="submit" 
                                 class="remove-button remove-round<?= $hidden_remove_round ?>" 
                                 data-party_id="<?= $party_id ?>" 

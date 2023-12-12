@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 10 déc. 2023 à 07:52
+-- Généré le : mar. 12 déc. 2023 à 17:58
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -35,18 +35,8 @@ CREATE TABLE `matches` (
   `team_1_score` int(11) DEFAULT NULL,
   `team_2_id` int(11) NOT NULL,
   `team_2_score` int(11) DEFAULT NULL,
-  `playground` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `parties`
---
-
-CREATE TABLE `parties` (
-  `id` int(11) NOT NULL,
-  `date` varchar(11) NOT NULL
+  `playground` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -77,16 +67,16 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (8, ' Daniel.T', 1, 0),
 (9, ' Danielle.L', 0, 0),
 (10, ' Dany.R', 0, 1),
-(11, ' Denis.D', 1, 0),
-(12, ' Denis.G', 1, 0),
-(13, ' Dominique.B', 1, 0),
-(14, ' Eric.E', 1, 0),
-(15, ' Fernand.D', 1, 0),
-(16, ' Fernando.L', 1, 0),
-(17, ' Franck.H', 1, 0),
-(18, ' Frederic.D', 1, 0),
-(19, ' Francois.S', 1, 0),
-(20, ' Gaetan.F', 1, 0),
+(11, ' Denis.D', 0, 0),
+(12, ' Denis.G', 0, 0),
+(13, ' Dominique.B', 0, 0),
+(14, ' Eric.E', 0, 0),
+(15, ' Fernand.D', 0, 0),
+(16, ' Fernando.L', 0, 0),
+(17, ' Franck.H', 0, 0),
+(18, ' Frederic.D', 0, 0),
+(19, ' Francois.S', 0, 0),
+(20, ' Gaetan.F', 0, 0),
 (21, ' Gerard.F', 0, 0),
 (22, ' Gerard.M', 0, 0),
 (23, ' Ghislain.G', 0, 0),
@@ -130,6 +120,17 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `parties`
+--
+
+CREATE TABLE `parties` (
+  `id` int(11) NOT NULL,
+  `date` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `rounds`
 --
 
@@ -169,15 +170,15 @@ ALTER TABLE `matches`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `parties`
---
-ALTER TABLE `parties`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Index pour la table `members`
 --
 ALTER TABLE `members`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `parties`
+--
+ALTER TABLE `parties`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -203,16 +204,16 @@ ALTER TABLE `matches`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `parties`
---
-ALTER TABLE `parties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT pour la table `members`
 --
 ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT pour la table `parties`
+--
+ALTER TABLE `parties`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `rounds`

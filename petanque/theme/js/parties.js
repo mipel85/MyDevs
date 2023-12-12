@@ -214,29 +214,47 @@ $(document).ready(function() {
         });
     });
 
-    // Mettre à jour les scores
+    // Valider les scores
     $('[id*="submit-scores-"]').each(function() {
         $(this).on('click', function() {
-            $(this).closest('.matches-list').find('[id*="matches-score-"]').each(function() {
-                let id = $(this).data('match_id'),
-                    round_id = $(this).data('round_id'),
-                    score_1 = $(this).find('input[name="score-1"]').val(),
-                    score_2 = $(this).find('input[name="score-2"]').val();
+            let status = $(this).data('status');
+            let id = $(this).closest('.match-scores').data('match_id'),
+                score_1 = $(this).closest('.match-scores').find('input[name="score-1"]').val(),
+                score_2 = $(this).closest('.match-scores').find('input[name="score-2"]').val();
+            $.ajax({
+                url: './ajax/AjaxMatches.php',
+                type: 'POST',
+                data: {
+                    action: 'insert_scores',
+                    status: status,
+                    id: id,
+                    score_1: score_1,
+                    score_2: score_2
+                },
+                success: function() {
+                    location.reload(true);
+                }
+            });
+        });
+    });
+
+    // Éditer les scores
+    $('[id*="edit-scores-"]').each(function() {
+        $(this).on('click', function() {
+            let status = $(this).data('status'),
+                id = $(this).closest('.match-scores').data('match_id');
                 $.ajax({
                     url: './ajax/AjaxMatches.php',
                     type: 'POST',
                     data: {
-                        action: 'insert_scores',
-                        round_id: round_id,
+                        action: 'edit_scores',
                         id: id,
-                        score_1: score_1,
-                        score_2: score_2
+                        status: status
                     },
                     success: function() {
                         location.reload(true);
                     }
                 });
-            });
         });
     });
 });

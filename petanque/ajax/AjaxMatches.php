@@ -42,8 +42,16 @@ switch($actions)
         $insert = new Matches();
         $insert->set_id($_POST['id']);
 
-        $insert->update_score_1($_POST['round_id'], $_POST['score_1']);
-        $insert->update_score_2($_POST['round_id'], $_POST['score_2']);
+        $insert->update_score_1($_POST['score_1']);
+        $insert->update_score_2($_POST['score_2']);
+        $insert->update_status($_POST['status']);
+        break;
+
+    case 'edit_scores':
+        $insert = new Matches();
+        $insert->set_id($_POST['id']);
+
+        $insert->update_status($_POST['status']);
         break;
 
     default:

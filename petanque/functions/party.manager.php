@@ -57,10 +57,11 @@ function is_scored($party_id, $round_id)
     $scores = [];
     foreach (Matches::round_matches_list($party_id, $round_id) as $match) {
         // la rencontre a un score
-        $score = true;
+        // var_dump(Matches::round_matches_list($party_id, $round_id));
+        $score = false;
         // si 0:0 la rencontre n'a pas de score
-        if($match['team_1_score'] == 0 && $match['team_1_score'] == 0)
-            $score = false;
+        if($match['status'])
+            $score = true;
         $scores[] = $score;
     }
     // si une des rencontre a un score

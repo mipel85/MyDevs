@@ -11,6 +11,7 @@ class Matches {
     private $team_2_id;
     private $team_2_score;
     private $playground;
+    private $status;
 
     public function __construct($id = null)
     {
@@ -26,6 +27,7 @@ class Matches {
                 $this->set_team_2_id($result['team_2_id']);
                 $this->set_team_2_score($result['team_2_score']);
                 $this->set_playground($result['playground']);
+                $this->set_playground($result['status']);
             }
         }
     }
@@ -54,6 +56,9 @@ class Matches {
 
     public function get_playground() { return $this->playground; }
     public function set_playground($playground) { $this->playground = $playground; }
+
+    public function get_status() { return $this->status; }
+    public function set_status($status) { $this->status = $status; }
 // end getters setters
     
     function add_match()
@@ -66,7 +71,8 @@ class Matches {
                     "' . $this->get_team_1_score() . '",
                     "' . $this->get_team_2_id() . '",
                     "' . $this->get_team_2_score() . '",
-                    "' . $this->get_playground() . '"
+                    "' . $this->get_playground() . '",
+                    "' . $this->get_status() . '"
                 )';
         return Connection::query($req);
     }
@@ -89,15 +95,21 @@ class Matches {
         return Connection::query($req);
     }
 
-    function update_score_1($round_id, $value)
+    function update_score_1($value)
     {
-        $req = 'UPDATE matches SET `team_1_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . ' AND `matches`.`round_id` = ' . $round_id . '';
+        $req = 'UPDATE matches SET `team_1_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
-    function update_score_2($round_id, $value)
+    function update_score_2($value)
     {
-        $req = 'UPDATE matches SET `team_2_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . ' AND `matches`.`round_id` = ' . $round_id . '';
+        $req = 'UPDATE matches SET `team_2_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
+        return Connection::query($req);
+    }
+
+    function update_status($status)
+    {
+        $req = 'UPDATE matches SET `status` = "' . $status . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
