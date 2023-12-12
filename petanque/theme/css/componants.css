@@ -96,6 +96,32 @@
     width: 120px;
 }
 
+.score-buttons-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 0 5px;
+}
+
+.score-button {
+    border: 1px solid #666666;
+    border-radius: 5px;
+    background-color: #ccffff;
+    padding: 3px 7px;
+    margin-right: 3px;
+    min-width: 40px;
+}
+
+.score-button:hover {
+    background-color: #2cbf8e;
+    color: #FFFFFF;
+}
+
+input.focused-score {
+    background-color: #2cbf8e;
+    color: #FFFFFF;
+}
+
 .description {
     display: block;
     font-style: italic;
