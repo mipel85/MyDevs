@@ -43,8 +43,8 @@ require_once('./functions/rules.php');
                 <h3><?= count(Members::selected_members_list()); ?> membres sélectionnés</h3>
                 <span class="description">Equipes proposées : <?= rules(count(Members::selected_members_list())); ?> </span>
             </header>
-            <?php if (count(Members::selected_members_list()) < 2): ?>
-                <span class="message-helper bgc-full error">1 joueurs n'est pas une sélection valide pour créer un nombre d'équipes pair de 2 et 3 joueurs</span>
+            <?php if (count(Members::selected_members_list()) < 4): ?>
+                <span class="message-helper bgc-full error">Moins de 4 joueurs n'est pas une sélection valide pour créer un nombre d'équipes pair de 2 et 3 joueurs</span>
             <?php elseif (count(Members::selected_members_list()) == 7): ?>
                 <span class="message-helper bgc-full error">7 joueurs n'est pas une sélection valide pour créer un nombre d'équipes pair de 2 et 3 joueurs</span>
             <?php endif ?>

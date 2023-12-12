@@ -83,12 +83,12 @@
     padding: 15px 0;
 }
 
-.match-member-list {
+.match-player-list {
     width: 60%;
     text-align: left;
 }
 
-.match-member {
+.match-player {
     display: block;
 }
 

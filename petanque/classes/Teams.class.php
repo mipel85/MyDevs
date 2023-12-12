@@ -123,7 +123,14 @@ class Teams {
             if (!empty($result)){
                 foreach ($result as $value)
                 {
-                    $members[] = [$value['player_1_name'], $value['player_2_name'], $value['player_3_name']];
+                    $members[] = [
+                        $value['player_1_id'],
+                        $value['player_1_name'],
+                        $value['player_2_id'],
+                        $value['player_2_name'],
+                        $value['player_3_id'],
+                        $value['player_3_name']
+                ];
                 }
             }
         }

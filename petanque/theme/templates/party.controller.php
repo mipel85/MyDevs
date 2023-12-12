@@ -130,13 +130,25 @@ require_once('./functions/rules.php');
                                         <td>
                                             <div class="flex-around-center">
                                                 <span><?= $match['team_1_id'] ?></span>
-                                                <div class="match-member-list"><?php member_from_list($match['team_1_id']); ?></div>
+                                                <div class="match-player-list">
+                                                    <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
+                                                        <span class="match-player"><?= $players[1] ?></span>
+                                                        <span class="match-player"><?= $players[3] ?></span>
+                                                        <span class="match-player"><?= $players[5] ?></span>
+                                                    <?php endforeach ?>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="flex-around-center">
                                                 <span><?= $match['team_2_id'] ?></span>
-                                                <div class="match-member-list"><?php member_from_list($match['team_2_id']); ?></div>
+                                                <div class="match-player-list">
+                                                    <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
+                                                        <span class="match-player"><?= $players[1] ?></span>
+                                                        <span class="match-player"><?= $players[3] ?></span>
+                                                        <span class="match-player"><?= $players[5] ?></span>
+                                                    <?php endforeach ?>
+                                                </div>
                                             </div>
                                         </td>
                                         <td><?= $match['playground'] ?></td>

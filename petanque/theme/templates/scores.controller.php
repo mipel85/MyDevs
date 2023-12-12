@@ -43,7 +43,13 @@ require_once('./functions/party.manager.php');
                                             <td>
                                                 <div class="flex-between-center">
                                                     <span><?= $match['team_1_id'] ?></span>
-                                                    <div class="score-member-list align-right"><?php member_from_list($match['team_1_id']); ?></div>
+                                                    <div class="score-member-list align-right">
+                                                    <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
+                                                        <span class="match-player" data-player_id_score="<?= $players[0] ?>"><?= $players[1] ?></span>
+                                                        <span class="match-player" data-player_id_score="<?= $players[2] ?>"><?= $players[3] ?></span>
+                                                        <span class="match-player" data-player_id_score="<?= $players[4] ?>"><?= $players[5] ?></span>
+                                                    <?php endforeach ?>
+                                                </div>
                                                 </div>
                                             </td>
                                             <td>
@@ -54,7 +60,13 @@ require_once('./functions/party.manager.php');
                                             </td>
                                             <td>
                                                 <div class="flex-between-center">
-                                                    <div class="score-member-list align-left"><?php member_from_list($match['team_2_id']); ?></div>
+                                                    <div class="score-member-list align-left">
+                                                    <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
+                                                        <span class="match-player" data-player_id_score="<?= $players[0] ?>"><?= $players[1] ?></span>
+                                                        <span class="match-player" data-player_id_score="<?= $players[2] ?>"><?= $players[3] ?></span>
+                                                        <span class="match-player" data-player_id_score="<?= $players[4] ?>"><?= $players[5] ?></span>
+                                                    <?php endforeach ?>
+                                                </div>
                                                     <span><?= $match['team_2_id'] ?></span>
                                                 </div>
                                             </td>
