@@ -89,15 +89,15 @@ class Matches {
         return Connection::query($req);
     }
 
-    function update_score_1($value)
+    function update_score_1($round_id, $value)
     {
-        $req = 'UPDATE matches SET `team_1_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE matches SET `team_1_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . ' AND `matches`.`round_id` = ' . $round_id . '';
         return Connection::query($req);
     }
 
-    function update_score_2($value)
+    function update_score_2($round_id, $value)
     {
-        $req = 'UPDATE matches SET `team_2_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE matches SET `team_2_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . ' AND `matches`.`round_id` = ' . $round_id . '';
         return Connection::query($req);
     }
 

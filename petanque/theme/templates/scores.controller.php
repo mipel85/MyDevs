@@ -13,7 +13,6 @@ $possible_scores = 13;
 <section>
     <header class="section-header flex-between-center">
         <h1>Scores</h1>
-        <span><button id="submit-scores" type="submit" class="button">Valider les scores</button></span>
         <?php if(Parties::party_started()): ?><span class="description"><?= $today ?></span><?php endif ?>
     </header>
     <?php if($party_id): ?>
@@ -28,16 +27,20 @@ $possible_scores = 13;
                                 data-round_id="<?= $round_id ?>">
                             <header class="flex-between">
                                 <h3>Manche <?= $round['i_order'] ?></h3>
+                                <span><button id="submit-scores-<?= $round['id'] ?>" type="submit" class="button">Valider les scores</button></span>
                             </header>
                             <div class="score-buttons-list">
                                 <?php for($i = 0; $i <= $possible_scores; $i++): ?>
                                     <button data-score_button="<?= $i ?>" class="score-button" type="submit"><?= $i ?></button>
                                 <?php endfor ?>
                             </div>
-                            <span class="description">
-                                Sélectionner le score des perdants puis sélectionner un nombre dans la liste ci-dessus.
-                                <br />L'autre score (13) est renseigné automatiquement.
-                            </span>
+                            <div class="flex-between">
+                                <span class="description">
+                                    Sélectionner le score des perdants puis sélectionner un nombre dans la liste ci-dessus.
+                                    <br />L'autre score (13) est renseigné automatiquement.
+                                </span>
+                                <span id="expand-<?= $round_id ?>"></span>
+                            </div>
                             <table id="match-list-round-<?= $round_id ?>" class="table">
                                 <thead>
                                     <tr>
@@ -66,10 +69,10 @@ $possible_scores = 13;
                                                 </div>
                                             </td>
                                             <td>
-                                                <input class="team-score" type="text" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>">
+                                                <input data-round_id="<?= $round['id'] ?>" class="team-score" type="text" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>">
                                             </td>
                                             <td>
-                                                <input class="team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>">
+                                                <input data-round_id="<?= $round['id'] ?>" class="team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>">
                                             </td>
                                             <td>
                                                 <div class="flex-between-center">
@@ -112,6 +115,18 @@ $possible_scores = 13;
                     winner = looser.closest('tr').find("input:not('.focused-score')");
                 winner.val(13);
                 looser.val(score).removeClass('focused-score');
+            })
+        });
+
+        // Expand/reduce score table
+        $('[id*="expand-"').each(function() {
+            $(this).html('<i class="fa fa-lg fa-fw fa-expand"></i>');
+            $(this).on('click', function() {
+                $(this).toggleClass('expanded')
+                $(this).hasClass('expanded') ? 
+                    $(this).html('<i class="fa fa-lg fa-fw fa-minimize"></i>') : 
+                    $(this).html('<i class="fa fa-lg fa-fw fa-expand"></i>');
+                $(this).closest('.matches-list').toggleClass('expanded-scores');
             })
         })
     </script>

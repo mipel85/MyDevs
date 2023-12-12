@@ -122,6 +122,21 @@ input.focused-score {
     color: #FFFFFF;
 }
 
+[id*="expand-"] {
+    cursor: pointer;
+}
+
+.expanded-scores {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    background-color: #fff;
+    z-index: 100;
+    padding: 20px;
+    font-size: 1.4em;
+}
+
 .description {
     display: block;
     font-style: italic;

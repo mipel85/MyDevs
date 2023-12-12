@@ -79,9 +79,9 @@ require_once('./functions/rules.php');
                             <thead>
                                 <tr>
                                     <th>Équipe</th>
-                                    <th>Joueur 1</th>
-                                    <th>Joueur 2</th>
-                                    <th>Joueur 3</th>
+                                    <th>Joueur A</th>
+                                    <th>Joueur B</th>
+                                    <th>Joueur C</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -183,7 +183,6 @@ require_once('./functions/rules.php');
             add_button.addClass('hidden');
             $('#round-description').html("Aucun score de la manche en cours n'est renseigné.<br />L'ajout d'une nouvelle manche est désactivé.")
         }
-
     </script>
 </section>
 

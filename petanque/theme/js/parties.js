@@ -215,27 +215,28 @@ $(document).ready(function() {
     });
 
     // Mettre à jour les scores
-    $('#submit-scores').on('click', () => {
-        $('[id*="matches-score-"]').each(function() {
-        console.log($(this));
-            let id = $(this).data('match_id'),
-                score_1 = $(this).find('input[name="score-1"]').val(),
-                score_2 = $(this).find('input[name="score-2"]').val();
-            $.ajax({
-                url: './ajax/AjaxMatches.php',
-                type: 'POST',
-                data: {
-                    action: 'insert_scores',
-                    id: id,
-                    score_1: score_1,
-                    score_2: score_2
-                },
-                success: function() {
-                    location.reload(true);
-                }
+    $('[id*="submit-scores-"]').each(function() {
+        $(this).on('click', function() {
+            $(this).closest('.matches-list').find('[id*="matches-score-"]').each(function() {
+                let id = $(this).data('match_id'),
+                    round_id = $(this).data('round_id'),
+                    score_1 = $(this).find('input[name="score-1"]').val(),
+                    score_2 = $(this).find('input[name="score-2"]').val();
+                $.ajax({
+                    url: './ajax/AjaxMatches.php',
+                    type: 'POST',
+                    data: {
+                        action: 'insert_scores',
+                        round_id: round_id,
+                        id: id,
+                        score_1: score_1,
+                        score_2: score_2
+                    },
+                    success: function() {
+                        // location.reload(true);
+                    }
+                });
             });
         });
     });
 });
-
-
