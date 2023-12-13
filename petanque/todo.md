@@ -22,7 +22,7 @@
             ~~ - uniquement sur la manche en cours ~~
             ~~ - interdire la suppression d'une manche si des scores sont déclarés pour la manche ~~
         ~~ - par paquet ~~
-            ~~ - pertinence du bouton `supprimer toutes les manches` car ça ne supprime pas les parties auquelles elles appartiennent ~~
+            ~~ - pertinence du bouton `supprimer toutes les manches` car ça ne supprime pas les days auquelles elles appartiennent ~~
 
 ### Équipes
     ~~ - pas possible si 7 joueurs ~~
@@ -77,14 +77,18 @@
     - nb de terrains par defaut 14
 
 ## Terrains
-    - si nb de terrains < au nombre de matches remettre la liste complète
-    - pouvoir choisir les n° des terrains
+    ~~ - si nb de terrains < au nombre de matches remettre la liste complète ~~
+    - pouvoir choisir le nombre et les n° des terrains => config des manches
 
 ## Language
-    ~~ party/partie => la journée commence on crée une partie ~~
+    ~~ day/partie => la journée commence on crée une partie ~~
     ~~ > round/manche => de 1 à x manches dans une partie ~~
     > matches/rencontre => chaque rencontre entre 2 équipes dans une manche
     ~~ > team/equipe => un groupe de 2 ou 3 participants ~~
     > member/membre => un membre
     > player/joueur => un participant à une partie
     > ranking/classement
+
+## Idées
+    - afficher le plan des terrains
+        - un par un

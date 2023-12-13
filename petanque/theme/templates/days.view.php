@@ -1,12 +1,12 @@
 <?php
 
-require_once('./classes/Parties.class.php');
+require_once('./classes/Days.class.php');
 require_once('./classes/Members.class.php');
 require_once('./classes/Rounds.class.php');
 require_once('./classes/Teams.class.php');
 require_once('./classes/Matches.class.php');
-require_once('./functions/party.manager.php');
-require_once('./functions/rules.php');
+require_once('./controllers/DaysController.php');
+require_once('./controllers/RulesController.php');
 
 ?>
 <section>
@@ -16,7 +16,7 @@ require_once('./functions/rules.php');
             <span>
                 <button
                         class="submit button<?= $hidden_round ?>"
-                        data-party_id="<?= $party_id ?>"
+                        data-day_id="<?= $day_id ?>"
                         data-i_order="<?= $i_order ?>"
                         data-players_number="<?= $players_number ?>"
                         id="add-round"
@@ -27,55 +27,55 @@ require_once('./functions/rules.php');
         </div>
     </header>
     <article class="cell-flex cell-columns-2">
-        <div id="party-manager" class="content<?= $hidden_party ?>" data-party_ready="<?= $party_id ?>">
+        <div id="day-manager" class="content<?= $hidden_day ?>" data-day_ready="<?= $day_id ?>">
             <header>
                 <h3>Initialiser une Partie :</h3>
             </header>
-            <label for="party-date"><?= $label_partie ?></label>
-            <input type="hidden" id="party-date" name="party-date" value="" />
-            <button class="submit button<?= $hidden_party ?>" type="submit" id="add-party" name="day"<?= $disabled_partie ?>>Ajouter</button>
+            <label for="day-date"><?= $label_partie ?></label>
+            <input type="hidden" id="day-date" name="day-date" value="" />
+            <button class="submit button<?= $hidden_day ?>" type="submit" id="add-day" name="day"<?= $disabled_partie ?>>Ajouter</button>
         </div>
     </article>
-    <?php if($party_id): ?>
+    <?php if($day_id): ?>
         <article id="rounds-list" class="tabs-container">
-            <?php $party_round_list = array_reverse(Rounds::party_rounds_list($party_id)); ?>
+            <?php $day_round_list = array_reverse(Rounds::day_rounds_list($day_id)); ?>
             <div class="tabs-menu">
-                <?php foreach($party_round_list as $round): ?>
-                    <?php $active_tab = last_round_id($party_id) == $round['id'] ? ' active-tab' : ''; ?>
-                    <span data-trigger="tab-content-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'tab-content-<?= $round['id'] ?>');">Manche <?= $round['i_order'] ?></span>
+                <?php foreach($day_round_list as $round): ?>
+                    <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
+                    <span data-trigger="tab-content-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'tab-content-<?= $round['id'] ?>');">Partie <?= $round['i_order'] ?></span>
                 <?php endforeach ?>
             </div>
-            <?php foreach($party_round_list as $round): ?>
-                <?php $active_tab = last_round_id($party_id) == $round['id'] ? ' active-tab' : ''; ?>
+            <?php foreach($day_round_list as $round): ?>
+                <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
                 <?php
                     $round_id = $round['id'];
-                    $hidden_remove_round = !is_scored($party_id, $round['id']) && last_round_id($party_id) == $round['id'] ? '' : ' hidden';
-                    $hidden_teams_list = Teams::round_teams_list($party_id, $round_id) ? '' : ' hidden';
-                    $hidden_teams_btn = Teams::round_teams_list($party_id, $round_id) ? ' hidden' : '';
-                    $hidden_matches_list = Matches::round_matches_list($party_id, $round_id) ? '' : ' hidden';
-                    $hidden_matches_btn = Matches::round_matches_list($party_id, $round_id) ? ' hidden' : '';
+                    $hidden_remove_round = !is_scored($day_id, $round['id']) && last_round_id($day_id) == $round['id'] ? '' : ' hidden';
+                    $hidden_teams_list = Teams::round_teams_list($day_id, $round_id) ? '' : ' hidden';
+                    $hidden_teams_btn = Teams::round_teams_list($day_id, $round_id) ? ' hidden' : '';
+                    $hidden_matches_list = Matches::round_matches_list($day_id, $round_id) ? '' : ' hidden';
+                    $hidden_matches_btn = Matches::round_matches_list($day_id, $round_id) ? ' hidden' : '';
                 ?>
-                <div id="tab-content-<?= $round['id'] ?>" class="cell-flex cell-columns-2 tab-content<?= $active_tab ?>" data-scored="<?= is_scored($party_id, $round['id']) ?>">
+                <div id="tab-content-<?= $round['id'] ?>" class="cell-flex cell-columns-2 tab-content<?= $active_tab ?>" data-scored="<?= is_scored($day_id, $round['id']) ?>">
                     <div class="cell-100 flex-between">
-                        <!-- <h3>Manche <?= $round['i_order'] ?></h3> --> <span></span>
+                        <span></span>
                         <button type="submit" 
-                                class="remove-button remove-round<?= $hidden_remove_round ?>" 
-                                data-party_id="<?= $party_id ?>" 
+                                class="submit-button remove-round<?= $hidden_remove_round ?>" 
+                                data-day_id="<?= $day_id ?>" 
                                 data-round_id="<?= $round['id'] ?>">
                             <i class="fa fa-fw fa-2x fa-square-xmark error"></i>
                         </button>
                     </div>
                     <div id="teams-list-<?= $round_id ?>"
                             data-round_ready="<?= $hidden_teams_btn ?>"
-                            data-party_id="<?= $party_id ?>"
+                            data-day_id="<?= $day_id ?>"
                             data-round_id="<?= $round_id ?>">
                         <header class="flex-between">
                             <h4><?= $round['players_number'] ?> joueurs</h4>
-                            <span class="description"><strong>Manche <?= $round['i_order'] ?></strong> - <?= rules($round['players_number']) ?></span>
+                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= rules($round['players_number']) ?></span>
                         </header>
                         <button
                                 id="add-teams-<?= $round['i_order'] ?>"
-                                data-party_id="<?= $party_id ?>"
+                                data-day_id="<?= $day_id ?>"
                                 data-round_id="<?= $round_id ?>"
                                 class="button<?= $hidden_teams_btn ?>">
                             Créer les équipes de la manche
@@ -90,7 +90,7 @@ require_once('./functions/rules.php');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach (Teams::round_teams_list($party_id, $round_id) as $index => $team): ?>
+                                <?php foreach (Teams::round_teams_list($day_id, $round_id) as $index => $team): ?>
                                     <tr>
                                         <td><?= $team['id'] ?></td>
                                         <td><?= $team['player_1_name'] ?></td>
@@ -102,21 +102,21 @@ require_once('./functions/rules.php');
                         </table>
                     </div>
                     <?php
-                        $team_ready = count(Teams::round_teams_list($party_id, $round_id));
+                        $team_ready = count(Teams::round_teams_list($day_id, $round_id));
                     ?>
                     <div id="matches-list-<?= $round_id ?>" 
                             class="<?= $hidden_teams_list ?>"
-                            data-party_id="<?= $party_id ?>"
+                            data-day_id="<?= $day_id ?>"
                             data-round_id="<?= $round_id ?>"
                             data-teams_ready="<?= $team_ready ?>"
                             data-matches_ready="<?= $hidden_matches_btn ?>">
                         <header class="flex-between">
                             <h4>Liste des rencontres</h4>
-                            <span class="description"><strong>Manche <?= $round['i_order'] ?></strong></span>
+                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong></span>
                         </header>
                         <button
                                 id="add-matches-<?= $round['i_order'] ?>"
-                                data-party_id="<?= $party_id ?>"
+                                data-day_id="<?= $day_id ?>"
                                 data-round_id="<?= $round_id ?>"
                                 class="button<?= $hidden_matches_btn ?>">
                             Créer les rencontres de la manche
@@ -132,7 +132,7 @@ require_once('./functions/rules.php');
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach (Matches::round_matches_list($party_id, $round_id) as $index => $match): ?>
+                                    <?php foreach (Matches::round_matches_list($day_id, $round_id) as $index => $match): ?>
                                         <tr>
                                             <td>
                                                 <div class="flex-around-center">
@@ -158,7 +158,7 @@ require_once('./functions/rules.php');
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td><?= $match['playground'] ?></td>
+                                            <td><?= $match['field'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
@@ -176,10 +176,10 @@ require_once('./functions/rules.php');
         if (m < 10) m = '0' + m;
         const formatDate = d + '-' + m + '-' + y;
         // send today to hidden input of partie
-        document.getElementById('party-date').value = formatDate;
+        document.getElementById('day-date').value = formatDate;
 
-        // if no party hide round
-        if ($('#add-party').hasClass('hidden'))
+        // if no day hide round
+        if ($('#add-day').hasClass('hidden'))
             $('#add-round-container').removeClass('hidden');
 
         // hidden add round

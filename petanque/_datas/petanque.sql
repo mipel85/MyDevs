@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 12 déc. 2023 à 17:58
+-- Généré le : mer. 13 déc. 2023 à 10:53
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -24,19 +24,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `days`
+--
+
+CREATE TABLE `days` (
+  `id` int(11) NOT NULL,
+  `date` varchar(11) NOT NULL,
+  `fields_number` int(11) NOT NULL,
+  `fields_list` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `matches`
 --
 
 CREATE TABLE `matches` (
   `id` int(11) NOT NULL,
-  `party_id` int(11) NOT NULL,
+  `day_id` int(11) NOT NULL,
   `round_id` int(11) NOT NULL,
   `team_1_id` int(11) NOT NULL,
   `team_1_score` int(11) DEFAULT NULL,
   `team_2_id` int(11) NOT NULL,
   `team_2_score` int(11) DEFAULT NULL,
   `playground` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL
+  `score_status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -63,8 +76,8 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (4, ' Christophe.B', 1, 0),
 (5, ' Claudie.F', 1, 0),
 (6, ' Daniel.E', 1, 0),
-(7, ' Daniel.R', 1, 0),
-(8, ' Daniel.T', 1, 0),
+(7, ' Daniel.R', 0, 0),
+(8, ' Daniel.T', 0, 0),
 (9, ' Danielle.L', 0, 0),
 (10, ' Dany.R', 0, 1),
 (11, ' Denis.D', 0, 0),
@@ -120,23 +133,12 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `parties`
---
-
-CREATE TABLE `parties` (
-  `id` int(11) NOT NULL,
-  `date` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `rounds`
 --
 
 CREATE TABLE `rounds` (
   `id` int(11) NOT NULL,
-  `party_id` int(11) NOT NULL,
+  `day_id` int(11) NOT NULL,
   `i_order` int(11) NOT NULL,
   `players_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -149,7 +151,7 @@ CREATE TABLE `rounds` (
 
 CREATE TABLE `teams` (
   `id` int(11) NOT NULL,
-  `party_id` int(11) NOT NULL,
+  `day_id` int(11) NOT NULL,
   `round_id` int(11) NOT NULL,
   `player_1_id` int(11) NOT NULL,
   `player_1_name` varchar(255) NOT NULL,
@@ -164,6 +166,12 @@ CREATE TABLE `teams` (
 --
 
 --
+-- Index pour la table `days`
+--
+ALTER TABLE `days`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `matches`
 --
 ALTER TABLE `matches`
@@ -173,12 +181,6 @@ ALTER TABLE `matches`
 -- Index pour la table `members`
 --
 ALTER TABLE `members`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `parties`
---
-ALTER TABLE `parties`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -198,22 +200,22 @@ ALTER TABLE `teams`
 --
 
 --
+-- AUTO_INCREMENT pour la table `days`
+--
+ALTER TABLE `days`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `matches`
 --
 ALTER TABLE `matches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT pour la table `members`
 --
 ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
---
--- AUTO_INCREMENT pour la table `parties`
---
-ALTER TABLE `parties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `rounds`
@@ -225,7 +227,7 @@ ALTER TABLE `rounds`
 -- AUTO_INCREMENT pour la table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

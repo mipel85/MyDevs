@@ -22,7 +22,7 @@ switch($page)
 {
     case ('config') : $title = 'Administration'; break;
     case ('members') : $title = 'Sélection'; break;
-    case ('party') : $title = 'Partie'; break;
+    case ('day') : $title = 'Partie'; break;
     case ('scores') : $title = 'Scores'; break;
     case ('ranking') : $title = 'Classement'; break;
     default : $title = 'Accueil'; break;
@@ -41,8 +41,8 @@ switch($page)
     case ('members') :
         require_once('./theme/templates/members.view.php');
         break;
-    case ('party') :
-        require_once('./theme/templates/party.view.php');
+    case ('day') :
+        require_once('./theme/templates/days.view.php');
         break;
     case ('scores') :
         require_once('./theme/templates/scores.view.php');

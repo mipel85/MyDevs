@@ -1,6 +1,6 @@
 <?php
 require_once('./classes/Members.class.php');
-require_once('./functions/rules.php');
+require_once('./controllers/RulesController.php');
 ?>
 <section>
     <header class="section-header">

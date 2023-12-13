@@ -10,7 +10,7 @@ switch($actions)
 {
     case 'insert_round':
         $insert = new Rounds();
-        $insert->set_party_id($_POST['party_id']);
+        $insert->set_day_id($_POST['day_id']);
         $insert->set_i_order($_POST['i_order']);
         $insert->set_players_number($_POST['players_number']);
         $insert->add_round();
@@ -18,9 +18,9 @@ switch($actions)
 
     case 'remove_round':
         $remove = new Matches();
-        $remove->remove_round_matches($_POST['party_id'], $_POST['round_id']);
+        $remove->remove_round_matches($_POST['day_id'], $_POST['round_id']);
         $remove = new Teams();
-        $remove->remove_round_teams($_POST['party_id'], $_POST['round_id']);
+        $remove->remove_round_teams($_POST['day_id'], $_POST['round_id']);
         $remove = new Rounds($_POST['round_id']);
         $remove->remove_round();
         break;

@@ -6,30 +6,27 @@
         <button class="submit button" type="submit" id="remove-all-rounds" name="all_games">Tout supprimer</button>
     </div>
 </div> -->
-<div id="manches-list" class="content">
-    <header>
-        <h3>Supprimer une manche</h3>
-    </header>
-    <table id="rounds-list" class="table">
+<div id="rounds-list" class="content">
+    <table class="table">
         <thead>
             <tr>
-                <th>N°</th>
+                <th>ID</th>
+                <th>Journée</th>
                 <th>Partie</th>
-                <th>Manche</th>
-                <th>Suppr</th>
+                <th>Suppression</th>
             </tr>
-            </thead>
+        </thead>
         <tbody>
             <?php foreach (Rounds::rounds_list() as $round):?>
                 <tr>
                     <td><?= $round['id'] ?></td>
-                    <td><?= $round['party_id'] ?> - <?= $round['date'] ?></td>
+                    <td><?= $round['day_id'] ?> | <?= $round['date'] ?></td>
                     <td><?= $round['i_order'] ?></td>
                     <td>
                         <button type="submit" 
-                                data-party_id="<?= $round['party_id'] ?>" 
+                                data-day_id="<?= $round['day_id'] ?>" 
                                 data-round_id="<?= $round['id'] ?>" 
-                                class="remove-button remove-round" />
+                                class="submit-button remove-round" />
                             <i class="fa fa-fx fa-lg fa-square-xmark error"></i>
                         </button>
                     </td>

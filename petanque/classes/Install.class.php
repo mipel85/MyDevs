@@ -19,7 +19,7 @@ class install {
     {
         $requete = 'CREATE TABLE IF NOT EXISTS petanque.teams (
                         `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                        `party_id` int(11) NOT NULL,
+                        `day_id` int(11) NOT NULL,
                         `round_id` int(11) NOT NULL,
                         `player_1_id` int(11) NOT NULL,
                         `player_1_name` varchar(255) NOT NULL,

@@ -5,7 +5,7 @@ ini_set('display_errors', true);
 
 class Rounds {
     private $id;
-    private $party_id;
+    private $day_id;
     private $i_order;
     private $players_number;
 
@@ -16,7 +16,7 @@ class Rounds {
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
-                $this->set_party_id($result['party_id']);
+                $this->set_day_id($result['day_id']);
                 $this->set_i_order($result['i_order']);
                 $this->set_players_number($result['players_number']);
             }
@@ -27,8 +27,8 @@ class Rounds {
     public function get_id() { return $this->id; }
     public function set_id($id) { $this->id = $id; }
 
-    public function get_party_id() { return $this->party_id; }
-    public function set_party_id($party_id) { $this->party_id = $party_id; }
+    public function get_day_id() { return $this->day_id; }
+    public function set_day_id($day_id) { $this->day_id = $day_id; }
 
     public function get_i_order() { return $this->i_order; }
     public function set_i_order($i_order) { $this->i_order = $i_order; }
@@ -41,7 +41,7 @@ class Rounds {
     {
         $req = 'INSERT INTO rounds values (
                     NULL,
-                    "' . $this->get_party_id() . '",
+                    "' . $this->get_day_id() . '",
                     "' . $this->get_i_order() . '",
                     "' . $this->get_players_number() . '"
                 )';
@@ -55,9 +55,9 @@ class Rounds {
         return Connection::query($req);
     }
 
-    function remove_party_rounds($party_id)
+    function remove_day_rounds($day_id)
     {
-        $req = 'DELETE FROM rounds WHERE party_id = "' . $party_id . '"';
+        $req = 'DELETE FROM rounds WHERE day_id = "' . $day_id . '"';
         return Connection::query($req);
     }
 
@@ -70,9 +70,9 @@ class Rounds {
     static function rounds_list()
     {
         $rounds = array();
-        $req = 'SELECT rounds.*, parties.date AS date FROM rounds '
-            . ' LEFT JOIN parties ON parties.id = rounds.party_id'
-            . ' ORDER BY rounds.party_id DESC, rounds.i_order DESC';
+        $req = 'SELECT rounds.*, days.date AS date FROM rounds '
+            . ' LEFT JOIN days ON days.id = rounds.day_id'
+            . ' ORDER BY rounds.day_id DESC, rounds.i_order DESC';
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -85,19 +85,19 @@ class Rounds {
         return $rounds;
     }
 
-    static function party_rounds_list($party_id)
+    static function day_rounds_list($day_id)
     {
         $rounds = array();
-        $req = 'SELECT rounds.*, parties.date AS date FROM rounds '
-            . ' LEFT JOIN parties ON parties.id = rounds.party_id'
-            . ' WHERE rounds.party_id = ' . $party_id
+        $req = 'SELECT rounds.*, days.date AS date FROM rounds '
+            . ' LEFT JOIN days ON days.id = rounds.day_id'
+            . ' WHERE rounds.day_id = ' . $day_id
             . ' ORDER BY rounds.i_order';
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
                 {
-                    if($value['party_id'] = $party_id)
+                    if($value['day_id'] = $day_id)
                         $rounds[] = $value;
                 }
             }
@@ -105,23 +105,23 @@ class Rounds {
         return $rounds;
     }
 
-    static function round_i_order($party_id)
+    static function round_i_order($day_id)
     {
         $i_order = [];
-        foreach (self::party_rounds_list($party_id) as $values)
+        foreach (self::day_rounds_list($day_id) as $values)
         {
-            if($values['party_id'] = $party_id)
+            if($values['day_id'] = $day_id)
                 $i_order[] = $values['i_order'];
         }
         return $i_order;
     }
 
-    static function round_ids($party_id)
+    static function round_ids($day_id)
     {
         $ids = [];
-        foreach (self::party_rounds_list($party_id) as $values)
+        foreach (self::day_rounds_list($day_id) as $values)
         {
-            if($values['party_id'] = $party_id)
+            if($values['day_id'] = $day_id)
                 $ids[] = $values['id'];
         }
         return $ids;

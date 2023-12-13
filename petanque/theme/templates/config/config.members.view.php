@@ -36,7 +36,7 @@
                     <td><?= $member['id'] ?></td>
                     <td><?= $member['name'] ?></td>
                     <td><input type="checkbox" data-id="<?= $member['id'] ?>" class="fav-member"<?= $checked ?> /></td>
-                    <td><button type="button" id="<?= $member['id'] ?>" class="remove-button"><i class="fa fa-fw fa-lg fa-square-xmark error"></i></button></td>
+                    <td><button type="button" id="<?= $member['id'] ?>" class="submit-button"><i class="fa fa-fw fa-lg fa-square-xmark error"></i></button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>

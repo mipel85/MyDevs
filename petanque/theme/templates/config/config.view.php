@@ -1,7 +1,7 @@
 <?php
 
 require_once('./classes/Members.class.php');
-require_once('./classes/Parties.class.php');
+require_once('./classes/Days.class.php');
 require_once('./classes/Rounds.class.php');
 ?>
 <section>
@@ -11,42 +11,18 @@ require_once('./classes/Rounds.class.php');
     <div class="tabs-container">
         <div class="tabs-menu">
             <span data-trigger="members" class="tab-trigger active-tab" onclick="openTab(event, 'members');">Joueurs</span>
-            <span data-trigger="parties" class="tab-trigger" onclick="openTab(event, 'parties');">Parties</span>
-            <span data-trigger="rounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Manches</span>
-            <span data-trigger="playgrounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Terrains</span>
+            <span data-trigger="days" class="tab-trigger" onclick="openTab(event, 'days');">Journées</span>
+            <span data-trigger="rounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Parties</span>
         </div>
         <article id="members" class="tab-content active-tab cell-flex cell-columns-2">
             <?php include './theme/templates/config/config.members.view.php'; ?>
         </article>
-        <article id="parties" class="tab-content cell-flex cell-columns-2">
-            <?php include './theme/templates/config/config.parties.view.php'; ?>
+        <article id="days" class="tab-content">
+            <?php include './theme/templates/config/config.days.view.php'; ?>
         </article>
-        <article id="rounds" class="tab-content cell-flex cell-columns-2">
+        <article id="rounds" class="tab-content">
             <?php include './theme/templates/config/config.rounds.view.php'; ?>
         </article>
-        <article id="playgrounds" class="tab-content cell-flex cell-columns-2">
-            <?php include './theme/templates/config/config.playgrounds.view.php'; ?>
-        </article>
-        <!-- <article id="config" class="tab-content cell-flex cell-columns-2">
-            <div id="max-round">
-                <header>
-                    <h3>Limiter le nombre de manches par partie</h3>
-                </header>
-                <div class="content">
-                    <input id="max-round-value" type="text" value="" class="" />
-                    <button class="submit button" type="submit" id="delete-all-manches" name="all_games">Valider</button>
-                </div>
-            </div>
-            <div id="playground">
-                <header>
-                    <h3>Nombre de terrains définis</h3>
-                </header>
-                <div class="content">
-                    <input id="playground-value" type="text" value="" class="" />
-                    <button class="submit button" type="submit" id="delete-all-manches" name="all_games">Valider</button>
-                </div>
-            </div>
-        </article> -->
     </div>
 </section>
 

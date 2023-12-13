@@ -9,28 +9,27 @@ $actions = $_POST['action'];
 switch($actions)
 {
     case 'insert_matches':
-        $party_id = $_POST['party_id'];
+        $day_id = $_POST['day_id'];
         $round_id = $_POST['round_id'];
-        include '../functions/matches.manager.php';
+        include '../controllers/MatchesController.php';
         $build_matches = build_matches($teams);
         shuffle($build_matches);
 
-        $selected_playgrounds = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-        $playgrounds = playgrounds($selected_playgrounds, $build_matches);
-        var_dump($playgrounds);
+        $selected_fields = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+        $fields = fields($selected_fields, $build_matches);
         $first = true;
         foreach ($build_matches as $matches) {
             if ($first) {
                 foreach ($matches as $teams) {
                     $insert = new Matches();
-                    $insert->set_party_id($_POST['party_id']);
+                    $insert->set_day_id($_POST['day_id']);
                     $insert->set_round_id($_POST['round_id']);
                     $insert->set_team_1_id($teams[0]);
                     $insert->set_team_1_score(0);
                     $insert->set_team_2_id($teams[1]);
                     $insert->set_team_2_score(0);
-                    $insert->set_playground(array_shift($playgrounds));
-                    $insert->set_status(0);
+                    $insert->set_field(array_shift($fields));
+                    $insert->set_score_status(0);
 
                     $insert->add_match();
                 }
@@ -45,14 +44,14 @@ switch($actions)
 
         $insert->update_score_1($_POST['score_1']);
         $insert->update_score_2($_POST['score_2']);
-        $insert->update_status($_POST['status']);
+        $insert->update_score_status($_POST['score_status']);
         break;
 
     case 'edit_scores':
         $insert = new Matches();
         $insert->set_id($_POST['id']);
 
-        $insert->update_status($_POST['status']);
+        $insert->update_score_status($_POST['score_status']);
         break;
 
     default:

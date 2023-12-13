@@ -1,6 +1,6 @@
 <?php
 
-require_once('./functions/menu.manager.php');
+require_once('./controllers/MenuController.php');
 $menu = display_menu();
 
 ?>
@@ -26,7 +26,7 @@ $menu = display_menu();
         <script src="./theme/js/lib/FixedHeader-3.4.0/js/fixedHeader.dataTables.min.js"></script>
         <script src="./theme/js/members.js"></script>
         <script src="./theme/js/players.js"></script>
-        <script src="./theme/js/parties.js"></script>
+        <script src="./theme/js/days.js"></script>
         <script src="./theme/js/expand.js"></script>
         <script src="./theme/js/tabs.js"></script>
     </head>

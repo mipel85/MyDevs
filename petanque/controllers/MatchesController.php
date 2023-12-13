@@ -3,7 +3,7 @@ require_once('../classes/Connection.class.php');
 require_once('../classes/Teams.class.php');
 
 // Liste des équipes
-$selected_teams_list = Teams::round_teams_list($party_id, $round_id);
+$selected_teams_list = Teams::round_teams_list($day_id, $round_id);
 $teams = [];
 foreach ($selected_teams_list as $team)
 {
@@ -12,22 +12,22 @@ foreach ($selected_teams_list as $team)
 
 shuffle($teams);
 
-function playgrounds($selected_playgrounds, $round_matches)
+function fields($selected_fields, $round_matches)
 {
-    $playgrounds = $selected_playgrounds;
-    shuffle($playgrounds);
+    $fields = $selected_fields;
+    shuffle($fields);
     $matches_number = count($round_matches);
-    $playgrounds_list = [];
+    $fields_list = [];
     for ($i=1; $i <= $matches_number; $i++ )
     {
-        if (empty($playgrounds)) {
-            $playgrounds = $selected_playgrounds;
-            shuffle($playgrounds);
+        if (empty($fields)) {
+            $fields = $selected_fields;
+            shuffle($fields);
         }
-        $playgrounds_list[] = array_shift($playgrounds);
+        $fields_list[] = array_shift($fields);
     }
 
-    return $playgrounds_list;
+    return $fields_list;
 }
 
 // Fonction pour créer le championnat

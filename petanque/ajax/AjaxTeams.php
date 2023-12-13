@@ -9,12 +9,12 @@ $actions = $_POST['action'];
 switch($actions)
 {
     case 'insert_teams':
-        $party_id = $_POST['party_id'];
+        $day_id = $_POST['day_id'];
         $round_id = $_POST['round_id'];
-        include '../functions/teams.manager.php';
+        include '../controllers/TeamsController.php';
         foreach (build_teams($members) as $team) {
             $insert = new Teams();
-            $insert->set_party_id($_POST['party_id']);
+            $insert->set_day_id($_POST['day_id']);
             $insert->set_round_id($_POST['round_id']);
             $member_1 = explode(':', $team[0]);
             $insert->set_player_1_id(array_shift($member_1));
