@@ -15,9 +15,9 @@ switch($actions)
         $build_matches = build_matches($teams);
         shuffle($build_matches);
 
-        $playgrounds_number = '10';
-        $playground = playground($playgrounds_number);
-        shuffle($playground);
+        $selected_playgrounds = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+        $playgrounds = playgrounds($selected_playgrounds, $build_matches);
+        var_dump($playgrounds);
         $first = true;
         foreach ($build_matches as $matches) {
             if ($first) {
@@ -29,7 +29,8 @@ switch($actions)
                     $insert->set_team_1_score(0);
                     $insert->set_team_2_id($teams[1]);
                     $insert->set_team_2_score(0);
-                    $insert->set_playground(array_shift($playground));
+                    $insert->set_playground(array_shift($playgrounds));
+                    $insert->set_status(0);
 
                     $insert->add_match();
                 }

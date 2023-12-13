@@ -6,9 +6,27 @@ require_once('./classes/Parties.class.php');
 function display_menu()
 {
     // tableaux contenant les liens d'accès et le texte à afficher
-    $menu_links = array('home', 'members', 'party', 'scores', 'ranking');
-    $menu_labels = array('Accueil', 'Sélection<br />des membres', 'Gestion de<br />la partie', 'Gestion des<br />scores', 'Classement');
-    $menu_icons = array('house', 'user-check', 'play', 'divide fa-rotate-90', 'list');
+    $menu_links = [
+        'home',
+        'members',
+        'party',
+        'scores',
+        'ranking'
+    ];
+    $menu_labels = [
+        'Accueil',
+        'Sélection des<br /><strong>membres</strong>',
+        'Gestion des<br /><strong>parties</strong>',
+        'Gestion des<br /><strong>scores</strong>',
+        'Classement'
+    ];
+    $menu_icons = [
+        'house',
+        'user-check',
+        'play',
+        'divide fa-rotate-90',
+        'list'
+    ];
 
     // informations sur la page
     $get = $_GET['page'];

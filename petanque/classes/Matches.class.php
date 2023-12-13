@@ -27,7 +27,7 @@ class Matches {
                 $this->set_team_2_id($result['team_2_id']);
                 $this->set_team_2_score($result['team_2_score']);
                 $this->set_playground($result['playground']);
-                $this->set_playground($result['status']);
+                $this->set_status($result['status']);
             }
         }
     }

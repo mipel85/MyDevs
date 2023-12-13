@@ -42,7 +42,7 @@ require_once('./functions/rules.php');
             <div class="tabs-menu">
                 <?php foreach($party_round_list as $round): ?>
                     <?php $active_tab = last_round_id($party_id) == $round['id'] ? ' active-tab' : ''; ?>
-                    <span data-trigger="tab-content-<?= $round['i_order'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'tab-content-<?= $round['i_order'] ?>');">Manche <?= $round['i_order'] ?></span>
+                    <span data-trigger="tab-content-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'tab-content-<?= $round['id'] ?>');">Manche <?= $round['i_order'] ?></span>
                 <?php endforeach ?>
             </div>
             <?php foreach($party_round_list as $round): ?>
@@ -55,7 +55,7 @@ require_once('./functions/rules.php');
                     $hidden_matches_list = Matches::round_matches_list($party_id, $round_id) ? '' : ' hidden';
                     $hidden_matches_btn = Matches::round_matches_list($party_id, $round_id) ? ' hidden' : '';
                 ?>
-                <div id="tab-content-<?= $round['i_order'] ?>" class="cell-flex cell-columns-2 tab-content<?= $active_tab ?>" data-scored="<?= is_scored($party_id, $round['id']) ?>">
+                <div id="tab-content-<?= $round['id'] ?>" class="cell-flex cell-columns-2 tab-content<?= $active_tab ?>" data-scored="<?= is_scored($party_id, $round['id']) ?>">
                     <div class="cell-100 flex-between">
                         <!-- <h3>Manche <?= $round['i_order'] ?></h3> --> <span></span>
                         <button type="submit" 

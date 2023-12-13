@@ -17,12 +17,12 @@ $possible_scores = 12;
     </header>
     <?php if($party_id): ?>
         <article id="rounds-list">
+            <?php $party_round_list = array_reverse(Rounds::party_rounds_list($party_id)); ?>
             <?php if($c_rounds): ?>
-                <?php $party_round_list = array_reverse(Rounds::party_rounds_list($party_id)); ?>
                 <div class="tabs-menu">
                     <?php foreach($party_round_list as $round): ?>
                         <?php $active_tab = last_round_id($party_id) == $round['id'] ? ' active-tab' : ''; ?>
-                        <span data-trigger="matches-list-<?= $round['i_order'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'matches-list-<?= $round['i_order'] ?>');">Manche <?= $round['i_order'] ?></span>
+                        <span data-trigger="matches-list-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'matches-list-<?= $round['id'] ?>');">Manche <?= $round['i_order'] ?></span>
                     <?php endforeach ?>
                 </div>
                 <?php foreach($party_round_list as $round): ?>
