@@ -13,6 +13,7 @@ require_once('./classes/Rounds.class.php');
             <span data-trigger="members" class="tab-trigger active-tab" onclick="openTab(event, 'members');">Joueurs</span>
             <span data-trigger="days" class="tab-trigger" onclick="openTab(event, 'days');">Journées</span>
             <span data-trigger="rounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Parties</span>
+            <span data-trigger="doc" class="tab-trigger" onclick="openTab(event, 'doc');">Documentation interne</span>
         </div>
         <article id="members" class="tab-content active-tab cell-flex cell-columns-2">
             <?php include './theme/templates/config/config.members.view.php'; ?>
@@ -23,8 +24,12 @@ require_once('./classes/Rounds.class.php');
         <article id="rounds" class="tab-content">
             <?php include './theme/templates/config/config.rounds.view.php'; ?>
         </article>
+        <article id="doc" class="tab-content">
+            <?php include './Documentation/InternalDoc.html'; ?>
+        </article>
     </div>
 </section>
 
 <script></script>
+
 
