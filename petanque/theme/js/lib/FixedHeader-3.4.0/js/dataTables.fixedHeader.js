@@ -202,7 +202,7 @@ $.extend(FixedHeader.prototype, {
 	},
 
 	/**
-	 * Get enabled score_status
+	 * Get enabled status
 	 */
 	enabled: function () {
 		return this.s.enable;

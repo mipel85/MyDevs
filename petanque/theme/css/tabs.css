@@ -15,13 +15,16 @@
     list-style-type: none;
 }
 
+.tabs-menu > * {
+    display: flex;
+}
+
 .tab-trigger {
     background-color: inherit;
     border: none;
     outline: none;
     cursor: pointer;
     padding: 5px 10px;
-    margin-right: 0.309em;
     transition: 0.3s;
     background-color: #2cbf8e;
     color: #FFFFFF;

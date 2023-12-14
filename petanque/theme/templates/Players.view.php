@@ -1,10 +1,10 @@
 <?php
 require_once('./classes/Members.class.php');
-require_once('./controllers/RulesController.php');
+require_once('./controllers/Rules.controller.php');
 ?>
 <section>
     <header class="section-header">
-        <h1>Sélection des membres</h1>
+        <h1>Sélection des joueurs</h1>
     </header>
     <div class="cell-flex cell-columns-2">
         <article class="content">
@@ -40,7 +40,7 @@ require_once('./controllers/RulesController.php');
         </article>
         <article id="selected-members" class="content">
             <header class="flex-between">
-                <h3><?= count(Members::selected_members_list()); ?> membres sélectionnés</h3>
+                <h3><?= count(Members::selected_members_list()); ?> joueurs sélectionnés</h3>
                 <span class="description">Equipes proposées : <?= rules(count(Members::selected_members_list())); ?> </span>
             </header>
             <?php if (count(Members::selected_members_list()) < 4): ?>

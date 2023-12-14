@@ -11,12 +11,13 @@ switch($actions)
     case 'insert_matches':
         $day_id = $_POST['day_id'];
         $round_id = $_POST['round_id'];
-        include '../controllers/MatchesController.php';
+        include '../controllers/Matches.controller.php';
         $build_matches = build_matches($teams);
         shuffle($build_matches);
 
-        $selected_fields = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-        $fields = fields($selected_fields, $build_matches);
+        $selected_playgrounds = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+        $playgrounds = playgrounds($selected_playgrounds, $build_matches);
+        var_dump($playgrounds);
         $first = true;
         foreach ($build_matches as $matches) {
             if ($first) {
@@ -28,7 +29,7 @@ switch($actions)
                     $insert->set_team_1_score(0);
                     $insert->set_team_2_id($teams[1]);
                     $insert->set_team_2_score(0);
-                    $insert->set_field(array_shift($fields));
+                    $insert->set_playground(array_shift($playgrounds));
                     $insert->set_score_status(0);
 
                     $insert->add_match();

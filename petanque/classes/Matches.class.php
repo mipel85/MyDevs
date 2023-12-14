@@ -2,8 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-class Matches
-{
+class Matches {
     private $id;
     private $day_id;
     private $round_id;
@@ -11,7 +10,7 @@ class Matches
     private $team_1_score;
     private $team_2_id;
     private $team_2_score;
-    private $field;
+    private $playground;
     private $score_status;
 
     public function __construct($id = null)
@@ -27,7 +26,7 @@ class Matches
                 $this->set_team_1_score($result['team_1_score']);
                 $this->set_team_2_id($result['team_2_id']);
                 $this->set_team_2_score($result['team_2_score']);
-                $this->set_field($result['field']);
+                $this->set_playground($result['playground']);
                 $this->set_score_status($result['score_status']);
             }
         }
@@ -55,13 +54,13 @@ class Matches
     public function get_team_2_score() { return $this->team_2_score; }
     public function set_team_2_score($team_2_score) { $this->team_2_score = $team_2_score; }
 
-    public function get_field() { return $this->field; }
-    public function set_field($field) { $this->field = $field; }
+    public function get_playground() { return $this->playground; }
+    public function set_playground($playground) { $this->playground = $playground; }
 
     public function get_score_status() { return $this->score_status; }
     public function set_score_status($score_status) { $this->score_status = $score_status; }
 // end getters setters
-
+    
     function add_match()
     {
         $req = 'INSERT INTO matches values (
@@ -72,7 +71,7 @@ class Matches
                     "' . $this->get_team_1_score() . '",
                     "' . $this->get_team_2_id() . '",
                     "' . $this->get_team_2_score() . '",
-                    "' . $this->get_field() . '",
+                    "' . $this->get_playground() . '",
                     "' . $this->get_score_status() . '"
                 )';
         return Connection::query($req);

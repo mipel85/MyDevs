@@ -3962,11 +3962,11 @@
 		var ajax = oSettings.ajax;
 		var instance = oSettings.oInstance;
 		var callback = function ( json ) {
-			var score_status = oSettings.jqXHR
-				? oSettings.jqXHR.score_status
+			var status = oSettings.jqXHR
+				? oSettings.jqXHR.status
 				: null;
 	
-			if ( json === null || (typeof score_status === 'number' && score_status == 204 ) ) {
+			if ( json === null || (typeof status === 'number' && status == 204 ) ) {
 				json = {};
 				_fnAjaxDataSrc( oSettings, json, [] );
 			}
@@ -4735,7 +4735,7 @@
 			} );
 	
 			n
-				.attr( 'role', 'score_status' )
+				.attr( 'role', 'status' )
 				.attr( 'aria-live', 'polite' );
 	
 			// Table is described by our info div
@@ -5142,7 +5142,7 @@
 		return $('<div/>', {
 				'id': ! settings.aanFeatures.r ? settings.sTableId+'_processing' : null,
 				'class': settings.oClasses.sProcessing,
-				'role': 'score_status'
+				'role': 'status'
 			} )
 			.html( settings.oLanguage.sProcessing )
 			.append('<div><div></div><div></div><div></div><div></div></div>')

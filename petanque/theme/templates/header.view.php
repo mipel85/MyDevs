@@ -1,6 +1,6 @@
 <?php
 
-require_once('./controllers/MenuController.php');
+require_once('./controllers/Menu.controller.php');
 $menu = display_menu();
 
 ?>

@@ -103,7 +103,7 @@ h6 { font-size: 1em; }
     background: linear-gradient(to bottom, rgba(153, 153, 153, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
 }
 
-.submit-button {
+.icon-button {
     background-color: transparent;
     color: transparent;
     border: 0px;

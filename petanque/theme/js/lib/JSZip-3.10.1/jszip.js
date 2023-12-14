@@ -4411,7 +4411,7 @@ function unwrap(promise, func, value) {
 
 handlers.resolve = function (self, value) {
   var result = tryCatch(getThen, value);
-  if (result.score_status === 'error') {
+  if (result.status === 'error') {
     return handlers.reject(self, result.value);
   }
   var thenable = result.value;
@@ -4474,7 +4474,7 @@ function safelyResolveThenable(self, thenable) {
   }
 
   var result = tryCatch(tryToUnwrap);
-  if (result.score_status === 'error') {
+  if (result.status === 'error') {
     onError(result.value);
   }
 }
@@ -4483,9 +4483,9 @@ function tryCatch(func, value) {
   var out = {};
   try {
     out.value = func(value);
-    out.score_status = 'success';
+    out.status = 'success';
   } catch (e) {
-    out.score_status = 'error';
+    out.status = 'error';
     out.value = e;
   }
   return out;
@@ -4746,7 +4746,7 @@ function Deflate(options) {
   this.strm = new ZStream();
   this.strm.avail_out = 0;
 
-  var score_status = zlib_deflate.deflateInit2(
+  var status = zlib_deflate.deflateInit2(
     this.strm,
     opt.level,
     opt.method,
@@ -4755,8 +4755,8 @@ function Deflate(options) {
     opt.strategy
   );
 
-  if (score_status !== Z_OK) {
-    throw new Error(msg[score_status]);
+  if (status !== Z_OK) {
+    throw new Error(msg[status]);
   }
 
   if (opt.header) {
@@ -4775,10 +4775,10 @@ function Deflate(options) {
       dict = opt.dictionary;
     }
 
-    score_status = zlib_deflate.deflateSetDictionary(this.strm, dict);
+    status = zlib_deflate.deflateSetDictionary(this.strm, dict);
 
-    if (score_status !== Z_OK) {
-      throw new Error(msg[score_status]);
+    if (status !== Z_OK) {
+      throw new Error(msg[status]);
     }
 
     this._dict_set = true;
@@ -4817,7 +4817,7 @@ function Deflate(options) {
 Deflate.prototype.push = function (data, mode) {
   var strm = this.strm;
   var chunkSize = this.options.chunkSize;
-  var score_status, _mode;
+  var status, _mode;
 
   if (this.ended) { return false; }
 
@@ -4842,10 +4842,10 @@ Deflate.prototype.push = function (data, mode) {
       strm.next_out = 0;
       strm.avail_out = chunkSize;
     }
-    score_status = zlib_deflate.deflate(strm, _mode);    /* no bad return value */
+    status = zlib_deflate.deflate(strm, _mode);    /* no bad return value */
 
-    if (score_status !== Z_STREAM_END && score_status !== Z_OK) {
-      this.onEnd(score_status);
+    if (status !== Z_STREAM_END && status !== Z_OK) {
+      this.onEnd(status);
       this.ended = true;
       return false;
     }
@@ -4856,14 +4856,14 @@ Deflate.prototype.push = function (data, mode) {
         this.onData(utils.shrinkBuf(strm.output, strm.next_out));
       }
     }
-  } while ((strm.avail_in > 0 || strm.avail_out === 0) && score_status !== Z_STREAM_END);
+  } while ((strm.avail_in > 0 || strm.avail_out === 0) && status !== Z_STREAM_END);
 
   // Finalize on the last chunk.
   if (_mode === Z_FINISH) {
-    score_status = zlib_deflate.deflateEnd(this.strm);
-    this.onEnd(score_status);
+    status = zlib_deflate.deflateEnd(this.strm);
+    this.onEnd(status);
     this.ended = true;
-    return score_status === Z_OK;
+    return status === Z_OK;
   }
 
   // callback interim results if Z_SYNC_FLUSH.
@@ -4892,8 +4892,8 @@ Deflate.prototype.onData = function (chunk) {
 
 
 /**
- * Deflate#onEnd(score_status) -> Void
- * - score_status (Number): deflate score_status. 0 (Z_OK) on success,
+ * Deflate#onEnd(status) -> Void
+ * - status (Number): deflate status. 0 (Z_OK) on success,
  *   other if not.
  *
  * Called once after you tell deflate that the input stream is
@@ -4901,9 +4901,9 @@ Deflate.prototype.onData = function (chunk) {
  * or if an error happened. By default - join collected chunks,
  * free memory and fill `results` / `err` properties.
  **/
-Deflate.prototype.onEnd = function (score_status) {
+Deflate.prototype.onEnd = function (status) {
   // On success - join
-  if (score_status === Z_OK) {
+  if (status === Z_OK) {
     if (this.options.to === 'string') {
       this.result = this.chunks.join('');
     } else {
@@ -4911,7 +4911,7 @@ Deflate.prototype.onEnd = function (score_status) {
     }
   }
   this.chunks = [];
-  this.err = score_status;
+  this.err = status;
   this.msg = this.strm.msg;
 };
 
@@ -5132,13 +5132,13 @@ function Inflate(options) {
   this.strm   = new ZStream();
   this.strm.avail_out = 0;
 
-  var score_status  = zlib_inflate.inflateInit2(
+  var status  = zlib_inflate.inflateInit2(
     this.strm,
     opt.windowBits
   );
 
-  if (score_status !== c.Z_OK) {
-    throw new Error(msg[score_status]);
+  if (status !== c.Z_OK) {
+    throw new Error(msg[status]);
   }
 
   this.header = new GZheader();
@@ -5178,7 +5178,7 @@ Inflate.prototype.push = function (data, mode) {
   var strm = this.strm;
   var chunkSize = this.options.chunkSize;
   var dictionary = this.options.dictionary;
-  var score_status, _mode;
+  var status, _mode;
   var next_out_utf8, tail, utf8str;
   var dict;
 
@@ -5209,9 +5209,9 @@ Inflate.prototype.push = function (data, mode) {
       strm.avail_out = chunkSize;
     }
 
-    score_status = zlib_inflate.inflate(strm, c.Z_NO_FLUSH);    /* no bad return value */
+    status = zlib_inflate.inflate(strm, c.Z_NO_FLUSH);    /* no bad return value */
 
-    if (score_status === c.Z_NEED_DICT && dictionary) {
+    if (status === c.Z_NEED_DICT && dictionary) {
       // Convert data if needed
       if (typeof dictionary === 'string') {
         dict = strings.string2buf(dictionary);
@@ -5221,23 +5221,23 @@ Inflate.prototype.push = function (data, mode) {
         dict = dictionary;
       }
 
-      score_status = zlib_inflate.inflateSetDictionary(this.strm, dict);
+      status = zlib_inflate.inflateSetDictionary(this.strm, dict);
 
     }
 
-    if (score_status === c.Z_BUF_ERROR && allowBufError === true) {
-      score_status = c.Z_OK;
+    if (status === c.Z_BUF_ERROR && allowBufError === true) {
+      status = c.Z_OK;
       allowBufError = false;
     }
 
-    if (score_status !== c.Z_STREAM_END && score_status !== c.Z_OK) {
-      this.onEnd(score_status);
+    if (status !== c.Z_STREAM_END && status !== c.Z_OK) {
+      this.onEnd(status);
       this.ended = true;
       return false;
     }
 
     if (strm.next_out) {
-      if (strm.avail_out === 0 || score_status === c.Z_STREAM_END || (strm.avail_in === 0 && (_mode === c.Z_FINISH || _mode === c.Z_SYNC_FLUSH))) {
+      if (strm.avail_out === 0 || status === c.Z_STREAM_END || (strm.avail_in === 0 && (_mode === c.Z_FINISH || _mode === c.Z_SYNC_FLUSH))) {
 
         if (this.options.to === 'string') {
 
@@ -5270,18 +5270,18 @@ Inflate.prototype.push = function (data, mode) {
       allowBufError = true;
     }
 
-  } while ((strm.avail_in > 0 || strm.avail_out === 0) && score_status !== c.Z_STREAM_END);
+  } while ((strm.avail_in > 0 || strm.avail_out === 0) && status !== c.Z_STREAM_END);
 
-  if (score_status === c.Z_STREAM_END) {
+  if (status === c.Z_STREAM_END) {
     _mode = c.Z_FINISH;
   }
 
   // Finalize on the last chunk.
   if (_mode === c.Z_FINISH) {
-    score_status = zlib_inflate.inflateEnd(this.strm);
-    this.onEnd(score_status);
+    status = zlib_inflate.inflateEnd(this.strm);
+    this.onEnd(status);
     this.ended = true;
-    return score_status === c.Z_OK;
+    return status === c.Z_OK;
   }
 
   // callback interim results if Z_SYNC_FLUSH.
@@ -5310,8 +5310,8 @@ Inflate.prototype.onData = function (chunk) {
 
 
 /**
- * Inflate#onEnd(score_status) -> Void
- * - score_status (Number): inflate score_status. 0 (Z_OK) on success,
+ * Inflate#onEnd(status) -> Void
+ * - status (Number): inflate status. 0 (Z_OK) on success,
  *   other if not.
  *
  * Called either after you tell inflate that the input stream is
@@ -5319,9 +5319,9 @@ Inflate.prototype.onData = function (chunk) {
  * or if an error happened. By default - join collected chunks,
  * free memory and fill `results` / `err` properties.
  **/
-Inflate.prototype.onEnd = function (score_status) {
+Inflate.prototype.onEnd = function (status) {
   // On success - join
-  if (score_status === c.Z_OK) {
+  if (status === c.Z_OK) {
     if (this.options.to === 'string') {
       // Glue & convert here, until we teach pako to send
       // utf8 alligned strings to onData
@@ -5331,7 +5331,7 @@ Inflate.prototype.onEnd = function (score_status) {
     }
   }
   this.chunks = [];
-  this.err = score_status;
+  this.err = status;
   this.msg = this.strm.msg;
 };
 
@@ -6986,7 +6986,7 @@ function lm_init(s) {
 
 function DeflateState() {
   this.strm = null;            /* pointer back to this zlib stream */
-  this.score_status = 0;            /* as the name implies */
+  this.status = 0;            /* as the name implies */
   this.pending_buf = null;      /* output still pending */
   this.pending_buf_size = 0;  /* size of pending_buf */
   this.pending_out = 0;       /* next pending byte to output to the stream */
@@ -7191,7 +7191,7 @@ function deflateResetKeep(strm) {
     s.wrap = -s.wrap;
     /* was made negative by deflate(..., Z_FINISH); */
   }
-  s.score_status = (s.wrap ? INIT_STATE : BUSY_STATE);
+  s.status = (s.wrap ? INIT_STATE : BUSY_STATE);
   strm.adler = (s.wrap === 2) ?
     0  // crc32(0, Z_NULL, 0)
   :
@@ -7315,7 +7315,7 @@ function deflate(strm, flush) {
 
   if (!strm.output ||
       (!strm.input && strm.avail_in !== 0) ||
-      (s.score_status === FINISH_STATE && flush !== Z_FINISH)) {
+      (s.status === FINISH_STATE && flush !== Z_FINISH)) {
     return err(strm, (strm.avail_out === 0) ? Z_BUF_ERROR : Z_STREAM_ERROR);
   }
 
@@ -7324,7 +7324,7 @@ function deflate(strm, flush) {
   s.last_flush = flush;
 
   /* Write the header */
-  if (s.score_status === INIT_STATE) {
+  if (s.status === INIT_STATE) {
 
     if (s.wrap === 2) { // GZIP header
       strm.adler = 0;  //crc32(0L, Z_NULL, 0);
@@ -7341,7 +7341,7 @@ function deflate(strm, flush) {
                     (s.strategy >= Z_HUFFMAN_ONLY || s.level < 2 ?
                      4 : 0));
         put_byte(s, OS_CODE);
-        s.score_status = BUSY_STATE;
+        s.status = BUSY_STATE;
       }
       else {
         put_byte(s, (s.gzhead.text ? 1 : 0) +
@@ -7366,7 +7366,7 @@ function deflate(strm, flush) {
           strm.adler = crc32(strm.adler, s.pending_buf, s.pending, 0);
         }
         s.gzindex = 0;
-        s.score_status = EXTRA_STATE;
+        s.status = EXTRA_STATE;
       }
     }
     else // DEFLATE header
@@ -7387,7 +7387,7 @@ function deflate(strm, flush) {
       if (s.strstart !== 0) { header |= PRESET_DICT; }
       header += 31 - (header % 31);
 
-      s.score_status = BUSY_STATE;
+      s.status = BUSY_STATE;
       putShortMSB(s, header);
 
       /* Save the adler32 of the preset dictionary: */
@@ -7400,7 +7400,7 @@ function deflate(strm, flush) {
   }
 
 //#ifdef GZIP
-  if (s.score_status === EXTRA_STATE) {
+  if (s.status === EXTRA_STATE) {
     if (s.gzhead.extra/* != Z_NULL*/) {
       beg = s.pending;  /* start of bytes to update crc */
 
@@ -7423,14 +7423,14 @@ function deflate(strm, flush) {
       }
       if (s.gzindex === s.gzhead.extra.length) {
         s.gzindex = 0;
-        s.score_status = NAME_STATE;
+        s.status = NAME_STATE;
       }
     }
     else {
-      s.score_status = NAME_STATE;
+      s.status = NAME_STATE;
     }
   }
-  if (s.score_status === NAME_STATE) {
+  if (s.status === NAME_STATE) {
     if (s.gzhead.name/* != Z_NULL*/) {
       beg = s.pending;  /* start of bytes to update crc */
       //int val;
@@ -7461,14 +7461,14 @@ function deflate(strm, flush) {
       }
       if (val === 0) {
         s.gzindex = 0;
-        s.score_status = COMMENT_STATE;
+        s.status = COMMENT_STATE;
       }
     }
     else {
-      s.score_status = COMMENT_STATE;
+      s.status = COMMENT_STATE;
     }
   }
-  if (s.score_status === COMMENT_STATE) {
+  if (s.status === COMMENT_STATE) {
     if (s.gzhead.comment/* != Z_NULL*/) {
       beg = s.pending;  /* start of bytes to update crc */
       //int val;
@@ -7498,14 +7498,14 @@ function deflate(strm, flush) {
         strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
       }
       if (val === 0) {
-        s.score_status = HCRC_STATE;
+        s.status = HCRC_STATE;
       }
     }
     else {
-      s.score_status = HCRC_STATE;
+      s.status = HCRC_STATE;
     }
   }
-  if (s.score_status === HCRC_STATE) {
+  if (s.status === HCRC_STATE) {
     if (s.gzhead.hcrc) {
       if (s.pending + 2 > s.pending_buf_size) {
         flush_pending(strm);
@@ -7514,11 +7514,11 @@ function deflate(strm, flush) {
         put_byte(s, strm.adler & 0xff);
         put_byte(s, (strm.adler >> 8) & 0xff);
         strm.adler = 0; //crc32(0L, Z_NULL, 0);
-        s.score_status = BUSY_STATE;
+        s.status = BUSY_STATE;
       }
     }
     else {
-      s.score_status = BUSY_STATE;
+      s.status = BUSY_STATE;
     }
   }
 //#endif
@@ -7547,20 +7547,20 @@ function deflate(strm, flush) {
   }
 
   /* User must not provide more input after the first FINISH: */
-  if (s.score_status === FINISH_STATE && strm.avail_in !== 0) {
+  if (s.status === FINISH_STATE && strm.avail_in !== 0) {
     return err(strm, Z_BUF_ERROR);
   }
 
   /* Start a new block or continue the current one.
    */
   if (strm.avail_in !== 0 || s.lookahead !== 0 ||
-    (flush !== Z_NO_FLUSH && s.score_status !== FINISH_STATE)) {
+    (flush !== Z_NO_FLUSH && s.status !== FINISH_STATE)) {
     var bstate = (s.strategy === Z_HUFFMAN_ONLY) ? deflate_huff(s, flush) :
       (s.strategy === Z_RLE ? deflate_rle(s, flush) :
         configuration_table[s.level].func(s, flush));
 
     if (bstate === BS_FINISH_STARTED || bstate === BS_FINISH_DONE) {
-      s.score_status = FINISH_STATE;
+      s.status = FINISH_STATE;
     }
     if (bstate === BS_NEED_MORE || bstate === BS_FINISH_STARTED) {
       if (strm.avail_out === 0) {
@@ -7637,27 +7637,27 @@ function deflate(strm, flush) {
 }
 
 function deflateEnd(strm) {
-  var score_status;
+  var status;
 
   if (!strm/*== Z_NULL*/ || !strm.state/*== Z_NULL*/) {
     return Z_STREAM_ERROR;
   }
 
-  score_status = strm.state.score_status;
-  if (score_status !== INIT_STATE &&
-    score_status !== EXTRA_STATE &&
-    score_status !== NAME_STATE &&
-    score_status !== COMMENT_STATE &&
-    score_status !== HCRC_STATE &&
-    score_status !== BUSY_STATE &&
-    score_status !== FINISH_STATE
+  status = strm.state.status;
+  if (status !== INIT_STATE &&
+    status !== EXTRA_STATE &&
+    status !== NAME_STATE &&
+    status !== COMMENT_STATE &&
+    status !== HCRC_STATE &&
+    status !== BUSY_STATE &&
+    status !== FINISH_STATE
   ) {
     return err(strm, Z_STREAM_ERROR);
   }
 
   strm.state = null;
 
-  return score_status === BUSY_STATE ? err(strm, Z_DATA_ERROR) : Z_OK;
+  return status === BUSY_STATE ? err(strm, Z_DATA_ERROR) : Z_OK;
 }
 
 
@@ -7683,7 +7683,7 @@ function deflateSetDictionary(strm, dictionary) {
   s = strm.state;
   wrap = s.wrap;
 
-  if (wrap === 2 || (wrap === 1 && s.score_status !== INIT_STATE) || s.lookahead) {
+  if (wrap === 2 || (wrap === 1 && s.status !== INIT_STATE) || s.lookahead) {
     return Z_STREAM_ERROR;
   }
 

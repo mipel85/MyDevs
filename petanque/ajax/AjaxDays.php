@@ -12,8 +12,6 @@ switch($actions)
     case 'insert_day':
         $add = new Days();
         $add->set_date($_POST['day_date']);
-        $add->set_fields_number($_POST['fields_number']);
-        $add->set_fields_list($_POST['fields_list']);
         $add->add_day();
         break;
 

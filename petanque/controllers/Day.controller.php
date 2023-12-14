@@ -1,22 +1,18 @@
 <?php
 
-$day_started = Days::day_started();
+$started_day = Days::started_day();
 $today = date('d-m-Y');
 
-$disabled_partie = $hidden_day = ''; 
-$label_partie = 'Partie du jour';
-if ($day_started) {
-    $disabled_partie = ' disabled';
-    $hidden_day = ' hidden';
-    $label_partie = 'La partie du ' .$today.' a été initialisée.';
-}
+// Day
+// show/hide day init message
+$hidden_day = $started_day ? ' hidden' : '';
 
 // Rounds
 // get day_id
-$day_id = $day_started ? Days::day_id($today) : '';
+$day_id = $started_day ? Days::day_id($today) : '';
 
 // check if rounds
-$c_rounds = $day_started ? count(Rounds::day_rounds_list($day_id)) > 0 : 0;
+$c_rounds = $started_day ? count(Rounds::day_rounds_list($day_id)) > 0 : 0;
 
 // set i_order
 if ($day_id)
@@ -32,7 +28,6 @@ if ($day_id)
     }
     // set label
     $label_round = 'Ajouter la <strong>partie ' . $i_order . '</strong> avec les ' . $players_number . ' joueurs sélectionnés.';
-    // if ($i_order > 4) $label_round = '<span class="message-helper bgc-full success">Le nombre maximum de days est atteint.</span>';
     if ($players_number < 4) $label_round = '<span class="message-helper bgc-full warning">Il faut sélectionner au moins 4 joueurs pour créer une partie.</span>';
     if ($players_number == 7) $label_round = '<span class="message-helper bgc-full warning">Il n\'est pas possible de jouer avec 7 joueurs.</span>';
 }

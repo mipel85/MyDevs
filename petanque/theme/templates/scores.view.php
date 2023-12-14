@@ -5,7 +5,7 @@ require_once('./classes/Days.class.php');
 require_once('./classes/Rounds.class.php');
 require_once('./classes/Teams.class.php');
 require_once('./classes/Matches.class.php');
-require_once('./controllers/DaysController.php');
+require_once('./controllers/Day.controller.php');
 
 $possible_scores = 12;
 
@@ -13,7 +13,7 @@ $possible_scores = 12;
 <section>
     <header class="section-header flex-between-center">
         <h1>Scores</h1>
-        <?php if(Days::day_started()): ?><span class="description"><?= $today ?></span><?php endif ?>
+        <?php if(Days::started_day()): ?><span class="description"><?= $today ?></span><?php endif ?>
     </header>
     <?php if($day_id): ?>
         <article id="rounds-list">
@@ -22,7 +22,7 @@ $possible_scores = 12;
                 <div class="tabs-menu">
                     <?php foreach($day_round_list as $round): ?>
                         <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
-                        <span data-trigger="matches-list-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'matches-list-<?= $round['id'] ?>');">Partie <?= $round['i_order'] ?></span>
+                        <span data-trigger="matches-list-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'matches-list-<?= $round['id'] ?>');">Manche <?= $round['i_order'] ?></span>
                     <?php endforeach ?>
                 </div>
                 <?php foreach($day_round_list as $round): ?>
@@ -31,7 +31,7 @@ $possible_scores = 12;
                             data-day_id="<?= $day_id ?>"
                             data-round_id="<?= $round['id'] ?>">
                         <header class="flex-between">
-                            <h3>Partie <?= $round['i_order'] ?></h3>
+                            <h3>Manche <?= $round['i_order'] ?></h3>
                         </header>
                         <div class="expand-container">
                             <div class="score-buttons-list">
@@ -42,7 +42,11 @@ $possible_scores = 12;
                             <div class="flex-between">
                                 <span class="description">
                                     Sélectionner le score des perdants puis sélectionner un nombre dans la liste ci-dessus.
-                                    <br />L'autre score (13) est renseigné automatiquement.
+                                    <br />Le score des gagnants (13) est renseigné automatiquement.
+                                </span>
+                                <span class="description">
+                                    Sur fond bleu, les scores validés.
+                                    <br />Sur fond blanc, les scores non validés
                                 </span>
                             </div>
                             <span class="expand-button" id="expand-<?= $round['id'] ?>"></span>
@@ -65,7 +69,7 @@ $possible_scores = 12;
                                                 id="matches-score-<?= $match['id'] ?>"
                                                 data-round_id="<?= $round['id'] ?>"
                                                 data-match_id="<?= $match['id'] ?>">
-                                            <td><?= $match['field'] ?></td>
+                                            <td><?= $match['playground'] ?></td>
                                             <td>
                                                 <div class="flex-between-center">
                                                     <span data-team_1_id="<?= $match['team_1_id'] ?>"></span>

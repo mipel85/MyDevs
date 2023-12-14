@@ -37,6 +37,7 @@
     - ~~ id partie ~~
     - ~~ id manche ~~
     - ~~ n° terrain ~~
+    ~~ - rencontres, dont les scores sont validés, sur fond bleu ~~
     (-) pas de nelle manche tant que TOUS les scores de la manche en cours ne sont pas saisis
 
 ### Scores
@@ -57,6 +58,7 @@
         ~~ - envoyer automatiquement le 13 sur l'autre score ~~
         ~~ - tester si une des 2 équipes a 13 ~~
     ~~ - empêcher de mettre du texte dans les input ou score >= 13 si taper au clavier ou interdire la frappe ~~
+    ~~ - scores validés sur fond bleu ~~
 
 ### Classement
     - ids joueurs
@@ -70,23 +72,18 @@
     ~~ bouton fin de journée => décocher la présence de tous les joueurs ~~
     ~~ js forcer le haut de page quand on click sur un onglet de tabs ~~
 
-## Params
-    - dans la config
-    - nb de joueurs min par defaut 8 // A SUPPRIMER
-    - nb de manche max par defaut 4 // A SUPPRIMER
-    - nb de terrains par defaut 14
-
 ## Terrains
     ~~ - si nb de terrains < au nombre de matches remettre la liste complète ~~
     - pouvoir choisir le nombre et les n° des terrains => config des manches
+        - nb de terrains par defaut 10
 
 ## Language
     ~~ day/partie => la journée commence on crée une partie ~~
     ~~ > round/manche => de 1 à x manches dans une partie ~~
-    > matches/rencontre => chaque rencontre entre 2 équipes dans une manche
+    ~~ > matches/rencontre => chaque rencontre entre 2 équipes dans une manche ~~
     ~~ > team/equipe => un groupe de 2 ou 3 participants ~~
-    > member/membre => un membre
-    > player/joueur => un participant à une partie
+    ~~ > member/membre => un membre ~~
+    ~~ > player/joueur => un participant à une partie ~~
     > ranking/classement
 
 ## Idées

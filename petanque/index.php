@@ -21,40 +21,39 @@ $title = '';
 switch($page)
 {
     case ('config') : $title = 'Administration'; break;
-    case ('members') : $title = 'Sélection'; break;
+    case ('players') : $title = 'Sélection des joueurs'; break;
     case ('day') : $title = 'Partie'; break;
     case ('scores') : $title = 'Scores'; break;
     case ('ranking') : $title = 'Classement'; break;
     default : $title = 'Accueil'; break;
 }
 
-require_once('./theme/templates/header.view.php');
+require_once('./theme/templates/Header.view.php');
 
 switch($page)
 {
     case ('config') :
-        require_once('./theme/templates/config/config.view.php');
+        require_once('./theme/templates/config/Config.view.php');
         break;
     case ('home') :
-        require_once('./theme/templates/home.view.php');
+        require_once('./theme/templates/Home.view.php');
         break;
-    case ('members') :
-        require_once('./theme/templates/members.view.php');
+    case ('players') :
+        require_once('./theme/templates/Players.view.php');
         break;
     case ('day') :
-        require_once('./theme/templates/days.view.php');
+        require_once('./theme/templates/Day.view.php');
         break;
     case ('scores') :
-        require_once('./theme/templates/scores.view.php');
+        require_once('./theme/templates/Scores.view.php');
         break;
     case ('ranking') :
-        require_once('./theme/templates/ranking.view.php');
+        require_once('./theme/templates/Ranking.view.php');
         break;
     default :
         require_once('./theme/templates/404.view.php');
         break;
 }
 
-require_once('./theme/templates/footer.view.php');
+require_once('./theme/templates/Footer.view.php');
 ?>
-

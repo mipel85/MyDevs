@@ -11,7 +11,7 @@ switch($actions)
     case 'insert_teams':
         $day_id = $_POST['day_id'];
         $round_id = $_POST['round_id'];
-        include '../controllers/TeamsController.php';
+        include '../controllers/Teams.controller.php';
         foreach (build_teams($members) as $team) {
             $insert = new Teams();
             $insert->set_day_id($_POST['day_id']);

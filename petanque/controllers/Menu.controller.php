@@ -8,7 +8,7 @@ function display_menu()
     // tableaux contenant les liens d'accès et le texte à afficher
     $menu_links = [
         'home',
-        'members',
+        'players',
         'day',
         'scores',
         'ranking'
@@ -49,7 +49,7 @@ function display_menu()
             $menu .= ' bgc-full error';
             $link = 'members';
         }
-        elseif (!Days::day_started() && $day_items) {
+        elseif (!Days::started_day() && $day_items) {
             $menu .= ' bgc-full warning';
             if (in_array($link, ['scores', 'ranking']))
                 $link = 'day';

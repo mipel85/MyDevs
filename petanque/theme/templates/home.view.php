@@ -7,7 +7,7 @@
 
     <article>
         <header class="section-header"><h4>Configuration</h4></header>
-        <div class="content">Ce menu est disponible en haut à droite (<i class="fa fa-cog"></i>). On peut y ajouter ou supprimer des joueurs, supprimer des days et des manches.</div>
+        <div class="content">Ce menu est disponible en haut à droite (<i class="fa fa-cog"></i>). On peut y ajouter ou supprimer des joueurs, supprimer des parties et des manches.</div>
     </article>
 
     <article>

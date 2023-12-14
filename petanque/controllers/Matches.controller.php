@@ -12,22 +12,22 @@ foreach ($selected_teams_list as $team)
 
 shuffle($teams);
 
-function fields($selected_fields, $round_matches)
+function playgrounds($selected_playgrounds, $round_matches)
 {
-    $fields = $selected_fields;
-    shuffle($fields);
+    $playgrounds = $selected_playgrounds;
+    shuffle($playgrounds);
     $matches_number = count($round_matches);
-    $fields_list = [];
+    $playgrounds_list = [];
     for ($i=1; $i <= $matches_number; $i++ )
     {
-        if (empty($fields)) {
-            $fields = $selected_fields;
-            shuffle($fields);
+        if (empty($playgrounds)) {
+            $playgrounds = $selected_playgrounds;
+            shuffle($playgrounds);
         }
-        $fields_list[] = array_shift($fields);
+        $playgrounds_list[] = array_shift($playgrounds);
     }
 
-    return $fields_list;
+    return $playgrounds_list;
 }
 
 // Fonction pour créer le championnat

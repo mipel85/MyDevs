@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 13 déc. 2023 à 10:53
+-- Généré le : jeu. 14 déc. 2023 à 09:06
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -29,9 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `days` (
   `id` int(11) NOT NULL,
-  `date` varchar(11) NOT NULL,
-  `fields_number` int(11) NOT NULL,
-  `fields_list` text NOT NULL
+  `date` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -48,7 +46,7 @@ CREATE TABLE `matches` (
   `team_1_score` int(11) DEFAULT NULL,
   `team_2_id` int(11) NOT NULL,
   `team_2_score` int(11) DEFAULT NULL,
-  `playground` int(11) NOT NULL,
+  `field` int(11) NOT NULL,
   `score_status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -128,7 +126,8 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (56, ' Mathieu.M', 0, 0),
 (57, ' Gilles.T', 0, 0),
 (58, ' Catherine.D', 0, 0),
-(59, ' Jean-Louis.D', 0, 0);
+(59, ' Jean-Louis.D', 0, 0),
+(65, 'Babso', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -209,13 +208,13 @@ ALTER TABLE `days`
 -- AUTO_INCREMENT pour la table `matches`
 --
 ALTER TABLE `matches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT pour la table `rounds`
@@ -227,7 +226,7 @@ ALTER TABLE `rounds`
 -- AUTO_INCREMENT pour la table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
