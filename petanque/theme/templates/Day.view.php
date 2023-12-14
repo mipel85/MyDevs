@@ -6,6 +6,7 @@ require_once('./classes/Rounds.class.php');
 require_once('./classes/Teams.class.php');
 require_once('./classes/Matches.class.php');
 require_once('./controllers/Day.controller.php');
+require_once('./controllers/Fields.controller.php');
 require_once('./controllers/Rules.controller.php');
 
 ?>
@@ -13,7 +14,18 @@ require_once('./controllers/Rules.controller.php');
     <header class="section-header flex-between">
         <h1>Création</h1>
         <div id="add-round-container" class="hero hidden">
-            <div class="flex-between-center">
+            <div class="playgrounds-list<?= $hidden_round ?>">
+                <span class="description">Sélection des terrains disponibles : </span>
+                <div class="flex-between-center">
+                    <?php foreach (fields_list() as $field): ?>
+                        <label class="fake-checkbox" for="checkbox-<?= $field ?>">
+                            <span><?= $field ?></span>
+                            <input class="playground-checkbox" type="checkbox" id="checkbox-<?= $field ?>" checked />
+                        </label>
+                    <?php endforeach ?>
+                </div>
+            </div>
+            <div class="line flex-between-center">
                 <span>
                     <button
                             class="submit button<?= $hidden_round ?>"
@@ -24,12 +36,8 @@ require_once('./controllers/Rules.controller.php');
                             <?= $disabled_round ?>>
                         Ajouter une partie
                     </button>
-                </span><span id="round-description"><?= $label_round ?></span>
-            </div>
-            <div class="line playgrounds-list">
-                <span class="description">Sélection des terrains disponibles : </span>
-                <?php include './controllers/Playgrounds.controller.php' ?>
-                <button class="button">Valider les terrains</button>
+                </span>
+                <span id="round-description"><?= $label_round ?></span>
             </div>
         </div>
     </header>
@@ -47,7 +55,7 @@ require_once('./controllers/Rules.controller.php');
             <div class="tabs-menu">
                 <?php foreach($day_round_list as $round): ?>
                     <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
-                    <span data-trigger="tab-content-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'tab-content-<?= $round['id'] ?>');">Manche <?= $round['i_order'] ?></span>
+                    <span data-trigger="tab-content-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'tab-content-<?= $round['id'] ?>');">Partie <?= $round['i_order'] ?></span>
                 <?php endforeach ?>
             </div>
             <?php foreach($day_round_list as $round): ?>
@@ -76,7 +84,7 @@ require_once('./controllers/Rules.controller.php');
                             data-round_id="<?= $round_id ?>">
                         <header class="flex-between">
                             <h4><?= $round['players_number'] ?> joueurs</h4>
-                            <span class="description"><strong>Manche <?= $round['i_order'] ?></strong> - <?= rules($round['players_number']) ?></span>
+                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= rules($round['players_number']) ?></span>
                         </header>
                         <table id="teams-list-round-<?= $round_id ?>" class="table<?= $hidden_teams_list ?>">
                             <thead>
@@ -110,7 +118,7 @@ require_once('./controllers/Rules.controller.php');
                             data-matches_ready="<?= $hidden_matches_btn ?>">
                         <header class="flex-between">
                             <h4>Liste des rencontres</h4>
-                            <span class="description"><strong>Manche <?= $round['i_order'] ?></strong></span>
+                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong></span>
                         </header>
                         <div class="expand-container">
                             <span class="expand-button" id="expand-<?= $round_id ?>"></span>
@@ -150,7 +158,7 @@ require_once('./controllers/Rules.controller.php');
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td><?= $match['playground'] ?></td>
+                                            <td><?= $match['field'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>

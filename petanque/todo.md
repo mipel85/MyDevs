@@ -76,6 +76,8 @@
     ~~ - si nb de terrains < au nombre de matches remettre la liste complète ~~
     - pouvoir choisir le nombre et les n° des terrains => config des manches
         - nb de terrains par defaut 10
+    - design checkbox pbt sous le numéro
+    - cacher si pas d'ajout de partie possible
 
 ## Language
     ~~ day/partie => la journée commence on crée une partie ~~
@@ -89,3 +91,6 @@
 ## Idées
     - afficher le plan des terrains
         - un par un
+
+## Nettoyage
+    js `error:`
