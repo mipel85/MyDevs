@@ -12,13 +12,44 @@ $(document).ready(function() {
                 day_date: day_date
             },
             success: function(r) {
-                location.reload(true);
+                // location.reload(true);
             },
             error: function(r) {
                 alert(r.error);
             }
         });
     }
+    
+    // Select/unselect playgrounds
+    $('.checkbox-field').each(function() {
+        $(this).on('change', function() {
+            let fields_id = $(this).data('fields_id'),
+                field_id = $(this).attr('id');
+            if ((this.checked)){
+                $.ajax({
+                    url: './ajax/AjaxDays.php',
+                    type: 'POST',
+                    data: {
+                        action: 'check_field',
+                        fields_id: fields_id,
+                        field_id: field_id
+                    },
+                    success: function() {}
+                });
+            } else {
+                $.ajax({
+                    url: './ajax/AjaxDays.php',
+                    type: 'POST',
+                    data: {
+                        action: 'uncheck_field',
+                        fields_id: fields_id,
+                        field_id: field_id
+                    },
+                    success: function() {}
+                });
+            }
+        });
+    });
 
     // Supprimer une journée
     $(".remove-day").each(function() {

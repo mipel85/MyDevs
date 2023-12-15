@@ -19,10 +19,10 @@ require_once('./classes/Rounds.class.php');
                 <span data-trigger="doc" class="tab-trigger" onclick="openTab(event, 'doc');">Documentation interne</span>
             </div>
         </div>
-        <article id="members" class="tab-content active-tab cell-flex cell-columns-2">
+        <article id="members" class="tab-content active-tab">
             <?php include './theme/templates/config/ConfigMembers.view.php'; ?>
         </article>
-        <article id="days" class="tab-content">
+        <article id="days" class="tab-content cell-flex cell-columns-2">
             <?php include './theme/templates/config/ConfigDays.view.php'; ?>
         </article>
         <article id="rounds" class="tab-content">
@@ -33,6 +33,4 @@ require_once('./classes/Rounds.class.php');
         </article>
     </div>
 </section>
-
-<script></script>
 

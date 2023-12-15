@@ -15,8 +15,6 @@
             <tr>
                 <th>ID</th>
                 <th>Date</th>
-                <th>Nombre de terrains</th>
-                <th>Choix des terrains</th>
                 <th></th>
             </tr>
             </thead>
@@ -25,22 +23,6 @@
                 <tr>
                     <td><?= $partie['id'] ?></td>
                     <td><?= $partie['date'] ?></td>
-                    <td>
-                        <input type="number" class="playground-input" min="1" max="14" name="" value="10"> <!-- Remplacer value par <?= $partie['fields_number'] ?> -->
-                        <button type="submit" 
-                                data-id="<?= $partie['id'] ?>"
-                                class="icon-button update-fields-number" />
-                            <i class="fa fa-fx fa-lg fa-rotate warning"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <div id="playgrounds-choice"></div>
-                        <button type="submit" 
-                                data-id="<?= $partie['id'] ?>"
-                                class="icon-button update-fields-list" />
-                            <i class="fa fa-fx fa-lg fa-rotate warning"></i>
-                        </button>
-                    </td>
                     <td><button type="submit" id="<?= $partie['id'] ?>" class="icon-button remove-day" /><i class="fa fa-fx fa-lg fa-square-xmark error"></i></button></td>
                 </tr>
             <?php endforeach ?>

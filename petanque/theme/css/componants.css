@@ -63,6 +63,10 @@
     padding: 5px;
 }
 
+.flex-main {
+    flex: 1 1 auto;
+}
+
 .flex-between {
     display: flex;
     justify-content: space-between;
@@ -140,6 +144,37 @@ input.focused-score {
 
 .playground-input {
     width: 120px;
+}
+
+.fake-checkboxes {
+    width: 210px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.fake-checkboxes .checkbox {
+    width: 30px;
+    height: 30px;
+	position: relative;
+    padding: 2px;
+}
+
+.fake-checkboxes .checkbox [type="checkbox"] { opacity: 0; }
+
+.fake-checkboxes .checkbox [type="checkbox"] + span {
+	cursor: pointer;
+	position: absolute;
+    inset: 2px 2px;
+    background-color: #AA0000;
+    color: #FFFFFF;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fake-checkboxes .checkbox [type="checkbox"]:checked + span {
+    background-color: #3AC456;
 }
 
 [id*="expand-"] {

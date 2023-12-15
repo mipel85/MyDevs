@@ -1,5 +1,6 @@
 <?php
 require_once('../classes/Connection.class.php');
+require_once('../classes/Fields.class.php');
 require_once('../classes/Teams.class.php');
 
 // Liste des équipes

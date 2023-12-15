@@ -73,16 +73,18 @@
     ~~ js forcer le haut de page quand on click sur un onglet de tabs ~~
 
 ## Terrains
-    ~~ - si nb de terrains < au nombre de matches remettre la liste complète ~~
-    - pouvoir choisir le nombre et les n° des terrains => config des manches
-        - nb de terrains par defaut 10
-    - design checkbox pbt sous le numéro
-    - cacher si pas d'ajout de partie possible
+    - interraction avec matches
+        ~~ - si nb de terrains < au nombre de matches remettre la liste complète ~~
+    - demarrage de journée
+        ~~ - pouvoir choisir le nombre et les n° des terrains ~~
+        ~~ - nb de terrains sélection parmi 14 possibles ~~
+        ~~ - design checkbox ~~
+        - cacher si pas d'ajout de partie possible
 
 ## Language
-    ~~ day/partie => la journée commence on crée une partie ~~
-    ~~ > round/manche => de 1 à x manches dans une partie ~~
-    ~~ > matches/rencontre => chaque rencontre entre 2 équipes dans une manche ~~
+    ~~ day/journée => la journée commence on la crée ~~
+    ~~ > round/partie => de 1 à x parties dans une journée ~~
+    ~~ > matches/rencontre => chaque rencontre entre 2 équipes dans une partie ~~
     ~~ > team/equipe => un groupe de 2 ou 3 participants ~~
     ~~ > member/membre => un membre ~~
     ~~ > player/joueur => un participant à une partie ~~

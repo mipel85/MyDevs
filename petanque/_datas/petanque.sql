@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 14 déc. 2023 à 09:06
+-- Généré le : ven. 15 déc. 2023 à 09:18
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -29,7 +29,34 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `days` (
   `id` int(11) NOT NULL,
-  `date` varchar(11) NOT NULL
+  `date` varchar(11) NOT NULL,
+  `fields_number` int(11) NOT NULL,
+  `fields_list` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fields`
+--
+
+CREATE TABLE `fields` (
+  `id` int(11) NOT NULL,
+  `day_id` int(11) NOT NULL,
+  `field_1` tinyint(1) NOT NULL,
+  `field_2` tinyint(1) NOT NULL,
+  `field_3` tinyint(1) NOT NULL,
+  `field_4` tinyint(1) NOT NULL,
+  `field_5` tinyint(1) NOT NULL,
+  `field_6` tinyint(1) NOT NULL,
+  `field_7` tinyint(1) NOT NULL,
+  `field_8` tinyint(1) NOT NULL,
+  `field_9` tinyint(1) NOT NULL,
+  `field_10` tinyint(1) NOT NULL,
+  `field_11` tinyint(1) NOT NULL,
+  `field_12` tinyint(1) NOT NULL,
+  `field_13` tinyint(1) NOT NULL,
+  `field_14` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -74,10 +101,10 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (4, ' Christophe.B', 1, 0),
 (5, ' Claudie.F', 1, 0),
 (6, ' Daniel.E', 1, 0),
-(7, ' Daniel.R', 0, 0),
-(8, ' Daniel.T', 0, 0),
-(9, ' Danielle.L', 0, 0),
-(10, ' Dany.R', 0, 1),
+(7, ' Daniel.R', 1, 0),
+(8, ' Daniel.T', 1, 0),
+(9, ' Danielle.L', 1, 0),
+(10, ' Dany.R', 1, 1),
 (11, ' Denis.D', 0, 0),
 (12, ' Denis.G', 0, 0),
 (13, ' Dominique.B', 0, 0),
@@ -171,6 +198,12 @@ ALTER TABLE `days`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `fields`
+--
+ALTER TABLE `fields`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `matches`
 --
 ALTER TABLE `matches`
@@ -202,6 +235,12 @@ ALTER TABLE `teams`
 -- AUTO_INCREMENT pour la table `days`
 --
 ALTER TABLE `days`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `fields`
+--
+ALTER TABLE `fields`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

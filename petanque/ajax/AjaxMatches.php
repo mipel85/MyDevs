@@ -1,6 +1,7 @@
 <?php
 
 include '../classes/Connection.class.php';
+include '../classes/Fields.class.php';
 include '../classes/Matches.class.php';
 
 // Afficher les équipes formées
@@ -15,9 +16,8 @@ switch($actions)
         $build_matches = build_matches($teams);
         shuffle($build_matches);
 
-        $selected_playgrounds = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+        $selected_playgrounds = Fields::fields_list($day_id);
         $playgrounds = playgrounds($selected_playgrounds, $build_matches);
-        var_dump($playgrounds);
         $first = true;
         foreach ($build_matches as $matches) {
             if ($first) {

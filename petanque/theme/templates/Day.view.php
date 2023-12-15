@@ -1,27 +1,35 @@
 <?php
 
 require_once('./classes/Days.class.php');
+require_once('./classes/Fields.class.php');
 require_once('./classes/Members.class.php');
 require_once('./classes/Rounds.class.php');
 require_once('./classes/Teams.class.php');
 require_once('./classes/Matches.class.php');
 require_once('./controllers/Day.controller.php');
-require_once('./controllers/Fields.controller.php');
 require_once('./controllers/Rules.controller.php');
 
 ?>
 <section>
     <header class="section-header flex-between">
-        <h1>Création</h1>
+        <h1>Gestion des parties</h1>
         <div id="add-round-container" class="hero hidden">
-            <div class="playgrounds-list<?= $hidden_round ?>">
-                <span class="description">Sélection des terrains disponibles : </span>
-                <div class="flex-between-center">
-                    <?php foreach (fields_list() as $field): ?>
-                        <label class="fake-checkbox" for="checkbox-<?= $field ?>">
-                            <span><?= $field ?></span>
-                            <input class="playground-checkbox" type="checkbox" id="checkbox-<?= $field ?>" checked />
-                        </label>
+            <div class="playgrounds-list flex-between-center<?= $hidden_round ?>">
+                <span>Sélection des<br>terrains disponibles</span>
+                <div class="fake-checkboxes">
+                    <?php foreach (Fields::fields_checkbox_list($day_id) as $checkboxes): ?>
+                        <?php foreach ($checkboxes as $index => $checked): ?>
+                            <?php $is_checked = $checked ? ' checked' : '';?>
+                            <label for="field_<?= $index ?>" class="checkbox">
+                                <input 
+                                        class="checkbox-field"
+                                        type="checkbox"
+                                        name="field-<?= $index ?>"
+                                        data-fields_id="<?= Fields::field_id($day_id) ?>"
+                                        id="field_<?= $index ?>"<?= $is_checked ?>>
+                                <span><?= $index ?></span>
+                            </label>
+                        <?php endforeach ?>
                     <?php endforeach ?>
                 </div>
             </div>
