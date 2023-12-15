@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 15 déc. 2023 à 09:18
+-- Généré le : ven. 15 déc. 2023 à 12:36
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -29,9 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `days` (
   `id` int(11) NOT NULL,
-  `date` varchar(11) NOT NULL,
-  `fields_number` int(11) NOT NULL,
-  `fields_list` text NOT NULL
+  `date` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

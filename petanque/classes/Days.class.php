@@ -10,8 +10,6 @@ ini_set('display_errors', true);
 class Days {
     private $id;
     private $date;
-    private $fields_number;
-    private $fields_list;
 
     public function __construct($id = null)
     {
@@ -31,21 +29,13 @@ class Days {
 
     public function get_date() { return $this->date; }
     public function set_date($date) { $this->date = $date; }
-
-    public function get_fields_number() { return $this->fields_number; }
-    public function set_fields_number($fields_number) { $this->fields_number = $fields_number; }
-
-    public function get_fields_list() { return $this->fields_list; }
-    public function set_fields_list($fields_list) { $this->fields_list = $fields_list; }
 // end getters setters
 
     function add_day()
     {
         $req = 'INSERT INTO days values (
                     NULL,
-                    "' . $this->get_date() . '",
-                    "' . $this->get_fields_number() . '",
-                    "' . $this->get_fields_list() . '"
+                    "' . $this->get_date() . '"
                 )';
         return Connection::query($req);
     }
@@ -98,34 +88,5 @@ class Days {
         if (in_array($today, $dates)) return true;
 
         return false;
-    }
-
-    function update_fields_number($value)
-    {
-        $req = 'UPDATE days SET `fields_number` = "' . $value . '" WHERE `days`.`id` = ' . $this->get_id() . '';
-        return Connection::query($req);
-    }
-
-    function update_fields_list($value)
-    {
-        $req = 'UPDATE days SET `fields_list` = "' . $value . '" WHERE `days`.`id` = ' . $this->get_id() . '';
-        return Connection::query($req);
-    }
-
-    static function fields_number($id)
-    {
-        $req = 'SELECT fields_number FROM days WHERE id = ' . $id . '';
-        return Connection::query($req);
-    }
-
-    static function build_fields_list($id)
-    {
-        $fields_number = self::fields_number($id);
-        $fields_list = [];
-        // for ($i = 1; $i <= $fields_number; $i++) {
-            // $fields_list[] = $i;
-        // }
-
-        return $fields_list;
     }
 }

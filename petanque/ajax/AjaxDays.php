@@ -13,7 +13,6 @@ switch($actions)
     case 'insert_day':
         $add = new Days();
         $add->set_date($_POST['day_date']);
-        $add->set_fields_number(14);
         $add->add_day();
         $add = new Fields();
         $add->set_day_id(Days::day_id($_POST['day_date']));
