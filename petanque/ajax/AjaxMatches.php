@@ -22,6 +22,7 @@ switch($actions)
         foreach ($build_matches as $matches) {
             if ($first) {
                 foreach ($matches as $teams) {
+                    $playground_number = count($selected_playgrounds) > 0 ? array_shift($playgrounds) : 0;
                     $insert = new Matches();
                     $insert->set_day_id($_POST['day_id']);
                     $insert->set_round_id($_POST['round_id']);
@@ -29,7 +30,7 @@ switch($actions)
                     $insert->set_team_1_score(0);
                     $insert->set_team_2_id($teams[1]);
                     $insert->set_team_2_score(0);
-                    $insert->set_playground(array_shift($playgrounds));
+                    $insert->set_playground($playground_number);
                     $insert->set_score_status(0);
 
                     $insert->add_match();

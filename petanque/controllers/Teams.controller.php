@@ -54,9 +54,4 @@ function build_teams($members) {
     return $teams;
 }
 
-foreach (build_teams($members) as $index => $equipe) {
-    var_dump($equipe);
-    echo "Équipe " . ($index + 1) . " => [ " . implode(', ', $equipe) . " ]<br>";
-}
-
 ?>

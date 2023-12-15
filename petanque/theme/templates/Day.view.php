@@ -6,31 +6,39 @@ require_once('./classes/Members.class.php');
 require_once('./classes/Rounds.class.php');
 require_once('./classes/Teams.class.php');
 require_once('./classes/Matches.class.php');
-require_once('./controllers/Day.controller.php');
 require_once('./controllers/Rules.controller.php');
+require_once('./controllers/Day.controller.php');
 
 ?>
 <section>
     <header class="section-header flex-between">
         <h1>Gestion des parties</h1>
+        <article id="day-manager" class="content<?= $hidden_day ?>" data-day_ready="<?= $day_id ?>">
+            <header id="add-day" class="<?= $hidden_day ?>">
+                <h3>Initialisation de la journée ...</h3>
+            </header>
+            <input type="hidden" id="day-date" name="day-date" value="<?= $today ?>" />
+        </article>
         <div id="add-round-container" class="hero hidden">
-            <div class="playgrounds-list flex-between-center<?= $hidden_round ?>">
+            <div class="playgrounds-list flex-between-center">
                 <span>Sélection des<br>terrains disponibles</span>
                 <div class="fake-checkboxes">
-                    <?php foreach (Fields::fields_checkbox_list($day_id) as $checkboxes): ?>
-                        <?php foreach ($checkboxes as $index => $checked): ?>
-                            <?php $is_checked = $checked ? ' checked' : '';?>
-                            <label for="field_<?= $index ?>" class="checkbox">
-                                <input 
-                                        class="checkbox-field"
-                                        type="checkbox"
-                                        name="field-<?= $index ?>"
-                                        data-fields_id="<?= Fields::field_id($day_id) ?>"
-                                        id="field_<?= $index ?>"<?= $is_checked ?>>
-                                <span><?= $index ?></span>
-                            </label>
+                    <?php if($started_day): ?>
+                        <?php foreach (Fields::fields_checkbox_list($day_id) as $checkboxes): ?>
+                            <?php foreach ($checkboxes as $index => $checked): ?>
+                                <?php $is_checked = $checked ? ' checked' : '';?>
+                                <label for="field_<?= $index ?>" class="checkbox">
+                                    <input 
+                                            class="checkbox-field"
+                                            type="checkbox"
+                                            name="field-<?= $index ?>"
+                                            data-fields_id="<?= Fields::field_id($day_id) ?>"
+                                            id="field_<?= $index ?>"<?= $is_checked ?>>
+                                    <span><?= $index ?></span>
+                                </label>
+                            <?php endforeach ?>
                         <?php endforeach ?>
-                    <?php endforeach ?>
+                    <?php endif ?>
                 </div>
             </div>
             <div class="line flex-between-center">
@@ -49,15 +57,7 @@ require_once('./controllers/Rules.controller.php');
             </div>
         </div>
     </header>
-    <article class="cell-flex cell-columns-2">
-        <div id="day-manager" class="content<?= $hidden_day ?>" data-day_ready="<?= $day_id ?>">
-            <header id="add-day" class="<?= $hidden_day ?>">
-                <h3>Initialisation de la journée ...</h3>
-            </header>
-            <input type="hidden" id="day-date" name="day-date" value="" />
-        </div>
-    </article>
-    <?php if($day_id): ?>
+    <?php if($started_day): ?>
         <article id="rounds-list" class="tabs-container">
             <?php $day_round_list = array_reverse(Rounds::day_rounds_list($day_id)); ?>
             <div class="tabs-menu">
@@ -178,27 +178,21 @@ require_once('./controllers/Rules.controller.php');
         </article>
     <?php endif ?>
     <script>
-        // set today format
-        let date = new Date(), d = date.getDate(), m = date.getMonth() + 1, y = date.getFullYear();
-        if (d < 10) d = '0' + d;
-        if (m < 10) m = '0' + m;
-        const formatDate = d + '-' + m + '-' + y;
-        // send today to hidden input of partie
-        document.getElementById('day-date').value = formatDate;
+        $(document).ready(function() {
+            // if no day, hide round
+            if ($('#add-day').hasClass('hidden'))
+                $('#add-round-container').removeClass('hidden');
 
-        // if no day, hide round
-        if ($('#add-day').hasClass('hidden'))
-            $('#add-round-container').removeClass('hidden');
-
-        // hidden add round
-        // get data-scored of first of rounds in the dom if exists
-        let first = $('[data-scored]').first().data('scored');
-            add_button = $('#add-round');
-        add_button.removeClass('hidden');
-        if (first == '') {
-            add_button.addClass('hidden');
-            $('#round-description').html("Aucun score de la partie en cours n'est renseigné.<br />L'ajout d'une nouvelle partie est désactivé.")
-        }
+            // hidden add round
+            // get data-scored of first of rounds in the dom if exists
+            let first = $('[data-scored]').first().data('scored');
+                add_button = $('#add-round');
+            add_button.removeClass('hidden');
+            if (first == '') {
+                add_button.addClass('hidden');
+                $('#round-description').html("Aucun score de la partie en cours n'est renseigné.<br />L'ajout d'une nouvelle partie est désactivé.")
+            }
+        })
     </script>
 </section>
 

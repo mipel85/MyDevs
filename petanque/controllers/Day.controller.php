@@ -1,7 +1,7 @@
 <?php
 
-$started_day = Days::started_day();
 $today = date('d-m-Y');
+$started_day = Days::started_day();
 
 // Day
 // show/hide day init message
@@ -10,7 +10,6 @@ $hidden_day = $started_day ? ' hidden' : '';
 // Rounds
 // get day_id
 $day_id = $started_day ? Days::day_id($today) : '';
-
 // check if rounds
 $c_rounds = $started_day ? count(Rounds::day_rounds_list($day_id)) > 0 : 0;
 
@@ -52,7 +51,6 @@ function is_scored($day_id, $round_id)
     $scores = [];
     foreach (Matches::round_matches_list($day_id, $round_id) as $match) {
         // la rencontre a un score
-        // var_dump(Matches::round_matches_list($day_id, $round_id));
         $score = false;
         // si 0:0 la rencontre n'a pas de score
         if($match['score_status'])

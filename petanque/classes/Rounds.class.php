@@ -45,7 +45,6 @@ class Rounds {
                     "' . $this->get_i_order() . '",
                     "' . $this->get_players_number() . '"
                 )';
-        var_dump($req);
         return Connection::query($req);
     }
 

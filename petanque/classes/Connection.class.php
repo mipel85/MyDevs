@@ -44,9 +44,7 @@ class Connection
     static function query($query)
     {
         $result = self::pdo()->query($query);
-        if ($result === false){
-            var_dump($query);
-            var_dump(self::$DB->errorInfo());
+        if ($result === false) {
             exit('Error');
         }
         $a = array();

@@ -73,6 +73,7 @@
     ~~ js forcer le haut de page quand on click sur un onglet de tabs ~~
 
 ## Terrains
+    ~~ - interdire 0 terrain ~~
     - interraction avec matches
         ~~ - si nb de terrains < au nombre de matches remettre la liste complète ~~
     - demarrage de journée

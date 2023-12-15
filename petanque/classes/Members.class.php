@@ -92,7 +92,6 @@ class Members {
     {
         $members_list = array();
         $req = 'SELECT * FROM members ORDER BY `fav` DESC, `name` ASC';
-        // var_dump(Connection::query($req));
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)

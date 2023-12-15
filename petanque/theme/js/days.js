@@ -12,7 +12,7 @@ $(document).ready(function() {
                 day_date: day_date
             },
             success: function(r) {
-                // location.reload(true);
+                location.reload(true);
             },
             error: function(r) {
                 alert(r.error);

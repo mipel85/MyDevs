@@ -122,7 +122,6 @@ class Days {
     {
         $fields_number = self::fields_number($id);
         $fields_list = [];
-            var_dump($fields_number);
         // for ($i = 1; $i <= $fields_number; $i++) {
             // $fields_list[] = $i;
         // }
