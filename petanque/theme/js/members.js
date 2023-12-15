@@ -103,7 +103,7 @@ $(document).ready(function() {
     });
 
     // Remove member
-    $(".delete-member").each(function() {
+    $(".remove-member").each(function() {
         $(this).on('click', function() {
             var id = $(this).attr('id');
             $.ajax({

@@ -19,9 +19,12 @@ function openTab(event, id) {
 
 window.addEventListener("load", () => {
     let id = window.location.hash.slice(1);
-
+    
     if (id.length !== 0)
     {
+        if(id.split('-')[0] == 'expand')
+            id = id.slice(7);
+        
         tabcontent = document.getElementsByClassName("tab-content");
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].className = tabcontent[i].className.replace(" active-tab", "");

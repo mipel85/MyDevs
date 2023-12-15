@@ -22,12 +22,13 @@ $possible_scores = 12;
                 <div class="tabs-menu">
                     <?php foreach($day_round_list as $round): ?>
                         <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
-                        <span data-trigger="matches-list-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'matches-list-<?= $round['id'] ?>');">Partie <?= $round['i_order'] ?></span>
+                        <span data-trigger="rounds-<?= $round['i_order'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'rounds-<?= $round['i_order'] ?>');">Partie <?= $round['i_order'] ?></span>
                     <?php endforeach ?>
                 </div>
                 <?php foreach($day_round_list as $round): ?>
                     <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
-                    <div class="matches-list tab-content<?= $active_tab ?>" id="matches-list-<?= $round['id'] ?>"
+                    <div id="rounds-<?= $round['i_order'] ?>"
+                            class="matches-list tab-content<?= $active_tab ?>"
                             data-day_id="<?= $day_id ?>"
                             data-round_id="<?= $round['id'] ?>">
                         <header class="flex-between">
@@ -49,7 +50,7 @@ $possible_scores = 12;
                                     <br />Sur fond blanc, les scores non validés
                                 </span>
                             </div>
-                            <span class="expand-button" id="expand-<?= $round['id'] ?>"></span>
+                            <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round['id'] ?>"></span>
                             <table id="match-list-round-<?= $round['id'] ?>" class="table">
                                 <thead>
                                     <tr>

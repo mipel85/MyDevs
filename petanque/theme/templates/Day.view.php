@@ -63,7 +63,7 @@ require_once('./controllers/Day.controller.php');
             <div class="tabs-menu">
                 <?php foreach($day_round_list as $round): ?>
                     <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
-                    <span data-trigger="tab-content-<?= $round['id'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'tab-content-<?= $round['id'] ?>');">Partie <?= $round['i_order'] ?></span>
+                    <span data-trigger="rounds-<?= $round['i_order'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'rounds-<?= $round['i_order'] ?>');">Partie <?= $round['i_order'] ?></span>
                 <?php endforeach ?>
             </div>
             <?php foreach($day_round_list as $round): ?>
@@ -76,7 +76,9 @@ require_once('./controllers/Day.controller.php');
                     $hidden_matches_list = Matches::round_matches_list($day_id, $round_id) ? '' : ' hidden';
                     $hidden_matches_btn = Matches::round_matches_list($day_id, $round_id) ? ' hidden' : '';
                 ?>
-                <div id="tab-content-<?= $round['id'] ?>" class="cell-flex cell-columns-2 tab-content<?= $active_tab ?>" data-scored="<?= is_scored($day_id, $round['id']) ?>">
+                <div id="rounds-<?= $round['i_order'] ?>"
+                        class="cell-flex cell-columns-2 tab-content<?= $active_tab ?>"
+                        data-scored="<?= is_scored($day_id, $round['id']) ?>">
                     <div class="cell-100 flex-between">
                         <span></span>
                         <button type="submit" 
@@ -129,7 +131,7 @@ require_once('./controllers/Day.controller.php');
                             <span class="description"><strong>Partie <?= $round['i_order'] ?></strong></span>
                         </header>
                         <div class="expand-container">
-                            <span class="expand-button" id="expand-<?= $round_id ?>"></span>
+                            <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round_id ?>"></span>
                             <table id="match-list-round-<?= $round_id ?>" class="table<?= $hidden_matches_list ?>">
                                 <thead>
                                     <tr>
@@ -183,13 +185,14 @@ require_once('./controllers/Day.controller.php');
             if ($('#add-day').hasClass('hidden'))
                 $('#add-round-container').removeClass('hidden');
 
-            // hidden add round
+            // hidden add-round and fields selection
             // get data-scored of first of rounds in the dom if exists
             let first = $('[data-scored]').first().data('scored');
                 add_button = $('#add-round');
             add_button.removeClass('hidden');
             if (first == '') {
                 add_button.addClass('hidden');
+                $('.playgrounds-list').addClass('hidden')
                 $('#round-description').html("Aucun score de la partie en cours n'est renseigné.<br />L'ajout d'une nouvelle partie est désactivé.")
             }
         })
