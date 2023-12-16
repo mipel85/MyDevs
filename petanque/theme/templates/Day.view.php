@@ -23,7 +23,7 @@ require_once('./controllers/Day.controller.php');
             <div class="playgrounds-list flex-between-center">
                 <span>Sélection des<br>terrains disponibles</span>
                 <div class="field-checkbox">
-                    <?php if($started_day): ?>
+                    <?php if($c_started_day): ?>
                         <?php foreach (Fields::fields_checkbox_list($day_id) as $checkboxes): ?>
                             <?php foreach ($checkboxes as $index => $checked): ?>
                                 <?php $is_checked = $checked ? ' checked' : '';?>
@@ -57,7 +57,7 @@ require_once('./controllers/Day.controller.php');
             </div>
         </div>
     </header>
-    <?php if($started_day): ?>
+    <?php if($c_started_day): ?>
         <article id="rounds-list" class="tabs-container">
             <?php $day_round_list = array_reverse(Rounds::day_rounds_list($day_id)); ?>
             <div class="tabs-menu">

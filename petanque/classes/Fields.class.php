@@ -148,7 +148,7 @@ class Fields {
         return Connection::query($req);
     }
 
-    static function day_fields_list($day_id)
+    static function day_fields_list($day_id) : array
     {
         $fields = array();
         $req = 'SELECT fields.*, days.date AS date '
@@ -167,8 +167,14 @@ class Fields {
         }
         return $fields;
     }
-
-    static function field_id($day_id)
+    
+    /**
+     * Get the field id
+     *
+     * @param  int $day_id
+     * @return int
+     */
+    static function field_id($day_id) : int
     {
         $id = [];
         foreach (self::day_fields_list($day_id) as $values)
@@ -179,7 +185,13 @@ class Fields {
         return $id[0];
     }
     
-    static function fields_checkbox_list($day_id)
+    /**
+     * Get the list of each field checkbox status
+     *
+     * @param  mixed $day_id
+     * @return array
+     */
+    static function fields_checkbox_list($day_id) : array
     {
         foreach(Fields::day_fields_list($day_id) as $field) {
             $checkboxes_list = [];
@@ -203,8 +215,14 @@ class Fields {
 
         return $checkboxes_list;
     }
-
-    static function fields_list($day_id)
+    
+    /**
+     * Set the list of selected fields
+     *
+     * @param  int $day_id
+     * @return array
+     */
+    static function fields_list($day_id) : array
     {
         $fields_list = [];
     

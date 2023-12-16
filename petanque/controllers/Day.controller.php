@@ -1,19 +1,20 @@
 <?php
 
+// set the today date
 $today = date('d-m-Y');
-$started_day = Days::started_day();
+// set started Days item item condition
+$c_started_day = Days::started_day();
 
-// Day
-// show/hide day init message
-$hidden_day = $started_day ? ' hidden' : '';
+// show/hide Days item init message
+$hidden_day = $c_started_day ? ' hidden' : '';
 
 // Rounds
-// get day_id
-$day_id = $started_day ? Days::day_id($today) : '';
+// get Days item id
+$day_id = $c_started_day ? Days::day_id($today) : '';
 // check if rounds
-$c_rounds = $started_day ? count(Rounds::day_rounds_list($day_id)) > 0 : 0;
+$c_rounds = $c_started_day ? count(Rounds::day_rounds_list($day_id)) > 0 : 0;
 
-// set i_order
+// set i_order of rounds
 if ($day_id)
 {
     $i_order = count(Rounds::round_i_order($day_id)) + 1;
@@ -31,9 +32,14 @@ if ($day_id)
     if ($players_number == 7) $label_round = '<span class="message-helper bgc-full warning">Il n\'est pas possible de jouer avec 7 joueurs.</span>';
 }
 
-function last_round_id($day_id)
+/**
+ *  Check what is the last round item id of the Days item
+ *
+ * @param  int $day_id Days item id
+ * @return int
+ */
+function last_round_id($day_id) : int
 {
-    // Warning, order desc so the last id is in first
     $rounds = Rounds::rounds_list($day_id);
     $id = [];
     $last_element = true;
@@ -46,7 +52,14 @@ function last_round_id($day_id)
     return end($id);
 }
 
-function is_scored($day_id, $round_id)
+/**
+ * Check if a match has a declared score
+ *
+ * @param  int $day_id
+ * @param  int $round_id
+ * @return bool
+ */
+function is_scored($day_id, $round_id) : bool
 {
     $scores = [];
     foreach (Matches::round_matches_list($day_id, $round_id) as $match) {

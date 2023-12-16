@@ -39,20 +39,20 @@ class Days {
                 )';
         return Connection::query($req);
     }
-
+    
     function remove_day()
     {
         $req = 'DELETE FROM days WHERE id = "' . $this->get_id() . '"';
         return Connection::query($req);
     }
-
+    
     function remove_all_days()
     {
         $req = 'DELETE FROM days';
         return Connection::query($req);
     }
 
-    static function days_list()
+    static function days_list() : array
     {
         $days_list = array();
         $req = 'SELECT * FROM days ORDER BY `date` DESC';
@@ -66,8 +66,14 @@ class Days {
         }
         return $days_list;
     }
-
-    static function day_id($date)
+    
+    /**
+     * get the id of a day item by a date `date(d-m-Y)`
+     *
+     * @param  string $date (must be dd-mm-YYYY)
+     * @return int $id of the day item
+     */
+    static function day_id($date) : int
     {
         $id = [];
         foreach (self::days_list() as $values)
@@ -77,8 +83,13 @@ class Days {
         }
         return $id[0];
     }
-
-    static function started_day()
+    
+    /**
+     * Check if the day item of today is started
+     *
+     * @return bool
+     */
+    static function started_day() : bool
     {
         $today = date('d-m-Y');
         $dates = [];

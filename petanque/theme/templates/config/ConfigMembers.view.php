@@ -17,9 +17,9 @@
     <table id="registred-members" class="table">
         <thead>
             <tr>
-                <th>N°</th>
+                <th>ID</th>
                 <th>Nom</th>
-                <th>Habitués</th>
+                <th>Habitué</th>
                 <th>Sup</th>
             </tr>
             </thead>
