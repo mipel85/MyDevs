@@ -20,8 +20,8 @@ $(document).ready(function() {
         "columns": [
             {type: "num"},
             {type: "text"},
-            {type: "text"},
-            {orderable: false}
+            {orderable: true},
+            {orderable: true}
         ]
     });
 

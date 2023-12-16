@@ -18,9 +18,9 @@ require_once('./controllers/Rules.controller.php');
             <table id="members-list" class="table">
                 <thead>
                     <tr>
-                        <th>N°</th>
+                        <th>ID</th>
                         <th>Nom</th>
-                        <th>Habitués</th>
+                        <th>Habitué</th>
                         <th>Choisir</th>
                     </tr>
                 </thead>
@@ -29,19 +29,23 @@ require_once('./controllers/Rules.controller.php');
                         <?php
                             $checked_fav = $member['fav'] ? ' checked' : '';
                             $fav = $member['fav'] ? '<i class="fa fa-xs fa-star"></i>' : '<i class="far fa-xs fa-star"></i>';
+                            $fav_sort = $member['fav'] ? '1' : '0';
                             $checked_player_in = $member['present'] ? ' checked' : '';
                             $present = $member['present'] ? '<i class="fa fa-xs fa-check"></i>' : '';
+                            $present_sort = $member['present'] ? '1' : '0';
                         ?>
                         <tr>
                             <td><?= $member['id'] ?></td>
                             <td><?= $member['name'] ?></td>
                             <td class="fav-checkbox">
+                                <span class="hidden-sort hidden"><?= $fav_sort ?></span>
                                 <label for="fav-<?= $member['id'] ?>" class="checkbox">
                                     <input type="checkbox" id="fav-<?= $member['id'] ?>" data-id="<?= $member['id'] ?>" class="fav-member"<?= $checked_fav ?> />
                                     <span><?= $fav ?></span>
                                 </label>
                             </td>
                             <td class="present-checkbox">
+                                <span class="hidden-sort hidden"><?= $present_sort ?></span>
                                 <label for="present-<?= $member['id'] ?>" class="checkbox">
                                     <input type="checkbox" id="present-<?= $member['id'] ?>" class="present-member"<?= $checked_player_in ?> />
                                     <span><?= $present ?></span>
