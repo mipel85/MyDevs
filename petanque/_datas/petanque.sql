@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 15 déc. 2023 à 12:36
+-- Généré le : sam. 16 déc. 2023 à 06:59
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -93,16 +93,16 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
-(1, ' Alain.G', 1, 1),
-(2, ' Alain.M', 1, 1),
-(3, ' Annick.G', 1, 1),
-(4, ' Christophe.B', 1, 0),
-(5, ' Claudie.F', 1, 0),
-(6, ' Daniel.E', 1, 0),
-(7, ' Daniel.R', 1, 0),
-(8, ' Daniel.T', 1, 0),
-(9, ' Danielle.L', 1, 0),
-(10, ' Dany.R', 1, 1),
+(1, ' Alain.G', 0, 1),
+(2, ' Alain.M', 0, 1),
+(3, ' Annick.G', 0, 1),
+(4, ' Christophe.B', 0, 0),
+(5, ' Claudie.F', 0, 0),
+(6, ' Daniel.E', 0, 0),
+(7, ' Daniel.R', 0, 0),
+(8, ' Daniel.T', 0, 0),
+(9, ' Danielle.L', 0, 0),
+(10, ' Dany.R', 0, 1),
 (11, ' Denis.D', 0, 0),
 (12, ' Denis.G', 0, 0),
 (13, ' Dominique.B', 0, 0),
@@ -145,14 +145,31 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (50, ' Philippe.R', 0, 0),
 (51, ' Roland.C', 0, 0),
 (52, ' Yannick.G', 0, 0),
-(53, ' Claire.S', 0, 0),
+(53, ' Claire.S', 0, 1),
 (54, ' Marc.S', 0, 0),
 (55, ' Sylvain.B', 0, 0),
 (56, ' Mathieu.M', 0, 0),
 (57, ' Gilles.T', 0, 0),
-(58, ' Catherine.D', 0, 0),
-(59, ' Jean-Louis.D', 0, 0),
-(65, 'Babso', 0, 0);
+(58, ' Catherine.D', 0, 1),
+(59, ' Jean-Louis.D', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ranking`
+--
+
+CREATE TABLE `ranking` (
+  `id` int(11) NOT NULL,
+  `day_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `member_name` varchar(255) NOT NULL,
+  `played` int(11) NOT NULL,
+  `victory` int(11) NOT NULL,
+  `loss` int(11) NOT NULL,
+  `pos_points` int(11) NOT NULL,
+  `neg_points` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -214,6 +231,12 @@ ALTER TABLE `members`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `ranking`
+--
+ALTER TABLE `ranking`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `rounds`
 --
 ALTER TABLE `rounds`
@@ -251,7 +274,13 @@ ALTER TABLE `matches`
 -- AUTO_INCREMENT pour la table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+
+--
+-- AUTO_INCREMENT pour la table `ranking`
+--
+ALTER TABLE `ranking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `rounds`
