@@ -101,7 +101,7 @@ class Fields {
     public function set_field_14($value) { $this->field_14 = $value; }
 // end getters setters
 
-    function add_fields()
+    function insert_fields()
     {
         $req = 'INSERT INTO fields values (
                     NULL,

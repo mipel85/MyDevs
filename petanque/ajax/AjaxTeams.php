@@ -26,7 +26,7 @@ switch($actions)
             $insert->set_player_3_id(array_key_exists(2, $team) ? array_shift($member_3) : 0);
             $insert->set_player_3_name(array_key_exists(2, $team) ? array_pop($member_3) : '');
 
-            $insert->add_team();
+            $insert->insert_team();
         }
         break;
 

@@ -13,10 +13,10 @@ switch($actions)
     case 'insert_day':
         $add = new Days();
         $add->set_date($_POST['day_date']);
-        $add->add_day();
+        $add->insert_day();
         $add = new Fields();
         $add->set_day_id(Days::day_id($_POST['day_date']));
-        $add->add_fields();
+        $add->insert_fields();
         break;
     
     case 'check_field':

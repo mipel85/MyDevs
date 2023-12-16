@@ -59,8 +59,9 @@ class Teams {
 
     public function get_player_3_name() { return $this->player_3_name; }
     public function set_player_3_name($player_3_name) { $this->player_3_name = $player_3_name; }
+// end getters setters 
     
-    function add_team()
+    function insert_team()
     {
         $req = 'INSERT INTO teams values (
                     NULL,

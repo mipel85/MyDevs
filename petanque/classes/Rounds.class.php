@@ -37,7 +37,7 @@ class Rounds {
     public function set_players_number($players_number) { $this->players_number = $players_number; }
 // end getters setters
 
-    function add_round()
+    function insert_round()
     {
         $req = 'INSERT INTO rounds values (
                     NULL,

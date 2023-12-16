@@ -61,7 +61,7 @@ class Matches {
     public function set_score_status($score_status) { $this->score_status = $score_status; }
 // end getters setters
     
-    function add_match()
+    function insert_match()
     {
         $req = 'INSERT INTO matches values (
                     NULL,

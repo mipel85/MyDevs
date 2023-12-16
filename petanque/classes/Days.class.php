@@ -31,7 +31,7 @@ class Days {
     public function set_date($date) { $this->date = $date; }
 // end getters setters
 
-    function add_day()
+    function insert_day()
     {
         $req = 'INSERT INTO days values (
                     NULL,

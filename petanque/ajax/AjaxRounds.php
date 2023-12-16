@@ -13,7 +13,7 @@ switch($actions)
         $insert->set_day_id($_POST['day_id']);
         $insert->set_i_order($_POST['i_order']);
         $insert->set_players_number($_POST['players_number']);
-        $insert->add_round();
+        $insert->insert_round();
         break;
 
     case 'remove_round':

@@ -33,7 +33,7 @@ switch($actions)
                     $insert->set_playground($playground_number);
                     $insert->set_score_status(0);
 
-                    $insert->add_match();
+                    $insert->insert_match();
                 }
                 $first = false;
             }
