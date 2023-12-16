@@ -13,13 +13,14 @@ $(document).ready(function() {
                 url: './theme/js/lib/language.json'
             },
             "aLengthMenu": [
-                [10, 20, 30, 50, -1],
-                [10, 20, 30, 50, 'Tous']
+                [10, 20, 25, 30, 50, -1],
+                [10, 20, 25, 30, 50, 'Tous']
             ],
             "paginationType": "simple_numbers",
-            "pageLength": 10,
+            "pageLength": 25,
             "fixedHeader": true,
             "paging": true,
+            "order": [[1, 'asc']],
             "columns": [
                 {type: "num"},
                 {type: "text"},
@@ -48,7 +49,7 @@ $(document).ready(function() {
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
-                        action: 'anonyme',
+                        action: 'casual',
                         id: id
                     },
                     success: function() {}

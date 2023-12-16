@@ -113,7 +113,7 @@
 
 .validated-score td,
 .team-score:disabled {
-    background-color: #ccffff;
+    background-color: #BBF9E4;
 }
 
 .score-buttons-list {
@@ -126,7 +126,7 @@
 .score-button {
     border: 1px solid #666666;
     border-radius: 5px;
-    background-color: #ccffff;
+    background-color: #BBF9E4;
     padding: 3px 7px;
     margin-right: 3px;
     min-width: 40px;
@@ -142,26 +142,30 @@ input.focused-score {
     color: #FFFFFF;
 }
 
+.edit-score {
+    background-color: #BBF9E4;
+}
+
 .playground-input {
     width: 120px;
 }
 
-.fake-checkboxes {
+.field-checkbox {
     width: 210px;
     display: flex;
     flex-wrap: wrap;
 }
 
-.fake-checkboxes .checkbox {
+.field-checkbox .checkbox {
     width: 30px;
     height: 30px;
 	position: relative;
     padding: 2px;
 }
 
-.fake-checkboxes .checkbox [type="checkbox"] { opacity: 0; }
+.field-checkbox .checkbox [type="checkbox"] { opacity: 0; }
 
-.fake-checkboxes .checkbox [type="checkbox"] + span {
+.field-checkbox .checkbox [type="checkbox"] + span {
 	cursor: pointer;
 	position: absolute;
     inset: 2px 2px;
@@ -173,8 +177,76 @@ input.focused-score {
     align-items: center;
 }
 
-.fake-checkboxes .checkbox [type="checkbox"]:checked + span {
+.field-checkbox .checkbox [type="checkbox"]:checked + span {
     background-color: #3AC456;
+}
+
+.fav-list-member .fa {
+    color: #2cbf8e
+}
+
+.fav-list-member .far {
+    color: #BBBBBB
+}
+
+.fav-checkbox .checkbox {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+	position: relative;
+    padding: 2px;
+}
+
+.fav-checkbox .checkbox [type="checkbox"] { opacity: 0; }
+
+.fav-checkbox .checkbox [type="checkbox"] + span {
+	cursor: pointer;
+	position: absolute;
+    inset: 2px 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #BBBBBB;
+    color: #BBBBBB;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fav-checkbox .checkbox [type="checkbox"]:checked + span {
+    border-color: #2cbf8e;
+    background-color: #BBF9E4;
+    color: #2cbf8e;
+}
+
+.present-checkbox .checkbox {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+	position: relative;
+    padding: 2px;
+}
+
+.present-checkbox .checkbox [type="checkbox"] { opacity: 0; }
+
+.present-checkbox .checkbox [type="checkbox"] + span {
+	cursor: pointer;
+	position: absolute;
+    inset: 2px 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #BBBBBB;
+    color: #BBBBBB;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.present-checkbox .checkbox [type="checkbox"]:checked + span {
+    border-color: #2cbf8e;
+    background-color: #BBF9E4;
+    color: #2cbf8e;
 }
 
 [id*="expand-"] {

@@ -6,26 +6,6 @@ include '../classes/Members.class.php';
 $actions = $_POST['action'];
 switch($actions)
 {
-    case 'members_list':
-        $liste = Members::members_list();
-        if (!$liste){
-            echo '</br>Erreur dans la requête<br />';
-        }else{
-            foreach ($liste as $joueur)
-            {
-                echo '<tbody>
-                    <tr>
-                        <td>' . $joueur['id'] . '</td>
-                        <td>' . $joueur['nom'] . '</td>
-                        <td><input type="checkbox" class="btn-fav-joueur" id="' . $joueur['id'] . '" /></td>
-                        <td><input type="button" class="btn-sup-joueur" id="' . $joueur['id'] . '" /</td>
-                    </tr>
-                </tbody>';
-            }
-        }
-        return $liste;
-        break;
-    
     case 'insert_member':
         $creation = new Members();
         $creation->set_name($_POST['name']);
@@ -61,10 +41,10 @@ switch($actions)
         $favory->select_fav();
         break;
     
-    case 'anonyme':
-        $anonyme = new Members();
-        $anonyme->set_id($_POST['id']);
-        $anonyme->reset_fav();
+    case 'casual':
+        $casual = new Members();
+        $casual->set_id($_POST['id']);
+        $casual->reset_fav();
         break;
     
     case 'reset_all_favs':

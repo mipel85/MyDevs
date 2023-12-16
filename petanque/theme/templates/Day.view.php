@@ -22,7 +22,7 @@ require_once('./controllers/Day.controller.php');
         <div id="add-round-container" class="hero hidden">
             <div class="playgrounds-list flex-between-center">
                 <span>Sélection des<br>terrains disponibles</span>
-                <div class="fake-checkboxes">
+                <div class="field-checkbox">
                     <?php if($started_day): ?>
                         <?php foreach (Fields::fields_checkbox_list($day_id) as $checkboxes): ?>
                             <?php foreach ($checkboxes as $index => $checked): ?>
@@ -99,7 +99,7 @@ require_once('./controllers/Day.controller.php');
                         <table id="teams-list-round-<?= $round_id ?>" class="table<?= $hidden_teams_list ?>">
                             <thead>
                                 <tr>
-                                    <th>Équipe</th>
+                                    <!-- <th>Équipe</th> -->
                                     <th>Joueur A</th>
                                     <th>Joueur B</th>
                                     <th>Joueur C</th>
@@ -108,7 +108,7 @@ require_once('./controllers/Day.controller.php');
                             <tbody>
                                 <?php foreach (Teams::round_teams_list($day_id, $round_id) as $index => $team): ?>
                                     <tr>
-                                        <td><?= $team['id'] ?></td>
+                                        <!-- <td><?= $team['id'] ?></td> -->
                                         <td><?= $team['player_1_name'] ?></td>
                                         <td><?= $team['player_2_name'] ?></td>
                                         <td><?= $team['player_3_name'] ?></td>
@@ -135,18 +135,19 @@ require_once('./controllers/Day.controller.php');
                             <table id="match-list-round-<?= $round_id ?>" class="table<?= $hidden_matches_list ?>">
                                 <thead>
                                     <tr>
+                                        <th>Terrain</th>
                                         <th>Équipe A</th>
                                         <th>Équipe B</th>
-                                        <th>Terrain</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach (Matches::round_matches_list($day_id, $round_id) as $index => $match): ?>
                                         <?php $validated_score = $match['score_status'] ? ' class="validated-score"' : ''; ?>
                                         <tr<?= $validated_score ?>>
+                                            <td><?= $match['field'] ?></td>
                                             <td>
                                                 <div class="flex-around-center">
-                                                    <span><?= $match['team_1_id'] ?></span>
+                                                    <!-- <span><?= $match['team_1_id'] ?></span> -->
                                                     <div class="match-player-list">
                                                         <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
                                                             <span class="match-player"><?= $players[1] ?></span>
@@ -158,7 +159,7 @@ require_once('./controllers/Day.controller.php');
                                             </td>
                                             <td>
                                                 <div class="flex-around-center">
-                                                    <span><?= $match['team_2_id'] ?></span>
+                                                    <!-- <span><?= $match['team_2_id'] ?></span> -->
                                                     <div class="match-player-list">
                                                         <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
                                                             <span class="match-player"><?= $players[1] ?></span>
@@ -168,7 +169,6 @@ require_once('./controllers/Day.controller.php');
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td><?= $match['field'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>

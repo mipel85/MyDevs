@@ -2,6 +2,10 @@
 ## Connection
     ~~ Séparer les identifiants de connexion à la bdd pour ne pas le transmettre dans github ~~
 
+## Membres
+    - déplacer la build des favoris sur la page sélection
+    ~~ - reload(true) sur décocher tout ~~
+
 ## Accueil
     créer la doc dans /theme/templates/home.php
 
@@ -59,6 +63,9 @@
         ~~ - tester si une des 2 équipes a 13 ~~
     ~~ - empêcher de mettre du texte dans les input ou score >= 13 si taper au clavier ou interdire la frappe ~~
     ~~ - scores validés sur fond bleu ~~
+    - changer couleur du bouton de validation
+        - Valider => bleu
+        - Modifier => 
 
 ### Classement
     - ids joueurs
@@ -66,7 +73,7 @@
     - scores
     - points
         - win = score + diff win/loss
-        - loss = score
+        - loss = score - diff win/loss
 
 ## Config
     ~~ bouton fin de journée => décocher la présence de tous les joueurs ~~

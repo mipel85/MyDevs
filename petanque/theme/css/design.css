@@ -116,14 +116,15 @@ h6 { font-size: 1em; }
 /* affichage de la table des joueurs connus */
 .table th {
     text-align: center !important;
-    background-color: #007fff;
+    background-color: #2cbf8e;
     color: #FFFFFF;
+    border-color: #BBBBBB;
 }
 
 .table td {
     text-align: center;
     max-width: 80px;
-    border-color: #DED983;
+    border-color: #BBBBBB;
 }
 
 .is_empty{

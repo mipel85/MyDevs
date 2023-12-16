@@ -9,13 +9,14 @@ $(document).ready(function() {
             url: './theme/js/lib/language.json'
         },
         "aLengthMenu": [
-            [10, 20, 30, 50, -1],
-            [10, 20, 30, 50, 'Tous']
-    ],
+            [10, 20, 25, 30, 50, -1],
+            [10, 20, 25, 30, 50, 'Tous']
+        ],
         "paginationType": "simple_numbers",
-        "pageLength": 10,
+        "pageLength": 25,
         "fixedHeader": true,
         "paging": true,
+        "order": [[1, 'asc']],
         "columns": [
             {type: "num"},
             {type: "text"},
@@ -25,7 +26,7 @@ $(document).ready(function() {
     });
 
     // Select/unselect member as present/absent
-    $('.select-member').each(function(){
+    $('.present-member').each(function(){
         $(this).on('change', function() {
             var id = $(this).prop('id');
             if ((this.checked)) {
@@ -65,6 +66,7 @@ $(document).ready(function() {
                     this.checked = false;
                 });
                 $('#selected-members').html('');
+                location.reload(true);
             }
         });
     });

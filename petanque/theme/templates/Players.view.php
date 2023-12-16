@@ -8,6 +8,13 @@ require_once('./controllers/Rules.controller.php');
     </header>
     <div class="cell-flex cell-columns-2">
         <article class="content">
+            <div class="line flex-between">
+                <span></span>
+                <span>
+                    <button type="button" id="btn_valid_present" onclick="location.reload();" class="button submit">Valider la liste<br />des présents</button>
+                    <button type="button" id="reset-all-members" class="button btn-reset-present">Décocher tous<br />les présents</button>
+                </span>
+            </div>
             <table id="members-list" class="table">
                 <thead>
                     <tr>
@@ -20,23 +27,30 @@ require_once('./controllers/Rules.controller.php');
                 <tbody>
                     <?php foreach (Members::members_list() as $member): ?>
                         <?php
-                            $checked = $member['present'] ? ' checked' : '';
-                            $fav = $member['fav'] ? '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>';
+                            $checked_fav = $member['fav'] ? ' checked' : '';
+                            $fav = $member['fav'] ? '<i class="fa fa-xs fa-star"></i>' : '<i class="far fa-xs fa-star"></i>';
+                            $checked_player_in = $member['present'] ? ' checked' : '';
+                            $present = $member['present'] ? '<i class="fa fa-xs fa-check"></i>' : '';
                         ?>
                         <tr>
                             <td><?= $member['id'] ?></td>
                             <td><?= $member['name'] ?></td>
-                            <td><?= $fav ?></td>
-                            <td><input type="checkbox" id="<?= $member['id'] ?>" class="select-member"<?= $checked ?> /></td>
+                            <td class="fav-checkbox">
+                                <label for="fav-<?= $member['id'] ?>" class="checkbox">
+                                    <input type="checkbox" id="fav-<?= $member['id'] ?>" data-id="<?= $member['id'] ?>" class="fav-member"<?= $checked_fav ?> />
+                                    <span><?= $fav ?></span>
+                                </label>
+                            </td>
+                            <td class="present-checkbox">
+                                <label for="present-<?= $member['id'] ?>" class="checkbox">
+                                    <input type="checkbox" id="present-<?= $member['id'] ?>" class="present-member"<?= $checked_player_in ?> />
+                                    <span><?= $present ?></span>
+                                </label>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
-            <div class="line flex-between">
-                <span>&nbsp;</span>
-                <input type="button" id="btn_valid_present" onclick="location.reload();" class="button submit" value="Valider les présents" />
-                <input type="button" id="reset-all-members" class="button btn-reset-present" value="Décocher tout" />
-            </div>
         </article>
         <article id="selected-members" class="content">
             <header class="flex-between">
@@ -67,3 +81,30 @@ require_once('./controllers/Rules.controller.php');
         </article>
     </div>
 </section>
+
+<script>
+    $('.fav-member').each(function() {
+        $(this).on('click', function() {
+            if ($(this).is(":checked")) {
+                $(this).next('span').html('<i class="fa fa-xs fa-star"></i>');
+                $(this).removeAttr('checked');
+            }
+            else {
+                $(this).next('span').html('<i class="far fa-xs fa-star"></i>');
+                $(this).attr('checked');
+            }
+        });
+    });
+    $('.present-member').each(function() {
+        $(this).on('click', function() {
+            if ($(this).is(":checked")) {
+                $(this).next('span').html('<i class="fa fa-xs fa-check"></i>');
+                $(this).removeAttr('checked');
+            }
+            else {
+                $(this).next('span').html('');
+                $(this).attr('checked');
+            }
+        });
+    });
+</script>

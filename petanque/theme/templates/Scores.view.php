@@ -46,7 +46,7 @@ $possible_scores = 12;
                                     <br />Le score des gagnants (13) est renseigné automatiquement.
                                 </span>
                                 <span class="description">
-                                    Sur fond bleu, les scores validés.
+                                    Sur fond vert, les scores validés.
                                     <br />Sur fond blanc, les scores non validés
                                 </span>
                             </div>
@@ -103,7 +103,7 @@ $possible_scores = 12;
                                             </td>
                                             <td>
                                                 <?php if($match['score_status']): ?>
-                                                    <span><button id="edit-scores-<?= $match['id'] ?>" data-score_status="0" type="submit" class="button">Modifier le score</button></span>
+                                                    <span><button id="edit-scores-<?= $match['id'] ?>" data-score_status="0" type="submit" class="button edit-score">Modifier le score</button></span>
                                                 <?php else: ?>
                                                     <span><button id="submit-scores-<?= $match['id'] ?>" data-score_status="1" type="submit" class="button">Valider le score</button></span>
                                                 <?php endif ?>

@@ -9,12 +9,6 @@
             <button type="submit" id="add-member" class="button btn-ajout">Ajouter</button>
         </div>
     </div>
-    <header>
-        <h3>Réinitialiser la liste des présents :</h3>
-    </header>
-    <div class="content">
-        <input type="button" id="reset-all-members" class="button btn-reset-present" value="Décocher tout" />
-    </div>
 </div>
 <div id="member-list" class="cell-2-3 content">
     <header>
@@ -31,11 +25,14 @@
             </thead>
         <tbody>
             <?php foreach (Members::members_list() as $member): ?>
-                <?php $checked = $member['fav'] ? ' checked' : ''; ?>
+                <?php 
+                    $checked = $member['fav'] ? ' checked' : ''; 
+                    $fav = $member['fav'] ? '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>';
+                ?>
                 <tr>
                     <td><?= $member['id'] ?></td>
                     <td><?= $member['name'] ?></td>
-                    <td><input type="checkbox" data-id="<?= $member['id'] ?>" class="fav-member"<?= $checked ?> /></td>
+                    <td class="fav-list-member"><?= $fav ?></td>
                     <td><button type="button" id="<?= $member['id'] ?>" class="icon-button remove-member"><i class="fa fa-fw fa-lg fa-square-xmark error"></i></button></td>
                 </tr>
             <?php endforeach ?>
