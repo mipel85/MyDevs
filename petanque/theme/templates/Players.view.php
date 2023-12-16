@@ -40,14 +40,14 @@ require_once('./controllers/Rules.controller.php');
                             <td class="fav-checkbox">
                                 <span class="hidden-sort hidden"><?= $fav_sort ?></span>
                                 <label for="fav-<?= $member['id'] ?>" class="checkbox">
-                                    <input type="checkbox" id="fav-<?= $member['id'] ?>" data-id="<?= $member['id'] ?>" class="fav-member"<?= $checked_fav ?> />
+                                    <input data-id="<?= $member['id'] ?>" type="checkbox" id="fav-<?= $member['id'] ?>" class="fav-member"<?= $checked_fav ?> />
                                     <span><?= $fav ?></span>
                                 </label>
                             </td>
                             <td class="present-checkbox">
                                 <span class="hidden-sort hidden"><?= $present_sort ?></span>
                                 <label for="present-<?= $member['id'] ?>" class="checkbox">
-                                    <input type="checkbox" id="present-<?= $member['id'] ?>" class="present-member"<?= $checked_player_in ?> />
+                                    <input data-id="<?= $member['id'] ?>" type="checkbox" id="present-<?= $member['id'] ?>" class="present-member"<?= $checked_player_in ?> />
                                     <span><?= $present ?></span>
                                 </label>
                             </td>

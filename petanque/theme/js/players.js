@@ -25,10 +25,55 @@ $(document).ready(function() {
         ]
     });
 
+    // Select/unselect members as favourite
+    $('.fav-member').each(function() {
+        $(this).on('change', function() {
+            var id = $(this).data('id');
+            if ((this.checked)){
+                $.ajax({
+                    url: './ajax/AjaxMembers.php',
+                    type: 'POST',
+                    data: {
+                        action: 'favory',
+                        id: id
+                    },
+                    success: function() {}
+                });
+            }else{
+                $.ajax({
+                    url: './ajax/AjaxMembers.php',
+                    type: 'POST',
+                    data: {
+                        action: 'casual',
+                        id: id
+                    },
+                    success: function() {}
+                });
+            }
+        });
+    });
+
+    // désélectionner tous les favoris
+    $('#reset-all-favs').on('click', function() {
+        $.ajax({
+            url: './ajax/AjaxMembers.php',
+            type: 'POST',
+            data: {
+                action: 'reset_all_favs'
+            },
+            success: function(data) {
+                $('input[type=checkbox]').each(function() {
+                    this.checked = false;
+                });
+                $('#table_joueurs_presents').html('');
+            }
+        });
+    });
+
     // Select/unselect member as present/absent
     $('.present-member').each(function(){
         $(this).on('change', function() {
-            var id = $(this).prop('id');
+            var id = $(this).data('id');
             if ((this.checked)) {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
@@ -70,20 +115,6 @@ $(document).ready(function() {
             }
         });
     });
-
-    //  Display the list of present members
-    function show_present_members() {
-        $.ajax({
-            url: './ajax/AjaxMembers.php',
-            type: 'POST',
-            data: {
-                action: 'members_list'
-            },
-            success: function(data) {
-                $('#table_joueurs_connus').html(data);
-            }
-        });
-    }
 
 });
 
