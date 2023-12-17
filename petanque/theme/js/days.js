@@ -63,7 +63,7 @@ $(document).ready(function() {
                     day_id: id
                 },
                 success: function(r) {
-                    location.reload(true);
+                    // location.reload(true);
                 },
                 error : function(r) {
                     alert(r.error);
@@ -109,6 +109,16 @@ $(document).ready(function() {
             },
             error: function(r) {}
         });
+        $.ajax({
+            url: './ajax/AjaxRanking.php',
+            type: 'POST',
+            data: {
+                action: 'insert_players_list',
+                day_id: day_id
+            },
+            success: function(r) {},
+            error: function(r) {}
+        });
     });
 
     // Supprimer une partie
@@ -116,6 +126,7 @@ $(document).ready(function() {
         $(this).on('click', function() {
             let day_id = $(this).data('day_id'),
                 round_id = $(this).data('round_id'),
+                round_i_order = $(this).data('round_i_order'),
                 redirect = window.location.href.split('#')[0]; // Récupère l'url courrante et supprime le hash
             $.ajax({
                 url: './ajax/AjaxRounds.php',
@@ -123,7 +134,8 @@ $(document).ready(function() {
                 data: {
                     action: 'remove_round',
                     day_id: day_id,
-                    round_id: round_id
+                    round_id: round_id,
+                    round_i_order: round_i_order
                 },
                 success: function(r) {
                     window.location.replace(redirect);

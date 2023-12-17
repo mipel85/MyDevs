@@ -7,13 +7,13 @@ ou
 checker si un score_status est à 1 ( doit upade quand le score_status passe à 0 sur une modification?
 
 ## Liste des joueurs
+### creation
 - créer la liste des joueurs dans la table `ranking` à partir de la liste des joueurs sélectionnés
-- Si c'est la 1ere partie de la journée
-    - ajouter tous les membres de la liste des sélectionnés dans la table
-- Sinon
-    - Check de la liste des joueurs de la table ranking en fonction de la colonne day_id
-        - si un joueur est absent on le laisse dans la liste
-        - si un joueur est ajouté comme présent on l'ajoute dans la liste
+- Check de la liste des joueurs ddu classement du jour
+### Supression
+- si partie.i_order == 1
+    - on supprime tous les joueurs du classement de la journée
+comment supprimer un joueur du classement si partie.i_order != 1 et trompage de joueur dans la liste des sélectionnés ?
 
 ## table ranking dans bdd
 | id | id de la journée | id du membre | Nom du membre | Nombre de matches joués | Nombre de victoires | Nombre de defaites | points pour | points contre |
@@ -26,3 +26,10 @@ checker si un score_status est à 1 ( doit upade quand le score_status passe à 
 1 - Nombre de victoires
 2 - points pour
 3 - points contre
+
+## simulation de points
+victiore => 13 + diff
+défaite  => score - diff
+| 13-6 | 13-9 | 2-13 | 13-11 |
+| v+20 | v+17 | d-9  | v+15  | gagnant v+53 d-9
+| d-1  | d+5  | v+23 | d+9   | perdant v+23 d+13

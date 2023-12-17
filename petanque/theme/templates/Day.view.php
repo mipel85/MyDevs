@@ -84,7 +84,8 @@ require_once('./controllers/Day.controller.php');
                         <button type="submit" 
                                 class="icon-button remove-round<?= $hidden_remove_round ?>" 
                                 data-day_id="<?= $day_id ?>" 
-                                data-round_id="<?= $round['id'] ?>">
+                                data-round_id="<?= $round['id'] ?>"
+                                data-round_i_order="<?= $round['i_order'] ?>">
                             <i class="fa fa-fw fa-2x fa-square-xmark error"></i>
                         </button>
                     </div>

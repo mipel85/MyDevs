@@ -285,3 +285,25 @@ input.focused-score {
 .message-helper a {
     font-size: bold;
 }
+
+.ranking-table {
+    display: table;
+    margin: auto;
+    width: auto;
+}
+
+.ranking-table th {
+    min-width: 50px;
+}
+
+.ranking-table th.player-name {
+    width: 320px;
+}
+
+.ranking-table td.player-name {
+    text-align: left;
+}
+
+.ranking-table tbody tr:hover td {
+    background-color: var(--bgc-notice);
+}

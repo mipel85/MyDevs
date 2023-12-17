@@ -47,7 +47,7 @@ function display_menu()
         // Si la partie n'est pas commencée
         if ($no_selected_members && $day_items) {
             $menu .= ' full-error';
-            $link = 'members';
+            $link = 'players';
         }
         elseif (!Days::started_day() && $day_items) {
             $menu .= ' full-warning';

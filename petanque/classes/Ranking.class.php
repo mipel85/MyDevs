@@ -82,17 +82,45 @@ class Ranking {
         return Connection::query($req);
     }
 
+    function remove_day_ranking($day_id)
+    {
+        $req = 'DELETE FROM ranking WHERE day_id = "' . $day_id . '"';
+        return Connection::query($req);
+    }
+
+    function remove_all_rankings()
+    {
+        $req = 'DELETE FROM ranking';
+        return Connection::query($req);
+    }
+
     static function ranking_list($day_id) : array
     {
         $ranking_list = array();
         $req = 'SELECT * FROM ranking '
         . ' WHERE `day_id`= ' . $day_id
-        . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points`ASC';
+        . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points` ASC, `member_name` ASC';
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
                 {
                     $ranking_list[] = $value;
+                }
+            }
+        }
+        return $ranking_list;
+    }
+
+    static function ranking_members_id_list($day_id) : array
+    {
+        $ranking_list = array();
+        $req = 'SELECT * FROM ranking '
+        . ' WHERE `day_id`= ' . $day_id;
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    $ranking_list[] = $value['member_id'];
                 }
             }
         }
