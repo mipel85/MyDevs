@@ -37,7 +37,7 @@ $possible_scores = 12;
                         <div class="expand-container">
                             <div class="score-buttons-list">
                                 <?php for($i = 0; $i <= $possible_scores; $i++): ?>
-                                    <button data-score_button="<?= $i ?>" class="score-button" type="submit"><?= $i ?></button>
+                                    <button data-score_button="<?= $i ?>" class="button score-button" type="submit"><?= $i ?></button>
                                 <?php endfor ?>
                             </div>
                             <div class="flex-between">
@@ -116,11 +116,11 @@ $possible_scores = 12;
                     </div>
                 <?php endforeach ?>
             <?php else: ?>
-                <div class="message-helper bgc-full notice">Aucune manche créée.</div>
+                <div class="message-helper full-notice">Aucune manche créée.</div>
             <?php endif ?>
         </article>
     <?php else: ?>
-        <div class="message-helper bgc-full notice">Aucune partie créée.</div>
+        <div class="message-helper full-notice">Aucune partie créée.</div>
     <?php endif ?>
     <script>
         // Déclaration des scores

@@ -1,0 +1,38 @@
+:root {
+    --text : #212121;
+    --bdr : #BBBBBB;
+    --bgc : #FFFFFF;
+    --link : #2CBF8E;
+
+    --bgc-alt : #2CBF8E;
+    --link-alt : #FFFFFF;
+
+    --notice : #0000ff;
+    --success : #00AA77;
+    --warning : #FF8800;
+    --error : #FF5555;
+
+    --bgc-notice : #BBEEFF;
+    --bgc-success : #BBFFEE;
+    --bgc-warning : #FFEEAA;
+    --bgc-error : #FFCCCC;
+}
+
+.notice  a,
+.notice  { color: var(--notice); }
+.success a,
+.success { color: var(--success); }
+.warning a,
+.warning { color: var(--warning); }
+.error   a,
+.error   { color: var(--error); }
+
+.bgc-notice  { background-color: var(--bgc-notice); }
+.bgc-success { background-color: var(--bgc-success); }
+.bgc-warning { background-color: var(--bgc-warning); }
+.bgc-error   { background-color: var(--bgc-error); }
+
+.full-notice  { background-color: var(--bgc-notice); color: var(--notice); border-color: var(--notice); }
+.full-success { background-color: var(--bgc-success); color: var(--success); border-color: var(--success); }
+.full-warning { background-color: var(--bgc-warning); color: var(--warning); border-color: var(--warning); }
+.full-error   { background-color: var(--bgc-error); color: var(--error); border-color: var(--error); }

@@ -50,25 +50,13 @@
 	.cell-flex > *.cell-3-4 { width: calc(100% * 3 / 4 - 20px) !important; }
 }
 
-.hero {
-    padding: 15px;
-    background-color: #FCE6C5;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-#round-description {
-    display: inline-block;
-    padding: 5px;
-}
-
 .flex-main {
     flex: 1 1 auto;
 }
 
 .flex-between {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 
@@ -79,19 +67,55 @@
 
 .flex-between-center {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
 .flex-around-center {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
 
+@media (min-width: 769px) {    
+    .flex-between,
+    .flex-between-center,
+    .flex-around-center {
+        flex-direction: row;
+    }
+}
+
+.hero {
+    padding: 15px;
+    background-color: var(--bgc-warning);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#round-description {
+    display: inline-block;
+    padding: 5px;
+}
+
 .line {
-    clear: both;
-    padding: 15px 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.content {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+#selected-members-list {
+    columns: 6;
+}
+
+.selected-player {
+    padding: 4px 8px;
 }
 
 .match-player-list {
@@ -113,7 +137,7 @@
 
 .validated-score td,
 .team-score:disabled {
-    background-color: #BBF9E4;
+    background-color: var(--bgc-success);
 }
 
 .score-buttons-list {
@@ -121,14 +145,12 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 0 5px;
+    gap: 3px;
 }
 
 .score-button {
-    border: 1px solid #666666;
-    border-radius: 5px;
-    background-color: #BBF9E4;
+    background-color: var(--bgc-notice);
     padding: 3px 7px;
-    margin-right: 3px;
     min-width: 40px;
 }
 
@@ -151,16 +173,16 @@ input.focused-score {
 }
 
 .field-checkbox {
-    width: 210px;
+    width: 226px;
     display: flex;
     flex-wrap: wrap;
+    gap: 2px;
 }
 
 .field-checkbox .checkbox {
     width: 30px;
     height: 30px;
 	position: relative;
-    padding: 2px;
 }
 
 .field-checkbox .checkbox [type="checkbox"] { opacity: 0; }
@@ -169,8 +191,11 @@ input.focused-score {
 	cursor: pointer;
 	position: absolute;
     inset: 2px 2px;
-    background-color: #AA0000;
-    color: #FFFFFF;
+    background-color: #FFCCCC;
+    color: #FF0000;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FF0000;
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -178,7 +203,9 @@ input.focused-score {
 }
 
 .field-checkbox .checkbox [type="checkbox"]:checked + span {
-    background-color: #3AC456;
+    background-color: #BBFFEE;
+    border-color: #00aa77;
+    color: #00aa77;
 }
 
 .fav-list-member .fa {
@@ -203,9 +230,6 @@ input.focused-score {
 	cursor: pointer;
 	position: absolute;
     inset: 2px 2px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #BBBBBB;
     color: #BBBBBB;
     border-radius: 5px;
     display: flex;
@@ -214,8 +238,6 @@ input.focused-score {
 }
 
 .fav-checkbox .checkbox [type="checkbox"]:checked + span {
-    border-color: #2cbf8e;
-    background-color: #BBF9E4;
     color: #2cbf8e;
 }
 
@@ -245,7 +267,6 @@ input.focused-score {
 
 .present-checkbox .checkbox [type="checkbox"]:checked + span {
     border-color: #2cbf8e;
-    background-color: #BBF9E4;
     color: #2cbf8e;
 }
 
@@ -283,6 +304,28 @@ input.focused-score {
     left: 20px;
 }
 
+.modal-container {
+    display: inline-block;
+}
+
+.modal-content {
+    position: fixed;
+    display: none;
+    width: 80%;
+    height: auto;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bgc);
+    z-index: 120;
+    overflow-y: auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.modal-container.expanded .modal-content {
+    display: block;
+}
+
 .description {
     display: block;
     font-style: italic;
@@ -302,27 +345,9 @@ input.focused-score {
 
 .message-helper {
     padding: 10px;
-    display: block;
     margin-bottom: 5px;
 }
 
 .message-helper a {
     font-size: bold;
 }
-
-.success { color: #3AC456; }
-.notice  { color: #019696; }
-.warning { color: #F99E36; }
-.error   { color: #AA0000; }
-
-.success a { color: #3AC456; }
-.notice  a { color: #019696; }
-.warning a { color: #F99E36; }
-.error   a { color: #AA0000; }
-
-.bgc-full.success { background-color: #3AC456; color: #FFFFFF;}
-.bgc-full.notice  { background-color: #019696; color: #FFFFFF;}
-.bgc-full.warning { background-color: #F99E36; color: #FFFFFF;}
-.bgc-full.error   { background-color: #aa0000; color: #FFFFFF;}
-
-.bgc-full a { color: #FFFFFF; }

@@ -3,8 +3,11 @@
     ~~ Séparer les identifiants de connexion à la bdd pour ne pas le transmettre dans github ~~
 
 ## Membres
-    - déplacer la build des favoris sur la page sélection
+    ~~ - déplacer la build des favoris sur la page sélection ~~
     ~~ - reload(true) sur décocher tout ~~
+    - liste des sélection full page
+    - affichage de la liste des sélectionnés en popup sans id
+    - agir en ajax sur la liste des sélectionnés pour ne pas avoir à recharger la page
 
 ## Accueil
     créer la doc dans /theme/templates/home.php

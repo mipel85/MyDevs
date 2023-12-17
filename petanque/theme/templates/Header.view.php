@@ -18,6 +18,7 @@ $menu = display_menu();
         <link rel="stylesheet" href="./theme/css/menu.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/tabs.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" type="text/css" media="screen, print" />
+        <link rel="stylesheet" href="./theme/css/colors.css" type="text/css" media="screen, print" />
         <title><?= $title ?> - Pétanque Loisirs Sainte-Foy</title>
         
         <script src="./theme/js/lib/jquery-3.7.1.min.js"></script>
@@ -29,6 +30,7 @@ $menu = display_menu();
         <script src="./theme/js/days.js"></script>
         <script src="./theme/js/expand.js"></script>
         <script src="./theme/js/tabs.js"></script>
+        <script src="./theme/js/modal.js"></script>
     </head>
     <body>
         <header id="top-header">

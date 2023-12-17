@@ -40,35 +40,36 @@
     list-style-type : none;
     display: flex;
     flex-direction: column;
-    background-color: #F4F9FD;
+    background-color: var(--bgc);
 }
 
 #onglets li {
     border-width: 1px 1px 0 1px;
     border-style: solid;
-    border-color: #9EA0A1;
+    border-color: var(--bdr);
 }
 
-#onglets li:last-child { border-width: 1px; }
+#onglets li:last-child {
+    border-width: 1px;
+}
 
 .active {
-    background-color: #BBF9E4;
+    background-color: var(--bgc-success);
 }
 
 #onglets li a {
     display : block;
-    /* color : #666666; */
     text-decoration : none;
-    padding : 14px;
+    padding : 8px 14px;
 }
 
 #onglets li:hover {
-    background-color: #2cbf8e;
-    color: #ffffff;
+    background-color: var(--bgc-alt);
+    color: var(--text-alt);
 }
 
 #onglets li:hover a {
-    color: #ffffff;
+    color: var(--link-alt);
 }
 
 @media (min-width: 769px) {
@@ -78,7 +79,7 @@
         position: relative;
         left: auto;
         margin: auto;
-        padding: 15px;
+        padding: 8px;
     }
 
     #onglets {
@@ -87,7 +88,11 @@
     }
 
     #onglets li {
-        border-width: 1px 0 1px 1px;
+        border-width: 0 1px 0 0;
+    }
+    
+    #onglets li:last-child {
+        border-width: 0;
     }
 }
 

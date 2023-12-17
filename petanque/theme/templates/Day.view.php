@@ -44,7 +44,7 @@ require_once('./controllers/Day.controller.php');
             <div class="line flex-between-center">
                 <span>
                     <button
-                            class="submit button<?= $hidden_round ?>"
+                            class="button full-success<?= $hidden_round ?>"
                             data-day_id="<?= $day_id ?>"
                             data-i_order="<?= $i_order ?>"
                             data-players_number="<?= $players_number ?>"

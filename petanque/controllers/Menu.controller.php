@@ -46,11 +46,11 @@ function display_menu()
 
         // Si la partie n'est pas commencée
         if ($no_selected_members && $day_items) {
-            $menu .= ' bgc-full error';
+            $menu .= ' full-error';
             $link = 'members';
         }
         elseif (!Days::started_day() && $day_items) {
-            $menu .= ' bgc-full warning';
+            $menu .= ' full-warning';
             if (in_array($link, ['scores', 'ranking']))
                 $link = 'day';
         }

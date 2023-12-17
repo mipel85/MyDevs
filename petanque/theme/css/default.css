@@ -170,8 +170,8 @@ abbr {
 }
 
 .floatting {
-    animation: floatting 3s ease-in-out;
-    animation-fill-mode: forwards;
+    /* animation: floatting 3s ease-in-out;
+    animation-fill-mode: forwards; */
     position: absolute;
     top: 150px;
     left: 20px;
