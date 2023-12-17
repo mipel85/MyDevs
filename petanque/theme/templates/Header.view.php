@@ -16,27 +16,29 @@ $menu = display_menu();
         <link rel="stylesheet" href="./theme/css/design.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/componants.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/menu.css" type="text/css" media="screen, print" />
-        <link rel="stylesheet" href="./theme/css/tabs.css" type="text/css" media="screen, print" />
+        <link rel="stylesheet" href="./theme/css/plugins.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/colors.css" type="text/css" media="screen, print" />
         <title><?= $title ?> - Pétanque Loisirs Sainte-Foy</title>
         
+        <!-- plugins -->
         <script src="./theme/js/lib/jquery-3.7.1.min.js"></script>
         <script src="./theme/js/lib/datatables.min.js"></script>
         <script src="./theme/js/lib/Buttons-2.4.2/js/buttons.dataTables.min.js"></script>
         <script src="./theme/js/lib/FixedHeader-3.4.0/js/fixedHeader.dataTables.min.js"></script>
-        <script src="./theme/js/members.js"></script>
-        <script src="./theme/js/players.js"></script>
-        <script src="./theme/js/days.js"></script>
         <script src="./theme/js/expand.js"></script>
         <script src="./theme/js/tabs.js"></script>
         <script src="./theme/js/modal.js"></script>
+        <!-- Ajax -->
+        <script src="./theme/js/members.js"></script>
+        <script src="./theme/js/players.js"></script>
+        <script src="./theme/js/days.js"></script>
     </head>
     <body>
         <header id="top-header">
             <div id="logo"></div>
             <div id="site-name">Pétanque Loisirs Sainte-Foy</div>
-            <div>
+            <div id="header-links">
                 <a href="index.php?page=config"><i class="fa fa-cog"></i></a>
             </div>
         </header>

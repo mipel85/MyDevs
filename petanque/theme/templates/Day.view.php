@@ -144,7 +144,7 @@ require_once('./controllers/Day.controller.php');
                                     <?php foreach (Matches::round_matches_list($day_id, $round_id) as $index => $match): ?>
                                         <?php $validated_score = $match['score_status'] ? ' class="validated-score"' : ''; ?>
                                         <tr<?= $validated_score ?>>
-                                            <td><?= $match['field'] ?></td>
+                                            <td><span class="big"><?= $match['field'] ?></span></td>
                                             <td>
                                                 <div class="flex-around-center">
                                                     <!-- <span><?= $match['team_1_id'] ?></span> -->

@@ -26,7 +26,7 @@
 #untrigger {
     position: absolute;
     inset: 0;
-    background-color: rgba(255, 0, 0, 0.2);
+    background-color: var(--bgc-error);
     padding: 10px;
     display: none;
 }
@@ -61,6 +61,7 @@
     display : block;
     text-decoration : none;
     padding : 8px 14px;
+    height: 100%;
 }
 
 #onglets li:hover {
@@ -69,7 +70,7 @@
 }
 
 #onglets li:hover a {
-    color: var(--link-alt);
+    color: var(--link-hover);
 }
 
 @media (min-width: 769px) {

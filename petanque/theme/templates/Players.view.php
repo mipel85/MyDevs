@@ -21,10 +21,10 @@ require_once('./controllers/Rules.controller.php');
     </header>
     <article class="content">
         <span class="error-4 message-helper full-error floatting<?php if (count(Members::selected_members_list()) >= 4): ?> hidden<?php endif ?>">
-            Moins de 4 joueurs n'est pas une sélection valide <br />pour créer un nombre d'équipes pair de 2 et 3 joueurs
+            Moins de 4 joueurs n'est pas une sélection valide pour créer un nombre d'équipes pair de 2 et 3 joueurs.
         </span>
         <span class="error-7 message-helper full-error floatting<?php if (count(Members::selected_members_list()) != 7): ?> hidden<?php endif ?>">
-            7 joueurs n'est pas une sélection valide <br />pour créer un nombre d'équipes pair de 2 et 3 joueurs
+            7 joueurs n'est pas une sélection valide pour créer un nombre d'équipes pair de 2 et 3 joueurs.
         </span>
         
         <table id="members-list" class="table">

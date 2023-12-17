@@ -4,9 +4,9 @@
     </header>
     <div id="config_saisie">
         <label>Nom du joueur : </label>
-        <input type="text" id="member_name" class="nom-ajout" />
+        <input type="text" id="member_name" class="add-name" />
         <div class="line align-center">
-            <button type="submit" id="add-member" class="button btn-ajout">Ajouter</button>
+            <button type="submit" id="add-member" class="button">Ajouter</button>
         </div>
     </div>
 </div>

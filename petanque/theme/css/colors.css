@@ -2,13 +2,15 @@
     --text : #212121;
     --bdr : #BBBBBB;
     --bgc : #FFFFFF;
-    --link : #2CBF8E;
+    --link : #00AA88;
+    --link-hover : #66FFCC;
 
-    --bgc-alt : #2CBF8E;
-    --link-alt : #FFFFFF;
+    --bgc-alt : #00AA88;
+    --text-alt : #FFFFFF;
+    --link-alt : #117755;
 
-    --notice : #0000ff;
-    --success : #00AA77;
+    --notice : #0088FF;
+    --success : #00AA88;
     --warning : #FF8800;
     --error : #FF5555;
 
@@ -16,6 +18,11 @@
     --bgc-success : #BBFFEE;
     --bgc-warning : #FFEEAA;
     --bgc-error : #FFCCCC;
+
+    --linear-gradient : linear-gradient(to bottom, rgba(153, 153, 153, 0) 0%, rgba(153, 153, 153, 0.2) 100%);
+    --linear-gradient-hover : linear-gradient(to bottom, rgba(153, 153, 153, 0.2) 0%, rgba(153, 153, 153, 0) 100%);
+
+    --box-shadow : 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .notice  a,
@@ -36,3 +43,8 @@
 .full-success { background-color: var(--bgc-success); color: var(--success); border-color: var(--success); }
 .full-warning { background-color: var(--bgc-warning); color: var(--warning); border-color: var(--warning); }
 .full-error   { background-color: var(--bgc-error); color: var(--error); border-color: var(--error); }
+
+.full-notice  a { color: var(--notice); }
+.full-success a { color: var(--success); }
+.full-warning a { color: var(--warning); }
+.full-error   a { color: var(--error); }

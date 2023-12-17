@@ -18,12 +18,18 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2cbf8e;
-    color: #FFFFFF;
+    background-color: var(--bgc-alt);
+    color: var(--text-alt);
     padding: 0 15px;
 }
 
-#top-header a { color: #FFFFFF; }
+#top-header a {
+    color: var(--link-alt);
+}
+
+#top-header a:hover {
+    color: var(--link-hover);
+}
 
 #logo {
     width: 128px;
@@ -32,10 +38,15 @@ main {
 }
 
 #site-name {
+    font-family : 'Batang', arial, serif;
     text-align: right;
     font-size: 20px;
     font-weight: bold;
-    color: white;
+    color: var(--text-alt);
+}
+
+#header-links {
+    padding: 0 0 0 10px;
 }
 
 @media (min-width: 769px) {
@@ -48,7 +59,11 @@ main {
 }
 
 a {
-    color: #2cbf8e;
+    color: var(--link);
+}
+
+a:hover {
+    color: var(--link-hover);
 }
 
 section { padding: 20px; }
@@ -58,6 +73,10 @@ section header { font-style: italic; }
 article header,
 h1 {
     padding: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family : 'Batang', arial, serif;
 }
 
 h1 { font-size: 2em; }
@@ -76,13 +95,22 @@ h6 { font-size: 1em; }
     h6 { font-size: 1.228em; }
 }
 
-.equipes-title{
-    font-size: 28px;
-    font-weight: bold;
-    position: relative;
-    top: 97px;
-    left: 542px;
-    font-style: italic;
+.hero {
+    padding: 15px;
+    background-color: var(--bgc-warning);
+    box-shadow: var(--box-shadow);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.line {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.content {
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .button {
@@ -90,7 +118,7 @@ h6 { font-size: 1em; }
     padding: 8px 16px;
     cursor: pointer;
     background-color: transparent;
-    background-image: linear-gradient(to bottom, rgba(153, 153, 153, 0) 0%, rgba(153, 153, 153, 0.2) 100%);
+    background-image: var(--linear-gradient);
     border-width: 1px;
     border-style: solid;
     border-color: var(--bdr);
@@ -99,7 +127,7 @@ h6 { font-size: 1em; }
 }
 
 .button:hover {
-    background-image: linear-gradient(to bottom, rgba(153, 153, 153, 0.1) 0%, rgba(153, 153, 153, 0.3) 100%);
+    background-image: var(--linear-gradient-hover);
 }
 
 .icon-button {
@@ -112,60 +140,9 @@ h6 { font-size: 1em; }
     transform: scale(1.2);
 }
 
-/* affichage de la table des joueurs connus */
-.table th {
-    text-align: center !important;
-    background-color: #2cbf8e;
-    color: #FFFFFF;
-    border-color: #BBBBBB;
-}
-
-.table td {
-    text-align: center;
-    max-width: 80px;
-    border-color: #BBBBBB;
-}
-
-.is_empty{
-    background-color: #f1a899;
-}
-
-.nom-ajout{
-    margin-top: 5px;
-    font-size: 20px;
-}
-
-.checkbox-choix-joueur{
-    cursor: pointer;
-    border: 0px;
-    text-decoration: none;
-    background: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 20px;
-    height: 20px;
-}
-
-.btn-sup-joueur{
-    cursor: pointer;
-    border: 0px;
-    text-decoration: none;
-    background: transparent;
-    background-image: url(../images/drop.png);
-    background-size: 20px;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100px;
-    height: 25px;
-}
-
-#member-list {
-    padding-bottom: 30px;
-}
-
 select,
 input:not([type="submit"]) {
-    border: 1px solid #aaa;
+    border: 1px solid var(--bdr);
     border-radius: 3px;
     padding: 7px 15px;
     background-color: transparent;
@@ -179,6 +156,35 @@ div.dt-buttons {
     left: 0;
 }
 
+/* --- Tables --- */
+.table th {
+    text-align: center !important;
+    background-color: var(--bgc-alt);
+    color: var(--text-alt);
+    border-color: var(--bdr);
+}
+
+.table td {
+    text-align: center;
+    max-width: 80px;
+    border-color: var(--bdr);
+}
+
+/* ---config members */
+.is_empty{
+    background-color: var(--error);
+}
+
+.add-name {
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+#member-list {
+    padding-bottom: 30px;
+}
+
+/* --- footer --- */
 #footer {
     text-align: center;
     padding: 10px;

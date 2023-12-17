@@ -79,7 +79,7 @@
     align-items: center;
 }
 
-@media (min-width: 769px) {    
+@media (min-width: 769px) {
     .flex-between,
     .flex-between-center,
     .flex-around-center {
@@ -87,27 +87,9 @@
     }
 }
 
-.hero {
-    padding: 15px;
-    background-color: var(--bgc-warning);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
 #round-description {
     display: inline-block;
     padding: 5px;
-}
-
-.line {
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.content {
-    padding-right: 20px;
-    padding-left: 20px;
 }
 
 #selected-members-list {
@@ -138,6 +120,8 @@
 .validated-score td,
 .team-score:disabled {
     background-color: var(--bgc-success);
+    border-color: var(--success);
+    color: var(--success);
 }
 
 .score-buttons-list {
@@ -150,22 +134,27 @@
 
 .score-button {
     background-color: var(--bgc-notice);
+    border-color: var(--notice);
+    color: var(--notice);
     padding: 3px 7px;
     min-width: 40px;
 }
 
 .score-button:hover {
-    background-color: #2cbf8e;
-    color: #FFFFFF;
+    background-color: var(--bgc-alt);
+    color: var(--text-alt);
 }
 
 input.focused-score {
-    background-color: #2cbf8e;
-    color: #FFFFFF;
+    background-color: var(--bgc-notice);
+    border-color: var(--notice);
+    color: var(--notice);
 }
 
 .edit-score {
-    background-color: #BBF9E4;
+    background-color: var(--bgc-success);
+    border-color: var(--success);
+    color: var(--success);
 }
 
 .playground-input {
@@ -191,11 +180,11 @@ input.focused-score {
 	cursor: pointer;
 	position: absolute;
     inset: 2px 2px;
-    background-color: #FFCCCC;
-    color: #FF0000;
+    background-color: var(--bgc-error);
+    color: var(--error);
     border-width: 1px;
     border-style: solid;
-    border-color: #FF0000;
+    border-color: var(--error);
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -203,17 +192,17 @@ input.focused-score {
 }
 
 .field-checkbox .checkbox [type="checkbox"]:checked + span {
-    background-color: #BBFFEE;
-    border-color: #00aa77;
-    color: #00aa77;
+    background-color: var(--bgc-success);
+    border-color: var(--success);
+    color: var(--success);
 }
 
 .fav-list-member .fa {
-    color: #2cbf8e
+    color: var(--success)
 }
 
 .fav-list-member .far {
-    color: #BBBBBB
+    color: var(--text-sub);
 }
 
 .fav-checkbox .checkbox {
@@ -230,7 +219,7 @@ input.focused-score {
 	cursor: pointer;
 	position: absolute;
     inset: 2px 2px;
-    color: #BBBBBB;
+    color: var(--text-sub);
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -238,7 +227,7 @@ input.focused-score {
 }
 
 .fav-checkbox .checkbox [type="checkbox"]:checked + span {
-    color: #2cbf8e;
+    color: var(--success);
 }
 
 .present-checkbox .checkbox {
@@ -257,8 +246,8 @@ input.focused-score {
     inset: 2px 2px;
     border-width: 1px;
     border-style: solid;
-    border-color: #BBBBBB;
-    color: #BBBBBB;
+    border-color: var(--bdr);
+    color: var(--text-sub);
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -266,64 +255,8 @@ input.focused-score {
 }
 
 .present-checkbox .checkbox [type="checkbox"]:checked + span {
-    border-color: #2cbf8e;
-    color: #2cbf8e;
-}
-
-[id*="expand-"] {
-    cursor: pointer;
-}
-
-.expand-container {
-    position: relative;
-}
-
-.expanded-list {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    inset: 0;
-    background-color: #fff;
-    z-index: 100;
-    padding: 20px;
-    font-size: 1.2em;
-    overflow: auto;
-}
-
-.expand-button {
-    display: block;
-    padding: 5px;
-    z-index: 101;
-    position: absolute;
-    top: 2px;
-    left: 0px;
-}
-
-.expanded-list .expand-button {
-    top: 25px;
-    left: 20px;
-}
-
-.modal-container {
-    display: inline-block;
-}
-
-.modal-content {
-    position: fixed;
-    display: none;
-    width: 80%;
-    height: auto;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--bgc);
-    z-index: 120;
-    overflow-y: auto;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
-.modal-container.expanded .modal-content {
-    display: block;
+    border-color: var(--success);
+    color: var(--success);
 }
 
 .description {
@@ -342,6 +275,7 @@ input.focused-score {
 .text-italic { font-style: italic; }
 
 .small { font-size: 0.809em; }
+.big { font-size: 1.456em; }
 
 .message-helper {
     padding: 10px;

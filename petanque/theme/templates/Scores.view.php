@@ -70,7 +70,7 @@ $possible_scores = 12;
                                                 id="matches-score-<?= $match['id'] ?>"
                                                 data-round_id="<?= $round['id'] ?>"
                                                 data-match_id="<?= $match['id'] ?>">
-                                            <td><?= $match['field'] ?></td>
+                                            <td><span class="big"><?= $match['field'] ?></span></td>
                                             <td>
                                                 <div class="flex-between-center">
                                                     <span data-team_1_id="<?= $match['team_1_id'] ?>"></span>
