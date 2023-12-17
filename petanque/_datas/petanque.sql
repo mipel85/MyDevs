@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 16 déc. 2023 à 06:59
+-- Généré le : dim. 17 déc. 2023 à 20:32
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -93,9 +93,9 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
-(1, ' Alain.G', 0, 1),
-(2, ' Alain.M', 0, 1),
-(3, ' Annick.G', 0, 1),
+(1, ' Alain.G', 1, 1),
+(2, ' Alain.M', 1, 1),
+(3, ' Annick.G', 1, 1),
 (4, ' Christophe.B', 0, 0),
 (5, ' Claudie.F', 0, 0),
 (6, ' Daniel.E', 0, 0),
@@ -104,25 +104,25 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (9, ' Danielle.L', 0, 0),
 (10, ' Dany.R', 0, 1),
 (11, ' Denis.D', 0, 0),
-(12, ' Denis.G', 0, 0),
-(13, ' Dominique.B', 0, 0),
+(12, ' Denis.G', 1, 1),
+(13, ' Dominique.B', 1, 1),
 (14, ' Eric.E', 0, 0),
 (15, ' Fernand.D', 0, 0),
 (16, ' Fernando.L', 0, 0),
-(17, ' Franck.H', 0, 0),
+(17, ' Franck.H', 1, 1),
 (18, ' Frederic.D', 0, 0),
 (19, ' Francois.S', 0, 0),
 (20, ' Gaetan.F', 0, 0),
 (21, ' Gerard.F', 0, 0),
-(22, ' Gerard.M', 0, 0),
+(22, ' Gerard.M', 0, 1),
 (23, ' Ghislain.G', 0, 0),
 (24, ' Guy.A', 0, 0),
 (25, ' Jean-Claude.F', 0, 0),
 (26, ' Gilbert.M', 0, 0),
 (27, ' Jean-Jacques.B', 0, 0),
-(28, ' Jean-Louis.D', 0, 0),
+(28, ' Jean-Louis.D', 0, 1),
 (29, ' Jean-Luc.C', 0, 0),
-(30, ' Jean-Luc.L', 0, 0),
+(30, ' Jean-Luc.L', 0, 1),
 (31, ' Jean-Marcel.S', 0, 0),
 (32, ' Jean-Paul.C', 0, 0),
 (33, ' Jean-Pierre.L', 0, 0),
@@ -132,7 +132,7 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (37, ' Marcel .B', 0, 0),
 (38, ' Marie.M', 0, 0),
 (39, ' Mathieu.M', 0, 0),
-(40, ' Michel.C', 0, 0),
+(40, ' Michel.C', 1, 1),
 (41, ' Michel.P', 0, 0),
 (42, ' Michel.R', 0, 0),
 (43, ' Nicky.M', 0, 0),
@@ -150,8 +150,25 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (55, ' Sylvain.B', 0, 0),
 (56, ' Mathieu.M', 0, 0),
 (57, ' Gilles.T', 0, 0),
-(58, ' Catherine.D', 0, 1),
+(58, ' Catherine.D', 1, 0),
 (59, ' Jean-Louis.D', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `players`
+--
+
+CREATE TABLE `players` (
+  `id` int(11) NOT NULL,
+  `day_id` int(11) NOT NULL,
+  `round_id` int(11) NOT NULL,
+  `match_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `member_name` varchar(255) NOT NULL,
+  `points_for` int(11) NOT NULL,
+  `points_against` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -231,6 +248,12 @@ ALTER TABLE `members`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `players`
+--
+ALTER TABLE `players`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `rankings`
 --
 ALTER TABLE `rankings`
@@ -275,6 +298,12 @@ ALTER TABLE `matches`
 --
 ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+
+--
+-- AUTO_INCREMENT pour la table `players`
+--
+ALTER TABLE `players`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `rankings`
