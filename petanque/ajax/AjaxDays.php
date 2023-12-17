@@ -6,7 +6,8 @@ include '../classes/Fields.class.php';
 include '../classes/Rounds.class.php';
 include '../classes/Teams.class.php';
 include '../classes/Matches.class.php';
-include '../classes/Ranking.class.php';
+include '../classes/Rankings.class.php';
+include '../classes/Players.class.php';
 
 $actions = $_POST['action'];
 switch($actions)
@@ -33,10 +34,12 @@ switch($actions)
         break;
 
     case 'remove_day':
+        $remove = new Rankings();
+        $remove->remove_day_rankings($_POST['day_id']);
         $remove = new Fields();
         $remove->remove_day_fields($_POST['day_id']);
-        $remove = new Ranking();
-        $remove->remove_day_ranking($_POST['day_id']);
+        $remove = new Players();
+        $remove->remove_day_players($_POST['day_id']);
         $remove = new Matches();
         $remove->remove_day_matches($_POST['day_id']);
         $remove = new Teams();
@@ -50,7 +53,9 @@ switch($actions)
     case 'remove_all_days':
         $remove = new Fields();
         $remove->remove_all_fields();
-        $remove = new Ranking();
+        $remove = new Players();
+        $remove->remove_all_players();
+        $remove = new Rankings();
         $remove->remove_all_rankings();
         $remove = new Matches();
         $remove->remove_all_matches();

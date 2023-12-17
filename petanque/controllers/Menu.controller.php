@@ -8,10 +8,10 @@ function display_menu()
     // tableaux contenant les liens d'accès et le texte à afficher
     $menu_links = [
         'home',
-        'players',
+        'members',
         'day',
         'scores',
-        'ranking'
+        'rankings'
     ];
     $menu_labels = [
         'Accueil',
@@ -37,7 +37,7 @@ function display_menu()
     // boucle qui parcours les deux tableaux
     foreach ($menu_links as $k => $link)
     {
-        $day_items = in_array($link, ['day', 'scores', 'ranking']);
+        $day_items = in_array($link, ['day', 'scores', 'rankings']);
         $menu .= '    <li class="menu-item';
 
         // si le nom du fichier correspond à celui pointé par l'indice, alors on l'active
@@ -47,11 +47,11 @@ function display_menu()
         // Si la partie n'est pas commencée
         if ($no_selected_members && $day_items) {
             $menu .= ' full-error';
-            $link = 'players';
+            $link = 'members';
         }
         elseif (!Days::started_day() && $day_items) {
             $menu .= ' full-warning';
-            if (in_array($link, ['scores', 'ranking']))
+            if (in_array($link, ['scores', 'rankings']))
                 $link = 'day';
         }
 

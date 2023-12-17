@@ -156,10 +156,10 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ranking`
+-- Structure de la table `rankings`
 --
 
-CREATE TABLE `ranking` (
+CREATE TABLE `rankings` (
   `id` int(11) NOT NULL,
   `day_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
@@ -231,9 +231,9 @@ ALTER TABLE `members`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `ranking`
+-- Index pour la table `rankings`
 --
-ALTER TABLE `ranking`
+ALTER TABLE `rankings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -277,9 +277,9 @@ ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
--- AUTO_INCREMENT pour la table `ranking`
+-- AUTO_INCREMENT pour la table `rankings`
 --
-ALTER TABLE `ranking`
+ALTER TABLE `rankings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

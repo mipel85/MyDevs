@@ -51,6 +51,26 @@ switch($actions)
         $reset = new Members();
         $reset->reset_all_favs();
         break;
+
+    case 'selected_members':
+        $req = 'SELECT name FROM members WHERE present = 1';
+        if ($result = Connection::query($req)) {
+            foreach ($result as $value) {
+                $data[] = $value;
+            }
+            echo json_encode(array('selected_players' => $data));
+        }
+        break;
+
+    case 'members_list':
+        $req = 'SELECT * FROM members ORDER BY fav DESC, name ASC';
+        if ($result = Connection::query($req)) {
+            foreach ($result as $value) {
+                $data[] = $value;
+            }
+            echo json_encode(array('members' => $data));
+        }
+        break;
     
     default:
         break;

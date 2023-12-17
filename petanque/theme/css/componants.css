@@ -6,13 +6,6 @@
     gap: 10px;
 }
 
-.cell-flex::before,
-.cell-flex::after {
-	display: block;
-	clear: both;
-	content: "";
-}
-
 .cell-flex > * {
 	width: 100%;
 }
@@ -25,29 +18,31 @@
 		flex-direction: row;
 	}
 
-	.cell-columns-2 > * { width: calc(100% / 2 - 20px); }
-	.cell-columns-3 > * { width: calc(100% / 2 - 20px); }
-	.cell-columns-4 > * { width: calc(100% / 2 - 20px); }
+	.cell-columns-2 > * { width: calc(100% / 2 - 10px); }
+	.cell-columns-3 > * { width: calc(100% / 2 - 10px); }
+	.cell-columns-4 > * { width: calc(100% / 2 - 10px); }
+	.cell-columns-5 > * { width: calc(100% / 2 - 10px); }
 
 	.cell-flex > *.cell-100 { width: 100% !important; }
 	.cell-flex > *.cell-1-4,
 	.cell-flex > *.cell-1-3,
 	.cell-flex > *.cell-1-2,
 	.cell-flex > *.cell-2-3,
-	.cell-flex > *.cell-3-4 { width: calc(100% / 2 - 20px) !important; }
+	.cell-flex > *.cell-3-4 { width: calc(100% / 2 - 10px) !important; }
 }
 
 @media (min-width: 1025px) {
-	.cell-columns-2 > * { width: calc(100% / 2 - 20px); }
-	.cell-columns-3 > * { width: calc(100% / 3 - 20px); }
-	.cell-columns-4 > * { width: calc(100% / 4 - 20px); }
+	.cell-columns-2 > * { width: calc(100% / 2 - 10px); }
+	.cell-columns-3 > * { width: calc(100% / 3 - 10px); }
+	.cell-columns-4 > * { width: calc(100% / 4 - 10px); }
+	.cell-columns-5 > * { width: calc(100% / 5 - 10px); }
 
 	.cell-flex > *.cell-100 { width: 100% !important; }
-	.cell-flex > *.cell-1-4 { width: calc(100% / 4 - 20px) !important; }
-	.cell-flex > *.cell-1-3 { width: calc(100% / 3 - 20px) !important; }
-	.cell-flex > *.cell-1-2 { width: calc(100% / 2 - 20px) !important; }
-	.cell-flex > *.cell-2-3 { width: calc(100% * 2 / 3 - 20px) !important; }
-	.cell-flex > *.cell-3-4 { width: calc(100% * 3 / 4 - 20px) !important; }
+	.cell-flex > *.cell-1-4 { width: calc(100% / 4 - 10px) !important; }
+	.cell-flex > *.cell-1-3 { width: calc(100% / 3 - 10px) !important; }
+	.cell-flex > *.cell-1-2 { width: calc(100% / 2 - 10px) !important; }
+	.cell-flex > *.cell-2-3 { width: calc(100% * 2 / 3 - 10px) !important; }
+	.cell-flex > *.cell-3-4 { width: calc(100% * 3 / 4 - 10px) !important; }
 }
 
 .flex-main {
@@ -96,8 +91,22 @@
     columns: 6;
 }
 
-.selected-player {
+.selected-member {
     padding: 4px 8px;
+}
+
+.display-member-row {
+    display: flex;
+    padding: 4px 8px;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--bdr);
+    border-radius: 5px;
+}
+
+.display-member-row > * {
+    padding-right: 4px;
 }
 
 .match-player-list {
@@ -286,24 +295,24 @@ input.focused-score {
     font-size: bold;
 }
 
-.ranking-table {
+.rankings-table {
     display: table;
     margin: auto;
     width: auto;
 }
 
-.ranking-table th {
+.rankings-table th {
     min-width: 50px;
 }
 
-.ranking-table th.player-name {
+.rankings-table th.player-name {
     width: 320px;
 }
 
-.ranking-table td.player-name {
+.rankings-table td.player-name {
     text-align: left;
 }
 
-.ranking-table tbody tr:hover td {
+.rankings-table tbody tr:hover td {
     background-color: var(--bgc-notice);
 }

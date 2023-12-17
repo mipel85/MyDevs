@@ -21,10 +21,10 @@ $title = '';
 switch($page)
 {
     case ('config') : $title = 'Administration'; break;
-    case ('players') : $title = 'Sélection des joueurs'; break;
+    case ('members') : $title = 'Sélection des joueurs'; break;
     case ('day') : $title = 'Partie'; break;
     case ('scores') : $title = 'Scores'; break;
-    case ('ranking') : $title = 'Classement'; break;
+    case ('rankings') : $title = 'Classement'; break;
     default : $title = 'Accueil'; break;
 }
 
@@ -38,8 +38,8 @@ switch($page)
     case ('home') :
         require_once('./theme/templates/Home.view.php');
         break;
-    case ('players') :
-        require_once('./theme/templates/Players.view.php');
+    case ('members') :
+        require_once('./theme/templates/Members.view.php');
         break;
     case ('day') :
         require_once('./theme/templates/Day.view.php');
@@ -47,8 +47,8 @@ switch($page)
     case ('scores') :
         require_once('./theme/templates/Scores.view.php');
         break;
-    case ('ranking') :
-        require_once('./theme/templates/Ranking.view.php');
+    case ('rankings') :
+        require_once('./theme/templates/Rankings.view.php');
         break;
     default :
         require_once('./theme/templates/404.view.php');

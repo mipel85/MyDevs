@@ -99,7 +99,7 @@
     ~~ > team/equipe => un groupe de 2 ou 3 participants ~~
     ~~ > member/membre => un membre ~~
     ~~ > player/joueur => un participant à une partie ~~
-    > ranking/classement
+    > rankings/classement
 
 ## Idées
     - afficher le plan des terrains

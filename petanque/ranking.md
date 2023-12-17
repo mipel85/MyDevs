@@ -8,14 +8,14 @@ checker si un score_status est à 1 ( doit upade quand le score_status passe à 
 
 ## Liste des joueurs
 ### creation
-- créer la liste des joueurs dans la table `ranking` à partir de la liste des joueurs sélectionnés
-- Check de la liste des joueurs ddu classement du jour
-### Supression
-- si partie.i_order == 1
-    - on supprime tous les joueurs du classement de la journée
-comment supprimer un joueur du classement si partie.i_order != 1 et trompage de joueur dans la liste des sélectionnés ?
+- créer la liste des joueurs dans la table `players` à partir de la validation d'un match
 
-## table ranking dans bdd
+### Supression
+- si on supprime la partie.i_order == i_order
+    - on supprime tous les round.joueurs 
+- si on édite un match on supprime les match_id.players de la table
+
+## table rankings dans bdd
 | id | id de la journée | id du membre | Nom du membre | Nombre de matches joués | Nombre de victoires | Nombre de defaites | points pour | points contre |
 | id | day_id           | member_id    | member_name   | played                  | victory             | loss               | pos_points  | neg_points    |
 

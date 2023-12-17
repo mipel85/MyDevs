@@ -7,7 +7,7 @@ require_once('./classes/Rounds.class.php');
 require_once('./classes/Teams.class.php');
 require_once('./classes/Matches.class.php');
 require_once('./controllers/Rules.controller.php');
-require_once('./controllers/Day.controller.php');
+require_once('./controllers/Days.controller.php');
 
 ?>
 <section>

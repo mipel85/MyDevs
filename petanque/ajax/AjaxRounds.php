@@ -4,7 +4,7 @@ include '../classes/Connection.class.php';
 include '../classes/Rounds.class.php';
 include '../classes/Teams.class.php';
 include '../classes/Matches.class.php';
-include '../classes/Ranking.class.php';
+include '../classes/Players.class.php';
 
 $actions = $_POST['action'];
 switch($actions)
@@ -18,10 +18,8 @@ switch($actions)
         break;
 
     case 'remove_round':
-        if($_POST['round_i_order'] == 1) {
-            $remove = new Ranking();
-            $remove->remove_day_ranking($_POST['day_id']);
-        }
+        $remove = new Players();
+        $remove->remove_round_players($_POST['day_id'], $_POST['round_id']);
         $remove = new Matches();
         $remove->remove_round_matches($_POST['day_id'], $_POST['round_id']);
         $remove = new Teams();
