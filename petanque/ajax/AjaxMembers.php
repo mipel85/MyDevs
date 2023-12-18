@@ -25,11 +25,9 @@ switch($actions)
         break;
     
     case 'change_name':
-        var_dump($_POST['name']);
         $present = new Members();
         $present->set_id($_POST['id']);
-        $present->set_name($_POST['name']);
-        $present->change_name();
+        $present->change_name($_POST['name']);
         break;
     
     case 'select_member':

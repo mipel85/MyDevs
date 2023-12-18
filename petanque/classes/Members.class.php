@@ -57,9 +57,9 @@ class Members {
         return Connection::query($req);
     }
 
-    function change_name()
+    function change_name($name)
     {
-        $req = 'UPDATE members SET `edit` = 0 WHERE `members`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE members SET `edit` = 0, `name` = "' . $name . '" WHERE `members`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 

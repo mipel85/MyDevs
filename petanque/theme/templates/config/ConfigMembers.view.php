@@ -31,7 +31,7 @@
                     $edit_class = $member['edit'] ? ' bgc-notice change-button' : ' edit-button';
                     $button_class = $member['edit'] ? ' change-button' : ' edit-button';
                     $edit_readonly = $member['edit'] ? '' : ' readonly';
-                    $edit_icon = $member['edit'] ? '<i class="fa fa-lg fa-square-check success"></i>' : '<i class="fa fa-lg fa-edit warning"></i>'
+                    $edit_icon = $member['edit'] ? '<i class="far fa-lg fa-square-check success"></i>' : '<i class="fa fa-lg fa-edit warning"></i>'
                 ?>
                 <tr>
                     <td><?= $member['id'] ?></td>

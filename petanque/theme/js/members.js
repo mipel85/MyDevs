@@ -110,7 +110,7 @@ $(document).ready(function() {
         $(this).on('click', function() {
             let id = $(this).data('member_id'),
                 name = $(this).prev().val();
-            if ($(this).hasClass('edit-button')){
+            if ($(this).hasClass('edit-button')) {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
@@ -122,7 +122,7 @@ $(document).ready(function() {
                         location.reload(true);
                     }
                 });
-            } else {
+            } else if ($(this).hasClass('change-button')) {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
@@ -132,7 +132,7 @@ $(document).ready(function() {
                         name: name,
                     },
                     success: function() {
-                        // location.reload(true);
+                        location.reload(true);
                     }
                 });
             }
