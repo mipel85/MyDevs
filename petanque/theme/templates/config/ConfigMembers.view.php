@@ -1,6 +1,6 @@
 <div id="add-joueur" class="cell-1-3">
     <header>
-        <h3>Ajouter des joueurs</h3>
+        <h3>Ajouter un joueur</h3>
     </header>
     <div id="config_saisie">
         <label>Nom du joueur : </label>
@@ -14,7 +14,7 @@
     <header>
         <h3>Liste des joueurs</h3>
     </header>
-    <table id="" class="table">  <!-- registred-members-->
+    <table id="registred-members" class="table">  <!-- -->
         <thead>
             <tr>
                 <th>ID</th>
@@ -36,6 +36,7 @@
                 <tr>
                     <td><?= $member['id'] ?></td>
                     <td>
+                        <span class="hidden"><?= $member['name'] ?></span>
                         <div class="flex-between-center">
                             <input size="15"<?= $edit_readonly ?> type="text" class="input member-name<?= $edit_class ?>" value="<?=$member['name']?>">
                             <button 

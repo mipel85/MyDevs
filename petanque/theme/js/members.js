@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     // Config ###########################################################################
     $('#member_name').focus();
-    $('#member_name').removeClass('is_empty');
+    $('#member_name').removeClass('full-error');
 
     // DataTable
     $('#registred-members').DataTable({
@@ -43,7 +43,6 @@ $(document).ready(function() {
                 },
                 success: function(r) {
                     $('#member_name').val('');
-                    $('#member_name').removeClass('is_empty');
                     location.reload(true);
                     $('#member_name').focus();
                 },
@@ -51,10 +50,10 @@ $(document).ready(function() {
                     alert(r.error);
                 }
             });
-        }else{
+        } else {
             alert('Le nom du joueur doit être renseigné');
-            $('#member_name').focus();
-            $('#member_name').addClass('is_empty');
+            $('#member_name').addClass('full-error');
+            $('#member_name').on('keyup', function(){ $(this).removeClass('full-error') })
         }
     });
 
