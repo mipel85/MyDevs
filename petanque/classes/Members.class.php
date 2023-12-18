@@ -91,7 +91,7 @@ class Members {
     static function members_list()
     {
         $members_list = array();
-        $req = 'SELECT * FROM members ORDER BY `fav` DESC, `name` ASC';
+        $req = 'SELECT * FROM members ORDER BY `name` ASC';
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)

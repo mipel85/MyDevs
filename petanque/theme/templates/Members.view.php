@@ -14,7 +14,7 @@ require_once('./controllers/Rules.controller.php');
                         <h3 class="selected-number">Aucun joueur sélectionné</h3>
                         <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
                     </header>
-                    <div id="selected-members-list" class="content line"></div>
+                    <div id="selected-members-list" class="content line cell-flex cell-columns-6"></div>
                 </article>
             </div>
         </div>
@@ -26,8 +26,27 @@ require_once('./controllers/Rules.controller.php');
         <span id="error-7" class="message-helper full-error floatting<?php if (count(Members::selected_members_list()) != 7): ?> hidden<?php endif ?>">
             7 joueurs n'est pas une sélection valide pour créer un nombre d'équipes pair de 2 et 3 joueurs.
         </span>
-        <!-- <div id="display-members-list" class="cell-flex cell-columns-5"></div> -->
-        <div id="members-list-inline" class="cell-flex cell-columns-5">
+        <!-- <div class="sort-radio">
+            <span>Tri par :</span>
+            <label for="sort-id" class="radio">
+                <input type="radio" name="sort-radio" id="sort-id">
+                <span>id</span>
+            </label>
+            <label for="sort-name" class="radio">
+                <input type="radio" name="sort-radio" id="sort-name" checked>
+                <span><i class="fa fa-fw fa-user"></i></span>
+            </label>
+            <label for="sort-fav" class="radio">
+                <input type="radio" name="sort-radio" id="sort-fav">
+                <span><i class="fa fa-fw fa-star"></i></span>
+            </label>
+            <label for="sort-present" class="radio">
+                <input type="radio" name="sort-radio" id="sort-present">
+                <span><i class="fa fa-fw fa-check"></i></span>
+            </label>
+        </div> -->
+        <!-- <div id="display-members-list" class="cell-flex cell-columns-6"></div> -->
+        <div id="members-list-inline" class="cell-flex cell-columns-6">
             <?php foreach (Members::members_list() as $member): ?>
                 <?php
                     $checked_present = $member['present'] ? ' checked' : '';
@@ -40,15 +59,15 @@ require_once('./controllers/Rules.controller.php');
                 <div class="display-member-row">
                     <div class="present-checkbox">
                         <label for="present-<?= $member['id'] ?>" class="checkbox" id="label-present-<?= $member['id'] ?>">
-                            <input data-id="<?= $member['id'] ?>" type="checkbox" name="present-<?= $member['id'] ?>" id="present-<?= $member['id'] ?>" class="present-member"<?= $checked_present ?>>
+                            <input data-present_id="<?= $member['id'] ?>" type="checkbox" name="present-<?= $member['id'] ?>" id="present-<?= $member['id'] ?>" class="present-member"<?= $checked_present ?>>
                             <span><?= $present_icon ?></span>
                         </label>
                     </div>
                     <div class="flex-main"><?= $member['name'] ?></div>
-                    <div class="small"><?= $member['id'] ?></div>
+                    <div class="small member-id"><?= $member['id'] ?></div>
                     <div class="fav-checkbox">
                         <label for="fav-<?= $member['id'] ?>" class="checkbox" id="label-fav-<?= $member['id'] ?>">
-                            <input data-id="<?= $member['id'] ?>" type="checkbox" name="fav-<?= $member['id'] ?>" id="fav-<?= $member['id'] ?>" class="fav-member"<?= $checked_fav ?>>
+                            <input data-fav_id="<?= $member['id'] ?>" type="checkbox" name="fav-<?= $member['id'] ?>" id="fav-<?= $member['id'] ?>" class="fav-member"<?= $checked_fav ?>>
                             <span><?= $fav_icon ?></span>
                         </label>
                     </div>

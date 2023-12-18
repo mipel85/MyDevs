@@ -108,7 +108,7 @@ $(document).ready(function() {
     // Select/unselect members as favourite
     $('.fav-member').each(function() {
         $(this).on('change', function() {
-            var id = $(this).data('id');
+            var id = $(this).data('fav_id');
             if ((this.checked)){
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
@@ -117,7 +117,7 @@ $(document).ready(function() {
                         action: 'favory',
                         id: id
                     },
-                    success: function() {}
+                    success: function() {location.reload(true);}
                 });
             }else{
                 $.ajax({
@@ -127,7 +127,7 @@ $(document).ready(function() {
                         action: 'casual',
                         id: id
                     },
-                    success: function() {}
+                    success: function() {location.reload(true);}
                 });
             }
         });
@@ -145,7 +145,6 @@ $(document).ready(function() {
                 $('input[type=checkbox]').each(function() {
                     this.checked = false;
                 });
-                $('#table_joueurs_presents').html('');
             }
         });
     });
@@ -153,9 +152,9 @@ $(document).ready(function() {
     // Select/unselect member as present/absent
     // and add/remove it in the list of selected players
     $('.present-member').each(function(){
-        $(this).on('click', function() {
-            var id = $(this).data('id');
-            if ((this.checked)) {
+        $(this).on('change', function() {
+            var id = $(this).data('present_id');
+            if ($(this).is(':checked')) {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
@@ -163,7 +162,8 @@ $(document).ready(function() {
                         action: 'present',
                         id: id
                     },
-                    success: function() { }
+                    success: function() {location.reload(true);},
+                    error: function() {console.log('fail')}
                 })
             } else {
                 $.ajax({
@@ -173,39 +173,10 @@ $(document).ready(function() {
                         action: 'absent',
                         id: id
                     },
-                    success: function() { }
+                    success: function() {location.reload(true);},
+                    error: function() {console.log('fail')}
                 })
             }
-
-            $.ajax({
-                url: './ajax/AjaxMembers.php',
-                type: 'POST',
-                data: {
-                    action: 'selected_members'
-                },
-                dataType: "json",
-                success: function(responseJson) {
-                    $('#selected-members-list').html('');
-                    $.each(responseJson.selected_player, function(key, value) {
-                        $('<div/>', {class : 'selected-member'}).html(value['name']).appendTo('#selected-members-list');
-                    });
-                    let count = $('.selected-member').length;
-                    console.log(count);
-                    $('.selected-number').html(count + ' joueurs sélectionnés');
-                    if (count == 7) {
-                        $('#error-7').removeClass('hidden');
-                    }
-                    else {
-                        $('#error-7').addClass('hidden');
-                    }
-                    if (count < 4) {
-                        $('#error-4').removeClass('hidden');
-                    }
-                    else {
-                        $('#error-4').addClass('hidden');
-                    }
-                }
-            });
         });
     });
     
@@ -259,22 +230,31 @@ $(document).ready(function() {
     //     dataType: "json",
     //     success: function(responseJson) {
     //         $('#display-members-list').html('');
-    //         $.each(responseJson.members, function(key, value) {
-    //             let id = value['id'],
-    //                 fav_icon = value['fav'] ?  '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>',
-    //                 present_icon = value['present'] ?  '<i class="fa fa-sm fa-check"></i>' : '';
-                
-    //             $('<div/>', {'data-id' : id, class : 'display-member-row'}).appendTo('#display-members-list');
-    //             $('<div/>', {id: 'present-' + id, class: 'present-checkbox'}).appendTo('[data-id="'+id+'"]');
-    //             $('<label/>', {id: 'label-present' + id, for: 'present-' + id, class: 'checkbox'}).appendTo('#present-'+id);
-    //             $('<input/>', {id: 'present-' + id, type: 'checkbox', class: 'present-member', checked: value['present']}).appendTo('#label-present'+id);
-    //             $('<span/>').html(present_icon).appendTo('#label-present'+id);
-    //             $('<div/>', {id: 'fav-' + id, class: 'fav-checkbox'}).appendTo('[data-id="'+id+'"]');
-    //             $('<label/>', {id: 'label-fav-' + id, for: 'fav-' + id, class: 'checkbox'}).appendTo('#fav-'+id);
-    //             $('<input/>', {id: 'fav-' + id, type: 'checkbox', class: 'fav-member', checked: value['fav']}).appendTo('#label-fav-'+id);
-    //             $('<span/>').html(fav_icon).appendTo('#label-fav-'+id);
-    //             $('<div/>', {class: 'flex-main'}).html(value['name']).appendTo('[data-id="'+id+'"]');
-    //             $('<div/>', {class: 'small'}).html(value['id']).appendTo('[data-id="'+id+'"]');
+    //         $.each(responseJson.members, function(key, member) {
+    //             let id = member['id'],
+    //                 present_icon = member['present'] ?  '<i class="fa fa-sm fa-check"></i>' : '',
+    //                 present_check = member['present'] ?  'checked' : '',
+    //                 fav_icon = member['fav'] ?  '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>',
+    //                 fav_check = member['fav'] ?  'checked' : '';
+
+    //             $('#display-members-list').append(
+    //                 '<div class="display-member-row">' +
+    //                     '<div class="present-checkbox">' +
+    //                         '<label for="present-' + member['id'] + '" class="checkbox" id="label-present-' + member['id'] + '">' +
+    //                             '<input data-present_id="' + member['id'] + '" type="checkbox" name="present-' + member['id'] + '" id="present-' + member['id'] + '" class="present-member" ' + present_check + ' />' +
+    //                             '<span>' + present_icon + '</span>' +
+    //                         '</label>' +
+    //                     '</div>' +
+    //                     '<div class="flex-main">' + member['name'] + '</div>' +
+    //                     '<span class="small member-id">' + member['id'] + '</span>' +
+    //                     '<div class="fav-checkbox">' +
+    //                         '<label for="fav-' + member['id'] + '" class="checkbox" id="label-fav-' + member['id'] + '">' +
+    //                             '<input data-fav_id="' + member['id'] + '" type="checkbox" name="fav-' + member['id'] + '" id="fav-' + member['id'] + '" class="fav-member" ' + fav_check + ' />' +
+    //                             '<span>' + fav_icon + '</span>' +
+    //                         '</label>' +
+    //                     '</div>' +
+    //                 '</div>'
+    //             );
     //         });
     //         let count = responseJson.members.length;
     //         $('.selected-number').html(count + ' joueurs sélectionnés');

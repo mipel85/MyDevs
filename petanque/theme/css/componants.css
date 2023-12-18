@@ -22,7 +22,7 @@
 	.cell-columns-3 > * { width: calc(100% / 2 - 10px); }
 	.cell-columns-4 > * { width: calc(100% / 2 - 10px); }
 	.cell-columns-5 > * { width: calc(100% / 2 - 10px); }
-
+	.cell-columns-6 > * { width: calc(100% / 2 - 10px); }
 	.cell-flex > *.cell-100 { width: 100% !important; }
 	.cell-flex > *.cell-1-4,
 	.cell-flex > *.cell-1-3,
@@ -36,7 +36,7 @@
 	.cell-columns-3 > * { width: calc(100% / 3 - 10px); }
 	.cell-columns-4 > * { width: calc(100% / 4 - 10px); }
 	.cell-columns-5 > * { width: calc(100% / 5 - 10px); }
-
+	.cell-columns-6 > * { width: calc(100% / 6 - 10px); }
 	.cell-flex > *.cell-100 { width: 100% !important; }
 	.cell-flex > *.cell-1-4 { width: calc(100% / 4 - 10px) !important; }
 	.cell-flex > *.cell-1-3 { width: calc(100% / 3 - 10px) !important; }
@@ -87,8 +87,9 @@
     padding: 5px;
 }
 
-#selected-members-list {
-    columns: 6;
+#selected-members-list.cell-flex {
+    gap: 0 10px;
+    font-style: normal;
 }
 
 .selected-member {
@@ -107,6 +108,14 @@
 
 .display-member-row > * {
     padding-right: 4px;
+}
+
+.display-member-row .member-id {
+    opacity: 0;
+}
+
+.display-member-row:hover .member-id {
+    opacity: 1;
 }
 
 .match-player-list {
@@ -206,12 +215,33 @@ input.focused-score {
     color: var(--success);
 }
 
-.fav-list-member .fa {
-    color: var(--success)
+.sort-radio {
+    padding: 10px 0;
 }
 
-.fav-list-member .far {
+.sort-radio .radio {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+	position: relative;
+    padding: 2px;
+}
+
+.sort-radio .radio [type="radio"] { opacity: 0; }
+
+.sort-radio .radio [type="radio"] + span {
+	cursor: pointer;
+	position: absolute;
+    inset: 2px 2px;
     color: var(--text-sub);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sort-radio .radio [type="radio"]:checked + span {
+    color: var(--success);
 }
 
 .fav-checkbox .checkbox {
@@ -239,6 +269,14 @@ input.focused-score {
     color: var(--success);
 }
 
+.fav-list-member .fa {
+    color: var(--success)
+}
+
+.fav-list-member .far {
+    color: var(--text-sub);
+}
+
 .present-checkbox .checkbox {
     display: inline-block;
     width: 25px;
@@ -264,8 +302,11 @@ input.focused-score {
 }
 
 .present-checkbox .checkbox [type="checkbox"]:checked + span {
-    border-color: var(--success);
-    color: var(--success);
+    /* border-color: var(--success);
+    color: var(--success); */
+    border-color: var(--bdr);
+    color: var(--text-alt);
+    background-color: var(--success);
 }
 
 .description {
