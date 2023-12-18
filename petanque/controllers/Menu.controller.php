@@ -15,9 +15,9 @@ function display_menu()
     ];
     $menu_labels = [
         'Accueil',
-        'Sélection des<br /><strong>Joueurs</strong>',
-        'Gestion des<br /><strong>Parties</strong>',
-        'Saisie des<br /><strong>Scores</strong>',
+        '<strong>Joueurs</strong> présents',
+        'Gestion des <strong>Parties</strong>',
+        'Saisie des <strong>Scores</strong>',
         'Classement'
     ];
     $menu_icons = [

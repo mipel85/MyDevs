@@ -50,7 +50,7 @@ require_once('./controllers/Days.controller.php');
                             data-players_number="<?= $players_number ?>"
                             id="add-round"
                             <?= $disabled_round ?>>
-                        Ajouter une partie
+                        Créer la <strong>partie <?= $i_order ?></strong>
                     </button>
                 </span>
                 <span id="round-description"><?= $label_round ?></span>

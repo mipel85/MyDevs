@@ -139,7 +139,7 @@ $(document).ready(function() {
             url: './ajax/AjaxMembers.php',
             type: 'POST',
             data: {
-                action: 'select-all-favs'
+                action: 'select_all_favs'
             },
             success: function(data) {location.reload(true);}
         });

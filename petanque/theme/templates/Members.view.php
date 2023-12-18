@@ -7,7 +7,10 @@ require_once('./controllers/Rules.controller.php');
         <h1>Sélection des joueurs</h1>
         <div class="line flex-main">
             <div class="flex-between-center">
-                <span class="text-italic"><?= count(Members::selected_members_list()) ?> sélectionnés</span>
+                <div>
+                    <span class="text-italic"><?= count(Members::selected_members_list()) ?> sélectionnés</span> - 
+                    <span class="text-italic"><?= rules(count(Members::selected_members_list())) ?></span>
+                </div>
                 <div class="modals">
                     <div class="modal-container">
                         <button type="button" id="display-quick-buttons" class="button modal-button">Sélection rapide</button>
@@ -65,7 +68,7 @@ require_once('./controllers/Rules.controller.php');
             </label>
         </div> -->
         <!-- <div id="display-members-list" class="cell-flex cell-columns-6"></div> -->
-        <div id="members-list-inline" class="cell-flex cell-columns-6">
+        <div id="all-members-list" class="cell-flex cell-columns-6">
             <?php foreach (Members::members_list() as $member): ?>
                 <?php
                     $checked_present = $member['present'] ? ' checked' : '';
@@ -124,17 +127,16 @@ require_once('./controllers/Rules.controller.php');
         });
 
         // reorder horizontal to vertical
-        let items = $('#members-list-inline .display-member-row'),
+        let items = $('#all-members-list .display-member-row'),
             itemsPerColumn = Math.ceil(items.length / 6);
 
-        // Bouclez à travers chaque colonne
         for (let i = 0; i < 6; i++) {
             // Sélectionnez les éléments pour la colonne actuelle
             let columnItems = items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn);
             // Créez une nouvelle colonne et ajoutez les éléments
-            let column = $('<div class="flex-main vertical-member"></div>').append(columnItems);
+            let column = $('<div class="flex-main"></div>').append(columnItems);
             // Ajoutez la colonne au conteneur
-            $('#members-list-inline').append(column);
+            $('#all-members-list').append(column);
         }
     });
 
