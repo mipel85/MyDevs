@@ -250,6 +250,30 @@
     color: var(--success);
 }
 
+.edit-checkbox .checkbox {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+	position: relative;
+    padding: 2px;
+}
+
+.edit-checkbox .checkbox [type="checkbox"] { opacity: 0; }
+
+.edit-checkbox .checkbox [type="checkbox"] + span {
+	cursor: pointer;
+	position: absolute;
+    inset: 2px 2px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-checkbox .checkbox [type="checkbox"]:checked + span {
+    color: var(--success);
+}
+
 .fav-checkbox .checkbox {
     display: inline-block;
     width: 25px;

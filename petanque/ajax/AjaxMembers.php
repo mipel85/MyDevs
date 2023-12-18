@@ -18,6 +18,20 @@ switch($actions)
         $sup->remove_member();
         break;
     
+    case 'edit_name':
+        $present = new Members();
+        $present->set_id($_POST['id']);
+        $present->edit_name();
+        break;
+    
+    case 'change_name':
+        var_dump($_POST['name']);
+        $present = new Members();
+        $present->set_id($_POST['id']);
+        $present->set_name($_POST['name']);
+        $present->change_name();
+        break;
+    
     case 'select_member':
         $present = new Members();
         $present->set_id($_POST['id']);

@@ -106,6 +106,40 @@ $(document).ready(function() {
     });
 
     // Select/unselect members as favourite
+    $('.change-name').each(function() {
+        $(this).on('click', function() {
+            let id = $(this).data('member_id'),
+                name = $(this).prev().val();
+            if ($(this).hasClass('edit-button')){
+                $.ajax({
+                    url: './ajax/AjaxMembers.php',
+                    type: 'POST',
+                    data: {
+                        action: 'edit_name',
+                        id: id
+                    },
+                    success: function() {
+                        location.reload(true);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: './ajax/AjaxMembers.php',
+                    type: 'POST',
+                    data: {
+                        action: 'change_name',
+                        id: id,
+                        name: name,
+                    },
+                    success: function() {
+                        // location.reload(true);
+                    }
+                });
+            }
+        });
+    });
+
+    // Select/unselect members as favourite
     $('.fav-member').each(function() {
         $(this).on('change', function() {
             var id = $(this).data('fav_id');

@@ -14,7 +14,7 @@
     <header>
         <h3>Liste des joueurs</h3>
     </header>
-    <table id="registred-members" class="table">
+    <table id="" class="table">  <!-- registred-members-->
         <thead>
             <tr>
                 <th>ID</th>
@@ -26,12 +26,26 @@
         <tbody>
             <?php foreach (Members::members_list() as $member): ?>
                 <?php 
-                    $checked = $member['fav'] ? ' checked' : ''; 
                     $fav = $member['fav'] ? '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>';
+                    $edit_check = $member['edit'] ? ' checked' : '';
+                    $edit_class = $member['edit'] ? ' bgc-notice change-button' : ' edit-button';
+                    $button_class = $member['edit'] ? ' change-button' : ' edit-button';
+                    $edit_readonly = $member['edit'] ? '' : ' readonly';
+                    $edit_icon = $member['edit'] ? '<i class="fa fa-lg fa-square-check success"></i>' : '<i class="fa fa-lg fa-edit warning"></i>'
                 ?>
                 <tr>
                     <td><?= $member['id'] ?></td>
-                    <td><?= $member['name'] ?></td>
+                    <td>
+                        <div class="flex-between-center">
+                            <input size="15"<?= $edit_readonly ?> type="text" class="input member-name<?= $edit_class ?>" value="<?=$member['name']?>">
+                            <button 
+                                    data-member_id="<?= $member['id'] ?>"
+                                    class="change-name icon-button<?= $button_class ?>" 
+                                    name="edit-<?= $member['id'] ?>">
+                                <?= $edit_icon ?>
+                            </button>
+                        </div>
+                    </td>
                     <td class="fav-list-member"><?= $fav ?></td>
                     <td><button type="button" id="<?= $member['id'] ?>" class="icon-button remove-member"><i class="fa fa-fw fa-lg fa-square-xmark error"></i></button></td>
                 </tr>
