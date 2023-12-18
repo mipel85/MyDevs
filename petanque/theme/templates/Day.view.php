@@ -19,7 +19,7 @@ require_once('./controllers/Days.controller.php');
             </header>
             <input type="hidden" id="day-date" name="day-date" value="<?= $today ?>" />
         </article>
-        <div id="add-round-container" class="hero hidden">
+        <div id="add-round-container" class="hero hidden flex-between-center">
             <div class="playgrounds-list flex-between-center">
                 <span>Sélection des<br>terrains disponibles</span>
                 <div class="field-checkbox">
@@ -41,19 +41,17 @@ require_once('./controllers/Days.controller.php');
                     <?php endif ?>
                 </div>
             </div>
-            <div class="line flex-between-center">
-                <span>
-                    <button
-                            class="button full-success<?= $hidden_round ?>"
-                            data-day_id="<?= $day_id ?>"
-                            data-i_order="<?= $i_order ?>"
-                            data-players_number="<?= $players_number ?>"
-                            id="add-round"
-                            <?= $disabled_round ?>>
-                        Créer la <strong>partie <?= $i_order ?></strong>
-                    </button>
-                </span>
-                <span id="round-description"><?= $label_round ?></span>
+            <div class="line align-center">
+                <button
+                        class="button full-success<?= $hidden_round ?>"
+                        data-day_id="<?= $day_id ?>"
+                        data-i_order="<?= $i_order ?>"
+                        data-players_number="<?= $players_number ?>"
+                        id="add-round"
+                        <?= $disabled_round ?>>
+                    Créer la <strong>partie <?= $i_order ?></strong>
+                </button>
+                <span id="round-description" class="description"><?= $label_round ?></span>
             </div>
         </div>
     </header>

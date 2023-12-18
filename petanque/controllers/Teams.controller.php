@@ -40,10 +40,19 @@ function build_teams($members) {
         // ou si nb d'équipes de 2 possibles est impair et nb d'équipes de 3 possibles est impair
         elseif ((!$teams_of_2_even && $teams_of_3_even) || (!$teams_of_2_even && !$teams_of_3_even))
         {
-            if (count($members) <= 9) {
-                $team = array_splice($members, 0, 3);
-            } else {
-                $team = array_splice($members, 0, 2); // Sinon, prend les joueurs 2 par 2
+            if($players_number > 49) {
+                if (count($members) <= 27) {
+                    $team = array_splice($members, 0, 3);
+                } else {
+                    $team = array_splice($members, 0, 2); // Sinon, prend les joueurs 2 par 2
+                }
+            }
+            else {
+                if (count($members) <= 9) {
+                    $team = array_splice($members, 0, 3);
+                } else {
+                    $team = array_splice($members, 0, 2); // Sinon, prend les joueurs 2 par 2
+                }
             }
         }
 

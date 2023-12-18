@@ -31,9 +31,6 @@ $possible_scores = 12;
                             class="matches-list tab-content<?= $active_tab ?>"
                             data-day_id="<?= $day_id ?>"
                             data-round_id="<?= $round['id'] ?>">
-                        <header class="flex-between">
-                            <h3>Partie <?= $round['i_order'] ?></h3>
-                        </header>
                         <div class="expand-container">
                             <div class="score-buttons-list">
                                 <?php for($i = 0; $i <= $possible_scores; $i++): ?>
@@ -84,10 +81,10 @@ $possible_scores = 12;
                                                 </div>
                                             </td>
                                             <td>
-                                                <input readonly class="team-score" type="text" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>"<?= $disabled_score ?>>
+                                                <input readonly class="input team-score" type="text" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>"<?= $disabled_score ?>>
                                             </td>
                                             <td>
-                                                <input readonly class="team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>"<?= $disabled_score ?>>
+                                                <input readonly class="input team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>"<?= $disabled_score ?>>
                                             </td>
                                             <td>
                                                 <div class="flex-between-center">
@@ -125,9 +122,15 @@ $possible_scores = 12;
     <script>
         // Déclaration des scores
         $('input.team-score').each(function() {
-            $(this).on('click', function() {
-                $(this).closest('table').find('input').removeClass('focused-score');
-                $(this).addClass('focused-score');
+            $(this).on('click', function() { // sélection de l'input à renseigner
+                // On supprime le focus de tous les tr
+                $(this).closest('table').find('input').removeClass('focused-score full-alt');
+                $(this).closest('table').find('tr td').removeClass('full-notice');
+                $(this).closest('table').find('.button').removeClass('full-alt');
+                // on ajoute le focus sur le tr de l'input
+                $(this).addClass('focused-score full-alt');
+                $(this).closest('tr').find('td').addClass('full-notice');
+                $(this).closest('tr').find('.button').addClass('full-alt');
             });
         });
         $('.score-button').each(function(){
@@ -141,4 +144,18 @@ $possible_scores = 12;
         });
     </script>
 </section>
+
+<script>
+    var distance = $('.score-buttons-list').offset().top; 
+
+    $(window).scroll(function () {
+
+        if ($(window).scrollTop() >= distance) {
+            $('.score-buttons-list').addClass("fixed-element");
+
+        } else {
+            $('.score-buttons-list').removeClass("fixed-element");
+        }
+    });
+</script>
 

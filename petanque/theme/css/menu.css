@@ -36,7 +36,6 @@
 #onglets {
     padding : 0;
     margin: 0;
-    font-family : 'Batang', arial, serif;
     list-style-type : none;
     display: flex;
     flex-direction: column;
@@ -76,24 +75,30 @@
 @media (min-width: 769px) {
     #menu-trigger { display: none; }
     #menu {
+        top: 0;
         width: auto;
         position: relative;
         left: auto;
         margin: auto;
-        padding: 8px;
     }
 
     #onglets {
         display: inline-flex;
         flex-direction: row;
+        border-radius: 15px 15px 0 0;
     }
 
     #onglets li {
-        border-width: 0 1px 0 0;
+        border-width: 1px 0 0 1px;
     }
     
+    #onglets li:first-child {
+        border-radius: 15px 0 0;
+    }
+
     #onglets li:last-child {
-        border-width: 0;
+        border-width: 1px 1px 0 1px;
+        border-radius: 0 15px 0 0;
     }
 }
 

@@ -26,6 +26,8 @@
     --box-shadow : 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+.full-alt { background-color: var(--bgc-alt); color: var(--text-alt)}
+
 .notice  a,
 .notice  { color: var(--notice); }
 .success a,

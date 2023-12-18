@@ -55,7 +55,7 @@ function display_menu()
                 $link = 'day';
         }
 
-        $menu .= '"><a href="index.php?page=' . $link . '"><i class="fa fa-fw fa-' . $menu_icons[$k] . '"></i><br />' . $menu_labels[$k] . '</a></li>';
+        $menu .= '"><a href="index.php?page=' . $link . '"><i class="fa fa-fw fa-' . $menu_icons[$k] . '"></i> ' . $menu_labels[$k] . '</a></li>';
     }
     $menu .= "</ul></nav>";
     return $menu;

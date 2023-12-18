@@ -2,12 +2,23 @@
 ## Connection
 ~~ Séparer les identifiants de connexion à la bdd pour ne pas le transmettre dans github ~~
 
+## Design général
+- compresser en vertical
+
+### Menu
+- design comme joueur : horizontal + border + radius
+
+## Header
+~~ - Bienvenue à la partie du date sous le titre ~~
+~~ - n° de la partie ~~
+
 ## Membres
 ~~ - déplacer la build des favoris sur la page sélection ~~
 ~~ - reload(true) sur décocher tout ~~
-- liste des sélection full page
-- affichage de la liste des sélectionnés en popup sans id
-- agir en ajax sur la liste des sélectionnés pour ne pas avoir à recharger la page
+~~ - liste des sélection full page ~~
+~~ - affichage de la liste des sélectionnés en popup sans id ~~
+~~ - agir en ajax sur la liste des sélectionnés pour ne pas avoir à recharger la page ~~
+- pouvoir modifier le nom du membre
 
 ## Accueil
 créer la doc dans /theme/templates/home.php
@@ -69,7 +80,11 @@ suppression
 ~~ - changer couleur du bouton de validation ~~
     ~~ - Valider => rien car le score n'est pas validé ~~
     ~~ - Modifier => vert comme le score qui est validé ~~
--  prévoir une saisie de score différent de 13
+- prévoir une saisie de score différent de 13
+~~ - grossir les boutons scores 1.1 ~~
+~~ - mettre la liste des score en fixe au scroll ~~
+~~ - améliorer le focus jusqu'à validation ~~
+- revoir le tableau sur 2 col pour pas de scroll
 
 ### Classement
 - ids joueurs
@@ -85,9 +100,9 @@ suppression
 
 ## Terrains
 ~~ - interdire 0 terrain ~~
-- interraction avec matches
+~~ - interraction avec matches ~~
     ~~ - si nb de terrains < au nombre de matches remettre la liste complète ~~
-- demarrage de journée
+~~ - demarrage de journée ~~
     ~~ - pouvoir choisir le nombre et les n° des terrains ~~
     ~~ - nb de terrains sélection parmi 14 possibles ~~
     ~~ - design checkbox ~~

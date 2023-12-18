@@ -5,38 +5,36 @@ require_once('./controllers/Rules.controller.php');
 <section>
     <header class="section-header flex-between-center">
         <h1>Sélection des joueurs</h1>
-        <div class="line flex-main">
-            <div class="flex-between-center">
-                <div>
-                    <span class="text-italic"><?= count(Members::selected_members_list()) ?> sélectionnés</span> - 
-                    <span class="text-italic"><?= rules(count(Members::selected_members_list())) ?></span>
+        <div>
+            <span class="text-italic"><?= count(Members::selected_members_list()) ?> sélectionnés</span> - 
+            <span class="text-italic"><?= rules(count(Members::selected_members_list())) ?></span>
+        </div>
+        <div>
+            <div class="modals">
+                <div class="modal-container">
+                    <button type="button" id="display-quick-buttons" class="button modal-button">Sélection rapide</button>
+                    <article id="selected-members" class="modal-content hidden">
+                        <header class="flex-between">
+                            <h3 class="">Sélection rapide</h3>
+                            <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
+                        </header>
+                        <div id="quick-list" class="content line cell-flex cell-columns-2">
+                            <button type="button" id="reset-all-favs" class="button btn-reset-present full-warning">Réinitialiser<br />tous les habitués</button>
+                            <button type="button" id="select-all-favs" class="button">Sélectionner<br />seulement les habitués</button>
+                            <button type="button" id="unselect-all-members" class="button btn-reset-present">Désélectionner tous<br />les membres</button>
+                            <button type="button" id="select-all-members" class="button btn-reset-present">Sélectionner tous<br />les membres</button>
+                        </div>
+                    </article>
                 </div>
-                <div class="modals">
-                    <div class="modal-container">
-                        <button type="button" id="display-quick-buttons" class="button modal-button">Sélection rapide</button>
-                        <article id="selected-members" class="modal-content hidden">
-                            <header class="flex-between">
-                                <h3 class="">Sélection rapide</h3>
-                                <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
-                            </header>
-                            <div id="quick-list" class="content line cell-flex cell-columns-2">
-                                <button type="button" id="reset-all-favs" class="button btn-reset-present full-warning">Réinitialiser<br />tous les favoris</button>
-                                <button type="button" id="select-all-favs" class="button">Sélectionner<br />seulement les favoris</button>
-                                <button type="button" id="unselect-all-members" class="button btn-reset-present">Désélectionner tous<br />les membres</button>
-                                <button type="button" id="select-all-members" class="button btn-reset-present">Sélectionner tous<br />les membres</button>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="modal-container">
-                        <button type="button" id="display-selected-members" class="button full-success modal-button">Afficher la liste<br />des présents</button>
-                        <article id="selected-members" class="modal-content hidden">
-                            <header class="flex-between">
-                                <h3 class="selected-number">Aucun joueur sélectionné</h3>
-                                <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
-                            </header>
-                            <div id="selected-members-list" class="content line cell-flex cell-columns-6"></div>
-                        </article>
-                    </div>
+                <div class="modal-container">
+                    <button type="button" id="display-selected-members" class="button full-success modal-button">Afficher la liste<br />des présents</button>
+                    <article id="selected-members" class="modal-content hidden">
+                        <header class="flex-between">
+                            <h3 class="selected-number">Aucun joueur sélectionné</h3>
+                            <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
+                        </header>
+                        <div id="selected-members-list" class="content line cell-flex cell-columns-6"></div>
+                    </article>
                 </div>
             </div>
         </div>
@@ -48,25 +46,6 @@ require_once('./controllers/Rules.controller.php');
         <span id="error-7" class="message-helper full-error floatting<?php if (count(Members::selected_members_list()) != 7): ?> hidden<?php endif ?>">
             7 joueurs n'est pas une sélection valide pour créer un nombre d'équipes pair de 2 et 3 joueurs.
         </span>
-        <!-- <div class="sort-radio">
-            <span>Tri par :</span>
-            <label for="sort-id" class="radio">
-                <input type="radio" name="sort-radio" id="sort-id">
-                <span>id</span>
-            </label>
-            <label for="sort-name" class="radio">
-                <input type="radio" name="sort-radio" id="sort-name" checked>
-                <span><i class="fa fa-fw fa-user"></i></span>
-            </label>
-            <label for="sort-fav" class="radio">
-                <input type="radio" name="sort-radio" id="sort-fav">
-                <span><i class="fa fa-fw fa-star"></i></span>
-            </label>
-            <label for="sort-present" class="radio">
-                <input type="radio" name="sort-radio" id="sort-present">
-                <span><i class="fa fa-fw fa-check"></i></span>
-            </label>
-        </div> -->
         <!-- <div id="display-members-list" class="cell-flex cell-columns-6"></div> -->
         <div id="all-members-list" class="cell-flex cell-columns-6">
             <?php foreach (Members::members_list() as $member): ?>
