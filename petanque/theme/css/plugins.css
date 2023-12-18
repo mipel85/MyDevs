@@ -111,7 +111,7 @@
 .modal-content {
     position: fixed;
     display: none;
-    width: 80%;
+    width: auto;
     height: auto;
     top: 10%;
     left: 50%;

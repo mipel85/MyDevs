@@ -104,6 +104,7 @@
     border-style: solid;
     border-color: var(--bdr);
     border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 .display-member-row > * {

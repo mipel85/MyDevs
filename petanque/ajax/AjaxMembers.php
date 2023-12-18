@@ -18,38 +18,49 @@ switch($actions)
         $sup->remove_member();
         break;
     
-    case 'present':
+    case 'select_member':
         $present = new Members();
         $present->set_id($_POST['id']);
-        $present->select_present();
+        $present->select_member();
         break;
     
-    case 'absent':
+    case 'unselect_member':
         $absent = new Members();
         $absent->set_id($_POST['id']);
-        $absent->reset_present();
+        $absent->unselect_member();
         break;
     
-    case 'reset_all_presents':
+    case 'unselect_all_members':
         $reset = new Members();
-        $reset->reset_all_presents();
+        $reset->unselect_all_members();
         break;
     
-    case 'favory':
+    case 'select_all_members':
+        $reset = new Members();
+        $reset->select_all_members();
+        break;
+    
+    case 'set_member_fav':
         $favory = new Members();
         $favory->set_id($_POST['id']);
-        $favory->select_fav();
+        $favory->set_member_fav();
         break;
     
-    case 'casual':
+    case 'reset_member_fav':
         $casual = new Members();
         $casual->set_id($_POST['id']);
-        $casual->reset_fav();
+        $casual->reset_member_fav();
         break;
     
-    case 'reset_all_favs':
+    case 'select_all_favs':
         $reset = new Members();
-        $reset->reset_all_favs();
+        $reset->unselect_all_members();
+        $reset->select_all_favs();
+        break;
+    
+    case 'reset_all_members_fav':
+        $reset = new Members();
+        $reset->reset_all_members_fav();
         break;
 
     case 'selected_members':

@@ -114,7 +114,7 @@ $(document).ready(function() {
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
-                        action: 'favory',
+                        action: 'set_member_fav',
                         id: id
                     },
                     success: function() {location.reload(true);}
@@ -124,7 +124,7 @@ $(document).ready(function() {
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
-                        action: 'casual',
+                        action: 'reset_member_fav',
                         id: id
                     },
                     success: function() {location.reload(true);}
@@ -134,18 +134,26 @@ $(document).ready(function() {
     });
 
     // désélectionner tous les favoris
+    $('#select-all-favs').on('click', function() {
+        $.ajax({
+            url: './ajax/AjaxMembers.php',
+            type: 'POST',
+            data: {
+                action: 'select-all-favs'
+            },
+            success: function(data) {location.reload(true);}
+        });
+    });
+
+    // Set all members to fav = 0
     $('#reset-all-favs').on('click', function() {
         $.ajax({
             url: './ajax/AjaxMembers.php',
             type: 'POST',
             data: {
-                action: 'reset_all_favs'
+                action: 'reset_all_members_fav'
             },
-            success: function(data) {
-                $('input[type=checkbox]').each(function() {
-                    this.checked = false;
-                });
-            }
+            success: function(data) {location.reload(true);}
         });
     });
 
@@ -159,7 +167,7 @@ $(document).ready(function() {
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
-                        action: 'present',
+                        action: 'select_member',
                         id: id
                     },
                     success: function() {location.reload(true);},
@@ -170,12 +178,40 @@ $(document).ready(function() {
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
-                        action: 'absent',
+                        action: 'unselect_member',
                         id: id
                     },
                     success: function() {location.reload(true);},
                     error: function() {console.log('fail')}
                 })
+            }
+        });
+    });
+
+    // Reset all members as absent
+    $('#unselect-all-members').on('click', function() {
+        $.ajax({
+            url: './ajax/AjaxMembers.php',
+            type: 'POST',
+            data: {
+                action: 'unselect_all_members'
+            },
+            success: function(data) {
+                location.reload(true);
+            }
+        });
+    });
+
+    // Reset all members as absent
+    $('#select-all-members').on('click', function() {
+        $.ajax({
+            url: './ajax/AjaxMembers.php',
+            type: 'POST',
+            data: {
+                action: 'select_all_members'
+            },
+            success: function(data) {
+                location.reload(true);
             }
         });
     });
@@ -198,24 +234,6 @@ $(document).ready(function() {
                 if (count == 1)
                     $('.selected-number').html(count + ' joueur sélectionné');
                 $('.selected-number').html(count + ' joueurs sélectionnés');
-            }
-        });
-    });
-
-    // Reset all members as absent
-    $('#reset-all-members').on('click', function() {
-        $.ajax({
-            url: './ajax/AjaxMembers.php',
-            type: 'POST',
-            data: {
-                action: 'reset_all_presents'
-            },
-            success: function(data) {
-                $('input[type=checkbox]').each(function() {
-                    this.checked = false;
-                });
-                $('#selected-members').html('');
-                location.reload(true);
             }
         });
     });

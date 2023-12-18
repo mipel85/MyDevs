@@ -38,9 +38,4 @@
             <?php endforeach ?>
         </tbody>
     </table>
-    <div class="line flex-between">
-        <span>&nbsp;</span>
-        <button type="button" onclick="location.reload(true);" class="button submit">Valider les favoris</button>
-        <button type="button" id="reset-all-favs" class="button btn-reset-present">Décocher tout</button>
-    </div>
 </div>

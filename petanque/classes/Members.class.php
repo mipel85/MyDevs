@@ -52,37 +52,49 @@ class Members {
         return Connection::query($req);
     }
 
-    function select_present()
+    function select_member()
     {
         $req = 'UPDATE members SET `present` = 1 WHERE `members`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
-    function reset_present()
+    function unselect_member()
     {
         $req = 'UPDATE members SET `present` = 0 WHERE `members`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
-    function reset_all_presents()
+    function select_all_members()
+    {
+        $req = 'UPDATE members SET `present` = 1';
+        return Connection::query($req);
+    }
+
+    function unselect_all_members()
     {
         $req = 'UPDATE members SET `present` = 0';
         return Connection::query($req);
     }
 
-    function select_fav()
+    function select_all_favs()
+    {
+        $req = 'UPDATE members SET `present` = 1 WHERE `fav` = 1';
+        return Connection::query($req);
+    }
+
+    function set_member_fav()
     {
         $req = 'UPDATE members SET `fav` = 1 WHERE `members`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
-    function reset_fav()
+    function reset_member_fav()
     {
         $req = 'UPDATE members SET `fav` = 0 WHERE `members`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
-    function reset_all_favs()
+    function reset_all_members_fav()
     {
         $req = 'UPDATE members SET `fav` = 0';
         return Connection::query($req);

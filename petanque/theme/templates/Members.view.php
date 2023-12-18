@@ -5,17 +5,36 @@ require_once('./controllers/Rules.controller.php');
 <section>
     <header class="section-header flex-between-center">
         <h1>Sélection des joueurs</h1>
-        <div class="line">
-            <button type="button" id="reset-all-members" class="button btn-reset-present">Décocher tous<br />les présents</button>
-            <div class="modal-container">
-                <button type="button" id="display-selected-members" class="button full-success modal-button">Afficher la liste<br />des présents</button>
-                <article id="selected-members" class="modal-content hidden">
-                    <header class="flex-between">
-                        <h3 class="selected-number">Aucun joueur sélectionné</h3>
-                        <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
-                    </header>
-                    <div id="selected-members-list" class="content line cell-flex cell-columns-6"></div>
-                </article>
+        <div class="line flex-main">
+            <div class="flex-between-center">
+                <span class="text-italic"><?= count(Members::selected_members_list()) ?> sélectionnés</span>
+                <div class="modals">
+                    <div class="modal-container">
+                        <button type="button" id="display-quick-buttons" class="button modal-button">Sélection rapide</button>
+                        <article id="selected-members" class="modal-content hidden">
+                            <header class="flex-between">
+                                <h3 class="">Sélection rapide</h3>
+                                <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
+                            </header>
+                            <div id="quick-list" class="content line cell-flex cell-columns-2">
+                                <button type="button" id="reset-all-favs" class="button btn-reset-present full-warning">Réinitialiser<br />tous les favoris</button>
+                                <button type="button" id="select-all-favs" class="button">Sélectionner<br />seulement les favoris</button>
+                                <button type="button" id="unselect-all-members" class="button btn-reset-present">Désélectionner tous<br />les membres</button>
+                                <button type="button" id="select-all-members" class="button btn-reset-present">Sélectionner tous<br />les membres</button>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="modal-container">
+                        <button type="button" id="display-selected-members" class="button full-success modal-button">Afficher la liste<br />des présents</button>
+                        <article id="selected-members" class="modal-content hidden">
+                            <header class="flex-between">
+                                <h3 class="selected-number">Aucun joueur sélectionné</h3>
+                                <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
+                            </header>
+                            <div id="selected-members-list" class="content line cell-flex cell-columns-6"></div>
+                        </article>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -78,28 +97,46 @@ require_once('./controllers/Rules.controller.php');
 </section>
 
 <script>
-    $('.fav-member').each(function() {
-        $(this).on('click', function() {
-            if ($(this).is(":checked")) {
-                $(this).next('span').html('<i class="fa fa-fw fa-star"></i>');
-                $(this).removeAttr('checked');
-            }
-            else {
-                $(this).next('span').html('<i class="far fa-fw fa-star"></i>');
-                $(this).attr('checked');
-            }
+    $(document).ready(function() {
+        $('.fav-member').each(function() {
+            $(this).on('click', function() {
+                if ($(this).is(":checked")) {
+                    $(this).next('span').html('<i class="fa fa-fw fa-star"></i>');
+                    $(this).removeAttr('checked');
+                }
+                else {
+                    $(this).next('span').html('<i class="far fa-fw fa-star"></i>');
+                    $(this).attr('checked');
+                }
+            });
         });
-    });
-    $('.present-member').each(function() {
-        $(this).on('click', function() {
-            if ($(this).is(":checked")) {
-                $(this).next('span').html('<i class="fa fa-sm fa-check"></i>');
-                $(this).removeAttr('checked');
-            }
-            else {
-                $(this).next('span').html('');
-                $(this).attr('checked');
-            }
+        $('.present-member').each(function() {
+            $(this).on('click', function() {
+                if ($(this).is(":checked")) {
+                    $(this).next('span').html('<i class="fa fa-sm fa-check"></i>');
+                    $(this).removeAttr('checked');
+                }
+                else {
+                    $(this).next('span').html('');
+                    $(this).attr('checked');
+                }
+            });
         });
+
+        // reorder horizontal to vertical
+        let items = $('#members-list-inline .display-member-row'),
+            itemsPerColumn = Math.ceil(items.length / 6);
+
+        // Bouclez à travers chaque colonne
+        for (let i = 0; i < 6; i++) {
+            // Sélectionnez les éléments pour la colonne actuelle
+            let columnItems = items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn);
+            // Créez une nouvelle colonne et ajoutez les éléments
+            let column = $('<div class="flex-main vertical-member"></div>').append(columnItems);
+            // Ajoutez la colonne au conteneur
+            $('#members-list-inline').append(column);
+        }
     });
+
+
 </script>
