@@ -113,17 +113,11 @@ $(document).ready(function() {
             let id = $(this).data('member_id'),
                 name = $(this).prev().val();
             if ($(this).hasClass('edit-button')) {
-                $.ajax({
-                    url: './ajax/AjaxMembers.php',
-                    type: 'POST',
-                    data: {
-                        action: 'edit_name',
-                        id: id
-                    },
-                    success: function() {
-                        location.reload(true);
-                    }
-                });
+                $(this).prev().removeAttr('readonly').addClass('bgc-notice');
+                $(this).removeClass('edit-button icon-button')
+                    .addClass('change-button button')
+                    .html('')
+                    .text('Valider');
             } else if ($(this).hasClass('change-button')) {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',

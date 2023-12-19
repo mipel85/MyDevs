@@ -8,7 +8,6 @@ class Members {
     private $name;
     private $present;
     private $fav;
-    private $edit;
 
     public function __construct($id = null)
     {
@@ -34,9 +33,6 @@ class Members {
 
     public function get_fav() { return $this->fav; }
     public function set_fav($fav) { $this->fav = $fav; }
-
-    public function get_edit() { return $this->edit; }
-    public function set_edit($edit) { $this->edit = $edit; }
 // end getters setters
 
     function insert_member()
@@ -45,21 +41,14 @@ class Members {
                     NULL,
                     "' . $this->get_name() . '",
                     "0",
-                    "0",
                     "0")
                 ';
         return Connection::query($req);
     }
 
-    function edit_name()
-    {
-        $req = 'UPDATE members SET `edit` = 1 WHERE `members`.`id` = ' . $this->get_id() . '';
-        return Connection::query($req);
-    }
-
     function change_name($name)
     {
-        $req = 'UPDATE members SET `edit` = 0, `name` = "' . $name . '" WHERE `members`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE members SET `name` = "' . $name . '" WHERE `members`.`id` = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
