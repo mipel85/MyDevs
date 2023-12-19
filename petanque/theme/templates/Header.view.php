@@ -33,6 +33,7 @@ $menu = display_menu();
         <script src="./theme/js/expand.js"></script>
         <script src="./theme/js/tabs.js"></script>
         <script src="./theme/js/modal.js"></script>
+        <script src="./theme/js/rowtocolumn.js"></script>
         <!-- Ajax -->
         <script src="./theme/js/members.js"></script>
         <script src="./theme/js/players.js"></script>

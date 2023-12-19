@@ -82,6 +82,16 @@
     }
 }
 
+.pos-relative {
+    position: relative;
+}
+
+.pos-absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 #selected-members-list.cell-flex {
     gap: 0 10px;
     font-style: normal;
@@ -98,7 +108,7 @@
     padding: 4px 8px;
 }
 
-.display-member-row {
+.row-item {
     display: flex;
     padding: 4px 8px;
     align-items: center;
@@ -109,15 +119,15 @@
     margin-bottom: 10px;
 }
 
-.display-member-row > * {
+.row-item > * {
     padding-right: 4px;
 }
 
-.display-member-row .member-id {
+.row-item .member-id {
     opacity: 0;
 }
 
-.display-member-row:hover .member-id {
+.row-item:hover .member-id {
     opacity: 1;
 }
 

@@ -187,20 +187,6 @@ div.dt-buttons {
     border-color: var(--bdr);
 }
 
-/* ---config members */
-.is_empty{
-    background-color: var(--error);
-}
-
-.add-name {
-    margin-top: 5px;
-    font-size: 20px;
-}
-
-#member-list {
-    padding-bottom: 30px;
-}
-
 /* --- footer --- */
 #footer {
     text-align: center;

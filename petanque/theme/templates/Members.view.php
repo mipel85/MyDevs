@@ -57,7 +57,7 @@ require_once('./controllers/Rules.controller.php');
                     $fav_icon = $member['fav'] ? '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>';
                     $fav_sort = $member['fav'] ? '1' : '0';
                 ?>
-                <div class="display-member-row">
+                <div class="row-item">
                     <div class="present-checkbox">
                         <label for="present-<?= $member['id'] ?>" class="checkbox" id="label-present-<?= $member['id'] ?>">
                             <input data-present_id="<?= $member['id'] ?>" type="checkbox" name="present-<?= $member['id'] ?>" id="present-<?= $member['id'] ?>" class="present-member"<?= $checked_present ?>>
@@ -80,6 +80,7 @@ require_once('./controllers/Rules.controller.php');
 
 <script>
     $(document).ready(function() {
+        // change fav status, icon and color before reload
         $('.fav-member').each(function() {
             $(this).on('click', function() {
                 if ($(this).is(":checked")) {
@@ -92,6 +93,7 @@ require_once('./controllers/Rules.controller.php');
                 }
             });
         });
+        // change member selection status, icon and color before reload
         $('.present-member').each(function() {
             $(this).on('click', function() {
                 if ($(this).is(":checked")) {
@@ -105,18 +107,8 @@ require_once('./controllers/Rules.controller.php');
             });
         });
 
-        // reorder horizontal to vertical
-        let items = $('#all-members-list .display-member-row'),
-            itemsPerColumn = Math.ceil(items.length / 6);
-
-        for (let i = 0; i < 6; i++) {
-            // Sélectionnez les éléments pour la colonne actuelle
-            let columnItems = items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn);
-            // Créez une nouvelle colonne et ajoutez les éléments
-            let column = $('<div class="flex-main"></div>').append(columnItems);
-            // Ajoutez la colonne au conteneur
-            $('#all-members-list').append(column);
-        }
+        // Reorder horizontal order to vertical
+        rowtocolumn('#all-members-list', '.row-item', 'flex-main', 6);
     });
 
 

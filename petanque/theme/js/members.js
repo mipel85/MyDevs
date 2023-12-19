@@ -1,41 +1,42 @@
 $(document).ready(function() {
 
-    // Config ###########################################################################
-    $('#member_name').focus();
-    $('#member_name').removeClass('full-error');
+// Config ###########################################################################
+    $('#add-member-name').focus();
+    $('#add-member-name').removeClass('full-error');
 
     // DataTable
-    $('#registred-members').DataTable({
-        dom: 'lfrip<t>B',
-        buttons: [
-            'print'
-        ],
-        language: {
-            url: './theme/js/lib/language.json'
-        },
-        "aLengthMenu": [
-            [10, 20, 25, 30, 50, -1],
-            [10, 20, 25, 30, 50, 'Tous']
-        ],
-        "columnDefs": [
-            { "width": "40%", "targets": 1 }
-        ],
-        "paginationType": "simple_numbers",
-        "pageLength": 25,
-        "fixedHeader": true,
-        "paging": true,
-        "order": [[1, 'asc']],
-        "columns": [
-            {type: "num"},
-            {type: "text"},
-            {type: "text"},
-            {orderable: false}
-        ]
-    });
+    // $('#registred-members').DataTable({
+    //     dom: 'lfrip<t>B',
+    //     buttons: [
+    //         'print'
+    //     ],
+    //     language: {
+    //         url: './theme/js/lib/language.json'
+    //     },
+    //     "aLengthMenu": [
+    //         [10, 20, 25, 30, 50, -1],
+    //         [10, 20, 25, 30, 50, 'Tous']
+    //     ],
+    //     "columnDefs": [
+    //         { "width": "40%", "targets": 1 }
+    //     ],
+    //     "paginationType": "simple_numbers",
+    //     "pageLength": 25,
+    //     "fixedHeader": true,
+    //     "paging": true,
+    //     "order": [[1, 'asc']],
+    //     "columns": [
+    //         {type: "num"},
+    //         {type: "text"},
+    //         {type: "text"},
+    //         {orderable: false}
+    //     ]
+    // });
 
+// Front ###########################################################################
     // Add new member
     $('#add-member').on('click', function() {
-        var name = $('#member_name').val();
+        var name = $('#add-member-name').val();
         if (name !== ''){
             $.ajax({
                 url: './ajax/AjaxMembers.php',
@@ -45,9 +46,9 @@ $(document).ready(function() {
                     name: name
                 },
                 success: function(r) {
-                    $('#member_name').val('');
+                    $('#add-member-name').val('');
                     location.reload(true);
-                    $('#member_name').focus();
+                    $('#add-member-name').focus();
                 },
                 error: function(r) {
                     alert(r.error);
@@ -55,8 +56,8 @@ $(document).ready(function() {
             });
         } else {
             alert('Le nom du joueur doit être renseigné');
-            $('#member_name').addClass('full-error');
-            $('#member_name').on('keyup', function(){ $(this).removeClass('full-error') })
+            $('#add-member-name').addClass('full-error');
+            $('#add-member-name').on('keyup', function(){ $(this).removeClass('full-error') })
         }
     });
 
@@ -114,10 +115,9 @@ $(document).ready(function() {
                 name = $(this).prev().val();
             if ($(this).hasClass('edit-button')) {
                 $(this).prev().removeAttr('readonly').addClass('bgc-notice');
-                $(this).removeClass('edit-button icon-button')
-                    .addClass('change-button button')
-                    .html('')
-                    .text('Valider');
+                $(this).removeClass('edit-button')
+                    .addClass('change-button')
+                    .html('<i class="far fa-lg fa-square-caret-right notice"></i>');
             } else if ($(this).hasClass('change-button')) {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
@@ -286,7 +286,7 @@ $(document).ready(function() {
     //                 fav_check = member['fav'] ?  'checked' : '';
 
     //             $('#display-members-list').append(
-    //                 '<div class="display-member-row">' +
+    //                 '<div class="row-item">' +
     //                     '<div class="present-checkbox">' +
     //                         '<label for="present-' + member['id'] + '" class="checkbox" id="label-present-' + member['id'] + '">' +
     //                             '<input data-present_id="' + member['id'] + '" type="checkbox" name="present-' + member['id'] + '" id="present-' + member['id'] + '" class="present-member" ' + present_check + ' />' +
