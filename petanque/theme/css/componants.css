@@ -160,9 +160,10 @@
 
 .team-score {
     text-align: center;
+    cursor: pointer;
 }
 
-.validated-score td,
+.validated-score,
 .team-score:disabled {
     background-color: var(--bgc-success);
     border-color: var(--success);

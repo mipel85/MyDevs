@@ -48,12 +48,13 @@ $possible_scores = 12;
                                 </span>
                             </div>
                             <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round['id'] ?>"></span>
-                            <div id="match-list-round-<?= $round['id'] ?>" class="match-list big-line cell-flex cell-columns-2">
+                            <div id="match-list-round-<?= $round['id'] ?>" class="matches-round-list big-line cell-flex cell-columns-2">
                                 <?php foreach (Matches::round_matches_list($day_id, $round['id']) as $index => $match): ?>
                                     <?php $disabled_score = $match['score_status'] ? ' disabled' : ''; ?>
                                     <div
-                                            class="row-item"
+                                            class="match-scores row-item"
                                             id="matches-score-<?= $match['id'] ?>"
+                                            data-field="<?= $match['field'] ?>"
                                             data-round_id="<?= $round['id'] ?>"
                                             data-match_id="<?= $match['id'] ?>">
                                         <div class="score-row-field">
@@ -109,14 +110,15 @@ $possible_scores = 12;
         // Déclaration des scores
         $('input.team-score').each(function() {
             $(this).on('click', function() { // sélection de l'input à renseigner
+            console.log($(this));
                 // On supprime le focus de tous les tr
-                $(this).closest('table').find('input').removeClass('focused-score full-alt');
-                $(this).closest('table').find('tr td').removeClass('full-notice');
-                $(this).closest('table').find('.button').removeClass('full-alt');
+                $(this).closest('.matches-round-list').find('input').removeClass('focused-score full-sub');
+                $(this).closest('.matches-round-list').find('.row-item').removeClass('full-notice');
+                $(this).closest('.matches-round-list').find('.button').removeClass('full-sub');
                 // on ajoute le focus sur le tr de l'input
-                $(this).addClass('focused-score full-alt');
-                $(this).closest('tr').find('td').addClass('full-notice');
-                $(this).closest('tr').find('.button').addClass('full-alt');
+                $(this).addClass('focused-score full-sub');
+                $(this).closest('.row-item').addClass('full-notice');
+                $(this).closest('.row-item').find('.button').addClass('full-sub');
             });
         });
         $('.score-button').each(function(){
@@ -132,10 +134,10 @@ $possible_scores = 12;
 </section>
 
 <script>
+    // If scroll, pass score buttons to fixed position
     var distance = $('.score-buttons-list').offset().top; 
 
     $(window).scroll(function () {
-
         if ($(window).scrollTop() >= distance) {
             $('.score-buttons-list').addClass("fixed-element");
 
@@ -143,5 +145,9 @@ $possible_scores = 12;
             $('.score-buttons-list').removeClass("fixed-element");
         }
     });
+
+    // reorderfields('.matches-round-list', '.row-item', 'field');
+    // rowtocolumns('.matches-round-list', '.row-item', 'row-col', 2);
+
 </script>
 

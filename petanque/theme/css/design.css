@@ -164,7 +164,7 @@ h6 { font-size: 1em; }
 }
 
 .select,
-.input:not([type="submit"]) {
+.input {
     border-width: 1px;
     border-style: solid;
     border-radius: 3px;

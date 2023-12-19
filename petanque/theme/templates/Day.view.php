@@ -167,8 +167,7 @@ require_once('./controllers/Days.controller.php');
                 $('.playgrounds-list').addClass('hidden')
                 $('#round-description').html("Aucun score de la partie en cours n'est renseigné.<br />L'ajout d'une nouvelle partie est désactivé.")
             }
-            rowtocolumn('.match-player-list', '.row-item', 'row-col', 2);
+            rowtocolumn('.match-list', '.row-item', 'row-col', 2);
         })
     </script>
 </section>
-
