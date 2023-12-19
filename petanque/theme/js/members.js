@@ -17,6 +17,9 @@ $(document).ready(function() {
             [10, 20, 25, 30, 50, -1],
             [10, 20, 25, 30, 50, 'Tous']
         ],
+        "columnDefs": [
+            { "width": "40%", "targets": 1 }
+        ],
         "paginationType": "simple_numbers",
         "pageLength": 25,
         "fixedHeader": true,

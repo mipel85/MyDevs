@@ -13,7 +13,7 @@ $possible_scores = 12;
 <section>
     <header class="section-header flex-between-center">
         <h1>Scores</h1>
-        <?php if(Days::started_day()): ?><span class="description"><?= $today ?></span><?php endif ?>
+        <button id="end-the-day" class="button full-error">Terminer la journée</button>
     </header>
     <?php if($day_id): ?>
         <article id="rounds-list">

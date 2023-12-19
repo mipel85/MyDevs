@@ -1,11 +1,11 @@
 <?php
 
-include './classes/Rounds.class.php';
-include './classes/Teams.class.php';
-include './classes/Matches.class.php';
-include './classes/Rankings.class.php';
-include './controllers/Days.controller.php';
-include './controllers/Rankings.controller.php';
+require_once('./classes/Rounds.class.php');
+require_once('./classes/Teams.class.php');
+require_once('./classes/Matches.class.php');
+require_once('./classes/Rankings.class.php');
+require_once('./controllers/Days.controller.php');
+require_once('./controllers/Rankings.controller.php');
 ?>
 <section>
     <header class="section-header"><h1>Classement</h1></header>

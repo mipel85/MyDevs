@@ -7,8 +7,9 @@ $actions = $_POST['action'];
 switch($actions)
 {
     case 'insert_member':
+        $name = htmlspecialchars($_POST['name'], ENT_QUOTES);
         $creation = new Members();
-        $creation->set_name($_POST['name']);
+        $creation->set_name($name);
         $creation->insert_member();
         break;
     

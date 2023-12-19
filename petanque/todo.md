@@ -19,6 +19,7 @@
 ~~ - affichage de la liste des sélectionnés en popup sans id ~~
 ~~ - agir en ajax sur la liste des sélectionnés pour ne pas avoir à recharger la page ~~
 - pouvoir modifier le nom du membre
+- revoir le tableau des membres dans la config member selection like
 
 ## Accueil
 créer la doc dans /theme/templates/home.php
@@ -84,12 +85,14 @@ suppression
 ~~ - grossir les boutons scores 1.1 ~~
 ~~ - mettre la liste des score en fixe au scroll ~~
 ~~ - améliorer le focus jusqu'à validation ~~
-- revoir le tableau sur 2 col pour pas de scroll
+- revoir le tableau member selection like
 
 ### Classement
-- ids joueurs
+- day_id
+- day_date
+- joueurs_id
+- joueurs_name
 - nb rencontres
-- scores
 - points
     - win = score + diff win/loss
     - loss = score - diff win/loss

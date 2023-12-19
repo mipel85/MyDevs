@@ -31,7 +31,7 @@
                     $edit_class = $member['edit'] ? ' bgc-notice change-button' : ' edit-button';
                     $button_class = $member['edit'] ? ' change-button' : ' edit-button';
                     $edit_readonly = $member['edit'] ? '' : ' readonly';
-                    $edit_icon = $member['edit'] ? '<i class="far fa-lg fa-square-check success"></i>' : '<i class="fa fa-lg fa-edit warning"></i>'
+                    $edit_icon = $member['edit'] ? 'Valider' : 'Modifier'
                 ?>
                 <tr>
                     <td><?= $member['id'] ?></td>
@@ -41,7 +41,7 @@
                             <input size="15"<?= $edit_readonly ?> type="text" class="input member-name<?= $edit_class ?>" value="<?=$member['name']?>">
                             <button 
                                     data-member_id="<?= $member['id'] ?>"
-                                    class="change-name icon-button<?= $button_class ?>" 
+                                    class="change-name button<?= $button_class ?>" 
                                     name="edit-<?= $member['id'] ?>">
                                 <?= $edit_icon ?>
                             </button>
