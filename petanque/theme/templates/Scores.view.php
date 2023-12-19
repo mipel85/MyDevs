@@ -48,11 +48,11 @@ $possible_scores = 12;
                                 </span>
                             </div>
                             <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round['id'] ?>"></span>
-                            <div id="match-list-round-<?= $round['id'] ?>" class="matches-round-list big-line cell-flex cell-columns-2">
+                            <div id="matches-round-list-<?= $round['id'] ?>" class="matches-round-list flex-between-center cell-flex cell-columns-8">
                                 <?php foreach (Matches::round_matches_list($day_id, $round['id']) as $index => $match): ?>
                                     <?php $disabled_score = $match['score_status'] ? ' disabled' : ''; ?>
                                     <div
-                                            class="match-scores row-item"
+                                            class="match-scores row-item row-vertical"
                                             id="matches-score-<?= $match['id'] ?>"
                                             data-field="<?= $match['field'] ?>"
                                             data-round_id="<?= $round['id'] ?>"
@@ -62,7 +62,7 @@ $possible_scores = 12;
                                         </div>
                                         <div class="score-row-team-left">
                                             <span data-team_1_id="<?= $match['team_1_id'] ?>"></span>
-                                            <div class="score-member-list align-right">
+                                            <div class="score-member-list">
                                                 <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
                                                     <span class="d-block" data-player_id_score="<?= $players[0] ?>"><?= $players[1] ?></span>
                                                     <span class="d-block" data-player_id_score="<?= $players[2] ?>"><?= $players[3] ?></span>
@@ -77,7 +77,7 @@ $possible_scores = 12;
                                             <input readonly class="input team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>"<?= $disabled_score ?>>
                                         </div>
                                         <div class="score-row-team-right">
-                                            <div class="score-member-list align-left">
+                                            <div class="score-member-list">
                                                 <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
                                                     <span class="d-block" data-player_id_score="<?= $players[0] ?>"><?= $players[1] ?></span>
                                                     <span class="d-block" data-player_id_score="<?= $players[2] ?>"><?= $players[3] ?></span>
@@ -95,6 +95,7 @@ $possible_scores = 12;
                                         </div>
                                     </div>
                                 <?php endforeach ?>
+                                <script>reorderfields('#matches-round-list-<?= $round['id'] ?>', '.row-item', 'field');</script>
                             </div>
                         </div>
                     </div>
@@ -109,13 +110,12 @@ $possible_scores = 12;
     <script>
         // Déclaration des scores
         $('input.team-score').each(function() {
-            $(this).on('click', function() { // sélection de l'input à renseigner
-            console.log($(this));
-                // On supprime le focus de tous les tr
+            $(this).on('click', function() { // sélection de l'input à renseigner                
+                // On supprime le focus de tous les autres input
                 $(this).closest('.matches-round-list').find('input').removeClass('focused-score full-sub');
                 $(this).closest('.matches-round-list').find('.row-item').removeClass('full-notice');
                 $(this).closest('.matches-round-list').find('.button').removeClass('full-sub');
-                // on ajoute le focus sur le tr de l'input
+                // on ajoute le focus sur l'input
                 $(this).addClass('focused-score full-sub');
                 $(this).closest('.row-item').addClass('full-notice');
                 $(this).closest('.row-item').find('.button').addClass('full-sub');
@@ -146,8 +146,6 @@ $possible_scores = 12;
         }
     });
 
-    // reorderfields('.matches-round-list', '.row-item', 'field');
-    // rowtocolumns('.matches-round-list', '.row-item', 'row-col', 2);
 
 </script>
 

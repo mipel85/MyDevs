@@ -75,9 +75,9 @@ require_once('./controllers/Days.controller.php');
                     $hidden_matches_btn = Matches::round_matches_list($day_id, $round_id) ? ' hidden' : '';
                 ?>
                 <div id="rounds-<?= $round['i_order'] ?>"
-                        class="cell-flex cell-columns-2 tab-content<?= $active_tab ?>"
+                        class="tab-content<?= $active_tab ?>"
                         data-scored="<?= is_scored($day_id, $round['id']) ?>">
-                    <div class="cell-100 flex-between">
+                    <div class="flex-between">
                         <span></span>
                         <button type="submit" 
                                 class="icon-button remove-round<?= $hidden_remove_round ?>" 
@@ -87,7 +87,11 @@ require_once('./controllers/Days.controller.php');
                             <i class="fa fa-fw fa-2x fa-square-xmark error"></i>
                         </button>
                     </div>
-                    <div id="teams-list-<?= $round_id ?>"
+                    <?php
+                        $matches_ready = count(Matches::round_matches_list($day_id, $round_id));
+                        $hidden_matches_ready = $matches_ready ? ' class="hidden"' : '';
+                    ?>
+                    <div id="teams-list-<?= $round_id ?>"<?= $hidden_matches_ready ?>
                             data-round_ready="<?= $hidden_teams_btn ?>"
                             data-day_id="<?= $day_id ?>"
                             data-round_id="<?= $round_id ?>">
@@ -95,10 +99,9 @@ require_once('./controllers/Days.controller.php');
                             <h4><?= $round['players_number'] ?> joueurs</h4>
                             <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= rules($round['players_number']) ?></span>
                         </header>
-
-                        <div id="teams-list-round-<?= $round_id ?>" class="cell-flex cell-columns-2<?= $hidden_teams_list ?>">
+                        <div id="teams-round-list-<?= $round_id ?>" class="teams-round-list cell-flex cell-columns-4<?= $hidden_teams_list ?>">
                             <?php foreach (Teams::round_teams_list($day_id, $round_id) as $index => $team): ?>
-                                <div class="row-item flex-between-center bgc-sub">
+                                <div class="row-item row-vertical flex-start-center bgc-sub">
                                     <div><?= $team['player_1_name'] ?></div>
                                     <div><?= $team['player_2_name'] ?></div>
                                     <?php if ($team['player_3_name']): ?><div><?= $team['player_3_name'] ?></div><?php endif ?>
@@ -121,10 +124,12 @@ require_once('./controllers/Days.controller.php');
                         </header>
                         <div class="expand-container">
                             <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round_id ?>"></span>
-                            <div id="match-list-round-<?= $round_id ?>" class="match-list big-line cell-flex cell-columns-2<?= $hidden_matches_list ?>">
+                            <div id="matches-round-list-<?= $round_id ?>" class="match-list big-line cell-flex cell-columns-4<?= $hidden_matches_list ?>">
                                 <?php foreach (Matches::round_matches_list($day_id, $round_id) as $index => $match): ?>
-                                    <?php $validated_score = $match['score_status'] ? ' validated-score' : ''; ?>
-                                    <div class="row-item flex-between-center<?= $validated_score ?>">
+                                    <?php $validated_score = $match['score_status'] ? ' full-success' : ''; ?>
+                                    <div 
+                                            class="row-item flex-between-center<?= $validated_score ?>"
+                                            data-field="<?= $match['field'] ?>">
                                         <div class="width-50 align-center">
                                             <span class="big stamp full-main"><?= $match['field'] ?></span>
                                         </div>
@@ -145,6 +150,9 @@ require_once('./controllers/Days.controller.php');
                                     </div>
                                 <?php endforeach ?>
                             </div>
+                            <script>
+                                reorderfields('#matches-round-list-<?= $round['id'] ?>', '.row-item', 'field');
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -167,7 +175,8 @@ require_once('./controllers/Days.controller.php');
                 $('.playgrounds-list').addClass('hidden')
                 $('#round-description').html("Aucun score de la partie en cours n'est renseigné.<br />L'ajout d'une nouvelle partie est désactivé.")
             }
-            rowtocolumn('.match-list', '.row-item', 'row-col', 2);
+            // rowtocolumn('.match-list', '.row-item', 'field');
+            // rowtocolumn('.match-list', '.row-item', 'row-col', 2);
         })
     </script>
 </section>

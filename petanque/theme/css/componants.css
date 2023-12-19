@@ -23,6 +23,8 @@
 	.cell-columns-4 > * { width: calc(100% / 2 - 10px); }
 	.cell-columns-5 > * { width: calc(100% / 2 - 10px); }
 	.cell-columns-6 > * { width: calc(100% / 2 - 10px); }
+	.cell-columns-8 > * { width: calc(100% / 2 - 10px); }
+	.cell-columns-10 > * { width: calc(100% / 4 - 10px); }
 	.cell-flex > *.cell-100 { width: 100% !important; }
 	.cell-flex > *.cell-1-4,
 	.cell-flex > *.cell-1-3,
@@ -37,12 +39,20 @@
 	.cell-columns-4 > * { width: calc(100% / 4 - 10px); }
 	.cell-columns-5 > * { width: calc(100% / 5 - 10px); }
 	.cell-columns-6 > * { width: calc(100% / 6 - 10px); }
+	.cell-columns-8 > * { width: calc(100% / 6 - 10px); }
+	.cell-columns-10 > * { width: calc(100% / 6 - 10px); }
 	.cell-flex > *.cell-100 { width: 100% !important; }
 	.cell-flex > *.cell-1-4 { width: calc(100% / 4 - 10px) !important; }
 	.cell-flex > *.cell-1-3 { width: calc(100% / 3 - 10px) !important; }
 	.cell-flex > *.cell-1-2 { width: calc(100% / 2 - 10px) !important; }
 	.cell-flex > *.cell-2-3 { width: calc(100% * 2 / 3 - 10px) !important; }
 	.cell-flex > *.cell-3-4 { width: calc(100% * 3 / 4 - 10px) !important; }
+}
+
+@media (min-width: 1280px) {
+	.cell-columns-6 > * { width: calc(100% / 6 - 10px); }
+	.cell-columns-8 > * { width: calc(100% / 8 - 10px); }
+	.cell-columns-10 > * { width: calc(100% / 10 - 10px); }
 }
 
 .flex-main {
@@ -74,10 +84,18 @@
     align-items: center;
 }
 
+.flex-start-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 @media (min-width: 769px) {
     .flex-between,
     .flex-between-center,
-    .flex-around-center {
+    .flex-around-center,
+    .flex-start-center {
         flex-direction: row;
     }
 }
@@ -130,6 +148,22 @@
     padding-right: 4px;
 }
 
+.row-item.row-vertical {
+    flex-direction: column;
+    gap: 5px 0;
+}
+
+.row-item.row-vertical.match-scores {
+    min-height: 280px;
+}
+
+.row-item.row-vertical > * {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+}
+
 .row-item .member-id {
     opacity: 0;
 }
@@ -161,6 +195,11 @@
 .team-score {
     text-align: center;
     cursor: pointer;
+    width: 80px;
+}
+
+.teams-round-list .row-item > * {
+    width: calc(100% / 3);
 }
 
 .validated-score,
@@ -197,19 +236,6 @@
     border-color: var(--success);
     color: var(--success);
 }
-
-.score-row-field { width: 50px; }
-.score-row-team-left {
-    width: calc(100% / 13 * 4);
-    padding-right: 10px;
-}
-.score-row-left { width: calc(100% / 13); }
-.score-row-right { width: calc(100% / 13); }
-.score-row-team-right {
-    width: calc(100% / 13 * 4);
-    padding-left: 10px;
-}
-.score-row-button { width: calc(100% / 13); }
 
 .playgrounds-list {
     padding: 0 10px;
