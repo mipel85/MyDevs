@@ -3,35 +3,7 @@ $(document).ready(function() {
 // Config ###########################################################################
     $('#add-member-name').focus();
     $('#add-member-name').removeClass('full-error');
-
-    // DataTable
-    // $('#registred-members').DataTable({
-    //     dom: 'lfrip<t>B',
-    //     buttons: [
-    //         'print'
-    //     ],
-    //     language: {
-    //         url: './theme/js/lib/language.json'
-    //     },
-    //     "aLengthMenu": [
-    //         [10, 20, 25, 30, 50, -1],
-    //         [10, 20, 25, 30, 50, 'Tous']
-    //     ],
-    //     "columnDefs": [
-    //         { "width": "40%", "targets": 1 }
-    //     ],
-    //     "paginationType": "simple_numbers",
-    //     "pageLength": 25,
-    //     "fixedHeader": true,
-    //     "paging": true,
-    //     "order": [[1, 'asc']],
-    //     "columns": [
-    //         {type: "num"},
-    //         {type: "text"},
-    //         {type: "text"},
-    //         {orderable: false}
-    //     ]
-    // });
+    rowtocolumn('#registred-members-list', '.row-item', 'row-col', 5);
 
 // Front ###########################################################################
     // Add new member
@@ -83,31 +55,6 @@ $(document).ready(function() {
     });
 
     // Front ###########################################################################
-    $('#members-list').DataTable({
-        dom: 'lfrip<t>B',
-        buttons: [
-            'print'
-        ],
-        language: {
-            url: './theme/js/lib/language.json'
-        },
-        "aLengthMenu": [
-            [10, 20, 25, 30, 50, -1],
-            [10, 20, 25, 30, 50, 'Tous']
-        ],
-        "paginationType": "simple_numbers",
-        "pageLength": 25,
-        "fixedHeader": true,
-        "paging": true,
-        "order": [[1, 'asc']],
-        "columns": [
-            {type: "num"},
-            {type: "text"},
-            {orderable: true},
-            {orderable: true}
-        ]
-    });
-
     // Select/unselect members as favourite
     $('.change-name').each(function() {
         $(this).on('click', function() {

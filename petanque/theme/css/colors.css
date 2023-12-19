@@ -1,10 +1,13 @@
 :root {
     --text : #212121;
-    --text-sub : #BBBBBB;
     --bdr : #BBBBBB;
     --bgc : #FFFFFF;
     --link : #00AA88;
     --link-hover : #66FFCC;
+    
+    --text-sub : #555555;
+    --bgc-sub : #EFEFEF;
+    --bdr-sub : #555555;
 
     --bgc-alt : #00AA88;
     --text-alt : #FFFFFF;
@@ -26,7 +29,10 @@
     --box-shadow : 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.full-alt { background-color: var(--bgc-alt); color: var(--text-alt)}
+.full-main { background-color: var(--bgc); color: var(--text); border-color: var(--bdr); }
+.bgc-sub { background-color: var(--bgc-sub); }
+.full-sub { background-color: var(--bgc-sub); color: var(--text-sub); }
+.full-alt { background-color: var(--bgc-alt); color: var(--text-alt); }
 
 .notice  a,
 .notice  { color: var(--notice); }

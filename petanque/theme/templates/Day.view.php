@@ -91,30 +91,20 @@ require_once('./controllers/Days.controller.php');
                             data-round_ready="<?= $hidden_teams_btn ?>"
                             data-day_id="<?= $day_id ?>"
                             data-round_id="<?= $round_id ?>">
-                        <header class="flex-between">
+                        <header class="flex-between-center">
                             <h4><?= $round['players_number'] ?> joueurs</h4>
                             <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= rules($round['players_number']) ?></span>
                         </header>
-                        <table id="teams-list-round-<?= $round_id ?>" class="table<?= $hidden_teams_list ?>">
-                            <thead>
-                                <tr>
-                                    <!-- <th>Équipe</th> -->
-                                    <th>Joueur A</th>
-                                    <th>Joueur B</th>
-                                    <th>Joueur C</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach (Teams::round_teams_list($day_id, $round_id) as $index => $team): ?>
-                                    <tr>
-                                        <!-- <td><?= $team['id'] ?></td> -->
-                                        <td><?= $team['player_1_name'] ?></td>
-                                        <td><?= $team['player_2_name'] ?></td>
-                                        <td><?= $team['player_3_name'] ?></td>
-                                    </tr>
-                                <?php endforeach ?>
-                            </tbody>
-                        </table>
+
+                        <div id="teams-list-round-<?= $round_id ?>" class="cell-flex cell-columns-2<?= $hidden_teams_list ?>">
+                            <?php foreach (Teams::round_teams_list($day_id, $round_id) as $index => $team): ?>
+                                <div class="row-item flex-between-center bgc-sub">
+                                    <div><?= $team['player_1_name'] ?></div>
+                                    <div><?= $team['player_2_name'] ?></div>
+                                    <?php if ($team['player_3_name']): ?><div><?= $team['player_3_name'] ?></div><?php endif ?>
+                                </div>
+                            <?php endforeach ?>
+                        </div>
                     </div>
                     <?php
                         $team_ready = count(Teams::round_teams_list($day_id, $round_id));
@@ -131,47 +121,30 @@ require_once('./controllers/Days.controller.php');
                         </header>
                         <div class="expand-container">
                             <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round_id ?>"></span>
-                            <table id="match-list-round-<?= $round_id ?>" class="table<?= $hidden_matches_list ?>">
-                                <thead>
-                                    <tr>
-                                        <th>Terrain</th>
-                                        <th>Équipe A</th>
-                                        <th>Équipe B</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach (Matches::round_matches_list($day_id, $round_id) as $index => $match): ?>
-                                        <?php $validated_score = $match['score_status'] ? ' class="validated-score"' : ''; ?>
-                                        <tr<?= $validated_score ?>>
-                                            <td><span class="big"><?= $match['field'] ?></span></td>
-                                            <td>
-                                                <div class="flex-around-center">
-                                                    <!-- <span><?= $match['team_1_id'] ?></span> -->
-                                                    <div class="match-player-list">
-                                                        <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
-                                                            <span class="match-player"><?= $players[1] ?></span>
-                                                            <span class="match-player"><?= $players[3] ?></span>
-                                                            <span class="match-player"><?= $players[5] ?></span>
-                                                        <?php endforeach ?>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="flex-around-center">
-                                                    <!-- <span><?= $match['team_2_id'] ?></span> -->
-                                                    <div class="match-player-list">
-                                                        <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
-                                                            <span class="match-player"><?= $players[1] ?></span>
-                                                            <span class="match-player"><?= $players[3] ?></span>
-                                                            <span class="match-player"><?= $players[5] ?></span>
-                                                        <?php endforeach ?>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
+                            <div id="match-list-round-<?= $round_id ?>" class="match-list big-line cell-flex cell-columns-2<?= $hidden_matches_list ?>">
+                                <?php foreach (Matches::round_matches_list($day_id, $round_id) as $index => $match): ?>
+                                    <?php $validated_score = $match['score_status'] ? ' validated-score' : ''; ?>
+                                    <div class="row-item flex-between-center<?= $validated_score ?>">
+                                        <div class="width-50 align-center">
+                                            <span class="big stamp full-main"><?= $match['field'] ?></span>
+                                        </div>
+                                        <div class="flex-main">
+                                            <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
+                                                <span class="d-block"><?= $players[1] ?></span>
+                                                <span class="d-block"><?= $players[3] ?></span>
+                                                <span class="d-block"><?= $players[5] ?></span>
+                                            <?php endforeach ?>
+                                        </div>
+                                        <div class="align-right">
+                                            <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
+                                                <span class="d-block"><?= $players[1] ?></span>
+                                                <span class="d-block"><?= $players[3] ?></span>
+                                                <span class="d-block"><?= $players[5] ?></span>
+                                            <?php endforeach ?>
+                                        </div>
+                                    </div>
+                                <?php endforeach ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,6 +167,7 @@ require_once('./controllers/Days.controller.php');
                 $('.playgrounds-list').addClass('hidden')
                 $('#round-description').html("Aucun score de la partie en cours n'est renseigné.<br />L'ajout d'une nouvelle partie est désactivé.")
             }
+            rowtocolumn('.match-player-list', '.row-item', 'row-col', 2);
         })
     </script>
 </section>

@@ -32,9 +32,3 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        rowtocolumn('#registred-members-list', '.row-item', 'flex-main', 5);
-    });
-</script>
-

@@ -92,6 +92,14 @@
     left: 0;
 }
 
+.pos-absolute.above-center {
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* --- Specs page --- */
+
 #selected-members-list.cell-flex {
     gap: 0 10px;
     font-style: normal;
@@ -116,7 +124,6 @@
     border-style: solid;
     border-color: var(--bdr);
     border-radius: 5px;
-    margin-bottom: 10px;
 }
 
 .row-item > * {
@@ -131,12 +138,19 @@
     opacity: 1;
 }
 
-.match-player-list {
-    width: 60%;
-    text-align: left;
+.row-col .row-item {
+    margin-bottom: 10px;
 }
 
-.match-player {
+.width-50 {
+    width: 50px;
+}
+
+.width-100 {
+    width: 100px;
+}
+
+.d-block {
     display: block;
 }
 
@@ -182,6 +196,19 @@
     border-color: var(--success);
     color: var(--success);
 }
+
+.score-row-field { width: 50px; }
+.score-row-team-left {
+    width: calc(100% / 13 * 4);
+    padding-right: 10px;
+}
+.score-row-left { width: calc(100% / 13); }
+.score-row-right { width: calc(100% / 13); }
+.score-row-team-right {
+    width: calc(100% / 13 * 4);
+    padding-left: 10px;
+}
+.score-row-button { width: calc(100% / 13); }
 
 .playgrounds-list {
     padding: 0 10px;
@@ -363,6 +390,14 @@
 .hidden { display: none; }
 
 .text-italic { font-style: italic; }
+
+.stamp {
+    font-size: 0.809em;
+    padding: 0 3px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+}
 
 .small { font-size: 0.809em; }
 .big { font-size: 1.456em; }

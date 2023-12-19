@@ -126,6 +126,11 @@ h6 { font-size: 1em; }
     padding-bottom: 15px;
 }
 
+.big-line {
+    padding-top: 40px;
+    padding-bottom: 15px;
+}
+
 .content {
     padding-right: 20px;
     padding-left: 20px;
@@ -163,7 +168,7 @@ h6 { font-size: 1em; }
     border-width: 1px;
     border-style: solid;
     border-radius: 3px;
-    padding: 7px 15px;
+    padding: 5px 10px;
 }
 
 /* datatables button print */

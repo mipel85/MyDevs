@@ -14,26 +14,21 @@ $menu = display_menu();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="./favicon.ico" />
-        <link rel="stylesheet" href="./theme/js/lib/FixedHeader-3.4.0/css/fixedHeader.dataTables.min.css" type="text/css" media="screen, print" />
-        <link rel="stylesheet" href="./theme/js/lib/datatables.min.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/default.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/design.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/componants.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/menu.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/plugins.css" type="text/css" media="screen, print" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" type="text/css" media="screen, print" />
+        <link rel="stylesheet" href="./theme/css/font-awesome/css/all.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/colors.css" type="text/css" media="screen, print" />
         <title><?= $title ?> - Pétanque Loisirs Sainte-Foy</title>
         
         <!-- plugins -->
-        <script src="./theme/js/lib/jquery-3.7.1.min.js"></script>
-        <script src="./theme/js/lib/datatables.min.js"></script>
-        <script src="./theme/js/lib/Buttons-2.4.2/js/buttons.dataTables.min.js"></script>
-        <script src="./theme/js/lib/FixedHeader-3.4.0/js/fixedHeader.dataTables.min.js"></script>
-        <script src="./theme/js/expand.js"></script>
-        <script src="./theme/js/tabs.js"></script>
-        <script src="./theme/js/modal.js"></script>
-        <script src="./theme/js/rowtocolumn.js"></script>
+        <script src="./theme/js//plugins/jquery.min.js"></script>
+        <script src="./theme/js/plugins/expand.js"></script>
+        <script src="./theme/js/plugins/tabs.js"></script>
+        <script src="./theme/js/plugins/modal.js"></script>
+        <script src="./theme/js/plugins/rowtocolumn.js"></script>
         <!-- Ajax -->
         <script src="./theme/js/members.js"></script>
         <script src="./theme/js/players.js"></script>
