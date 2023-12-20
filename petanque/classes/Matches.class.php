@@ -113,6 +113,22 @@ class Matches {
         return Connection::query($req);
     }
 
+    static function matches_list()
+    {
+        $matches = array();
+        $req = 'SELECT matches.* FROM matches ';
+
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    $matches[] = $value;
+                }
+            }
+        }
+        return $matches;
+    }
+
     static function round_matches_list($day_id, $round_id)
     {
         $matches = array();

@@ -135,16 +135,16 @@ require_once('./controllers/Days.controller.php');
                                         </div>
                                         <div class="flex-main">
                                             <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
-                                                <span class="d-block"><?= $players[1] ?></span>
-                                                <span class="d-block"><?= $players[3] ?></span>
-                                                <span class="d-block"><?= $players[5] ?></span>
+                                                <span data-member_id="<?= $players[0] ?>" class="d-block"><?= $players[1] ?></span>
+                                                <span data-member_id="<?= $players[2] ?>" class="d-block"><?= $players[3] ?></span>
+                                                <span data-member_id="<?= $players[4] ?>" class="d-block"><?= $players[5] ?></span>
                                             <?php endforeach ?>
                                         </div>
                                         <div class="align-right">
                                             <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
-                                                <span class="d-block"><?= $players[1] ?></span>
-                                                <span class="d-block"><?= $players[3] ?></span>
-                                                <span class="d-block"><?= $players[5] ?></span>
+                                                <span data-member_id="<?= $players[0] ?>" class="d-block"><?= $players[1] ?></span>
+                                                <span data-member_id="<?= $players[2] ?>" class="d-block"><?= $players[3] ?></span>
+                                                <span data-member_id="<?= $players[4] ?>" class="d-block"><?= $players[5] ?></span>
                                             <?php endforeach ?>
                                         </div>
                                     </div>

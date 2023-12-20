@@ -19,37 +19,6 @@ $(document).ready(function() {
             }
         });
     }
-    
-    // Select/unselect playgrounds
-    $('.checkbox-field').each(function() {
-        $(this).on('change', function() {
-            let fields_id = $(this).data('fields_id'),
-                field_id = $(this).attr('id');
-            if ((this.checked)){
-                $.ajax({
-                    url: './ajax/AjaxDays.php',
-                    type: 'POST',
-                    data: {
-                        action: 'check_field',
-                        fields_id: fields_id,
-                        field_id: field_id
-                    },
-                    success: function() {}
-                });
-            } else {
-                $.ajax({
-                    url: './ajax/AjaxDays.php',
-                    type: 'POST',
-                    data: {
-                        action: 'uncheck_field',
-                        fields_id: fields_id,
-                        field_id: field_id
-                    },
-                    success: function() {}
-                });
-            }
-        });
-    });
 
     // Supprimer une journée
     $(".remove-day").each(function() {
@@ -85,6 +54,37 @@ $(document).ready(function() {
             },
             error : function(r) {
                 alert(r.error)
+            }
+        });
+    });
+    
+    // Select/unselect playgrounds
+    $('.checkbox-field').each(function() {
+        $(this).on('change', function() {
+            let fields_id = $(this).data('fields_id'),
+                field_id = $(this).attr('id');
+            if ((this.checked)){
+                $.ajax({
+                    url: './ajax/AjaxDays.php',
+                    type: 'POST',
+                    data: {
+                        action: 'check_field',
+                        fields_id: fields_id,
+                        field_id: field_id
+                    },
+                    success: function() {}
+                });
+            } else {
+                $.ajax({
+                    url: './ajax/AjaxDays.php',
+                    type: 'POST',
+                    data: {
+                        action: 'uncheck_field',
+                        fields_id: fields_id,
+                        field_id: field_id
+                    },
+                    success: function() {}
+                });
             }
         });
     });
@@ -183,8 +183,8 @@ $(document).ready(function() {
     // Valider les scores
     $('[id*="submit-scores-"]').each(function() {
         $(this).on('click', function() {
-            let score_status = $(this).data('score_status');
-            let id = $(this).closest('.match-scores').data('match_id'),
+            let score_status = $(this).data('score_status'),
+                id = $(this).closest('.match-scores').data('match_id'),
                 score_1 = $(this).closest('.match-scores').find('input[name="score-1"]').val(),
                 score_2 = $(this).closest('.match-scores').find('input[name="score-2"]').val();
             $.ajax({

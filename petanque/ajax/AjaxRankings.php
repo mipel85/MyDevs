@@ -19,6 +19,7 @@ switch($actions)
             if(!in_array($member['id'], $players_id)) {
                 $add = new Rankings();
                 $add->set_day_id($_POST['day_id']);
+                $add->set_day_date('');                                      // To be filled ################
                 $add->set_member_id($member['id']);
                 $add->set_member_name($member['name']);
                 $add->set_played(0);

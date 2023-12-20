@@ -61,7 +61,7 @@ class Players {
     public function set_points_against($points_against) { $this->points_against = $points_against; }
 // end getters setters
 
-    function add_player()
+    function insert_player()
     {
         $req = 'INSERT INTO players values (
                     NULL,
@@ -70,8 +70,8 @@ class Players {
                     "' . $this->get_match_id() . '",
                     "' . $this->get_member_id() . '",
                     "' . $this->get_member_name() . '",
-                    "' . $this->get_points_for() . '",
-                    "' . $this->get_points_against() . '",
+                    "0",
+                    "0"
                 )';
         return Connection::query($req);
     }
@@ -92,5 +92,22 @@ class Players {
     {
         $req = 'DELETE FROM players';
         return Connection::query($req);
+    }
+
+    static function players_list()
+    {
+        $players = array();
+        $req = 'SELECT players.*, days.date AS date FROM players '
+            . ' LEFT JOIN days ON days.id = players.day_id';
+
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    $players[] = $value;
+                }
+            }
+        }
+        return $players;
     }
 }

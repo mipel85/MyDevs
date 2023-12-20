@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 17 déc. 2023 à 20:32
+-- Généré le : mer. 20 déc. 2023 à 10:10
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -102,7 +102,7 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (7, 'Daniel.R', 0, 0),
 (8, 'Daniel.T', 0, 0),
 (9, 'Danielle.L', 0, 0),
-(10, 'Dany.R', 0, 1),
+(10, 'Dany.R', 1, 1),
 (11, 'Denis.D', 0, 0),
 (12, 'Denis.G', 1, 1),
 (13, 'Dominique.B', 1, 1),
@@ -110,48 +110,48 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (15, 'Fernand.D', 0, 0),
 (16, 'Fernando.L', 0, 0),
 (17, 'Franck.H', 1, 1),
-(18, 'Frederic.D', 0, 0),
+(18, 'Frederic.D', 1, 1),
 (19, 'Francois.S', 0, 0),
 (20, 'Gaetan.F', 0, 0),
 (21, 'Gerard.F', 0, 0),
-(22, 'Gerard.M', 0, 1),
+(22, 'Gerard.M', 1, 1),
 (23, 'Ghislain.G', 0, 0),
 (24, 'Guy.A', 0, 0),
-(25, 'Jean-Claude.F', 0, 0),
+(25, 'Jean-Claude.F', 1, 1),
 (26, 'Gilbert.M', 0, 0),
 (27, 'Jean-Jacques.B', 0, 0),
-(28, 'Jean-Louis.D', 0, 1),
+(28, 'Jean-Louis.D', 1, 1),
 (29, 'Jean-Luc.C', 0, 0),
-(30, 'Jean-Luc.L', 0, 1),
+(30, 'Jean-Luc.L', 1, 1),
 (31, 'Jean-Marcel.S', 0, 0),
 (32, 'Jean-Paul.C', 0, 0),
 (33, 'Jean-Pierre.L', 0, 0),
-(34, 'Jean-Pierre.P', 0, 0),
+(34, 'Jean-Pierre.P', 1, 1),
 (35, 'Laurent.S', 0, 0),
 (36, 'Louis.R', 0, 0),
 (37, 'Marcel .B', 0, 0),
-(38, 'Marie.M', 0, 0),
+(38, 'Marie.M', 1, 1),
 (39, 'Mathieu.M', 0, 0),
 (40, 'Michel.C', 1, 1),
-(41, 'Michel.P', 0, 0),
+(41, 'Michel.P', 1, 1),
 (42, 'Michel.R', 0, 0),
 (43, 'Nicky.M', 0, 0),
 (44, 'Nicole.H', 0, 0),
 (45, 'Noel.L', 0, 0),
 (46, 'Pascal.L', 0, 0),
-(47, 'Patrick.D', 0, 0),
+(47, 'Patrick.D', 1, 1),
 (48, 'Patrick.L', 0, 0),
-(49, 'Philippe.G', 0, 0),
+(49, 'Philippe.G', 1, 1),
 (50, 'Philippe.R', 0, 0),
-(51, 'Roland.C', 0, 0),
+(51, 'Roland.C', 1, 1),
 (52, 'Yannick.G', 0, 0),
-(53, 'Claire.S', 0, 1),
-(54, 'Marc.S', 0, 0),
+(53, 'Claire.S', 1, 1),
+(54, 'Marc.S', 1, 1),
 (55, 'Sylvain.B', 0, 0),
-(56, 'Mathieu.M', 0, 0),
-(57, 'Gilles.T', 0, 0),
-(58, 'Catherine.D', 1, 0),
-(59, 'Jean-Louis.D', 0, 0);
+(56, 'Mathieu.M', 1, 1),
+(57, 'Gilles.T', 1, 1),
+(58, 'Catherine.D', 1, 1),
+(59, 'Jean-Louis.D', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -179,6 +179,7 @@ CREATE TABLE `players` (
 CREATE TABLE `rankings` (
   `id` int(11) NOT NULL,
   `day_id` int(11) NOT NULL,
+  `day_date` varchar(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   `member_name` varchar(255) NOT NULL,
   `played` int(11) NOT NULL,
@@ -285,7 +286,7 @@ ALTER TABLE `days`
 -- AUTO_INCREMENT pour la table `fields`
 --
 ALTER TABLE `fields`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `matches`
@@ -297,7 +298,7 @@ ALTER TABLE `matches`
 -- AUTO_INCREMENT pour la table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT pour la table `players`

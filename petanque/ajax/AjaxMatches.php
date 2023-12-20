@@ -1,8 +1,10 @@
 <?php
 
-include '../classes/Connection.class.php';
-include '../classes/Fields.class.php';
-include '../classes/Matches.class.php';
+require_once ('../classes/Connection.class.php');
+require_once ('../classes/Fields.class.php');
+require_once ('../classes/Matches.class.php');
+require_once ('../classes/Teams.class.php');
+require_once ('../classes/Players.class.php');
 
 // Afficher les équipes formées
 
@@ -36,6 +38,70 @@ switch($actions)
                     $insert->insert_match();
                 }
                 $first = false;
+            }
+        }
+        foreach (Matches::round_matches_list($_POST['day_id'], $_POST['round_id']) as $match) {
+            foreach (Teams::get_team_members($match['team_1_id']) as $player) {
+                $insert = new Players();
+                $insert->set_day_id($match['day_id']);
+                $insert->set_round_id($match['round_id']);
+                $insert->set_match_id($match['id']);
+                $insert->set_member_id($player[0]);
+                $insert->set_member_name($player[1]);
+                $insert->set_points_for(0);
+                $insert->set_points_against(0);
+                $insert->insert_player();
+                $insert = new Players();
+                $insert->set_day_id($match['day_id']);
+                $insert->set_round_id($match['round_id']);
+                $insert->set_match_id($match['id']);
+                $insert->set_member_id($player[2]);
+                $insert->set_member_name($player[3]);
+                $insert->set_points_for(0);
+                $insert->set_points_against(0);
+                $insert->insert_player();
+                if ($player[4]) {
+                    $insert = new Players();
+                    $insert->set_day_id($match['day_id']);
+                    $insert->set_round_id($match['round_id']);
+                    $insert->set_match_id($match['id']);
+                    $insert->set_member_id($player[4]);
+                    $insert->set_member_name($player[5]);
+                    $insert->set_points_for(0);
+                    $insert->set_points_against(0);
+                    $insert->insert_player();
+                }
+            }
+            foreach (Teams::get_team_members($match['team_2_id']) as $player) {
+                $insert = new Players();
+                $insert->set_day_id($match['day_id']);
+                $insert->set_round_id($match['round_id']);
+                $insert->set_match_id($match['id']);
+                $insert->set_member_id($player[0]);
+                $insert->set_member_name($player[1]);
+                $insert->set_points_for(0);
+                $insert->set_points_against(0);
+                $insert->insert_player();
+                $insert = new Players();
+                $insert->set_day_id($match['day_id']);
+                $insert->set_round_id($match['round_id']);
+                $insert->set_match_id($match['id']);
+                $insert->set_member_id($player[2]);
+                $insert->set_member_name($player[3]);
+                $insert->set_points_for(0);
+                $insert->set_points_against(0);
+                $insert->insert_player();
+                if ($player[4]) {
+                    $insert = new Players();
+                    $insert->set_day_id($match['day_id']);
+                    $insert->set_round_id($match['round_id']);
+                    $insert->set_match_id($match['id']);
+                    $insert->set_member_id($player[4]);
+                    $insert->set_member_name($player[5]);
+                    $insert->set_points_for(0);
+                    $insert->set_points_against(0);
+                    $insert->insert_player();
+                }
             }
         }
         break;

@@ -10,6 +10,7 @@ ini_set('display_errors', true);
 class Rankings {
     private $id;
     private $day_id;
+    private $day_date;
     private $member_id;
     private $member_name;
     private $played;
@@ -26,6 +27,7 @@ class Rankings {
                 $result = $result[0];
                 $this->set_id($result['id']);
                 $this->set_day_id($result['day_id']);
+                $this->set_day_date($result['day_date']);
                 $this->set_member_id($result['member_id']);
                 $this->set_member_name($result['member_name']);
                 $this->set_played($result['played']);
@@ -43,6 +45,9 @@ class Rankings {
 
     public function get_day_id() { return $this->day_id; }
     public function set_day_id($day_id) { $this->day_id = $day_id; }
+
+    public function get_day_date() { return $this->day_date; }
+    public function set_day_date($day_date) { $this->day_date = $day_date; }
 
     public function get_member_id() { return $this->member_id; }
     public function set_member_id($member_id) { $this->member_id = $member_id; }
@@ -71,6 +76,7 @@ class Rankings {
         $req = 'INSERT INTO rankings values (
                     NULL,
                     "' . $this->get_day_id() . '",
+                    "' . $this->get_day_date() . '",
                     "' . $this->get_member_id() . '",
                     "' . $this->get_member_name() . '",
                     "0",
