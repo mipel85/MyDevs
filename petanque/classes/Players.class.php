@@ -94,6 +94,12 @@ class Players {
         return Connection::query($req);
     }
 
+    function update_player($match_id, $member_id, $points_for, $points_against)
+    {
+        $req = 'UPDATE players SET `points_for` = "' . $points_for . '", `points_against` = "' . $points_against . '" WHERE `players`.`match_id` = "' . $match_id . '" AND `players`.`member_id` = "' . $member_id . '"';
+        return Connection::query($req);
+    }
+
     static function players_list()
     {
         $players = array();

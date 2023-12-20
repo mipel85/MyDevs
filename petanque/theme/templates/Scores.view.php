@@ -13,7 +13,10 @@ $possible_scores = 12;
 <section>
     <header class="section-header flex-between-center">
         <h1>Scores</h1>
-        <button id="end-the-day" class="button full-error">Terminer la journée</button>
+        <div>
+            <button id="end-the-day" class="button full-error">Terminer la journée</button>
+            <button id="update-rankings" class="button full-notice">Mettre à jour le classement</button>
+        </div>
     </header>
     <?php if($day_id): ?>
         <article id="rounds-list">
@@ -55,6 +58,7 @@ $possible_scores = 12;
                                             class="match-scores row-item row-vertical"
                                             id="matches-score-<?= $match['id'] ?>"
                                             data-field="<?= $match['field'] ?>"
+                                            data-day_id="<?= $day_id ?>"
                                             data-round_id="<?= $round['id'] ?>"
                                             data-match_id="<?= $match['id'] ?>">
                                         <div class="score-row-field">
@@ -64,9 +68,9 @@ $possible_scores = 12;
                                             <span data-team_1_id="<?= $match['team_1_id'] ?>"></span>
                                             <div class="score-member-list">
                                                 <?php foreach (Teams::get_team_members($match['team_1_id']) as $players): ?>
-                                                    <span data-team="1" class="d-block" data-player_id="<?= $players[0] ?>"><?= $players[1] ?></span>
-                                                    <span data-team="1" class="d-block" data-player_id="<?= $players[2] ?>"><?= $players[3] ?></span>
-                                                    <span data-team="1" class="d-block" data-player_id="<?= $players[4] ?>"><?= $players[5] ?></span>
+                                                    <span data-team-a0 class="d-block" data-player_a0_id="<?= $players[0] ?>"><?= $players[1] ?></span>
+                                                    <span data-team-a2 class="d-block" data-player_a2_id="<?= $players[2] ?>"><?= $players[3] ?></span>
+                                                    <span data-team-a4 class="d-block" data-player_a4_id="<?= $players[4] ?>"><?= $players[5] ?></span>
                                                 <?php endforeach ?>
                                             </div>
                                         </div>
@@ -79,9 +83,9 @@ $possible_scores = 12;
                                         <div class="score-row-team-right">
                                             <div class="score-member-list">
                                                 <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
-                                                    <span data-team="2" class="d-block" data-player_id="<?= $players[0] ?>"><?= $players[1] ?></span>
-                                                    <span data-team="2" class="d-block" data-player_id="<?= $players[2] ?>"><?= $players[3] ?></span>
-                                                    <span data-team="2" class="d-block" data-player_id="<?= $players[4] ?>"><?= $players[5] ?></span>
+                                                    <span data-team-b0 class="d-block" data-player_b0_id="<?= $players[0] ?>"><?= $players[1] ?></span>
+                                                    <span data-team-b2 class="d-block" data-player_b2_id="<?= $players[2] ?>"><?= $players[3] ?></span>
+                                                    <span data-team-b4 class="d-block" data-player_b4_id="<?= $players[4] ?>"><?= $players[5] ?></span>
                                                 <?php endforeach ?>
                                             </div>
                                             <span data-team_2_id="<?= $match['team_2_id'] ?>"></span>
