@@ -7,7 +7,11 @@ require_once ('../classes/Rounds.class.php');
 require_once ('../classes/Days.class.php');
 require_once ('../classes/Matches.class.php');
 require_once ('../classes/Teams.class.php');
+require_once ('../classes/Rankings.class.php');
 require_once ('../controllers/Days.controller.php');
+
+echo 'Liste des id de membre déjà dans le classement du jour: <br>';
+var_dump(Rankings::rankings_members_id_list($day_id))
 ?>
 <table>
     <thead>

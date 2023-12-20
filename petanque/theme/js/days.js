@@ -172,10 +172,9 @@ $(document).ready(function() {
                     day_id: day_id,
                     round_id: round_id
                 },
-                success: function(r) {
+                success: function() {
                     location.reload(true);
-                },
-                error: function(r) {}
+                }
             });
         }
     });

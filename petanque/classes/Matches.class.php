@@ -68,11 +68,11 @@ class Matches {
                     "' . $this->get_day_id() . '",
                     "' . $this->get_round_id() . '",
                     "' . $this->get_team_1_id() . '",
-                    "' . $this->get_team_1_score() . '",
+                    "0",
                     "' . $this->get_team_2_id() . '",
-                    "' . $this->get_team_2_score() . '",
+                    "0",
                     "' . $this->get_playground() . '",
-                    "' . $this->get_score_status() . '"
+                    "0"
                 )';
         return Connection::query($req);
     }

@@ -71,12 +71,12 @@ class Rankings {
     public function set_neg_points($neg_points) { $this->neg_points = $neg_points; }
 // end getters setters
 
-    function add_player()
+    function insert_player()
     {
         $req = 'INSERT INTO rankings values (
                     NULL,
                     "' . $this->get_day_id() . '",
-                    "' . $this->get_day_date() . '",
+                    "' . date('d-m-Y') . '",
                     "' . $this->get_member_id() . '",
                     "' . $this->get_member_name() . '",
                     "0",
@@ -100,7 +100,7 @@ class Rankings {
         return Connection::query($req);
     }
 
-    static function rankings_list($day_id) : array
+    static function rankings_day_list($day_id) : array
     {
         $rankings_list = array();
         $req = 'SELECT * FROM rankings '
@@ -117,6 +117,60 @@ class Rankings {
         return $rankings_list;
     }
 
+    static function rankings_month_list() : array
+    {
+        // Mois en cours
+        $today_month = date('m');
+        // Création de la liste des id compris dans le mois en cours
+        $day_ids_list = [];
+        foreach (Days::days_list() as $day)
+        {
+            $day_month = explode('-', $day['date']);
+            if ($day_month[1] == $today_month)
+                $day_ids_list[] = $day['id'];
+        }
+        // transformation de la liste en array comprehensible pour sql
+        $array = json_encode($day_ids_list);
+        $array = rtrim($array, ']');
+        $array = ltrim($array, '[');
+        // Création de la liste des classements à prendre en compte
+        $rankings_list = [];
+        $req = 'SELECT * FROM rankings '
+        . ' WHERE `day_id` IN (' . $array . ')'
+        . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points` ASC, `member_name` ASC';
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    $rankings_list[] = $value;
+                }
+            }
+        }
+        return $rankings_list;
+    }
+
+    static function rankings_overall_list() : array
+    {
+        $rankings_list = array();
+        $req = 'SELECT * FROM rankings '
+        . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points` ASC, `member_name` ASC';
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    $rankings_list[] = $value;
+                }
+            }
+        }
+        return $rankings_list;
+    }
+    
+    /**
+     * rankings_members_id_list
+     *
+     * @param  int $day_id
+     * @return array
+     */
     static function rankings_members_id_list($day_id) : array
     {
         $rankings_list = array();

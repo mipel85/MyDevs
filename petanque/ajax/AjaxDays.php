@@ -34,8 +34,6 @@ switch($actions)
         break;
 
     case 'remove_day':
-        $remove = new Rankings();
-        $remove->remove_day_rankings($_POST['day_id']);
         $remove = new Fields();
         $remove->remove_day_fields($_POST['day_id']);
         $remove = new Players();
@@ -55,8 +53,6 @@ switch($actions)
         $remove->remove_all_fields();
         $remove = new Players();
         $remove->remove_all_players();
-        $remove = new Rankings();
-        $remove->remove_all_rankings();
         $remove = new Matches();
         $remove->remove_all_matches();
         $remove = new Teams();
