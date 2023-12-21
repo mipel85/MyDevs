@@ -103,8 +103,7 @@ class Players {
     static function players_list()
     {
         $players = array();
-        $req = 'SELECT players.*, days.date AS date FROM players '
-            . ' LEFT JOIN days ON days.id = players.day_id';
+        $req = 'SELECT players.* FROM players ';
 
         if ($result = Connection::query($req)){
             if (!empty($result)){

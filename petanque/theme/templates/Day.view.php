@@ -120,7 +120,7 @@ require_once('./controllers/Days.controller.php');
                             data-matches_ready="<?= $hidden_matches_btn ?>">
                         <header class="flex-between">
                             <h4>Liste des rencontres</h4>
-                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong></span>
+                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= $round['players_number'] ?> joueurs - <?= rules($round['players_number']) ?></span>
                         </header>
                         <div class="expand-container">
                             <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round_id ?>"></span>

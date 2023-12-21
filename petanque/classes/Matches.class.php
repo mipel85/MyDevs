@@ -133,8 +133,6 @@ class Matches {
     {
         $matches = array();
         $req = 'SELECT matches.* FROM matches '
-            . ' LEFT JOIN days ON days.id = matches.day_id'
-            . ' LEFT JOIN rounds ON rounds.id = matches.round_id'
             . ' WHERE matches.day_id = "' . $day_id . '" AND matches.round_id = "' . $round_id . '"';
 
         if ($result = Connection::query($req)){
