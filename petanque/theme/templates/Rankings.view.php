@@ -29,14 +29,12 @@ require_once('./controllers/Rankings.controller.php');
                         <th>J</th>
                         <th>V</th>
                         <th>D</th>
-                        <th>Pv</th>
-                        <th>Pd</th>
-                        <th>Diff</th>
+                        <th>Pp</th>
+                        <th>Pc</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach (Rankings::rankings_day_list($day_id) as $index => $player): ?>
-                        <?php $diff = $player['pos_points'] + $player['neg_points'] ?>
                         <tr>
                             <td><?= $index + 1 ?></td>
                             <td class="player-name"><?= $player['member_name'] ?></td>
@@ -45,7 +43,6 @@ require_once('./controllers/Rankings.controller.php');
                             <td><?= $player['loss'] ?></td>
                             <td><?= $player['pos_points'] ?></td>
                             <td><?= $player['neg_points'] ?></td>
-                            <td><?= $diff ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -60,14 +57,12 @@ require_once('./controllers/Rankings.controller.php');
                         <th>J</th>
                         <th>V</th>
                         <th>D</th>
-                        <th>Pv</th>
-                        <th>Pd</th>
-                        <th>Diff</th>
+                        <th>Pp</th>
+                        <th>Pc</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach (Rankings::rankings_month_list() as $index => $player): ?>
-                        <?php $diff = $player['pos_points'] + $player['neg_points'] ?>
                         <tr>
                             <td><?= $index + 1 ?></td>
                             <td class="player-name"><?= $player['member_name'] ?></td>
@@ -76,7 +71,6 @@ require_once('./controllers/Rankings.controller.php');
                             <td><?= $player['loss'] ?></td>
                             <td><?= $player['pos_points'] ?></td>
                             <td><?= $player['neg_points'] ?></td>
-                            <td><?= $diff ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -91,14 +85,12 @@ require_once('./controllers/Rankings.controller.php');
                         <th>J</th>
                         <th>V</th>
                         <th>D</th>
-                        <th>Pv</th>
-                        <th>Pd</th>
-                        <th>Diff</th>
+                        <th>Pp</th>
+                        <th>Pc</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach (Rankings::rankings_overall_list() as $index => $player): ?>
-                        <?php $diff = $player['pos_points'] + $player['neg_points'] ?>
                         <tr>
                             <td><?= $index + 1 ?></td>
                             <td class="player-name"><?= $player['member_name'] ?></td>
@@ -107,7 +99,6 @@ require_once('./controllers/Rankings.controller.php');
                             <td><?= $player['loss'] ?></td>
                             <td><?= $player['pos_points'] ?></td>
                             <td><?= $player['neg_points'] ?></td>
-                            <td><?= $diff ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

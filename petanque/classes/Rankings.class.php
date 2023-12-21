@@ -100,12 +100,18 @@ class Rankings {
         return Connection::query($req);
     }
 
+    function update_player($day_id, $member_id, $played, $victory, $loss, $pos_points, $neg_points)
+    {
+        $req = 'UPDATE rankings SET `played` = "' . $played . '", `victory` = "' . $victory . '", `loss` = "' . $loss . '", `pos_points` = "' . $pos_points . '", `neg_points` = "' . $neg_points . '" WHERE `rankings`.`day_id` = "' . $day_id . '" AND `rankings`.`member_id` = "' . $member_id . '"';
+        return Connection::query($req);
+    }
+
     static function rankings_day_list($day_id) : array
     {
         $rankings_list = array();
         $req = 'SELECT * FROM rankings '
         . ' WHERE `day_id`= ' . $day_id
-        . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points` ASC, `member_name` ASC';
+        . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points` DESC, `member_name` ASC';
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)

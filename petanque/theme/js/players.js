@@ -66,6 +66,21 @@ $(document).ready(function() {
                 });
         });
     });
+
+    // Update rankings
+    $('#update-rankings').on('click', function() {
+        $.ajax({
+            url: './ajax/AjaxRankings.php',
+            type: 'POST',
+            data: {
+                action: 'update_rankings'
+            },
+            success: function() {
+                // location.reload(true);
+                window.location.replace('index.php?page=rankings');
+            }
+        });
+    });
 });
 
 
