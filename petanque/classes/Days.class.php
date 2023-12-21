@@ -10,6 +10,7 @@ ini_set('display_errors', true);
 class Days {
     private $id;
     private $date;
+    private $active;
 
     public function __construct($id = null)
     {
@@ -19,6 +20,7 @@ class Days {
                 $result = $result[0];
                 $this->set_id($result['id']);
                 $this->set_date(date('d-m-Y'));
+                $this->set_active($result['active']);
             }
         }
     }
@@ -29,13 +31,17 @@ class Days {
 
     public function get_date() { return $this->date; }
     public function set_date($date) { $this->date = $date; }
+
+    public function get_active() { return $this->active; }
+    public function set_active($active) { $this->active = $active; }
 // end getters setters
 
     function insert_day()
     {
         $req = 'INSERT INTO days values (
                     NULL,
-                    "' . $this->get_date() . '"
+                    "' . $this->get_date() . '",
+                    "1"
                 )';
         return Connection::query($req);
     }

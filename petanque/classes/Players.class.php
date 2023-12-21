@@ -12,6 +12,7 @@ class Players {
     private $day_id;
     private $round_id;
     private $match_id;
+    private $score_status;
     private $member_id;
     private $member_name;
     private $points_for;
@@ -27,6 +28,7 @@ class Players {
                 $this->set_day_id($result['day_id']);
                 $this->set_round_id($result['round_id']);
                 $this->set_match_id($result['match_id']);
+                $this->set_match_id($result['score_status']);
                 $this->set_member_id($result['member_id']);
                 $this->set_member_name($result['member_name']);
                 $this->set_points_for($result['points_for']);
@@ -48,6 +50,9 @@ class Players {
     public function get_match_id() { return $this->match_id; }
     public function set_match_id($match_id) { $this->match_id = $match_id; }
 
+    public function get_score_status() { return $this->score_status; }
+    public function set_score_status($score_status) { $this->score_status = $score_status; }
+
     public function get_member_id() { return $this->member_id; }
     public function set_member_id($member_id) { $this->member_id = $member_id; }
 
@@ -68,6 +73,7 @@ class Players {
                     "' . $this->get_day_id() . '",
                     "' . $this->get_round_id() . '",
                     "' . $this->get_match_id() . '",
+                    "0",
                     "' . $this->get_member_id() . '",
                     "' . $this->get_member_name() . '",
                     "0",
@@ -94,9 +100,9 @@ class Players {
         return Connection::query($req);
     }
 
-    function update_player($match_id, $member_id, $points_for, $points_against)
+    function update_player($match_id, $score_status, $member_id, $points_for, $points_against)
     {
-        $req = 'UPDATE players SET `points_for` = "' . $points_for . '", `points_against` = "' . $points_against . '" WHERE `players`.`match_id` = "' . $match_id . '" AND `players`.`member_id` = "' . $member_id . '"';
+        $req = 'UPDATE players SET `score_status` = "' . $score_status . '", `points_for` = "' . $points_for . '", `points_against` = "' . $points_against . '" WHERE `players`.`match_id` = "' . $match_id . '" AND `players`.`member_id` = "' . $member_id . '"';
         return Connection::query($req);
     }
 

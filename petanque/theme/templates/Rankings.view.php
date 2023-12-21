@@ -5,7 +5,6 @@ require_once('./classes/Teams.class.php');
 require_once('./classes/Matches.class.php');
 require_once('./classes/Rankings.class.php');
 require_once('./controllers/Days.controller.php');
-require_once('./controllers/Rankings.controller.php');
 ?>
 <section>
     <header class="section-header"><h1>Classement</h1></header>
@@ -24,13 +23,13 @@ require_once('./controllers/Rankings.controller.php');
             <table class="table rankings-table">
                 <thead>
                     <tr>
-                        <th>Pl</th>
+                        <th>Place</th>
                         <th class="player-name">Nom</th>
-                        <th>J</th>
-                        <th>V</th>
-                        <th>D</th>
-                        <th>Pp</th>
-                        <th>Pc</th>
+                        <th>Joués</th>
+                        <th>Victoires</th>
+                        <th>Défaites</th>
+                        <th>Points pour</th>
+                        <th>Points contre</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,13 +51,13 @@ require_once('./controllers/Rankings.controller.php');
             <table class="table rankings-table">
                 <thead>
                     <tr>
-                        <th>Pl</th>
+                        <th>Place</th>
                         <th class="player-name">Nom</th>
-                        <th>J</th>
-                        <th>V</th>
-                        <th>D</th>
-                        <th>Pp</th>
-                        <th>Pc</th>
+                        <th>Joués</th>
+                        <th>Victoires</th>
+                        <th>Défaites</th>
+                        <th>Points pour</th>
+                        <th>Points contre</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,13 +79,13 @@ require_once('./controllers/Rankings.controller.php');
             <table class="table rankings-table">
                 <thead>
                     <tr>
-                        <th>Pl</th>
+                        <th>Place</th>
                         <th class="player-name">Nom</th>
-                        <th>J</th>
-                        <th>V</th>
-                        <th>D</th>
-                        <th>Pp</th>
-                        <th>Pc</th>
+                        <th>Joués</th>
+                        <th>Victoires</th>
+                        <th>Défaites</th>
+                        <th>Points pour</th>
+                        <th>Points contre</th>
                     </tr>
                 </thead>
                 <tbody>

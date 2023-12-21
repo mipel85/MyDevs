@@ -18,18 +18,26 @@
 ~~ - liste des sélection full page ~~
 ~~ - affichage de la liste des sélectionnés en popup sans id ~~
 ~~ - agir en ajax sur la liste des sélectionnés pour ne pas avoir à recharger la page ~~
-- pouvoir modifier le nom du membre
-- revoir le tableau des membres dans la config member selection like
+~~ - pouvoir modifier le nom du membre ~~
+~~ - revoir le tableau des membres dans la config member selection like ~~
 
 ## Accueil
 créer la doc dans /theme/templates/home.php
 
-## Partie
+## Journée
+- purger les tables sauf ranking et journée
 ~~ - initialisation d'une partie au chargement de la page ~~
 ~~ - récupérer la date de façon cachée ~~
 ~~ - manches par tabs ~~
 
-### Manche
+### Terminer la journée
+=> bouton `Terminer la journée` + date dans les classements en face du h1
+- => bloquer l'ajout d'une nouvelle journée = flag(active) dans la table days
+    si 1 => ok
+    si 0 => bloquer onglets partie + score + redirection, le bouton devient `Réouvrir la journée`
+- => prévoir de réouvrir la journée + date
+
+### Partie
 ~~ exception moins de 4 joueurs ou si 7 joueurs sélectionnés, désactiver le bouton d'ajout +  message error = "sélectionnez au moins 4 joueurs" ~~
 
 ~~ ajouter un index à chaque manche (index: i_order = 1 ; i_order++) ~~
@@ -52,10 +60,10 @@ suppression
 ~~ - type d'équipe (rules.php) ~~
 
 ### Rencontres
-- ~~ se déclenche automatiquement après la création d'une manche et la création des équipes de la manche ~~
-- ~~ id partie ~~
-- ~~ id manche ~~
-- ~~ n° terrain ~~
+~~ - se déclenche automatiquement après la création d'une manche et la création des équipes de la manche ~~
+~~ - id partie ~~
+~~ - id manche ~~
+~~ - n° terrain ~~
 ~~ - rencontres, dont les scores sont validés, sur fond bleu ~~
 (-) pas de nelle manche tant que TOUS les scores de la manche en cours ne sont pas saisis
 
@@ -85,17 +93,21 @@ suppression
 ~~ - grossir les boutons scores 1.1 ~~
 ~~ - mettre la liste des score en fixe au scroll ~~
 ~~ - améliorer le focus jusqu'à validation ~~
-- revoir le tableau member selection like
+~~ - revoir le tableau member selection like ~~
 
 ### Classement
-- day_id
-- day_date
-- joueurs_id
-- joueurs_name
-- nb rencontres
-- points
-    - win = score + diff win/loss
-    - loss = score - diff win/loss
+~~ - day_id ~~
+~~ - day_date ~~
+~~ - joueurs_id ~~
+~~ - joueurs_name ~~
+~~ - nb rencontres ~~
+~~ - points ~~
+    ~~ - win = score + diff win/loss ~~
+    ~~ - loss = score - diff win/loss ~~
+~~ - condition pour match joué = score validé et pour defaite = score validé (score status) ~~
+    ~~ => ajouter score status dans la table `players` et récup dans players.ctrl depuis scores.view ~~
+- annuler la journée => supprimer toutes les entrées day_id des tables `rankings` et `players`
+- supprimer une partie => supprimer toutes les entrées day_id round_id de la table `players`
 
 ## Config
 ~~ bouton fin de journée => décocher la présence de tous les joueurs ~~
@@ -123,7 +135,9 @@ code/front~config
 ~~ rankings/classement
 
 ## Idées
-Revoir le logo
+- Revoir le logo
 
 ## Nettoyage
     js `error:`
+    reorder and clean css
+

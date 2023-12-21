@@ -1,4 +1,21 @@
 /* grid */
+.waiting-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 500;
+    background-color: var(--bgc-alt);
+}
+
+.waiting {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
 .cell-flex {
 	display: flex;
 	flex-direction: column;
@@ -179,6 +196,10 @@
 
 .width-50 {
     width: 50px;
+}
+
+.width-75 {
+    width: 75px;
 }
 
 .width-100 {

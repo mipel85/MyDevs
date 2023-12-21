@@ -21,12 +21,13 @@ $(document).ready(function() {
                     location.reload(true);
                 }
             });
-            let player_a0_id = $(this).closest('.match-scores').find('[data-team_a0]').data('player_a0_id'),
-                player_a2_id = $(this).closest('.match-scores').find('[data-team_a2]').data('player_a2_id'),
-                player_a4_id = $(this).closest('.match-scores').find('[data-team_a4]').data('player_a4_id'),
-                player_b0_id = $(this).closest('.match-scores').find('[data-team_b0]').data('player_b0_id'),
-                player_b2_id = $(this).closest('.match-scores').find('[data-team_b2]').data('player_b2_id'),
-                player_b4_id = $(this).closest('.match-scores').find('[data-team_b4]').data('player_b4_id');
+            let player_a0_id = $(this).closest('.match-scores').find('[data-team_a0]').data('member_id'),
+                player_a2_id = $(this).closest('.match-scores').find('[data-team_a2]').data('member_id'),
+                player_a4_id = $(this).closest('.match-scores').find('[data-team_a4]').data('member_id'),
+                player_b0_id = $(this).closest('.match-scores').find('[data-team_b0]').data('member_id'),
+                player_b2_id = $(this).closest('.match-scores').find('[data-team_b2]').data('member_id'),
+                player_b4_id = $(this).closest('.match-scores').find('[data-team_b4]').data('member_id'),
+                player_score_status = (score_1 != score_2) ? 1 : 0;
             $.ajax({
                 url: './ajax/AjaxPlayers.php',
                 type: 'POST',
@@ -39,6 +40,7 @@ $(document).ready(function() {
                     player_b0_id: player_b0_id,
                     player_b2_id: player_b2_id,
                     player_b4_id: player_b4_id,
+                    player_score_status: player_score_status,
                     score_1: score_1,
                     score_2: score_2
                 },
@@ -77,7 +79,7 @@ $(document).ready(function() {
             },
             success: function() {
                 // location.reload(true);
-                window.location.replace('index.php?page=rankings');
+                // window.location.replace('index.php?page=rankings');
             }
         });
     });

@@ -16,7 +16,7 @@ switch($actions)
     case 'update_rankings':
         foreach ($update as $rank) {
             $add = new Rankings();
-            $add->update_player(
+            $add->update_rank(
                 $rank['day_id'],
                 $rank['member_id'],
                 $rank['played'],

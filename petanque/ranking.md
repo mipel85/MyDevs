@@ -33,3 +33,10 @@ défaite  => score - diff
 | 13-6 | 13-9 | 2-13 | 13-11 |
 | v+20 | v+17 | d-9  | v+15  | gagnant v+53 d-9
 | d-1  | d+5  | v+23 | d+9   | perdant v+23 d+13
+
+
+# Revoir l'insert des entrées de la table `rankings`
+A cause que on peut pas supprimer des séléctionné en plus ou lorsque on supprime une partie créée par erreur : 
+Insérer à la validation du score au lieu d'après la création des matchs
+si joueur non existant dans la table `rankings` => insert avec valeur du score
+sinon update

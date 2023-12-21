@@ -1,6 +1,6 @@
 <!-- <div class="del-all-manches">
     <header>
-        <h3>Supprimer toutes les manches :</h3>
+        <h3>Supprimer toutes les parties :</h3>
     </header>
     <div class="content">
         <button class="submit button" type="submit" id="remove-all-rounds" name="all_games">Tout supprimer</button>

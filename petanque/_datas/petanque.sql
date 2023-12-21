@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 20 déc. 2023 à 10:10
+-- Généré le : jeu. 21 déc. 2023 à 18:45
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -29,7 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `days` (
   `id` int(11) NOT NULL,
-  `date` varchar(11) NOT NULL
+  `date` varchar(11) NOT NULL,
+  `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -122,7 +123,7 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (27, 'Jean-Jacques.B', 0, 0),
 (28, 'Jean-Louis.D', 1, 1),
 (29, 'Jean-Luc.C', 0, 0),
-(30, 'Jean-Luc.L', 1, 1),
+(30, 'Jean-Luc.L', 0, 1),
 (31, 'Jean-Marcel.S', 0, 0),
 (32, 'Jean-Paul.C', 0, 0),
 (33, 'Jean-Pierre.L', 0, 0),
@@ -144,7 +145,7 @@ INSERT INTO `members` (`id`, `name`, `present`, `fav`) VALUES
 (49, 'Philippe.G', 1, 1),
 (50, 'Philippe.R', 0, 0),
 (51, 'Roland.C', 1, 1),
-(52, 'Yannick.G', 0, 0),
+(52, 'Yannick.G', 1, 0),
 (53, 'Claire.S', 1, 1),
 (54, 'Marc.S', 1, 1),
 (55, 'Sylvain.B', 0, 0),
@@ -164,6 +165,7 @@ CREATE TABLE `players` (
   `day_id` int(11) NOT NULL,
   `round_id` int(11) NOT NULL,
   `match_id` int(11) NOT NULL,
+  `score_status` tinyint(1) NOT NULL,
   `member_id` int(11) NOT NULL,
   `member_name` varchar(255) NOT NULL,
   `points_for` int(11) NOT NULL,
@@ -286,7 +288,7 @@ ALTER TABLE `days`
 -- AUTO_INCREMENT pour la table `fields`
 --
 ALTER TABLE `fields`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `matches`

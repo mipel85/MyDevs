@@ -118,19 +118,19 @@ require_once('./controllers/Days.controller.php');
                             data-round_id="<?= $round_id ?>"
                             data-teams_ready="<?= $team_ready ?>"
                             data-matches_ready="<?= $hidden_matches_btn ?>">
+                        <div class="expand-container">
+                            <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round_id ?>"></span>
                         <header class="flex-between">
                             <h4>Liste des rencontres</h4>
                             <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= $round['players_number'] ?> joueurs - <?= rules($round['players_number']) ?></span>
                         </header>
-                        <div class="expand-container">
-                            <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round_id ?>"></span>
                             <div id="matches-round-list-<?= $round_id ?>" class="match-list big-line cell-flex cell-columns-4<?= $hidden_matches_list ?>">
                                 <?php foreach (Matches::round_matches_list($day_id, $round_id) as $index => $match): ?>
                                     <?php $validated_score = $match['score_status'] ? ' full-success' : ''; ?>
                                     <div 
                                             class="row-item flex-between-center<?= $validated_score ?>"
                                             data-field="<?= $match['field'] ?>">
-                                        <div class="width-50 align-center">
+                                        <div class="width-75 align-center">
                                             <span class="big stamp full-main"><?= $match['field'] ?></span>
                                         </div>
                                         <div class="flex-main">
@@ -140,7 +140,7 @@ require_once('./controllers/Days.controller.php');
                                                 <span data-member_id="<?= $players[4] ?>" class="d-block"><?= $players[5] ?></span>
                                             <?php endforeach ?>
                                         </div>
-                                        <div class="align-right">
+                                        <div>
                                             <?php foreach (Teams::get_team_members($match['team_2_id']) as $players): ?>
                                                 <span data-member_id="<?= $players[0] ?>" class="d-block"><?= $players[1] ?></span>
                                                 <span data-member_id="<?= $players[2] ?>" class="d-block"><?= $players[3] ?></span>

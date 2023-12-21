@@ -31,7 +31,7 @@
 
 .full-main { background-color: var(--bgc); color: var(--text); border-color: var(--bdr); }
 .bgc-sub { background-color: var(--bgc-sub); }
-.full-sub { background-color: var(--bgc-sub); color: var(--text-sub); }
+.full-sub { background-color: var(--bgc-sub); color: var(--text-sub);  border-color: var(--bdr-sub);}
 .full-alt { background-color: var(--bgc-alt); color: var(--text-alt); }
 
 .notice  a,

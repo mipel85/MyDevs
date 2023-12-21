@@ -11,8 +11,8 @@ require_once('./classes/Rounds.class.php');
     <div class="tabs-container">
         <div class="tabs-menu flex-between">
             <div class="tabs-menu-left">
-                <span data-trigger="members" class="tab-trigger active-tab" onclick="openTab(event, 'members');">Membres</span>
-                <span data-trigger="days" class="tab-trigger" onclick="openTab(event, 'days');">Journées</span>
+                <span data-trigger="members" class="tab-trigger active-tab" onclick="openTab(event, 'members');">Gestion des membres</span>
+                <span data-trigger="days" class="tab-trigger" onclick="openTab(event, 'days');">Gestion des journées</span>
                 <span data-trigger="rounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Parties</span>
             </div>
             <div class="tabs-menu-right">

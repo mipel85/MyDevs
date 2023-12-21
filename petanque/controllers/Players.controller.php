@@ -13,6 +13,8 @@ require_once ('../controllers/Days.controller.php');
 
 $update = [];
 foreach(Rankings::rankings_day_list($day_id) as $i => $rank) {
+    $round_id = [];
+    $score_status = [];
     $matches = [];
     $played = [];
     $victory = [];
@@ -21,7 +23,9 @@ foreach(Rankings::rankings_day_list($day_id) as $i => $rank) {
     $neg_points = [];
     foreach(Players::players_list() as $player) {
         if($player['member_id'] == $rank['member_id']) {
-            $played[] = $player['round_id'];
+            $score_status[] = $player['score_status'];
+            if ($player['score_status'])
+                $played[] = $player['round_id'];
             $matches[] = $player['points_for'] . ' - ' . $player['points_against'];
             $diff_match = abs($player['points_for'] - $player['points_against']);
             if ($player['points_for'] > $player['points_against']) {
@@ -33,15 +37,17 @@ foreach(Rankings::rankings_day_list($day_id) as $i => $rank) {
             else {
                 $victory[] = 0;
                 $pos_points[] = 0;
-                $loss[] = 1;
+                $loss[] = $player['score_status'] ? 1 : 0;
                 $neg_points[] = $player['points_for'] - $diff_match;
             }
         }
     }
     $update[] = [
-        // 'matches' => json_encode($matches),
+        'matches' => json_encode($matches),
+        'score_status' => json_encode($score_status),
         'day_id' => $day_id,
         'member_id' => $rank['member_id'],
+        'member_name' => $rank['member_name'],
         'played' => count($played),
         'victory' => array_sum($victory),
         'loss' => array_sum($loss),
@@ -49,9 +55,9 @@ foreach(Rankings::rankings_day_list($day_id) as $i => $rank) {
         'neg_points' => array_sum($neg_points)
     ];
 }
-// echo '<pre>';
-// print_r($update);
-// echo '</pre>';
+echo '<pre>';
+print_r($update);
+echo '</pre>';
 // foreach($update as $rank) {
 //     echo $rank['member_id'];
 //     echo $rank['played'];
