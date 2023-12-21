@@ -17,26 +17,28 @@ $(document).ready(function() {
                     score_1: score_1,
                     score_2: score_2
                 },
-                success: function() {location.reload(true);}
+                success: function() {
+                    location.reload(true);
+                }
             });
-            let player_1_0_id = $(this).parent().find('[data-team-1_0]').data['player_1_0_id'],
-                player_1_2_id = $(this).parent().find('[data-team-1_2]').data['player_1_2_id'],
-                player_1_4_id = $(this).parent().find('[data-team-1_4]').data['player_1_4_id'],
-                player_2_0_id = $(this).parent().find('[data-team-2_0]').data['player_2_0_id'],
-                player_2_2_id = $(this).parent().find('[data-team-2_2]').data['player_2_2_id'],
-                player_2_4_id = $(this).parent().find('[data-team-2_4]').data['player_2_4_id'];
+            let player_a0_id = $(this).closest('.match-scores').find('[data-team_a0]').data('player_a0_id'),
+                player_a2_id = $(this).closest('.match-scores').find('[data-team_a2]').data('player_a2_id'),
+                player_a4_id = $(this).closest('.match-scores').find('[data-team_a4]').data('player_a4_id'),
+                player_b0_id = $(this).closest('.match-scores').find('[data-team_b0]').data('player_b0_id'),
+                player_b2_id = $(this).closest('.match-scores').find('[data-team_b2]').data('player_b2_id'),
+                player_b4_id = $(this).closest('.match-scores').find('[data-team_b4]').data('player_b4_id');
             $.ajax({
                 url: './ajax/AjaxPlayers.php',
                 type: 'POST',
                 data: {
                     action: 'update_players_score',
                     match_id: id,
-                    player_1_0_id: player_1_0_id,
-                    player_1_2_id: player_1_2_id,
-                    player_1_4_id: player_1_4_id,
-                    player_2_0_id: player_2_0_id,
-                    player_2_2_id: player_2_2_id,
-                    player_2_4_id: player_2_4_id,
+                    player_a0_id: player_a0_id,
+                    player_a2_id: player_a2_id,
+                    player_a4_id: player_a4_id,
+                    player_b0_id: player_b0_id,
+                    player_b2_id: player_b2_id,
+                    player_b4_id: player_b4_id,
                     score_1: score_1,
                     score_2: score_2
                 },
