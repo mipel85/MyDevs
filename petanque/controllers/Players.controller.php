@@ -21,20 +21,21 @@ foreach(Rankings::rankings_day_list($day_id) as $i => $rank) {
     $neg_points = [];
     foreach(Players::players_list() as $player) {
         if($player['member_id'] == $rank['member_id']) {
-            if ($player['score_status'])
+            if ($player['score_status']) {
                 $played[] = $player['round_id'];
-            $diff_match = abs($player['points_for'] - $player['points_against']);
-            if ($player['points_for'] > $player['points_against']) {
-                $victory[] = 1;
-                $pos_points[] = $player['points_for'] + $diff_match;
-                $loss[] = 0;
-                $neg_points[] = 0;
-            }
-            else {
-                $victory[] = 0;
-                $pos_points[] = 0;
-                $loss[] = $player['score_status'] ? 1 : 0;
-                $neg_points[] = $player['points_for'] - $diff_match;
+                $diff_match = abs($player['points_for'] - $player['points_against']);
+                if ($player['points_for'] > $player['points_against']) {
+                    $victory[] = 1;
+                    $pos_points[] = $player['points_for'] + $diff_match;
+                    $loss[] = 0;
+                    $neg_points[] = 0;
+                }
+                elseif ($player['points_for'] < $player['points_against']) {
+                    $victory[] = 0;
+                    $pos_points[] = 0;
+                    $loss[] = 1;
+                    $neg_points[] = $player['points_for'] - $diff_match;
+                }
             }
         }
     }

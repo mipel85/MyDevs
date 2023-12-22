@@ -92,9 +92,9 @@ $possible_scores = 12;
                                         <div class="score-row-button<?php if(!$match['score_status']): ?> button-with-manual<?php endif ?>">
                                             <?php if(!$match['score_status']): ?><span></span><?php endif ?>
                                             <?php if($match['score_status']): ?>
-                                                <span><button id="edit-scores-<?= $match['id'] ?>" data-score_status="0" type="submit" class="button edit-score">Modifier</button></span>
+                                                <button id="edit-scores-<?= $match['id'] ?>" data-score_status="0" type="submit" class="button edit-score">Modifier</button>
                                             <?php else: ?>
-                                                <span><button id="submit-scores-<?= $match['id'] ?>" data-score_status="1" type="submit" class="button">Valider</button></span>
+                                                <button id="submit-scores-<?= $match['id'] ?>" data-score_status="1" type="submit" class="button">Valider</button>
                                             <?php endif ?>
                                             <?php if(!$match['score_status']): ?><button id="manual-scores-<?= $match['id'] ?>" data-tooltip="Renseigner le score manuellement" type="submit" class="icon-button"><i class="fa fa-keyboard"></i></button><?php endif ?>
                                         </div>
@@ -114,21 +114,31 @@ $possible_scores = 12;
     <?php endif ?>
     <script>
         // Déclaration manuelle des scores
-        $('[id*="manual-scores-"').on('click', function(){
-            $(this).closest('.row-item').find('.input').removeAttr('readonly').addClass('full-sub');
+        $('[id*="manual-scores-"').on('click', function() {
+            $(this).closest('.row-item').siblings().removeClass('full-notice'); // on supprime la couleur des autres matches
+            // on supprime la couleur et force le readonly aux inputs des autres matches
+            $(this).closest('.row-item').siblings().find('.input').removeClass('full-warning').attr('readonly', ''); 
+            $(this).closest('.row-item').addClass('full-notice'); // on ajoute la couleur au match
+            // On ajoute la couleur et retire le readonly aux 2 inputs du match
+            $(this).closest('.row-item').find('.input').removeAttr('readonly').addClass('full-warning').focus();
         });
         // Déclaration des scores
         $('input.team-score').each(function() {
             $(this).on('click', function() { // sélection de l'input à renseigner
-                // On supprime le focus de tous les autres input
-                $(this).closest('.matches-round-list').find('input').removeClass('focused-score full-sub');
-                $(this).closest('.matches-round-list').find('.row-item').removeClass('full-notice');
-                $(this).closest('.matches-round-list').find('.button').removeClass('full-sub');
-                // on ajoute le focus sur l'input
-                $(this).addClass('focused-score full-sub').removeClass('bgc-notice notice');
-                $(this).closest('.row-item').addClass('full-notice');
-                $(this).closest('.row-item').find('.button').addClass('full-sub');
-                $(this).parent().siblings('.score-row').find('.input').addClass('bgc-notice notice')
+                // On cible tous les autres matches
+                // on supprime le focus et on force le readonly des input
+                $(this).closest('.row-item').siblings().find('.input').removeClass('focused-score full-sub full-warning bgc-notice notice').attr('readonly', '');
+                $(this).closest('.row-item').siblings().removeClass('full-notice'); // on supprime les couleurs des matchs
+                $(this).closest('.row-item').siblings().find('.button').removeClass('full-sub full-warning'); // on enleve la couleur de tous les boutons
+
+                $(this).addClass('focused-score full-sub').removeClass('bgc-notice notice'); // on ajoute le focus et on change la couleur sur l'input selectionné
+                $(this).closest('.row-item').addClass('full-notice'); // on ajoute la couleur au match
+                $(this).closest('.row-item').find('.button').addClass('full-sub'); // on ajoute la couleur au bouton
+                $(this).parent().siblings('.score-row').find('.input').addClass('bgc-notice notice').removeClass('full-sub'); // on change la couleur de l'autre input du match
+                if(!$(this).closest('.row-item').find('.input').is('[readonly]')) { // si on est en édition manuelle
+                    $(this).addClass('full-warning').removeClass('bgc-notice notice'); // on garde le warning
+                    // $(this).parent().siblings('.score-row').find('.input').addClass('bgc-notice notice');
+                }
             });
         });
         $('.score-button').each(function(){

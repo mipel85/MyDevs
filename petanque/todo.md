@@ -97,10 +97,10 @@ suppression
 ~~- changer couleur du bouton de validation ~~
     ~~- Valider => rien car le score n'est pas validé ~~
     ~~- Modifier => vert comme le score qui est validé ~~
-- prévoir une saisie de score différent de 13 pour chaque match de la partie
-    - bouton "modifier le score max" en cas de fin de partie obligatoire pour chaque match de la partie (bouton icon keyboard + tooltip)
-    - lister les score_status = 0
+- prévoir une saisie de score différent de 13 pour chaque match de la partie en cas de fin de partie obligatoire pour chaque match de la partie
+    - bouton icon keyboard + tooltip
     - ouvrir les input de score à la saisie manuelle
+    - ATTENTION si score egal (ex: 5-5)
 ~~- grossir les boutons scores 1.1 ~~
 ~~- mettre la liste des score en fixe au scroll ~~
 ~~- améliorer le focus jusqu'à validation ~~
