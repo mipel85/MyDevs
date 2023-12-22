@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-    // Valider les scores
     $('[id*="submit-scores-"]').each(function() {
         $(this).on('click', function() {
             let score_status = $(this).data('score_status'),

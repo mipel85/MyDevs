@@ -11,6 +11,8 @@ $hidden_day = $c_started_day ? ' hidden' : '';
 // Rounds
 // get Days item id
 $day_id = $c_started_day ? Days::day_id($today) : '';
+$day_flag = $c_started_day ? Days::day_flag($day_id) : '';
+
 // check if rounds
 $c_rounds = $c_started_day ? count(Rounds::day_rounds_list($day_id)) > 0 : 0;
 

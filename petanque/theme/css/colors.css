@@ -15,7 +15,7 @@
 
     --notice : #0088FF;
     --success : #007a62;
-    --warning : #FF8800;
+    --warning : #FF6600;
     --error : #aa0909;
 
     --bgc-notice : #BBEEFF;
@@ -53,7 +53,15 @@
 .full-warning { background-color: var(--bgc-warning); color: var(--warning); border-color: var(--warning); }
 .full-error   { background-color: var(--bgc-error); color: var(--error); border-color: var(--error); }
 
-.full-notice  a { color: var(--notice); }
-.full-success a { color: var(--success); }
-.full-warning a { color: var(--warning); }
-.full-error   a { color: var(--error); }
+.full-notice  a,
+.full-notice  a:hover,
+.full-notice:hover { color: var(--notice); }
+.full-success a,
+.full-success a:hover,
+.full-success:hover { color: var(--success); }
+.full-warning a,
+.full-warning a:hover,
+.full-warning:hover { color: var(--warning); }
+.full-error a,
+.full-error a:hover,
+.full-error:hover { color: var(--error); }

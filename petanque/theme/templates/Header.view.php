@@ -62,7 +62,7 @@ $menu = display_menu();
                 </div>
             </div>
             <div id="header-links">
-                <a href="index.php?page=config"><i class="fa fa-cog"></i></a>
+                <a class="header-link" href="index.php?page=config"><i class="fa fa-cog"></i></a>
             </div>
         </header>
         <main>

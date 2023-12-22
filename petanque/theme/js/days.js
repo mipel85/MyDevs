@@ -179,4 +179,35 @@ $(document).ready(function() {
             });
         }
     });
+
+    // un/Set flag of the day
+    $('#day-flag').on('click', function() {
+        let day_id = $(this).data('day_id'),
+            day_flag = $(this).data('day_flag');
+        if(day_flag) {
+            $.ajax({
+                url: './ajax/AjaxDays.php',
+                type: 'POST',
+                data: {
+                    action: 'disable_day',
+                    day_id: day_id
+                },
+                success: function() {
+                    location.reload(true);
+                }
+            });
+        } else {
+            $.ajax({
+                url: './ajax/AjaxDays.php',
+                type: 'POST',
+                data: {
+                    action: 'enable_day',
+                    day_id: day_id
+                },
+                success: function() {
+                    location.reload(true);
+                }
+            });
+        }
+    });
 });

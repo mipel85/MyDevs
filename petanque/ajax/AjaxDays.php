@@ -32,6 +32,18 @@ switch($actions)
         $update->set_id($_POST['fields_id']);
         $update->uncheck_field($_POST['field_id']);
         break;
+    
+    case 'enable_day':
+        $update = new Days();
+        $update->set_id($_POST['day_id']);
+        $update->enable_day();
+        break;
+    
+    case 'disable_day':
+        $update = new Days();
+        $update->set_id($_POST['day_id']);
+        $update->disable_day();
+        break;
 
     case 'remove_day':
         $remove = new Fields();

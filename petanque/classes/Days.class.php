@@ -45,6 +45,18 @@ class Days {
                 )';
         return Connection::query($req);
     }
+
+    function enable_day()
+    {
+        $req = 'UPDATE days SET `active` = 1 WHERE `days`.`id` = ' . $this->get_id() . '';
+        return Connection::query($req);
+    }
+
+    function disable_day()
+    {
+        $req = 'UPDATE days SET `active` = 0 WHERE `days`.`id` = ' . $this->get_id() . '';
+        return Connection::query($req);
+    }
     
     function remove_day()
     {
@@ -88,6 +100,22 @@ class Days {
                 $id[] = $values['id'];
         }
         return $id[0];
+    }
+    
+    /**
+     * get the id of a day item by a date `date(d-m-Y)`
+     *
+     * @param  string $date (must be dd-mm-YYYY)
+     * @return int $id of the day item
+     */
+    static function day_flag($day_id) : int
+    {
+        foreach (self::days_list() as $values)
+        {
+            if($values['active'] && $values['id'] == $day_id)
+                return true;
+            return false;
+        }
     }
     
     /**

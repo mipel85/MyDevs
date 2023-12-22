@@ -33,7 +33,7 @@
 
 #menu-container:target #untrigger { display: block; }
 
-#onglets {
+#main-menu {
     padding : 0;
     margin: 0;
     list-style-type : none;
@@ -42,13 +42,13 @@
     background-color: var(--bgc);
 }
 
-#onglets li {
+.menu-item {
     border-width: 1px 1px 0 1px;
     border-style: solid;
     border-color: var(--bdr);
 }
 
-#onglets li:last-child {
+.menu-item:last-child {
     border-width: 1px;
 }
 
@@ -56,19 +56,23 @@
     background-color: var(--bgc-success);
 }
 
-#onglets li a {
+.active:hover {
+    background-color: var(--bgc-alt);
+}
+
+.menu-item .menu-item-title {
     display : block;
     text-decoration : none;
     padding : 8px 14px;
     height: 100%;
 }
 
-#onglets li:hover {
+.menu-item:hover .menu-item-title {
     background-color: var(--bgc-alt);
     color: var(--text-alt);
 }
 
-#onglets li:hover a {
+.menu-item:hover .menu-item-title {
     color: var(--link-hover);
 }
 
@@ -82,23 +86,28 @@
         margin: auto;
     }
 
-    #onglets {
+    #main-menu {
         display: inline-flex;
         flex-direction: row;
         border-radius: 15px 15px 0 0;
     }
 
-    #onglets li {
+    .menu-item {
         border-width: 1px 0 0 1px;
     }
-    
-    #onglets li:first-child {
+
+    .menu-item:first-child,
+    .menu-item:first-child .menu-item-title {
         border-radius: 15px 0 0;
     }
 
-    #onglets li:last-child {
-        border-width: 1px 1px 0 1px;
+    .menu-item:last-child,
+    .menu-item:last-child .menu-item-title {
         border-radius: 0 15px 0 0;
+    }
+
+    .menu-item:last-child {
+        border-width: 1px 1px 0 1px;
     }
 }
 

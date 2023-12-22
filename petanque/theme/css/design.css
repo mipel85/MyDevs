@@ -26,11 +26,11 @@ main {
     border-color: var(--bdr);
 }
 
-#top-header a {
+.header-link {
     color: var(--link-alt);
 }
 
-#top-header a:hover {
+.header-link:hover {
     color: var(--link-hover);
 }
 

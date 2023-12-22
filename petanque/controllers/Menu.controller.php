@@ -32,30 +32,36 @@ function display_menu()
     $get = $_GET['page'];
     $no_selected_members = count(Members::selected_members_list()) < 4 || count(Members::selected_members_list()) == 7;
     
-    $menu = '<nav id="menu"><ul id="onglets">';
+    $menu = '<nav id="menu"><ul id="main-menu">';
 
     // boucle qui parcours les deux tableaux
     foreach ($menu_links as $k => $link)
     {
         $day_items = in_array($link, ['day', 'scores', 'rankings']);
-        $menu .= '    <li class="menu-item';
+        $day_off_items = in_array($link, ['day', 'scores']);
+        $class = '';
+        $menu .= '<li class="menu-item">';
 
         // si le nom du fichier correspond à celui pointé par l'indice, alors on l'active
         if ($get == $link)
-            $menu .= ' active';
+            $class = ' active';
 
         // Si la partie n'est pas commencée
         if ($no_selected_members && $day_items) {
-            $menu .= ' full-error';
+            $class = ' full-error';
             $link = 'members';
         }
         elseif (!Days::started_day() && $day_items) {
-            $menu .= ' full-warning';
+            $class = ' full-warning';
             if (in_array($link, ['scores', 'rankings']))
                 $link = 'day';
         }
+        elseif (Days::started_day() && !Days::day_flag(Days::day_id(date('d-m-Y'))) && $day_off_items) {
+            $class = ' full-error';
+            $link = 'rankings';
+        }
 
-        $menu .= '"><a href="index.php?page=' . $link . '"><i class="fa fa-fw fa-' . $menu_icons[$k] . '"></i> ' . $menu_labels[$k] . '</a></li>';
+        $menu .= '<a class="menu-item-title' . $class . '" href="index.php?page=' . $link . '"><i class="fa fa-fw fa-' . $menu_icons[$k] . '"></i> ' . $menu_labels[$k] . '</a></li>';
     }
     $menu .= "</ul></nav>";
     return $menu;
