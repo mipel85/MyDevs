@@ -2,11 +2,33 @@
 
 require_once('./classes/Members.class.php');
 require_once('./classes/Days.class.php');
+require_once('./classes/Rounds.class.php');
+require_once('./classes/Matches.class.php');
 require_once('./classes/Players.class.php');
 require_once('./classes/Rankings.class.php');
 
 function display_menu()
 {
+    // informations sur la page
+    $get = $_GET['page'];
+    $started_day = Days::started_day();
+    $day_id = $started_day ? Days::day_id(date('d-m-Y')) : 0;
+    
+    $selected_members = count(Members::selected_members_list()) > 1 ? 
+        count(Members::selected_members_list()) . ' joueurs sélectionnés' : 
+        count(Members::selected_members_list()) . ' joueur sélectionné';
+    $current_round = $started_day ? 'Partie ' . count(Rounds::day_rounds_list($day_id)) . ' en cours' : 'Aucune partie en cours';
+    $current_ranking = $started_day ? 
+        'Après ' . (count(Rounds::day_rounds_list($day_id)) > 1 ? 
+            count(Rounds::day_rounds_list($day_id)) . ' parties' :  
+            count(Rounds::day_rounds_list($day_id)) . ' partie') : 
+        'Aucune partie en cours';
+
+    $no_selected_members = count(Members::selected_members_list()) < 4 || count(Members::selected_members_list()) == 7;
+    $no_day = !$started_day;
+    $no_round = count(Rounds::day_rounds_list($day_id)) == 0;
+    $no_score = count(Players::players_list()) == 0;
+    $no_rank = Rankings::rankings_has_ranks($day_id) == 0;
     require_once ('./controllers/Days.controller.php');
     // tableaux contenant les liens d'accès et le texte à afficher
     $menu_links = [
@@ -23,6 +45,13 @@ function display_menu()
         'Saisie des <strong>Scores</strong>',
         'Classement'
     ];
+    $menu_sublabels = [
+        date('d-m-Y'),
+        $selected_members,
+        $current_round,
+        'Saisie des <strong>Scores</strong>',
+        $current_ranking
+    ];
     $menu_icons = [
         'house',
         'user-check',
@@ -30,15 +59,6 @@ function display_menu()
         'divide fa-rotate-90',
         'list'
     ];
-
-    // informations sur la page
-    $get = $_GET['page'];
-    $day_id = Days::started_day() ? Days::day_id(date('d-m-Y')) : 0;
-    $no_selected_members = count(Members::selected_members_list()) < 4 || count(Members::selected_members_list()) == 7;
-    $no_day = !Days::started_day();
-    $no_round = count(Rounds::day_rounds_list($day_id)) == 0;
-    $no_score = count(Players::players_list()) == 0;
-    $no_rank = Rankings::rankings_has_ranks($day_id) == 0;
     
     $menu = '<nav id="menu"><ul id="main-menu">';
 
@@ -49,6 +69,7 @@ function display_menu()
         $day_off_items = in_array($link, ['day', 'scores']);
         $class = '';
         $label = $menu_labels[$k];
+        $sublabel = $menu_sublabels[$k];
         $menu .= '<li class="menu-item">';
 
         // si le nom du fichier correspond à celui pointé par l'indice, alors on l'active
@@ -59,44 +80,48 @@ function display_menu()
         if ($no_selected_members && $day_items) {
             $class = ' full-error';
             $link = 'members';
-            $label = 'Aucun joueur sélectionné';
+            $sublabel = 'Aucun joueur sélectionné';
         }
         elseif ($no_day && $day_items) {
             $class = ' full-warning';
+            if ($link == 'day') {
+                $class = ' full-warning';
+                $sublabel = 'Aucune journée créée';
+            }
             if (in_array($link, ['scores', 'rankings'])) {
                 $class = ' full-error';
                 $link = 'day';
-                $label = 'Aucune journée créée';
+                $sublabel = 'Aucune journée créée';
             }
         }
         elseif ($no_round && $day_items) {
             if (in_array($link, ['scores', 'rankings'])) {
                 $class = ' full-error';
                 $link = 'day';
-                $label = 'Aucune partie créée';
+                $sublabel = 'Aucune partie créée';
             }
         }
         elseif ($no_score && $day_items) {
             if ($link == 'rankings') {
                 $class = ' full-error';
                 $link = 'scores';
-                $label = 'Aucun score';
+                $sublabel = 'Aucun score';
             }
         }
         elseif ($no_rank && $day_items) {
             if ($link == 'rankings') {
                 $class = ' full-warning';
                 $link = 'scores';
-                $label = 'Aucun classement';
+                $sublabel = 'Aucun classement';
             }
         }
-        elseif (Days::started_day() && !Days::day_flag($day_id) && $day_off_items) {
+        elseif ($started_day && !Days::day_flag($day_id) && $day_off_items) {
             $class = ' full-error';
             $link = 'rankings';
-            $label = 'Journée terminée';
+            $sublabel = 'Journée terminée';
         }
 
-        $menu .= '<a class="menu-item-title' . $class . '" href="index.php?page=' . $link . '"><i class="fa fa-fw fa-' . $menu_icons[$k] . '"></i> ' . $label . '</a></li>';
+        $menu .= '<a class="menu-item-title' . $class . '" href="index.php?page=' . $link . '"><i class="fa fa-fw fa-' . $menu_icons[$k] . '"></i> ' . $label . '<span class="description">' . $sublabel . '</span></a></li>';
     }
     $menu .= "</ul></nav>";
     return $menu;

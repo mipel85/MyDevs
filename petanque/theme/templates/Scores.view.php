@@ -50,7 +50,7 @@ $possible_scores = 12;
                                 </span>
                             </div>
                             <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round['id'] ?>"></span>
-                            <div id="matches-round-list-<?= $round['id'] ?>" class="matches-round-list flex-between-center cell-flex cell-columns-8">
+                            <div id="matches-round-list-<?= $round['id'] ?>" class="matches-round-list cell-flex cell-columns-8">
                                 <?php foreach (Matches::round_matches_list($day_id, $round['id']) as $index => $match): ?>
                                     <?php $disabled_score = $match['score_status'] ? ' disabled' : ''; ?>
                                     <div
@@ -89,12 +89,14 @@ $possible_scores = 12;
                                             </div>
                                             <span data-team_2_id="<?= $match['team_2_id'] ?>"></span>
                                         </div>
-                                        <div class="score-row-button">
+                                        <div class="score-row-button<?php if(!$match['score_status']): ?> button-with-manual<?php endif ?>">
+                                            <?php if(!$match['score_status']): ?><span></span><?php endif ?>
                                             <?php if($match['score_status']): ?>
                                                 <span><button id="edit-scores-<?= $match['id'] ?>" data-score_status="0" type="submit" class="button edit-score">Modifier</button></span>
                                             <?php else: ?>
                                                 <span><button id="submit-scores-<?= $match['id'] ?>" data-score_status="1" type="submit" class="button">Valider</button></span>
                                             <?php endif ?>
+                                            <?php if(!$match['score_status']): ?><button id="manual-scores-<?= $match['id'] ?>" data-tooltip="Renseigner le score manuellement" type="submit" class="icon-button"><i class="fa fa-keyboard"></i></button><?php endif ?>
                                         </div>
                                     </div>
                                 <?php endforeach ?>
@@ -111,6 +113,10 @@ $possible_scores = 12;
         <div class="message-helper full-notice">Aucune partie créée.</div>
     <?php endif ?>
     <script>
+        // Déclaration manuelle des scores
+        $('[id*="manual-scores-"').on('click', function(){
+            $(this).closest('.row-item').find('.input').removeAttr('readonly').addClass('full-sub');
+        });
         // Déclaration des scores
         $('input.team-score').each(function() {
             $(this).on('click', function() { // sélection de l'input à renseigner
@@ -119,7 +125,7 @@ $possible_scores = 12;
                 $(this).closest('.matches-round-list').find('.row-item').removeClass('full-notice');
                 $(this).closest('.matches-round-list').find('.button').removeClass('full-sub');
                 // on ajoute le focus sur l'input
-                $(this).addClass('focused-score full-sub');
+                $(this).addClass('focused-score full-sub').removeClass('bgc-notice notice');
                 $(this).closest('.row-item').addClass('full-notice');
                 $(this).closest('.row-item').find('.button').addClass('full-sub');
                 $(this).parent().siblings('.score-row').find('.input').addClass('bgc-notice notice')

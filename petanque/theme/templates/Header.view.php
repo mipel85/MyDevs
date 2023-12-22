@@ -42,19 +42,7 @@ $menu = display_menu();
         <header id="top-header">
             <div id="logo"></div>
             <div id="site-name-container" class="flex-main">
-                <div id="site-name">Pétanque Loisirs Sainte-Foy</div>
-                <div class="site-name-infos flex-main">
-                    <span><?= date('d-m-Y') ?></span>
-                    <?php if ($c_started_day): ?>
-                        <div>
-                            <?php if (count(Rounds::day_rounds_list($day_id)) > 0): ?>
-                                Partie <?= count(Rounds::day_rounds_list($day_id)) ?> en cours
-                            <?php else: ?>
-                                Aucune partie en cours
-                            <?php endif ?>
-                        </div>
-                    <?php endif ?>
-                </div>
+                <div id="site-name" class="flex-main">Pétanque Loisirs Sainte-Foy</div>
                 <div id="menu-container">
                     <a href="#menu-container" id="menu-trigger">Menu</a>
                     <a href="#" id="untrigger">X</a>

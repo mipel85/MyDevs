@@ -4,9 +4,17 @@
 
 ## Design général
 ~~- compresser en vertical~~
+- créer composant tooltip + mettre sur tous les icon-button
 
 ### Menu
 ~~- design comme joueur : horizontal + border + radius ~~
+
+- chaque item sur 2 lignes
+    ~~- Accueil / date ~~
+    ~~- Joueurs présents / nombre de joueurs ~~
+    ~~- Gestion des parties / partie en cours ou label ~~
+    - Saisie des scores / X matches terminés sur Y matches  ou label
+    ~~- Classement / partie en cours ou label ~~
 
 ## Header
 ~~- Bienvenue à la partie du date sous le titre ~~
@@ -26,7 +34,7 @@ créer la doc dans /theme/templates/home.php
 
 ## Journée
 À la création d'une journée = chargement de la page `Gestion des parties` : 
-- purger les tables sauf ranking et journée
+- purger les tables sauf `members`, `rankings` et `days`
 ~~- initialisation de la journée du jour ~~
 ~~- récupérer la date de façon cachée ~~
 
@@ -89,11 +97,15 @@ suppression
 ~~- changer couleur du bouton de validation ~~
     ~~- Valider => rien car le score n'est pas validé ~~
     ~~- Modifier => vert comme le score qui est validé ~~
-- prévoir une saisie de score différent de 13
+- prévoir une saisie de score différent de 13 pour chaque match de la partie
+    - bouton "modifier le score max" en cas de fin de partie obligatoire pour chaque match de la partie (bouton icon keyboard + tooltip)
+    - lister les score_status = 0
+    - ouvrir les input de score à la saisie manuelle
 ~~- grossir les boutons scores 1.1 ~~
 ~~- mettre la liste des score en fixe au scroll ~~
 ~~- améliorer le focus jusqu'à validation ~~
 ~~- revoir le tableau member selection like ~~
+- possibilité de changer le score envoyé (0 à 12) avant validation (actuellement, on ne peut cliquer qu'une fois et il faut valider puis modifier pour changer)
 
 ### Classement
 ~~- day_id ~~

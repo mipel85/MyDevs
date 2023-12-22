@@ -1,5 +1,8 @@
 # Classement
 ~~bouton 'Mettre à jour le classement' sur la page des scores  ~~
+- détecter si classement à jour 
+    - par diff entre table players et table rankings => chgmt de couleur du bouton à la validation d'un nouveau score
+    - si click un bouton = "modifier"
 
 ## Liste des joueurs
 - cdc : On ne peut pas supprimer des entrées dans la table `rankings`

@@ -133,6 +133,32 @@
     transform: translateX(-50%);
 }
 
+/* Tooltip */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::before {
+    position: absolute;
+    content: attr(data-tooltip);
+    min-width: 200px;
+    max-width: 320px;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bgc);
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--bdr);
+    padding: 5px 10px;
+    opacity: 0;
+    word-break: keep-all;
+}
+
+[data-tooltip]:hover::before {
+    opacity: 1;
+}
+
 /* --- Specs page --- */
 
 #selected-members-list.cell-flex {
@@ -251,6 +277,11 @@
 .score-button:hover {
     background-color: var(--bgc-alt);
     color: var(--text-alt);
+}
+
+.button-with-manual {
+    width: 100%;
+    justify-content: space-between !important;
 }
 
 .edit-score {
