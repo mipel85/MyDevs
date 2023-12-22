@@ -2,6 +2,7 @@
 
 require_once('./classes/Members.class.php');
 require_once('./classes/Days.class.php');
+require_once('./classes/Players.class.php');
 require_once('./classes/Rankings.class.php');
 
 function display_menu()
@@ -36,7 +37,8 @@ function display_menu()
     $no_selected_members = count(Members::selected_members_list()) < 4 || count(Members::selected_members_list()) == 7;
     $no_day = !Days::started_day();
     $no_round = count(Rounds::day_rounds_list($day_id)) == 0;
-    $no_score = count(Rankings::rankings_day_list($day_id)) == 0;
+    $no_score = count(Players::players_list()) == 0;
+    $no_rank = Rankings::rankings_has_ranks($day_id) == 0;
     
     $menu = '<nav id="menu"><ul id="main-menu">';
 
@@ -62,18 +64,26 @@ function display_menu()
         elseif ($no_day && $day_items) {
             $class = ' full-warning';
             if (in_array($link, ['scores', 'rankings'])) {
+                $class = ' full-error';
                 $link = 'day';
                 $label = 'Aucune journée créée';
             }
         }
         elseif ($no_round && $day_items) {
             if (in_array($link, ['scores', 'rankings'])) {
-                $class = ' full-warning';
+                $class = ' full-error';
                 $link = 'day';
                 $label = 'Aucune partie créée';
             }
         }
         elseif ($no_score && $day_items) {
+            if ($link == 'rankings') {
+                $class = ' full-error';
+                $link = 'scores';
+                $label = 'Aucun score';
+            }
+        }
+        elseif ($no_rank && $day_items) {
             if ($link == 'rankings') {
                 $class = ' full-warning';
                 $link = 'scores';

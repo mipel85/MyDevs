@@ -15,7 +15,6 @@ switch($actions)
     case 'insert_rank':
         // List of existing players in `rankings` table
         $ranked_players_list = Rankings::rankings_players_id_list($_POST['day_id']);
-            var_dump($_POST['player_a0_name']);
         // A team players
         if (!in_array($_POST['player_a0_id'], $ranked_players_list)) {
             $insert = new Rankings();
@@ -67,7 +66,7 @@ switch($actions)
         break;
 
     case 'update_rank':
-        foreach ($update as $rank) {
+        foreach ($rankings_update as $rank) {
             $add = new Rankings();
             $add->update_rank(
                 $rank['day_id'],

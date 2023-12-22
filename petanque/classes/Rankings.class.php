@@ -180,7 +180,7 @@ class Rankings {
     static function rankings_players_id_list($day_id) : array
     {
         $rankings_list = array();
-        $req = 'SELECT * FROM rankings '
+        $req = 'SELECT day_id, member_id FROM rankings '
         . ' WHERE `day_id`= ' . $day_id;
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -191,5 +191,27 @@ class Rankings {
             }
         }
         return $rankings_list;
+    }
+    
+    /**
+     * check if players has updated scores
+     *
+     * @param  int $day_id
+     * @return int
+     */
+    static function rankings_has_ranks($day_id) : int
+    {
+        $rankings_list = array();
+        $req = 'SELECT day_id, played FROM rankings '
+        . ' WHERE `day_id`= ' . $day_id;
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    $rankings_list[] = $value['played'];
+                }
+            }
+        }
+        return array_sum($rankings_list);
     }
 }
