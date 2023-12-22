@@ -7,7 +7,12 @@ require_once('./classes/Rankings.class.php');
 require_once('./controllers/Days.controller.php');
 ?>
 <section>
-    <header class="section-header"><h1>Classement</h1></header>
+    <header class="section-header flex-between-center">
+            <h1>Classement</h1>
+            <div>
+                <button id="end-the-day" class="button full-error">Terminer la journée</button>
+            </div>
+    </header>
     <div class="tabs-container">
         <div class="tabs-menu flex-between">
             <div class="tabs-menu-left">

@@ -21,7 +21,7 @@ class Players {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM rankings WHERE id = ' . $id;
+            $req = 'SELECT * FROM players WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -120,5 +120,23 @@ class Players {
             }
         }
         return $players;
+    }
+
+    static function players_id_list($day_id, $round_id, $match_id) : array
+    {
+        $players_list = array();
+        $req = 'SELECT * FROM players '
+        . ' WHERE `day_id`= ' . $day_id
+        . ' AND `round_id`= ' . $round_id
+        . ' AND `match_id`= ' . $match_id;
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    $players_list[] = $value['member_id'];
+                }
+            }
+        }
+        return $players_list;
     }
 }

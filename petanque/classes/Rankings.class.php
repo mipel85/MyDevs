@@ -71,7 +71,7 @@ class Rankings {
     public function set_neg_points($neg_points) { $this->neg_points = $neg_points; }
 // end getters setters
 
-    function insert_player()
+    function insert_rank()
     {
         $req = 'INSERT INTO rankings values (
                     NULL,
@@ -125,21 +125,22 @@ class Rankings {
 
     static function rankings_month_list() : array
     {
-        // Mois en cours
+        // Current month/year
         $today_month = date('m');
-        // Création de la liste des id compris dans le mois en cours
+        $today_year = date('Y');
+        // Build the list of the day ids included in the current month
         $day_ids_list = [];
         foreach (Days::days_list() as $day)
         {
-            $day_month = explode('-', $day['date']);
-            if ($day_month[1] == $today_month)
+            $day_date = explode('-', $day['date']);
+            if ($day_date[1] == $today_month && $day_date[2] == $today_year)
                 $day_ids_list[] = $day['id'];
         }
-        // transformation de la liste en array comprehensible pour sql
+        // transform the list into an understandable array for sql
         $array = json_encode($day_ids_list);
         $array = rtrim($array, ']');
         $array = ltrim($array, '[');
-        // Création de la liste des classements à prendre en compte
+        // Build the list of rankings to consider
         $rankings_list = [];
         $req = 'SELECT * FROM rankings '
         . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points` ASC, `member_name` ASC';
@@ -176,7 +177,7 @@ class Rankings {
      * @param  int $day_id
      * @return array
      */
-    static function rankings_members_id_list($day_id) : array
+    static function rankings_players_id_list($day_id) : array
     {
         $rankings_list = array();
         $req = 'SELECT * FROM rankings '

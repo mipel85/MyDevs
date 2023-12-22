@@ -1,6 +1,3 @@
-<div>
-    <button id="end-the-day" class="button full-error">Terminer la journée</button>
-</div>
 <div id="del-all">
     <div class="line">
         <div class="content flex-inline-center">

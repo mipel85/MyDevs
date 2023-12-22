@@ -174,7 +174,7 @@ $(document).ready(function() {
                     round_id: round_id
                 },
                 success: function() {
-                    // location.reload(true);
+                    location.reload(true);
                 }
             });
         }

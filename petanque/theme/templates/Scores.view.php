@@ -73,10 +73,10 @@ $possible_scores = 12;
                                                 <?php endforeach ?>
                                             </div>
                                         </div>
-                                        <div class="score-row-left">
+                                        <div class="score-row-left score-row">
                                             <input readonly class="input team-score" type="text" min="0" max="13" name="score-1" value="<?= $match['team_1_score'] ?>"<?= $disabled_score ?>>
                                         </div>
-                                        <div class="score-row-right">
+                                        <div class="score-row-right score-row">
                                             <input readonly class="input team-score" type="text" min="0" max="13" name="score-2" value="<?= $match['team_2_score'] ?>"<?= $disabled_score ?>>
                                         </div>
                                         <div class="score-row-team-right">
@@ -113,7 +113,7 @@ $possible_scores = 12;
     <script>
         // Déclaration des scores
         $('input.team-score').each(function() {
-            $(this).on('click', function() { // sélection de l'input à renseigner                
+            $(this).on('click', function() { // sélection de l'input à renseigner
                 // On supprime le focus de tous les autres input
                 $(this).closest('.matches-round-list').find('input').removeClass('focused-score full-sub');
                 $(this).closest('.matches-round-list').find('.row-item').removeClass('full-notice');
@@ -122,6 +122,7 @@ $possible_scores = 12;
                 $(this).addClass('focused-score full-sub');
                 $(this).closest('.row-item').addClass('full-notice');
                 $(this).closest('.row-item').find('.button').addClass('full-sub');
+                $(this).parent().siblings('.score-row').find('.input').addClass('bgc-notice notice')
             });
         });
         $('.score-button').each(function(){
