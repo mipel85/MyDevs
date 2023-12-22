@@ -55,9 +55,9 @@ foreach(Rankings::rankings_day_list($day_id) as $i => $rank) {
         'neg_points' => array_sum($neg_points)
     ];
 }
-echo '<pre>';
-print_r($update);
-echo '</pre>';
+// echo '<pre>';
+// print_r($update);
+// echo '</pre>';
 // foreach($update as $rank) {
 //     echo $rank['member_id'];
 //     echo $rank['played'];
