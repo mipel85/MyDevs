@@ -122,54 +122,6 @@ class Rankings {
         }
         return $rankings_list;
     }
-
-    static function rankings_month_list() : array
-    {
-        // Current month/year
-        $today_month = date('m');
-        $today_year = date('Y');
-        // Build the list of the day ids included in the current month
-        $day_ids_list = [];
-        foreach (Days::days_list() as $day)
-        {
-            $day_date = explode('-', $day['date']);
-            if ($day_date[1] == $today_month && $day_date[2] == $today_year)
-                $day_ids_list[] = $day['id'];
-        }
-        // transform the list into an understandable array for sql
-        $array = json_encode($day_ids_list);
-        $array = rtrim($array, ']');
-        $array = ltrim($array, '[');
-        // Build the list of rankings to consider
-        $rankings_list = [];
-        $req = 'SELECT * FROM rankings '
-        . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points` ASC, `member_name` ASC';
-        if ($result = Connection::query($req)){
-            if (!empty($result)){
-                foreach ($result as $value)
-                {
-                    $rankings_list[] = $value;
-                }
-            }
-        }
-        return $rankings_list;
-    }
-
-    static function rankings_overall_list() : array
-    {
-        $rankings_list = array();
-        $req = 'SELECT * FROM rankings '
-        . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points` ASC, `member_name` ASC';
-        if ($result = Connection::query($req)){
-            if (!empty($result)){
-                foreach ($result as $value)
-                {
-                    $rankings_list[] = $value;
-                }
-            }
-        }
-        return $rankings_list;
-    }
     
     /**
      * rankings_members_id_list
