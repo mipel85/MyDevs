@@ -9,28 +9,42 @@ require_once('./classes/Rankings.class.php');
 
 function display_menu()
 {
-    // informations sur la page
+    // Current page from url
     $get = $_GET['page'];
+    // Check if day is started
     $started_day = Days::started_day();
+    // if day is started
     $day_id = $started_day ? Days::day_id(date('d-m-Y')) : 0;
-    
-    $selected_members = count(Members::selected_members_list()) > 1 ? 
+    $day_has_round = $started_day && count(Rounds::day_rounds_list($day_id)) > 0;
+    $day_has_match = $started_day && $day_has_round && count(Matches::day_matches_list($day_id)) > 0;
+    // List of selected members
+    $selected_members_label = count(Members::selected_members_list()) > 1 ? 
         count(Members::selected_members_list()) . ' joueurs sélectionnés' : 
         count(Members::selected_members_list()) . ' joueur sélectionné';
-    $current_round = $started_day ? 'Partie ' . count(Rounds::day_rounds_list($day_id)) . ' en cours' : 'Aucune partie en cours';
-    $current_ranking = $started_day ? 
-        'Après ' . (count(Rounds::day_rounds_list($day_id)) > 1 ? 
-            count(Rounds::day_rounds_list($day_id)) . ' parties' :  
-            count(Rounds::day_rounds_list($day_id)) . ' partie') : 
-        'Aucune partie en cours';
-
+    // Current running round
+    $current_round_name = $day_has_round ? Rounds::current_round_name($day_id) : 0;
+    $current_round_id = $day_has_round ? Rounds::current_round_id($day_id) : 0;
+    $current_round_label = $current_round_name ? 'Partie ' . $current_round_name . ' en cours' : 'Aucune partie créée';
+    // Get matches number and played matches number for the current round
+    $current_round_played_matches = $day_has_match ? count(Matches::round_played_matches_list($day_id, $current_round_id)) : 0;
+    $played_label = 'Partie ' . $current_round_name . ': ' . $current_round_played_matches . ($current_round_played_matches > 1 ? ' rencontres' : ' rencontre');
+    $current_matches_number = $day_has_match ? count(Matches::round_matches_list($day_id, $current_round_id)) : 0;
+    // Get matches number and played matches number for the day
+    $played_matches_number = $day_has_match ? count(Matches::played_matches_list($day_id)) : 0;
+    $matches_number = $day_has_match ? count(Matches::day_matches_list($day_id)) : 0;
+    $current_ranking_label = $played_matches_number ? 
+        (count(Matches::played_matches_list($day_id)) > 1 ? 
+            'Après ' . count(Matches::played_matches_list($day_id)) . ' rencontres' :  
+            'Après ' . count(Matches::played_matches_list($day_id)) . ' rencontre') : 
+        'Aucune rencontre terminée';
+    // warning labels
     $no_selected_members = count(Members::selected_members_list()) < 4 || count(Members::selected_members_list()) == 7;
     $no_day = !$started_day;
     $no_round = count(Rounds::day_rounds_list($day_id)) == 0;
     $no_score = count(Players::players_list()) == 0;
     $no_rank = Rankings::rankings_has_ranks($day_id) == 0;
-    require_once ('./controllers/Days.controller.php');
-    // tableaux contenant les liens d'accès et le texte à afficher
+    
+    // Arrays of links, labels and icons for the nav menu
     $menu_links = [
         'home',
         'members',
@@ -47,10 +61,10 @@ function display_menu()
     ];
     $menu_sublabels = [
         date('d-m-Y'),
-        $selected_members,
-        $current_round,
-        'Saisie des <strong>Scores</strong>',
-        $current_ranking
+        $selected_members_label,
+        $current_round_label,
+        $played_label . ' / ' . $current_matches_number,
+        $current_ranking_label . ' / ' . $matches_number
     ];
     $menu_icons = [
         'house',
@@ -62,7 +76,6 @@ function display_menu()
     
     $menu = '<nav id="menu"><ul id="main-menu">';
 
-    // boucle qui parcours les deux tableaux
     foreach ($menu_links as $k => $link)
     {
         $day_items = in_array($link, ['day', 'scores', 'rankings']);
@@ -95,6 +108,10 @@ function display_menu()
             }
         }
         elseif ($no_round && $day_items) {
+            if ($link == 'day') {
+                $class = ' full-warning';
+                $sublabel = 'Aucune partie créée';
+            }
             if (in_array($link, ['scores', 'rankings'])) {
                 $class = ' full-error';
                 $link = 'day';

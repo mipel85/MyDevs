@@ -47,7 +47,7 @@ function build_matches($teams) : array
 }
 
 /**
- * Define playgrounds list for the round matches
+ * Build playgrounds list for the round matches
  *
  * @param  array $selected_playgrounds | list of the selected playgrounds for the round
  * @param  array $round_matches | list of the matches of the round

@@ -113,10 +113,11 @@ class Matches {
         return Connection::query($req);
     }
 
-    static function matches_list()
+    static function day_matches_list($day_id)
     {
         $matches = array();
-        $req = 'SELECT matches.* FROM matches ';
+        $req = 'SELECT matches.* FROM matches '
+        . ' WHERE matches.day_id = "' . $day_id . '"';
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -140,6 +141,42 @@ class Matches {
                 foreach ($result as $value)
                 {
                     $matches[] = $value;
+                }
+            }
+        }
+        return $matches;
+    }
+
+    static function played_matches_list($day_id)
+    {
+        $matches = array();
+        $req = 'SELECT matches.* FROM matches '
+            . ' WHERE matches.day_id = "' . $day_id . '"';
+
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    if($value['score_status'])
+                        $matches[] = $value;
+                }
+            }
+        }
+        return $matches;
+    }
+
+    static function round_played_matches_list($day_id, $round_id)
+    {
+        $matches = array();
+        $req = 'SELECT matches.* FROM matches '
+            . ' WHERE matches.day_id = "' . $day_id . '" AND matches.round_id = "' . $round_id . '"';
+
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    if($value['score_status'])
+                        $matches[] = $value;
                 }
             }
         }

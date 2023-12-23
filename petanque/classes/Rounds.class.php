@@ -65,12 +65,16 @@ class Rounds {
         $req = 'DELETE FROM rounds';
         return Connection::query($req);
     }
-
-    static function rounds_list()
+    
+    /**
+     * Complete rounds list
+     *
+     * @return array
+     */
+    static function rounds_list() : array
     {
-        $rounds = array();
-        $req = 'SELECT rounds.*, days.date AS date FROM rounds '
-            . ' LEFT JOIN days ON days.id = rounds.day_id'
+        $rounds = [];
+        $req = 'SELECT rounds.* FROM rounds '
             . ' ORDER BY rounds.day_id DESC, rounds.i_order DESC';
 
         if ($result = Connection::query($req)){
@@ -83,12 +87,17 @@ class Rounds {
         }
         return $rounds;
     }
-
-    static function day_rounds_list($day_id)
+    
+    /**
+     * Day rounds list
+     *
+     * @param  int $day_id
+     * @return array
+     */
+    static function day_rounds_list($day_id) : array
     {
         $rounds = array();
-        $req = 'SELECT rounds.*, days.date AS date FROM rounds '
-            . ' LEFT JOIN days ON days.id = rounds.day_id'
+        $req = 'SELECT rounds.* FROM rounds '
             . ' WHERE rounds.day_id = ' . $day_id
             . ' ORDER BY rounds.i_order';
 
@@ -124,5 +133,42 @@ class Rounds {
                 $ids[] = $values['id'];
         }
         return $ids;
+    }
+
+    static function current_round_name($day_id)
+    {
+        $rounds = array();
+        $req = 'SELECT rounds.* FROM rounds '
+            . ' WHERE rounds.day_id = ' . $day_id
+            . ' ORDER BY rounds.i_order DESC';
+
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    if($value['day_id'] = $day_id)
+                        $rounds[] = $value['i_order'];
+                }
+            }
+        }
+        return $rounds[0];
+    }
+
+    static function current_round_id($day_id)
+    {
+        $rounds = array();
+        $req = 'SELECT rounds.* FROM rounds '
+            . ' WHERE rounds.day_id = ' . $day_id;
+
+        if ($result = Connection::query($req)){
+            if (!empty($result)){
+                foreach ($result as $value)
+                {
+                    if($value['day_id'] = $day_id)
+                        $rounds[] = $value['id'];
+                }
+            }
+        }
+        return $rounds[0];
     }
 }
