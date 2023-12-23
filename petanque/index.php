@@ -20,7 +20,7 @@ if ($url == '')
 $title = '';
 switch($page)
 {
-    case ('config') : $title = 'Administration'; break;
+    case ('config') : $title = 'Configuration'; break;
     case ('members') : $title = 'Sélection des joueurs'; break;
     case ('day') : $title = 'Partie'; break;
     case ('scores') : $title = 'Scores'; break;
