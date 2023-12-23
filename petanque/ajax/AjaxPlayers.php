@@ -10,9 +10,9 @@ switch($actions)
 {
     case 'insert_player':
         // List of existing players in `players` table
-        $ranked_players_list = Players::players_id_list($_POST['day_id'], $_POST['round_id'], $_POST['match_id']);
+        $players_id_list = Players::players_id_list($_POST['day_id'], $_POST['round_id'], $_POST['match_id']);
         // A team players
-        if (!in_array($_POST['player_a0_id'], $ranked_players_list)) {
+        if (!in_array($_POST['player_a0_id'], $players_id_list)) {
             $insert = new Players();
             $insert->set_day_id($_POST['day_id']);
             $insert->set_round_id($_POST['round_id']);
@@ -21,7 +21,7 @@ switch($actions)
             $insert->set_member_name($_POST['player_a0_name']);
             $insert->insert_player();
         }
-        if (!in_array($_POST['player_a0_id'], $ranked_players_list)) {
+        if (!in_array($_POST['player_a0_id'], $players_id_list)) {
             $insert = new Players();
             $insert->set_day_id($_POST['day_id']);
             $insert->set_round_id($_POST['round_id']);
@@ -31,7 +31,7 @@ switch($actions)
             $insert->insert_player();
         }
         if ($_POST['player_a4_id']) {
-            if (!in_array($_POST['player_a0_id'], $ranked_players_list)) {
+            if (!in_array($_POST['player_a0_id'], $players_id_list)) {
                 $insert = new Players();
                 $insert->set_day_id($_POST['day_id']);
                 $insert->set_round_id($_POST['round_id']);
@@ -42,7 +42,7 @@ switch($actions)
             }
         }
         // B team players
-        if (!in_array($_POST['player_a0_id'], $ranked_players_list)) {
+        if (!in_array($_POST['player_a0_id'], $players_id_list)) {
             $insert = new Players();
             $insert->set_day_id($_POST['day_id']);
             $insert->set_round_id($_POST['round_id']);
@@ -51,7 +51,7 @@ switch($actions)
             $insert->set_member_name($_POST['player_b0_name']);
             $insert->insert_player();
         }
-        if (!in_array($_POST['player_a0_id'], $ranked_players_list)) {
+        if (!in_array($_POST['player_a0_id'], $players_id_list)) {
             $insert = new Players();
             $insert->set_day_id($_POST['day_id']);
             $insert->set_round_id($_POST['round_id']);
@@ -61,7 +61,7 @@ switch($actions)
             $insert->insert_player();
         }
         if ($_POST['player_b4_id']) {
-            if (!in_array($_POST['player_a0_id'], $ranked_players_list)) {
+            if (!in_array($_POST['player_a0_id'], $players_id_list)) {
                 $insert = new Players();
                 $insert->set_day_id($_POST['day_id']);
                 $insert->set_round_id($_POST['round_id']);

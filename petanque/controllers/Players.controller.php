@@ -11,43 +11,47 @@ require_once ('../classes/Players.class.php');
 require_once ('../classes/Rankings.class.php');
 require_once ('../controllers/Days.controller.php');
 
-$rankings_update = [];
-foreach(Rankings::rankings_day_list($day_id) as $i => $rank) {
-    $round_id = [];
-    $played = [];
-    $victory = [];
-    $loss = [];
-    $pos_points = [];
-    $neg_points = [];
-    foreach(Players::players_list() as $player) {
-        if($player['member_id'] == $rank['member_id']) {
-            if ($player['score_status']) {
-                $played[] = $player['round_id'];
-                $diff_match = abs($player['points_for'] - $player['points_against']);
-                if ($player['points_for'] > $player['points_against']) {
-                    $victory[] = 1;
-                    $pos_points[] = $player['points_for'] + $diff_match;
-                    $loss[] = 0;
-                    $neg_points[] = 0;
-                }
-                elseif ($player['points_for'] < $player['points_against']) {
-                    $victory[] = 0;
-                    $pos_points[] = 0;
-                    $loss[] = 1;
-                    $neg_points[] = $player['points_for'] - $diff_match;
+function update_ranks($day_id)
+{
+    // $day_id = Days::day_id(date('d-m-Y'));
+    $updated_ranks = [];
+    foreach(Rankings::rankings_day_list($day_id) as $i => $rank) {
+        $played = [];
+        $victory = [];
+        $loss = [];
+        $pos_points = [];
+        $neg_points = [];
+        foreach(Players::players_list() as $player) {
+            if($player['member_id'] == $rank['member_id']) {
+                if ($player['score_status']) {
+                    $played[] = $player['round_id'];
+                    $diff_match = abs($player['points_for'] - $player['points_against']);
+                    if ($player['points_for'] > $player['points_against']) {
+                        $victory[] = 1;
+                        $pos_points[] = $player['points_for'] + $diff_match;
+                        $loss[] = 0;
+                        $neg_points[] = 0;
+                    }
+                    elseif ($player['points_for'] < $player['points_against']) {
+                        $victory[] = 0;
+                        $pos_points[] = 0;
+                        $loss[] = 1;
+                        $neg_points[] = $player['points_for'] - $diff_match;
+                    }
                 }
             }
         }
+        $updated_ranks[] = [
+            'day_id' => $day_id,
+            'member_id' => $rank['member_id'],
+            'played' => count($played),
+            'victory' => array_sum($victory),
+            'loss' => array_sum($loss),
+            'pos_points' => array_sum($pos_points),
+            'neg_points' => array_sum($neg_points)
+        ];
     }
-    $rankings_update[] = [
-        'day_id' => $day_id,
-        'member_id' => $rank['member_id'],
-        'played' => count($played),
-        'victory' => array_sum($victory),
-        'loss' => array_sum($loss),
-        'pos_points' => array_sum($pos_points),
-        'neg_points' => array_sum($neg_points)
-    ];
+    return $updated_ranks;
 }
 // echo '<pre>';
 // print_r($update);

@@ -114,13 +114,15 @@ $possible_scores = 12;
     <?php endif ?>
     <script>
         // Manual edition
-        $('[id*="manual-scores-"').on('click', function() { // Select manual edition
-            // Target all matches but this
-            $(this).closest('.row-item').siblings().removeClass('full-notice'); // Remove color of matches
-            $(this).closest('.row-item').siblings().find('.input').removeClass('full-warning').attr('readonly', ''); // Remove color and force readonly on inputs
-            // Target this
-            $(this).closest('.row-item').addClass('full-notice'); // Add color on this match
-            $(this).closest('.row-item').find('.input').removeAttr('readonly').addClass('full-warning').focus();// Add warning color and remove readonly on both inputs
+        $('[id*="manual-scores-"').each(function(){
+            $(this).on('click', function() { // Select manual edition
+                // Target all matches but this
+                $(this).closest('.row-item').siblings().removeClass('full-notice'); // Remove color of matches
+                $(this).closest('.row-item').siblings().find('.input').removeClass('full-warning').attr('readonly', ''); // Remove color and force readonly on inputs
+                // Target this
+                $(this).closest('.row-item').addClass('full-notice'); // Add color on this match
+                $(this).closest('.row-item').find('.input').removeAttr('readonly').addClass('full-warning').focus();// Add warning color and remove readonly on both inputs
+            });
         });
         // Automatic edition
         $('input.team-score').each(function() {
@@ -148,7 +150,7 @@ $possible_scores = 12;
                     winner = looser.closest('.row-item').find("input:not('.focused-score')"); // define sibling target
                 looser.val(score); // fill score target with selected score
                 winner.val(13); // fill sibling target with winner score
-            })
+            });
         });
     </script>
 </section>
@@ -160,7 +162,6 @@ $possible_scores = 12;
     $(window).scroll(function () {
         if ($(window).scrollTop() >= distance) {
             $('.score-buttons-list').addClass("fixed-element");
-
         } else {
             $('.score-buttons-list').removeClass("fixed-element");
         }

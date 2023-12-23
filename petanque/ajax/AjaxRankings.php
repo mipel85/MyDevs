@@ -7,6 +7,7 @@ require_once ('../classes/Rounds.class.php');
 require_once ('../classes/Teams.class.php');
 require_once ('../classes/Matches.class.php');
 require_once ('../classes/Rankings.class.php');
+require_once ('../controllers/Days.controller.php');
 require_once ('../controllers/Players.controller.php');
 
 $actions = $_POST['action'];
@@ -65,8 +66,8 @@ switch($actions)
         }
         break;
 
-    case 'update_rank':
-        foreach ($rankings_update as $rank) {
+    case 'update_rankings':
+        foreach (update_ranks($day_id) as $rank) {
             $add = new Rankings();
             $add->update_rank(
                 $rank['day_id'],
