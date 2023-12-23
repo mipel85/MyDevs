@@ -113,41 +113,41 @@ $possible_scores = 12;
         <div class="message-helper full-notice">Aucune partie créée.</div>
     <?php endif ?>
     <script>
-        // Déclaration manuelle des scores
-        $('[id*="manual-scores-"').on('click', function() {
-            $(this).closest('.row-item').siblings().removeClass('full-notice'); // on supprime la couleur des autres matches
-            // on supprime la couleur et force le readonly aux inputs des autres matches
-            $(this).closest('.row-item').siblings().find('.input').removeClass('full-warning').attr('readonly', ''); 
-            $(this).closest('.row-item').addClass('full-notice'); // on ajoute la couleur au match
-            // On ajoute la couleur et retire le readonly aux 2 inputs du match
-            $(this).closest('.row-item').find('.input').removeAttr('readonly').addClass('full-warning').focus();
+        // Manual edition
+        $('[id*="manual-scores-"').on('click', function() { // Select manual edition
+            // Target all matches but this
+            $(this).closest('.row-item').siblings().removeClass('full-notice'); // Remove color of matches
+            $(this).closest('.row-item').siblings().find('.input').removeClass('full-warning').attr('readonly', ''); // Remove color and force readonly on inputs
+            // Target this
+            $(this).closest('.row-item').addClass('full-notice'); // Add color on this match
+            $(this).closest('.row-item').find('.input').removeAttr('readonly').addClass('full-warning').focus();// Add warning color and remove readonly on both inputs
         });
-        // Déclaration des scores
+        // Automatic edition
         $('input.team-score').each(function() {
-            $(this).on('click', function() { // sélection de l'input à renseigner
-                // On cible tous les autres matches
-                // on supprime le focus et on force le readonly des input
+            $(this).on('click', function() { // Select this input
+                // Target all matches but this
+                // Remove focus and force readonly on inputs
                 $(this).closest('.row-item').siblings().find('.input').removeClass('focused-score full-sub full-warning bgc-notice notice').attr('readonly', '');
-                $(this).closest('.row-item').siblings().removeClass('full-notice'); // on supprime les couleurs des matchs
-                $(this).closest('.row-item').siblings().find('.button').removeClass('full-sub full-warning'); // on enleve la couleur de tous les boutons
-
-                $(this).addClass('focused-score full-sub').removeClass('bgc-notice notice'); // on ajoute le focus et on change la couleur sur l'input selectionné
-                $(this).closest('.row-item').addClass('full-notice'); // on ajoute la couleur au match
-                $(this).closest('.row-item').find('.button').addClass('full-sub'); // on ajoute la couleur au bouton
-                $(this).parent().siblings('.score-row').find('.input').addClass('bgc-notice notice').removeClass('full-sub'); // on change la couleur de l'autre input du match
-                if(!$(this).closest('.row-item').find('.input').is('[readonly]')) { // si on est en édition manuelle
-                    $(this).addClass('full-warning').removeClass('bgc-notice notice'); // on garde le warning
-                    // $(this).parent().siblings('.score-row').find('.input').addClass('bgc-notice notice');
+                $(this).closest('.row-item').siblings().removeClass('full-notice'); // Remove matches colors
+                $(this).closest('.row-item').siblings().find('.button').removeClass('full-sub full-warning'); // Remove color on buttons
+                // Target this
+                $(this).addClass('focused-score full-sub').removeClass('bgc-notice notice').focus(); // Add focus and change color
+                $(this).closest('.row-item').addClass('full-notice'); // add color on this match
+                $(this).closest('.row-item').find('.button').addClass('full-sub'); // Add color on this button
+                $(this).parent().siblings('.score-row').find('.input').addClass('bgc-notice notice').removeClass('focused-score full-sub'); // Change color and remove focus on sibling input
+                if(!$(this).closest('.row-item').find('.input').is('[readonly]')) { // If manual edition
+                    $(this).addClass('full-warning').removeClass('bgc-notice notice'); // Keep warning color on focus
                 }
             });
         });
+        // Send score to focused input
         $('.score-button').each(function(){
-            $(this).on('click', function() {
-                let score = $(this).data('score_button'),
-                    looser = $(this).closest('.matches-list').find('input.focused-score'),
-                    winner = looser.closest('.row-item').find("input:not('.focused-score')");
-                winner.val(13);
-                looser.val(score).removeClass('focused-score');
+            $(this).on('click', function() { // Select score to send
+                let score = $(this).data('score_button'), // get score number
+                    looser = $(this).closest('.matches-list').find('input.focused-score'), // define score target
+                    winner = looser.closest('.row-item').find("input:not('.focused-score')"); // define sibling target
+                looser.val(score); // fill score target with selected score
+                winner.val(13); // fill sibling target with winner score
             })
         });
     </script>
