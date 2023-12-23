@@ -36,9 +36,6 @@ $menu = display_menu();
         <script src="./theme/js/days.js"></script>
     </head>
     <body>
-        <div class="waiting-overlay hidden">
-            <div class="waiting"><i class="fas fa-4x fa-spinner fa-pulse"></i></div>
-        </div>
         <header id="top-header">
             <div id="logo"></div>
             <div id="site-name-container" class="flex-main">

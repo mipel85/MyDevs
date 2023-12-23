@@ -91,7 +91,6 @@ $(document).ready(function() {
 
     // Ajout d'une partie
     $('#add-round').on('click', function() {
-        $('.waiting-overlay').removeClass('hidden');
         let day_id = $(this).data('day_id'),
             i_order = $(this).data('i_order'),
             players_number = $(this).data('players_number'),
