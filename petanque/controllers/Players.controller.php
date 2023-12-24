@@ -13,7 +13,6 @@ require_once ('../controllers/Days.controller.php');
 
 function update_ranks($day_id)
 {
-    // $day_id = Days::day_id(date('d-m-Y'));
     $updated_ranks = [];
     foreach(Rankings::rankings_day_list($day_id) as $i => $rank) {
         $played = [];
@@ -21,7 +20,7 @@ function update_ranks($day_id)
         $loss = [];
         $pos_points = [];
         $neg_points = [];
-        foreach(Players::players_list() as $player) {
+        foreach(Players::day_players_list($day_id) as $player) {
             if($player['member_id'] == $rank['member_id']) {
                 if ($player['score_status']) {
                     $played[] = $player['round_id'];
@@ -54,9 +53,9 @@ function update_ranks($day_id)
     return $updated_ranks;
 }
 // echo '<pre>';
-// print_r($update);
+// print_r(update_ranks($day_id));
 // echo '</pre>';
-// foreach($update as $rank) {
+// foreach(update_ranks($day_id) as $rank) {
 //     echo $rank['member_id'];
 //     echo $rank['played'];
 //     echo $rank['victory'];

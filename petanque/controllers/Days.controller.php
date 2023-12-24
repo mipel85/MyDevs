@@ -1,7 +1,7 @@
 <?php
 
-// set the today date
-$today = date('d-m-Y');
+// set the current date
+$today = Days::today();
 // set started Days item item condition
 $c_started_day = Days::started_day();
 

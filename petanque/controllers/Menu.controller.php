@@ -14,7 +14,9 @@ function display_menu()
     // Check if day is started
     $started_day = Days::started_day();
     // if day is started
-    $day_id = $started_day ? Days::day_id(date('d-m-Y')) : 0;
+    // set the current date
+    $today = Days::today();
+    $day_id = $started_day ? Days::day_id($today) : 0;
     $day_has_round = $started_day && count(Rounds::day_rounds_list($day_id)) > 0;
     $day_has_match = $started_day && $day_has_round && count(Matches::day_matches_list($day_id)) > 0;
     // List of selected members
@@ -41,7 +43,7 @@ function display_menu()
     $no_selected_members = count(Members::selected_members_list()) < 4 || count(Members::selected_members_list()) == 7;
     $no_day = !$started_day;
     $no_round = count(Rounds::day_rounds_list($day_id)) == 0;
-    $no_score = count(Players::players_list()) == 0;
+    $no_score = count(Players::day_players_list($day_id)) == 0;
     $no_rank = Rankings::rankings_has_ranks($day_id) == 0;
     
     // Arrays of links, labels and icons for the nav menu
@@ -60,7 +62,7 @@ function display_menu()
         'Classement'
     ];
     $menu_sublabels = [
-        date('d-m-Y'),
+        $today,
         $selected_members_label,
         $current_round_label,
         $played_label . ' / ' . $current_matches_number,

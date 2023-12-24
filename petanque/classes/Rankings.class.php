@@ -76,7 +76,7 @@ class Rankings {
         $req = 'INSERT INTO rankings values (
                     NULL,
                     "' . $this->get_day_id() . '",
-                    "' . date('d-m-Y') . '",
+                    "' . Days::today() . '",
                     "' . $this->get_member_id() . '",
                     "' . $this->get_member_name() . '",
                     "0",

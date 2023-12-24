@@ -106,10 +106,11 @@ class Players {
         return Connection::query($req);
     }
 
-    static function players_list()
+    static function day_players_list($day_id)
     {
         $players = array();
-        $req = 'SELECT players.* FROM players ';
+        $req = 'SELECT * FROM players '
+        . ' WHERE day_id = "' . $day_id . '"';
 
         if ($result = Connection::query($req)){
             if (!empty($result)){

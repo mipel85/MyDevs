@@ -19,10 +19,15 @@ class Days {
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
-                $this->set_date(date('d-m-Y'));
+                $this->set_date(self::today());
                 $this->set_active($result['active']);
             }
         }
+    }
+
+    static function today($datetime = new DateTime(), $format = ('d-m-Y'))
+    {
+        return $datetime->format($format);
     }
 
 // start getters setters
@@ -125,7 +130,8 @@ class Days {
      */
     static function started_day() : bool
     {
-        $today = date('d-m-Y');
+        // set the current date
+        $today = self::today();
         $dates = [];
         foreach(self::days_list() as $values) {
             $dates[] = $values['date'];

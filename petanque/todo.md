@@ -98,8 +98,8 @@ suppression
     ~~- Valider => rien car le score n'est pas validé ~~
     ~~- Modifier => vert comme le score qui est validé ~~
 - prévoir une saisie de score différent de 13 pour chaque match de la partie en cas de fin de partie obligatoire pour chaque match de la partie
-    - bouton icon keyboard + tooltip
-    - ouvrir les input de score à la saisie manuelle
+    ~~- bouton icon keyboard + tooltip ~~
+    ~~- ouvrir les input de score à la saisie manuelle ~~
     - ATTENTION si score egal (ex: 5-5)
 ~~- grossir les boutons scores 1.1 ~~
 ~~- mettre la liste des score en fixe au scroll ~~
@@ -119,7 +119,6 @@ suppression
 ~~- condition pour match joué = score validé et pour defaite = score validé (score status) ~~
     ~~=> ajouter score status dans la table `players` et récup dans players.ctrl depuis scores.view ~~
 - annuler la journée => supprimer toutes les entrées day_id des tables `rankings` et `players`
-- supprimer une partie => supprimer toutes les entrées day_id round_id de la table `players`
 
 ## Config
 ~~bouton fin de journée => décocher la présence de tous les joueurs ~~
