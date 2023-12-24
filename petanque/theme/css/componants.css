@@ -232,6 +232,21 @@
 }
 
 /* --- text --- */
+.description {
+    display: block;
+    font-style: italic;
+    font-size: 0.809em;
+    padding: 5px 10px;
+}
+
+.stamp {
+    font-size: 0.809em;
+    padding: 0 3px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+}
+
 .align-left { text-align: left; }
 .align-right { text-align: right; }
 .align-center { text-align: center; }
@@ -250,19 +265,4 @@
 
 .message-helper a {
     font-size: bold;
-}
-
-.description {
-    display: block;
-    font-style: italic;
-    font-size: 0.809em;
-    padding: 5px 10px;
-}
-
-.stamp {
-    font-size: 0.809em;
-    padding: 0 3px;
-    border-radius: 5px;
-    border-width: 1px;
-    border-style: solid;
 }
