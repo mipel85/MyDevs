@@ -58,7 +58,7 @@ require_once('./controllers/Rules.controller.php');
                     $fav_sort = $member['fav'] ? '1' : '0';
                 ?>
                 <div class="row-item">
-                    <div class="present-checkbox">
+                    <div class="icon-checkbox present-checkbox">
                         <label for="present-<?= $member['id'] ?>" class="checkbox" id="label-present-<?= $member['id'] ?>">
                             <input data-present_id="<?= $member['id'] ?>" type="checkbox" name="present-<?= $member['id'] ?>" id="present-<?= $member['id'] ?>" class="present-member"<?= $checked_present ?>>
                             <span><?= $present_icon ?></span>
@@ -66,7 +66,7 @@ require_once('./controllers/Rules.controller.php');
                     </div>
                     <div class="flex-main"><?= $member['name'] ?></div>
                     <div class="small member-id"><?= $member['id'] ?></div>
-                    <div class="fav-checkbox">
+                    <div class="icon-checkbox fav-checkbox">
                         <label for="fav-<?= $member['id'] ?>" class="checkbox" id="label-fav-<?= $member['id'] ?>">
                             <input data-fav_id="<?= $member['id'] ?>" type="checkbox" name="fav-<?= $member['id'] ?>" id="fav-<?= $member['id'] ?>" class="fav-member"<?= $checked_fav ?>>
                             <span><?= $fav_icon ?></span>

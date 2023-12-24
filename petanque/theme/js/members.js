@@ -193,7 +193,7 @@ $(document).ready(function() {
         });
     });
     
-    // Display list of selected players
+    // Display list of selected members
     $('#display-selected-members').on('click', function() {
         $.ajax({
             url: './ajax/AjaxMembers.php',
@@ -214,47 +214,6 @@ $(document).ready(function() {
             }
         });
     });
-    
-    // Display list of members 
-    // $.ajax({
-    //     url: './ajax/AjaxMembers.php',
-    //     type: 'POST',
-    //     data: {
-    //         action: 'members_list'
-    //     },
-    //     dataType: "json",
-    //     success: function(responseJson) {
-    //         $('#display-members-list').html('');
-    //         $.each(responseJson.members, function(key, member) {
-    //             let id = member['id'],
-    //                 present_icon = member['present'] ?  '<i class="fa fa-sm fa-check"></i>' : '',
-    //                 present_check = member['present'] ?  'checked' : '',
-    //                 fav_icon = member['fav'] ?  '<i class="fa fa-fw fa-star"></i>' : '<i class="far fa-fw fa-star"></i>',
-    //                 fav_check = member['fav'] ?  'checked' : '';
-
-    //             $('#display-members-list').append(
-    //                 '<div class="row-item">' +
-    //                     '<div class="present-checkbox">' +
-    //                         '<label for="present-' + member['id'] + '" class="checkbox" id="label-present-' + member['id'] + '">' +
-    //                             '<input data-present_id="' + member['id'] + '" type="checkbox" name="present-' + member['id'] + '" id="present-' + member['id'] + '" class="present-member" ' + present_check + ' />' +
-    //                             '<span>' + present_icon + '</span>' +
-    //                         '</label>' +
-    //                     '</div>' +
-    //                     '<div class="flex-main">' + member['name'] + '</div>' +
-    //                     '<span class="small member-id">' + member['id'] + '</span>' +
-    //                     '<div class="fav-checkbox">' +
-    //                         '<label for="fav-' + member['id'] + '" class="checkbox" id="label-fav-' + member['id'] + '">' +
-    //                             '<input data-fav_id="' + member['id'] + '" type="checkbox" name="fav-' + member['id'] + '" id="fav-' + member['id'] + '" class="fav-member" ' + fav_check + ' />' +
-    //                             '<span>' + fav_icon + '</span>' +
-    //                         '</label>' +
-    //                     '</div>' +
-    //                 '</div>'
-    //             );
-    //         });
-    //         let count = responseJson.members.length;
-    //         $('.selected-number').html(count + ' joueurs sélectionnés');
-    //     }
-    // });
 });
 
 

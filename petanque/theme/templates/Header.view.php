@@ -16,6 +16,7 @@ $menu = display_menu();
         <link rel="shortcut icon" href="./favicon.ico" />
         <link rel="stylesheet" href="./theme/css/default.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/design.css" type="text/css" media="screen, print" />
+        <link rel="stylesheet" href="./theme/css/content.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/componants.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/menu.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/plugins.css" type="text/css" media="screen, print" />

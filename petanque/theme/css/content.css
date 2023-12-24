@@ -1,0 +1,180 @@
+/* --- Specs page --- */
+.hero {
+    padding: 5px 15px;
+    background-color: var(--bgc-warning);
+    box-shadow: var(--box-shadow);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.hero .line {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.line {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.big-line {
+    padding-top: 40px;
+    padding-bottom: 15px;
+}
+
+.content {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+/* --- grid content --- */
+.row-item {
+    display: flex;
+    padding: 4px 8px;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--bdr);
+    border-radius: 5px;
+}
+
+.row-item > * {
+    padding-right: 4px;
+}
+
+.row-item.row-vertical {
+    flex-direction: column;
+    gap: 5px 0;
+}
+
+.row-item.row-vertical.match-scores {
+    min-height: 280px;
+}
+
+.row-item.row-vertical > * {
+    padding: 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+}
+
+.row-item .member-id {
+    opacity: 0;
+}
+
+.row-item:hover .member-id {
+    opacity: 1;
+}
+
+.row-col .row-item {
+    margin-bottom: 10px;
+}
+
+.teams-round-list .row-item > * {
+    width: calc(100% / 3);
+}
+
+/* -- members --- */
+#selected-members-list.cell-flex {
+    gap: 0 10px;
+    font-style: normal;
+}
+
+.selected-member {
+    padding: 4px 8px;
+}
+
+/* --- scores --- */
+.fixed-element {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.set-scores {
+    width: 120px;
+}
+
+.team-score {
+    text-align: center;
+    cursor: pointer;
+    width: 80px;
+}
+
+.validated-score,
+.team-score:disabled {
+    background-color: var(--bgc-success);
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.score-buttons-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 0 5px;
+    gap: 3px;
+}
+
+.score-button {
+    background-color: var(--bgc-notice);
+    border-color: var(--notice);
+    color: var(--notice);
+    padding: 3px 7px;
+    min-width: 40px;
+    font-size: 1.1em;
+}
+
+.score-button:hover {
+    background-color: var(--bgc-alt);
+    color: var(--text-alt);
+}
+
+.button-with-manual {
+    width: 100%;
+    justify-content: space-between !important;
+}
+
+.edit-score {
+    background-color: var(--bgc-success);
+    border-color: var(--success);
+    color: var(--success);
+}
+
+/* --- fields --- */
+.playgrounds-list {
+    padding: 0 10px;
+}
+
+.playgrounds-list > span {
+    padding-right: 10px;
+}
+
+.playground-input {
+    width: 120px;
+}
+
+/* --- Rankings --- */
+.rankings-table {
+    display: table;
+    margin: auto;
+    width: auto;
+}
+
+.rankings-table th {
+    min-width: 50px;
+}
+
+.rankings-table th.player-name {
+    width: 320px;
+}
+
+.rankings-table td.player-name {
+    text-align: left;
+}
+
+.rankings-table tbody tr:hover td {
+    background-color: var(--bgc-notice);
+}

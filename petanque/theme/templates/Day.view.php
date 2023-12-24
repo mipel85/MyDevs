@@ -22,20 +22,22 @@ require_once('./controllers/Days.controller.php');
         <div id="add-round-container" class="hero hidden flex-between-center">
             <div class="playgrounds-list flex-between-center">
                 <span>Sélection des<br>terrains disponibles</span>
-                <div class="field-checkbox">
+                <div class="field-container">
                     <?php if($c_started_day): ?>
                         <?php foreach (Fields::fields_checkbox_list($day_id) as $checkboxes): ?>
                             <?php foreach ($checkboxes as $index => $checked): ?>
                                 <?php $is_checked = $checked ? ' checked' : '';?>
-                                <label for="field_<?= $index ?>" class="checkbox">
-                                    <input 
-                                            class="checkbox-field"
-                                            type="checkbox"
-                                            name="field-<?= $index ?>"
-                                            data-fields_id="<?= Fields::field_id($day_id) ?>"
-                                            id="field_<?= $index ?>"<?= $is_checked ?>>
-                                    <span><?= $index ?></span>
-                                </label>
+                                <div class="icon-checkbox">
+                                    <label for="field_<?= $index ?>" class="checkbox">
+                                        <input 
+                                                class="checkbox-field"
+                                                type="checkbox"
+                                                name="field-<?= $index ?>"
+                                                data-fields_id="<?= Fields::field_id($day_id) ?>"
+                                                id="field_<?= $index ?>"<?= $is_checked ?>>
+                                        <span><?= $index ?></span>
+                                    </label>
+                                </div>
                             <?php endforeach ?>
                         <?php endforeach ?>
                     <?php endif ?>
