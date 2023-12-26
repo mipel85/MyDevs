@@ -1,5 +1,6 @@
 <?php
 
+require_once('./classes/Connection.class.php');
 require_once('./classes/Days.class.php');
 require_once('./classes/Rounds.class.php');
 require_once('./classes/Members.class.php');
@@ -25,7 +26,7 @@ $menu = display_menu();
         <title><?= $title ?> - Pétanque Loisirs Sainte-Foy</title>
         
         <!-- plugins -->
-        <script src="./theme/js//plugins/jquery.min.js"></script>
+        <script src="./theme/js/plugins/jquery.min.js"></script>
         <script src="./theme/js/plugins/expand.js"></script>
         <script src="./theme/js/plugins/tabs.js"></script>
         <script src="./theme/js/plugins/modal.js"></script>

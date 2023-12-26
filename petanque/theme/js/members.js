@@ -5,7 +5,6 @@ $(document).ready(function() {
     $('#add-member-name').removeClass('full-error');
     rowtocolumn('#registred-members-list', '.row-item', 'row-col', 5);
 
-// Front ###########################################################################
     // Add new member
     $('#add-member').on('click', function() {
         var name = $('#add-member-name').val();
