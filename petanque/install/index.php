@@ -104,7 +104,7 @@ else {
                 `score_status` tinyint(1) NOT NULL,
                 `member_id` int(11) NOT NULL,
                 `member_name` varchar(255) NOT NULL,
-                `point_for` int(11) NOT NULL,
+                `points_for` int(11) NOT NULL,
                 `points_against` int(11) NOT NULL
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
             $bdd->exec($sql);
