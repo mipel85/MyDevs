@@ -79,8 +79,8 @@ else {
                 `round_id` int(11) NOT NULL,
                 `team_1_id` int(11) NOT NULL,
                 `team_1_score` int(11) NULL,
-                `team2_id` int(11) NOT NULL,
-                `team2_score` int(11) NULL,
+                `team_2_id` int(11) NOT NULL,
+                `team_2_score` int(11) NULL,
                 `field` int(11) NOT NULL,
                 `score_status` int(11) NOT NULL
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
@@ -231,7 +231,7 @@ else {
                 </label>
                 <label for="members">
                     <span>Ajouter la liste des membres<br>(/install/members.csv) : </span>
-                    <input class="<?= $database_class ?>" type="checkbox" name="members" id="members">
+                    <input class="<?= $database_class ?>" type="checkbox" name="members" id="members" checked>
                 </label>
                 <div class="align-center">
                     <button id="install-submit" type="submit">Valider</button>
