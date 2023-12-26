@@ -1,13 +1,6 @@
 <?php
 
 if (file_exists('./classes/ConnectionConfig.class.php')) {
-    // require_once('./classes/Install.class.php');
-
-    // // automatic installation of database and tables
-    // install::create_database();
-    // install::create_members_table();
-    // install::insert_data_members();
-
     $page = $_GET['page'] ?? '404';
 
     $url = $_SERVER['REQUEST_URI'];
