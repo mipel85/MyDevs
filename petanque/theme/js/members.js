@@ -60,6 +60,8 @@ $(document).ready(function() {
                 name = $(this).prev().val();
             if ($(this).hasClass('edit-button')) {
                 $(this).prev().removeAttr('readonly').addClass('bgc-notice');
+                let val = $(this).prev().val();
+                $(this).prev().val('').val(val).focus(); // focus the input at the end of value
                 $(this).removeClass('edit-button')
                     .addClass('change-button')
                     .html('<i class="far fa-lg fa-square-caret-right notice"></i>');
