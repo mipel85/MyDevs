@@ -130,9 +130,10 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
 <body class="container">
     <main class="mx-auto">
         <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-            <div class="row align-items-center g-lg-5 py-5">
+            <h1 class="display-3 fw-bold lh-1 text-body-emphasis mb-3 text-center">Petanque</h1>
+            <div class="row align-items-top g-lg-5 py-5">
                 <div class="col-lg-5 text-center text-lg-start">
-                    <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Installation de Petanque</h1>
+                    <h2 class="display-4 mb-2 fw-bold">Installation</h2>
                     <p class="col-lg-10 fs-4">
                         Ce formulaire permet de créer le fichier de configuration et la base de donnée nécessaires à la gestion du logiciel Petanque.
                     </p>
