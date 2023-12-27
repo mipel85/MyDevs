@@ -109,7 +109,7 @@ $(document).ready(function() {
         });
     });
 
-    // Éditer les scores
+    // Edit scores
     $('[id*="edit-scores-"]').each(function() {
         $(this).on('click', function() {
             let score_status = $(this).data('score_status'),
@@ -138,7 +138,6 @@ $(document).ready(function() {
                 action: 'update_rankings'
             },
             success: function() {
-                // location.reload(true);
                 window.location.replace('index.php?page=rankings');
             }
         });

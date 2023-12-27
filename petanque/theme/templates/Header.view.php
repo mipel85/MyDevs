@@ -31,7 +31,7 @@ $menu = display_menu();
         <script src="./theme/js/plugins/tabs.js"></script>
         <script src="./theme/js/plugins/modal.js"></script>
         <script src="./theme/js/plugins/rowtocolumn.js"></script>
-        <script src="./theme/js/plugins/reorderfields.js"></script>
+        <script src="./theme/js/plugins/reorderitems.js"></script>
         <!-- Ajax -->
         <script src="./theme/js/members.js"></script>
         <script src="./theme/js/players.js"></script>

@@ -108,7 +108,7 @@ require_once('./controllers/Rules.controller.php');
         });
 
         // Reorder horizontal order to vertical
-        rowtocolumn('#all-members-list', '.row-item', 'row-col', 6);
+        $(document).ready(function() { rowtocolumn('#all-members-list', '.row-item', 'row-col', 6); });
     });
 
 

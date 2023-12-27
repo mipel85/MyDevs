@@ -100,7 +100,7 @@ $possible_scores = 12;
                                         </div>
                                     </div>
                                 <?php endforeach ?>
-                                <script>reorderfields('#matches-round-list-<?= $round['id'] ?>', '.row-item', 'field');</script>
+                                <script>reorderitems('#matches-round-list-<?= $round['id'] ?>', '.row-item', 'field');</script>
                             </div>
                         </div>
                     </div>

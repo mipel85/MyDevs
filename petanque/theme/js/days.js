@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    // Ajout d'une journée
+    // Init day
     let init_day = $('#day-manager').data('day_ready'),
         day_date = $('#day-date').val();
     if (init_day == '') {
@@ -11,19 +11,16 @@ $(document).ready(function() {
                 action: 'insert_day',
                 day_date: day_date
             },
-            success: function(r) {
+            success: function() {
                 location.reload(true);
-            },
-            error: function(r) {
-                alert(r.error);
             }
         });
     }
 
-    // Supprimer une journée
+    // Remove one day
     $(".remove-day").each(function() {
         $(this).on('click', function() {
-            var id = $(this).attr('id');
+            let id = $(this).attr('id');
             $.ajax({
                 url: './ajax/AjaxDays.php',
                 type: 'POST',
@@ -31,17 +28,14 @@ $(document).ready(function() {
                     action: 'remove_day',
                     day_id: id
                 },
-                success: function(r) {
+                success: function() {
                     location.reload(true);
-                },
-                error : function(r) {
-                    alert(r.error);
                 }
             });
         });
     });
 
-    // Supprimer toutes les journées
+    // Remove all days
     $("#remove-all-days").on('click', function() {
         $.ajax({
             url: './ajax/AjaxDays.php',
@@ -49,11 +43,8 @@ $(document).ready(function() {
             data: {
                 action: 'remove_all_days'
             },
-            success: function(r) {
+            success: function() {
                 location.reload(true);
-            },
-            error : function(r) {
-                alert(r.error)
             }
         });
     });
@@ -63,7 +54,7 @@ $(document).ready(function() {
         $(this).on('change', function() {
             let fields_id = $(this).data('fields_id'),
                 field_id = $(this).attr('id');
-            if ((this.checked)){
+            if ($(this).is(':checked')) {
                 $.ajax({
                     url: './ajax/AjaxDays.php',
                     type: 'POST',
@@ -71,8 +62,7 @@ $(document).ready(function() {
                         action: 'check_field',
                         fields_id: fields_id,
                         field_id: field_id
-                    },
-                    success: function() {}
+                    }
                 });
             } else {
                 $.ajax({
@@ -82,19 +72,18 @@ $(document).ready(function() {
                         action: 'uncheck_field',
                         fields_id: fields_id,
                         field_id: field_id
-                    },
-                    success: function() {}
+                    }
                 });
             }
         });
     });
 
-    // Ajout d'une partie
+    // Add one round
     $('#add-round').on('click', function() {
         let day_id = $(this).data('day_id'),
             i_order = $(this).data('i_order'),
             players_number = $(this).data('players_number'),
-            redirect = window.location.href.split('#')[0];
+            redirect = window.location.href.split('#')[0]; // Get current url and remove its hash
         $.ajax({
             url: './ajax/AjaxRounds.php',
             type: 'POST',
@@ -104,19 +93,18 @@ $(document).ready(function() {
                 i_order: i_order,
                 players_number: players_number
             },
-            success: function(r) {
+            success: function() {
                 window.location.replace(redirect);
-            },
-            error: function(r) {}
+            }
         });
     });
 
-    // Supprimer une partie
+    // Remove one round
     $(".remove-round").each(function() {
         $(this).on('click', function() {
             let day_id = $(this).data('day_id'),
                 round_id = $(this).data('round_id'),
-                redirect = window.location.href.split('#')[0]; // Récupère l'url courrante et supprime le hash
+                redirect = window.location.href.split('#')[0]; // Get current url and remove its hash
             $.ajax({
                 url: './ajax/AjaxRounds.php',
                 type: 'POST',
@@ -125,17 +113,14 @@ $(document).ready(function() {
                     day_id: day_id,
                     round_id: round_id
                 },
-                success: function(r) {
+                success: function() {
                     window.location.replace(redirect);
-                },
-                error : function(r) {
-                    alert(r.error)
                 }
             });
         });
     });
 
-    // Ajout des équipes d'une partie
+    // Add teams for the current round
     $('[id*="teams-list-"]').each(function() {
         let round_ready = $(this).data('round_ready'),
             day_id = $(this).data('day_id'),
@@ -149,15 +134,14 @@ $(document).ready(function() {
                     day_id: day_id,
                     round_id: round_id
                 },
-                success: function(r) {
+                success: function() {
                     location.reload(true);
-                },
-                error: function(r) {}
+                }
             });
         }
     });
 
-    // Ajout des rencontres d'une partie
+    // Add matches for the current round
     $('[id*="matches-list-"]').each(function() {
         let teams_ready = $(this).data('teams_ready'),
             matches_ready = $(this).data('matches_ready'),

@@ -1,7 +1,7 @@
 function rowtocolumn(container = '#container-id', item = '.item-class', col = 'row-col', col_number = '4')
 {
     let items = $(container + ' ' + item),
-            itemsPerColumn = Math.ceil(items.length / col_number);
+        itemsPerColumn = Math.ceil(items.length / col_number);
 
     for (let i = 0; i < col_number; i++) {
         // Select all items for the current column

@@ -111,9 +111,7 @@ require_once('./controllers/Days.controller.php');
                             <?php endforeach ?>
                         </div>
                     </div>
-                    <?php
-                        $team_ready = count(Teams::round_teams_list($day_id, $round_id));
-                    ?>
+                    <?php $team_ready = count(Teams::round_teams_list($day_id, $round_id)); ?>
                     <div id="matches-list-<?= $round_id ?>" 
                             class="<?= $hidden_teams_list ?>"
                             data-day_id="<?= $day_id ?>"
@@ -153,7 +151,7 @@ require_once('./controllers/Days.controller.php');
                                 <?php endforeach ?>
                             </div>
                             <script>
-                                reorderfields('#matches-round-list-<?= $round['id'] ?>', '.row-item', 'field');
+                                $(document).ready(function() { reorderitems('#matches-round-list-<?= $round['id'] ?>', '.row-item', 'field'); });
                             </script>
                         </div>
                     </div>
@@ -167,7 +165,7 @@ require_once('./controllers/Days.controller.php');
             if ($('#add-day').hasClass('hidden'))
                 $('#add-round-container').removeClass('hidden');
 
-            // hidden add-round and fields selection
+            // hidden add-round button and fields selection
             // get data-scored of first of rounds in the dom if exists
             let first = $('[data-scored]').first().data('scored');
                 add_button = $('#add-round');
@@ -177,8 +175,6 @@ require_once('./controllers/Days.controller.php');
                 $('.playgrounds-list').addClass('hidden')
                 $('#round-description').html("Aucun score de la partie en cours n'est renseigné.<br />L'ajout d'une nouvelle partie est désactivé.")
             }
-            // rowtocolumn('.match-list', '.row-item', 'field');
-            // rowtocolumn('.match-list', '.row-item', 'row-col', 2);
         })
     </script>
 </section>

@@ -7,8 +7,8 @@ $(document).ready(function() {
 
     // Add new member
     $('#add-member').on('click', function() {
-        var name = $('#add-member-name').val();
-        if (name !== ''){
+        let name = $('#add-member-name').val();
+        if (name !== '') {
             $.ajax({
                 url: './ajax/AjaxMembers.php',
                 type: 'POST',
@@ -19,13 +19,13 @@ $(document).ready(function() {
                 success: function(r) {
                     $('#add-member-name').val('');
                     location.reload(true);
-                    $('#add-member-name').focus();
                 },
                 error: function(r) {
                     alert(r.error);
                 }
             });
-        } else {
+        }
+        else {
             alert('Le nom du joueur doit être renseigné');
             $('#add-member-name').addClass('full-error');
             $('#add-member-name').on('keyup', function(){ $(this).removeClass('full-error') })
@@ -35,7 +35,7 @@ $(document).ready(function() {
     // Remove member
     $(".remove-member").each(function() {
         $(this).on('click', function() {
-            var id = $(this).attr('id');
+            let id = $(this).attr('id');
             $.ajax({
                 url: './ajax/AjaxMembers.php',
                 type: 'POST',
@@ -64,7 +64,8 @@ $(document).ready(function() {
                 $(this).removeClass('edit-button')
                     .addClass('change-button')
                     .html('<i class="far fa-lg fa-square-caret-right notice"></i>');
-            } else if ($(this).hasClass('change-button')) {
+            }
+            else if ($(this).hasClass('change-button')) {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
@@ -84,8 +85,8 @@ $(document).ready(function() {
     // Select/unselect members as favourite
     $('.fav-member').each(function() {
         $(this).on('change', function() {
-            var id = $(this).data('fav_id');
-            if ((this.checked)){
+            let id = $(this).data('fav_id');
+            if ($(this).is(':checked')) {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
@@ -93,9 +94,12 @@ $(document).ready(function() {
                         action: 'set_member_fav',
                         id: id
                     },
-                    success: function() {location.reload(true);}
+                    success: function() {
+                        location.reload(true);
+                    }
                 });
-            }else{
+            }
+            else {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
@@ -103,13 +107,15 @@ $(document).ready(function() {
                         action: 'reset_member_fav',
                         id: id
                     },
-                    success: function() {location.reload(true);}
+                    success: function() {
+                        location.reload(true);
+                    }
                 });
             }
         });
     });
 
-    // désélectionner tous les favoris
+    // Select all favs
     $('#select-all-favs').on('click', function() {
         $.ajax({
             url: './ajax/AjaxMembers.php',
@@ -117,7 +123,9 @@ $(document).ready(function() {
             data: {
                 action: 'select_all_favs'
             },
-            success: function(data) {location.reload(true);}
+            success: function() {
+                location.reload(true);
+            }
         });
     });
 
@@ -129,7 +137,9 @@ $(document).ready(function() {
             data: {
                 action: 'reset_all_members_fav'
             },
-            success: function(data) {location.reload(true);}
+            success: function() {
+                location.reload(true);
+            }
         });
     });
 
@@ -137,7 +147,7 @@ $(document).ready(function() {
     // and add/remove it in the list of selected players
     $('.present-member').each(function(){
         $(this).on('change', function() {
-            var id = $(this).data('present_id');
+            let id = $(this).data('present_id');
             if ($(this).is(':checked')) {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
@@ -146,10 +156,12 @@ $(document).ready(function() {
                         action: 'select_member',
                         id: id
                     },
-                    success: function() {location.reload(true);},
-                    error: function() {console.log('fail')}
+                    success: function() {
+                        location.reload(true);
+                    }
                 })
-            } else {
+            }
+            else {
                 $.ajax({
                     url: './ajax/AjaxMembers.php',
                     type: 'POST',
@@ -157,14 +169,15 @@ $(document).ready(function() {
                         action: 'unselect_member',
                         id: id
                     },
-                    success: function() {location.reload(true);},
-                    error: function() {console.log('fail')}
+                    success: function() {
+                        location.reload(true);
+                    }
                 })
             }
         });
     });
 
-    // Reset all members as absent
+    // Unselect all members
     $('#unselect-all-members').on('click', function() {
         $.ajax({
             url: './ajax/AjaxMembers.php',
@@ -172,13 +185,13 @@ $(document).ready(function() {
             data: {
                 action: 'unselect_all_members'
             },
-            success: function(data) {
+            success: function() {
                 location.reload(true);
             }
         });
     });
 
-    // Reset all members as absent
+    // Select all members
     $('#select-all-members').on('click', function() {
         $.ajax({
             url: './ajax/AjaxMembers.php',
@@ -186,7 +199,7 @@ $(document).ready(function() {
             data: {
                 action: 'select_all_members'
             },
-            success: function(data) {
+            success: function() {
                 location.reload(true);
             }
         });
