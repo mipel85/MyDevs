@@ -79,7 +79,7 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
             Install::create_teams($prefix);
 
             // Insert members list from csv file
-            if ($insert_members) {
+            if ($insert_members == 'yes') {
                 $file = './members.csv';
                 if (($handle = fopen($file, 'r')) !== FALSE) {
                     $column = $prefix . 'members';
@@ -177,8 +177,16 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="insert_members" checked> Ajouter la liste des membres
+                                    <input id='members' type='checkbox' value='yes' name='insert_members' checked> Ajouter la liste des membres
+                                    <input id='members_hidden' type='hidden' value='no' name='insert_members'>
                                 </label>
+                                <script>
+                                    form.addEventListener('submit', () => {
+                                        if(document.getElementById('members').checked) {
+                                            document.getElementById('members_hidden').disabled = true;
+                                        }
+                                    });
+                                </script>
                             </div>
                             <div class="mb-3">
                                 <small class="text-body-secondary mb-2">(/install/members.csv)</small>
