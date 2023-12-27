@@ -1,4 +1,5 @@
 <?php
+
 // check if /classes/ConnectionConfig.class.php exist
 if (file_exists('../classes/ConnectionConfig.class.php')) {
     // redirect to root/index.php;
@@ -13,10 +14,10 @@ else {
         "const DB_NAME" => isset($_POST['database']) ? "'" . $_POST['database'] . "';" : "''"
     );
     
-    function writeConfig( $filename, $config ) 
+    function create_config_file($filename, $config)
     {
         $fh = fopen($filename, "w");
-        fwrite($fh, "<?php\nclass ConnectionConfig\n{\n");
+        fwrite($fh, "<?php\n\nclass ConnectionConfig\n{\n");
         if (!is_resource($fh)) {
             return false;
         }
@@ -32,126 +33,39 @@ else {
     function create_database($host, $username, $password, $database, $insert_members)
     {
         try {
-            // Create database
+            // Open connection to sql server
             $pdo = new PDO("mysql:host=$host", $username, $password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
+
+            // Check if database exists and drop it
+            $check_database = $pdo->query("SHOW DATABASES LIKE '$database'");
+            if($check_database->rowCount() > 0) {
+                $pdo->query("DROP DATABASE $database");
+            }
+
+            // Create database
             $sql = "CREATE DATABASE IF NOT EXISTS $database COLLATE utf8mb4_general_ci;";
             $pdo->exec($sql);
 
             // Create tables
-            $bdd = new PDO("mysql:host=$host;dbname=$database", $username, $password);
-            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo = new PDO("mysql:host=$host;dbname=$database", $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Table des journées
-            $sql = 'CREATE TABLE IF NOT EXISTS days (
-                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `date` varchar(11) NOT NULL,
-                `active` tinyint(1) DEFAULT NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
-            $bdd->exec($sql);
+            Install::create_days();
+            Install::create_fields();
+            Install::create_matches();
+            Install::create_members();
+            Install::create_players();
+            Install::create_rankings();
+            Install::create_rounds();
+            Install::create_teams();
 
-            // Table des terrains
-            $sql = 'CREATE TABLE IF NOT EXISTS fields (
-                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `day_id` int(11) NOT NULL,
-                `field_1` tinyint(1) DEFAULT NULL,
-                `field_2` tinyint(1) DEFAULT NULL,
-                `field_3` tinyint(1) DEFAULT NULL,
-                `field_4` tinyint(1) DEFAULT NULL,
-                `field_5` tinyint(1) DEFAULT NULL,
-                `field_6` tinyint(1) DEFAULT NULL,
-                `field_7` tinyint(1) DEFAULT NULL,
-                `field_8` tinyint(1) DEFAULT NULL,
-                `field_9` tinyint(1) DEFAULT NULL,
-                `field_10` tinyint(1) DEFAULT NULL,
-                `field_11` tinyint(1) DEFAULT NULL,
-                `field_12` tinyint(1) DEFAULT NULL,
-                `field_13` tinyint(1) DEFAULT NULL,
-                `field_14` tinyint(1) DEFAULT NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
-            $bdd->exec($sql);
-
-            // Table des matches
-            $sql = 'CREATE TABLE IF NOT EXISTS matches (
-                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `day_id` int(11) NOT NULL,
-                `round_id` int(11) NOT NULL,
-                `team_1_id` int(11) NOT NULL,
-                `team_1_score` int(11) NULL,
-                `team_2_id` int(11) NOT NULL,
-                `team_2_score` int(11) NULL,
-                `field` int(11) NOT NULL,
-                `score_status` int(11) NOT NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
-            $bdd->exec($sql);
-
-            // Table des membres
-            $sql = 'CREATE TABLE IF NOT EXISTS members (
-                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `name` varchar(255) NOT NULL,
-                `present` tinyint(1) DEFAULT NULL,
-                `fav` tinyint(1) DEFAULT NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
-            $bdd->exec($sql);
-
-            // Table des joueurs
-            $sql = 'CREATE TABLE IF NOT EXISTS players (
-                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `day_id` int(11) NOT NULL,
-                `round_id` int(11) NOT NULL,
-                `match_id` int(11) NOT NULL,
-                `score_status` tinyint(1) NOT NULL,
-                `member_id` int(11) NOT NULL,
-                `member_name` varchar(255) NOT NULL,
-                `points_for` int(11) NOT NULL,
-                `points_against` int(11) NOT NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
-            $bdd->exec($sql);
-
-            // Table des classements
-            $sql = 'CREATE TABLE IF NOT EXISTS rankings (
-                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `day_id` int(11) NOT NULL,
-                `day_date` varchar(11) NOT NULL,
-                `member_id` int(11) NOT NULL,
-                `member_name` varchar(255) NOT NULL,
-                `played` int(11) NOT NULL,
-                `victory` int(11) NOT NULL,
-                `loss` int(11) NOT NULL,
-                `pos_points` int(11) NOT NULL,
-                `neg_points` int(11) NOT NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
-            $bdd->exec($sql);
-
-            // Table des parties
-            $sql = 'CREATE TABLE IF NOT EXISTS rounds (
-                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `day_id` int(11) NOT NULL,
-                `i_order` int(11) NOT NULL,
-                `players_number` int(11) NOT NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
-            $bdd->exec($sql);
-
-            // Table des équipes
-            $sql = 'CREATE TABLE IF NOT EXISTS teams (
-                `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                `day_id` int(11) NOT NULL,
-                `round_id` int(11) NOT NULL,
-                `player_1_id` int(11) NOT NULL,
-                `player_1_name` varchar(255) NOT NULL,
-                `player_2_id` int(11) DEFAULT NULL,
-                `player_2_name` varchar(255) DEFAULT NULL,
-                `player_3_id` int(11) DEFAULT NULL,
-                `player_3_name` varchar(255) DEFAULT NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;';
-            $bdd->exec($sql);
-
+            // Insert members list from csv file
             if($insert_members) {
-                $csvFile = './members.csv';
-                if (($handle = fopen($csvFile, 'r')) !== FALSE) {
+                $file = './members.csv';
+                if (($handle = fopen($file, 'r')) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-                        $stmt = $bdd->prepare("INSERT INTO members (name) VALUES (?)");
+                        $stmt = $pdo->prepare("INSERT INTO members (name) VALUES (?)");
                         $stmt->execute([$data[0]]);
                     }
                     fclose($handle);
@@ -161,10 +75,11 @@ else {
                 }
             }
             $success = true;
-    
         } catch (PDOException $e) {
             echo "Erreur de connexion à la base de données : " . $e->getMessage();
         }
+        // Close connection
+        $pdo = null;
     }
 
     $error = '';
@@ -176,19 +91,20 @@ else {
             $error = "Il en manque : ";
             if(empty($_POST['host'])) {
                 $error .= '<br>Le serveur';
-                $host_class = ' input-error';
+                $host_class = 'input-error';
             }
             if(empty($_POST['username'])) {
                 $error .= '<br>Le nom d\'utilisateur';
-                $username_class = ' input-error';
+                $username_class = 'input-error';
             }
             if(empty($_POST['database'])) {
                 $error .= '<br>La base de données';
-                $database_class = ' input-error';
+                $database_class = 'input-error';
             }
         } else {
-            writeConfig("../classes/ConnectionConfig.class.php", $config);
-            create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['members']);
+            create_config_file("../classes/ConnectionConfig.class.php", $config);
+            require_once('./Install.class.php');
+            create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['insert_members']);
             $success = true;
         }
     }
@@ -231,7 +147,7 @@ else {
                 </label>
                 <label for="members">
                     <span>Ajouter la liste des membres<br>(/install/members.csv) : </span>
-                    <input class="<?= $database_class ?>" type="checkbox" name="members" id="members" checked>
+                    <input class="<?= $database_class ?>" type="checkbox" name="insert_members" id="members" checked>
                 </label>
                 <div class="align-center">
                     <button id="install-submit" type="submit">Valider</button>
