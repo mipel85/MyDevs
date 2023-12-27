@@ -141,25 +141,26 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
                     <?php if ($config_exists && $success) : ?>
                         <div class="lead alert alert-info">
                             <?php if ($config_exists) : ?>
-                                <div class="mb-2">Le fichier de config a été créé.</div>
+                                <div class="mb-2">Le fichier de configuration a été créé.</div>
                             <?php endif ?>
                             <?php if ($success) : ?>
                                 <p>La base de données a été créée.</p>
                                 <a href="../index.php?page=home">Rejoindre le site</a>
                             <?php else : ?>
                                 <p>La base de données n'a pas été créée.</p>
-                                <a href="./">recommencer l'install</a>
+                                <a href="./">recommencer l'installation</a>
                             <?php endif ?>
                         </div>
                     <?php else : ?>
-                        <form class="p-2 p-md-3 border rounded-3 bg-body-tertiary" method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <form class="p-2 p-md-3 border rounded-3 bg-body-tertiary text-center" method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                            <small class="text-body-secondary">Les champ marqués * sont obligatoires</small>
                             <div class="form-floating mb-2">
                                 <input name="host" type="text" class="form-control ui-autocomplete-input" id="host" placeholder="Serveur" value="localhost" autocomplete="on" required>
-                                <label for="host">Serveur</label>
+                                <label for="host">* Serveur</label>
                             </div>
                             <div class="form-floating mb-2">
                                 <input name="username" type="text" class="form-control ui-autocomplete-input" id="username" placeholder="Nom d'utilisateur" autocomplete="on" required>
-                                <label for="username">Nom d'utilisateur</label>
+                                <label for="username">* Nom d'utilisateur</label>
                             </div>
                             <div class="form-floating mb-2">
                                 <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe">
@@ -167,11 +168,11 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
                             </div>
                             <div class="form-floating mb-2">
                                 <input name="database" type="text" class="form-control ui-autocomplete-input" id="database" placeholder="Base de données" autocomplete="on" required>
-                                <label for="database">Base de données</label>
+                                <label for="database">* Base de données</label>
                             </div>
                             <div class="form-floating mb-2">
                                 <input name="prefix" type="text" class="form-control ui-autocomplete-input" id="prefix" placeholder="Préfixe" value="petanque_" autocomplete="on" required>
-                                <label for="prefix">Préfixe</label>
+                                <label for="prefix">* Préfixe</label>
                             </div>
                             <div class="checkbox">
                                 <label>
