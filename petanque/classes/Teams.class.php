@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -16,7 +17,7 @@ class Teams {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM teams WHERE id = ' . $id;
+            $req = 'SELECT * FROM ' . PREFIX . 'teams WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -63,7 +64,7 @@ class Teams {
     
     function insert_team()
     {
-        $req = 'INSERT INTO teams values (
+        $req = 'INSERT INTO ' . PREFIX . 'teams values (
                     NULL,
                     "' . $this->get_day_id() . '",
                     "' . $this->get_round_id() . '",
@@ -79,29 +80,27 @@ class Teams {
 
     function remove_day_teams($day_id)
     {
-        $req = 'DELETE FROM teams WHERE day_id = "' . $day_id . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'teams WHERE day_id = ' . $day_id;
         return Connection::query($req);
     }
 
     function remove_round_teams($day_id, $round_id)
     {
-        $req = 'DELETE FROM teams WHERE day_id = "' . $day_id . '" AND round_id = "' . $round_id . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'teams WHERE day_id = ' . $day_id . ' AND round_id = ' . $round_id;
         return Connection::query($req);
     }
 
     function remove_all_teams()
     {
-        $req = 'DELETE FROM teams';
+        $req = 'DELETE FROM ' . PREFIX . 'teams';
         return Connection::query($req);
     }
 
     static function round_teams_list($day_id, $round_id)
     {
         $teams = array();
-        $req = 'SELECT teams.* FROM teams '
-            . ' LEFT JOIN days ON days.id = teams.day_id'
-            . ' LEFT JOIN rounds ON rounds.id = teams.round_id'
-            . ' WHERE teams.day_id = "' . $day_id . '" AND teams.round_id = "' . $round_id . '"';
+        $req = 'SELECT * FROM ' . PREFIX . 'teams '
+            . ' WHERE day_id = ' . $day_id . ' AND round_id = ' . $round_id;
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -117,8 +116,8 @@ class Teams {
     static function get_team_members($team_id)
     {
         $members = [];
-        $req = 'SELECT teams.* FROM teams '
-            . ' WHERE teams.id = "' . $team_id . '"';
+        $req = 'SELECT * FROM ' . PREFIX . 'teams '
+            . ' WHERE id = ' . $team_id;
 
         if ($result = Connection::query($req)){
             if (!empty($result)){

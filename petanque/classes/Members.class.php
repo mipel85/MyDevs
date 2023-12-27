@@ -12,7 +12,7 @@ class Members {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM members WHERE id = ' . $id;
+            $req = 'SELECT * FROM ' . PREFIX . 'members WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -37,7 +37,7 @@ class Members {
 
     function insert_member()
     {
-        $req = 'INSERT INTO members values (
+        $req = 'INSERT INTO ' . PREFIX . 'members values (
                     NULL,
                     "' . $this->get_name() . '",
                     "0",
@@ -48,68 +48,68 @@ class Members {
 
     function change_name($name)
     {
-        $req = 'UPDATE members SET `name` = "' . $name . '" WHERE `members`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'members SET name = "' . $name . '" WHERE id = ' . $this->get_id();
         return Connection::query($req);
     }
 
     function remove_member()
     {
-        $req = 'DELETE FROM members WHERE id = "' . $this->get_id() . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'members WHERE id = ' . $this->get_id();
         return Connection::query($req);
     }
 
     function select_member()
     {
-        $req = 'UPDATE members SET `present` = 1 WHERE `members`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'members SET present = 1 WHERE id = ' . $this->get_id();
         return Connection::query($req);
     }
 
     function unselect_member()
     {
-        $req = 'UPDATE members SET `present` = 0 WHERE `members`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'members SET present = 0 WHERE id = ' . $this->get_id();
         return Connection::query($req);
     }
 
     function select_all_members()
     {
-        $req = 'UPDATE members SET `present` = 1';
+        $req = 'UPDATE ' . PREFIX . 'members SET present = 1';
         return Connection::query($req);
     }
 
     function unselect_all_members()
     {
-        $req = 'UPDATE members SET `present` = 0';
+        $req = 'UPDATE ' . PREFIX . 'members SET present = 0';
         return Connection::query($req);
     }
 
     function select_all_favs()
     {
-        $req = 'UPDATE members SET `present` = 1 WHERE `fav` = 1';
+        $req = 'UPDATE ' . PREFIX . 'members SET present = 1 WHERE fav = 1';
         return Connection::query($req);
     }
 
     function set_member_fav()
     {
-        $req = 'UPDATE members SET `fav` = 1 WHERE `members`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'members SET fav = 1 WHERE id = ' . $this->get_id();
         return Connection::query($req);
     }
 
     function reset_member_fav()
     {
-        $req = 'UPDATE members SET `fav` = 0 WHERE `members`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'members SET fav = 0 WHERE id = ' . $this->get_id();
         return Connection::query($req);
     }
 
     function reset_all_members_fav()
     {
-        $req = 'UPDATE members SET `fav` = 0';
+        $req = 'UPDATE ' . PREFIX . 'members SET fav = 0';
         return Connection::query($req);
     }
 
     static function members_list()
     {
         $members_list = array();
-        $req = 'SELECT * FROM members ORDER BY `name` ASC';
+        $req = 'SELECT * FROM ' . PREFIX . 'members ORDER BY name ASC';
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
@@ -124,9 +124,9 @@ class Members {
     static function selected_members_list()
     {
         $selected_members_list = array();
-        $req = 'SELECT * FROM members'
-            . ' WHERE `present` = 1'
-            . ' ORDER BY `name` ASC';
+        $req = 'SELECT * FROM ' . PREFIX . 'members'
+            . ' WHERE present = 1'
+            . ' ORDER BY name ASC';
 
         if ($result = Connection::query($req)) {
             if (!empty($result)){

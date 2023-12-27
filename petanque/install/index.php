@@ -11,7 +11,8 @@ else {
         "const DB_ADDR" => isset($_POST['host']) ? "'" . $_POST['host'] . "';" : "''",
         "const DB_USER" => isset($_POST['username']) ? "'" . $_POST['username'] . "';" : "''",
         "const DB_PSWD" => isset($_POST['password']) ? "'" . $_POST['password'] . "';" : "''",
-        "const DB_NAME" => isset($_POST['database']) ? "'" . $_POST['database'] . "';" : "''"
+        "const DB_NAME" => isset($_POST['database']) ? "'" . $_POST['database'] . "';" : "''",
+        "const PREFIX" => isset($_POST['prefix']) ? "'" . $_POST['prefix'] . "';" : "''"
     );
     
     function create_config_file($filename, $config)
@@ -30,7 +31,7 @@ else {
         return true;
     }
 
-    function create_database($host, $username, $password, $database, $insert_members)
+    function create_database($host, $username, $password, $database, $prefix, $insert_members)
     {
         try {
             // Open connection to sql server
@@ -51,21 +52,22 @@ else {
             $pdo = new PDO("mysql:host=$host;dbname=$database", $username, $password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            Install::create_days();
-            Install::create_fields();
-            Install::create_matches();
-            Install::create_members();
-            Install::create_players();
-            Install::create_rankings();
-            Install::create_rounds();
-            Install::create_teams();
+            Install::create_days($prefix);
+            Install::create_fields($prefix);
+            Install::create_matches($prefix);
+            Install::create_members($prefix);
+            Install::create_players($prefix);
+            Install::create_rankings($prefix);
+            Install::create_rounds($prefix);
+            Install::create_teams($prefix);
 
             // Insert members list from csv file
             if($insert_members) {
                 $file = './members.csv';
                 if (($handle = fopen($file, 'r')) !== FALSE) {
+                    $column = $prefix . 'members';
                     while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-                        $stmt = $pdo->prepare("INSERT INTO members (name) VALUES (?)");
+                        $stmt = $pdo->prepare("INSERT INTO $column (name) VALUES (?)");
                         $stmt->execute([$data[0]]);
                     }
                     fclose($handle);
@@ -84,7 +86,7 @@ else {
 
     $error = '';
     $success = false;
-    $host_class = $database_class = $username_class = $password_class = '';
+    $host_class = $username_class = $password_class = $database_class = $prefix_class = '';
     $success = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST['host']) || empty($_POST['username']) || empty($_POST['database'])) {
@@ -101,10 +103,14 @@ else {
                 $error .= '<br>La base de données';
                 $database_class = 'input-error';
             }
+            if(empty($_POST['prefix'])) {
+                $error .= '<br>La base de données';
+                $prefix_class = 'input-error';
+            }
         } else {
             create_config_file("../classes/ConnectionConfig.class.php", $config);
             require_once('./Install.class.php');
-            create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['insert_members']);
+            create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['insert_members']);
             $success = true;
         }
     }
@@ -131,11 +137,11 @@ else {
             <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                 <label for="host">
                     <span>Serveur : </span>
-                    <input class="<?= $host_class ?>" type="text" name="host" id="host" value="localhost">
+                    <input class="<?= $host_class ?>" type="text" name="host" id="host" value="localhost" required>
                 </label>
                 <label for="username">
                     <span>Utilisateur : </span>
-                    <input class="<?= $username_class ?>" type="text" name="username" id="username" value="">
+                    <input class="<?= $username_class ?>" type="text" name="username" id="username" value="" required>
                 </label>
                 <label for="password">
                     <span>Mot de passe : </span>
@@ -143,7 +149,11 @@ else {
                 </label>
                 <label for="database">
                     <span>Base de données : </span>
-                    <input class="<?= $database_class ?>" type="text" name="database" id="database" value="">
+                    <input class="<?= $database_class ?>" type="text" name="database" id="database" value="" required>
+                </label>
+                <label for="prefix">
+                    <span>Préfixe des tables : </span>
+                    <input class="<?= $prefix_class ?>" type="text" name="prefix" id="prefix" value="petanque_" required>
                 </label>
                 <label for="members">
                     <span>Ajouter la liste des membres<br>(/install/members.csv) : </span>

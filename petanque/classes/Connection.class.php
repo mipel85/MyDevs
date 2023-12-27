@@ -5,6 +5,8 @@
 
 require_once('ConnectionConfig.class.php');
 
+define('PREFIX', ConnectionConfig::PREFIX);
+
 class Connection
 {
     static private $DB = null;

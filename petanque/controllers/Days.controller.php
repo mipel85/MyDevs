@@ -17,8 +17,7 @@ $day_flag = $c_started_day ? Days::day_flag($day_id) : '';
 $c_rounds = $c_started_day ? count(Rounds::day_rounds_list($day_id)) > 0 : 0;
 
 // set i_order of rounds
-if ($day_id)
-{
+if ($day_id) {
     $i_order = count(Rounds::round_i_order($day_id)) + 1;
     // get members number
     $players_number = count(Members::selected_members_list());

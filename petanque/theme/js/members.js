@@ -53,8 +53,7 @@ $(document).ready(function() {
         });
     });
 
-    // Front ###########################################################################
-    // Select/unselect members as favourite
+    // Cahnge name of a member
     $('.change-name').each(function() {
         $(this).on('click', function() {
             let id = $(this).data('member_id'),
@@ -81,6 +80,8 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Front ###########################################################################
 
     // Select/unselect members as favourite
     $('.fav-member').each(function() {

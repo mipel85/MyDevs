@@ -1,9 +1,5 @@
 <?php
 
-/*
- * Class of the playgrounds
-*/
-
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -28,7 +24,7 @@ class Fields {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM fields WHERE id = ' . $id;
+            $req = 'SELECT * FROM ' . PREFIX . 'fields WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -103,7 +99,7 @@ class Fields {
 
     function insert_fields()
     {
-        $req = 'INSERT INTO fields values (
+        $req = 'INSERT INTO ' . PREFIX . 'fields values (
                     NULL,
                     "' . $this->get_day_id() . '",
                     "1",
@@ -126,35 +122,33 @@ class Fields {
 
     function remove_day_fields($day_id)
     {
-        $req = 'DELETE FROM fields WHERE day_id = "' . $day_id . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'fields WHERE day_id = "' . $day_id . '"';
         return Connection::query($req);
     }
 
     function remove_all_fields()
     {
-        $req = 'DELETE FROM fields';
+        $req = 'DELETE FROM ' . PREFIX . 'fields';
         return Connection::query($req);
     }
 
     function check_field($field_id)
     {
-        $req = 'UPDATE fields SET `'. $field_id . '` = 1 WHERE `fields`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'fields SET '. $field_id . ' = 1 WHERE id = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
     function uncheck_field($field_id)
     {
-        $req = 'UPDATE fields SET `'. $field_id . '` = 0 WHERE `fields`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'fields SET '. $field_id . ' = 0 WHERE id = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
     static function day_fields_list($day_id) : array
     {
         $fields = array();
-        $req = 'SELECT fields.*, days.date AS date '
-            . ' FROM fields '
-            . ' LEFT JOIN days ON days.id = fields.day_id'
-            . ' WHERE fields.day_id = ' . $day_id;
+        $req = 'SELECT * FROM ' . PREFIX . 'fields '
+            . ' WHERE day_id = ' . $day_id;
 
         if ($result = Connection::query($req)){
             if (!empty($result)){

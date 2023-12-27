@@ -91,12 +91,15 @@
     z-index: 101;
     position: absolute;
     top: 2px;
-    left: 0px;
+    left: 50%;
 }
 
 .expanded-list .expand-button {
     top: 25px;
-    left: 20px;
+}
+
+.matches-list .expand-button {
+    left: 0;
 }
 
 /* --- Modal --- */

@@ -4,9 +4,10 @@ require_once('../classes/Connection.class.php');
 
 class Install
 {
-    static function create_days()
+    static function create_days($prefix)
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS days (
+        $column = $prefix . 'days';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `date` varchar(11) NOT NULL,
             `active` tinyint(1) DEFAULT NULL
@@ -14,9 +15,10 @@ class Install
         return Connection::query($sql);
     }
     
-    static function create_fields()
+    static function create_fields($prefix)
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS fields (
+        $column = $prefix . 'fields';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `field_1` tinyint(1) DEFAULT NULL,
@@ -37,9 +39,10 @@ class Install
         return Connection::query($sql);
     }
     
-    static function create_matches()
+    static function create_matches($prefix)
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS matches (
+        $column = $prefix . 'matches';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `round_id` int(11) NOT NULL,
@@ -53,9 +56,10 @@ class Install
         return Connection::query($sql);
     }
     
-    static function create_members()
+    static function create_members($prefix)
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS members (
+        $column = $prefix . 'members';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `name` varchar(255) NOT NULL,
             `present` tinyint(1) DEFAULT NULL,
@@ -64,9 +68,10 @@ class Install
         return Connection::query($sql);
     }
     
-    static function create_players()
+    static function create_players($prefix)
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS players (
+        $column = $prefix . 'players';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `round_id` int(11) NOT NULL,
@@ -80,9 +85,10 @@ class Install
         return Connection::query($sql);
     }
     
-    static function create_rankings()
+    static function create_rankings($prefix)
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS rankings (
+        $column = $prefix . 'rankings';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `day_date` varchar(11) NOT NULL,
@@ -97,9 +103,10 @@ class Install
         return Connection::query($sql);
     }
     
-    static function create_rounds()
+    static function create_rounds($prefix)
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS rounds (
+        $column = $prefix . 'rounds';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `i_order` int(11) NOT NULL,
@@ -108,9 +115,10 @@ class Install
         return Connection::query($sql);
     }
     
-    static function create_teams()
+    static function create_teams($prefix)
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS teams (
+        $column = $prefix . 'teams';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `round_id` int(11) NOT NULL,

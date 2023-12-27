@@ -1,9 +1,5 @@
 <?php
 
-/*
- * Class of the events
-*/
-
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -21,7 +17,7 @@ class Players {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM players WHERE id = ' . $id;
+            $req = 'SELECT * FROM ' . PREFIX . 'players WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -68,7 +64,7 @@ class Players {
 
     function insert_player()
     {
-        $req = 'INSERT INTO players values (
+        $req = 'INSERT INTO ' . PREFIX . 'players values (
                     NULL,
                     "' . $this->get_day_id() . '",
                     "' . $this->get_round_id() . '",
@@ -84,33 +80,33 @@ class Players {
 
     function remove_day_players($day_id)
     {
-        $req = 'DELETE FROM players WHERE day_id = "' . $day_id . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'players WHERE day_id = ' . $day_id;
         return Connection::query($req);
     }
 
     function remove_round_players($day_id, $round_id)
     {
-        $req = 'DELETE FROM players WHERE day_id = "' . $day_id . '" AND round_id = "' . $round_id . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'players WHERE day_id = ' . $day_id . ' AND round_id = ' . $round_id;
         return Connection::query($req);
     }
 
     function remove_all_players()
     {
-        $req = 'DELETE FROM players';
+        $req = 'DELETE FROM ' . PREFIX . 'players';
         return Connection::query($req);
     }
 
     function update_player($match_id, $score_status, $member_id, $points_for, $points_against)
     {
-        $req = 'UPDATE players SET `score_status` = "' . $score_status . '", `points_for` = "' . $points_for . '", `points_against` = "' . $points_against . '" WHERE `players`.`match_id` = "' . $match_id . '" AND `players`.`member_id` = "' . $member_id . '"';
+        $req = 'UPDATE ' . PREFIX . 'players SET score_status = ' . $score_status . ', points_for = ' . $points_for . ', points_against = ' . $points_against . ' WHERE match_id = ' . $match_id . ' AND member_id = ' . $member_id;
         return Connection::query($req);
     }
 
     static function day_players_list($day_id)
     {
         $players = array();
-        $req = 'SELECT * FROM players '
-        . ' WHERE day_id = "' . $day_id . '"';
+        $req = 'SELECT * FROM ' . PREFIX . 'players '
+        . ' WHERE day_id = ' . $day_id;
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -126,10 +122,10 @@ class Players {
     static function players_id_list($day_id, $round_id, $match_id) : array
     {
         $players_list = array();
-        $req = 'SELECT * FROM players '
-        . ' WHERE `day_id`= ' . $day_id
-        . ' AND `round_id`= ' . $round_id
-        . ' AND `match_id`= ' . $match_id;
+        $req = 'SELECT * FROM ' . PREFIX . 'players '
+        . ' WHERE day_id = ' . $day_id
+        . ' AND round_id = ' . $round_id
+        . ' AND match_id = ' . $match_id;
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)

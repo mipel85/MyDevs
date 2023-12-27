@@ -1,9 +1,5 @@
 <?php
 
-/*
- * Class of the events
-*/
-
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -15,7 +11,7 @@ class Days {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM days WHERE id = ' . $id;
+            $req = 'SELECT * FROM ' . PREFIX . 'days WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -43,7 +39,7 @@ class Days {
 
     function insert_day()
     {
-        $req = 'INSERT INTO days values (
+        $req = 'INSERT INTO ' . PREFIX . 'days values (
                     NULL,
                     "' . $this->get_date() . '",
                     "1"
@@ -53,32 +49,32 @@ class Days {
 
     function enable_day()
     {
-        $req = 'UPDATE days SET `active` = 1 WHERE `days`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'days SET active = 1 WHERE id = ' . $this->get_id() . '';
         return Connection::query($req);
     }
 
     function disable_day()
     {
-        $req = 'UPDATE days SET `active` = 0 WHERE `days`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'days SET active = 0 WHERE id = ' . $this->get_id() . '';
         return Connection::query($req);
     }
     
     function remove_day()
     {
-        $req = 'DELETE FROM days WHERE id = "' . $this->get_id() . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'days WHERE id = "' . $this->get_id() . '"';
         return Connection::query($req);
     }
     
     function remove_all_days()
     {
-        $req = 'DELETE FROM days';
+        $req = 'DELETE FROM ' . PREFIX . 'days';
         return Connection::query($req);
     }
 
     static function days_list() : array
     {
         $days_list = array();
-        $req = 'SELECT * FROM days ORDER BY `date` DESC';
+        $req = 'SELECT * FROM ' . PREFIX . 'days ORDER BY `date` DESC';
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)

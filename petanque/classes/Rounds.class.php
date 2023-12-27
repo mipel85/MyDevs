@@ -12,7 +12,7 @@ class Rounds {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM rounds WHERE id = ' . $id;
+            $req = 'SELECT * FROM ' . PREFIX . 'rounds WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -39,7 +39,7 @@ class Rounds {
 
     function insert_round()
     {
-        $req = 'INSERT INTO rounds values (
+        $req = 'INSERT INTO ' . PREFIX . 'rounds values (
                     NULL,
                     "' . $this->get_day_id() . '",
                     "' . $this->get_i_order() . '",
@@ -50,19 +50,19 @@ class Rounds {
 
     function remove_round()
     {
-        $req = 'DELETE FROM rounds WHERE id = "' . $this->get_id() . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'rounds WHERE id = "' . $this->get_id() . '"';
         return Connection::query($req);
     }
 
     function remove_day_rounds($day_id)
     {
-        $req = 'DELETE FROM rounds WHERE day_id = "' . $day_id . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'rounds WHERE day_id = "' . $day_id . '"';
         return Connection::query($req);
     }
 
     function remove_all_rounds()
     {
-        $req = 'DELETE FROM rounds';
+        $req = 'DELETE FROM ' . PREFIX . 'rounds';
         return Connection::query($req);
     }
     
@@ -74,8 +74,8 @@ class Rounds {
     static function rounds_list() : array
     {
         $rounds = [];
-        $req = 'SELECT rounds.* FROM rounds '
-            . ' ORDER BY rounds.day_id DESC, rounds.i_order DESC';
+        $req = 'SELECT * FROM ' . PREFIX . 'rounds '
+            . ' ORDER BY day_id DESC, i_order DESC';
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -97,9 +97,9 @@ class Rounds {
     static function day_rounds_list($day_id) : array
     {
         $rounds = array();
-        $req = 'SELECT rounds.* FROM rounds '
-            . ' WHERE rounds.day_id = ' . $day_id
-            . ' ORDER BY rounds.i_order';
+        $req = 'SELECT * FROM ' . PREFIX . 'rounds '
+            . ' WHERE day_id = ' . $day_id
+            . ' ORDER BY i_order';
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -138,9 +138,9 @@ class Rounds {
     static function current_round_name($day_id)
     {
         $rounds = array();
-        $req = 'SELECT rounds.* FROM rounds '
-            . ' WHERE rounds.day_id = ' . $day_id
-            . ' ORDER BY rounds.i_order DESC';
+        $req = 'SELECT * FROM ' . PREFIX . 'rounds '
+            . ' WHERE day_id = ' . $day_id
+            . ' ORDER BY i_order DESC';
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -157,8 +157,8 @@ class Rounds {
     static function current_round_id($day_id)
     {
         $rounds = array();
-        $req = 'SELECT rounds.* FROM rounds '
-            . ' WHERE rounds.day_id = ' . $day_id;
+        $req = 'SELECT * FROM ' . PREFIX . 'rounds '
+            . ' WHERE day_id = ' . $day_id;
 
         if ($result = Connection::query($req)){
             if (!empty($result)){

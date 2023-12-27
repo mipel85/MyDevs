@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -16,7 +17,7 @@ class Matches {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM matches WHERE id = ' . $id;
+            $req = 'SELECT * FROM ' . PREFIX . 'matches WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -63,7 +64,7 @@ class Matches {
     
     function insert_match()
     {
-        $req = 'INSERT INTO matches values (
+        $req = 'INSERT INTO ' . PREFIX . 'matches values (
                     NULL,
                     "' . $this->get_day_id() . '",
                     "' . $this->get_round_id() . '",
@@ -79,45 +80,45 @@ class Matches {
 
     function remove_day_matches($day_id)
     {
-        $req = 'DELETE FROM matches WHERE day_id = "' . $day_id . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'matches WHERE day_id = "' . $day_id . '"';
         return Connection::query($req);
     }
 
     function remove_round_matches($day_id, $round_id)
     {
-        $req = 'DELETE FROM matches WHERE day_id = "' . $day_id . '" AND round_id = "' . $round_id . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'matches WHERE day_id = ' . $day_id . ' AND round_id = ' . $round_id;
         return Connection::query($req);
     }
 
     function remove_all_matches()
     {
-        $req = 'DELETE FROM matches';
+        $req = 'DELETE FROM ' . PREFIX . 'matches';
         return Connection::query($req);
     }
 
     function update_score_1($value)
     {
-        $req = 'UPDATE matches SET `team_1_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'matches SET team_1_score = ' . $value . ' WHERE id = ' . $this->get_id();
         return Connection::query($req);
     }
 
     function update_score_2($value)
     {
-        $req = 'UPDATE matches SET `team_2_score` = "' . $value . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'matches SET team_2_score = ' . $value . ' WHERE id = ' . $this->get_id();
         return Connection::query($req);
     }
 
     function update_score_status($score_status)
     {
-        $req = 'UPDATE matches SET `score_status` = "' . $score_status . '" WHERE `matches`.`id` = ' . $this->get_id() . '';
+        $req = 'UPDATE ' . PREFIX . 'matches SET score_status = ' . $score_status . ' WHERE id = ' . $this->get_id();
         return Connection::query($req);
     }
 
     static function day_matches_list($day_id)
     {
         $matches = array();
-        $req = 'SELECT matches.* FROM matches '
-        . ' WHERE matches.day_id = "' . $day_id . '"';
+        $req = 'SELECT * FROM ' . PREFIX . 'matches '
+        . ' WHERE day_id = ' . $day_id;
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -133,8 +134,8 @@ class Matches {
     static function round_matches_list($day_id, $round_id)
     {
         $matches = array();
-        $req = 'SELECT matches.* FROM matches '
-            . ' WHERE matches.day_id = "' . $day_id . '" AND matches.round_id = "' . $round_id . '"';
+        $req = 'SELECT * FROM ' . PREFIX . 'matches '
+            . ' WHERE day_id = ' . $day_id . ' AND round_id = ' . $round_id;
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -150,8 +151,8 @@ class Matches {
     static function played_matches_list($day_id)
     {
         $matches = array();
-        $req = 'SELECT matches.* FROM matches '
-            . ' WHERE matches.day_id = "' . $day_id . '"';
+        $req = 'SELECT * FROM ' . PREFIX . 'matches '
+            . ' WHERE day_id = ' . $day_id;
 
         if ($result = Connection::query($req)){
             if (!empty($result)){
@@ -168,8 +169,8 @@ class Matches {
     static function round_played_matches_list($day_id, $round_id)
     {
         $matches = array();
-        $req = 'SELECT matches.* FROM matches '
-            . ' WHERE matches.day_id = "' . $day_id . '" AND matches.round_id = "' . $round_id . '"';
+        $req = 'SELECT * FROM ' . PREFIX . 'matches '
+            . ' WHERE day_id = ' . $day_id . ' AND round_id = ' . $round_id;
 
         if ($result = Connection::query($req)){
             if (!empty($result)){

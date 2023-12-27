@@ -1,9 +1,5 @@
 <?php
 
-/*
- * Class of the events
-*/
-
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -22,7 +18,7 @@ class Rankings {
     public function __construct($id = null)
     {
         if (!is_null($id)){
-            $req = 'SELECT * FROM rankings WHERE id = ' . $id;
+            $req = 'SELECT * FROM ' . PREFIX . 'rankings WHERE id = ' . $id;
             if ($result = Connection::query($req)){
                 $result = $result[0];
                 $this->set_id($result['id']);
@@ -73,7 +69,7 @@ class Rankings {
 
     function insert_rank()
     {
-        $req = 'INSERT INTO rankings values (
+        $req = 'INSERT INTO ' . PREFIX . 'rankings values (
                     NULL,
                     "' . $this->get_day_id() . '",
                     "' . Days::today() . '",
@@ -90,7 +86,7 @@ class Rankings {
 
     function remove_day_rankings($day_id)
     {
-        $req = 'DELETE FROM rankings WHERE day_id = "' . $day_id . '"';
+        $req = 'DELETE FROM ' . PREFIX . 'rankings WHERE day_id = ' . $day_id;
         return Connection::query($req);
     }
 
@@ -102,16 +98,16 @@ class Rankings {
 
     function update_rank($day_id, $member_id, $played, $victory, $loss, $pos_points, $neg_points)
     {
-        $req = 'UPDATE rankings SET `played` = "' . $played . '", `victory` = "' . $victory . '", `loss` = "' . $loss . '", `pos_points` = "' . $pos_points . '", `neg_points` = "' . $neg_points . '" WHERE `rankings`.`day_id` = "' . $day_id . '" AND `rankings`.`member_id` = "' . $member_id . '"';
+        $req = 'UPDATE ' . PREFIX . 'rankings SET played = ' . $played . ', victory = ' . $victory . ', loss = ' . $loss . ', pos_points = ' . $pos_points . ', neg_points = ' . $neg_points . ' WHERE day_id = ' . $day_id . ' AND member_id = ' . $member_id;
         return Connection::query($req);
     }
 
     static function rankings_day_list($day_id) : array
     {
         $rankings_list = array();
-        $req = 'SELECT * FROM rankings '
-        . ' WHERE `day_id`= ' . $day_id
-        . ' ORDER BY `victory` DESC, `pos_points` DESC, `neg_points` DESC, `member_name` ASC';
+        $req = 'SELECT * FROM ' . PREFIX . 'rankings '
+        . ' WHERE day_id = ' . $day_id
+        . ' ORDER BY victory DESC, pos_points DESC, neg_points DESC, member_name ASC';
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
@@ -132,8 +128,8 @@ class Rankings {
     static function rankings_players_id_list($day_id) : array
     {
         $rankings_list = array();
-        $req = 'SELECT day_id, member_id FROM rankings '
-        . ' WHERE `day_id`= ' . $day_id;
+        $req = 'SELECT day_id, member_id FROM ' . PREFIX . 'rankings '
+        . ' WHERE day_id = ' . $day_id;
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
@@ -154,8 +150,8 @@ class Rankings {
     static function rankings_has_ranks($day_id) : int
     {
         $rankings_list = array();
-        $req = 'SELECT day_id, played FROM rankings '
-        . ' WHERE `day_id`= ' . $day_id;
+        $req = 'SELECT day_id, played FROM ' . PREFIX . 'rankings '
+        . ' WHERE day_id = ' . $day_id;
         if ($result = Connection::query($req)){
             if (!empty($result)){
                 foreach ($result as $value)
