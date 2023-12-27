@@ -5,6 +5,7 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
     // redirect to root/index.php;
     header('Location: ../index.php?page=home');
 } else {
+    $success = false;
     // Create connection file
     $config = array(
         "const DB_ADDR" => isset($_POST['host']) ? "'" . $_POST['host'] . "';" : "''",
@@ -28,6 +29,23 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
         fclose($fh);
 
         return true;
+    }
+
+    function check_database($host, $username, $password, $database)
+    {
+        try {
+            $pdo = new PDO("mysql:host=$host", $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Check if database exists and drop it
+            $check_database = $pdo->query("SHOW DATABASES LIKE '$database'");
+            if ($check_database->rowCount() > 0) {
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo '<div class="lead mt-2 alert alert-danger">Erreur de connexion à la base de données : ' . $e->getMessage() . '</div>';
+        }
     }
 
     function create_database($host, $username, $password, $database, $prefix, $insert_members)
@@ -70,25 +88,28 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
                         $stmt->execute([$data[0]]);
                     }
                     fclose($handle);
-                    $success = true;
                 } else {
-                    echo "Erreur lors de l'ouverture du fichier CSV.";
+                    echo '<div class="lead mt-2 alert alert-danger">Erreur lors de l\'ouverture du fichier CSV.</div>';
                 }
             }
-            $success = true;
         } catch (PDOException $e) {
-            echo "Erreur de connexion à la base de données : " . $e->getMessage();
+            echo '<div class="lead mt-2 alert alert-danger">Erreur de connexion à la base de données : ' . $e->getMessage() . '</div>';
         }
         // Close connection
         $pdo = null;
     }
 
     $success = false;
+    $config_exists = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        create_config_file("../classes/ConnectionConfig.class.php", $config);
+        $config_file = '../classes/ConnectionConfig.class.php';
+        create_config_file($config_file, $config);
+        if (file_exists($config_file)) {
+            $config_exists = true;
+        }
         require_once('./Install.class.php');
         create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['insert_members']);
-        $success = true;
+        $success = check_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database']);
     }
 }
 ?>
@@ -117,8 +138,19 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
                     </p>
                 </div>
                 <div class="col-md-10 mx-auto col-lg-7">
-                    <?php if ($success) : ?>
-                        <div class="lead alert alert-info">Installation réussie : <a href="../index.php?page=home">Rejoindre le site</a></div>
+                    <?php if ($config_exists && $success) : ?>
+                        <div class="lead alert alert-info">
+                            <?php if ($config_exists) : ?>
+                                <div class="mb-2">Le fichier de config a été créé.</div>
+                            <?php endif ?>
+                            <?php if ($success) : ?>
+                                <p>La base de données a été créée.</p>
+                                <a href="../index.php?page=home">Rejoindre le site</a>
+                            <?php else : ?>
+                                <p>La base de données n'a pas été créée.</p>
+                                <a href="./">recommencer l'install</a>
+                            <?php endif ?>
+                        </div>
                     <?php else : ?>
                         <form class="p-2 p-md-3 border rounded-3 bg-body-tertiary" method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                             <div class="form-floating mb-2">
@@ -134,8 +166,8 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
                                 <label for="password">Mot de passe</label>
                             </div>
                             <div class="form-floating mb-2">
-                                <input name="database" type="text" class="form-control ui-autocomplete-input" id="database" placeholder="Serveur" autocomplete="on" required>
-                                <label for="database">Serveur</label>
+                                <input name="database" type="text" class="form-control ui-autocomplete-input" id="database" placeholder="Base de données" autocomplete="on" required>
+                                <label for="database">Base de données</label>
                             </div>
                             <div class="form-floating mb-2">
                                 <input name="prefix" type="text" class="form-control ui-autocomplete-input" id="prefix" placeholder="Préfixe" value="petanque_" autocomplete="on" required>
