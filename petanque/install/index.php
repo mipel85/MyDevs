@@ -4,8 +4,7 @@
 if (file_exists('../classes/ConnectionConfig.class.php')) {
     // redirect to root/index.php;
     header('Location: ../index.php?page=home');
-}
-else {
+} else {
     // Create connection file
     $config = array(
         "const DB_ADDR" => isset($_POST['host']) ? "'" . $_POST['host'] . "';" : "''",
@@ -14,7 +13,7 @@ else {
         "const DB_NAME" => isset($_POST['database']) ? "'" . $_POST['database'] . "';" : "''",
         "const PREFIX" => isset($_POST['prefix']) ? "'" . $_POST['prefix'] . "';" : "''"
     );
-    
+
     function create_config_file($filename, $config)
     {
         $fh = fopen($filename, "w");
@@ -27,7 +26,7 @@ else {
         }
         fwrite($fh, "}\n?>");
         fclose($fh);
-    
+
         return true;
     }
 
@@ -40,7 +39,7 @@ else {
 
             // Check if database exists and drop it
             $check_database = $pdo->query("SHOW DATABASES LIKE '$database'");
-            if($check_database->rowCount() > 0) {
+            if ($check_database->rowCount() > 0) {
                 $pdo->query("DROP DATABASE $database");
             }
 
@@ -62,7 +61,7 @@ else {
             Install::create_teams($prefix);
 
             // Insert members list from csv file
-            if($insert_members) {
+            if ($insert_members) {
                 $file = './members.csv';
                 if (($handle = fopen($file, 'r')) !== FALSE) {
                     $column = $prefix . 'members';
@@ -84,91 +83,80 @@ else {
         $pdo = null;
     }
 
-    $error = '';
-    $success = false;
-    $host_class = $username_class = $password_class = $database_class = $prefix_class = '';
     $success = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (empty($_POST['host']) || empty($_POST['username']) || empty($_POST['database'])) {
-            $error = "Il en manque : ";
-            if(empty($_POST['host'])) {
-                $error .= '<br>Le serveur';
-                $host_class = 'input-error';
-            }
-            if(empty($_POST['username'])) {
-                $error .= '<br>Le nom d\'utilisateur';
-                $username_class = 'input-error';
-            }
-            if(empty($_POST['database'])) {
-                $error .= '<br>La base de données';
-                $database_class = 'input-error';
-            }
-            if(empty($_POST['prefix'])) {
-                $error .= '<br>La base de données';
-                $prefix_class = 'input-error';
-            }
-        } else {
-            create_config_file("../classes/ConnectionConfig.class.php", $config);
-            require_once('./Install.class.php');
-            create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['insert_members']);
-            $success = true;
-        }
+        create_config_file("../classes/ConnectionConfig.class.php", $config);
+        require_once('./Install.class.php');
+        create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['insert_members']);
+        $success = true;
     }
-
 }
 ?>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="../favicon.ico" />
-        <link rel="stylesheet" href="./install.css" type="text/css" media="screen, print" />
-        <script src="../theme/js/plugins/jquery.min.js"></script>
-        <script src="./install.js"></script>
-    <title>Installation de PHPetanque</title>
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="../theme/js/plugins/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <title>Installation de Petanque</title>
 </head>
-<body>
-    <header><h1>Installation de PHPetanque</h1></header>
-    <main>
-        <?php if ($success): ?>
-            Installation réussie : <a href="../index.php?page=home">Rejoindre le site</a>
-        <?php else: ?>
-            <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                <label for="host">
-                    <span>Serveur : </span>
-                    <input class="<?= $host_class ?>" type="text" name="host" id="host" value="localhost" required>
-                </label>
-                <label for="username">
-                    <span>Utilisateur : </span>
-                    <input class="<?= $username_class ?>" type="text" name="username" id="username" value="" required>
-                </label>
-                <label for="password">
-                    <span>Mot de passe : </span>
-                    <input class="<?= $password_class ?>" type="password" name="password" id="password" value="">
-                </label>
-                <label for="database">
-                    <span>Base de données : </span>
-                    <input class="<?= $database_class ?>" type="text" name="database" id="database" value="" required>
-                </label>
-                <label for="prefix">
-                    <span>Préfixe des tables : </span>
-                    <input class="<?= $prefix_class ?>" type="text" name="prefix" id="prefix" value="petanque_" required>
-                </label>
-                <label for="members">
-                    <span>Ajouter la liste des membres<br>(/install/members.csv) : </span>
-                    <input class="<?= $database_class ?>" type="checkbox" name="insert_members" id="members" checked>
-                </label>
-                <div class="align-center">
-                    <button id="install-submit" type="submit">Valider</button>
-                </div>
-                <div class="align-center">
-                    <?= $error ?>
-                </div>
-            </form>
-        <?php endif ?>
 
+<body class="container">
+    <main class="mx-auto">
+        <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+            <div class="row align-items-center g-lg-5 py-5">
+                <div class="col-lg-5 text-center text-lg-start">
+                    <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Installation de Petanque</h1>
+                    <p class="col-lg-10 fs-4">
+                        Ce formulaire permet de créer le fichier de configuration et la base de donnée nécessaires à la gestion du logiciel Petanque.
+                    </p>
+                </div>
+                <div class="col-md-10 mx-auto col-lg-7">
+                    <?php if ($success) : ?>
+                        <div class="lead alert alert-info">Installation réussie : <a href="../index.php?page=home">Rejoindre le site</a></div>
+                    <?php else : ?>
+                        <form class="p-2 p-md-3 border rounded-3 bg-body-tertiary" method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                            <div class="form-floating mb-2">
+                                <input name="host" type="text" class="form-control ui-autocomplete-input" id="host" placeholder="Serveur" value="localhost" autocomplete="on" required>
+                                <label for="host">Serveur</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input name="username" type="text" class="form-control ui-autocomplete-input" id="username" placeholder="Nom d'utilisateur" autocomplete="on" required>
+                                <label for="username">Nom d'utilisateur</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe">
+                                <label for="password">Mot de passe</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input name="database" type="text" class="form-control ui-autocomplete-input" id="database" placeholder="Serveur" autocomplete="on" required>
+                                <label for="database">Serveur</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input name="prefix" type="text" class="form-control ui-autocomplete-input" id="prefix" placeholder="Préfixe" value="petanque_" autocomplete="on" required>
+                                <label for="prefix">Préfixe</label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="insert_members" checked> Ajouter la liste des membres
+                                </label>
+                            </div>
+                            <div class="mb-3">
+                                <small class="text-body-secondary mb-2">(/install/members.csv)</small>
+                            </div>
+                            <button class="w-100 btn btn-lg btn-primary" type="submit">Valider</button>
+                        </form>
+                    <?php endif ?>
+                </div>
+            </div>
+        </div>
     </main>
     <footer></footer>
 </body>
+
 </html>
