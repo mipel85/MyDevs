@@ -13,16 +13,16 @@ $actions = $_POST['action'];
 switch($actions)
 {
     case 'insert_day':
-        // $remove = new Fields();
-        // $remove->remove_all_fields();
-        // $remove = new Players();
-        // $remove->remove_all_players();
-        // $remove = new Matches();
-        // $remove->remove_all_matches();
-        // $remove = new Teams();
-        // $remove->remove_all_teams();
-        // $remove = new Rounds();
-        // $remove->remove_all_rounds();
+        $remove = new Fields();
+        $remove->remove_all_fields();
+        $remove = new Players();
+        $remove->remove_all_players();
+        $remove = new Matches();
+        $remove->remove_all_matches();
+        $remove = new Teams();
+        $remove->remove_all_teams();
+        $remove = new Rounds();
+        $remove->remove_all_rounds();
         // $remove = new Days();
         // $remove->remove_all_days();
         $add = new Days();
