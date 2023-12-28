@@ -153,7 +153,7 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
                             <?php endif ?>
                         </div>
                     <?php else : ?>
-                        <form class="p-2 p-md-3 border rounded-3 bg-body-tertiary text-center" method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <form id="main-form" class="p-2 p-md-3 border rounded-3 bg-body-tertiary text-center" method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                             <small class="text-body-secondary">Les champ marqués * sont obligatoires</small>
                             <div class="form-floating mb-2">
                                 <input name="host" type="text" class="form-control ui-autocomplete-input" id="host" placeholder="Serveur" value="localhost" autocomplete="on" required>
@@ -181,6 +181,7 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
                                     <input id='members_hidden' type='hidden' value='no' name='insert_members'>
                                 </label>
                                 <script>
+                                    let form = document.getElementById('main-form');
                                     form.addEventListener('submit', () => {
                                         if(document.getElementById('members').checked) {
                                             document.getElementById('members_hidden').disabled = true;
