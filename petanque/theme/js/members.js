@@ -225,7 +225,8 @@ $(document).ready(function() {
                 let count = responseJson.selected_players.length;
                 if (count == 1)
                     $('.selected-number').html(count + ' joueur sélectionné');
-                $('.selected-number').html(count + ' joueurs sélectionnés');
+                else
+                    $('.selected-number').html(count + ' joueurs sélectionnés');
             }
         });
     });

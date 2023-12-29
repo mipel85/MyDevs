@@ -173,9 +173,11 @@ abbr {
     animation: floatting 5s ease-in-out;
     animation-fill-mode: forwards;
     position: absolute;
-    top: 138px;
+    top: 10px;
     left: 10px;
     max-width: 320px;
+    z-index: 200;
+    border-radius: 5px;
 }
 
 

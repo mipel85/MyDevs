@@ -28,9 +28,7 @@ if ($day_id) {
         $hidden_round = ' hidden';
     }
     // set label
-    $label_round = ' avec les ' . $players_number . ' joueurs présents.';
-    if ($players_number < 4) $label_round = '<span class="message-helper full-warning">Il faut sélectionner au moins 4 joueurs pour créer une partie.</span>';
-    if ($players_number == 7) $label_round = '<span class="message-helper full-warning">Il n\'est pas possible de jouer avec 7 joueurs.</span>';
+    $label_round = str_replace(':number', $players_number, $lang['days.round.players']);
 }
 
 /**

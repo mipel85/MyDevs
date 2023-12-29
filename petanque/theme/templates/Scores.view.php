@@ -12,9 +12,9 @@ $possible_scores = 12;
 ?>
 <section>
     <header class="section-header flex-between-center">
-        <h1>Scores</h1>
+        <h1><?= $lang['scores.title'] ?></h1>
         <div>
-            <button id="update-rankings" class="button full-notice">Mettre à jour le classement</button>
+            <button id="update-rankings" class="button full-notice"><?= $lang['scores.update.rankings'] ?></button>
         </div>
     </header>
     <?php if($day_id): ?>
@@ -40,14 +40,8 @@ $possible_scores = 12;
                                 <?php endfor ?>
                             </div>
                             <div class="flex-between">
-                                <span class="description">
-                                    Sélectionner le score des perdants puis sélectionner un nombre dans la liste ci-dessus.
-                                    <br />Le score des gagnants (13) est renseigné automatiquement.
-                                </span>
-                                <span class="description">
-                                    Sur fond vert, les scores validés.
-                                    <br />Sur fond blanc, les scores non validés
-                                </span>
+                                <span class="description"><?= $lang['scores.help.scores'] ?></span>
+                                <span class="description"><?= $lang['scores.help.colors'] ?></span>
                             </div>
                             <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round['id'] ?>"></span>
                             <div id="matches-round-list-<?= $round['id'] ?>" class="matches-round-list cell-flex cell-columns-8">
@@ -92,11 +86,11 @@ $possible_scores = 12;
                                         <div class="score-row-button<?php if(!$match['score_status']): ?> button-with-manual<?php endif ?>">
                                             <?php if(!$match['score_status']): ?><span></span><?php endif ?>
                                             <?php if($match['score_status']): ?>
-                                                <button id="edit-scores-<?= $match['id'] ?>" data-score_status="0" type="submit" class="button edit-score">Modifier</button>
+                                                <button id="edit-scores-<?= $match['id'] ?>" data-score_status="0" type="submit" class="button edit-score"><?= $lang['common.edit'] ?></button>
                                             <?php else: ?>
-                                                <button id="submit-scores-<?= $match['id'] ?>" data-score_status="1" type="submit" class="button">Valider</button>
+                                                <button id="submit-scores-<?= $match['id'] ?>" data-score_status="1" type="submit" class="button"><?= $lang['common.submit'] ?></button>
                                             <?php endif ?>
-                                            <?php if(!$match['score_status']): ?><button id="manual-scores-<?= $match['id'] ?>" data-tooltip="Renseigner le score manuellement" type="submit" class="icon-button"><i class="fa fa-keyboard"></i></button><?php endif ?>
+                                            <?php if(!$match['score_status']): ?><button id="manual-scores-<?= $match['id'] ?>" data-tooltip="top" aria-label="<?= $lang['scores.manual.edit'] ?>" type="submit" class="icon-button"><i class="fa fa-keyboard"></i></button><?php endif ?>
                                         </div>
                                     </div>
                                 <?php endforeach ?>

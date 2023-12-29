@@ -10,6 +10,7 @@
     border-style: solid;
     border-color: var(--bdr);
     border-bottom: 0;
+    border-radius: 10px 10px 0 0;
     background-color: var(--bgc-alt);
     display: flex;
     padding: 5px 5px 0;
@@ -22,9 +23,12 @@
 }
 
 .tab-trigger {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--bdr);
+    border-bottom: 0;
+    border-radius: 10px 10px 0 0;
     background-color: inherit;
-    border: none;
-    outline: none;
     cursor: pointer;
     padding: 5px 10px;
     transition: 0.3s;
@@ -42,6 +46,14 @@
 .tab-trigger.active-tab {
     background-color: var(--bgc);
     color: var(--text);
+}
+
+.tabs-menu-left .tab-trigger {
+    margin-right: 5px;
+}
+
+.tabs-menu-right .tab-trigger {
+    margin-left: 5px;
 }
 
 /* Style the tab content */
@@ -114,6 +126,7 @@
 .modal-content {
     position: fixed;
     display: none;
+    min-width: 55%;
     width: auto;
     height: auto;
     top: 10%;

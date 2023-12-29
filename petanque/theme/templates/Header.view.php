@@ -1,4 +1,5 @@
 <?php
+require_once('./lang/Langs.controller.php');
 
 require_once('./classes/Connection.class.php');
 require_once('./classes/Days.class.php');
@@ -7,10 +8,9 @@ require_once('./classes/Members.class.php');
 require_once('./controllers/Days.controller.php');
 require_once('./controllers/Menu.controller.php');
 $menu = display_menu();
-
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="<?= get_language() ?>">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +23,7 @@ $menu = display_menu();
         <link rel="stylesheet" href="./theme/css/plugins.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/font-awesome/css/all.css" type="text/css" media="screen, print" />
         <link rel="stylesheet" href="./theme/css/colors.css" type="text/css" media="screen, print" />
-        <title><?= $title ?> - Pétanque Loisirs Sainte-Foy</title>
+        <title><?= $title ?> - <?= $lang['site.name'] ?></title>
         
         <!-- plugins -->
         <script src="./theme/js/plugins/jquery.min.js"></script>
@@ -39,9 +39,9 @@ $menu = display_menu();
     </head>
     <body>
         <header id="top-header">
-            <div id="logo"></div>
+            <div id="logo" aria-label="<?= $lang['site.logo'] ?>"></div>
             <div id="site-name-container" class="flex-main">
-                <div id="site-name" class="flex-main">Pétanque Loisirs Sainte-Foy</div>
+                <div id="site-name" class="flex-main"><?= $lang['site.name'] ?></div>
                 <div id="menu-container">
                     <a href="#menu-container" id="menu-trigger">Menu</a>
                     <a href="#" id="untrigger">X</a>

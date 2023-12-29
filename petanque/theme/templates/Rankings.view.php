@@ -7,11 +7,11 @@ require_once('./classes/Rankings.class.php');
 require_once('./controllers/Days.controller.php');
 
 $class_day_flag = $day_flag ? ' full-error' : ' full-warning';
-$label_day_flag = $day_flag ? 'Terminer la journée' : 'Réouvrir la journée';
+$label_day_flag = $day_flag ? $lang['rankings.days.close'] : $lang['rankings.days.reopen'];
 ?>
 <section>
     <header class="section-header flex-between-center">
-            <h1>Classement</h1>
+            <h1><?= $lang['rankings.title'] ?></h1>
             <div>
                 <button id="day-flag" data-day_id="<?= $day_id ?>" data-day_flag="<?= $day_flag ?>" class="button<?= $class_day_flag ?>"><?= $label_day_flag ?></button>
             </div>
@@ -21,13 +21,13 @@ $label_day_flag = $day_flag ? 'Terminer la journée' : 'Réouvrir la journée';
             <table class="table rankings-table">
                 <thead>
                     <tr>
-                        <th>Place</th>
-                        <th class="player-name">Nom</th>
-                        <th>Joués</th>
-                        <th>Victoires</th>
-                        <th>Défaites</th>
-                        <th>Points pour</th>
-                        <th>Points contre</th>
+                        <th><?= $lang['rankings.place'] ?></th>
+                        <th class="player-name"><?= $lang['rankings.name'] ?></th>
+                        <th><?= $lang['rankings.played'] ?></th>
+                        <th><?= $lang['rankings.victory'] ?></th>
+                        <th><?= $lang['rankings.loss'] ?></th>
+                        <th><?= $lang['rankings.points.for'] ?></th>
+                        <th><?= $lang['rankings.points.against'] ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,7 @@ $label_day_flag = $day_flag ? 'Terminer la journée' : 'Réouvrir la journée';
                 </tbody>
             </table>
         <?php else: ?>
-            <div class="message-helper full-notice">Aucune journée créée.</div>
+            <div class="message-helper full-notice"><?= $lang['rankings.no.days'] ?></div>
         <?php endif ?>
     </article>
     <footer></footer>

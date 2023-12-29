@@ -12,16 +12,16 @@ require_once('./controllers/Days.controller.php');
 ?>
 <section>
     <header class="section-header flex-between">
-        <h1>Gestion des parties</h1>
+        <h1><?= $lang['days.title'] ?></h1>
         <article id="day-manager" class="content<?= $hidden_day ?>" data-day_ready="<?= $day_id ?>">
             <header id="add-day" class="<?= $hidden_day ?>">
-                <h3>Initialisation de la journée ...</h3>
+                <h3><?= $lang['days.init'] ?></h3>
             </header>
             <input type="hidden" id="day-date" name="day-date" value="<?= $today ?>" />
         </article>
         <div id="add-round-container" class="hero hidden flex-between-center">
             <div class="playgrounds-list flex-between-center">
-                <span>Sélection des<br>terrains disponibles</span>
+                <span><?= $lang['days.select.fields'] ?></span>
                 <div class="field-container">
                     <?php if($c_started_day): ?>
                         <?php foreach (Fields::fields_checkbox_list($day_id) as $checkboxes): ?>
@@ -51,7 +51,7 @@ require_once('./controllers/Days.controller.php');
                         data-players_number="<?= $players_number ?>"
                         id="add-round"
                         <?= $disabled_round ?>>
-                    Créer la <strong>partie <?= $i_order ?></strong>
+                    <?= str_replace(':number', $i_order, $lang['days.add.round']) ?>
                 </button>
                 <span id="round-description" class="description"><?= $label_round ?></span>
             </div>
@@ -173,7 +173,7 @@ require_once('./controllers/Days.controller.php');
             if (first == '') {
                 add_button.addClass('hidden');
                 $('.playgrounds-list').addClass('hidden')
-                $('#round-description').html("Aucun score de la partie en cours n'est renseigné.<br />L'ajout d'une nouvelle partie est désactivé.")
+                $('#round-description').html("<?= $lang['days.no.round.allowed'] ?>")
             }
         })
     </script>

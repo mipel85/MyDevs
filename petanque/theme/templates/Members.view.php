@@ -1,37 +1,45 @@
 <?php
 require_once('./classes/Members.class.php');
 require_once('./controllers/Rules.controller.php');
+
+$c_several_players = count(Members::selected_members_list()) > 1;
+$players_number = count(Members::selected_members_list());
 ?>
 <section>
     <header class="section-header flex-between-center">
-        <h1>Sélection des joueurs</h1>
+        <h1><?= $lang['members.title'] ?></h1>
         <div>
-            <span class="text-italic"><?= count(Members::selected_members_list()) ?> sélectionnés</span> - 
+            <span class="text-italic">
+                <?= $c_several_players ?
+                    str_replace(':number', $players_number, $lang['members.selected.members']) :
+                    str_replace(':number', $players_number, $lang['members.selected.member']) 
+                ?>
+            </span> - 
             <span class="text-italic"><?= rules(count(Members::selected_members_list())) ?></span>
         </div>
         <div>
             <div class="modals">
                 <div class="modal-container">
-                    <button type="button" id="display-quick-buttons" class="button modal-button">Sélection rapide</button>
+                    <button type="button" id="display-quick-buttons" class="button modal-button"><?= $lang['members.quick.select']?></button>
                     <article id="selected-members" class="modal-content hidden">
                         <header class="flex-between">
-                            <h3 class="">Sélection rapide</h3>
-                            <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
+                            <h3 class=""><?= $lang['members.quick.select.modal'] ?></h3>
+                            <button type="submit" class="icon-button close-modal-button" data-tooltip="left" aria-label="<?= $lang['common.close'] ?>"><i class="fa fa-fw fa-square-xmark error"></i></button>
                         </header>
                         <div id="quick-list" class="content line cell-flex cell-columns-2">
-                            <button type="button" id="reset-all-favs" class="button btn-reset-present full-warning">Réinitialiser<br />tous les habitués</button>
-                            <button type="button" id="select-all-favs" class="button">Sélectionner<br />seulement les habitués</button>
-                            <button type="button" id="unselect-all-members" class="button btn-reset-present">Désélectionner tous<br />les membres</button>
-                            <button type="button" id="select-all-members" class="button btn-reset-present">Sélectionner tous<br />les membres</button>
+                            <button type="button" id="reset-all-favs" class="button btn-reset-present full-warning"><?= $lang['members.quick.init.favs'] ?></button>
+                            <button type="button" id="select-all-favs" class="button"><?= $lang['members.quick.select.favs'] ?></button>
+                            <button type="button" id="unselect-all-members" class="button btn-reset-present"><?= $lang['members.quick.unselect.all'] ?></button>
+                            <button type="button" id="select-all-members" class="button btn-reset-present"><?= $lang['members.quick.select.all'] ?></button>
                         </div>
                     </article>
                 </div>
                 <div class="modal-container">
-                    <button type="button" id="display-selected-members" class="button full-success modal-button">Afficher la liste<br />des présents</button>
+                    <button type="button" id="display-selected-members" class="button full-success modal-button"><?= $lang['members.display'] ?></button>
                     <article id="selected-members" class="modal-content hidden">
                         <header class="flex-between">
-                            <h3 class="selected-number">Aucun joueur sélectionné</h3>
-                            <button type="submit" class="icon-button close-modal-button error"><i class="fa fa-fw fa-square-xmark"></i></button>
+                            <h3 class="selected-number"><?= $lang['members.display.none'] ?></h3>
+                            <button class="icon-button close-modal-button" data-tooltip="left" aria-label="<?= $lang['common.close'] ?>"><i class="fa fa-fw fa-square-xmark error"></i></button>
                         </header>
                         <div id="selected-members-list" class="content line cell-flex cell-columns-6"></div>
                     </article>
@@ -41,12 +49,12 @@ require_once('./controllers/Rules.controller.php');
     </header>
     <article class="content">
         <span id="error-4" class="message-helper full-error floatting<?php if (count(Members::selected_members_list()) >= 4): ?> hidden<?php endif ?>">
-            Moins de 4 joueurs n'est pas une sélection valide pour créer un nombre d'équipes pair de 2 et 3 joueurs.
+            <?= $lang['members.alert.4'] ?>
         </span>
         <span id="error-7" class="message-helper full-error floatting<?php if (count(Members::selected_members_list()) != 7): ?> hidden<?php endif ?>">
-            7 joueurs n'est pas une sélection valide pour créer un nombre d'équipes pair de 2 et 3 joueurs.
+            <?= $lang['members.alert.7'] ?>
         </span>
-        <!-- <div id="display-members-list" class="cell-flex cell-columns-6"></div> -->
+        
         <div id="all-members-list" class="cell-flex cell-columns-6">
             <?php foreach (Members::members_list() as $member): ?>
                 <?php

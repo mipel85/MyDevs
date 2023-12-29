@@ -6,17 +6,16 @@ require_once('./classes/Rounds.class.php');
 ?>
 <section>
     <header class="section-header">
-        <h1>Configuration</h1>
+        <h1><?= $lang['config.title'] ?></h1>
     </header>
     <div class="tabs-container">
         <div class="tabs-menu flex-between">
             <div class="tabs-menu-left">
-                <span data-trigger="members" class="tab-trigger active-tab" onclick="openTab(event, 'members');">Gestion des membres</span>
-                <span data-trigger="days" class="tab-trigger" onclick="openTab(event, 'days');">Gestion des journées</span>
-                <span data-trigger="rounds" class="tab-trigger" onclick="openTab(event, 'rounds');">Parties</span>
+                <span data-trigger="members" class="tab-trigger active-tab" onclick="openTab(event, 'members');"><?= $lang['config.tab.members'] ?></span>
+                <span data-trigger="days" class="tab-trigger" onclick="openTab(event, 'days');"><?= $lang['config.tab.days'] ?></span>
             </div>
             <div class="tabs-menu-right">
-                <span data-trigger="doc" class="tab-trigger" onclick="openTab(event, 'doc');">Documentation interne</span>
+                <span data-trigger="doc" class="tab-trigger" onclick="openTab(event, 'doc');">Documentation</span>
             </div>
         </div>
         <article id="members" class="tab-content active-tab">
@@ -25,11 +24,8 @@ require_once('./classes/Rounds.class.php');
         <article id="days" class="tab-content cell-flex cell-columns-2">
             <?php include './theme/templates/config/ConfigDays.view.php'; ?>
         </article>
-        <article id="rounds" class="tab-content">
-            <?php include './theme/templates/config/ConfigRounds.view.php'; ?>
-        </article>
         <article id="doc" class="tab-content">
-            <?php include './Documentation/InternalDoc.html'; ?>
+            <?php include './theme/templates/config/ConfigDoc.view.php'; ?>
         </article>
     </div>
 </section>
