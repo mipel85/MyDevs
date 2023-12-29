@@ -10,7 +10,7 @@ require_once('./controllers/Menu.controller.php');
 $menu = display_menu();
 ?>
 <!doctype html>
-<html lang="<?= get_language() ?>">
+<html lang="<?= get_locale() ?>">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
