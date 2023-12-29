@@ -103,7 +103,7 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
     $config_exists = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dir = '../classes/';
-        if (!is_writable($dir)) $is_writable = @chmod($dir, 0755);
+        if (!is_writable($dir)) @chmod($dir, 0755);
         
         $config_file = '../classes/ConnectionConfig.class.php';
         create_config_file($config_file, $config);
