@@ -102,17 +102,21 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
     $success = false;
     $config_exists = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Create database
+        require_once('./Install.class.php');
+        create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['insert_members']);
+        $success = check_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database']);
+        
+        // Check if config file location is writable
         $dir = '../classes/';
         if (!is_writable($dir)) @chmod($dir, 0755);
         
+        // Create config file
         $config_file = '../classes/ConnectionConfig.class.php';
         create_config_file($config_file, $config);
         if (file_exists($config_file)) {
             $config_exists = true;
         }
-        require_once('./Install.class.php');
-        create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['insert_members']);
-        $success = check_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database']);
     }
 }
 ?>
@@ -123,10 +127,9 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../favicon.ico" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../theme/bootstrap/bootstrap.min.css">
     <script src="../theme/js/plugins/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="../theme/bootstrap/bootstrap.bundle.min.js"></script>
     <title>Installation de Petanque</title>
 </head>
 
