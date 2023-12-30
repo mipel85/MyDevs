@@ -1,5 +1,7 @@
 <?php
 
+define('STDIN', fopen('php://stdin', 'rb'));
+
 // check if /classes/ConnectionConfig.class.php exist
 if (file_exists('../classes/ConnectionConfig.class.php')) {
     // redirect to root/index.php;
@@ -37,7 +39,7 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
             $pdo = new PDO("mysql:host=$host", $username, $password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Check if database exists and drop it
+            // Check if database exists
             $check_database = $pdo->query("SHOW DATABASES LIKE '$database'");
             if ($check_database->rowCount() > 0) {
                 return true;
@@ -101,12 +103,7 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
 
     $success = false;
     $config_exists = false;
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Create database
-        require_once('./Install.class.php');
-        create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['insert_members']);
-        $success = check_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database']);
-        
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {        
         // Check if config file location is writable
         $dir = '../classes/';
         if (!is_writable($dir)) @chmod($dir, 0755);
@@ -117,6 +114,11 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
         if (file_exists($config_file)) {
             $config_exists = true;
         }
+
+        // Create database
+        require_once('./Install.class.php');
+        create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['insert_members']);
+        $success = check_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database']);
     }
 }
 ?>
