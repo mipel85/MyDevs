@@ -82,9 +82,9 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
             if ($insert_members == 'yes') {
                 $file = './members.csv';
                 if (($handle = fopen($file, 'r')) !== FALSE) {
-                    $column = $prefix . 'members';
+                    $table = $prefix . 'members';
                     while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-                        $stmt = $pdo->prepare("INSERT INTO $column (name) VALUES (?)");
+                        $stmt = $pdo->prepare("INSERT INTO $table (name) VALUES (?)");
                         $stmt->execute([$data[0]]);
                     }
                     fclose($handle);

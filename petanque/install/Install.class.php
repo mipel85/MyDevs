@@ -6,8 +6,8 @@ class Install
 {
     static function create_days($prefix)
     {
-        $column = $prefix . 'days';
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
+        $table = $prefix . 'days';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $table . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `date` varchar(11) NOT NULL,
             `active` tinyint(1) DEFAULT NULL
@@ -17,8 +17,8 @@ class Install
     
     static function create_fields($prefix)
     {
-        $column = $prefix . 'fields';
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
+        $table = $prefix . 'fields';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $table . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `field_1` tinyint(1) DEFAULT NULL,
@@ -41,8 +41,8 @@ class Install
     
     static function create_matches($prefix)
     {
-        $column = $prefix . 'matches';
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
+        $table = $prefix . 'matches';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $table . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `round_id` int(11) NOT NULL,
@@ -58,8 +58,8 @@ class Install
     
     static function create_members($prefix)
     {
-        $column = $prefix . 'members';
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
+        $table = $prefix . 'members';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $table . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `name` varchar(255) NOT NULL,
             `present` tinyint(1) DEFAULT NULL,
@@ -70,8 +70,8 @@ class Install
     
     static function create_players($prefix)
     {
-        $column = $prefix . 'players';
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
+        $table = $prefix . 'players';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $table . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `round_id` int(11) NOT NULL,
@@ -87,8 +87,8 @@ class Install
     
     static function create_rankings($prefix)
     {
-        $column = $prefix . 'rankings';
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
+        $table = $prefix . 'rankings';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $table . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `day_date` varchar(11) NOT NULL,
@@ -105,8 +105,8 @@ class Install
     
     static function create_rounds($prefix)
     {
-        $column = $prefix . 'rounds';
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
+        $table = $prefix . 'rounds';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $table . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `i_order` int(11) NOT NULL,
@@ -117,8 +117,8 @@ class Install
     
     static function create_teams($prefix)
     {
-        $column = $prefix . 'teams';
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $column . ' (
+        $table = $prefix . 'teams';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $table . ' (
             `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `day_id` int(11) NOT NULL,
             `round_id` int(11) NOT NULL,
