@@ -1,6 +1,6 @@
 <?php
 
-use App\controllers\InitMatches;
+use App\Controllers\InitMatches;
 use \App\Items\Fields;
 use \App\Items\Matches;
 

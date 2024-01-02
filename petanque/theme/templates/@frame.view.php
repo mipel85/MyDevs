@@ -1,7 +1,7 @@
 <?php
 
-use \App\controllers\Langs;
-use \App\controllers\Menu;
+use \App\Controllers\Langs;
+use \App\Controllers\Menu;
 
 $startYear = '2023';
 $currentDate = new DateTime();

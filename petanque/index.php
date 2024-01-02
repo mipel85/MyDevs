@@ -2,7 +2,7 @@
 
 use \App\Autoloader;
 use \App\Db\Config;
-use \App\controllers\Langs;
+use \App\Controllers\Langs;
 
 if (file_exists('./app/db/db_config.php')) {
 
@@ -30,7 +30,6 @@ if (file_exists('./app/db/db_config.php')) {
     }
 
     ob_start();
-
     foreach(Langs::get_lang_files() as $file) {
         include $file;
     };
