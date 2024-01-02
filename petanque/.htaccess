@@ -21,7 +21,7 @@ Options -Indexes
 </Files>
 
 # Prevent viewing of config file #
-<Files ConnectionConfig.class.php>
+<Files Config.class.php>
     # Apache <= 2.3
     <IfModule mod_authz_core.c>
         Require all denied

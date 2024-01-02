@@ -1,12 +1,12 @@
 <?php
 
-require_once('./classes/Members.class.php');
-require_once('./classes/Days.class.php');
-require_once('./classes/Rounds.class.php');
-require_once('./classes/Teams.class.php');
-require_once('./classes/Matches.class.php');
-require_once('./controllers/Days.controller.php');
+use \App\Controllers\InitDays;
+use \App\Items\Rounds;
+use \App\Items\Matches;
+use \App\Items\Teams;
 
+$day_id = InitDays::day_id();
+$c_rounds = InitDays::c_rounds();
 $possible_scores = 12;
 
 ?>
@@ -23,12 +23,12 @@ $possible_scores = 12;
             <?php if($c_rounds): ?>
                 <div class="tabs-menu">
                     <?php foreach($day_round_list as $round): ?>
-                        <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
+                        <?php $active_tab = InitDays::latest_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
                         <span data-trigger="rounds-<?= $round['i_order'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'rounds-<?= $round['i_order'] ?>');">Partie <?= $round['i_order'] ?></span>
                     <?php endforeach ?>
                 </div>
                 <?php foreach($day_round_list as $round): ?>
-                    <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
+                    <?php $active_tab = InitDays::latest_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
                     <div id="rounds-<?= $round['i_order'] ?>"
                             class="matches-list tab-content<?= $active_tab ?>"
                             data-day_id="<?= $day_id ?>"

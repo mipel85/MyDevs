@@ -1,28 +1,11 @@
 $(document).ready(function() {
-
-    // Init day
-    let init_day = $('#day-manager').data('day_ready'),
-        day_date = $('#day-date').val();
-    if (init_day == '') {
-        $.ajax({
-            url: './ajax/AjaxDays.php',
-            type: 'POST',
-            data: {
-                action: 'insert_day',
-                day_date: day_date
-            },
-            success: function() {
-                location.reload(true);
-            }
-        });
-    }
-
+    // Config ################################################################
     // Remove one day
     $(".remove-day").each(function() {
         $(this).on('click', function() {
             let id = $(this).attr('id');
             $.ajax({
-                url: './ajax/AjaxDays.php',
+                url: './app/ajax/AjaxDays.php',
                 type: 'POST',
                 data: {
                     action: 'remove_day',
@@ -38,7 +21,7 @@ $(document).ready(function() {
     // Remove all days
     $("#remove-all-days").on('click', function() {
         $.ajax({
-            url: './ajax/AjaxDays.php',
+            url: './app/ajax/AjaxDays.php',
             type: 'POST',
             data: {
                 action: 'remove_all_days'
@@ -48,15 +31,34 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Front ################################################################
+    // Init day
+    let init_day = $('#day-manager').data('day_ready'),
+        day_date = $('#day-date').val();
+    if (init_day == '') {
+        $.ajax({
+            url: './app/ajax/AjaxDays.php',
+            type: 'POST',
+            data: {
+                action: 'insert_day',
+                day_date: day_date
+            },
+            success: function() {
+                location.reload(true);
+            }
+        });
+    }
+
     
-    // Select/unselect playgrounds
+    // Select/unselect fields
     $('.checkbox-field').each(function() {
         $(this).on('change', function() {
             let fields_id = $(this).data('fields_id'),
                 field_id = $(this).attr('id');
             if ($(this).is(':checked')) {
                 $.ajax({
-                    url: './ajax/AjaxDays.php',
+                    url: './app/ajax/AjaxDays.php',
                     type: 'POST',
                     data: {
                         action: 'check_field',
@@ -66,7 +68,7 @@ $(document).ready(function() {
                 });
             } else {
                 $.ajax({
-                    url: './ajax/AjaxDays.php',
+                    url: './app/ajax/AjaxDays.php',
                     type: 'POST',
                     data: {
                         action: 'uncheck_field',
@@ -85,7 +87,7 @@ $(document).ready(function() {
             players_number = $(this).data('players_number'),
             redirect = window.location.href.split('#')[0]; // Get current url and remove its hash
         $.ajax({
-            url: './ajax/AjaxRounds.php',
+            url: './app/ajax/AjaxRounds.php',
             type: 'POST',
             data: {
                 action: 'insert_round',
@@ -106,7 +108,7 @@ $(document).ready(function() {
                 round_id = $(this).data('round_id'),
                 redirect = window.location.href.split('#')[0]; // Get current url and remove its hash
             $.ajax({
-                url: './ajax/AjaxRounds.php',
+                url: './app/ajax/AjaxRounds.php',
                 type: 'POST',
                 data: {
                     action: 'remove_round',
@@ -127,7 +129,7 @@ $(document).ready(function() {
             round_id = $(this).data('round_id');
         if(round_ready == '') {
             $.ajax({
-                url: './ajax/AjaxTeams.php',
+                url: './app/ajax/AjaxTeams.php',
                 type: 'POST',
                 data: {
                     action: 'insert_teams',
@@ -149,7 +151,7 @@ $(document).ready(function() {
             round_id = $(this).data('round_id');
         if(teams_ready != '0' && matches_ready == '') {
             $.ajax({
-                url: './ajax/AjaxMatches.php',
+                url: './app/ajax/AjaxMatches.php',
                 type: 'POST',
                 data: {
                     action: 'insert_matches',
@@ -169,7 +171,7 @@ $(document).ready(function() {
             day_flag = $(this).data('day_flag');
         if(day_flag) {
             $.ajax({
-                url: './ajax/AjaxDays.php',
+                url: './app/ajax/AjaxDays.php',
                 type: 'POST',
                 data: {
                     action: 'disable_day',
@@ -181,7 +183,7 @@ $(document).ready(function() {
             });
         } else {
             $.ajax({
-                url: './ajax/AjaxDays.php',
+                url: './app/ajax/AjaxDays.php',
                 type: 'POST',
                 data: {
                     action: 'enable_day',

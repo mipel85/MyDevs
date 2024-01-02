@@ -9,6 +9,7 @@ $(document).ready(function() {
                 match_id = $(this).closest('.match-scores').data('match_id'),
                 score_1 = $(this).closest('.match-scores').find('input[name="score-1"]').val(),
                 score_2 = $(this).closest('.match-scores').find('input[name="score-2"]').val();
+                console.log(day_id);
             // Get players id and name from both teams
             let player_a0_id = $(this).closest('.match-scores').find('[data-team_a0]').data('member_id'),
                 player_a0_name = $(this).closest('.match-scores').find('[data-team_a0]').text(),
@@ -24,7 +25,7 @@ $(document).ready(function() {
                 player_b4_name = $(this).closest('.match-scores').find('[data-team_b4]').text();
             // Insert member in `rankings` table
             $.ajax({
-                url: './ajax/AjaxRankings.php',
+                url: './app/ajax/AjaxRankings.php',
                 type: 'POST',
                 data: {
                     action: 'insert_rank',
@@ -45,7 +46,7 @@ $(document).ready(function() {
                 success: function() {
                     // Insert member in `players` table
                     $.ajax({
-                        url: './ajax/AjaxPlayers.php',
+                        url: './app/ajax/AjaxPlayers.php',
                         type: 'POST',
                         data: {
                             action: 'insert_player',
@@ -68,7 +69,7 @@ $(document).ready(function() {
                         success: function() {
                             // Update players score in `players` table
                             $.ajax({
-                                url: './ajax/AjaxPlayers.php',
+                                url: './app/ajax/AjaxPlayers.php',
                                 type: 'POST',
                                 data: {
                                     action: 'update_players_score',
@@ -86,7 +87,7 @@ $(document).ready(function() {
                                 success: function() {
                                     // Insert scores in `matches` table
                                     $.ajax({
-                                        url: './ajax/AjaxMatches.php',
+                                        url: './app/ajax/AjaxMatches.php',
                                         type: 'POST',
                                         data: {
                                             action: 'insert_scores',
@@ -115,7 +116,7 @@ $(document).ready(function() {
             let score_status = $(this).data('score_status'),
                 match_id = $(this).closest('.match-scores').data('match_id');
                 $.ajax({
-                    url: './ajax/AjaxMatches.php',
+                    url: './app/ajax/AjaxMatches.php',
                     type: 'POST',
                     data: {
                         action: 'edit_scores',
@@ -132,7 +133,7 @@ $(document).ready(function() {
     // Update rankings
     $('#update-rankings').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxRankings.php',
+            url: './app/ajax/AjaxRankings.php',
             type: 'POST',
             data: {
                 action: 'update_rankings'

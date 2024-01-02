@@ -1,33 +1,33 @@
 <?php
 
-define('STDIN', fopen('php://stdin', 'rb'));
+use \App\Db\Tables;
 
-// check if /classes/ConnectionConfig.class.php exist
-if (file_exists('../classes/ConnectionConfig.class.php')) {
+// check if /app/db/Config.class.php exist
+if (file_exists('../app/db/db_config.php')) {
     // redirect to root/index.php;
     header('Location: ../index.php?page=home');
 } else {
     $success = false;
     // Create connection file
     $config = array(
-        "const DB_ADDR" => isset($_POST['host']) ? "'" . $_POST['host'] . "';" : "''",
-        "const DB_USER" => isset($_POST['username']) ? "'" . $_POST['username'] . "';" : "''",
-        "const DB_PSWD" => isset($_POST['password']) ? "'" . $_POST['password'] . "';" : "''",
-        "const DB_NAME" => isset($_POST['database']) ? "'" . $_POST['database'] . "';" : "''",
-        "const PREFIX" => isset($_POST['prefix']) ? "'" . $_POST['prefix'] . "';" : "''"
+        "db_host"   => isset($_POST['host']) ? "'" . $_POST['host'] . "'," : "''",
+        "db_user"   => isset($_POST['username']) ? "'" . $_POST['username'] . "'," : "''",
+        "db_pass"   => isset($_POST['password']) ? "'" . $_POST['password'] . "'," : "''",
+        "db_name"   => isset($_POST['database']) ? "'" . $_POST['database'] . "'," : "''",
+        "db_prefix" => isset($_POST['prefix']) ? "'" . $_POST['prefix'] . "'" : "''"
     );
 
     function create_config_file($filename, $config)
     {
         $fh = fopen($filename, "w");
-        fwrite($fh, "<?php\n\nclass ConnectionConfig\n{\n");
+        fwrite($fh, "<?php\n\nreturn array(\n");
         if (!is_resource($fh)) {
             return false;
         }
         foreach ($config as $key => $value) {
-            fwrite($fh, sprintf("\t%s = %s\n", $key, $value));
+            fwrite($fh, sprintf("\t'%s' => %s\n", $key, $value));
         }
-        fwrite($fh, "}\n?>");
+        fwrite($fh, ");\n?>");
         fclose($fh);
 
         return true;
@@ -58,8 +58,8 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Check if database exists and drop it
-            $check_database = $pdo->query("SHOW DATABASES LIKE '$database'");
-            if ($check_database->rowCount() > 0) {
+            $check_database = check_database($host, $username, $password, $database);
+            if ($check_database) {
                 $pdo->query("DROP DATABASE $database");
             }
 
@@ -71,14 +71,14 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
             $pdo = new PDO("mysql:host=$host;dbname=$database", $username, $password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            Install::create_days($prefix);
-            Install::create_fields($prefix);
-            Install::create_matches($prefix);
-            Install::create_members($prefix);
-            Install::create_players($prefix);
-            Install::create_rankings($prefix);
-            Install::create_rounds($prefix);
-            Install::create_teams($prefix);
+            Tables::create_days($prefix);
+            Tables::create_fields($prefix);
+            Tables::create_matches($prefix);
+            Tables::create_members($prefix);
+            Tables::create_players($prefix);
+            Tables::create_rankings($prefix);
+            Tables::create_rounds($prefix);
+            Tables::create_teams($prefix);
 
             // Insert members list from csv file
             if ($insert_members == 'yes') {
@@ -103,20 +103,21 @@ if (file_exists('../classes/ConnectionConfig.class.php')) {
 
     $success = false;
     $config_exists = false;
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {        
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if config file location is writable
-        $dir = '../classes/';
+        $dir = '../app/db/';
         if (!is_writable($dir)) @chmod($dir, 0755);
         
         // Create config file
-        $config_file = '../classes/ConnectionConfig.class.php';
+        $config_file = '../app/db/db_config.php';
         create_config_file($config_file, $config);
         if (file_exists($config_file)) {
             $config_exists = true;
         }
 
         // Create database
-        require_once('./Install.class.php');
+        require_once('../app/db/Connection.class.php');
+        require_once('../app/db/Tables.class.php');
         create_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['insert_members']);
         $success = check_database($_POST['host'], $_POST['username'], $_POST['password'], $_POST['database']);
     }

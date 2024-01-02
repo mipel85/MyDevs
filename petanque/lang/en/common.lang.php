@@ -9,21 +9,21 @@ $lang['common.edit']   = 'Modifier';
 $lang['common.submit']   = 'Valider';
 
 // Config
-$lang['config.title']   = 'Configuration';
-$lang['config.tab.members']   = 'Gestion des membres';
-$lang['config.tab.days']   = 'Gestion des journées';
-$lang['config.tab.rounds']   = 'Gestion des parties';
-$lang['config.tab.doc']   = 'Documentation';
+$lang['admin.title']   = 'Configuration';
+$lang['admin.tab.members']   = 'Gestion des membres';
+$lang['admin.tab.days']   = 'Gestion des journées';
+$lang['admin.tab.rounds']   = 'Gestion des parties';
+$lang['admin.tab.doc']   = 'Documentation';
 
-$lang['config.members.title'] = 'Liste des membres';
-$lang['config.members.add'] = 'Ajouter un membre : ';
-$lang['config.members.remove'] = 'Supprimer ce membre';
+$lang['admin.members.title'] = 'Liste des membres';
+$lang['admin.members.add'] = 'Ajouter un membre : ';
+$lang['admin.members.remove'] = 'Supprimer ce membre';
 
-$lang['config.days.remove.all'] = 'Supprimer toute les journées';
-$lang['config.days.help.all'] = 'La suppression de toutes les journées supprime également toutes les parties, équipes, rencontres, scores et classements.';
-$lang['config.days.date'] = 'Date';
-$lang['config.days.remove'] = 'Supprimer cette journée';
-$lang['config.days.help'] = 'La suppression d\'une journée supprime également toutes les parties, équipes, rencontres, scores et classements <strong>de la journée</strong>.';
+$lang['admin.days.remove.all'] = 'Supprimer toute les journées';
+$lang['admin.days.help.all'] = 'La suppression de toutes les journées supprime également toutes les parties, équipes, rencontres, scores et classements.';
+$lang['admin.days.date'] = 'Date';
+$lang['admin.days.remove'] = 'Supprimer cette journée';
+$lang['admin.days.help'] = 'La suppression d\'une journée supprime également toutes les parties, équipes, rencontres, scores et classements <strong>de la journée</strong>.';
 
 // Menu
 $lang['menu.home']      = 'Accueil';
@@ -73,8 +73,6 @@ $lang['days.add.round']   = 'Créer la <strong>partie :number</strong>';
 $lang['days.round.players']   = 'Avec les :number joueurs présents.';
 $lang['days.no.round.allowed'] = 'Aucun score de la partie en cours n\'est renseigné.<br />L\'ajout d\'une nouvelle partie est désactivé.';
 
-$lang['footer']   = '&copy; PLSF :year --- Version 1.0';
-
 // Scores
 $lang['scores.title']   = 'Scores';
 
@@ -105,5 +103,7 @@ $lang['rankings.victory']   = 'Victoires';
 $lang['rankings.loss']   = 'Défaites';
 $lang['rankings.points.for']   = 'Points pour';
 $lang['rankings.points.against']   = 'Points contre';
+
+$lang['footer']   = '&copy; PLSF :year --- Version 1.0';
 
 ?>

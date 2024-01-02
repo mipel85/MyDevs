@@ -5,9 +5,9 @@ function rowtocolumn(container = '#container-id', item = '.item-class', col = 'r
 
     for (let i = 0; i < col_number; i++) {
         // Select all items for the current column
-        let columnItems = items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn);
+        let columnClass = items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn);
         // Build column and add items
-        let column = $('<div class="' + col + '"></div>').append(columnItems);
+        let column = $('<div class="' + col + '"></div>').append(columnClass);
         // Add the column to the conainer
         $(container).append(column);
     }

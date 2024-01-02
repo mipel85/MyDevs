@@ -10,7 +10,7 @@ $(document).ready(function() {
         let name = $('#add-member-name').val();
         if (name !== '') {
             $.ajax({
-                url: './ajax/AjaxMembers.php',
+                url: './app/ajax/AjaxMembers.php',
                 type: 'POST',
                 data: {
                     action: 'insert_member',
@@ -37,7 +37,7 @@ $(document).ready(function() {
         $(this).on('click', function() {
             let id = $(this).attr('id');
             $.ajax({
-                url: './ajax/AjaxMembers.php',
+                url: './app/ajax/AjaxMembers.php',
                 type: 'POST',
                 data: {
                     action: 'remove_member',
@@ -68,7 +68,7 @@ $(document).ready(function() {
             }
             else if ($(this).hasClass('change-button')) {
                 $.ajax({
-                    url: './ajax/AjaxMembers.php',
+                    url: './app/ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
                         action: 'change_name',
@@ -91,7 +91,7 @@ $(document).ready(function() {
             let id = $(this).data('fav_id');
             if ($(this).is(':checked')) {
                 $.ajax({
-                    url: './ajax/AjaxMembers.php',
+                    url: './app/ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
                         action: 'set_member_fav',
@@ -104,7 +104,7 @@ $(document).ready(function() {
             }
             else {
                 $.ajax({
-                    url: './ajax/AjaxMembers.php',
+                    url: './app/ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
                         action: 'reset_member_fav',
@@ -121,7 +121,7 @@ $(document).ready(function() {
     // Select all favs
     $('#select-all-favs').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxMembers.php',
+            url: './app/ajax/AjaxMembers.php',
             type: 'POST',
             data: {
                 action: 'select_all_favs'
@@ -135,7 +135,7 @@ $(document).ready(function() {
     // Set all members to fav = 0
     $('#reset-all-favs').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxMembers.php',
+            url: './app/ajax/AjaxMembers.php',
             type: 'POST',
             data: {
                 action: 'reset_all_members_fav'
@@ -153,7 +153,7 @@ $(document).ready(function() {
             let id = $(this).data('present_id');
             if ($(this).is(':checked')) {
                 $.ajax({
-                    url: './ajax/AjaxMembers.php',
+                    url: './app/ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
                         action: 'select_member',
@@ -166,7 +166,7 @@ $(document).ready(function() {
             }
             else {
                 $.ajax({
-                    url: './ajax/AjaxMembers.php',
+                    url: './app/ajax/AjaxMembers.php',
                     type: 'POST',
                     data: {
                         action: 'unselect_member',
@@ -183,7 +183,7 @@ $(document).ready(function() {
     // Unselect all members
     $('#unselect-all-members').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxMembers.php',
+            url: './app/ajax/AjaxMembers.php',
             type: 'POST',
             data: {
                 action: 'unselect_all_members'
@@ -197,7 +197,7 @@ $(document).ready(function() {
     // Select all members
     $('#select-all-members').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxMembers.php',
+            url: './app/ajax/AjaxMembers.php',
             type: 'POST',
             data: {
                 action: 'select_all_members'
@@ -211,7 +211,7 @@ $(document).ready(function() {
     // Display list of selected members
     $('#display-selected-members').on('click', function() {
         $.ajax({
-            url: './ajax/AjaxMembers.php',
+            url: './app/ajax/AjaxMembers.php',
             type: 'POST',
             data: {
                 action: 'selected_members'

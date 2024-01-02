@@ -1,13 +1,22 @@
 <?php
 
-require_once('./classes/Days.class.php');
-require_once('./classes/Fields.class.php');
-require_once('./classes/Members.class.php');
-require_once('./classes/Rounds.class.php');
-require_once('./classes/Teams.class.php');
-require_once('./classes/Matches.class.php');
-require_once('./controllers/Rules.controller.php');
-require_once('./controllers/Days.controller.php');
+use \App\Items\Days;
+use \App\Items\Rounds;
+use \App\Items\Teams;
+use \App\Items\Matches;
+use \App\Items\Fields;
+use \App\Controllers\InitDays;
+use \App\Controllers\Rules;
+
+$today           = Days::today();
+$day_id          = InitDays::day_id();
+$hidden_day      = InitDays::hidden_day();
+$c_started_day   = Days::started_day();
+$round_label     = InitDays::round_label();
+$hidden_round    = InitDays::hidden_round();
+$disabled_round  = InitDays::disabled_round();
+$i_order         = InitDays::i_order();
+$players_number  = InitDays::players_number();
 
 ?>
 <section>
@@ -53,7 +62,7 @@ require_once('./controllers/Days.controller.php');
                         <?= $disabled_round ?>>
                     <?= str_replace(':number', $i_order, $lang['days.add.round']) ?>
                 </button>
-                <span id="round-description" class="description"><?= $label_round ?></span>
+                <span id="round-description" class="description"><?= $round_label ?></span>
             </div>
         </div>
     </header>
@@ -62,15 +71,15 @@ require_once('./controllers/Days.controller.php');
             <?php $day_round_list = array_reverse(Rounds::day_rounds_list($day_id)); ?>
             <div class="tabs-menu">
                 <?php foreach($day_round_list as $round): ?>
-                    <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
+                    <?php $active_tab = InitDays::latest_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
                     <span data-trigger="rounds-<?= $round['i_order'] ?>" class="tab-trigger<?= $active_tab ?>" onclick="openTab(event, 'rounds-<?= $round['i_order'] ?>');">Partie <?= $round['i_order'] ?></span>
                 <?php endforeach ?>
             </div>
             <?php foreach($day_round_list as $round): ?>
-                <?php $active_tab = last_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
+                <?php $active_tab = InitDays::latest_round_id($day_id) == $round['id'] ? ' active-tab' : ''; ?>
                 <?php
                     $round_id = $round['id'];
-                    $hidden_remove_round = !is_scored($day_id, $round['id']) && last_round_id($day_id) == $round['id'] ? '' : ' hidden';
+                    $hidden_remove_round = !InitDays::is_scored($day_id, $round_id) && InitDays::latest_round_id($day_id) == $round_id ? '' : ' hidden';
                     $hidden_teams_list = Teams::round_teams_list($day_id, $round_id) ? '' : ' hidden';
                     $hidden_teams_btn = Teams::round_teams_list($day_id, $round_id) ? ' hidden' : '';
                     $hidden_matches_list = Matches::round_matches_list($day_id, $round_id) ? '' : ' hidden';
@@ -78,13 +87,13 @@ require_once('./controllers/Days.controller.php');
                 ?>
                 <div id="rounds-<?= $round['i_order'] ?>"
                         class="tab-content<?= $active_tab ?>"
-                        data-scored="<?= is_scored($day_id, $round['id']) ?>">
+                        data-scored="<?= InitDays::is_scored($day_id, $round_id) ?>">
                     <div class="flex-between">
                         <span></span>
                         <button type="submit" 
                                 class="icon-button remove-round<?= $hidden_remove_round ?>" 
                                 data-day_id="<?= $day_id ?>" 
-                                data-round_id="<?= $round['id'] ?>"
+                                data-round_id="<?= $round_id ?>"
                                 data-round_i_order="<?= $round['i_order'] ?>">
                             <i class="fa fa-fw fa-2x fa-square-xmark error"></i>
                         </button>
@@ -99,7 +108,7 @@ require_once('./controllers/Days.controller.php');
                             data-round_id="<?= $round_id ?>">
                         <header class="flex-between-center">
                             <h4><?= $round['players_number'] ?> joueurs</h4>
-                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= rules($round['players_number']) ?></span>
+                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= Rules::matching_rule($round['players_number']) ?></span>
                         </header>
                         <div id="teams-round-list-<?= $round_id ?>" class="teams-round-list cell-flex cell-columns-4<?= $hidden_teams_list ?>">
                             <?php foreach (Teams::round_teams_list($day_id, $round_id) as $index => $team): ?>
@@ -122,7 +131,7 @@ require_once('./controllers/Days.controller.php');
                             <span data-minimize="rounds-<?= $round['i_order'] ?>" data-expand="expand-rounds-<?= $round['i_order'] ?>" class="expand-button" id="expand-<?= $round_id ?>"></span>
                         <header class="flex-between">
                             <h4>Liste des rencontres</h4>
-                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= $round['players_number'] ?> joueurs - <?= rules($round['players_number']) ?></span>
+                            <span class="description"><strong>Partie <?= $round['i_order'] ?></strong> - <?= $round['players_number'] ?> joueurs - <?= Rules::matching_rule($round['players_number']) ?></span>
                         </header>
                             <div id="matches-round-list-<?= $round_id ?>" class="match-list big-line cell-flex cell-columns-4<?= $hidden_matches_list ?>">
                                 <?php foreach (Matches::round_matches_list($day_id, $round_id) as $index => $match): ?>
@@ -151,7 +160,7 @@ require_once('./controllers/Days.controller.php');
                                 <?php endforeach ?>
                             </div>
                             <script>
-                                $(document).ready(function() { reorderitems('#matches-round-list-<?= $round['id'] ?>', '.row-item', 'field'); });
+                                $(document).ready(function() { reorderitems('#matches-round-list-<?= $round_id ?>', '.row-item', 'field'); });
                             </script>
                         </div>
                     </div>

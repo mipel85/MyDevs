@@ -1,11 +1,11 @@
 <?php
 
-require_once('./classes/Rounds.class.php');
-require_once('./classes/Teams.class.php');
-require_once('./classes/Matches.class.php');
-require_once('./classes/Rankings.class.php');
-require_once('./controllers/Days.controller.php');
+use \App\Controllers\InitDays;
+use \App\Items\Days;
+use \App\Items\Rankings;
 
+$day_id = InitDays::day_id();
+$day_flag = InitDays::day_flag();
 $class_day_flag = $day_flag ? ' full-error' : ' full-warning';
 $label_day_flag = $day_flag ? $lang['rankings.days.close'] : $lang['rankings.days.reopen'];
 ?>
@@ -17,7 +17,7 @@ $label_day_flag = $day_flag ? $lang['rankings.days.close'] : $lang['rankings.day
             </div>
     </header>
     <article id="ranking-day">
-        <?php if ($c_started_day): ?>
+        <?php if (Days::started_day()): ?>
             <table class="table rankings-table">
                 <thead>
                     <tr>

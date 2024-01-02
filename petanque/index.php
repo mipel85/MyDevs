@@ -1,12 +1,21 @@
 <?php
 
-if (file_exists('./classes/ConnectionConfig.class.php')) {
+use \App\Autoloader;
+use \App\Db\Config;
+use \App\controllers\Langs;
+
+if (file_exists('./app/db/db_config.php')) {
+
+    require './app/Autoloader.class.php';
+    Autoloader::register();
+    define('PREFIX', Config::get_config()->get('db_prefix'));
+
     $page = $_GET['page'] ?? '404';
 
     $url = $_SERVER['REQUEST_URI'];
     $url = explode('/', $url);
     $url = end($url);
-    if ($url == '' || $url == 'index.php')
+    if ($url === '' || $url === 'index.php')
         $page = 'home';
 
     $title = '';
@@ -21,11 +30,15 @@ if (file_exists('./classes/ConnectionConfig.class.php')) {
         default           : $title = 'Erreur 404';
     }
 
-    require_once('./theme/templates/Header.view.php');
+    ob_start();
+
+    foreach(Langs::get_lang_files() as $file) {
+        include $file;
+    };
 
     switch($page)
     {
-        case ('config')   : require_once('./theme/templates/config/Config.view.php'); break;
+        case ('config')   : require_once('./theme/templates/admin/Admin.view.php'); break;
         case ('home')     : require_once('./theme/templates/Home.view.php'); break;
         case ('members')  : require_once('./theme/templates/Members.view.php'); break;
         case ('day')      : require_once('./theme/templates/Day.view.php'); break;
@@ -33,8 +46,8 @@ if (file_exists('./classes/ConnectionConfig.class.php')) {
         case ('rankings') : require_once('./theme/templates/Rankings.view.php'); break;
         default           : require_once('./theme/templates/404.view.php');
     }
-
-    require_once('./theme/templates/Footer.view.php');
+    $content = ob_get_clean();
+    require_once('./theme/templates/@frame.view.php');
 }
 else {
     // redirect to install

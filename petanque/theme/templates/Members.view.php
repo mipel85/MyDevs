@@ -1,6 +1,7 @@
 <?php
-require_once('./classes/Members.class.php');
-require_once('./controllers/Rules.controller.php');
+
+use \App\Items\Members;
+use \App\Controllers\Rules;
 
 $c_several_players = count(Members::selected_members_list()) > 1;
 $players_number = count(Members::selected_members_list());
@@ -14,8 +15,8 @@ $players_number = count(Members::selected_members_list());
                     str_replace(':number', $players_number, $lang['members.selected.members']) :
                     str_replace(':number', $players_number, $lang['members.selected.member']) 
                 ?>
-            </span> - 
-            <span class="text-italic"><?= rules(count(Members::selected_members_list())) ?></span>
+            </span> -
+            <span class="text-italic"><?= Rules::matching_rule(count(Members::selected_members_list())) ?></span>
         </div>
         <div>
             <div class="modals">
