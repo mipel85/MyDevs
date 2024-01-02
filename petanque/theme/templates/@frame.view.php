@@ -3,10 +3,6 @@
 use \App\controllers\Langs;
 use \App\controllers\Menu;
 
-foreach(Langs::get_lang_files() as $file) {
-    include $file;
-};
-
 $startYear = '2023';
 $currentDate = new DateTime();
 $currentYear = $currentDate->format('Y');

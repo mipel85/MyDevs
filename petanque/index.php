@@ -8,7 +8,6 @@ if (file_exists('./app/db/db_config.php')) {
 
     require './app/Autoloader.class.php';
     Autoloader::register();
-    define('PREFIX', Config::get_config()->get('db_prefix'));
 
     $page = $_GET['page'] ?? '404';
 

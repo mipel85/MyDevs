@@ -79,7 +79,7 @@ switch($actions)
         break;
 
     case 'selected_members':
-        $req = 'SELECT name FROM ' . Config::PREFIX . 'members WHERE present = 1';
+        $req = 'SELECT name FROM ' . Config::get_config()->get('db_prefix') . 'members WHERE present = 1';
         if ($result = Connection::query($req)) {
             foreach ($result as $value) {
                 $data[] = $value;
@@ -89,7 +89,7 @@ switch($actions)
         break;
 
     case 'members_list':
-        $req = 'SELECT * FROM ' . Config::PREFIX . 'members ORDER BY fav DESC, name ASC';
+        $req = 'SELECT * FROM ' . Config::get_config()->get('db_prefix') . 'members ORDER BY fav DESC, name ASC';
         if ($result = Connection::query($req)) {
             foreach ($result as $value) {
                 $data[] = $value;
