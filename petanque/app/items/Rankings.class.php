@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Items;
+namespace App\items;
 
-use \App\Db\Config;
-use \App\Db\Connection;
-use \App\Items\Players;
+use \App\db\Config;
+use \App\db\Connection;
+use \App\items\Players;
 
 class Rankings {
     private $id;

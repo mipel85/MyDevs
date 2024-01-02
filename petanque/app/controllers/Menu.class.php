@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use \App\Items\Days;
-use \App\Items\Members;
-use \App\Items\Rounds;
-use \App\Items\Matches;
-use \App\Items\Players;
-use \App\Items\Rankings;
+use \App\items\Days;
+use \App\items\Members;
+use \App\items\Rounds;
+use \App\items\Matches;
+use \App\items\Players;
+use \App\items\Rankings;
 
 class Menu
 {

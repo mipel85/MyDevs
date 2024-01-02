@@ -1,6 +1,6 @@
 <?php
 
-use \App\Items\Players;
+use \App\items\Players;
 
 include '../db/Connection.class.php';
 include '../items/Players.class.php';

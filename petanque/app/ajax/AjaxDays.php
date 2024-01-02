@@ -1,11 +1,11 @@
 <?php
 
-use \App\Items\Days;
-use \App\Items\Fields;
-use \App\Items\Rounds;
-use \App\Items\Teams;
-use \App\Items\Matches;
-use \App\Items\Players;
+use \App\items\Days;
+use \App\items\Fields;
+use \App\items\Rounds;
+use \App\items\Teams;
+use \App\items\Matches;
+use \App\items\Players;
 
 include '../db/Connection.class.php';
 include '../items/Days.class.php';

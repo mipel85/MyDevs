@@ -1,7 +1,7 @@
 <?php
 
-use \App\Items\Members;
-use \App\Controllers\Rules;
+use \App\items\Members;
+use \App\controllers\Rules;
 
 $c_several_players = count(Members::selected_members_list()) > 1;
 $players_number = count(Members::selected_members_list());

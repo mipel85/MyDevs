@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use \App\Items\Teams;
+use \App\items\Teams;
 
 class InitMatches
 {

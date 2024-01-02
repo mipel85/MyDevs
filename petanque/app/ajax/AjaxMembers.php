@@ -1,8 +1,8 @@
 <?php
 
-use \App\Db\Config;
-use \App\Db\Connection;
-use \App\Items\Members;
+use \App\db\Config;
+use \App\db\Connection;
+use \App\items\Members;
 
 include '../db/Config.class.php';
 include '../db/Connection.class.php';

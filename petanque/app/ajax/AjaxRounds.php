@@ -1,9 +1,9 @@
 <?php
 
-use \App\Items\Rounds;
-use \App\Items\Teams;
-use \App\Items\Matches;
-use \App\Items\Players;
+use \App\items\Rounds;
+use \App\items\Teams;
+use \App\items\Matches;
+use \App\items\Players;
 
 include '../db/Connection.class.php';
 include '../items/Rounds.class.php';

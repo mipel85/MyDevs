@@ -1,8 +1,8 @@
 <?php
 
-use \App\Controllers\InitDays;
-use \App\Items\Days;
-use \App\Items\Rankings;
+use \App\controllers\InitDays;
+use \App\items\Days;
+use \App\items\Rankings;
 
 $day_id = InitDays::day_id();
 $day_flag = InitDays::day_flag();

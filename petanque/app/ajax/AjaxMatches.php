@@ -1,8 +1,8 @@
 <?php
 
-use App\Controllers\InitMatches;
-use \App\Items\Fields;
-use \App\Items\Matches;
+use App\controllers\InitMatches;
+use \App\items\Fields;
+use \App\items\Matches;
 
 require_once ('../db/Connection.class.php');
 require_once ('../controllers/InitMatches.class.php');

@@ -1,6 +1,6 @@
 <?php
 
-use \App\Items\Days;
+use \App\items\Days;
 
 ?>
 

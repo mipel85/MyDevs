@@ -1,7 +1,7 @@
 <?php
 
-use \App\Items\Days;
-use \App\Items\Rankings;
+use \App\items\Days;
+use \App\items\Rankings;
 
 require_once ('../db/Connection.class.php');
 require_once ('../items/Days.class.php');

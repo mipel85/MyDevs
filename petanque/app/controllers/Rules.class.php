@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 /* tableau de composition des équipes et du nombre de terrains requis*/
 
 class Rules

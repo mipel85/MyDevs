@@ -1,7 +1,7 @@
 <?php
 
-use \App\Items\Teams;
-use \App\Controllers\InitTeams;
+use \App\items\Teams;
+use \App\controllers\InitTeams;
 
 include '../db/Connection.class.php';
 include '../items/Teams.class.php';

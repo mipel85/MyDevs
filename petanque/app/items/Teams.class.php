@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Items;
+namespace App\items;
 
-use \App\Db\Config;
-use \App\Db\Connection;
+use \App\db\Config;
+use \App\db\Connection;
 
 class Teams {
     private $id;

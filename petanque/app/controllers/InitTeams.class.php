@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use \App\Items\Members;
+use \App\items\Members;
 
 class InitTeams
 {

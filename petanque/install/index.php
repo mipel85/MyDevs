@@ -1,6 +1,6 @@
 <?php
 
-use \App\Db\Tables;
+use \App\db\Tables;
 
 // check if /app/db/Config.class.php exist
 if (file_exists('../app/db/db_config.php')) {

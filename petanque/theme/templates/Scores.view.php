@@ -1,9 +1,9 @@
 <?php
 
-use \App\Controllers\InitDays;
-use \App\Items\Rounds;
-use \App\Items\Matches;
-use \App\Items\Teams;
+use \App\controllers\InitDays;
+use \App\items\Rounds;
+use \App\items\Matches;
+use \App\items\Teams;
 
 $day_id = InitDays::day_id();
 $c_rounds = InitDays::c_rounds();

@@ -1,7 +1,7 @@
 <?php
 
 use \App\Autoloader;
-use \App\Controllers\Langs;
+use \App\controllers\Langs;
 
 if (file_exists('./app/db/db_config.php')) {
 

@@ -1,12 +1,12 @@
 <?php
 
-use \App\Items\Days;
-use \App\Items\Rounds;
-use \App\Items\Teams;
-use \App\Items\Matches;
-use \App\Items\Fields;
-use \App\Controllers\InitDays;
-use \App\Controllers\Rules;
+use \App\items\Days;
+use \App\items\Rounds;
+use \App\items\Teams;
+use \App\items\Matches;
+use \App\items\Fields;
+use \App\controllers\InitDays;
+use \App\controllers\Rules;
 
 $today           = Days::today();
 $day_id          = InitDays::day_id();

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use \App\Items\Days;
-use \App\Items\Rounds;
-use \App\Items\Members;
-use \App\Items\Matches;
+use \App\items\Days;
+use \App\items\Rounds;
+use \App\items\Members;
+use \App\items\Matches;
 
 class InitDays
 {
