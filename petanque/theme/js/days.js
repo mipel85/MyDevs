@@ -50,7 +50,6 @@ $(document).ready(function() {
         });
     }
 
-    
     // Select/unselect fields
     $('.checkbox-field').each(function() {
         $(this).on('change', function() {
