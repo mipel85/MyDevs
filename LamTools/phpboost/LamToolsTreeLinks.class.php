@@ -1,0 +1,27 @@
+<?php
+/**
+ * @copyright   &copy; 2005-2023 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Mipel85 <mipel@phpboost.com>
+ * @version     PHPBoost 6.0 - last update: 2023 03 03
+ * @since       PHPBoost 6.0 - 2022 12 20
+ */
+
+class LamToolsTreeLinks implements ModuleTreeLinksExtensionPoint
+{
+    public function get_actions_tree_links()
+    {
+        $module_id = 'LamTools';
+        $lang = LangLoader::get_all_langs($module_id);
+		$tree = new ModuleTreeLinks();
+
+        $tree->add_link(new ModuleLink($lang['lamfinancial.pending.requests'], ToolsUrlBuilder::pending_requests(), FinancialAuthorizationsService::check_authorizations()->officer()));
+        $tree->add_link(new ModuleLink($lang['lamfinancial.financial.statement'], ToolsUrlBuilder::financial_statement(), FinancialAuthorizationsService::check_authorizations()->manager()));
+        $tree->add_link(new ModuleLink($lang['lamfinancial.archived.requests'], ToolsUrlBuilder::archived_requests(), FinancialAuthorizationsService::check_authorizations()->manager()));
+
+        $tree->add_link(new AdminModuleLink($lang['form.configuration'], ToolsUrlBuilder::configuration()));
+
+        return $tree;
+    }
+}
+?>
