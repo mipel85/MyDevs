@@ -5,14 +5,14 @@ namespace App\controllers;
 
 class Rules
 {
-    static function matching_rule($value)
+    static function matching_rule($value) : string
     {
         if ($value >= 4) {
             $rules = array(
                 '2 doublettes sur 1 terrain'                   => '4',
                 '1 doublette + 1 triplette sur 1 terrain'      => '5',
                 '2 triplettes sur 1 terrain'                   => '6',
-                ' configuration impossible'                    => '7',
+                'Configuration impossible'                     => '7',
                 '4 doublettes sur 2 terrains'                  => '8',
                 '3 doublettes + 1 triplette sur 2 terrains'    => '9',
                 '2 doublettes + 2 triplettes sur 2 terrains'   => '10',

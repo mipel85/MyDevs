@@ -11,7 +11,12 @@ use \App\items\Rankings;
 
 class Menu
 {
-    static function display_menu()
+    /**
+     * Build the menu
+     *
+     * @return string
+     */
+    static function display_menu() : string
     {
         // Load language
         foreach(Langs::get_lang_files() as $file) {
@@ -25,14 +30,17 @@ class Menu
         // if day is started
         // set the current date
         $today = Days::today();
+        // get the current day id
         $day_id = $started_day ? Days::day_id($today) : 0;
+        // check if the day has rounds
         $day_has_round = $started_day && count(Rounds::day_rounds_list($day_id)) > 0;
+        // check if the day has matches
         $day_has_match = $started_day && $day_has_round && count(Matches::day_matches_list($day_id)) > 0;
         // List of selected members
         $selected_members_label = count(Members::selected_members_list()) > 1 ?
             str_replace(':number', count(Members::selected_members_list()), $lang['menu.sub.members']) :
             str_replace(':number', count(Members::selected_members_list()), $lang['menu.sub.member']);
-        // Current running round
+        // Current round
         $current_round_name = $day_has_round ? Rounds::current_round_name($day_id) : 0;
         $current_round_id = $day_has_round ? Rounds::current_round_id($day_id) : 0;
         $current_round_label = $current_round_name ?
@@ -59,7 +67,7 @@ class Menu
         $no_score = count(Players::day_players_list($day_id)) == 0;
         $no_rank = Rankings::rankings_has_ranks($day_id) == 0;
         
-        // Arrays of links, labels and icons for the nav menu
+        // Arrays of links, labels, sublabels and icons for the nav menu
         $menu_links = [
             'home',
             'members',
@@ -104,13 +112,13 @@ class Menu
             if ($get == $link)
                 $class = ' active';
 
-            // Options on links
-            if ($no_selected_members && $day_items) {
+            // Change links color, url and label
+            if ($no_selected_members && $day_items) { // if no players are selected
                 $class = ' full-error';
                 $link = 'members';
                 $sublabel = $lang['menu.sub.no.members'];
             }
-            elseif ($no_day && $day_items) {
+            elseif ($no_day && $day_items) { // if Days item of this day is not created
                 $class = ' full-warning';
                 if ($link == 'day') {
                     $class = ' full-warning';
@@ -122,7 +130,7 @@ class Menu
                     $sublabel = $lang['menu.sub.no.days'];
                 }
             }
-            elseif ($no_round && $day_items) {
+            elseif ($no_round && $day_items) { // if no rounds are created
                 if ($link == 'day') {
                     $class = ' full-warning';
                     $sublabel = $lang['menu.sub.no.rounds'];
@@ -133,21 +141,21 @@ class Menu
                     $sublabel = $lang['menu.sub.no.rounds'];
                 }
             }
-            elseif ($no_score && $day_items) {
+            elseif ($no_score && $day_items) { // if no scores have been submited
                 if ($link == 'rankings') {
                     $class = ' full-error';
                     $link = 'scores';
                     $sublabel = $lang['menu.sub.no.scores'];
                 }
             }
-            elseif ($no_rank && $day_items) {
+            elseif ($no_rank && $day_items) { // if rankings have no entries
                 if ($link == 'rankings') {
                     $class = ' full-warning';
                     $link = 'scores';
                     $sublabel = $lang['menu.sub.no.rankings'];
                 }
             }
-            elseif ($started_day && !InitDays::day_flag($day_id) && $day_off_items) {
+            elseif ($started_day && !InitDays::day_flag($day_id) && $day_off_items) { // if day is over
                 $class = ' full-error';
                 $link = 'rankings';
                 $sublabel = $lang['menu.sub.end.day'];
