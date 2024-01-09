@@ -27,13 +27,13 @@ class FinancialFormActivityController extends DefaultModuleController
 
     public function init()
     {
-        FinancialService::check_config();
+        LamToolsService::check_config();
     }
 
     private function build_form()
     {
         $form = new HTMLForm(__CLASS__);
-        $form->set_layout_title($this->lang['lamfinancial.form']);
+        $form->set_layout_title($this->lang['lamfinancial.activity.title']);
 
         $requests_description = new FormFieldsetHTML('requests description', $this->lang['lamfinancial.requests.description.title']);
         $form->add_fieldset($requests_description);
@@ -42,22 +42,20 @@ class FinancialFormActivityController extends DefaultModuleController
         $choices = new FormFieldsetHTML('activity_type', $this->lang['lamfinancial.form.radio.choices']);
         $form->add_fieldset($choices);
 
-
-
         //radio buttons
-        $nb_requests = FinancialService::get_remaining_requests_activity(array('jpo', 'exam'));
+        $nb_requests = LamToolsService::get_remaining_requests_activity(array('jpo', 'exam'));
 
-        $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lamfinancial.form.activity.type'], '', array(
-            new FormFieldRadioChoiceOption(
-                StringVars::replace_vars($this->lang['lamfinancial.jpo.status.requests'], array('jpo_status_requests' => $nb_requests['nb_jpo_remaining'] . '/' . $nb_requests['nb_jpo_max'])), 'jpo', array('disable' => $nb_requests['nb_jpo_remaining'] == 0)
-            ),
-            new FormFieldRadioChoiceOption(
-                StringVars::replace_vars($this->lang['lamfinancial.exam.status.requests'], array('exam_status_requests' => $nb_requests['nb_exam_remaining'] . '/' . $nb_requests['nb_exam_max'])), 'exam', array('disable' => $nb_requests['nb_exam_remaining'] == 0)
-            )
-            ), array(
-            'required' => true,
-            'class'    => 'lamfinancial-radio inline-radio',
-            )
+        $choices->add_field(new FormFieldRadioChoice('form_radio', $this->lang['lamfinancial.activity.title'], '', array(
+                new FormFieldRadioChoiceOption(
+                    StringVars::replace_vars($this->lang['lamfinancial.jpo.status.requests'], array('jpo_status_requests' => $nb_requests['nb_jpo_remaining'] . '/' . $nb_requests['nb_jpo_max'])), 'jpo', array('disable' => $nb_requests['nb_jpo_remaining'] == 0)
+                ),
+                new FormFieldRadioChoiceOption(
+                    StringVars::replace_vars($this->lang['lamfinancial.exam.status.requests'], array('exam_status_requests' => $nb_requests['nb_exam_remaining'] . '/' . $nb_requests['nb_exam_max'])), 'exam', array('disable' => $nb_requests['nb_exam_remaining'] == 0)
+                )
+                ), array(
+                'required' => true,
+                'class'    => 'lamfinancial-radio inline-radio',
+                )
         ));
 
         $fieldset = new FormFieldsetHTML('activity', $this->lang['lamfinancial.fill.form']);
@@ -69,7 +67,6 @@ class FinancialFormActivityController extends DefaultModuleController
         $fieldset->add_field(new FormFieldTextEditor('club_activity_location', $this->lang['lamfinancial.club.activity.location'], '', array('required' => true)));
         $fieldset->add_field(new FormFieldTextEditor('club_activity_city', $this->lang['lamfinancial.club.activity.city'], '', array('required' => true)));
         $fieldset->add_field(new FormFieldTextEditor('club_activity_description', $this->lang['lamfinancial.club.activity.description'], ''));
-
 
         $mail_fieldset = new FormFieldsetHTML('mail_form', $this->lang['lamfinancial.not_registred_fields']);
         $mail_fieldset->add_field(new FormFieldFree('not_registred_fields', '', ''));
@@ -91,14 +88,14 @@ class FinancialFormActivityController extends DefaultModuleController
             $id = AppContext::get_request()->get_getint('id', 0);
             if (!empty($id)){
                 try {
-                    $this->item = FinancialService::get_item($id);
+                    $this->item = LamToolsService::get_item($id);
                 }catch (RowNotFoundException $e){
                     $error_controller = PHPBoostErrors::unexisting_page();
                     DispatchManager::redirect($error_controller);
                 }
             }else{
                 $this->is_new_item = true;
-                $this->item = new FinancialItem();
+                $this->item = new FinancialActivityItem();
             }
         }
         return $this->item;
@@ -114,35 +111,36 @@ class FinancialFormActivityController extends DefaultModuleController
 
     private function save()
     {
-        $item = $this->get_item();
-        $item->set_club_request_date(new Date());
-        $item->set_activity_type($this->form->get_value('form_radio')->get_raw_value());
+        $activity_item = $this->get_item();
+        $activity_item->set_club_request_date(new Date());
+        $activity_item->set_activity_type($this->form->get_value('form_radio')->get_raw_value());
         foreach ($this->form->get_value('club_infos') as $id => $club)
         {
             $club = explode(' - ', $club);
-            $item->set_club_name($club[1]);
-            $item->set_club_ffam_number($club[0]);
+            $activity_item->set_club_ffam_number($club[0]);
+            $activity_item->set_club_dept($club[1]);
+            $activity_item->set_club_name($club[2]);
         }
-        $item->set_club_activity_date($this->form->get_value('club_activity_date'));
-        $item->set_club_activity_location($this->form->get_value('club_activity_location'));
-        $item->set_club_activity_city($this->form->get_value('club_activity_city'));
-        $item->set_club_activity_description($this->form->get_value('club_activity_description'));
-        $item->set_amount_paid(0);
-        $item->set_archived(0);
+        $activity_item->set_club_activity_date($this->form->get_value('club_activity_date'));
+        $activity_item->set_club_activity_location($this->form->get_value('club_activity_location'));
+        $activity_item->set_club_activity_city($this->form->get_value('club_activity_city'));
+        $activity_item->set_club_activity_description($this->form->get_value('club_activity_description'));
+        $activity_item->set_amount_paid(0);
+        $activity_item->set_archived(0);
 
-        $id = FinancialService::add($item);
-        $item->set_id($id);
+        $id = LamToolsService::add($activity_item);
+        $activity_item->set_id($id);
     }
 
     private function build_response(View $view)
     {
         $response = new SiteDisplayResponse($view);
         $graphical_environment = $response->get_graphical_environment();
-        $graphical_environment->set_page_title($this->lang['lamfinancial.form']);
+        $graphical_environment->set_page_title($this->lang['lamfinancial.home']);
 
         $breadcrumb = $graphical_environment->get_breadcrumb();
-        $breadcrumb->add($this->lang['lamfinancial.form'], ToolsUrlBuilder::home());
-        $breadcrumb->add($this->lang['lamfinancial.form'], ToolsUrlBuilder::activity());
+        $breadcrumb->add($this->lang['lamfinancial.home'], ToolsUrlBuilder::home());
+        $breadcrumb->add($this->lang['lamfinancial.activity.title'], ToolsUrlBuilder::activity());
 
         return $response;
     }
@@ -168,7 +166,7 @@ class FinancialFormActivityController extends DefaultModuleController
         ));
 
         $item_email = new Mail();
-        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['lamfinancial.form']);
+        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['lamfinancial.home']);
         $item_email->set_reply_to($item_sender_email, $item_sender_name);
         $item_email->set_subject($item_subject);
         $item_email->set_content(TextHelper::html_entity_decode($item_message));

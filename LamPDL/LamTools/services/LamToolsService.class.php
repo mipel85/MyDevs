@@ -6,7 +6,7 @@
  * @version     PHPBoost 6.0 - last update: 2023 03 03
  * @since       PHPBoost 6.0 - 2022 12 20
  */
-class FinancialService
+class LamToolsService
 {
     private static $db_querier;
     protected static $module_id = 'LamTools';
@@ -20,8 +20,9 @@ class FinancialService
      * @desc Create a new entry in the database table.
      * @param string[] $item : new LamItem
      */
-    public static function add(FinancialItem $item)
+    public static function add($item)
     {
+//        Debug::stop($item);
         $result = self::$db_querier->insert(LamToolsSetup::$lamtools_financial, $item->get_properties());
         return $result->get_last_inserted_id();
     }
@@ -55,9 +56,9 @@ class FinancialService
 		FROM ' . LamToolsSetup::$lamtools_financial . '
         WHERE  archived = "' . $archived . '"');
         while($row = $req->fetch())
-        {
+            {
             $result[] = $row;
-        }
+            }
         $req->dispose();
         return $result;
     }
@@ -67,7 +68,7 @@ class FinancialService
         $nb_activity_requests = self::$db_querier->select_single_row_query('SELECT COUNT(activity_type) AS "' . $activity . '"
 		FROM ' . LamToolsSetup::$lamtools_financial . ' 
 		WHERE  activity_type LIKE "' . $activity . '"
-        AND archived = 0 '    
+        AND archived = 0 '
         );
         return $nb_activity_requests;
     }
@@ -102,9 +103,9 @@ class FinancialService
         WHERE  activity_type LIKE "' . $activity . '"'
         );
         while($row = $req->fetch())
-        {
+            {
             return $row;
-        }
+            }
         $req->dispose();
     }
 
@@ -116,6 +117,18 @@ class FinancialService
 
             return true;
         }
+    }
+
+    public static function get_clubs_list()
+    {
+        $req = self::$db_querier->select('SELECT *
+		FROM ' . LamToolsSetup::$lamtools_clubs);
+        while($row = $req->fetch())
+            {
+            $clubs[] = $row;
+            }
+        return $clubs;
+        $req->dispose();
     }
 }
 ?>

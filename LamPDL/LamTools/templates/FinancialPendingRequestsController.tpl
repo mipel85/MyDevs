@@ -32,7 +32,7 @@
         "aLengthMenu": [15, 25, 50, 100],
         "sPaginationType": "full_numbers",
         "sScrollY": "auto",
-        "iDisplayLength": 15,
+        "iDisplayLength": 12,
         orderCellsTop: true,
         fixedHeader: false,
         "columns": [
@@ -42,7 +42,8 @@
     {"width": "14%"},
     {"width": "14%"},
     {"width": "14%"},
-    # IF C_CONTROLS #{"width": "14%"}# ENDIF #
+    {"width": "14%"},
+    # IF C_CONTROLS #{"width": "50%"}# ENDIF #
         ],
         initComplete: function() {
             var api = this.api();
@@ -142,8 +143,9 @@
                     <thead>
                         <tr>
                             <th>{@lamfinancial.form.radio.choices}</th>
-                            <th>{@lamfinancial.club.name}</th>
                             <th>{@lamfinancial.club.ffam.number}</th>
+                            <th>{@lamfinancial.club.dept}</th>
+                            <th>{@lamfinancial.club.name}</th>
                             <th>{@lamfinancial.club.activity.date}</th>
                             <th>{@lamfinancial.club.request.date}</th>
                             <th>{@lamfinancial.amount.paid}</th>
@@ -154,8 +156,9 @@
                         # START pending_requests #
                             <tr>
                                 <td>{pending_requests.ACTIVITY_TYPE}</td>
-                                <td>{pending_requests.CLUB_NAME}</td>
                                 <td>{pending_requests.CLUB_FFAM_NUMBER}</td>
+                                <td>{pending_requests.CLUB_DEPT}</td>
+                                <td>{pending_requests.CLUB_NAME}</td>
                                 <td>{pending_requests.CLUB_ACTIVITY_DATE}</td>
                                 <td>{pending_requests.CLUB_REQUEST_DATE}</td>
                                 <td>{pending_requests.AMOUNT_PAID}</td>

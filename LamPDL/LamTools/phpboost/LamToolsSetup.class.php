@@ -38,22 +38,44 @@ class LamToolsSetup extends DefaultModuleSetup
 
     private function create_tables()
     {
+        $this->create_lamtools_clubs_table();
         $this->create_lamtools_financial_table();
         $this->create_lamtools_planning_table();
-        $this->create_lamtools_clubs_table();
+    }
+
+    public static function create_lamtools_clubs_table()
+    {
+        $fields = array(
+            'id'               => array('type' => 'integer', 'length' => 4, 'autoincrement' => true, 'notnull' => 1),
+            'club_ffam_number' => array('type' => 'string', 'length' => 4, 'notnull' => 1),
+            'club_dept'        => array('type' => 'integer', 'length' => 2, 'notnull' => 1, 'default' => 0),
+            'club_name'        => array('type' => 'text', 'length' => 16777215),
+        );
+        $options = array(
+            'primary' => array('id'),
+            'indexes' => array(
+                'club_ffam_number' => array('type' => 'key', 'fields' => 'club_ffam_number'),
+                'club_dept'        => array('type' => 'key', 'fields' => 'club_dept')
+            )
+        );
+        PersistenceContext::get_dbms_utils()->create_table(self::$lamtools_clubs, $fields, $options);
     }
 
     private function create_lamtools_financial_table()
     {
         $fields = array(
             'id'                        => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
-            'activity_type'             => array('type' => 'text', 'length' => 16777215),
-            'club_name'                 => array('type' => 'text', 'length' => 16777215),
+            'activity_type'             => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
+            'dedicated_object'          => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
+            'dedicated_details'         => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
+            'dedicated_budget'          => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
             'club_ffam_number'          => array('type' => 'string', 'length' => 4, 'notnull' => 1),
+            'club_dept'                 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+            'club_name'                 => array('type' => 'text', 'length' => 16777215),
             'club_activity_date'        => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
             'club_activity_location'    => array('type' => 'text', 'length' => 16777215),
             'club_activity_city'        => array('type' => 'text', 'length' => 16777215),
-            'club_activity_description' => array('type' => 'string', 'length' => 255, 'notnull' => 1),
+            'club_activity_description' => array('type' => 'string', 'length' => 255, 'notnull' => 0),
             'club_request_date'         => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
             'amount_paid'               => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
             'archived'                  => array('type' => 'boolean', 'length' => 1, 'notnull' => 1, 'default' => 0),
@@ -63,6 +85,7 @@ class LamToolsSetup extends DefaultModuleSetup
             'primary' => array('id'),
             'indexes' => array(
                 'club_ffam_number' => array('type' => 'key', 'fields' => 'club_ffam_number'),
+                'club_dept'        => array('type' => 'key', 'fields' => 'club_dept'),
             )
         );
         PersistenceContext::get_dbms_utils()->create_table(self::$lamtools_financial, $fields, $options);
@@ -89,23 +112,7 @@ class LamToolsSetup extends DefaultModuleSetup
         PersistenceContext::get_dbms_utils()->create_table(self::$lamtools_planning, $fields, $options);
     }
 
-    public static function create_lamtools_clubs_table()
-    {
-        $fields = array(
-            'id'               => array('type' => 'integer', 'length' => 4, 'autoincrement' => true, 'notnull' => 1),
-            'club_ffam_number' => array('type' => 'string', 'length' => 4, 'notnull' => 1),
-            'club_Dept'        => array('type' => 'integer', 'length' => 2, 'notnull' => 1, 'default' => 0),
-            'club_Name'        => array('type' => 'text', 'length' => 16777215),
-        );
-        $options = array(
-            'primary' => array('id'),
-            'indexes' => array(
-                'club_ffam_number' => array('type' => 'key', 'fields' => 'club_ffam_number'),
-                'club_Dept'        => array('type' => 'key', 'fields' => 'club_Dept')
-            )
-        );
-        PersistenceContext::get_dbms_utils()->create_table(self::$lamtools_clubs, $fields, $options);
-    }
+
 
 }
 ?>

@@ -35,13 +35,13 @@ class FinancialStatementController extends DefaultModuleController
 
     private function build_financial_statement()
     {
-        $nb_jpo_requests = FinancialService::get_pending_requests_number('jpo');
-        $jpo_real_remaining_amount = $this->config->get_jpo_total_amount() - FinancialService::get_archived_amount_paid('jpo')['amount_paid'];
-        $jpo_estimated_remaining_amount = $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $nb_jpo_requests['jpo'] - FinancialService::get_archived_amount_paid('jpo')['amount_paid'];
+        $nb_jpo_requests = LamToolsService::get_pending_requests_number('jpo');
+        $jpo_real_remaining_amount = $this->config->get_jpo_total_amount() - LamToolsService::get_archived_amount_paid('jpo')['amount_paid'];
+        $jpo_estimated_remaining_amount = $this->config->get_jpo_total_amount() - $this->config->get_jpo_day_amount() * $nb_jpo_requests['jpo'] - LamToolsService::get_archived_amount_paid('jpo')['amount_paid'];
 
-        $nb_exam_requests = FinancialService::get_pending_requests_number('exam');
-        $exam_real_remaining_amount = $this->config->get_exam_total_amount() - FinancialService::get_archived_amount_paid('exam')['amount_paid'];
-        $exam_estimated_remaining_amount = $this->config->get_exam_total_amount() - $this->config->get_exam_day_amount() * $nb_exam_requests['exam'] - FinancialService::get_archived_amount_paid('exam')['amount_paid'];;
+        $nb_exam_requests = LamToolsService::get_pending_requests_number('exam');
+        $exam_real_remaining_amount = $this->config->get_exam_total_amount() - LamToolsService::get_archived_amount_paid('exam')['amount_paid'];
+        $exam_estimated_remaining_amount = $this->config->get_exam_total_amount() - $this->config->get_exam_day_amount() * $nb_exam_requests['exam'] - LamToolsService::get_archived_amount_paid('exam')['amount_paid'];;
 
         $this->view->put_all(array(
             'C_IS_AUTHORIZED'                 => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level(user::ADMINISTRATOR_LEVEL),
@@ -69,7 +69,7 @@ class FinancialStatementController extends DefaultModuleController
         $graphical_environment->get_seo_meta_data()->set_canonical_url(ToolsUrlBuilder::financial_statement());
 
         $breadcrumb = $graphical_environment->get_breadcrumb();
-        $breadcrumb->add($this->lang['lamfinancial.form'], ToolsUrlBuilder::home());
+        $breadcrumb->add($this->lang['lamfinancial.home'], ToolsUrlBuilder::home());
         $breadcrumb->add($this->lang['lamfinancial.financial.statement'], ToolsUrlBuilder::financial_statement());
 
         return $response;

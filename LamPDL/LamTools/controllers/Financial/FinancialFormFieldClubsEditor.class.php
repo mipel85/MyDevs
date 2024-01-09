@@ -53,34 +53,17 @@ class FinancialFormFieldClubsEditor extends AbstractFormField
             ));
         }
 
-        $clubs_list = ToolsService::get_clubs_list();
-
-        foreach ($clubs_list as $club)
+        // get clubs list for form select
+        $clubs = LamToolsService::get_clubs_list();
+        foreach ($clubs as $club)
         {
             $view->assign_block_vars('clubs', array(
                 'CLUB_FFAM_NUM' => $club['club_ffam_number'],
-                'CLUB_DPT'      => $club['club_Dept'],
-                'CLUB_NAME'     => $club['club_Name']
+                'CLUB_DEPT'      => $club['club_dept'],
+                'CLUB_NAME'     => $club['club_name']
             ));
         }
         
-//		$row = 1;
-//		if (($handle = fopen(PATH_TO_ROOT . "/LamTools/datas/clubs_LAMPDL.csv", "r")) !== FALSE) {
-//			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-//				if ($row == 1){
-//                    $row++;
-//                    continue;
-//                }
-//				$num = count($data);
-//				for ($c = 0; $c < $num; $c++) {
-//					$club = explode(';', $data[$c]);
-//					$club[0] = str_pad($club[0], 4, "0", STR_PAD_LEFT); // force club number to be 4 digits
-//					$club[3] = ucwords(TextHelper::strtolower($club[3]));
-//				}
-//			}
-//			fclose($handle);
-//		}
-
         $view->put_all(array(
             'C_DISABLED'    => $this->is_disabled(),
             'NAME'          => $this->get_html_id(),

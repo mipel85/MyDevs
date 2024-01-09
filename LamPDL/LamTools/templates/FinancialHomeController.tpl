@@ -4,12 +4,8 @@
     </header>
     <div class="sub-section">
         <div class="content-container">
-            # IF C_CHECK_CONFIG #
             <a href="${relative_url(ToolsUrlBuilder::activity())}" class="offload button bgc visitor activity-button"><span>{@lamfinancial.activity.desc}</span></a>
-            <a href="${relative_url(ToolsUrlBuilder::pending_requests())}" class="offload button requests-button"><span>{@lamfinancial.pending.requests.link}</span></a>
-            # ELSE #
-            <span class="message-helper bgc error">{@H|lamfinancial.check.configuration}</span>
-            # ENDIF #
+            <a href="${relative_url(ToolsUrlBuilder::dedicated())}" class="offload button bgc moderator activity-button"><span>{@lamfinancial.dedicated.desc}</span></a>
         </div>
     </div>
 </section>

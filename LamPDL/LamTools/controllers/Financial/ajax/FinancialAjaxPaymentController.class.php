@@ -13,7 +13,7 @@ class FinancialAjaxPaymentController extends DefaultModuleController
     {
         $id = $request->get_int('id', 0);
         $amount_paid = $request->get_int('amount_paid', 0);
-        FinancialService::payment_validation($id, $amount_paid);
+        LamToolsService::payment_validation($id, $amount_paid);
         return new JSONResponse(array('msg' => $this->lang['lamfinancial.payment.validation.message']));
     }
 

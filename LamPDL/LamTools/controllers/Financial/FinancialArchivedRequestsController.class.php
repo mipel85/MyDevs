@@ -32,7 +32,7 @@ class FinancialArchivedRequestsController extends DefaultModuleController
 
     private function build_archived_requests()
     {
-        $req = FinancialService::get_requests('1');
+        $req = LamToolsService::get_requests('1');
 
         $this->view->put('C_ITEM', !empty($req));
 
@@ -58,7 +58,7 @@ class FinancialArchivedRequestsController extends DefaultModuleController
         $graphical_environment->get_seo_meta_data()->set_canonical_url(ToolsUrlBuilder::archived_requests());
 
         $breadcrumb = $graphical_environment->get_breadcrumb();
-        $breadcrumb->add($this->lang['lamfinancial.form'], ToolsUrlBuilder::home());
+        $breadcrumb->add($this->lang['lamfinancial.home'], ToolsUrlBuilder::home());
         $breadcrumb->add($this->lang['lamfinancial.archived.requests'], ToolsUrlBuilder::archived_requests());
 
         return $response;

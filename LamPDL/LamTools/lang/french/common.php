@@ -9,33 +9,37 @@
 ####################################################
 #                    French                        #
 ####################################################
-// commmon
+// Home
+$lang['lamfinancial.home'] = 'Demandes d\'aides financières';
+
+// common
+$lang['lamfinancial.form.radio.choices'] = 'Demande';
 $lang['lamfinancial.requests.description.title'] = '<span class = "requests-description-title">Fonctionnement du formulaire de demande</span>';
 $lang['lamfinancial.requests.description'] = '<span class = "requests-description">Choisissez le type de journée envisagée puis remplissez le formulaire. Une fois validé, il sera automatiquement envoyé par mail à'
-    . ' la Ligue. <br /> Vous pouvez consulter les demandes en cours sur cette liste : <a href = "../pending_requests/"><b>Demandes en cours</b></a></span>';
-$lang['lamfinancial.form'] = 'Formulaire de demande d\'aide financière';
-$lang['lamfinancial.form.radio.choices'] = 'Demande';
-$lang['lamfinancial.form.activity.type'] = 'Organisation d\'une journée : ';
+    . ' la Ligue. <br /> Vous pouvez consulter les demandes en cours sur cette page : <a href = "../pending_requests/"><b>Demandes en cours</b></a></span>';
 $lang['lamfinancial.fill.form'] = 'Remplir le formulaire <i><span class="smaller">(informations transmises dans le mail)</span></i>';
-$lang['lamfinancial.activity.desc'] = 'Demande d\'aide pour l\'organisation d\'une journée (portes-ouvertes, qpdd, ailes...)';
 $lang['lamfinancial.pending.requests.link'] = 'Consulter les demandes en cours';
-$lang['lamfinancial.jpo'] = 'Journée portes-ouvertes';
-$lang['lamfinancial.exam'] = 'Journée d\'examen';
 $lang['lamfinancial.payment.validation.message'] = 'Demande archivée !';
 
-// club_form
-$lang['lamfinancial.club.infos'] = 'Sélectionner votre club <b>*</b>';
-$lang['lamfinancial.club.infos.clue'] = 'Commencez la saisie, puis sélectionnez votre club dans la liste déroulante.
-Un clic dans la zone de saisie fait apparaître la liste triée par n° de club.';
-$lang['lamfinancial.club.name'] = 'Club';
-$lang['lamfinancial.club.ffam.number'] = 'N°. FFAM';
-$lang['lamfinancial.club.activity.date'] = 'Date de l\'évènement';
-$lang['lamfinancial.club.activity.location'] = 'Adresse de l\'activité :';
-$lang['lamfinancial.club.activity.city'] = 'Ville de l\'activité :';
-$lang['lamfinancial.club.activity.description'] = 'Description de l\'activité (facultatif) :';
-$lang['lamfinancial.club.sender.name'] = 'Nom du correspondant :';
-$lang['lamfinancial.club.sender.mail'] = 'Adresse mail du correspondant :';
-$lang['lamfinancial.not_registred_fields'] = '<i><span class = "smaller"> Les informations suivantes ne sont ni enregistrées ni conservées sur le site (RGPD) </span></i>';
+// activity
+$lang['lamfinancial.activity.title'] = 'Organisation d\'une journée';
+$lang['lamfinancial.activity.desc'] = 'Organisation journée portes-ouvertes ou examens (Brevets, QPDD, ailes...)';
+$lang['lamfinancial.jpo'] = 'Journée portes-ouvertes';
+$lang['lamfinancial.exam'] = 'Journée d\'examen';
+
+// dedicated
+$lang['lamfinancial.dedicated.desc'] = 'Autres demandes sur fonds dédiés (Travaux, Handicap, Féminisation...)';
+$lang['lamfinancial.dedicated.title'] = 'Demande sur fonds dédiés';
+$lang['lamfinancial.dedicated.description'] = '<span class = "requests-description">Cette demande concerne l\'utilisation des fonds dédiés. Une fois validé, ce formulaire sera automatiquement envoyé par mail à'
+    . ' la Ligue. <br /> Vous pouvez consulter les demandes en cours sur cette page : <a href = "../pending_requests/"><b>Demandes en cours</b></a></span>';
+$lang['lamfinancial.dedicated.handicap'] = 'Handicap';
+$lang['lamfinancial.dedicated.works'] = 'Travaux';
+$lang['lamfinancial.dedicated.other'] = 'Autres';
+$lang['lamfinancial.dedicated.object'] = 'Nature de la demande :';
+$lang['lamfinancial.dedicated.details'] = 'Décrivez en quelques mots la nature de votre demande.';
+$lang['lamfinancial.dedicated.budget'] = 'Budget estimé (€)';
+$lang['lamfinancial.dedicated.location'] = 'Adresse concernant votre demande :';
+$lang['lamfinancial.dedicated.city'] = 'Ville :';
 
 // config
 $lang['lamfinancial.check.configuration'] = 'La configuration financière de ce module n\'a pas été effectuée, c\'est ici : <a href="../LamTools/admin/config">Page de configuration</a>';
@@ -52,6 +56,20 @@ $lang['lamfinancial.jpo.day.amount'] = 'Montant attribué par journée portes-ou
 $lang['lamfinancial.exam.total.amount'] = 'Montant total attribué par journée d\'examen';
 $lang['lamfinancial.exam.day.amount'] = 'Montant attribué par journée d\'examen';
 $lang['lamfinancial.financial.maximum'] = 'Montant maximum en euros';
+
+// club_form
+$lang['lamfinancial.club.infos'] = 'Sélectionner votre club <b>*</b>';
+$lang['lamfinancial.club.infos.clue'] = 'Un double clic dans la zone de saisie fait apparaître la liste triée par n° de club.';
+$lang['lamfinancial.club.ffam.number'] = 'N°. FFAM';
+$lang['lamfinancial.club.dept'] = 'Dept';
+$lang['lamfinancial.club.name'] = 'Club';
+$lang['lamfinancial.club.activity.date'] = 'Date de l\'évènement';
+$lang['lamfinancial.club.activity.location'] = 'Adresse de l\'activité :';
+$lang['lamfinancial.club.activity.city'] = 'Ville de l\'activité :';
+$lang['lamfinancial.club.activity.description'] = 'Description de l\'activité (facultatif) :';
+$lang['lamfinancial.club.sender.name'] = 'Nom du correspondant :';
+$lang['lamfinancial.club.sender.mail'] = 'Adresse mail du correspondant :';
+$lang['lamfinancial.not_registred_fields'] = '<i><span class = "smaller"> Les informations suivantes ne sont ni enregistrées ni conservées sur le site (RGPD) </span></i>';
 
 //mail
 $lang['lamfinancial.email.sent'] = 'Votre demande a bien été envoyée à la Ligue';
@@ -85,6 +103,6 @@ $lang['lamfinancial.amount.real.paid'] = 'Montant payé';
 $lang['lamfinancial.club.payment'] = 'Valider paiement et archiver';
 
 // Authorizations
-$lang['lamfinancial.authorization.requests'] = 'Autorisation des demandes';
+$lang['lamfinancial.authorization.requests'] = 'Autorisation de saisie des demandes';
 $lang['lamfinancial.authorization.treasurer'] = 'Autorisation du suivi financier';
 ?>

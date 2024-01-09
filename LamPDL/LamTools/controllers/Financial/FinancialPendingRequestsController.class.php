@@ -8,6 +8,7 @@
  */
 class FinancialPendingRequestsController extends DefaultModuleController
 {
+
     protected function get_template_to_use()
     {
         return new FileTemplate('LamTools/FinancialPendingRequestsController.tpl');
@@ -31,7 +32,7 @@ class FinancialPendingRequestsController extends DefaultModuleController
 
     private function build_pending_requests()
     {
-        $req = FinancialService::get_requests('0');
+        $req = LamToolsService::get_requests('0');
         $this->view->put_all(array(
             'C_CONTROLS' => FinancialAuthorizationsService::check_authorizations()->manager(),
             'C_ITEMS'    => !empty($req),
@@ -40,12 +41,13 @@ class FinancialPendingRequestsController extends DefaultModuleController
         foreach ($req as $value)
         {
             $this->view->assign_block_vars('pending_requests', array(
-                'ACTIVITY_TYPE'      => $value['activity_type'] == 'jpo' ? $this->lang['lamfinancial.jpo'] : $this->lang['lamfinancial.exam'], 'align-left',
-                'CLUB_NAME'          => $value['club_name'],
+                'ACTIVITY_TYPE'      => $value['activity_type'] != '' ? ($value['activity_type'] == 'jpo' ? $this->lang['lamfinancial.jpo'] : $this->lang['lamfinancial.exam']) : $value['dedicated_object'], 'align-left',
                 'CLUB_FFAM_NUMBER'   => $value['club_ffam_number'],
+                'CLUB_DEPT'          => $value['club_dept'],
+                'CLUB_NAME'          => $value['club_name'],
                 'CLUB_ACTIVITY_DATE' => Date::to_format($value['club_activity_date'], Date::FORMAT_DAY_MONTH_YEAR),
                 'CLUB_REQUEST_DATE'  => Date::to_format($value['club_request_date'], Date::FORMAT_DAY_MONTH_YEAR),
-                'AMOUNT_PAID'        => $value['activity_type'] == 'jpo' ? $this->config->get_jpo_day_amount() : $this->config->get_exam_day_amount(),
+                'AMOUNT_PAID'        => $value['activity_type'] != '' ? ($value['activity_type'] == 'jpo' ? $this->config->get_jpo_day_amount() : $this->config->get_exam_day_amount()) : '--',
                 'CHECKBOX_ID'        => $value['id'],
             ));
         }
@@ -60,7 +62,7 @@ class FinancialPendingRequestsController extends DefaultModuleController
         $graphical_environment->get_seo_meta_data()->set_canonical_url(ToolsUrlBuilder::pending_requests());
 
         $breadcrumb = $graphical_environment->get_breadcrumb();
-        $breadcrumb->add($this->lang['lamfinancial.form'], ToolsUrlBuilder::home());
+        $breadcrumb->add($this->lang['lamfinancial.home'], ToolsUrlBuilder::home());
         $breadcrumb->add($this->lang['lamfinancial.pending.requests'], ToolsUrlBuilder::pending_requests());
 
         return $response;

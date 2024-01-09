@@ -37,8 +37,8 @@ class FinancialItemsManagerController extends DefaultModuleController
 
     private function build_financial_statement()
     {
-        $nb_jpo_requests = FinancialService::get_requests_number('jpo');
-        $nb_exam_requests = FinancialService::get_requests_number('exam');
+        $nb_jpo_requests = LamToolsService::get_requests_number('jpo');
+        $nb_exam_requests = LamToolsService::get_requests_number('exam');
 
         $this->view->put_all(array(
             'C_IS_AUTHORIZED'       => AppContext::get_current_user()->get_groups()[1] == 1 || AppContext::get_current_user()->get_level(user::ADMINISTRATOR_LEVEL),
@@ -79,7 +79,7 @@ class FinancialItemsManagerController extends DefaultModuleController
         $result = $table_model->get_sql_results('activity_manager');
         foreach ($result as $row)
         {
-            $item = new FinancialItem();
+            $item = new FinancialActivityItem();
             $item->set_properties($row);
             $this->items_number++;
             $this->ids[$this->items_number] = $item->get_id();

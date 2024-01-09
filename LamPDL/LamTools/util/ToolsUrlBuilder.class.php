@@ -23,6 +23,11 @@ class ToolsUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/activity/');
 	}
+    
+    public static function dedicated()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/dedicated/');
+	}
 
     /**
 	 * @return Url

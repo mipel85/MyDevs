@@ -24,8 +24,7 @@ class FinancialHomeController extends DefaultModuleController
     private function build_view()
     {
         $this->view->put_all(array(
-            'TITLE'          => $this->lang['lamfinancial.form'],
-            'C_CHECK_CONFIG' => FinancialService::check_config()
+            'TITLE'          => $this->lang['lamfinancial.home'],
         ));
     }
 
@@ -40,13 +39,13 @@ class FinancialHomeController extends DefaultModuleController
     private function generate_response()
     {
         $response = new SiteDisplayResponse($this->view);
-        $response->get_graphical_environment()->set_page_title($this->lang['lamfinancial.form']);
+        $response->get_graphical_environment()->set_page_title($this->lang['lamfinancial.home']);
         $graphical_environment = $response->get_graphical_environment();
-        $graphical_environment->set_page_title($this->lang['lamfinancial.form']);
+        $graphical_environment->set_page_title($this->lang['lamfinancial.home']);
         $graphical_environment->get_seo_meta_data()->set_canonical_url(ToolsUrlBuilder::home());
 
         $breadcrumb = $graphical_environment->get_breadcrumb();
-        $breadcrumb->add($this->lang['lamfinancial.form'], ToolsUrlBuilder::home());
+        $breadcrumb->add($this->lang['lamfinancial.home'], ToolsUrlBuilder::home());
 
         return $response;
     }
