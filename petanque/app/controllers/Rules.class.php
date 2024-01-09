@@ -5,6 +5,12 @@ namespace App\controllers;
 
 class Rules
 {
+    /**
+     * Correspondance nombre de joueurs / nombre d'équipes + nombre de terrains
+     *
+     * @param  int $value Nombre de joueurs
+     * @return string
+     */
     static function matching_rule($value) : string
     {
         if ($value >= 4) {

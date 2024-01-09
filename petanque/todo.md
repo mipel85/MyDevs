@@ -115,8 +115,8 @@ suppression
 ~~- joueurs_name ~~
 ~~- nb rencontres ~~
 ~~- points ~~
-    ~~- win = score + diff win/loss ~~
-    ~~- loss = score - diff win/loss ~~
+    - win = score win
+    - loss = score loss 
 ~~- condition pour match joué = score validé et pour defaite = score validé (score status) ~~
     ~~=> ajouter score status dans la table `players` et récup dans players.ctrl depuis scores.view ~~
 - annuler la journée => supprimer toutes les entrées day_id des tables `rankings` et `players`
