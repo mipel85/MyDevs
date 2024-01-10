@@ -31,7 +31,7 @@ if (file_exists('./app/db/db_config.php')) {
     ob_start();
     foreach(Langs::get_lang_files() as $file) {
         include $file;
-    };
+    }
 
     switch($page)
     {

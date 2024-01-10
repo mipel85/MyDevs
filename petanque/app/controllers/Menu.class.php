@@ -66,7 +66,7 @@ class Menu
         $no_round = count(Rounds::day_rounds_list($day_id)) == 0;
         $no_score = count(Players::day_players_list($day_id)) == 0;
         $no_rank = Rankings::rankings_has_ranks($day_id) == 0;
-        
+
         // Arrays of links, labels, sublabels and icons for the nav menu
         $menu_links = [
             'home',
