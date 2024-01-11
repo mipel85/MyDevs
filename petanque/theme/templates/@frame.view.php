@@ -38,7 +38,6 @@ else $year = $startYear . ' - ' . $currentYear;
         <script src="./theme/js/plugins/modal.js"></script>
         <script src="./theme/js/plugins/rowtocolumn.js"></script>
         <script src="./theme/js/plugins/reorderitems.js"></script>
-        <script src="./theme/js/plugins/global.js"></script>
         <!-- Ajax -->
         <script src="./theme/js/members.js"></script>
         <script src="./theme/js/players.js"></script>

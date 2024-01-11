@@ -135,6 +135,7 @@
     opacity: 0;
     visibility: hidden;
     word-break: keep-all;
+    white-space: nowrap;
     font-size: 1em;
     z-index: 10;
 }
