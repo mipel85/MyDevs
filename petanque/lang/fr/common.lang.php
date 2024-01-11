@@ -2,6 +2,7 @@
 
 $lang['site.name']   = 'Pétanque Loisirs Sainte-Foy';
 $lang['site.logo']   = 'Logo Pétanque Loisirs Sainte-Foy';
+$lang['site.logout'] = 'Se déconnecter';
 
 $lang['common.add']      = 'Ajouter';
 $lang['common.close']    = 'Fermer';

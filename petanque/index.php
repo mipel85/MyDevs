@@ -3,6 +3,8 @@
 use \App\Autoloader;
 use \App\controllers\Langs;
 
+require_once('./app/db/auth.php');
+
 if (file_exists('./app/db/db_config.php')) {
 
     require './app/Autoloader.class.php';
@@ -27,6 +29,8 @@ if (file_exists('./app/db/db_config.php')) {
         case ('rankings') : $title = 'Classement'; break;
         default           : $title = 'Erreur 404';
     }
+
+    force_user_connected();
 
     ob_start();
     foreach(Langs::get_lang_files() as $file) {

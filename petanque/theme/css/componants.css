@@ -127,6 +127,7 @@
     position: absolute;
     content: attr(aria-label);
     background-color: var(--bgc);
+    color: var(--text);
     border-width: 1px;
     border-style: solid;
     border-color: var(--bdr);

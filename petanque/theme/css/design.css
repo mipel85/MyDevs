@@ -28,6 +28,7 @@ main {
 
 .header-link {
     color: var(--link-alt);
+    padding: 5px 10px;
 }
 
 .header-link:hover {

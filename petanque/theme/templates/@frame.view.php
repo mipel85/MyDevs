@@ -3,6 +3,11 @@
 use \App\controllers\Langs;
 use \App\controllers\Menu;
 
+// Define username and password
+// echo password_hash('', PASSWORD_DEFAULT, ['cost' => 12]);
+
+require_once ('./app/db/Auth.php');
+
 $startYear = '2023';
 $currentDate = new DateTime();
 $currentYear = $currentDate->format('Y');
@@ -33,6 +38,7 @@ else $year = $startYear . ' - ' . $currentYear;
         <script src="./theme/js/plugins/modal.js"></script>
         <script src="./theme/js/plugins/rowtocolumn.js"></script>
         <script src="./theme/js/plugins/reorderitems.js"></script>
+        <script src="./theme/js/plugins/global.js"></script>
         <!-- Ajax -->
         <script src="./theme/js/members.js"></script>
         <script src="./theme/js/players.js"></script>
@@ -50,7 +56,10 @@ else $year = $startYear . ' - ' . $currentYear;
                 </div>
             </div>
             <div id="header-links">
-                <a class="header-link" href="index.php?page=config"><i class="fa fa-cog"></i></a>
+                <a class="header-link" href="index.php?page=config" data-tooltip="left" aria-label="<?= $lang['admin.title'] ?>"><i class="fa fa-cog"></i></a>
+                <?php if (is_connected()): ?>
+                    <a class="header-link" href="./logout.php" data-tooltip="left" data-tooltip-width="150px" aria-label="<?= $lang['site.logout'] ?>"><i class="fa fa-right-from-bracket"></i></a>
+                <?php endif ?>
             </div>
         </header>
         <main>
