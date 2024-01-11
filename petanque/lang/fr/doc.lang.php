@@ -15,16 +15,20 @@ $lang['home.menu.title'] = 'Menus';
 $lang['home.menu.content'] = '
     <ul>
         <li><strong>Accueil</strong> : donne les informations de base sur le fonctionnement du logiciel</li>
-        <li><strong>Joueurs présents</strong> : Une fois les joueurs présents sélectionnés dans la liste des membres, on peut les marquer comme "habitués" s\'ils sont présents régulièrement. </li>
-        <li>
+        <br><li><strong>Joueurs présents</strong> : Une fois les joueurs présents sélectionnés dans la liste des membres, on peut les marquer comme "habitués" s\'ils sont présents régulièrement. </li>
+        <br><li>
             <strong>Gestion des parties</strong> : dans ce menu, on peut choisir les numéros des terrains qui seront utilisés puis créer une partie qui prendra en compte les joueurs sélectionnés comme présents.
             La composition des équipes est alors générée automatiquement, puis le tableau des rencontres est affiché avec une affectation des terrains à utiliser.
         </li>
-        <li><strong>Saisie des scores</strong> : Permet de saisir les scores des rencontres en sélectionnant le score du perdant, le gagnant prend 13 points automatiquement.</li>
-        <li>
-            <strong>Classement</strong> : On calcule la différence des points marqués entre gagnant et perdant. Exemple : l\'équipe A gagne 13 à 8.
-            Chaque joueur de cette équipe marque 13 points plus l\'écart du score des perdants par rapport à 13 soit (13-8 = 5). Ce joueur marquera donc 13 + 5 soit 18 points. 
-            Le perdant marquera 8 + (8-13 = -5) soit 8 -(-5) donc 3 points.
+        <br><li><strong>Saisie des scores</strong> : Permet de saisir les scores des rencontres en sélectionnant le score du perdant, le gagnant prend 13 points automatiquement.</li>
+        <br><li>
+            <strong>Classement des joueurs</strong> : Exemple : l\'équipe A gagne 13 à 8 contre l\'équipe B.<br>
+            Chaque joueur de l\'équipe A marque 13 points en "Points pour" et 8 points en "Points contre".<br> 
+            Chaque joueur de l\'équipe B marque 8 points en "Points pour" et 13 points en "Points contre".<br>
+            A la fin de chaque partie, on indique le total des points pour et des points contre pour chaque joueur.
+        </li>
+        <br><li>
+            <strong>Classement d\'une journée</strong> : Pour chaque joueur, on compte le nombre de parties jouées puis le nombre de victoires et de défaites.
         </li>
     </ul>
     Pour une documentation plus détaillée, n\'hésitez pas à vous référer à la <a href="index.php?page=config#doc">documentation interne</a>
@@ -90,5 +94,8 @@ $lang['doc.scores.content'] = '
     En cas de nécessité de renseigner un score maximum différent de 13, le bouton <i class="fa fa-keyboard"></i> permet d\'ouvrir à l\'écriture manuelle, les champs de score des 2 équipes d\'une rencontre.
 ';
 $lang['doc.rankings.title'] = '5°/ Classements';
-$lang['doc.rankings.content'] = 'En cours de rédaction...';
+$lang['doc.rankings.content'] = 'Exemple : l\'équipe A gagne 13 à 8 contre l\'équipe B.<br>
+            Chaque joueur de l\'équipe A marque 13 points en "Points pour" et 8 points en "Points contre".<br> 
+            Chaque joueur de l\'équipe B marque 8 points en "Points pour" et 13 points en "Points contre".<br>
+            A la fin de chaque partie, on indique le total des points pour et des points contre pour chaque joueur.';
 ?>

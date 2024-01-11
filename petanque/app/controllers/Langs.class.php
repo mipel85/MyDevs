@@ -18,7 +18,7 @@ class Langs
                 return $lang;
             }
         }
-        return 'en'; // Default language if none is found
+        return 'fr'; // Default language if none is found
     }
 
     /**
