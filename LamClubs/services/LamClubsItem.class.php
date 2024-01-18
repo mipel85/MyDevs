@@ -13,10 +13,6 @@ class LamClubsItem
 	private $name;
 	private $ffam_nb;
 	private $department;
-	private $published;
-
-	const NOT_PUBLISHED = 0;
-	const PUBLISHED = 1;
 
 	public function get_id()
 	{
@@ -58,33 +54,6 @@ class LamClubsItem
 		$this->department = $department;
 	}
 
-	public function get_published()
-	{
-		return $this->published;
-	}
-
-	public function set_published($published)
-	{
-		$this->published = $published;
-	}
-
-	public function is_published()
-	{
-		return LamClubsAuthorizationsService::check_authorizations()->read() && ($this->get_published() == self::PUBLISHED );
-	}
-
-	public function get_status()
-	{
-		switch ($this->published) {
-			case self::PUBLISHED:
-				return LangLoader::get_message('common.status.approved', 'common-lang');
-			break;
-			case self::NOT_PUBLISHED:
-				return LangLoader::get_message('common.status.draft', 'common-lang');
-			break;
-		}
-	}
-
 	public function is_authorized_to_add()
 	{
 		return LamClubsAuthorizationsService::check_authorizations()->write();
@@ -106,8 +75,7 @@ class LamClubsItem
 			'id'         => $this->get_id(),
 			'name'       => $this->get_name(),
 			'ffam_nb'    => $this->get_ffam_nb(),
-			'department' => $this->get_department(),
-			'published'  => $this->get_published()
+			'department' => $this->get_department()
 		);
 	}
 
@@ -117,12 +85,6 @@ class LamClubsItem
 		$this->name         = $properties['name'];
 		$this->ffam_nb      = $properties['ffam_nb'];
 		$this->department   = $properties['department'];
-		$this->published    = $properties['published'];
-	}
-
-	public function init_default_properties()
-	{
-		$this->published = self::PUBLISHED;
 	}
 
 	public function get_item_url()

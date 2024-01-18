@@ -58,20 +58,6 @@ class LamClubsItemFormController extends DefaultModuleController
 		{
 			$publication_fieldset = new FormFieldsetHTML('publication', $this->lang['form.publication']);
 			$form->add_fieldset($publication_fieldset);
-
-			if (!$this->get_item()->is_published())
-			{
-				$publication_fieldset->add_field(new FormFieldCheckbox('update_creation_date', $this->lang['form.update.creation.date'], false,
-					array('hidden' => $this->get_item()->get_status() != LamClubsItem::NOT_PUBLISHED)
-				));
-			}
-
-			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('published', $this->lang['form.publication'], $this->get_item()->get_published(),
-				array(
-					new FormFieldSelectChoiceOption($this->lang['form.publication.draft'], LamClubsItem::NOT_PUBLISHED),
-					new FormFieldSelectChoiceOption($this->lang['form.publication.now'], LamClubsItem::PUBLISHED),
-				)
-			));
 		}
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
@@ -101,7 +87,6 @@ class LamClubsItemFormController extends DefaultModuleController
 			{
 				$this->is_new_item = true;
 				$this->item = new LamClubsItem();
-				$this->item->init_default_properties(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY));
 			}
 		}
 		return $this->item;
@@ -141,8 +126,6 @@ class LamClubsItemFormController extends DefaultModuleController
 		$item->set_name($this->form->get_value('name'));
 		$item->set_ffam_nb(sprintf("%04d", $this->form->get_value('ffam_nb')));
 		$item->set_department($this->form->get_value('department')->get_raw_value());
-
-		$item->set_published($this->form->get_value('published')->get_raw_value());
 
 		if ($item->get_id() === null)
 		{

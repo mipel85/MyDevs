@@ -26,14 +26,12 @@ $lang['lamclubs.filter.items']  = 'Filtrer les clubs';
 $lang['lamclubs.add']        = 'Ajouter un club';
 $lang['lamclubs.edit']       = 'Modifier un club';
 
-$lang['lamclubs.ffam.number'] = 'N° d\'affiliation du club';
+$lang['lamclubs.ffam.number'] = 'N° ffam';
 $lang['lamclubs.ffam.clue'] = 'Un double clic dans la zone de saisie fait apparaître la liste triée par n° de club.';
 $lang['lamclubs.department'] = 'Département';
 
 // S.E.O.
-$lang['lamclubs.seo.description.member']  = 'Tous les clubs publiées par :author.';
-$lang['lamclubs.seo.description.pending'] = 'Tous les clubs en attente.';
-$lang['lamclubs.seo.description.root']    = 'Tous les clubs du site :site .';
+$lang['lamclubs.seo.description.root'] = 'Tous les clubs du site :site .';
 
 // Messages
 $lang['lamclubs.message.success.add']    = 'Le club <b>:name</b> a été ajouté';

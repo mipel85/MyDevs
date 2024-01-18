@@ -51,8 +51,7 @@ class LamClubsSetup extends DefaultModuleSetup
 			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
 			'name' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'ffam_nb' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'department' => array('type' => 'integer', 'length' => 3, 'notnull' => 1, 'default' => 0),
-			'published' => array('type' => 'integer', 'length' => 1, 'notnull' => 1, 'default' => 0),
+			'department' => array('type' => 'integer', 'length' => 3, 'notnull' => 1, 'default' => 0)
 		);
 		$options = array(
 			'primary' => array('id'),
@@ -78,8 +77,7 @@ class LamClubsSetup extends DefaultModuleSetup
                     'id'         => NULL,
                     'name'       => $lamclubs[3],
                     'ffam_nb'    => $lamclubs[1],
-                    'department' => $lamclubs[2],
-                    'published'  => 1,
+                    'department' => $lamclubs[2]
                 ));
             }
             fclose($handle);
