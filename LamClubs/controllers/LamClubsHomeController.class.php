@@ -9,6 +9,8 @@
 
 class LamClubsHomeController extends DefaultModuleController
 {
+	private $display_multiple_delete = false;
+
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
@@ -54,6 +56,10 @@ class LamClubsHomeController extends DefaultModuleController
 		$result = $table_model->get_sql_results('lamclubs',
 			array('*', 'lamclubs.id')
 		);
+
+        $table->hide_multiple_delete();
+        $this->display_multiple_delete = false;
+
 		foreach ($result as $row)
 		{
 			$item = new LamClubsItem();

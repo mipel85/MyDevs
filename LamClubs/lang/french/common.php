@@ -11,7 +11,7 @@
 #						French						#
 ####################################################
 
-$lang['lamclubs.module.title'] = 'LamClubs';
+$lang['lamclubs.module.title'] = 'Clubs';
 $lang['lamclubs.config.auth'] = 'Autorisations du module LamClubs';
 
 $lang['item'] = 'club';
@@ -21,24 +21,19 @@ $lang['lamclubs.49'] = '49 - Maine-et-Loire';
 $lang['lamclubs.53'] = '53 - Mayenne';
 $lang['lamclubs.72'] = '72 - Sarthe';
 $lang['lamclubs.85'] = '85 - Vendée';
-
-$lang['lamclubs.member.items']  = 'LamClubs publiées par';
-$lang['lamclubs.my.items']      = 'Mes lamclubs';
-$lang['lamclubs.pending.items'] = 'LamClubs en attente';
-$lang['lamclubs.filter.items']  = 'Filtrer les lamclubs';
+$lang['lamclubs.filter.items']  = 'Filtrer les clubs';
 
 $lang['lamclubs.add']        = 'Ajouter un club';
 $lang['lamclubs.edit']       = 'Modifier un club';
-$lang['lamclubs.management'] = 'Gestion des lamclubs';
 
 $lang['lamclubs.ffam.number'] = 'N° d\'affiliation du club';
 $lang['lamclubs.ffam.clue'] = 'Un double clic dans la zone de saisie fait apparaître la liste triée par n° de club.';
 $lang['lamclubs.department'] = 'Département';
 
 // S.E.O.
-$lang['lamclubs.seo.description.member']  = 'Toutes les lamclubs publiées par :author.';
-$lang['lamclubs.seo.description.pending'] = 'Toutes les lamclubs en attente.';
-$lang['lamclubs.seo.description.root']    = 'Toutes les lamclubs du site :site .';
+$lang['lamclubs.seo.description.member']  = 'Tous les clubs publiées par :author.';
+$lang['lamclubs.seo.description.pending'] = 'Tous les clubs en attente.';
+$lang['lamclubs.seo.description.root']    = 'Tous les clubs du site :site .';
 
 // Messages
 $lang['lamclubs.message.success.add']    = 'Le club <b>:name</b> a été ajouté';
