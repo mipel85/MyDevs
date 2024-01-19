@@ -50,13 +50,13 @@ class FinancialService
 
     public static function get_requests($archived)
     {
-        $left_join = 'LEFT JOIN ' . LamClubsSetup::$lamclubs_table . ' clubs ON clubs.id = lf.club_id';
+        $left_join = 'LEFT JOIN ' . LamClubsSetup::$lamclubs_table . ' clubs ON clubs.id = f.club_id';
         $clubs_select = ', clubs.name AS club_name, clubs.department AS club_dept, clubs.ffam_nb AS club_ffam_number';
         $result = array();
-        $req = self::$db_querier->select('SELECT *' . $clubs_select . '
-		FROM ' . FinancialSetup::$financial . ' lf
+        $req = self::$db_querier->select('SELECT f.*' . $clubs_select . '
+		FROM ' . FinancialSetup::$financial . ' f
         ' . $left_join . '
-        WHERE  lf.archived = "' . $archived . '"');
+        WHERE  f.archived = "' . $archived . '"');
         while($row = $req->fetch())
         {
             $result[] = $row;

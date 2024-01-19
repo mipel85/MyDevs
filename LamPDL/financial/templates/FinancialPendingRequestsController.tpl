@@ -1,6 +1,6 @@
 <script>
     jQuery("input[name^='payment']").on('click', function() {
-        var amount_paid = jQuery(this).closest('tr').find('td:eq(5)').text();
+        var amount_paid = jQuery(this).closest('tr').find('td:eq(6)').text();
         var id = jQuery(this).attr('id');
         var club_name = jQuery(this).attr('value');
         jQuery.ajax({
