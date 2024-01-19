@@ -50,7 +50,7 @@ class LamClubsSetup extends DefaultModuleSetup
 		$fields = array(
 			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
 			'name' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
-			'ffam_nb' => array('type' => 'text', 'length' => 4, 'notnull' => 1, 'default' => 0),
+			'ffam_nb' => array('type' => 'string', 'length' => 4, 'notnull' => 1, 'default' => "''"),
 			'department' => array('type' => 'integer', 'length' => 3, 'notnull' => 1, 'default' => 0)
 		);
 		$options = array(
