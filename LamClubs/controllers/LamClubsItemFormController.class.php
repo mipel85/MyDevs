@@ -38,8 +38,8 @@ class LamClubsItemFormController extends DefaultModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('ffam_nb', $this->lang['lamclubs.ffam.number'], $this->get_item()->get_ffam_nb(),
-			array('required' => true)
+		$fieldset->add_field(new FormFieldNumberEditor('ffam_nb', $this->lang['lamclubs.ffam.number'], $this->get_item()->get_ffam_nb(),
+			array('required' => true, 'min' => 1, 'max' => 9999)
 		));
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('department', $this->lang['lamclubs.department'], $this->get_item()->get_department(),
@@ -118,7 +118,7 @@ class LamClubsItemFormController extends DefaultModuleController
 		$item = $this->get_item();
 
 		$item->set_name($this->form->get_value('name'));
-		$item->set_ffam_nb($this->form->get_value('ffam_nb'));
+		$item->set_ffam_nb(sprintf("%04d", $this->form->get_value('ffam_nb')));
 		$item->set_department($this->form->get_value('department')->get_raw_value());
 
 		if ($item->get_id() === null)
@@ -139,15 +139,7 @@ class LamClubsItemFormController extends DefaultModuleController
 	private function redirect()
 	{
 		$item = $this->get_item();
-
-		if ($this->is_new_item && !$item->is_published())
-		{
-			DispatchManager::redirect(new UserContributionSuccessController());
-		}
-		else
-		{
-			AppContext::get_response()->redirect(LamClubsUrlBuilder::home(), StringVars::replace_vars($this->lang['lamclubs.message.success.edit'], array('name' => $item->get_name())));
-		}
+		AppContext::get_response()->redirect(LamClubsUrlBuilder::home(), StringVars::replace_vars($this->lang['lamclubs.message.success.edit'], array('name' => $item->get_name())));
 	}
 
 	private function build_response(View $view)
