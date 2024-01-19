@@ -124,7 +124,7 @@ class LamClubsItemFormController extends DefaultModuleController
 		$item = $this->get_item();
 
 		$item->set_name($this->form->get_value('name'));
-		$item->set_ffam_nb(sprintf("%04d", $this->form->get_value('ffam_nb')));
+		$item->set_ffam_nb($this->form->get_value('ffam_nb'));
 		$item->set_department($this->form->get_value('department')->get_raw_value());
 
 		if ($item->get_id() === null)

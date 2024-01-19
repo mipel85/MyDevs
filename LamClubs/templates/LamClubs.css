@@ -1,0 +1,15 @@
+@media (min-width: 769px) {
+    #module-LamClubs td:nth-child(2) {
+        padding-left: 70px;
+        text-align: left;
+    }
+
+    #module-LamClubs td:nth-child(3) {
+        padding-left: 150px;
+        text-align: left;
+    }
+
+    #module-LamClubs tfoot td {
+        padding: 0.618em;
+    }
+}

@@ -93,5 +93,22 @@ class LamClubsService
         return $items;
         $req->dispose();
     }
+
+    public static function get_options_list()
+	{
+		$options = array();
+		$clubs_list = self::get_items_list();
+		// laisser un vide en début de liste
+		$options[] = new FormFieldSelectChoiceOption('', '');
+
+		$i = 1;
+		foreach($clubs_list as $values)
+		{
+			$options[] = new FormFieldSelectChoiceOption($values['ffam_nb'] . ' - ' . $values['department'] . ' - ' . $values['name'], $values['id']);
+			$i++;
+		}
+
+		return $options;
+	}
 }
 ?>

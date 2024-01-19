@@ -64,7 +64,7 @@ class LamClubsHomeController extends DefaultModuleController
 
             // $draf_class = $item->get_published() ? '' : 'text-strike error';
 			$row = array(
-				new HTMLTableRowCell(sprintf("%04d", $item->get_ffam_nb())),
+				new HTMLTableRowCell($item->get_ffam_nb()),
 				new HTMLTableRowCell($this->lang['lamclubs.' . $item->get_department()]),
 				new HTMLTableRowCell($item->get_name()),
 				$controls ? new HTMLTableRowCell($edit_item->display() . $delete_item->display()) : ''
