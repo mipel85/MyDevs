@@ -42,9 +42,7 @@ class FinancialSetup extends DefaultModuleSetup
         $fields = array(
             'id'                        => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
             'activity_type'             => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
-            'club_name'                 => array('type' => 'text', 'length' => 16777215),
-            'club_ffam_number'          => array('type' => 'string', 'length' => 4, 'notnull' => 1),
-            'club_dept'                 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+            'club_id'                   => array('type' => 'integer', 'length' => 11, 'notnull' => 1),
             'club_activity_date'        => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
             'club_activity_location'    => array('type' => 'text', 'length' => 16777215),
             'club_activity_city'        => array('type' => 'text', 'length' => 16777215),
@@ -57,8 +55,7 @@ class FinancialSetup extends DefaultModuleSetup
         $options = array(
             'primary' => array('id'),
             'indexes' => array(
-                'club_ffam_number' => array('type' => 'key', 'fields' => 'club_ffam_number'),
-                'club_dept'        => array('type' => 'key', 'fields' => 'club_dept'),
+                'club_id' => array('type' => 'key', 'fields' => 'club_id'),
             )
         );
         PersistenceContext::get_dbms_utils()->create_table(self::$financial, $fields, $options);

@@ -63,7 +63,7 @@ class FinancialFormActivityController extends DefaultModuleController
 
         // other fields
         
-        $fieldset->add_field(new LamClubsFormField('club_infos', $this->lang['financial.club.infos'], array(), array('description' => LangLoader::get_message('lamclubs.ffam.clue', 'common', 'LamClubs'))));
+        $fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['financial.club.infos'], $this->get_item()->get_club_id(), LamClubsService::get_options_list(), array('required' => true)));
         $fieldset->add_field(new FormFieldDate('club_activity_date', $this->lang['financial.club.activity.date'], null, array('required' => true)));
         $fieldset->add_field(new FormFieldTextEditor('club_activity_location', $this->lang['financial.club.activity.location'], '', array('required' => true)));
         $fieldset->add_field(new FormFieldTextEditor('club_activity_city', $this->lang['financial.club.activity.city'], '', array('required' => true)));
@@ -115,13 +115,7 @@ class FinancialFormActivityController extends DefaultModuleController
         $activity_item = $this->get_item();
         $activity_item->set_club_request_date(new Date());
         $activity_item->set_activity_type($this->form->get_value('form_radio')->get_raw_value());
-        foreach ($this->form->get_value('club_infos') as $id => $club)
-        {
-            $club = explode(' - ', $club);
-            $activity_item->set_club_ffam_number($club[0]);
-            $activity_item->set_club_dept($club[1]);
-            $activity_item->set_club_name($club[2]);
-        }
+        $activity_item->set_club_id($this->form->get_value('club_infos')->get_raw_value());
         $activity_item->set_club_activity_date($this->form->get_value('club_activity_date'));
         $activity_item->set_club_activity_location($this->form->get_value('club_activity_location'));
         $activity_item->set_club_activity_city($this->form->get_value('club_activity_city'));
@@ -153,13 +147,14 @@ class FinancialFormActivityController extends DefaultModuleController
         $item_subject = $this->lang['financial.activity.desc'] . ' --- ' . $activity_type;
         $item_sender_name = $this->form->get_value('club_sender_name');
         $item_sender_email = $this->form->get_value('club_sender_email');
-
+        $club_item = LamClubsService::get_item($this->item->get_club_id());
+        
         //msg content
         $item_message = StringVars::replace_vars($this->lang['financial.mail.msg'], array(
                 'club_sender_name'       => $this->form->get_value('club_sender_name'),
                 'club_sender_mail'       => $this->form->get_value('club_sender_mail'),
-                'club_name'              => $this->item->get_club_name(),
-                'club_ffam_number'       => $this->item->get_club_ffam_number(),
+                'club_name'              => $club_item->get_name(),
+                'club_ffam_number'       => $club_item->get_ffam_nb(),
                 'activity'               => $activity_type,
                 'club_activity_date'     => Date::to_format($this->form->get_value('club_activity_date')->get_timestamp(), Date::FORMAT_DAY_MONTH_YEAR),
                 'club_activity_location' => $this->form->get_value('club_activity_location'),

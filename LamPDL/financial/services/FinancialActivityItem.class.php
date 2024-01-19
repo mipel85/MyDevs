@@ -10,9 +10,7 @@ class FinancialActivityItem
 {
     private $id;
     private $activity_type;
-    private $club_ffam_number;
-    private $club_name;
-    private $club_dept;
+    private $club_id;
     private $club_activity_date;
     private $club_activity_location;
     private $club_activity_city;
@@ -44,34 +42,14 @@ class FinancialActivityItem
         return $this->activity_type;
     }
 
-    public function set_club_name($club_name)
+    public function set_club_id($club_id)
     {
-        $this->club_name = $club_name;
+        $this->club_id = $club_id;
     }
 
-    public function get_club_name()
+    public function get_club_id()
     {
-        return $this->club_name;
-    }
-
-    public function set_club_ffam_number($club_ffam_number)
-    {
-        $this->club_ffam_number = $club_ffam_number;
-    }
-
-    public function get_club_ffam_number()
-    {
-        return $this->club_ffam_number;
-    }
-    
-    public function set_club_dept($club_dept)
-    {
-        $this->club_dept = $club_dept;
-    }
-
-    public function get_club_dept()
-    {
-        return $this->club_dept;
+        return $this->club_id;
     }
 
     public function set_club_activity_date(Date $club_activity_date)
@@ -181,9 +159,7 @@ class FinancialActivityItem
         return array(
             'id'                        => $this->get_id(),
             'activity_type'             => $this->get_activity_type(),
-            'club_ffam_number'          => $this->get_club_ffam_number(),
-            'club_name'                 => $this->get_club_name(),
-            'club_dept'                 => $this->get_club_dept(),
+            'club_id'                   => $this->get_club_id(),
             'club_activity_date'        => $this->get_club_activity_date() !== null ? $this->get_club_activity_date()->get_timestamp() : 0,
             'club_activity_location'    => $this->get_club_activity_location(),
             'club_activity_city'        => $this->get_club_activity_city(),
@@ -199,9 +175,7 @@ class FinancialActivityItem
     {
         $this->id = $properties['id'];
         $this->activity_type = $properties['activity_type'];
-        $this->club_ffam_number = $properties['club_ffam_number'];
-        $this->club_name = $properties['club_name'];
-        $this->club_dept = $properties['club_dept'];
+        $this->club_id = $properties['club_id'];
         $this->club_activity_date = !empty($properties['club_activity_date']) ? new Date($properties['club_activity_date'], Timezone::SERVER_TIMEZONE) : null;
         $this->club_activity_location = $properties['club_activity_location'];
         $this->club_activity_city = $properties['club_activity_city'];

@@ -70,7 +70,7 @@ $lang['financial.exam.day.amount'] = 'Montant attribué par journée d\'examen';
 $lang['financial.financial.maximum'] = 'Montant maximum en euros';
 
 // club_form
-$lang['financial.club.infos'] = 'Sélectionner votre club <b>*</b>';
+$lang['financial.club.infos'] = 'Sélectionnez votre club';
 $lang['financial.club.infos.clue'] = 'Un double clic dans la zone de saisie fait apparaître la liste triée par n° de club.';
 $lang['financial.club.ffam.number'] = 'N°. FFAM';
 $lang['financial.club.dept'] = 'Dept';
