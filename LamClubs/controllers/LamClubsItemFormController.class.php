@@ -54,12 +54,6 @@ class LamClubsItemFormController extends DefaultModuleController
 			array('required' => true)
 		));
 
-        if (LamClubsAuthorizationsService::check_authorizations()->moderation())
-		{
-			$publication_fieldset = new FormFieldsetHTML('publication', $this->lang['form.publication']);
-			$form->add_fieldset($publication_fieldset);
-		}
-
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
