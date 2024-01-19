@@ -11,6 +11,7 @@
 ####################################################
 // Home
 $lang['financial.home'] = 'Demandes d\'aides financières';
+$lang['financial.clubs.module.missing'] = 'Le module LamClubs est manquant et/ou innactif';
 
 // TreeLinks
 $lang['financial.treelinks.financial'] = 'Finances';
