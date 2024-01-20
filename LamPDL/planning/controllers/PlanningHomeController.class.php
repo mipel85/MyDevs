@@ -33,8 +33,8 @@ class PlanningHomeController extends DefaultModuleController
 		$columns = array(
 			new HTMLTableColumn($this->lang['common.title'], 'title'),
 			new HTMLTableColumn($this->lang['category.category'], 'id_category'),
-			new HTMLTableColumn($this->lang['planning.club.department'], 'club_id'),
-			new HTMLTableColumn($this->lang['planning.club.name'], 'club_id'),
+			new HTMLTableColumn($this->lang['planning.club.department'], 'lamclubs_id'),
+			new HTMLTableColumn($this->lang['planning.club.name'], 'lamclubs_id'),
 			new HTMLTableColumn($this->lang['common.see.details'], 'content'),
 			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn('')
@@ -64,7 +64,7 @@ class PlanningHomeController extends DefaultModuleController
 		$results = array();
 		$result = $table_model->get_sql_results('event
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event.author_user_id
-			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.id = event.club_id'
+			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = event.lamclubs_id'
 		);
 
 		$items = array();
@@ -108,7 +108,7 @@ class PlanningHomeController extends DefaultModuleController
 			$br = new BrHTMLElement();
 
 			$c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
-            $club = LamclubsService::get_item($item->get_club_id());
+            $club = LamclubsService::get_item($item->get_lamclubs_id());
             $details = !empty($item->get_content()) || !empty($item->get_location());
 
 			if($item->is_approved())

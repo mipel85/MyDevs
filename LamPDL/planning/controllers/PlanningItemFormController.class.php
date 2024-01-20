@@ -58,7 +58,7 @@ class PlanningItemFormController extends DefaultModuleController
 
 		$end_date->add_form_constraint(new FormConstraintFieldsDifferenceSuperior($start_date, $end_date));
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $this->get_item()->get_club_id(), LamclubsService::get_options_list(), array('required' => true)));
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $this->get_item()->get_lamclubs_id(), LamclubsService::get_options_list(), array('required' => true)));
 
         $fieldset->add_field(new FormFieldMailEditor('email', $this->lang['planning.contact.email'], $item->get_email(),
             array(
@@ -205,7 +205,7 @@ class PlanningItemFormController extends DefaultModuleController
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
 			$item->set_id_category($this->form->get_value('id_category')->get_raw_value());
 
-		$item->set_club_id($this->form->get_value('club_infos')->get_raw_value());
+		$item->set_lamclubs_id($this->form->get_value('club_infos')->get_raw_value());
 		$item->set_content($this->form->get_value('email'));
 		$item->set_content($this->form->get_value('content'));
 		$item->set_location($this->form->get_value('location'));

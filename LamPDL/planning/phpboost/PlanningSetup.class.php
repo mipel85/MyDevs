@@ -46,7 +46,7 @@ class PlanningSetup extends DefaultModuleSetup
 		$fields = array(
 			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
 			'id_category' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'club_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'lamclubs_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'title' => array('type' => 'string', 'length' => 150, 'notnull' => 1, 'default' => "''"),
 			'rewrited_title' => array('type' => 'string', 'length' => 250, 'default' => "''"),
 			'start_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),

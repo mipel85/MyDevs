@@ -4,7 +4,7 @@
 - id
 - catégories
 - titre
-- club_id
+- lamclubs_id
     - departement => tous
     - 
 - contenu optionnel

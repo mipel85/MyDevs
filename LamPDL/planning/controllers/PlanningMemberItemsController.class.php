@@ -67,7 +67,7 @@ class PlanningMemberItemsController extends DefaultModuleController
 		$results = array();
 		$result = $table_model->get_sql_results('event
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event.author_user_id
-			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.id = event.club_id'
+			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = event.lamclubs_id'
 		);
 
 		$items = array();
@@ -111,7 +111,7 @@ class PlanningMemberItemsController extends DefaultModuleController
 			$br = new BrHTMLElement();
 
 			$c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
-            $club = LamclubsService::get_item($item->get_club_id());
+            $club = LamclubsService::get_item($item->get_lamclubs_id());
             $details = !empty($item->get_content()) || !empty($item->get_location());
 
 			if($item->is_approved())

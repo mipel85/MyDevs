@@ -38,6 +38,7 @@ $lang['planning.start.date']      = 'Date de début';
 $lang['planning.end.date']        = 'Date de fin';
 $lang['planning.club.department'] = 'Département';
 $lang['planning.club.name']       = 'Nom du Club';
+$lang['planning.organized.by']    = 'Organisé par';
 
 // Form
 $lang['planning.form.content']        = 'Descriptif de l\'événement (optionnel)';

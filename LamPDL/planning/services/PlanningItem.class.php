@@ -11,7 +11,7 @@ class PlanningItem
 {
 	private $id;
 	private $id_category;
-	private $club_id;
+	private $lamclubs_id;
 	private $title;
 	private $rewrited_title;
 	private $content;
@@ -54,14 +54,14 @@ class PlanningItem
 		return CategoriesService::get_categories_manager('planning')->get_categories_cache()->get_category($this->id_category);
 	}
 
-	public function set_club_id($club_id)
+	public function set_lamclubs_id($lamclubs_id)
 	{
-		$this->club_id = $club_id;
+		$this->lamclubs_id = $lamclubs_id;
 	}
 
-	public function get_club_id()
+	public function get_lamclubs_id()
 	{
-		return $this->club_id;
+		return $this->lamclubs_id;
 	}
 
 	public function set_email($email)
@@ -234,7 +234,7 @@ class PlanningItem
 		return array(
 			'id' => $this->get_id(),
 			'id_category' => $this->get_id_category(),
-			'club_id' => $this->get_club_id(),
+			'lamclubs_id' => $this->get_lamclubs_id(),
 			'title' => $this->get_title(),
 			'rewrited_title' => $this->get_rewrited_title(),
 			'start_date' => ($this->get_start_date() !== null ? $this->get_start_date()->get_timestamp() : ''),
@@ -255,7 +255,7 @@ class PlanningItem
 	{
 		$this->id = $properties['id'];
 		$this->id_category = $properties['id_category'];
-		$this->club_id = $properties['club_id'];
+		$this->lamclubs_id = $properties['lamclubs_id'];
 		$this->title = $properties['title'];
 		$this->rewrited_title = $properties['rewrited_title'];
 		$this->email = $properties['email'];
@@ -296,7 +296,7 @@ class PlanningItem
 	{
         $user = AppContext::get_current_user();
         $now = new Date();
-        $this->club_id = '';
+        $this->lamclubs_id = '';
 		$this->id_category = $id_category;
 		$this->author_user = $user;
 		$this->email = $user->get_email();
@@ -355,6 +355,7 @@ class PlanningItem
 
 		$start_date = $this->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 		$end_date = $this->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+        $club = LamclubsService::get_item($this->id);
 
 		return array_merge(
 			Date::get_array_tpl_vars($this->get_creation_date(), 'date'),
@@ -380,11 +381,12 @@ class PlanningItem
 				'CATEGORY_ID'     => $category->get_id(),
 				'CATEGORY_NAME'   => $category->get_name(),
 				'U_EDIT_CATEGORY' => $category->get_id()   == Category::ROOT_CATEGORY ? PlanningUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'planning')->rel(),
-				'U_CATEGORY'      => $category->get_id() != Category::ROOT_CATEGORY ? PlanningUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), $this->get_start_date()->get_year(), $this->get_start_date()->get_month())->rel() : '',
 
 				//Event
 				'ID'                       => $this->id,
 				'TITLE'                    => $this->get_title(),
+				'CLUB_NAME'                => $club->get_name(),
+				'CLUB_DPT'                 => $club->get_department(),
 				'CONTENT'                  => $rich_content,
 				'LOCATION'                 => $location,
 				'LOCATION_MAP'             => $location_map,

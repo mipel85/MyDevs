@@ -11,6 +11,10 @@
 	font-size: 2em;
 }
 
+#module-planning .day-infos {
+    margin-bottom: 1.618em;
+}
+
 #date-select-form .grouped-element { border-width: 0; }
 
 .location-map { margin: 0.618em 0; }
