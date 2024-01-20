@@ -6,8 +6,8 @@
 @import url('../../__default__/theme/precode.css') screen;
 @import url('../../__default__/theme/linedwrap.css') screen;
 
-@import url('../../club/theme/shape.css') screen;
-@import url('../../club/theme/@variables.css') screen;
+@import url('../../league/theme/shape.css') screen;
+@import url('../../league/theme/@variables.css') screen;
 
 @import url('../../__default__/theme/form.css') screen;
 @import url('../../__default__/theme/fieldset.css') screen;
@@ -39,6 +39,6 @@
 @import url('../../__default__/theme/content.css') screen;
 
 @import url('../../__default__/theme/colors.css') screen;
-@import url('../../club/theme/radius.css') screen;
-@import url('../../club/theme/scrollcircle.css') screen;
-@import url('../../club/theme/hack.css') screen;
+@import url('../../league/theme/radius.css') screen;
+@import url('../../league/theme/scrollcircle.css') screen;
+@import url('../../league/theme/hack.css') screen;
