@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 01 20
  * @since       PHPBoost 6.0 - 2024 01 18
 */
 
@@ -30,17 +30,17 @@ class LamclubsUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function edit($id)
+	public static function edit($club_id)
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/edit/');
+		return DispatchManager::get_url(self::$dispatcher, '/' . $club_id . '/edit/');
 	}
 
 	/**
 	 * @return Url
 	 */
-	public static function delete($id)
+	public static function delete($club_id)
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/delete/?token=' . AppContext::get_session()->get_token());
+		return DispatchManager::get_url(self::$dispatcher, '/' . $club_id . '/delete/?token=' . AppContext::get_session()->get_token());
 	}
 
 	/**

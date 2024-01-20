@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 01 20
  * @since       PHPBoost 6.0 - 2024 01 18
 */
 
@@ -29,7 +29,7 @@ class LamclubsItemFormController extends DefaultModuleController
 	private function build_form(HTTPRequestCustom $request)
 	{
 		$form = new HTMLForm(__CLASS__);
-		$form->set_layout_title($this->get_item()->get_id() === null ? $this->lang['lamclubs.add'] : ($this->lang['lamclubs.edit']));
+		$form->set_layout_title($this->get_item()->get_club_id() === null ? $this->lang['lamclubs.add'] : ($this->lang['lamclubs.edit']));
 
 		$fieldset = new FormFieldsetHTML('lamclubs', $this->lang['form.parameters']);
 		$form->add_fieldset($fieldset);
@@ -67,11 +67,11 @@ class LamclubsItemFormController extends DefaultModuleController
 	{
 		if ($this->item === null)
 		{
-			$id = AppContext::get_request()->get_getint('id', 0);
-			if (!empty($id))
+			$club_id = AppContext::get_request()->get_getint('club_id', 0);
+			if (!empty($club_id))
 			{
 				try {
-					$this->item = LamclubsService::get_item($id);
+					$this->item = LamclubsService::get_item($club_id);
 				} catch (RowNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
@@ -90,7 +90,7 @@ class LamclubsItemFormController extends DefaultModuleController
 	{
 		$item = $this->get_item();
 
-		if ($item->get_id() === null)
+		if ($item->get_club_id() === null)
 		{
 			if (!$item->is_authorized_to_add())
 			{
@@ -121,10 +121,10 @@ class LamclubsItemFormController extends DefaultModuleController
 		$item->set_ffam_nb(sprintf("%04d", $this->form->get_value('ffam_nb')));
 		$item->set_department($this->form->get_value('department')->get_raw_value());
 
-		if ($item->get_id() === null)
+		if ($item->get_club_id() === null)
 		{
-			$id = LamclubsService::add($item);
-			$item->set_id($id);
+			$club_id = LamclubsService::add($item);
+			$item->set_club_id($club_id);
 
 			HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
@@ -152,7 +152,7 @@ class LamclubsItemFormController extends DefaultModuleController
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['lamclubs.module.title'], LamclubsUrlBuilder::home());
 
-		if ($item->get_id() === null)
+		if ($item->get_club_id() === null)
 		{
 			$graphical_environment->set_page_title($this->lang['lamclubs.add']);
 			$breadcrumb->add($this->lang['lamclubs.add'], LamclubsUrlBuilder::add());
@@ -163,9 +163,9 @@ class LamclubsItemFormController extends DefaultModuleController
 		{
 			$graphical_environment->set_page_title($this->lang['lamclubs.edit']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['lamclubs.edit'], $this->lang['lamclubs.module.title']);
-			$graphical_environment->get_seo_meta_data()->set_canonical_url(LamclubsUrlBuilder::edit($item->get_id()));
-			$breadcrumb->add($item->get_name(), $item->get_id());
-			$breadcrumb->add($this->lang['lamclubs.edit'], LamclubsUrlBuilder::edit($item->get_id()));
+			$graphical_environment->get_seo_meta_data()->set_canonical_url(LamclubsUrlBuilder::edit($item->get_club_id()));
+			$breadcrumb->add($item->get_name(), $item->get_club_id());
+			$breadcrumb->add($this->lang['lamclubs.edit'], LamclubsUrlBuilder::edit($item->get_club_id()));
 		}
 
 		return $response;

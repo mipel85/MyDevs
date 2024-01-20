@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 01 20
  * @since       PHPBoost 6.0 - 2024 01 18
 */
 
@@ -48,7 +48,7 @@ class LamclubsHomeController extends DefaultModuleController
 
 		$results = array();
 		$result = $table_model->get_sql_results('lamclubs',
-			array('*', 'lamclubs.id')
+			array('*', 'lamclubs.club_id')
 		);
 
         $table->hide_multiple_delete();
@@ -59,8 +59,8 @@ class LamclubsHomeController extends DefaultModuleController
 			$item = new LamclubsItem();
 			$item->set_properties($row);
 
-			$edit_item = new LinkHTMLElement(LamclubsUrlBuilder::edit($item->get_id()), '', array('title' => $this->lang['common.edit']), 'fa fa-edit');
-			$delete_item = new LinkHTMLElement(LamclubsUrlBuilder::delete($item->get_id()), '', array('title' => $this->lang['common.delete'], 'data-confirmation' => 'delete-element'), 'far fa-trash-alt');
+			$edit_item = new LinkHTMLElement(LamclubsUrlBuilder::edit($item->get_club_id()), '', array('title' => $this->lang['common.edit']), 'fa fa-edit');
+			$delete_item = new LinkHTMLElement(LamclubsUrlBuilder::delete($item->get_club_id()), '', array('title' => $this->lang['common.delete'], 'data-confirmation' => 'delete-element'), 'far fa-trash-alt');
 
             // $draf_class = $item->get_published() ? '' : 'text-strike error';
 			$row = array(

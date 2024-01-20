@@ -3,25 +3,25 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 01 20
  * @since       PHPBoost 6.0 - 2024 01 18
 */
 
 class LamclubsItem
 {
-	private $id;
+	private $club_id;
 	private $name;
 	private $ffam_nb;
 	private $department;
 
-	public function get_id()
+	public function get_club_id()
 	{
-		return $this->id;
+		return $this->club_id;
 	}
 
-	public function set_id($id)
+	public function set_club_id($club_id)
 	{
-		$this->id = $id;
+		$this->club_id = $club_id;
 	}
 
 	public function get_name()
@@ -72,7 +72,7 @@ class LamclubsItem
 	public function get_properties()
 	{
 		return array(
-			'id'         => $this->get_id(),
+			'club_id'         => $this->get_club_id(),
 			'name'       => $this->get_name(),
 			'ffam_nb'    => $this->get_ffam_nb(),
 			'department' => $this->get_department()
@@ -81,7 +81,7 @@ class LamclubsItem
 
 	public function set_properties(array $properties)
 	{
-		$this->id           = $properties['id'];
+		$this->club_id           = $properties['club_id'];
 		$this->name         = $properties['name'];
 		$this->ffam_nb      = $properties['ffam_nb'];
 		$this->department   = $properties['department'];

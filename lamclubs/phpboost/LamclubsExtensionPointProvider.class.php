@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 01 20
  * @since       PHPBoost 6.0 - 2024 01 18
 */
 
@@ -16,7 +16,7 @@ class LamclubsExtensionPointProvider extends ItemsModuleExtensionPointProvider
 
 	public function home_page()
 	{
-		return new DefaultHomePageDisplay($this->get_id(), LamclubsHomeController::get_view());
+		return new DefaultHomePageDisplay($this->get_club_id(), LamclubsHomeController::get_view());
 	}
 
 	public function user()

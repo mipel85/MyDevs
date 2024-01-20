@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 01 20
  * @since       PHPBoost 6.0 - 2024 01 18
 */
 
@@ -17,8 +17,8 @@ $url_controller_mappers = array(
 
 	// Item
 	new UrlControllerMapper('LamclubsItemFormController', '`^/add/?$`'),
-	new UrlControllerMapper('LamclubsItemFormController', '`^/([0-9]+)/edit/?$`', array('id')),
-	new UrlControllerMapper('LamclubsDeleteItemController', '`^/([0-9]+)/delete/?$`', array('id')),
+	new UrlControllerMapper('LamclubsItemFormController', '`^/([0-9]+)/edit/?$`', array('club_id')),
+	new UrlControllerMapper('LamclubsDeleteItemController', '`^/([0-9]+)/delete/?$`', array('club_id')),
 
 	// Homepage
 	new UrlControllerMapper('LamclubsHomeController', '`^/?$`'),

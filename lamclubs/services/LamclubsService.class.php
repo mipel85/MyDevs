@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 01 20
  * @since       PHPBoost 6.0 - 2024 01 18
 */
 
@@ -43,7 +43,7 @@ class LamclubsService
 	 */
 	public static function update(LamclubsItem $item)
 	{
-		self::$db_querier->update(LamclubsSetup::$lamclubs_table, $item->get_properties(), 'WHERE id=:id', array('id' => $item->get_id()));
+		self::$db_querier->update(LamclubsSetup::$lamclubs_table, $item->get_properties(), 'WHERE club_id = :club_id', array('club_id' => $item->get_club_id()));
 	}
 
     /**
@@ -51,16 +51,16 @@ class LamclubsService
 	 * @param string $condition : Restriction to apply to the list
 	 * @param string[] $parameters : Parameters of the condition
 	 */
-	public static function delete(int $id)
+	public static function delete(int $club_id)
 	{
 		if (AppContext::get_current_user()->is_readonly())
         {
             $controller = PHPBoostErrors::user_in_read_only();
             DispatchManager::redirect($controller);
         }
-			self::$db_querier->delete(LamclubsSetup::$lamclubs_table, 'WHERE id=:id', array('id' => $id));
+			self::$db_querier->delete(LamclubsSetup::$lamclubs_table, 'WHERE club_id = :club_id', array('club_id' => $club_id));
 
-			self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'lamclubs', 'id' => $id));
+			self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module = :club_id', array('module' => 'lamclubs', 'club_id' => $club_id));
 	}
 
     /**
@@ -68,12 +68,12 @@ class LamclubsService
 	 * @param string $condition : Restriction to apply to the list
 	 * @param string[] $parameters : Parameters of the condition
 	 */
-	public static function get_item(int $id)
+	public static function get_item(int $club_id)
 	{
 		$row = self::$db_querier->select_single_row_query('SELECT ' . self::$module_id . '.*
 		FROM ' . LamclubsSetup::$lamclubs_table . ' ' . self::$module_id . '
-		WHERE ' . self::$module_id . '.id=:id', array(
-			'id'              => $id,
+		WHERE ' . self::$module_id . '.club_id = :club_id', array(
+			'club_id'              => $club_id,
 			'current_user_id' => AppContext::get_current_user()->get_id()
 		));
 
@@ -104,7 +104,7 @@ class LamclubsService
 		$i = 1;
 		foreach($clubs_list as $values)
 		{
-			$options[] = new FormFieldSelectChoiceOption($values['ffam_nb'] . ' - ' . $values['department'] . ' - ' . $values['name'], $values['id']);
+			$options[] = new FormFieldSelectChoiceOption($values['ffam_nb'] . ' - ' . $values['department'] . ' - ' . $values['name'], $values['club_id']);
 			$i++;
 		}
 
