@@ -1,0 +1,38 @@
+/*
+* Copy this file into your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+#module-connect  #login { cursor: help; }
+
+#module-connect  .stacked { text-shadow: 0 0 2px rgba(var(--darken), 0.5)}
+
+#module-connect .social-connect { display: inline-block; }
+
+#module-connect .cell-list li:hover { background-color: transparent; }
+
+#header #module-connect.user-connected .avatar-link {
+    display: flex;
+    align-items: center;
+}
+
+#module-connect.user-connected .avatar-picture {
+    height: 22px;
+    width: 26px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#module-connect .cell {
+    margin: 0;
+    padding: 0;
+}
+
+#module-connect .cell-list ul li {
+    padding: 0.228em 0.456em;
+}
+
+#module-connect .unconnected-contents {
+    display: none;
+}
