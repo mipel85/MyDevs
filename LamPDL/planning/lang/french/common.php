@@ -21,8 +21,6 @@ $lang['planning.no.category'] = 'Sans catégorie';
 $lang['item']  = 'événement';
 $lang['items'] = 'événements';
 
-// Categories
-
 // Titles
 $lang['planning.item.add']         = 'Ajouter un événement';
 $lang['planning.item.edit']        = 'Modifier un événement';
@@ -41,6 +39,7 @@ $lang['planning.end.date']        = 'Date de fin';
 $lang['planning.club.department'] = 'Département';
 $lang['planning.club.name']       = 'Nom du Club';
 $lang['planning.organized.by']    = 'Organisé par';
+$lang['planning.status.draft']    = 'En attente';
 
 // Form
 $lang['planning.activity']            = 'Activité';

@@ -51,7 +51,7 @@ class PlanningItemsManagerController extends DefaultModuleController
 		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter4', $this->lang['planning.club.department']));
 		if ($display_categories)
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter6'));
-		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $this->lang['common.status'], array(1 => $this->lang['planning.status.published'], 0 => $this->lang['planning.status.draft'])));
+		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $this->lang['common.status'], array(1 => $this->lang['common.status.approved'], 0 => $this->lang['planning.status.draft'])));
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
