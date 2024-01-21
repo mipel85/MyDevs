@@ -3,11 +3,21 @@
 
 <script>
     jQuery(document).ready(function() {
+        // Change caps color in website title
         retrieveCaps(jQuery('#site-name'));
         jQuery(window).on("load scroll", function() {  PxScrollCircle();  });
         jQuery('#scroll-circle .back-to-top').on('click', function(){
             jQuery("html, body").animate({ scrollTop: 0 }, "slow");
             return false;
+        });
+
+        // Change root category name
+        let other_activity = ${escapejs(@theme.activities.other)};
+        jQuery('#filters_form_1_id_category option, #PlanningItemFormController_id_category option').each(function() {
+            console.log($(this));
+            if ($(this).val() == 0) {
+                $(this).attr('label', other_activity)
+            }
         });
     });
 </script>

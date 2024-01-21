@@ -8,5 +8,7 @@ $lang['theme.connect.register.description'] = '
     <p>Votre incription sera soumise à validation par un administrateur.</p>
     <p>Munissez-vous de votre numéro de club avant de poursuivre l\'inscription.</p>
 ';
+$lang['theme.activities'] = 'Activités';
+$lang['theme.activities.other'] = 'Autres activités';
 
 ?>
