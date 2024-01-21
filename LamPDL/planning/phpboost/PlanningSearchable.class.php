@@ -16,7 +16,7 @@ class PlanningSearchable extends DefaultSearchable
 		$this->table_name = PlanningSetup::$planning_table;
 
 		$this->field_id = 'id';
-		$this->field_rewrited_title = 'rewrited_title';
+		$this->field_rewrited_link = 'rewrited_link';
 		$this->field_content = 'content';
 
 		$this->field_published = 'approved';

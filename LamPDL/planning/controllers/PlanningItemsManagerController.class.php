@@ -28,8 +28,7 @@ class PlanningItemsManagerController extends DefaultModuleController
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
 		$columns = array(
-			new HTMLTableColumn($this->lang['common.title'], 'title'),
-			new HTMLTableColumn($this->lang['category.category'], 'id_category'),
+			new HTMLTableColumn($this->lang['planning.activities'], 'id_category'),
 			new HTMLTableColumn($this->lang['common.author'], 'display_name'),
 			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn($this->lang['planning.club.department'], 'department'),
@@ -49,11 +48,10 @@ class PlanningItemsManagerController extends DefaultModuleController
 		// $table_model->add_filter(new HTMLTableDateComparatorSQLFilter('start_date', 'filter0', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('start_date', 'filter1', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
-		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', $this->lang['common.author']));
 		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter4', $this->lang['planning.club.department']));
 		if ($display_categories)
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter6'));
-		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $this->lang['common.status.publication'], array(1 => $this->lang['common.status.published'], 0 => $this->lang['common.status.draft'])));
+		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $this->lang['common.status'], array(1 => $this->lang['planning.status.published'], 0 => $this->lang['planning.status.draft'])));
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
@@ -81,12 +79,13 @@ class PlanningItemsManagerController extends DefaultModuleController
 
 			$br = new BrHTMLElement();
 
+            $c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
+            $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
             $club = LamclubsService::get_item($item->get_lamclubs_id());
             $c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 
 			$row = array(
-				new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $item->get_title()), 'align-left'),
-				new HTMLTableRowCell($category->get_name()),
+				new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $title), 'align-left'),
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
 				new HTMLTableRowCell($club->get_department()),

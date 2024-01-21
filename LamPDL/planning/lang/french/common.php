@@ -21,6 +21,8 @@ $lang['planning.no.category'] = 'Sans catégorie';
 $lang['item']  = 'événement';
 $lang['items'] = 'événements';
 
+// Categories
+
 // Titles
 $lang['planning.item.add']         = 'Ajouter un événement';
 $lang['planning.item.edit']        = 'Modifier un événement';
@@ -41,8 +43,11 @@ $lang['planning.club.name']       = 'Nom du Club';
 $lang['planning.organized.by']    = 'Organisé par';
 
 // Form
+$lang['planning.activity']            = 'Activité';
+$lang['planning.activities']          = 'Activités';
+$lang['planning.activity.clue']       = 'Si votre activité n\'est pas répertoriée, laissez sur Autre et remplissez le champ suivant.';
+$lang['planning.activity.other']      = 'Autre activité';
 $lang['planning.form.content']        = 'Descriptif de l\'événement (optionnel)';
-$lang['planning.delete.occurrence']   = 'L\'occurrence';
 $lang['planning.form.cancel']         = 'Annuler l\'événement';
 $lang['planning.form.display.map']    = 'Afficher l\'adresse sur une carte';
 $lang['planning.club.infos']          = 'Club';

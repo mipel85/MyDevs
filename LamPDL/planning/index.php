@@ -22,18 +22,16 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('DefaultDeleteCategoryController', '`^/categories/([0-9]+)/delete/?$`', array('id')),
 
 	// Display items
-	new UrlControllerMapper('PlanningItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_name')),
+	new UrlControllerMapper('PlanningItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_link')),
 
 	// Manage items
 	new UrlControllerMapper('PlanningItemsManagerController', '`^/manage/?$`'),
-	new UrlControllerMapper('PlanningItemFormController', '`^/add/?([0-9]+)?/?([0-9]+)?/?([0-9]+)?/?([0-9]+)?/?([0-9]+)?/?$`', array('year', 'month', 'day', 'id_category')),
+	new UrlControllerMapper('PlanningItemFormController', '`^/add/?([0-9]+)?/?([0-9]+)?/?([0-9]+)?/?([0-9]+)?/?([0-9]+)?/?$`', array('id_category')),
 	new UrlControllerMapper('PlanningItemFormController', '`^/([0-9]+)/edit/?$`', array('id')),
 	new UrlControllerMapper('PlanningDeleteItemController', '`^/([0-9]+)/delete/?$`', array('id')),
 	
 	new UrlControllerMapper('PlanningPendingItemsController', '`^/pending/?([0-9]+)?/?$`', array('page')),
 	new UrlControllerMapper('PlanningMemberItemsController', '`^/member/([0-9]+)?/?([0-9]+)?/?$`', array('user_id', 'page')),
-	new UrlControllerMapper('PlanningItemsListController', '`^/items_list/today/?$`'),
-	new UrlControllerMapper('PlanningItemsListController', '`^/items_list/?$`'),
 
 	// Display planning
 	new UrlControllerMapper('PlanningHomeController', '`^(?:/([0-9]+))?/?$`'),

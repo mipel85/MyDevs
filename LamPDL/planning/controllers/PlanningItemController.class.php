@@ -84,9 +84,9 @@ class PlanningItemController extends DefaultModuleController
 		$category = $item->get_category();
 		$response = new SiteDisplayResponse($this->view);
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($item->get_title(), ($category->get_id() != Category::ROOT_CATEGORY ? $category->get_name() . ' - ' : '') . $this->lang['planning.module.title']);
+		$graphical_environment->set_page_title($category->get_name(), ($category->get_id() != Category::ROOT_CATEGORY ? $category->get_name() . ' - ' : '') . $this->lang['planning.module.title']);
 		$graphical_environment->get_seo_meta_data()->set_description($item->get_content());
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()));
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['planning.module.title'], PlanningUrlBuilder::home());
@@ -97,7 +97,7 @@ class PlanningItemController extends DefaultModuleController
 			if ($category->get_id() != Category::ROOT_CATEGORY)
 				$breadcrumb->add($category->get_name(), PlanningUrlBuilder::home());
 		}
-		$breadcrumb->add($item->get_title(), PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()));
+		$breadcrumb->add($this->lang['common.see.details']);
 
 		return $response;
 	}

@@ -10,10 +10,10 @@
 class PlanningItem
 {
 	private $id;
-	private $id_category;
 	private $lamclubs_id;
-	private $title;
-	private $rewrited_title;
+	private $id_category;
+	private $activity_other;
+	private $rewrited_link;
 	private $content;
 
 	private $location;
@@ -74,24 +74,24 @@ class PlanningItem
 		return $this->email;
 	}
 
-	public function set_title($title)
+	public function set_activity_other($activity_other)
 	{
-		$this->title = $title;
+		$this->activity_other = $activity_other;
 	}
 
-	public function get_title()
+	public function get_activity_other()
 	{
-		return $this->title;
+		return $this->activity_other;
 	}
 
-	public function set_rewrited_title($rewrited_title)
+	public function set_rewrited_link($rewrited_link)
 	{
-		$this->rewrited_title = $rewrited_title;
+		$this->rewrited_link = $rewrited_link;
 	}
 
-	public function get_rewrited_title()
+	public function get_rewrited_link()
 	{
-		return $this->rewrited_title;
+		return $this->rewrited_link;
 	}
 
 	public function set_content($content)
@@ -235,8 +235,8 @@ class PlanningItem
 			'id' => $this->get_id(),
 			'id_category' => $this->get_id_category(),
 			'lamclubs_id' => $this->get_lamclubs_id(),
-			'title' => $this->get_title(),
-			'rewrited_title' => $this->get_rewrited_title(),
+			'activity_other' => $this->get_activity_other(),
+			'rewrited_link' => $this->get_rewrited_link(),
 			'start_date' => ($this->get_start_date() !== null ? $this->get_start_date()->get_timestamp() : ''),
 			'end_date' => ($this->get_end_date() !== null ? $this->get_end_date()->get_timestamp() : ''),
 			'content' => $this->get_content(),
@@ -256,8 +256,8 @@ class PlanningItem
 		$this->id = $properties['id'];
 		$this->id_category = $properties['id_category'];
 		$this->lamclubs_id = $properties['lamclubs_id'];
-		$this->title = $properties['title'];
-		$this->rewrited_title = $properties['rewrited_title'];
+		$this->activity_other = $properties['activity_other'];
+		$this->rewrited_link = $properties['rewrited_link'];
 		$this->email = $properties['email'];
 		$this->content = $properties['content'];
 		$this->location = $properties['location'];
@@ -296,9 +296,9 @@ class PlanningItem
 	{
         $user = AppContext::get_current_user();
         $now = new Date();
-        $this->lamclubs_id = '';
+        $this->lamclubs_id = PlanningService::get_user_club(AppContext::get_current_user()->get_id());
 		$this->id_category = $id_category;
-		$this->author_user = $user;
+		$this->author_user = AppContext::get_current_user();
 		$this->email = $user->get_email();
 		$this->creation_date = new Date();
 		$this->start_date = new Date($this->round_to_five_minutes($now->get_timestamp()), Timezone::SERVER_TIMEZONE);
@@ -325,7 +325,7 @@ class PlanningItem
 	public function get_item_url()
 	{
 		$category = $this->get_category();
-		return PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel();
+		return PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_link)->rel();
 	}
 
 	public function get_template_vars()
@@ -348,14 +348,14 @@ class PlanningItem
 		$has_location_map = false;
 		if (PlanningConfig::load()->is_googlemaps_available())
 		{
-			$map = new GoogleMapsDisplayMap($this->get_location(), 'location', $this->get_title());
+			$map = new GoogleMapsDisplayMap($this->get_location(), 'location', $category->get_name());
 			$location_map = $map->display();
 			$has_location_map = $this->is_map_displayed();
 		}
 
 		$start_date = $this->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 		$end_date = $this->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
-        $club = LamclubsService::get_item($this->id);
+        $club = LamclubsService::get_item($this->lamclubs_id);
 
 		return array_merge(
 			Date::get_array_tpl_vars($this->get_creation_date(), 'date'),
@@ -377,22 +377,20 @@ class PlanningItem
 				'C_HAS_UPDATE_DATE' 		 => $this->has_update_date(),
 
 				//Category
-				'C_ROOT_CATEGORY' => $category->get_id()   == Category::ROOT_CATEGORY,
+				'C_ROOT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY,
 				'CATEGORY_ID'     => $category->get_id(),
 				'CATEGORY_NAME'   => $category->get_name(),
-				'U_EDIT_CATEGORY' => $category->get_id()   == Category::ROOT_CATEGORY ? PlanningUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'planning')->rel(),
+				'U_EDIT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY ? PlanningUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'planning')->rel(),
 
 				//Event
 				'ID'                       => $this->id,
-				'TITLE'                    => $this->get_title(),
+				'TITLE'                    => $category->get_id() == Category::ROOT_CATEGORY ? $this->get_activity_other() : $category->get_name(),
 				'CLUB_NAME'                => $club->get_name(),
 				'CLUB_DPT'                 => $club->get_department(),
+				'CLUB_ID'                  => $club->get_club_id(),
 				'CONTENT'                  => $rich_content,
 				'LOCATION'                 => $location,
 				'LOCATION_MAP'             => $location_map,
-				'AUTHOR'                   => $author->get_display_name(),
-				'AUTHOR_LEVEL_CLASS'       => UserService::get_level_class($author->get_level()),
-				'AUTHOR_GROUP_COLOR'       => $author_group_color,
 
 				'U_SYNDICATION'    => SyndicationUrlBuilder::rss('planning', $category->get_id())->rel(),
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($author->get_id())->rel(),

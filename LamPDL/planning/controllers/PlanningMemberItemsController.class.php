@@ -110,18 +110,19 @@ class PlanningMemberItemsController extends DefaultModuleController
 
 			$br = new BrHTMLElement();
 
-			$c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+			$c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
+            $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
+            $c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
             $club = LamclubsService::get_item($item->get_lamclubs_id());
-            $details = !empty($item->get_content()) || !empty($item->get_location());
 
 			if($item->is_approved())
 			{
 				$row = array(
-					new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $item->get_title()), 'align-left'),
+					new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $title), 'align-left'),
 					new HTMLTableRowCell($category->get_name()),
 					new HTMLTableRowCell($club->get_department()),
 					new HTMLTableRowCell($club->get_name()),
-					new HTMLTableRowCell($details ? new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $this->lang['common.read.more']) : ''),
+					new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $this->lang['common.read.more'])),
 					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
 					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link, 'controls') : null
 				);

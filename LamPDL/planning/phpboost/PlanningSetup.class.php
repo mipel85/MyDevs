@@ -45,10 +45,10 @@ class PlanningSetup extends DefaultModuleSetup
 	{
 		$fields = array(
 			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
-			'id_category' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'lamclubs_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'title' => array('type' => 'string', 'length' => 150, 'notnull' => 1, 'default' => "''"),
-			'rewrited_title' => array('type' => 'string', 'length' => 250, 'default' => "''"),
+			'id_category' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'activity_other' => array('type' => 'string', 'length' => 150, 'notnull' => 0, 'default' => "''"),
+			'rewrited_link' => array('type' => 'string', 'length' => 250, 'default' => "''"),
 			'start_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'end_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
@@ -64,8 +64,7 @@ class PlanningSetup extends DefaultModuleSetup
 		$options = array(
 			'primary' => array('id'),
 			'indexes' => array(
-				'id_category' => array('type' => 'key', 'fields' => 'id_category'),
-				'title' => array('type' => 'fulltext', 'fields' => 'title')
+				'id_category' => array('type' => 'key', 'fields' => 'id_category')
 			)
 		);
 		PersistenceContext::get_dbms_utils()->create_table(self::$planning_table, $fields, $options);

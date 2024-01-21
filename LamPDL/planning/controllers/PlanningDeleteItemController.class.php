@@ -29,7 +29,9 @@ class PlanningDeleteItemController extends DefaultModuleController
 		PlanningService::clear_cache();
 		HooksService::execute_hook_action('delete', self::$module_id, $item->get_properties());
 
-		AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), PlanningUrlBuilder::display($item->get_category()->get_id(), $item->get_category()->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title())->rel()) ? $request->get_url_referrer() : DownloadUrlBuilder::home()), StringVars::replace_vars($this->lang['download.message.success.delete'], array('title' => $item->get_title())));
+		$c_root_category = $item->get_category()->get_id() == Category::ROOT_CATEGORY;
+        $title = $c_root_category ? $item->get_activity_other() : $item->get_category()->get_name();
+        AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), PlanningUrlBuilder::display($item->get_category()->get_id(), $item->get_category()->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link())->rel()) ? $request->get_url_referrer() : PlanningUrlBuilder::home()), StringVars::replace_vars($this->lang['planning.message.success.delete'], array('title' => $title)));
 	}
 
 	private function get_item(HTTPRequestCustom $request)

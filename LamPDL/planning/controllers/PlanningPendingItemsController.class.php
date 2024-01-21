@@ -52,7 +52,6 @@ class PlanningPendingItemsController extends DefaultModuleController
 		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter3', $this->lang['planning.club.department']));
 		if ($display_categories)
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
-		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $this->lang['common.status.publication'], array(1 => $this->lang['common.status.published'], 0 => $this->lang['common.status.draft'])));
 
         $table_model->add_permanent_filter('approved = 0');
 
@@ -82,12 +81,14 @@ class PlanningPendingItemsController extends DefaultModuleController
 
 			$br = new BrHTMLElement();
 
-			$c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+			$c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
+            $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
+            $c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
             $club = LamclubsService::get_item($item->get_lamclubs_id());
             $c_auth = $item->is_authorized_to_delete();
 
 			$row = array(
-				new HTMLTableRowCell($item->get_title(), 'align-left'),
+				new HTMLTableRowCell($title, 'align-left'),
 				new HTMLTableRowCell($category->get_name()),
 				new HTMLTableRowCell($author),
                 new HTMLTableRowCell($c_auth ? $user->get_email() : ''),

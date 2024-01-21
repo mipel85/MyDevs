@@ -63,10 +63,12 @@ class PlanningFeedProvider implements FeedProvider
 				{
 					$category = $categories[$item->get_id_category()];
 
-					$link = PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name() ? $category->get_rewrited_name() : 'root', $item->get_id(), $item->get_rewrited_title());
+					$c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
+                    $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
+                    $link = PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name() ? $category->get_rewrited_name() : 'root', $item->get_id(), $item->get_rewrited_link());
 
 					$feed_item = new FeedItem();
-					$feed_item->set_title($item->get_title());
+					$feed_item->set_title($title);
 					$feed_item->set_link($link);
 					$feed_item->set_guid($link);
 					$feed_item->set_desc(FormatingHelper::second_parse($item->get_content()) . ($item->get_location() ? '<br />' . $lang['planning.location'] . ' : ' . $item->get_location() . '<br />' : '') . '<br />' . $lang['planning.start.date'] . ' : ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE) . '<br />' . $lang['planning.end.date'] . ' : ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE));

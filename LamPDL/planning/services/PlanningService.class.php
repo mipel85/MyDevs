@@ -76,6 +76,28 @@ class PlanningService
 		return $item;
 	}
 
+    /**
+	 * @desc Return the properties of an item.
+	 * @param string $condition : Restriction to apply to the list
+	 * @param string[] $parameters : Parameters of the condition
+	 */
+	public static function get_user_club(int $user_id)
+	{
+		$result_ext = self::$db_querier->select_single_row_query('SELECT ext.*
+            FROM ' . DB_TABLE_MEMBER_EXTENDED_FIELDS . ' ext
+            WHERE ext.user_id = ' . $user_id
+        );
+        $club = $result_ext['f_votre_club'];
+        $user_club = explode(' - ', $club);
+        $user_ffam_nb = $user_club[0];
+
+        $result_club = self::$db_querier->select_single_row_query('SELECT club.*
+            FROM ' . LamclubsSetup::$lamclubs_table . ' club
+            WHERE club.ffam_nb = ' . $user_ffam_nb
+        );
+        return $result_club['club_id'];
+	}
+
 	/**
 	 * @desc Clears all module elements in cache.
 	 */

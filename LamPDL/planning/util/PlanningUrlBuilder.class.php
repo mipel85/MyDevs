@@ -33,9 +33,9 @@ class PlanningUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display($id_category, $rewrited_name_category, $item_id, $rewrited_title)
+	public static function display($id_category, $rewrited_name_category, $item_id, $rewrited_link)
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/' . $id_category . '-' . $rewrited_name_category . '/' . $item_id . '-' . $rewrited_title . '/');
+		return DispatchManager::get_url(self::$dispatcher, '/' . $id_category . '-' . $rewrited_name_category . '/' . $item_id . '-' . $rewrited_link . '/');
 	}
 
 	/**

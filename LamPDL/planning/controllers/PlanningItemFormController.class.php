@@ -17,6 +17,7 @@ class PlanningItemFormController extends DefaultModuleController
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
+			$this->form->get_field_by_id('activity_other')->set_hidden($this->get_item()->get_id_category() != Category::ROOT_CATEGORY);
 			$this->save();
 			$this->redirect();
 		}
@@ -36,19 +37,35 @@ class PlanningItemFormController extends DefaultModuleController
 		$fieldset = new FormFieldsetHTML('event', $this->lang['form.parameters']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldTextEditor('title', $this->lang['form.title'], $item->get_title(),
-			array('required' => true)
-		));
-
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
 		{
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
-			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['category.category'], $item->get_id_category(), $search_category_children_options));
+			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['planning.activity'], $item->get_id_category(), $search_category_children_options,
+                array(
+                    'description' => $this->lang['planning.activity.clue'],
+                    'events' => array('change' => '
+                        if (HTMLForms.getField("id_category").getValue() == ' . Category::ROOT_CATEGORY . ') {
+                            HTMLForms.getField("activity_other").enable();
+                        } else {
+                            HTMLForms.getField("activity_other").disable();
+                        }'
+                    )
+                )
+            ));
 		}
 
-		$fieldset->add_field($start_date = new FormFieldDateTime('start_date', $this->lang['planning.start.date'], $this->get_item()->get_start_date(),
+		$fieldset->add_field(new FormFieldTextEditor('activity_other', $this->lang['planning.activity.other'], '',
+			array(
+                'required' => true,
+                'hidden' => $item->get_id_category() != Category::ROOT_CATEGORY
+            )
+		));
+
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $this->get_item()->get_lamclubs_id(), LamclubsService::get_options_list(), array('required' => true)));
+
+        $fieldset->add_field($start_date = new FormFieldDateTime('start_date', $this->lang['planning.start.date'], $this->get_item()->get_start_date(),
 			array('required' => true, 'five_minutes_step' => true)
 		));
 
@@ -58,9 +75,7 @@ class PlanningItemFormController extends DefaultModuleController
 
 		$end_date->add_form_constraint(new FormConstraintFieldsDifferenceSuperior($start_date, $end_date));
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $this->get_item()->get_lamclubs_id(), LamclubsService::get_options_list(), array('required' => true)));
-
-        $fieldset->add_field(new FormFieldMailEditor('email', $this->lang['planning.contact.email'], $item->get_email(),
+		$fieldset->add_field(new FormFieldMailEditor('email', $this->lang['planning.contact.email'], $item->get_email(),
             array(
                 'required' => true,
                 'description' => $this->lang['planning.contact.email.clue']
@@ -199,11 +214,10 @@ class PlanningItemFormController extends DefaultModuleController
 	{
 		$item = $this->get_item();
 
-		$item->set_title($this->form->get_value('title'));
-		$item->set_rewrited_title(Url::encode_rewrite($this->form->get_value('title')));
-
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
 			$item->set_id_category($this->form->get_value('id_category')->get_raw_value());
+        $item->set_activity_other($this->form->get_value('activity_other'));
+		$item->set_rewrited_link(Url::encode_rewrite($item->get_category()->get_name()));
 
 		$item->set_lamclubs_id($this->form->get_value('club_infos')->get_raw_value());
 		$item->set_content($this->form->get_value('email'));
@@ -272,7 +286,7 @@ class PlanningItemFormController extends DefaultModuleController
 			else
 				$contribution->set_description(stripslashes($this->form->get_value('edition_description')));
 
-			$contribution->set_entitled($item->get_title());
+			$contribution->set_entitled($item->get_category()->get_name());
 			$contribution->set_fixing_url(PlanningUrlBuilder::edit_item($item->get_id())->relative());
 			$contribution->set_poster_id(AppContext::get_current_user()->get_id());
 			$contribution->set_module('planning');
@@ -305,23 +319,25 @@ class PlanningItemFormController extends DefaultModuleController
 		$item = $this->get_item();
 		$category = $item->get_category();
 
-		if ($this->is_new_item && $this->is_contributor_member() && !$item->is_approved())
+		$c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
+        $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
+        if ($this->is_new_item && $this->is_contributor_member() && !$item->is_approved())
 		{
 			DispatchManager::redirect(new UserContributionSuccessController());
 		}
 		elseif ($item->is_approved())
 		{
 			if ($this->is_new_item)
-				AppContext::get_response()->redirect(PlanningUrlBuilder::home($item->get_start_date()->get_year(), $item->get_start_date()->get_month(), $item->get_start_date()->get_day() , true), StringVars::replace_vars($this->lang['planning.message.success.add'], array('title' => $item->get_title())));
+				AppContext::get_response()->redirect(PlanningUrlBuilder::home($item->get_start_date()->get_year(), $item->get_start_date()->get_month(), $item->get_start_date()->get_day() , true), StringVars::replace_vars($this->lang['planning.message.success.add'], array('title' => $title)));
 			else
-				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : PlanningUrlBuilder::home($item->get_start_date()->get_year(), $item->get_start_date()->get_month(), $item->get_start_date()->get_day() , true)), StringVars::replace_vars($this->lang['planning.message.success.edit'], array('title' => $item->get_title())));
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : PlanningUrlBuilder::home($item->get_start_date()->get_year(), $item->get_start_date()->get_month(), $item->get_start_date()->get_day() , true)), StringVars::replace_vars($this->lang['planning.message.success.edit'], array('title' => $title)));
 		}
 		else
 		{
 			if ($this->is_new_item)
-				AppContext::get_response()->redirect(PlanningUrlBuilder::display_pending_items(), StringVars::replace_vars($this->lang['planning.message.success.add'], array('title' => $item->get_title())));
+				AppContext::get_response()->redirect(PlanningUrlBuilder::display_pending_items(), StringVars::replace_vars($this->lang['planning.message.success.add'], array('title' => $title)));
 			else
-				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : PlanningUrlBuilder::display_pending_items()), StringVars::replace_vars($this->lang['planning.message.success.edit'], array('title' => $item->get_title())));
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : PlanningUrlBuilder::display_pending_items()), StringVars::replace_vars($this->lang['planning.message.success.edit'], array('title' => $title)));
 		}
 	}
 
@@ -352,8 +368,6 @@ class PlanningItemFormController extends DefaultModuleController
 			$graphical_environment->set_page_title($this->lang['planning.item.edit'], $this->lang['planning.module.title']);
 
 			$category = $item->get_category();
-			$breadcrumb->add($item->get_title(), PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()));
-
 			$breadcrumb->add($this->lang['planning.item.edit'], PlanningUrlBuilder::edit_item($item->get_id()));
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['planning.item.edit']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(PlanningUrlBuilder::edit_item($item->get_id()));

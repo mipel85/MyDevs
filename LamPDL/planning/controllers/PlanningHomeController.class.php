@@ -18,6 +18,10 @@ class PlanningHomeController extends DefaultModuleController
 	{
 		$this->check_authorizations();
 
+        $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
+
+            // $c_clubs ? 
+            // $current_page = $this->view->put_all(array('CONTENT' => $this->lang['common.edit'])) : 
 		$current_page = $this->build_table();
 
 		if ($this->display_multiple_delete)
@@ -31,10 +35,9 @@ class PlanningHomeController extends DefaultModuleController
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
 		$columns = array(
-			new HTMLTableColumn($this->lang['common.title'], 'title'),
-			new HTMLTableColumn($this->lang['category.category'], 'id_category'),
-			new HTMLTableColumn($this->lang['planning.club.department'], 'lamclubs_id'),
-			new HTMLTableColumn($this->lang['planning.club.name'], 'lamclubs_id'),
+			new HTMLTableColumn($this->lang['planning.activities'], 'id_category'),
+			new HTMLTableColumn($this->lang['planning.club.department'], 'department'),
+			new HTMLTableColumn($this->lang['planning.club.name'], 'name'),
 			new HTMLTableColumn($this->lang['common.see.details'], 'content'),
 			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn('')
@@ -48,8 +51,8 @@ class PlanningHomeController extends DefaultModuleController
 		$table_model->set_layout_title($this->lang['planning.module.title']);
 
 		$table_model->set_filters_menu_title($this->lang['planning.filter.items']);
-		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('start_date', 'filter1', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
-		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
+		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('start_date', 'filter1', $this->lang['date.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
+		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['date.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
 		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter3', $this->lang['planning.club.department']));
 		if ($display_categories)
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
@@ -107,18 +110,18 @@ class PlanningHomeController extends DefaultModuleController
 
 			$br = new BrHTMLElement();
 
-			$c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+			$c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
+            $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
+            $c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
             $club = LamclubsService::get_item($item->get_lamclubs_id());
-            $details = !empty($item->get_content()) || !empty($item->get_location());
-
+            
 			if($item->is_approved())
 			{
 				$row = array(
-					new HTMLTableRowCell($item->get_title(), 'align-left'),
-					new HTMLTableRowCell($category->get_name()),
+					new HTMLTableRowCell($title, 'align-left'),
 					new HTMLTableRowCell($club->get_department()),
 					new HTMLTableRowCell($club->get_name()),
-					new HTMLTableRowCell($details ? new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $this->lang['common.read.more']) : ''),
+					new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $this->lang['common.read.more'])),
 					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
 					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link, 'controls') : null
 				);
