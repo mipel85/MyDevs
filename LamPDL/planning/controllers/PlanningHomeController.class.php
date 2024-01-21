@@ -19,10 +19,14 @@ class PlanningHomeController extends DefaultModuleController
 		$this->check_authorizations();
 
         $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
-
-            // $c_clubs ? 
-            // $current_page = $this->view->put_all(array('CONTENT' => $this->lang['common.edit'])) : 
-		$current_page = $this->build_table();
+        if ($c_clubs)
+        {
+            $current_page = $this->build_table();
+        }
+        else
+        {
+            $current_page = $this->build_warnings();
+        }
 
 		if ($this->display_multiple_delete)
 			$this->execute_multiple_delete_if_needed($request);
@@ -142,6 +146,17 @@ class PlanningHomeController extends DefaultModuleController
 
 		return $table->get_page_number();
 	}
+
+    private function build_warnings()
+    {
+        $this->view = new FileTemplate('planning/PlanningWarningsController.tpl');
+        $this->view->add_lang(LangLoader::get_all_langs('planning'));
+        $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
+
+        $this->view->put_all(array(
+            'C_NO_LAMCLUBS' => !$c_clubs
+        ));
+    }
 
 	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
 	{

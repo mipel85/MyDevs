@@ -70,6 +70,9 @@ $lang['planning.message.success.edit']   = 'L\'événement <b>:title</b> a été
 $lang['planning.message.success.delete'] = 'L\'événement <b>:title</b> a été supprimé';
 
 // Errors
+$lang['planning.warnings']             = 'Attention !!';
+$lang['planning.warnings.lamclubs']          = 'Le module Lamclubs est manquant, le module planning ne pourra pas fonctionner correctement.';
+$lang['planning.warnings.categories']        = 'Il n\'y a aucune catégorie (activité) déclarée, le module planning ne pourra pas fonctionner correctement.';
 $lang['planning.error.invalid.date']             = 'La date entrée est invalide';
 $lang['planning.error.user.born.field.disabled'] = 'Le champ <b>Date de naissance</b> n\'est pas affiché dans le profil des membres. Veuillez activer l\'affichage du champ dans la <a class="offload" href="' . AdminExtendedFieldsUrlBuilder::fields_list()->rel() . '">Gestion des champs du profil</a> pour permettre aux membres de renseigner leur date de naissance et afficher leur date d\'anniversaire dans le calendrier.';
 ?>
