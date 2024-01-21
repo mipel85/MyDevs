@@ -174,10 +174,16 @@ body {
 
 
 /* --- Global --------------------------------------------------------------- */
+#global {
+    flex: 1 1 auto;
+}
+
 #global-container {
 	display: flex;
 	flex-direction: column;
 	flex: 1 1 auto;
+    padding: 0 0.309em;
+    margin-bottom: 0.618em;
 }
 
 #main {
@@ -193,7 +199,11 @@ body {
 #menu-right { order : 3; }
 
 @media (min-width: 769px) {
-	#global-container { flex-direction: row; }
+	#global-container {
+        flex-direction: row;
+        padding: 0 0.809em;
+        margin-bottom: 1.618em;
+    }
 
 	.aside-menu { width: calc(100% / 13 * 3); }
 

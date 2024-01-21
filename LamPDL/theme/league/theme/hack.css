@@ -8,10 +8,13 @@ body {
     background-image: url('images/bg.webp');
 }
 
-#site-name-container,
+#site-name-container {
+    font-family: 'Goudy', serif;
+}
+body,
 #sub-header-content .cssmenu > ul > li > .cssmenu-title,
 h1, h2, h3, h4 {
-    font-family: 'Goudy Bookletter 1911', serif;
+    font-family: 'Roboto Slab', serif;
 }
 
 #site-name .capital {
@@ -67,8 +70,15 @@ h1, h2, h3, h4 {
 }
 
 #global-container {
-    padding: 0.618em;
     background-image: linear-gradient(to bottom, rgba(var(--lighten), 0) 20px, rgba(var(--lighten), 0.8) 200px);
+}
+
+#footer .cell-tile .cell {
+    color: var(--txt-main);
+}
+
+#footer-content .cell-tile .cell {
+    border-color: transparent;
 }
 
 #footer {
@@ -127,6 +137,35 @@ h1, h2, h3, h4 {
 
 .form-field-preview {
     max-width: 300px;
+}
+
+/* --- Tzble model --- */
+
+.html-table-filters {
+    position: relative;
+    text-align: right;
+}
+
+.html-table-filters .filters-container {
+    text-align: left;
+	position: absolute;
+    right: 0;
+    width: 35%;
+    background-color: var(--bgc-main);
+    z-index: 2;
+	opacity: 0;
+	visibility: hidden;
+	height: 0;
+}
+
+.filters-container .form-element > * {
+    width: 50%;
+}
+
+.html-table-filters.opened .filters-container {
+	opacity: 1;
+	visibility: visible;
+	height: auto;
 }
 
 /* --- Modules --- */
