@@ -25,8 +25,8 @@
                                 osmCloseButton: '.close-filters *',
                             });
                             var url = window.location.search;
-                            if (url.indexOf(',filters:') != -1)
-                                jQuery('.html-table-filters').addClass('opened');
+                            // if (url.indexOf(',filters:') != -1)
+                            //     jQuery('.html-table-filters').addClass('opened');
                             let currentUrl = window.location.href,
                                 updatedUrl = currentUrl.replace(window.location.search, '');
                             jQuery('.reset-filters').on('click', function() {

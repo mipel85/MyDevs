@@ -10,5 +10,6 @@ $lang['theme.connect.register.description'] = '
 ';
 $lang['theme.activities'] = 'Activités';
 $lang['theme.activities.other'] = 'Autres activités';
+$lang['theme.activities.manage'] = 'Gestion des activités';
 
 ?>
