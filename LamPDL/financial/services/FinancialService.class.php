@@ -18,9 +18,9 @@ class FinancialService
 
     /**
      * @desc Create a new entry in the database table.
-     * @param FinancialActivityItem $item : new Item
+     * @param $item : new Item
      */
-    public static function add(FinancialActivityItem $item)
+    public static function add($item)
     {
         $result = self::$db_querier->insert(FinancialSetup::$financial, $item->get_properties());
         return $result->get_last_inserted_id();
@@ -50,7 +50,7 @@ class FinancialService
 
     public static function get_requests($archived)
     {
-        $left_join = 'LEFT JOIN ' . LamClubsSetup::$lamclubs_table . ' clubs ON clubs.id = f.club_id';
+        $left_join = 'LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' clubs ON clubs.club_id = f.club_id';
         $clubs_select = ', clubs.name AS club_name, clubs.department AS club_dept, clubs.ffam_nb AS club_ffam_number';
         $result = array();
         $req = self::$db_querier->select('SELECT f.*' . $clubs_select . '

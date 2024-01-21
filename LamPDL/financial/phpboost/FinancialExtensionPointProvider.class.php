@@ -6,7 +6,7 @@
  * @version     PHPBoost 6.0 - last update: 2024 01 18
  * @since       PHPBoost 6.0 - 2024 01 18
  */
-class FinancialExtensionPointProvider extends ExtensionPointProvider
+class FinancialExtensionPointProvider extends ItemsModuleExtensionPointProvider
 {
 
     public function home_page()
@@ -14,21 +14,9 @@ class FinancialExtensionPointProvider extends ExtensionPointProvider
         return new DefaultHomePageDisplay($this->get_id(), FinancialHomeController::get_view());
     }
 
-    public function css_files()
+    public function user()
     {
-        $module_css_files = new ModuleCssFiles();
-        $module_css_files->adding_running_module_displayed_file('financial.css');
-        return $module_css_files;
-    }
-
-    public function tree_links()
-    {
-        return new FinancialTreeLinks('financial');
-    }
-
-    public function url_mappings()
-    {
-        return new UrlMappings(array(new DispatcherUrlMapping('/financial/index.php')));
+        return false;
     }
 }
 ?>

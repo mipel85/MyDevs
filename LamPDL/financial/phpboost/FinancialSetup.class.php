@@ -42,6 +42,10 @@ class FinancialSetup extends DefaultModuleSetup
         $fields = array(
             'id'                        => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
             'activity_type'             => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
+            'dedicated_object'          => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
+            'dedicated_details'         => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
+            'dedicated_budget'          => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),
+            'dedicated_file_url'        => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
             'club_id'                   => array('type' => 'integer', 'length' => 11, 'notnull' => 1),
             'club_activity_date'        => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
             'club_activity_location'    => array('type' => 'text', 'length' => 16777215),

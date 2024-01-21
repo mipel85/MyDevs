@@ -24,7 +24,7 @@ class FinancialHomeController extends DefaultModuleController
     private function build_view()
     {
         $this->view->put_all(array(
-            'C_CLUBS' => ModulesManager::is_module_installed('LamClubs') && ModulesManager::is_module_activated('LamClubs'),
+            'C_CLUBS' => ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs'),
             'TITLE'   => $this->lang['financial.home'],
         ));
     }

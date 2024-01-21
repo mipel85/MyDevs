@@ -5,7 +5,7 @@
     <div class="sub-section">
         <div class="content-container responsive-table">
             # IF C_ITEM #
-                <table id="archived_requests" class="display">
+                <table id="archived_requests">
                     <thead>
                         <tr>
                             <th>{@financial.form.radio.choices}</th>

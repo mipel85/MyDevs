@@ -41,7 +41,7 @@ class FinancialPendingRequestsController extends DefaultModuleController
         foreach ($req as $value)
         {
             $this->view->assign_block_vars('pending_requests', array(
-                'ACTIVITY_TYPE'      => $value['activity_type'] != '' ? ($value['activity_type'] == 'jpo' ? $this->lang['financial.jpo'] : $this->lang['financial.exam']) : $value['dedicated_object'], 'align-left',
+                'ACTIVITY_TYPE'      => $value['activity_type'] != '' ? ($value['activity_type'] == 'jpo' ? $this->lang['financial.jpo'] : $this->lang['financial.exam']) : $value['dedicated_object'],
                 'CLUB_FFAM_NUMBER'   => $value['club_ffam_number'],
                 'CLUB_DEPT'          => $value['club_dept'],
                 'CLUB_NAME'          => $value['club_name'],

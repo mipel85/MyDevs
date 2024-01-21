@@ -39,13 +39,13 @@ class FinancialArchivedRequestsController extends DefaultModuleController
         foreach ($req as $value)
         {
             $this->view->assign_block_vars('archived_requests', array(
-                'ACTIVITY_TYPE'      => $value['activity_type'] == 'jpo' ? $this->lang['financial.jpo'] : $this->lang['financial.exam'], 'align-left',
-                'CLUB_NAME'          => $value['club_name'],
-                'CLUB_FFAM_NUMBER'   => $value['club_ffam_number'],
-                'CLUB_ACTIVITY_DATE' => Date::to_format($value['club_activity_date'], Date::FORMAT_DAY_MONTH_YEAR),
-                'CLUB_REQUEST_DATE'  => Date::to_format($value['club_request_date'], Date::FORMAT_DAY_MONTH_YEAR),
-                'ARCHIVED_DATE'      => Date::to_format($value['archived_date'], Date::FORMAT_DAY_MONTH_YEAR),
-                'AMOUNT_PAID'        => $value['amount_paid'],
+                'ACTIVITY_TYPE'         => $value['activity_type'] != '' ? ($value['activity_type'] = 'jpo' ? $this->lang['financial.jpo'] : $this->lang['financial.exam']) : $value['dedicated_object'],
+                'CLUB_NAME'             => $value['club_name'],
+                'CLUB_FFAM_NUMBER'      => $value['club_ffam_number'],
+                'CLUB_ACTIVITY_DATE'    => Date::to_format($value['club_activity_date'], Date::FORMAT_DAY_MONTH_YEAR),
+                'CLUB_REQUEST_DATE'     => Date::to_format($value['club_request_date'], Date::FORMAT_DAY_MONTH_YEAR),
+                'ARCHIVED_DATE'         => Date::to_format($value['archived_date'], Date::FORMAT_DAY_MONTH_YEAR),
+                'AMOUNT_PAID'           => $value['amount_paid'],
             ));
         }
     }
