@@ -7,17 +7,14 @@
 		<h1>
 			<span itemprop="name">{TITLE}</span>
 		</h1>
+        <h3><span class="smaller">{@planning.organized.by} : </span> {CLUB_NAME} <span class="smaller">({CLUB_DPT})</span></h3>
 	</header>
 	<div class="sub-section">
 		<div class="content-container">
 			<article itemscope="itemscope" itemtype="https://schema.org/Event" id="planning-item-{ID}" class="planning-item# IF C_NEW_CONTENT # new-content# ENDIF #">
 
 				<div class="flex-between">
-					<div class="more">
-						<span class="pinned item-club">{@planning.organized.by} : <span class="text-strong">{CLUB_NAME}</span></span>
-						<span class="pinned item-club-department">- {@planning.club.department} : <span class="text-strong">{CLUB_DPT}</span></span>
-						# IF NOT C_ROOT_CATEGORY #- <span class="pinned item-category" aria-label="{@common.category}">{@common.category} : <span class="text-strong">{CATEGORY_NAME}</span></span># ENDIF #
-					</div>
+					<div class="more"></div>
 					# IF C_CONTROLS #
 						<div class="controls align-right">
 							# IF C_EDIT #
@@ -55,7 +52,7 @@
 									# IF C_LOCATION #
 										<li class="li-stretch" itemprop="location" itemscope itemtype="https://schema.org/Place">
 											<span class="text-strong">{@planning.location} : </span>
-											<span itemprop="name">{LOCATION}</span>
+											<span class="location-text" itemprop="name">{LOCATION}</span>
 										</li>
 									# ENDIF #
 								</ul>

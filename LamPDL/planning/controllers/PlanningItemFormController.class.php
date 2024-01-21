@@ -328,9 +328,9 @@ class PlanningItemFormController extends DefaultModuleController
 		elseif ($item->is_approved())
 		{
 			if ($this->is_new_item)
-				AppContext::get_response()->redirect(PlanningUrlBuilder::home($item->get_start_date()->get_year(), $item->get_start_date()->get_month(), $item->get_start_date()->get_day() , true), StringVars::replace_vars($this->lang['planning.message.success.add'], array('title' => $title)));
+				AppContext::get_response()->redirect(PlanningUrlBuilder::home(), StringVars::replace_vars($this->lang['planning.message.success.add'], array('title' => $title)));
 			else
-				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : PlanningUrlBuilder::home($item->get_start_date()->get_year(), $item->get_start_date()->get_month(), $item->get_start_date()->get_day() , true)), StringVars::replace_vars($this->lang['planning.message.success.edit'], array('title' => $title)));
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : PlanningUrlBuilder::home()), StringVars::replace_vars($this->lang['planning.message.success.edit'], array('title' => $title)));
 		}
 		else
 		{

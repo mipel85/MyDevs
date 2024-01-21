@@ -14,13 +14,6 @@ class PlanningTreeLinks extends DefaultTreeLinks
 		parent::__construct('planning');
 	}
 
-	protected function get_add_item_url()
-	{
-		$requested_date = $this->get_requested_date();
-
-		return PlanningUrlBuilder::add_item($requested_date['year'], $requested_date['month'], $requested_date['day']);
-	}
-
 	protected function get_module_additional_items_actions_tree_links(&$tree)
 	{
 		$current_user = AppContext::get_current_user()->get_id();
@@ -28,16 +21,6 @@ class PlanningTreeLinks extends DefaultTreeLinks
 		$lang = LangLoader::get_all_langs($module_id);
 
 		$tree->add_link(new ModuleLink($lang['planning.my.items'], PlanningUrlBuilder::display_member_items($current_user), CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, $module_id)->write() || CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, $module_id)->contribution() || CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, $module_id)->moderation()));
-	}
-
-	private function get_requested_date()
-	{
-		$request = AppContext::get_request();
-		return array(
-			'year'  => $request->get_getint('year', date('Y')),
-			'month' => $request->get_getint('month', date('n')),
-			'day'   => $request->get_getint('day', date('j'))
-		);
 	}
 }
 ?>

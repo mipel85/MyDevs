@@ -104,48 +104,6 @@ class PlanningService
 	public static function clear_cache()
 	{
 		Feed::clear_cache('planning');
-		PlanningCache::invalidate();
-	}
-
-	/**
-	 * @desc Return all the items of the requested month.
-	 * @param int $month Month of the request
-	 * @param int $year Year of the request
-	 * @param int $month_days Number of days in the requested month
-	 */
-	public static function get_all_current_month_items($month, $year, $month_days, $id_category = Category::ROOT_CATEGORY)
-	{
-		$items = array();
-		$authorized_categories = $id_category == Category::ROOT_CATEGORY ? CategoriesService::get_authorized_categories($id_category) : array($id_category);
-
-		$first_month_day = DateTime::createFromFormat('Y-m-d H:i:s', $year . '-' . $month . '-' . 1 . ' 00:00:00', Timezone::get_timezone(Timezone::USER_TIMEZONE));
-		$last_month_day = DateTime::createFromFormat('Y-m-d H:i:s', $year . '-' . $month . '-' . $month_days . ' 23:59:59', Timezone::get_timezone(Timezone::USER_TIMEZONE));
-		$result = self::$db_querier->select((PlanningConfig::load()->is_members_birthday_enabled() ? "
-		(SELECT member_extended_fields.user_born AS start_date, member_extended_fields.user_born AS end_date, display_name AS title, 'BIRTHDAY' AS type, 0 AS id_category
-		FROM " . DB_TABLE_MEMBER . " member
-		LEFT JOIN " . DB_TABLE_MEMBER_EXTENDED_FIELDS . " member_extended_fields ON member_extended_fields.user_id = member.user_id
-		WHERE member_extended_fields.user_born <> '' AND IF(member_extended_fields.user_born < 0, MONTH(DATE_ADD(FROM_UNIXTIME(0), INTERVAL member_extended_fields.user_born second)), MONTH(FROM_UNIXTIME(member_extended_fields.user_born))) = :month AND :year > IF(member_extended_fields.user_born < 0, YEAR(DATE_ADD(FROM_UNIXTIME(0), INTERVAL member_extended_fields.user_born second)), YEAR(FROM_UNIXTIME(member_extended_fields.user_born))))
-		UNION
-		" : "") . "(SELECT start_date, end_date, title, 'EVENT' AS type, id_category
-		FROM " . PlanningSetup::$planning_table . " event
-		WHERE approved = 1
-		AND ((start_date BETWEEN :first_month_day AND :last_month_day) OR (end_date BETWEEN :first_month_day AND :last_month_day) OR (:first_month_day BETWEEN start_date AND end_date))
-		AND id_category IN :authorized_categories)
-		ORDER BY type ASC, start_date ASC", array(
-			'month' => $month,
-			'year' => $year,
-			'first_month_day' => $first_month_day->getTimestamp(),
-			'last_month_day' => $last_month_day->getTimestamp(),
-			'authorized_categories' => $authorized_categories
-		));
-
-		while ($row = $result->fetch())
-		{
-			$items[] = $row;
-		}
-		$result->dispose();
-
-		return $items;
 	}
 }
 ?>
