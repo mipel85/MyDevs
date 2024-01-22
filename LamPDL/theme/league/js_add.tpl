@@ -14,9 +14,21 @@
         // Change root category name
         let other_activity = ${escapejs(@theme.activities.other)};
         jQuery('#filters_form_1_id_category option, #PlanningItemFormController_id_category option').each(function() {
-            console.log($(this));
-            if ($(this).val() == 0) {
-                $(this).attr('label', other_activity)
+            if (jQuery(this).val() == 0) {
+                jQuery(this).attr('label', other_activity)
+            }
+        });
+
+        // Turn category into Activity
+        jQuery('#cssmenu-module-planning li a, #breadcrumb ol li a span, #module-planning header h1, #module-planning form label').each(function() {
+            let text = jQuery(this).text();
+            if (text.indexOf('À placer dans la catégorie') > -1) {
+                text = text.replace("la catégorie", "l'activité");
+                jQuery(this).text(text);
+            }
+            if (text.indexOf('catégorie') > -1) {
+                text = text.replace('catégorie', 'activité');
+                jQuery(this).text(text);
             }
         });
     });
