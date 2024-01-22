@@ -45,7 +45,6 @@ class PlanningItemsManagerController extends DefaultModuleController
 		$table_model->set_layout_title($this->lang['planning.items.management']);
 
 		$table_model->set_filters_menu_title($this->lang['planning.filter.items']);
-		// $table_model->add_filter(new HTMLTableDateComparatorSQLFilter('start_date', 'filter0', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('start_date', 'filter1', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
 		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter4', $this->lang['planning.club.department']));

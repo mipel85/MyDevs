@@ -10,6 +10,9 @@
                 # IF C_NO_LAMCLUBS #
                     <div class="message-helper bgc error">{@planning.warnings.lamclubs}</div>
                 # ENDIF #
+                # IF C_NO_CATEGORIES #
+                    <div class="message-helper bgc error">{@planning.warnings.categories}</div>
+                # ENDIF #
 			</article>
 		</div>
 	</div>

@@ -19,7 +19,8 @@ class PlanningHomeController extends DefaultModuleController
 		$this->check_authorizations();
 
         $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
-        if ($c_clubs)
+        $c_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
+        if ($c_clubs && $c_categories)
         {
             $current_page = $this->build_table();
         }
@@ -152,9 +153,11 @@ class PlanningHomeController extends DefaultModuleController
         $this->view = new FileTemplate('planning/PlanningWarningsController.tpl');
         $this->view->add_lang(LangLoader::get_all_langs('planning'));
         $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
+        $c_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
         $this->view->put_all(array(
-            'C_NO_LAMCLUBS' => !$c_clubs
+            'C_NO_LAMCLUBS' => !$c_clubs,
+            'C_NO_CATEGORIES' => !$c_categories
         ));
     }
 
