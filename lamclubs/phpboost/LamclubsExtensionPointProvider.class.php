@@ -19,6 +19,11 @@ class LamclubsExtensionPointProvider extends ItemsModuleExtensionPointProvider
 		return new DefaultHomePageDisplay($this->get_club_id(), LamclubsHomeController::get_view());
 	}
 
+	public function url_mappings()
+	{
+		return new UrlMappings(array(new DispatcherUrlMapping('/lamclubs/index.php')));
+	}
+
 	public function user()
 	{
 		return false;
