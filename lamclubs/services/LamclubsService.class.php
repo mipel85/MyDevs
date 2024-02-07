@@ -111,10 +111,11 @@ class LamclubsService
 		return $options;
 	}
 
-    /**
-	 * @desc Return the properties of an item.
-	 * @param string $condition : Restriction to apply to the list
-	 * @param string[] $parameters : Parameters of the condition
+	/**
+	 * Get the club id regarding the user club
+	 *
+	 * @param  int $user_id
+	 * @return int $club_id id of the club
 	 */
 	public static function get_user_club(int $user_id)
 	{
