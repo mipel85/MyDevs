@@ -296,7 +296,7 @@ class PlanningItem
 	{
         $user = AppContext::get_current_user();
         $now = new Date();
-        $this->lamclubs_id = PlanningService::get_user_club(AppContext::get_current_user()->get_id());
+        $this->lamclubs_id = LamclubsService::get_user_club(AppContext::get_current_user()->get_id());
 		$this->id_category = $id_category;
 		$this->author_user = AppContext::get_current_user();
 		$this->email = $user->get_email();
