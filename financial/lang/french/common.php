@@ -1,0 +1,125 @@
+<?php
+/**
+ * @copyright   &copy; 2005-2023 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @since       PHPBoost 6.0 - 2020 01 18
+*/
+
+####################################################
+#                    French                        #
+####################################################
+
+$lang['financial.module.title'] = 'Aide Financière';
+$lang['financial.config.auth'] = 'Configuration de module Aide Financière';
+
+$lang['financial.item']  = 'demande';
+$lang['financial.items'] = 'demandes';
+$lang['financial.no.category'] = 'Sans catégorie';
+
+// TreeLinks
+$lang['financial.budgets.management'] = 'Gestion des budgets';
+$lang['financial.budget.add'] = 'Ajouter un budget';
+$lang['financial.budget.edit']        = 'Modifier un budget';
+
+// Titles
+
+$lang['financial.item.add']         = 'Ajouter une demande';
+$lang['financial.item.edit']        = 'Modifier une demande';
+$lang['financial.item.delete']      = 'Supprimer la demande';
+$lang['financial.my.items']         = 'Mes demandes';
+$lang['financial.member.items']     = 'Demandes crées par';
+$lang['financial.archived.items']   = 'Demandes archivées';
+$lang['financial.pending.items']    = 'Demandes en attente';
+$lang['financial.filter.items']     = 'Filtrer les demandes';
+$lang['financial.items.management'] = 'Gestion des demandes';
+$lang['financial.request.type']     = 'Type de demande';
+$lang['financial.request.access']   = 'Faire une demande';
+$lang['financial.request.choice']   = 'Choisir';
+$lang['financial.bill']   = '<br /><span class="small text-italic">Sur facture ou devis</span>';
+$lang['financial.bill.max.amount']   = '<br /><span class="small text-italic">max :max_amount €</span>';
+$lang['financial.budget.available']   = 'Nombre de demandes disponibles';
+$lang['financial.club.name']   = 'Nom du club';
+$lang['financial.club.dpt']   = 'Département';
+
+// Labels
+$lang['financial.tracking']             = 'Suivi financier';
+$lang['financial.tracking.ongoing']     = 'Passer la demande `À l\'étude`';
+$lang['financial.tracking.reject']      = 'Rejeter la demande';
+$lang['financial.tracking.accept']      = 'Accepter la demande';
+$lang['financial.budget.domain']        = 'Domaine';
+$lang['financial.budget.name']          = 'Nom du budget';
+$lang['financial.budget.description']   = 'Description du budget';
+$lang['financial.budget.fiscal.year']   = 'Année de l\'exercice';
+$lang['financial.budget.annual.amount'] = 'Montant du budget';
+$lang['financial.budget.amount']        = 'Montant par demande';
+$lang['financial.budget.max.amount']    = 'Plafond par demande';
+$lang['financial.budget.quantity']      = 'Nombre de demandes possibles';
+$lang['financial.budget.upload']        = 'Budget avec téléversement <br /><span class="small text-italic">Pour que le demandeur puisse fournir des devis, factures, etc</span>';
+
+$lang['financial.request.allocated.budget']   = 'Budget alloué';
+$lang['financial.request.bill']               = ' sur facture ou devis';
+$lang['financial.request.club']               = 'Identifiants du club';
+$lang['financial.request.city']               = 'Ville';
+$lang['financial.request.event.date']         = 'Date de l\'événement';
+$lang['financial.request.creation.date']      = 'Date de création';
+$lang['financial.request.contact']            = 'Email';
+$lang['financial.request.contact.clue']       = 'Email du responsable de club à contacter en cas de besoin';
+$lang['financial.request.content']            = 'Descriptif (optionnel)';
+$lang['financial.request.files.url']          = 'Fichiers';
+$lang['financial.request.estimate.url']       = 'Devis';
+$lang['financial.request.estimate.url.clue']  = 'Si vous n\'avez pas encore de facture';
+$lang['financial.request.invoice.url']        = 'Facture';
+$lang['financial.request.invoice.url.clue']   = 'Nécessaire pour la prise en compte de votre demande';
+
+$lang['financial.status'] = 'Suivi de la demande';
+$lang['financial.status.pending'] = 'En attente';
+$lang['financial.status.ongoing'] = 'À l\'étude';
+$lang['financial.status.accepted'] = 'Acceptée';
+$lang['financial.status.rejected'] = 'Rejetée';
+
+// Email
+$lang['financial.mail.msg'] = 'Bonjour, <br /><br />
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i><br /><br /> 
+        Le club <b>:club_name</b> (affiliation FFAM n° :club_ffam_number) souhaite obtenir une aide pour l\'organisation d\'une :activity prévue le :club_activity_date<br /><br />
+        <b>Ville :</b> :club_activity_city.
+        <b>Département :</b> :club_activity_dpt.';
+
+// Config
+$lang['financial.recipient.mail_1'] = 'Adresse du destinataire principal :';
+$lang['financial.recipient.mail_2'] = 'Adresse du destinataire n° 2 :';
+$lang['financial.recipient.mail_3'] = 'Adresse du destinataire n° 3 :';
+$lang['financial.email.configuration.default'] = 'Adresse mail obligatoire. par défaut : :default_mail';
+$lang['financial.email.configuration.optional'] = 'Adresse mail optionnelle';
+
+$lang['financial.reset'] = 'Nouvel exercice comptable';
+$lang['financial.reset.clue'] = 'Mise à jour des compteurs de demandes par budget';
+$lang['financial.reset.date'] = 'Année du nouvel exercice';
+$lang['financial.reset.date.clue'] = 'Exactement 4 chiffres';
+
+// SEO
+$lang['financial.seo.description.root']          = 'Tous les demandes du site :site.';
+$lang['financial.seo.description.pending']       = 'Tous les demandes en attente.';
+$lang['financial.seo.description.member']        = 'Tous les demandes de :author.';
+$lang['financial.seo.description.requests.list'] = 'Liste des demandes du site :site.';
+
+// Feed name
+$lang['financial.feed.name'] = 'Événement';
+
+// Messages helper
+$lang['financial.message.success.add']    = 'La demande <b>:title</b> a été ajoutée';
+$lang['financial.message.success.edit']   = 'La demande <b>:title</b> a été modifiée';
+$lang['financial.message.success.delete'] = 'La demande <b>:title</b> a été supprimée';
+
+$lang['financial.message.success.budget.add']    = 'Le budget <b>:name</b> a été ajouté';
+$lang['financial.message.success.budget.edit']   = 'Le budget <b>:name</b> a été modifié';
+$lang['financial.message.success.budget.delete'] = 'Le budget <b>:name</b> a été supprimé';
+
+// Errors
+$lang['financial.warnings']             = 'Attention !!';
+$lang['financial.warnings.lamclubs']          = 'Le module Lamclubs est manquant, le module financial ne pourra pas fonctionner correctement.';
+$lang['financial.warnings.categories']        = 'Il n\'y a aucune catégorie (activité) déclarée, le module financial ne pourra pas fonctionner correctement.';
+$lang['financial.error.invalid.date']             = 'La date entrée est invalide';
+$lang['financial.error.user.born.field.disabled'] = 'Le champ <b>Date de naissance</b> n\'est pas affiché dans le profil des membres. Veuillez activer l\'affichage du champ dans la <a class="offload" href="' . AdminExtendedFieldsUrlBuilder::fields_list()->rel() . '">Gestion des champs du profil</a> pour permettre aux membres de renseigner leur date de naissance et afficher leur date d\'anniversaire dans le calendrier.';
+?>

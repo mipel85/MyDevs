@@ -1,0 +1,7 @@
+.ongoing {
+    background-color: rgba(var(--notice-tone), 0.2);
+}
+
+.tracking-input {
+    width: 60px;
+}
