@@ -6,8 +6,8 @@
 - pareil pour la config maj de l'exercice ?
 
 - gestion des compteurs
-~~- champ `domaine` pour les budget (titre des tableaux du pdf)~~
-- modifier le lien du module dans le panneau de contribution
+~~- champ `domaine` pour les budgets (titre des tableaux du pdf)~~
+~~- modifier le lien du module dans le panneau de contribution~~
 
 passer les états en bouton sur le pending plutôt qu'à l'édition
 

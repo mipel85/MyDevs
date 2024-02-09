@@ -46,6 +46,7 @@ $lang['financial.club.dpt']   = 'Département';
 // Labels
 $lang['financial.tracking']             = 'Suivi financier';
 $lang['financial.tracking.ongoing']     = 'Passer la demande `À l\'étude`';
+$lang['financial.ongoing']              = 'En attente de facture';
 $lang['financial.tracking.reject']      = 'Rejeter la demande';
 $lang['financial.tracking.accept']      = 'Accepter la demande';
 $lang['financial.budget.domain']        = 'Domaine';

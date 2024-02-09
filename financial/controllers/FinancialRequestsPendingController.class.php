@@ -84,6 +84,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
                 $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-fw fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
                 $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
+                $ongoing_status = $item->get_agreement_state() === FinancialRequestItem::ONGOING ? $this->lang['financial.ongoing'] : '';
             }
             else
             {
@@ -91,8 +92,10 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $estimate_file = $invoice_file = '';
             }
 
+            $ongoing_class = ($item->get_agreement_state() == FinancialRequestItem::ONGOING) ? ' bgc warning' : '';
+
             $ongoing = new LinkHTMLElement('#', '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.tracking.ongoing']));
-            $ongoing = $item->get_agreement_state() == FinancialRequestItem::PENDING ? $ongoing->display() : '';
+            $ongoing = ($item->get_agreement_state() == FinancialRequestItem::PENDING) ? $ongoing->display() : '';
 
             $reject = new LinkHTMLElement('#', '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
             $reject = $reject->display();
@@ -104,14 +107,14 @@ class FinancialRequestsPendingController extends DefaultModuleController
             $accept = $accept->display();
 
 			$row = array(
-				new HTMLTableRowCell($amount . $accept . $ongoing . $reject, 'controls'),
-				new HTMLTableRowCell($item->get_title(), 'align-left'),
-				new HTMLTableRowCell($club_name),
-                new HTMLTableRowCell($club->get_department()),
-                new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
-                new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
-				new HTMLTableRowCell($estimate_file . $invoice_file, 'controls'),
-                new HTMLTableRowCell($edit_link . $delete_link, 'controls')
+				new HTMLTableRowCell($amount . $accept . $ongoing . $reject, 'controls' . $ongoing_class),
+				new HTMLTableRowCell($item->get_title(), 'align-left' . $ongoing_class),
+				new HTMLTableRowCell($club_name , $ongoing_class),
+                new HTMLTableRowCell($club->get_department() , $ongoing_class),
+                new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
+                new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
+				new HTMLTableRowCell($estimate_file . $invoice_file . $ongoing_status, 'controls' . $ongoing_class),
+                new HTMLTableRowCell($edit_link . $delete_link, 'controls' . $ongoing_class)
 			);
 
             if (!FinancialAuthorizationsService::check_authorizations()->write())
