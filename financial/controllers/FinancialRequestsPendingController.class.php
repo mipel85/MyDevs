@@ -28,6 +28,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 			new HTMLTableColumn($this->lang['common.title'], 'title'),
 			new HTMLTableColumn($this->lang['financial.club.name'], 'club_name'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'club_department'),
+			new HTMLTableColumn($this->lang['financial.request.city'], 'city'),
 			new HTMLTableColumn($this->lang['financial.request.event.date'], 'event_date'),
 			new HTMLTableColumn($this->lang['financial.request.creation.date'], 'creation_date'),
 			new HTMLTableColumn($this->lang['financial.request.files.url'], ''),
@@ -66,6 +67,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 			$item = new FinancialRequestItem();
 			$item->set_properties($row);
 			$user = $item->get_author_user();
+            $budget = FinancialBudgetService::get_budget($item->get_budget_id());
 
 			$this->items_number++;
 			$this->ids[$this->items_number] = $item->get_id();
@@ -84,7 +86,8 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
                 $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-fw fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
                 $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
-                $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING ? $this->lang['financial.ongoing'] : '';
+                $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl() && empty($item->get_invoice_url()->rel()) ? 
+                    $this->lang['financial.ongoing'] : '';
             }
             else
             {
@@ -92,15 +95,14 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $estimate_file = $invoice_file = '';
             }
 
-            $ongoing_class = ($item->get_agreement_state() == FinancialRequestItem::ONGOING) ? ' bgc warning' : '';
+            $ongoing_class = ($item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl()) ? ' bgc warning' : '';
 
             $ongoing_link = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.tracking.ongoing']));
-            $ongoing_link = ($item->get_agreement_state() == FinancialRequestItem::PENDING) ? $ongoing_link->display() : '';
+            $ongoing_link = ($item->get_agreement_state() == FinancialRequestItem::PENDING && $budget->get_use_dl()) ? $ongoing_link->display() : '';
 
             $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
             $reject_link = $reject_link->display();
 
-            $budget = FinancialBudgetService::get_budget($item->get_budget_id());
             $amount_label = $budget->get_max_amount() ? ' aria-label="max: ' . $budget->get_max_amount() .'€"' : '';
             $amount = '<input class="tracking-input" type="text" width="80" id="amount_' . $item->get_id() . '" value="' . $budget->get_amount() . '"' . $amount_label . ' />';
             $accept_link = new LinkHTMLElement('#', '<i class="fa fa-square-check success"></i>', array('aria-label' => $this->lang['financial.tracking.accept']));
@@ -111,6 +113,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 				new HTMLTableRowCell($item->get_title(), 'align-left' . $ongoing_class),
 				new HTMLTableRowCell($club_name , $ongoing_class),
                 new HTMLTableRowCell($club->get_department() , $ongoing_class),
+                new HTMLTableRowCell($item->get_city() , $ongoing_class),
                 new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
                 new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
 				new HTMLTableRowCell($estimate_file . $invoice_file . $ongoing_status, 'controls' . $ongoing_class),
