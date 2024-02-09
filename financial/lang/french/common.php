@@ -65,6 +65,7 @@ $lang['financial.request.club']               = 'Identifiants du club';
 $lang['financial.request.city']               = 'Ville';
 $lang['financial.request.event.date']         = 'Date de l\'événement';
 $lang['financial.request.creation.date']      = 'Date de création';
+$lang['financial.request.validation.date']    = 'Date de validation';
 $lang['financial.request.contact']            = 'Email';
 $lang['financial.request.contact.clue']       = 'Email du responsable de club à contacter en cas de besoin';
 $lang['financial.request.content']            = 'Descriptif (optionnel)';
@@ -109,9 +110,11 @@ $lang['financial.seo.description.requests.list'] = 'Liste des demandes du site :
 $lang['financial.feed.name'] = 'Événement';
 
 // Messages helper
-$lang['financial.message.success.add']    = 'La demande <b>:title</b> a été ajoutée';
-$lang['financial.message.success.edit']   = 'La demande <b>:title</b> a été modifiée';
-$lang['financial.message.success.delete'] = 'La demande <b>:title</b> a été supprimée';
+$lang['financial.message.success.add']     = 'La demande <b>:title</b> a été ajoutée';
+$lang['financial.message.success.edit']    = 'La demande <b>:title</b> a été modifiée';
+$lang['financial.message.success.delete']  = 'La demande <b>:title</b> a été supprimée';
+$lang['financial.message.success.reject']  = 'La demande <b>:title</b> a été rejetée et placée en archive';
+$lang['financial.message.success.ongoing'] = 'La demande <b>:title</b> a été placée à l\'étude';
 
 $lang['financial.message.success.budget.add']    = 'Le budget <b>:name</b> a été ajouté';
 $lang['financial.message.success.budget.edit']   = 'Le budget <b>:name</b> a été modifié';

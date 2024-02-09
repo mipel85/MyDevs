@@ -31,6 +31,8 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'club_department'),
 			new HTMLTableColumn($this->lang['financial.request.event.date'], 'event_date'),
 			new HTMLTableColumn($this->lang['financial.request.creation.date'], 'creation_date'),
+			new HTMLTableColumn($this->lang['financial.request.validation.date'], 'agreement_date'),
+			new HTMLTableColumn($this->lang['financial.status'], 'agreement'),
 			new HTMLTableColumn($this->lang['common.actions'], '', array('sr-only' => true))
 		);
 
@@ -83,6 +85,8 @@ class FinancialRequestsArchivedController extends DefaultModuleController
                 new HTMLTableRowCell($club->get_department()),
                 new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
+                new HTMLTableRowCell($item->get_agreement_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
+                new HTMLTableRowCell($item->get_status()),
                 new HTMLTableRowCell($edit_link . $delete_link, 'controls')
 			);
 

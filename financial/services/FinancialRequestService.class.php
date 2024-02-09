@@ -116,12 +116,20 @@ class FinancialRequestService
         ));
 
         $budget = FinancialBudgetService::get_budget(self::get_item($id)->get_budget_id());
-        $new_temp_quant = $budget->get_temp_quantity() + 1;
+        $new_real_quant = $budget->get_real_quantity() - 1;
         self::$db_querier->update(
             FinancialSetup::$financial_budget_table,
-            array('temp_quantity' => $new_temp_quant),
+            array('real_quantity' => $new_real_quant),
             'WHERE id=:id', array('id' => $budget->get_id())
         );
+    }
+
+    public static function ongoing_request($id)
+    {
+        $now = new Date();
+        self::$db_querier->update(FinancialSetup::$financial_request_table, array('agreement' => '2'), 'WHERE id=:id', array(
+            'id' => $id
+        ));
     }
 
     public static function add_pending_request($id)

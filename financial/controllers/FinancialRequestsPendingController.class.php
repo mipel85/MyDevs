@@ -94,10 +94,10 @@ class FinancialRequestsPendingController extends DefaultModuleController
 
             $ongoing_class = ($item->get_agreement_state() == FinancialRequestItem::ONGOING) ? ' bgc warning' : '';
 
-            $ongoing = new LinkHTMLElement('#', '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.tracking.ongoing']));
+            $ongoing = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.tracking.ongoing']));
             $ongoing = ($item->get_agreement_state() == FinancialRequestItem::PENDING) ? $ongoing->display() : '';
 
-            $reject = new LinkHTMLElement('#', '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
+            $reject = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
             $reject = $reject->display();
 
             $budget = FinancialBudgetService::get_budget($item->get_budget_id());

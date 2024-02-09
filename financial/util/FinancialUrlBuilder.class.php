@@ -139,6 +139,22 @@ class FinancialUrlBuilder
 	/**
 	 * @return Url
 	 */
+	public static function reject_request($id)
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/reject/' . $id);
+	}
+
+	/**
+	 * @return Url
+	 */
+	public static function ongoing_request($id)
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/ongoing/' . $id);
+	}
+
+	/**
+	 * @return Url
+	 */
 	public static function home()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/');

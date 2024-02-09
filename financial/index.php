@@ -30,6 +30,10 @@ $url_controller_mappers = array(
     new UrlControllerMapper('FinancialFileEstimateController', '`^/estimate/([0-9]+)/?$`', array('id')),
     new UrlControllerMapper('FinancialFileInvoiceController', '`^/invoice/([0-9]+)/?$`', array('id')),
 
+    // Ajax
+    new UrlControllerMapper('FinancialRequestRejectController', '`^/reject/([0-9]+)/?$`', array('id')),
+    new UrlControllerMapper('FinancialRequestOngoingController', '`^/ongoing/([0-9]+)/?$`', array('id')),
+
 	// Display financial
 	new UrlControllerMapper('FinancialHomeController', '`^(?:/([0-9]+))?/?$`'),
 );
