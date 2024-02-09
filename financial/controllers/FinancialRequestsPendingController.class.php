@@ -84,7 +84,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
                 $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-fw fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
                 $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
-                $ongoing_status = $item->get_agreement_state() === FinancialRequestItem::ONGOING ? $this->lang['financial.ongoing'] : '';
+                $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING ? $this->lang['financial.ongoing'] : '';
             }
             else
             {
@@ -94,20 +94,20 @@ class FinancialRequestsPendingController extends DefaultModuleController
 
             $ongoing_class = ($item->get_agreement_state() == FinancialRequestItem::ONGOING) ? ' bgc warning' : '';
 
-            $ongoing = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.tracking.ongoing']));
-            $ongoing = ($item->get_agreement_state() == FinancialRequestItem::PENDING) ? $ongoing->display() : '';
+            $ongoing_link = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.tracking.ongoing']));
+            $ongoing_link = ($item->get_agreement_state() == FinancialRequestItem::PENDING) ? $ongoing_link->display() : '';
 
-            $reject = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
-            $reject = $reject->display();
+            $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
+            $reject_link = $reject_link->display();
 
             $budget = FinancialBudgetService::get_budget($item->get_budget_id());
             $amount_label = $budget->get_max_amount() ? ' aria-label="max: ' . $budget->get_max_amount() .'€"' : '';
             $amount = '<input class="tracking-input" type="text" width="80" id="amount_' . $item->get_id() . '" value="' . $budget->get_amount() . '"' . $amount_label . ' />';
-            $accept = new LinkHTMLElement('#', '<i class="fa fa-square-check success"></i>', array('aria-label' => $this->lang['financial.tracking.accept']));
-            $accept = $accept->display();
+            $accept_link = new LinkHTMLElement('#', '<i class="fa fa-square-check success"></i>', array('aria-label' => $this->lang['financial.tracking.accept']));
+            $accept_link = $accept_link->display();
 
 			$row = array(
-				new HTMLTableRowCell($amount . $accept . $ongoing . $reject, 'controls' . $ongoing_class),
+				new HTMLTableRowCell($amount . $accept_link . $ongoing_link . $reject_link, 'controls' . $ongoing_class),
 				new HTMLTableRowCell($item->get_title(), 'align-left' . $ongoing_class),
 				new HTMLTableRowCell($club_name , $ongoing_class),
                 new HTMLTableRowCell($club->get_department() , $ongoing_class),

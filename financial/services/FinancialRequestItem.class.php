@@ -155,6 +155,16 @@ class FinancialRequestItem
 		return $this->creation_date;
 	}
 
+	public function set_agreement_state($agreement)
+	{
+		$this->agreement = $agreement;
+	}
+
+	public function get_agreement_state()
+	{
+		return $this->agreement;
+	}
+
 	public function set_agreement_date(Date $agreement_date)
 	{
 		$this->agreement_date = $agreement_date;
@@ -168,16 +178,6 @@ class FinancialRequestItem
 	public function has_agreement_date()
 	{
 		return $this->agreement_date !== null && $this->agreement_date > $this->creation_date;
-	}
-
-	public function get_agreement_state()
-	{
-		return $this->agreement = true;
-	}
-
-	public function set_agreement_state($agreement)
-	{
-		$this->agreement = $agreement;
 	}
 
 	public function get_status()
@@ -221,38 +221,38 @@ class FinancialRequestItem
 	public function get_properties()
 	{
 		return array(
-			'id' => $this->get_id(),
-			'budget_id' => $this->get_budget_id(),
-			'title' => $this->get_title(),
+			'id'             => $this->get_id(),
+			'budget_id'      => $this->get_budget_id(),
+			'title'          => $this->get_title(),
 			'rewrited_title' => $this->get_rewrited_title(),
 			'author_user_id' => $this->get_author_user()->get_id(),
-			'lamclubs_id' => $this->get_lamclubs_id(),
-			'city' => $this->get_city(),
-            'email' => $this->get_email(),
-            'event_date' => $this->get_event_date()->get_timestamp(),
-			'creation_date' => $this->get_creation_date()->get_timestamp(),
-			'estimate_url' => $this->get_estimate_url()->relative(),
-			'invoice_url' => $this->get_invoice_url()->relative(),
-			'agreement' => (int)$this->get_agreement_state(),
+			'lamclubs_id'    => $this->get_lamclubs_id(),
+			'city'           => $this->get_city(),
+            'email'          => $this->get_email(),
+            'event_date'     => $this->get_event_date()->get_timestamp(),
+			'creation_date'  => $this->get_creation_date()->get_timestamp(),
+			'estimate_url'   => $this->get_estimate_url()->relative(),
+			'invoice_url'    => $this->get_invoice_url()->relative(),
+			'agreement'      => $this->get_agreement_state(),
 			'agreement_date' => $this->get_agreement_date() !== null ? $this->get_agreement_date()->get_timestamp() : 0
 		);
 	}
 
 	public function set_properties(array $properties)
 	{
-		$this->id = $properties['id'];
-		$this->budget_id = $properties['budget_id'];
-		$this->title = $properties['title'];
-		$this->rewrited_title = $properties['rewrited_title'];
-		$this->lamclubs_id = $properties['lamclubs_id'];
-		$this->city = $properties['city'];
-		$this->email = $properties['email'];
-        $this->event_date = new Date($properties['event_date'], Timezone::SERVER_TIMEZONE);
-		$this->creation_date = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
-		$this->estimate_url = new Url($properties['estimate_url']);
-		$this->invoice_url = new Url($properties['invoice_url']);
-		$this->agreement = $properties['agreement'];
-		$this->agreement_date = new Date($properties['agreement_date'], Timezone::SERVER_TIMEZONE);
+		$this->id               = $properties['id'];
+		$this->budget_id        = $properties['budget_id'];
+		$this->title            = $properties['title'];
+		$this->rewrited_title   = $properties['rewrited_title'];
+		$this->lamclubs_id      = $properties['lamclubs_id'];
+		$this->city             = $properties['city'];
+		$this->email            = $properties['email'];
+        $this->event_date       = new Date($properties['event_date'], Timezone::SERVER_TIMEZONE);
+		$this->creation_date    = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
+		$this->estimate_url     = new Url($properties['estimate_url']);
+		$this->invoice_url      = new Url($properties['invoice_url']);
+		$this->agreement        = $properties['agreement'];
+		$this->agreement_date   = new Date($properties['agreement_date'], Timezone::SERVER_TIMEZONE);
 
 		$user = new User();
 		if (!empty($properties['user_id']))

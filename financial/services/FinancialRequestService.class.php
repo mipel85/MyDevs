@@ -94,7 +94,7 @@ class FinancialRequestService
         $now = new Date();
         self::$db_querier->update(
             FinancialSetup::$financial_request_table,
-            array('agreement' => '4', 'agreement_date' => $now->get_timestamp()),
+            array('agreement' => FinancialRequestItem::ACCEPTED, 'agreement_date' => $now->get_timestamp()),
             'WHERE id=:id', array('id' => $id)
         );
 
@@ -111,9 +111,11 @@ class FinancialRequestService
     public static function reject_request($id)
     {
         $now = new Date();
-        self::$db_querier->update(FinancialSetup::$financial_request_table, array('agreement' => '3', 'agreement_date' => $now->get_timestamp()), 'WHERE id=:id', array(
-            'id' => $id
-        ));
+        self::$db_querier->update(
+            FinancialSetup::$financial_request_table,
+            array('agreement' => FinancialRequestItem::REJECTED, 'agreement_date' => $now->get_timestamp()),
+            'WHERE id=:id', array('id' => $id)
+        );
 
         $budget = FinancialBudgetService::get_budget(self::get_item($id)->get_budget_id());
         $new_real_quant = $budget->get_real_quantity() - 1;
@@ -127,9 +129,11 @@ class FinancialRequestService
     public static function ongoing_request($id)
     {
         $now = new Date();
-        self::$db_querier->update(FinancialSetup::$financial_request_table, array('agreement' => '2'), 'WHERE id=:id', array(
-            'id' => $id
-        ));
+        self::$db_querier->update(
+            FinancialSetup::$financial_request_table,
+            array('agreement' => FinancialRequestItem::ONGOING),
+            'WHERE id=:id', array('id' => $id)
+        );
     }
 
     public static function add_pending_request($id)
