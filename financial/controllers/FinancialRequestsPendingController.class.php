@@ -24,7 +24,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn($this->lang['financial.tracking'], ''),
+			new HTMLTableColumn($this->lang['financial.tracking'], '', array('css_class' => 'col-large')),
 			new HTMLTableColumn($this->lang['common.title'], 'title'),
 			new HTMLTableColumn($this->lang['financial.club.name'], 'club_name'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'club_department'),
@@ -75,11 +75,6 @@ class FinancialRequestsPendingController extends DefaultModuleController
 
 			$delete_link = new DeleteLinkHTMLElement(FinancialUrlBuilder::delete_item($item->get_id()), '', array('data-confirmation' => 'delete-element'));
 			$delete_link = $item->is_authorized_to_delete() ? $delete_link->display() : '';
-
-			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
-			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
-
-			$br = new BrHTMLElement();
 
             $club = LamclubsService::get_item($item->get_lamclubs_id());
             if($item->is_authorized_to_delete() || $item->is_authorized_to_edit())

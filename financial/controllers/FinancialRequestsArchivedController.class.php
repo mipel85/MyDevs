@@ -64,13 +64,10 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 			$this->ids[$this->items_number] = $item->get_id();
 
 			$edit_link = new EditLinkHTMLElement(FinancialUrlBuilder::edit_item($item->get_id(), $item->get_budget_id()));
-			$edit_link = $item->is_authorized_to_edit() ? $edit_link->display() : '';
+			$edit_link = $item->is_authorized_to_track() ? $edit_link->display() : '';
 
 			$delete_link = new DeleteLinkHTMLElement(FinancialUrlBuilder::delete_item($item->get_id()), '', array('data-confirmation' => 'delete-element'));
-			$delete_link = $item->is_authorized_to_delete() ? $delete_link->display() : '';
-
-			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
-			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
+			$delete_link = $item->is_authorized_to_track() ? $delete_link->display() : '';
 
 			$br = new BrHTMLElement();
 
