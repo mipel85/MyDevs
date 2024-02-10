@@ -119,7 +119,7 @@ class FinancialRequestFormController extends DefaultModuleController
 
         $item_email = new Mail();
         $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
-        $item_email->set_reply_to($item->get_email(), $user->get_display_name());
+        $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
         $item_email->set_subject($item->get_title());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
@@ -219,7 +219,6 @@ class FinancialRequestFormController extends DefaultModuleController
 		$item->set_rewrited_title(Url::encode_rewrite($item->get_title()));
 
 		$item->set_lamclubs_id($this->form->get_value('club_infos')->get_raw_value());
-		$item->set_email($this->form->get_value('email'));
 		$item->set_city($this->form->get_value('city'));
 		$item->set_event_date($this->form->get_value('event_date'));
 

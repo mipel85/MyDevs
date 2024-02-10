@@ -60,7 +60,6 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 		{
 			$item = new FinancialRequestItem();
 			$item->set_properties($row);
-			$user = $item->get_author_user();
 
 			$this->items_number++;
 			$this->ids[$this->items_number] = $item->get_id();
@@ -71,17 +70,11 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 			$delete_link = new DeleteLinkHTMLElement(FinancialUrlBuilder::delete_item($item->get_id()), '', array('data-confirmation' => 'delete-element'));
 			$delete_link = $item->is_authorized_to_track() ? $delete_link->display() : '';
 
-			$br = new BrHTMLElement();
-
-            $club = LamclubsService::get_item($item->get_lamclubs_id());
-            if($item->is_authorized_to_delete() || $item->is_authorized_to_edit())
-                $club_name = '<a href="mailto:'.$item->get_email().'">' . $club->get_name() . '</a>';
-            else
-                $club_name = $club->get_name();
+			$club = LamclubsService::get_item($item->get_lamclubs_id());
 
 			$row = array(
 				new HTMLTableRowCell($item->get_title(), 'align-left'),
-				new HTMLTableRowCell($club_name),
+				new HTMLTableRowCell($club->get_name()),
                 new HTMLTableRowCell($club->get_department()),
                 new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),

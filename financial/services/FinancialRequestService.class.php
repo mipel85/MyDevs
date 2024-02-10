@@ -100,12 +100,20 @@ class FinancialRequestService
 
         $budget = FinancialBudgetService::get_budget(self::get_item($id)->get_budget_id());
         $new_amount = $budget->get_annual_amount() - $amount_paid;
-        $new_real_quant = $budget->get_real_quantity() - 1;
         self::$db_querier->update(
             FinancialSetup::$financial_budget_table,
-            array('annual_amount' => $new_amount, 'real_quantity' => $new_real_quant),
+            array('annual_amount' => $new_amount),
             'WHERE id=:id', array('id' => $id)
         );
+        if ($budget->get_real_quantity())
+        {
+            $new_real_quant = $budget->get_real_quantity() - 1;
+            self::$db_querier->update(
+                FinancialSetup::$financial_budget_table,
+                array('real_quantity' => $new_real_quant),
+                'WHERE id=:id', array('id' => $id)
+            );
+        }
     }
 
     public static function reject_request($id)

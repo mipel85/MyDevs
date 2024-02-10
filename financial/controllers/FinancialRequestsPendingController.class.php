@@ -66,7 +66,6 @@ class FinancialRequestsPendingController extends DefaultModuleController
 		{
 			$item = new FinancialRequestItem();
 			$item->set_properties($row);
-			$user = $item->get_author_user();
             $budget = FinancialBudgetService::get_budget($item->get_budget_id());
 
 			$this->items_number++;
@@ -101,11 +100,12 @@ class FinancialRequestsPendingController extends DefaultModuleController
             $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
             $reject_link = $reject_link->display();
 
-            $amount_label = $budget->get_max_amount() ? ' aria-label="max: ' . $budget->get_max_amount() .'€"' : '';
+            $amount_label = $budget->get_max_amount() ? ' aria-label="max: ' . $budget->get_max_amount() . '€"' : '';
+            $amount_max = $budget->get_max_amount() ? ' max="' . $budget->get_max_amount() . '"' : '';
 
             $id = $item->get_id();
             $amount = '
-                <input class="tracking-input" type="number" id="amount_' . $id . '" value="' . $budget->get_amount() . '"' . $amount_label . ' />
+                <input class="tracking-input" type="number" min="0" ' . $amount_max . ' id="amount_' . $id . '" value="' . $budget->get_amount() . '"' . $amount_label . ' />
                 <script>
                     let amount_'.$id.' = jQuery("#amount_'.$id.'").val(),
                         target_'.$id.' = jQuery("#accept_'.$id.'"),
