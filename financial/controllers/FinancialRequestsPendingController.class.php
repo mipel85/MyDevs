@@ -101,12 +101,15 @@ class FinancialRequestsPendingController extends DefaultModuleController
             $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
             $reject_link = $reject_link->display();
 
-            $amount_label = $budget->get_max_amount() ? $budget->get_max_amount() . '€' : $budget->get_amount() . '€';
-            $amount_max = $budget->get_max_amount() ? $budget->get_max_amount() : $budget->get_amount();
+            $amount_label = $budget->get_max_amount() ? 
+                $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_amount() . '<br />max: ' . $budget->get_max_amount() : 
+                $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_amount();
+            $amount_number = TextHelper::mb_substr($budget->get_amount(), 0, -1);
+            $amount_max = $budget->get_max_amount() ? $budget->get_max_amount() : $amount_number;
 
             $id = $item->get_id();
             $amount = '
-                <input class="tracking-input" type="number" min="0" max="' . $amount_max . '" id="amount_' . $id . '" value="' . $budget->get_amount() . '" aria-label="max: ' . $amount_label . '" />
+                <input class="tracking-input" type="number" min="0" max="' . $amount_max . '" id="amount_' . $id . '" value="' . $budget->get_amount() . '" aria-label="' . $amount_label . '" />
                 <script>
                     let amount_'.$id.' = jQuery("#amount_'.$id.'").val(),
                         target_'.$id.' = jQuery("#accept_'.$id.'"),

@@ -17,14 +17,21 @@ class FinancialRequestAcceptController extends DefaultModuleController
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
 		}
+        $budget = FinancialBudgetService::get_budget($item->get_budget_id());
 
-        FinancialRequestService::accept_request($item->get_id(), $request->get_value('amount_paid', ''));
+        if(($budget->get_annual_amount() - $request->get_value('amount_paid', '')) >= 0)
+        {
+            FinancialRequestService::accept_request($item->get_id(), $request->get_value('amount_paid', ''));
+            AppContext::get_response()->redirect(
+                ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
+                StringVars::replace_vars($this->lang['financial.message.success.accept'], array('title' => $item->get_title())));
+        }
+        else
+            AppContext::get_response()->redirect(
+                ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
+                StringVars::replace_vars($this->lang['financial.message.error.accept'], array('title' => $item->get_title())));
 
 		FinancialRequestService::clear_cache();
-
-        AppContext::get_response()->redirect(
-            ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-            StringVars::replace_vars($this->lang['financial.message.success.accept'], array('title' => $item->get_title())));
 	}
 
 	private function get_item(HTTPRequestCustom $request)

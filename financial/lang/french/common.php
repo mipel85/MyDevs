@@ -38,7 +38,7 @@ $lang['financial.request.type']            = 'Type de demande';
 $lang['financial.request.access']          = 'Accès formulaire';
 $lang['financial.request.choice']          = 'Choisir';
 $lang['financial.request.not.available']   = 'Non disponible';
-$lang['financial.bill']                    = '<br /><span class="small text-italic">Sur facture ou devis</span>';
+$lang['financial.bill']                    = '<span class="small text-italic"> de la facture</span>';
 $lang['financial.bill.max.amount']         = '<br /><span class="small text-italic">max :max_amount €</span>';
 $lang['financial.budget.available']        = 'Nombre de demandes disponibles';
 $lang['financial.club.name']               = 'Nom du club';
@@ -63,7 +63,10 @@ $lang['financial.budget.upload']        = 'Budget avec téléversement <br /><sp
 
 $lang['financial.request.form.title']   = '<span class="small">Demande d\'aide financière pour : </span>';
 $lang['financial.request.allocated.budget']   = 'Budget alloué pour cette demande';
-$lang['financial.request.bill']               = ' sur facture ou devis';
+$lang['financial.request.bill']               = ' 
+    de votre facture.
+    <br />Vous pouvez ne fournir qu\'un devis en début de processus, mais il faudra fournir une facture pour la validation de la demande.
+';
 $lang['financial.request.club']               = 'Identifiants du club';
 $lang['financial.request.city']               = 'Ville';
 $lang['financial.request.event.date']         = 'Date';
@@ -94,9 +97,11 @@ $lang['financial.status.rejected'] = 'Rejetée';
 // Email
 $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i><br /><br /> 
-        Le club <b>:club_name</b> (affiliation FFAM n° :club_ffam_number) souhaite obtenir une aide pour l\'organisation d\'une :activity prévue le :club_activity_date<br /><br />
-        <b>Ville :</b> :club_activity_city.
-        <b>Département :</b> :club_activity_dpt.';
+    Le club <strong>:club_name</strong> (affiliation FFAM n° :club_ffam_number) souhaite obtenir une aide pour l\'organisation d\'une :activity prévue le :club_activity_date
+    <br /><strong>Ville :</strong> :club_activity_city
+    <br /><strong>Département :</strong> :club_activity_dpt
+    <br /><strong>Descriptif :</strong> :message
+';
 
 // Config
 $lang['financial.recipient.mail_1'] = 'Adresse du destinataire principal :';
@@ -120,21 +125,21 @@ $lang['financial.seo.description.requests.list'] = 'Liste des demandes du site :
 $lang['financial.feed.name'] = 'Événement';
 
 // Messages helper
-$lang['financial.message.success.add']     = 'La demande <b>:title</b> a été ajoutée';
-$lang['financial.message.success.edit']    = 'La demande <b>:title</b> a été modifiée';
-$lang['financial.message.success.delete']  = 'La demande <b>:title</b> a été supprimée';
-$lang['financial.message.success.reject']  = 'La demande <b>:title</b> a été rejetée et placée en archive';
-$lang['financial.message.success.accept']  = 'La demande <b>:title</b> a été acceptée et placée en archive';
-$lang['financial.message.success.ongoing'] = 'La demande <b>:title</b> a été placée à l\'étude';
+$lang['financial.message.success.add']     = 'La demande <strong>:title</strong> a été ajoutée';
+$lang['financial.message.success.edit']    = 'La demande <strong>:title</strong> a été modifiée';
+$lang['financial.message.success.delete']  = 'La demande <strong>:title</strong> a été supprimée';
+$lang['financial.message.success.reject']  = 'La demande <strong>:title</strong> a été rejetée et placée en archive';
+$lang['financial.message.success.accept']  = 'La demande <strong>:title</strong> a été acceptée et placée en archive';
+$lang['financial.message.error.accept']    = '<span class="message-helper bgc-full error">Le montant déclaré pour la validation de la demande: <strong>:title</strong> entraîne un dépassement du budget annuel</span>';
+$lang['financial.message.success.ongoing'] = 'La demande <strong>:title</strong> a été placée à l\'étude';
 
-$lang['financial.message.success.budget.add']    = 'Le budget <b>:name</b> a été ajouté';
-$lang['financial.message.success.budget.edit']   = 'Le budget <b>:name</b> a été modifié';
-$lang['financial.message.success.budget.delete'] = 'Le budget <b>:name</b> a été supprimé';
+$lang['financial.message.success.budget.add']    = 'Le budget <strong>:name</strong> a été ajouté';
+$lang['financial.message.success.budget.edit']   = 'Le budget <strong>:name</strong> a été modifié';
+$lang['financial.message.success.budget.delete'] = 'Le budget <strong>:name</strong> a été supprimé';
 
 // Errors
-$lang['financial.warnings']             = 'Attention !!';
-$lang['financial.warnings.lamclubs']          = 'Le module Lamclubs est manquant, le module financial ne pourra pas fonctionner correctement.';
-$lang['financial.warnings.categories']        = 'Il n\'y a aucune catégorie (activité) déclarée, le module financial ne pourra pas fonctionner correctement.';
-$lang['financial.error.invalid.date']             = 'La date entrée est invalide';
-$lang['financial.error.user.born.field.disabled'] = 'Le champ <b>Date de naissance</b> n\'est pas affiché dans le profil des membres. Veuillez activer l\'affichage du champ dans la <a class="offload" href="' . AdminExtendedFieldsUrlBuilder::fields_list()->rel() . '">Gestion des champs du profil</a> pour permettre aux membres de renseigner leur date de naissance et afficher leur date d\'anniversaire dans le calendrier.';
+$lang['financial.warnings']            = 'Attention !!';
+$lang['financial.warnings.lamclubs']   = 'Le module Lamclubs est manquant, le module financial ne pourra pas fonctionner correctement.';
+$lang['financial.warnings.categories'] = 'Il n\'y a aucune catégorie (activité) déclarée, le module financial ne pourra pas fonctionner correctement.';
+$lang['financial.error.invalid.date']  = 'La date entrée est invalide';
 ?>
