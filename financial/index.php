@@ -26,6 +26,7 @@ $url_controller_mappers = array(
 
 	new UrlControllerMapper('FinancialRequestsArchivedController', '`^/archived/?$`'),
 	new UrlControllerMapper('FinancialRequestsPendingController', '`^/pending/?([0-9]+)?/?$`', array('page')),
+	new UrlControllerMapper('FinancialRequestsMonitoringController', '`^/monitoring/?([0-9]+)?/?$`', array('page')),
 	// new UrlControllerMapper('FinancialMemberItemsController', '`^/member/([0-9]+)?/?([0-9]+)?/?$`', array('user_id', 'page')),
     new UrlControllerMapper('FinancialFileEstimateController', '`^/estimate/?([0-9]+)?/?$`', array('id')),
     new UrlControllerMapper('FinancialFileInvoiceController', '`^/invoice/?([0-9]+)?/?$`', array('id')),

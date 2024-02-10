@@ -30,6 +30,7 @@ $lang['financial.item.edit']               = 'Modifier une demande';
 $lang['financial.item.delete']             = 'Supprimer la demande';
 $lang['financial.my.items']                = 'Mes demandes';
 $lang['financial.member.items']            = 'Demandes crées par';
+$lang['financial.monitored.items']         = 'Suivi financier';
 $lang['financial.archived.items']          = 'Demandes archivées';
 $lang['financial.pending.items']           = 'Demandes en attente';
 $lang['financial.filter.items']            = 'Filtrer les demandes';
@@ -42,14 +43,15 @@ $lang['financial.bill']                    = '<span class="small text-italic"> d
 $lang['financial.bill.max.amount']         = '<br /><span class="small text-italic">max :max_amount €</span>';
 $lang['financial.budget.available']        = 'Nombre de demandes disponibles';
 $lang['financial.club.name']               = 'Nom du club';
-$lang['financial.club.dpt']                = 'Département';
+$lang['financial.club.dpt']                = 'Dept';
+$lang['financial.club.nb']                 = 'Club';
 
 // Labels
 $lang['financial.tracking']             = 'Suivi financier';
 $lang['financial.tracking.ongoing']     = 'Passer la demande `À l\'étude`';
 $lang['financial.ongoing']              = 'En attente de facture';
 $lang['financial.tracking.reject']      = 'Rejeter la demande';
-$lang['financial.tracking.accept']      = 'Accepter la demande';
+$lang['financial.tracking.accept']      = 'Payer la demande';
 $lang['financial.budget.domain']        = 'Domaine';
 $lang['financial.budget.name']          = 'Nom du budget';
 $lang['financial.budget.description']   = 'Description du budget';
@@ -79,6 +81,7 @@ $lang['financial.request.estimate.url.clue']  = 'Si vous n\'avez pas encore de f
 $lang['financial.request.invoice.url']        = 'Facture';
 $lang['financial.request.invoice.url.clue']   = 'Nécessaire pour la prise en compte de votre demande';
 $lang['financial.request.no.files']   = 'Un devis ou une facture sont nécéssaires pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
+$lang['financial.request.no.invoice']   = 'Une facture est nécéssaire pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
 
 $lang['financial.request.email']                = 'Informations email';
 $lang['financial.request.email.clue']           = 'Les informations suivantes ne sont ni enregistrées ni conservées sur le site (RGPD)';

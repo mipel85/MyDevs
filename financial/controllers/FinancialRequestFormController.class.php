@@ -34,6 +34,7 @@ class FinancialRequestFormController extends DefaultModuleController
         $description = $this->lang['financial.request.allocated.budget'] . ' : ' . $budget_params['amount'];
         if ($budget_params['use_dl'])
             $description .= $this->lang['financial.request.bill'];
+        $description .= '<br />' . $this->lang['financial.budget.domain'] . ': ' . $budget_params['domain'];
 
 		$item = $this->get_item();
 
@@ -66,24 +67,27 @@ class FinancialRequestFormController extends DefaultModuleController
             ));
         }
 
-		$email_fieldset = new FormFieldsetHTML('email', $this->lang['financial.request.email']);
-        $email_fieldset->set_description($this->lang['financial.request.email.clue']);
-		$form->add_fieldset($email_fieldset);
+        if ($this->is_new_item)
+        {
+            $email_fieldset = new FormFieldsetHTML('email', $this->lang['financial.request.email']);
+            $email_fieldset->set_description($this->lang['financial.request.email.clue']);
+            $form->add_fieldset($email_fieldset);
 
-		$email_fieldset->add_field(new FormFieldTextEditor('sender_name', $this->lang['financial.request.contact.user'], $item->get_author_user()->get_display_name(),
-            array('required' => true)
-        ));
+            $email_fieldset->add_field(new FormFieldTextEditor('sender_name', $this->lang['financial.request.contact.user'], $item->get_author_user()->get_display_name(),
+                array('required' => true)
+            ));
 
-		$email_fieldset->add_field(new FormFieldMailEditor('sender_email', $this->lang['financial.request.contact.email'], $item->get_author_user()->get_email(),
-            array(
-                'required' => true,
-                'description' => $this->lang['financial.request.contact.email.clue']
-            )
-        ));
+            $email_fieldset->add_field(new FormFieldMailEditor('sender_email', $this->lang['financial.request.contact.email'], $item->get_author_user()->get_email(),
+                array(
+                    'required' => true,
+                    'description' => $this->lang['financial.request.contact.email.clue']
+                )
+            ));
 
-		$email_fieldset->add_field(new FormFieldMultiLineTextEditor('sender_message', $this->lang['financial.request.message'], '',
-            array('description' => $this->lang['financial.request.message.clue'])
-        ));
+            $email_fieldset->add_field(new FormFieldMultiLineTextEditor('sender_message', $this->lang['financial.request.message'], '',
+                array('description' => $this->lang['financial.request.message.clue'])
+            ));
+        }
 
 		$this->build_contribution_fieldset($form);
 
@@ -98,7 +102,6 @@ class FinancialRequestFormController extends DefaultModuleController
     {
         $item = $this->get_item();
         $club = LamclubsService::get_item($item->get_lamclubs_id());
-        $user = $item->get_author_user();
 
         $item_message = '';
 

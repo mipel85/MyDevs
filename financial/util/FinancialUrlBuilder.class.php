@@ -99,6 +99,12 @@ class FinancialUrlBuilder
 		return DispatchManager::get_url(self::$dispatcher, '/archived/' . '/'  . $page);
 	}
 
+	public static function display_monitoring_items($page = 1)
+	{
+		$page = $page !== 1 ? $page . '/' : '';
+		return DispatchManager::get_url(self::$dispatcher, '/monitoring/' . '/'  . $page);
+	}
+
 	public static function add_item($budget_id)
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/add/' . $budget_id);
