@@ -155,6 +155,14 @@ class FinancialUrlBuilder
 	/**
 	 * @return Url
 	 */
+	public static function accept_request($id, $amount_paid)
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/accept/' . $id . '/' . $amount_paid);
+	}
+
+	/**
+	 * @return Url
+	 */
 	public static function home()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/');

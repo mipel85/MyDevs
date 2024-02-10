@@ -6,7 +6,7 @@
  * @version     PHPBoost 6.0 - last update: 2024 02 09
  * @since       PHPBoost 6.0 - 2024 02 09
  */
-class FinancialRequestOngoingController extends DefaultModuleController
+class FinancialRequestAcceptController extends DefaultModuleController
 {
     public function execute(HTTPRequestCustom $request)
 	{
@@ -18,13 +18,13 @@ class FinancialRequestOngoingController extends DefaultModuleController
 			DispatchManager::redirect($error_controller);
 		}
 
-        FinancialRequestService::ongoing_request($item->get_id());
+        FinancialRequestService::accept_request($item->get_id(), $request->get_value('amount_paid', ''));
 
 		FinancialRequestService::clear_cache();
 
         AppContext::get_response()->redirect(
             ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-            StringVars::replace_vars($this->lang['financial.message.success.ongoing'], array('title' => $item->get_title())));
+            StringVars::replace_vars($this->lang['planning.message.success.accept'], array('title' => $item->get_title())));
 	}
 
 	private function get_item(HTTPRequestCustom $request)

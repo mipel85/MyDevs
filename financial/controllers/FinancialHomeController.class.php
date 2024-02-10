@@ -100,12 +100,20 @@ class FinancialHomeController extends DefaultModuleController
 			$br = new BrHTMLElement();
             $description = !empty($budget->get_description()) ? $br->display() . '<span class="smaller text-italic">' . $budget->get_description() . '</span>' : '';
 
+            if ($budget->get_annual_amount() > 0)
+            {
+                $request_button = new LinkHTMLElement(FinancialUrlBuilder::add_item($budget->get_id()), $this->lang['financial.request.choice'], array(), 'small button');
+                $request_button->display();
+            }
+            else 
+                $request_button = $this->lang['financial.request.not.available'];
+
             $row = array(
                 new HTMLTableRowCell($budget->get_domain(), 'small'),
                 new HTMLTableRowCell($budget->get_name() . $description, 'big align-left'),
                 new HTMLTableRowCell($amount),
                 new HTMLTableRowCell($quantity),
-                new HTMLTableRowCell(new LinkHTMLElement(FinancialUrlBuilder::add_item($budget->get_id()), $this->lang['financial.request.choice'], array(), 'small button')),
+                new HTMLTableRowCell($request_button),
                 $moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link . $id, 'controls') : null
             );
 

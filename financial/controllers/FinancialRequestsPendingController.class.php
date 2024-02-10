@@ -81,18 +81,16 @@ class FinancialRequestsPendingController extends DefaultModuleController
             $club = LamclubsService::get_item($item->get_lamclubs_id());
             if($item->is_authorized_to_delete() || $item->is_authorized_to_edit())
             {
-                $club_name = '<a href="mailto:'.$item->get_email().'">' . $club->get_name() . '</a>';
                 $estimate_file = new LinkHTMLElement(FinancialUrlBuilder::dl_estimate($item->get_id()), '<i class="far fa-fw fa-file-lines"></i>', array('aria-label' => $this->lang['financial.request.estimate.url']));
                 $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
                 $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-fw fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
                 $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
-                $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl() && empty($item->get_invoice_url()->rel()) ? 
+                $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl() && empty($item->get_invoice_url()->rel()) ?
                     $this->lang['financial.ongoing'] : '';
             }
             else
             {
-                $club_name = $club->get_name();
-                $estimate_file = $invoice_file = '';
+                $estimate_file = $invoice_file = $ongoing_status = '';
             }
 
             $ongoing_class = ($item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl()) ? ' bgc warning' : '';
@@ -104,14 +102,31 @@ class FinancialRequestsPendingController extends DefaultModuleController
             $reject_link = $reject_link->display();
 
             $amount_label = $budget->get_max_amount() ? ' aria-label="max: ' . $budget->get_max_amount() .'€"' : '';
-            $amount = '<input class="tracking-input" type="text" width="80" id="amount_' . $item->get_id() . '" value="' . $budget->get_amount() . '"' . $amount_label . ' />';
-            $accept_link = new LinkHTMLElement('#', '<i class="fa fa-square-check success"></i>', array('aria-label' => $this->lang['financial.tracking.accept']));
+
+            $id = $item->get_id();
+            $amount = '
+                <input class="tracking-input" type="number" id="amount_' . $id . '" value="' . $budget->get_amount() . '"' . $amount_label . ' />
+                <script>
+                    let amount_'.$id.' = jQuery("#amount_'.$id.'").val(),
+                        target_'.$id.' = jQuery("#accept_'.$id.'"),
+                        href_'.$id.' = target_'.$id.'.attr("href");
+                    target_'.$id.'.attr("href", href_'.$id.' + amount_'.$id.');
+                    jQuery("#amount_'.$id.'").on("change",function() {
+                        amount_'.$id.' = jQuery(this).val();
+                        parts = href_'.$id.'.split("/");
+                        parts[parts.length - 1] = amount_'.$id.';
+                        let new_href_'.$id.' = parts.join("/");
+                        target_'.$id.'.attr("href", new_href_'.$id.');
+                    });
+                </script>
+            ';
+            $accept_link = new LinkHTMLElement(FinancialUrlBuilder::accept_request($item->get_id(), ''), '<i class="fa fa-square-check success"></i>', array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.tracking.accept']));
             $accept_link = $accept_link->display();
 
 			$row = array(
 				new HTMLTableRowCell($amount . $accept_link . $ongoing_link . $reject_link, 'controls' . $ongoing_class),
 				new HTMLTableRowCell($item->get_title(), 'align-left' . $ongoing_class),
-				new HTMLTableRowCell($club_name , $ongoing_class),
+				new HTMLTableRowCell($club->get_name() , $ongoing_class),
                 new HTMLTableRowCell($club->get_department() , $ongoing_class),
                 new HTMLTableRowCell($item->get_city() , $ongoing_class),
                 new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),

@@ -16,7 +16,6 @@ class FinancialRequestItem
 	private $author_user;
 	private $lamclubs_id;
 	private $city;
-	private $email;
 	private $event_date;
 	private $creation_date;
 	private $estimate_url;
@@ -97,16 +96,6 @@ class FinancialRequestItem
 	public function get_city()
 	{
 		return $this->city;
-	}
-
-	public function set_email($email)
-	{
-		$this->email = $email;
-	}
-
-	public function get_email()
-	{
-		return $this->email;
 	}
 
 	public function get_estimate_url()
@@ -228,7 +217,6 @@ class FinancialRequestItem
 			'author_user_id' => $this->get_author_user()->get_id(),
 			'lamclubs_id'    => $this->get_lamclubs_id(),
 			'city'           => $this->get_city(),
-            'email'          => $this->get_email(),
             'event_date'     => $this->get_event_date()->get_timestamp(),
 			'creation_date'  => $this->get_creation_date()->get_timestamp(),
 			'estimate_url'   => $this->get_estimate_url()->relative(),
@@ -246,7 +234,6 @@ class FinancialRequestItem
 		$this->rewrited_title   = $properties['rewrited_title'];
 		$this->lamclubs_id      = $properties['lamclubs_id'];
 		$this->city             = $properties['city'];
-		$this->email            = $properties['email'];
         $this->event_date       = new Date($properties['event_date'], Timezone::SERVER_TIMEZONE);
 		$this->creation_date    = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
 		$this->estimate_url     = new Url($properties['estimate_url']);
@@ -268,7 +255,6 @@ class FinancialRequestItem
         $user = AppContext::get_current_user();
         $this->lamclubs_id = LamclubsService::get_user_club(AppContext::get_current_user()->get_id());
 		$this->author_user = $user;
-		$this->email = $user->get_email();
 		$this->event_date = new Date();
 		$this->creation_date = new Date();
 	}

@@ -21,27 +21,28 @@ $lang['financial.no.category'] = 'Sans catégorie';
 // TreeLinks
 $lang['financial.budgets.management'] = 'Gestion des budgets';
 $lang['financial.budget.add'] = 'Ajouter un budget';
-$lang['financial.budget.edit']        = 'Modifier un budget';
+$lang['financial.budget.edit'] = 'Modifier un budget';
 
 // Titles
 
-$lang['financial.item.add']         = 'Ajouter une demande';
-$lang['financial.item.edit']        = 'Modifier une demande';
-$lang['financial.item.delete']      = 'Supprimer la demande';
-$lang['financial.my.items']         = 'Mes demandes';
-$lang['financial.member.items']     = 'Demandes crées par';
-$lang['financial.archived.items']   = 'Demandes archivées';
-$lang['financial.pending.items']    = 'Demandes en attente';
-$lang['financial.filter.items']     = 'Filtrer les demandes';
-$lang['financial.items.management'] = 'Gestion des demandes';
-$lang['financial.request.type']     = 'Type de demande';
-$lang['financial.request.access']   = 'Faire une demande';
-$lang['financial.request.choice']   = 'Choisir';
-$lang['financial.bill']   = '<br /><span class="small text-italic">Sur facture ou devis</span>';
-$lang['financial.bill.max.amount']   = '<br /><span class="small text-italic">max :max_amount €</span>';
-$lang['financial.budget.available']   = 'Nombre de demandes disponibles';
-$lang['financial.club.name']   = 'Nom du club';
-$lang['financial.club.dpt']   = 'Département';
+$lang['financial.item.add']                = 'Ajouter une demande';
+$lang['financial.item.edit']               = 'Modifier une demande';
+$lang['financial.item.delete']             = 'Supprimer la demande';
+$lang['financial.my.items']                = 'Mes demandes';
+$lang['financial.member.items']            = 'Demandes crées par';
+$lang['financial.archived.items']          = 'Demandes archivées';
+$lang['financial.pending.items']           = 'Demandes en attente';
+$lang['financial.filter.items']            = 'Filtrer les demandes';
+$lang['financial.items.management']        = 'Gestion des demandes';
+$lang['financial.request.type']            = 'Type de demande';
+$lang['financial.request.access']          = 'Accès formulaire';
+$lang['financial.request.choice']          = 'Choisir';
+$lang['financial.request.not.available']   = 'Non disponible';
+$lang['financial.bill']                    = '<br /><span class="small text-italic">Sur facture ou devis</span>';
+$lang['financial.bill.max.amount']         = '<br /><span class="small text-italic">max :max_amount €</span>';
+$lang['financial.budget.available']        = 'Nombre de demandes disponibles';
+$lang['financial.club.name']               = 'Nom du club';
+$lang['financial.club.dpt']                = 'Département';
 
 // Labels
 $lang['financial.tracking']             = 'Suivi financier';
@@ -59,21 +60,29 @@ $lang['financial.budget.max.amount']    = 'Plafond par demande';
 $lang['financial.budget.quantity']      = 'Nombre de demandes possibles';
 $lang['financial.budget.upload']        = 'Budget avec téléversement <br /><span class="small text-italic">Pour que le demandeur puisse fournir des devis, factures, etc</span>';
 
-$lang['financial.request.allocated.budget']   = 'Budget alloué';
+
+$lang['financial.request.form.title']   = '<span class="small">Demande d\'aide financière pour : </span>';
+$lang['financial.request.allocated.budget']   = 'Budget alloué pour cette demande';
 $lang['financial.request.bill']               = ' sur facture ou devis';
 $lang['financial.request.club']               = 'Identifiants du club';
 $lang['financial.request.city']               = 'Ville';
-$lang['financial.request.event.date']         = 'Date de l\'événement';
+$lang['financial.request.event.date']         = 'Date';
 $lang['financial.request.creation.date']      = 'Date de création';
 $lang['financial.request.validation.date']    = 'Date de validation';
-$lang['financial.request.contact']            = 'Email';
-$lang['financial.request.contact.clue']       = 'Email du responsable de club à contacter en cas de besoin';
 $lang['financial.request.content']            = 'Descriptif (optionnel)';
 $lang['financial.request.files.url']          = 'Fichiers';
 $lang['financial.request.estimate.url']       = 'Devis';
 $lang['financial.request.estimate.url.clue']  = 'Si vous n\'avez pas encore de facture';
 $lang['financial.request.invoice.url']        = 'Facture';
 $lang['financial.request.invoice.url.clue']   = 'Nécessaire pour la prise en compte de votre demande';
+
+$lang['financial.request.email']                = 'Informations email';
+$lang['financial.request.email.clue']           = 'Les informations suivantes ne sont ni enregistrées ni conservées sur le site (RGPD)';
+$lang['financial.request.contact.user']         = 'Nom du correspondant';
+$lang['financial.request.contact.email']        = 'Adresse email du correspondant';
+$lang['financial.request.contact.email.clue']   = 'Email du responsable de club à contacter en cas de besoin';
+$lang['financial.request.message']              = 'Descriptif';
+$lang['financial.request.message.clue']         = 'Optionnel';
 
 $lang['financial.status'] = 'Suivi de la demande';
 $lang['financial.status.pending'] = 'En attente';

@@ -27,12 +27,13 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('FinancialRequestsArchivedController', '`^/archived/?$`'),
 	new UrlControllerMapper('FinancialRequestsPendingController', '`^/pending/?([0-9]+)?/?$`', array('page')),
 	// new UrlControllerMapper('FinancialMemberItemsController', '`^/member/([0-9]+)?/?([0-9]+)?/?$`', array('user_id', 'page')),
-    new UrlControllerMapper('FinancialFileEstimateController', '`^/estimate/([0-9]+)/?$`', array('id')),
-    new UrlControllerMapper('FinancialFileInvoiceController', '`^/invoice/([0-9]+)/?$`', array('id')),
+    new UrlControllerMapper('FinancialFileEstimateController', '`^/estimate/?([0-9]+)?/?$`', array('id')),
+    new UrlControllerMapper('FinancialFileInvoiceController', '`^/invoice/?([0-9]+)?/?$`', array('id')),
 
     // Ajax
-    new UrlControllerMapper('FinancialRequestRejectController', '`^/reject/([0-9]+)/?$`', array('id')),
-    new UrlControllerMapper('FinancialRequestOngoingController', '`^/ongoing/([0-9]+)/?$`', array('id')),
+    new UrlControllerMapper('FinancialRequestRejectController', '`^/reject/?([0-9]+)?/?$`', array('id')),
+    new UrlControllerMapper('FinancialRequestOngoingController', '`^/ongoing/?([0-9]+)?/?$`', array('id')),
+    new UrlControllerMapper('FinancialRequestAcceptController', '`^/accept/?([0-9]+)?/?([0-9]+)?/?$`', array('id', 'amount_paid')),
 
 	// Display financial
 	new UrlControllerMapper('FinancialHomeController', '`^(?:/([0-9]+))?/?$`'),

@@ -52,7 +52,6 @@ class FinancialSetup extends DefaultModuleSetup
 			'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'lamclubs_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'city' => array('type' => 'text', 'length' => 255),
-			'email' => array('type' => 'string', 'length' => 50, 'default' => "''"),
             'event_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'creation_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'estimate_url' => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),

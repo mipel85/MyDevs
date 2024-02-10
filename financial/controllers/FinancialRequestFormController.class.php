@@ -18,8 +18,8 @@ class FinancialRequestFormController extends DefaultModuleController
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
-            // if ($this->is_new_item)
-            //     $this->send_email();
+            if ($this->is_new_item)
+                $this->send_email();
 			$this->save($budget_params);
 			$this->redirect($budget_params);
 		}
@@ -31,8 +31,9 @@ class FinancialRequestFormController extends DefaultModuleController
 
 	private function build_form($budget_params)
 	{
-        $description = $this->lang['financial.request.allocated.budget'] . ' : ' . $budget_params['amount'];
-        if (substr($budget_params['amount'], -1) !== '%') $description .= '€';
+        $amount = $budget_params['amount'];
+        if (substr($budget_params['amount'], -1) !== '%') $amount .= '€';
+        $description = $this->lang['financial.request.allocated.budget'] . ' : ' . $amount;
         if ($budget_params['use_dl'])
             $description .= $this->lang['financial.request.bill'];
 
@@ -41,7 +42,7 @@ class FinancialRequestFormController extends DefaultModuleController
 		$form = new HTMLForm(__CLASS__);
 		$form->set_layout_title($item->get_id() === null ? $this->lang['financial.item.add'] : $this->lang['financial.item.edit']);
 
-		$fieldset = new FormFieldsetHTML('request', $budget_params['name']);
+		$fieldset = new FormFieldsetHTML('request', $this->lang['financial.request.form.title'] . $budget_params['name']);
         $fieldset->set_description($description);
 		$form->add_fieldset($fieldset);
 
@@ -57,13 +58,6 @@ class FinancialRequestFormController extends DefaultModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldMailEditor('email', $this->lang['financial.request.contact'], $item->get_email(),
-            array(
-                'required' => true,
-                'description' => $this->lang['financial.request.contact.clue']
-            )
-        ));
-
         if ($budget_params['use_dl'])
         {
             $fieldset->add_field(new FormFieldUploadFile('estimate_url', $this->lang['financial.request.estimate.url'], $this->get_item()->get_estimate_url()->relative(), 
@@ -73,6 +67,25 @@ class FinancialRequestFormController extends DefaultModuleController
                 array('description' => $this->lang['financial.request.invoice.url.clue'])
             ));
         }
+
+		$email_fieldset = new FormFieldsetHTML('email', $this->lang['financial.request.email']);
+        $email_fieldset->set_description($this->lang['financial.request.email.clue']);
+		$form->add_fieldset($email_fieldset);
+
+		$email_fieldset->add_field(new FormFieldTextEditor('sender_name', $this->lang['financial.request.contact.user'], $item->get_author_user()->get_display_name(),
+            array('required' => true)
+        ));
+
+		$email_fieldset->add_field(new FormFieldMailEditor('sender_email', $this->lang['financial.request.contact.email'], $item->get_author_user()->get_email(),
+            array(
+                'required' => true,
+                'description' => $this->lang['financial.request.contact.email.clue']
+            )
+        ));
+
+		$email_fieldset->add_field(new FormFieldMultiLineTextEditor('sender_message', $this->lang['financial.request.message'], '',
+            array('description' => $this->lang['financial.request.message.clue'])
+        ));
 
 		$this->build_contribution_fieldset($form);
 
@@ -93,14 +106,15 @@ class FinancialRequestFormController extends DefaultModuleController
 
         //msg content
         $item_message = StringVars::replace_vars($this->lang['financial.mail.msg'], array(
-            'club_sender_name'   => $user->get_display_name(),
-            'club_sender_email'  => $item->get_email(),
+            'club_sender_name'   => $this->form->get_value('sender_name'),
+            'club_sender_email'  => $this->form->get_value('sender_email'),
             'club_name'          => $club->get_name(),
             'club_ffam_number'   => $club->get_ffam_nb(),
             'activity'           => $item->get_title(),
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
             'club_activity_city' => $item->get_city(),
-            'club_activity_dpt'  => $club->get_department()
+            'club_activity_dpt'  => $club->get_department(),
+            'message'            => $this->form->get_value('sender_message')
         ));
 
         $item_email = new Mail();
