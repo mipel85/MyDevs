@@ -75,6 +75,7 @@ $lang['financial.request.estimate.url']       = 'Devis';
 $lang['financial.request.estimate.url.clue']  = 'Si vous n\'avez pas encore de facture';
 $lang['financial.request.invoice.url']        = 'Facture';
 $lang['financial.request.invoice.url.clue']   = 'Nécessaire pour la prise en compte de votre demande';
+$lang['financial.request.no.files']   = 'Un devis ou une facture sont nécéssaires pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
 
 $lang['financial.request.email']                = 'Informations email';
 $lang['financial.request.email.clue']           = 'Les informations suivantes ne sont ni enregistrées ni conservées sur le site (RGPD)';

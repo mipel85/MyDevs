@@ -84,12 +84,13 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
                 $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-fw fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
                 $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
+                $no_files = $budget->get_use_dl() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()) ? '<span aria-label="' . $this->lang['financial.request.no.files'] . '"><i class="fa fa-lg fa-circle-question warning"></i></span>' : '';
                 $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl() && empty($item->get_invoice_url()->rel()) ?
                     $this->lang['financial.ongoing'] : '';
             }
             else
             {
-                $estimate_file = $invoice_file = $ongoing_status = '';
+                $estimate_file = $invoice_file = $ongoing_status = $no_files = '';
             }
 
             $ongoing_class = ($item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl()) ? ' bgc warning' : '';
@@ -100,12 +101,12 @@ class FinancialRequestsPendingController extends DefaultModuleController
             $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
             $reject_link = $reject_link->display();
 
-            $amount_label = $budget->get_max_amount() ? ' aria-label="max: ' . $budget->get_max_amount() . '€"' : '';
-            $amount_max = $budget->get_max_amount() ? ' max="' . $budget->get_max_amount() . '"' : '';
+            $amount_label = $budget->get_max_amount() ? $budget->get_max_amount() . '€' : $budget->get_amount() . '€';
+            $amount_max = $budget->get_max_amount() ? $budget->get_max_amount() : $budget->get_amount();
 
             $id = $item->get_id();
             $amount = '
-                <input class="tracking-input" type="number" min="0" ' . $amount_max . ' id="amount_' . $id . '" value="' . $budget->get_amount() . '"' . $amount_label . ' />
+                <input class="tracking-input" type="number" min="0" max="' . $amount_max . '" id="amount_' . $id . '" value="' . $budget->get_amount() . '" aria-label="max: ' . $amount_label . '" />
                 <script>
                     let amount_'.$id.' = jQuery("#amount_'.$id.'").val(),
                         target_'.$id.' = jQuery("#accept_'.$id.'"),
@@ -131,7 +132,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 new HTMLTableRowCell($item->get_city() , $ongoing_class),
                 new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
                 new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
-				new HTMLTableRowCell($estimate_file . $invoice_file . $ongoing_status, 'controls' . $ongoing_class),
+				new HTMLTableRowCell($estimate_file . $invoice_file . $no_files . $ongoing_status, 'controls' . $ongoing_class),
                 new HTMLTableRowCell($edit_link . $delete_link, 'controls' . $ongoing_class)
 			);
 
