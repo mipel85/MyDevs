@@ -24,7 +24,7 @@ class FinancialRequestAcceptController extends DefaultModuleController
 
         AppContext::get_response()->redirect(
             ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-            StringVars::replace_vars($this->lang['planning.message.success.accept'], array('title' => $item->get_title())));
+            StringVars::replace_vars($this->lang['financial.message.success.accept'], array('title' => $item->get_title())));
 	}
 
 	private function get_item(HTTPRequestCustom $request)

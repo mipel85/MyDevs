@@ -123,6 +123,7 @@ $lang['financial.message.success.add']     = 'La demande <b>:title</b> a été a
 $lang['financial.message.success.edit']    = 'La demande <b>:title</b> a été modifiée';
 $lang['financial.message.success.delete']  = 'La demande <b>:title</b> a été supprimée';
 $lang['financial.message.success.reject']  = 'La demande <b>:title</b> a été rejetée et placée en archive';
+$lang['financial.message.success.accept']  = 'La demande <b>:title</b> a été acceptée et placée en archive';
 $lang['financial.message.success.ongoing'] = 'La demande <b>:title</b> a été placée à l\'étude';
 
 $lang['financial.message.success.budget.add']    = 'Le budget <b>:name</b> a été ajouté';
