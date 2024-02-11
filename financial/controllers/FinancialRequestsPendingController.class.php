@@ -28,7 +28,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 			new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'title'),
 			new HTMLTableColumn($this->lang['financial.club.nb'], 'ffam_nb'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'department'),
-			new HTMLTableColumn($this->lang['financial.request.city'], 'city'),
+			// new HTMLTableColumn($this->lang['financial.request.city'], 'city'),
 			new HTMLTableColumn($this->lang['financial.request.event.date'], 'event_date'),
 			new HTMLTableColumn($this->lang['financial.request.creation.date'], 'creation_date'),
 			new HTMLTableColumn($this->lang['financial.request.files.url'], ''),
@@ -145,23 +145,16 @@ class FinancialRequestsPendingController extends DefaultModuleController
             }
 
             $id = $item->get_id();
-            $amount = '
-                <input class="monitoring-input" ' . $type . ' min="0" max="' . $amount_max . '" id="amount_' . $id . '" value="' . $real_amount . '"' . $readonly . ' aria-label="' . $amount_label . '" />
-                <script>
-                    let amount_'.$id.' = jQuery("#amount_'.$id.'").val(),
-                        target_'.$id.' = jQuery("#accept_'.$id.'"),
-                        href_'.$id.' = target_'.$id.'.attr("href");
-                    target_'.$id.'.attr("href", href_'.$id.' + amount_'.$id.');
-                    jQuery("#amount_'.$id.'").on("change",function() {
-                        amount_'.$id.' = jQuery(this).val();
-                        parts = href_'.$id.'.split("/");
-                        parts[parts.length - 1] = amount_'.$id.';
-                        let new_href_'.$id.' = parts.join("/");
-                        target_'.$id.'.attr("href", new_href_'.$id.');
-                    });
-                </script>
-            ';
-            $accept_link = new LinkHTMLElement(FinancialUrlBuilder::accept_request($item->get_id(), ''), '<i class="fa fa-square-check success"></i>', array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.monitoring.accept']));
+            $amount = '<input 
+                class="monitoring-input"
+                ' . $type . '
+                min="0" max="' . $amount_max . '"
+                id="amount_' . $id . '"
+                value="' . $real_amount . '"
+                ' . $readonly . '
+                aria-label="' . $amount_label . '" />';
+
+            $accept_link = new LinkHTMLElement(FinancialUrlBuilder::accept_request($item->get_id(), ''), '<i class="fa fa-square-check success"></i>', array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.monitoring.accept']), 'payment-button');
             $accept_link = $accept_link->display();
 
             if ($budget->get_use_dl() && empty($item->get_invoice_url()->rel()))
@@ -176,7 +169,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 				new HTMLTableRowCell($item->get_title(), 'align-left' . $ongoing_class),
 				new HTMLTableRowCell($club_infos, $ongoing_class),
                 new HTMLTableRowCell($club->get_department() , $ongoing_class),
-                new HTMLTableRowCell($item->get_city() , $ongoing_class),
+                // new HTMLTableRowCell($item->get_city() , $ongoing_class),
                 new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
                 new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
 				new HTMLTableRowCell($estimate_file . $invoice_file . $no_files . $ongoing_status, 'controls' . $ongoing_class),
