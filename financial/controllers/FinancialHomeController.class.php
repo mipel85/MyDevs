@@ -109,7 +109,7 @@ class FinancialHomeController extends DefaultModuleController
                 $request_button = $this->lang['financial.request.not.available'];
 
             $row = array(
-                new HTMLTableRowCell($budget->get_domain(), 'small'),
+                new HTMLTableRowCell($budget->get_domain(), 'align-left'),
                 new HTMLTableRowCell($budget->get_name() . $description, 'big align-left'),
                 new HTMLTableRowCell($amount),
                 new HTMLTableRowCell($quantity),
