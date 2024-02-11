@@ -52,7 +52,7 @@ class FinancialBudgetFormController extends DefaultModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('amount', $this->lang['financial.budget.amount'], $this->get_budget()->get_unit_amount()));
+		$fieldset->add_field(new FormFieldTextEditor('unit_amount', $this->lang['financial.budget.amount'], $this->get_budget()->get_unit_amount()));
 
 		$fieldset->add_field(new FormFieldTextEditor('max_amount', $this->lang['financial.budget.max.amount'], $this->get_budget()->get_max_amount()));
 
@@ -128,9 +128,9 @@ class FinancialBudgetFormController extends DefaultModuleController
         $budget->set_domain($this->form->get_value('domain'));
         $budget->set_name($this->form->get_value('name'));
 
-		$budget->set_fiscal_year($this->form->get_value('fiscal_year')->get_raw_value());
+		$budget->set_fiscal_year($this->form->get_value('fiscal_year'));
 		$budget->set_annual_amount($this->form->get_value('annual_amount'));
-		$budget->set_amount($this->form->get_value('amount'));
+		$budget->set_unit_amount($this->form->get_value('unit_amount'));
 		$budget->set_max_amount($this->form->get_value('max_amount'));
         $budget->set_quantity($this->form->get_value('quantity'));
         $budget->set_use_dl($this->form->get_value('use_dl'));
