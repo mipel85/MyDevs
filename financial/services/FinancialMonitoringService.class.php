@@ -49,7 +49,7 @@ class FinancialMonitoringService
         self::$db_querier->update(
             FinancialSetup::$financial_budget_table,
             array('real_amount' => $new_amount),
-            'WHERE id=:id', array('id' => $id)
+            'WHERE id=:id', array('id' => $budget->get_id())
         );
         if ($budget->get_real_quantity())
         {
@@ -57,7 +57,7 @@ class FinancialMonitoringService
             self::$db_querier->update(
                 FinancialSetup::$financial_budget_table,
                 array('real_quantity' => $new_real_quant),
-                'WHERE id=:id', array('id' => $id)
+                'WHERE id=:id', array('id' => $budget->get_id())
             );
         }
     }
@@ -83,7 +83,8 @@ class FinancialMonitoringService
         }
         if (!$budget->get_use_dl())
         {
-            $new_temp_amount = $budget->get_temp_amount() + $budget->get_unit_amount();
+            $unit_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
+            $new_temp_amount = $budget->get_temp_amount() + $unit_amount;
             self::$db_querier->update(
                 FinancialSetup::$financial_budget_table,
                 array('temp_amount' => $new_temp_amount),
@@ -104,6 +105,7 @@ class FinancialMonitoringService
     public static function add_pending_request($id)
     {
         $budget = FinancialBudgetService::get_budget(self::get_item($id)->get_budget_id());
+
         if ($budget->get_temp_quantity())
         {
             $new_temp_quant = $budget->get_temp_quantity() - 1;
@@ -115,7 +117,8 @@ class FinancialMonitoringService
         }
         if (!$budget->get_use_dl())
         {
-            $new_temp_amount = $budget->get_temp_amount() - $budget->get_unit_amount();
+            $unit_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
+            $new_temp_amount = $budget->get_temp_amount() - $unit_amount;
             self::$db_querier->update(
                 FinancialSetup::$financial_budget_table,
                 array('temp_amount' => $new_temp_amount),
@@ -135,7 +138,8 @@ class FinancialMonitoringService
         );
         if (!$budget->get_use_dl())
         {
-            $new_temp_amount = $budget->get_temp_amount() + $budget->get_unit_amount();
+            $unit_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
+            $new_temp_amount = $budget->get_temp_amount() + $unit_amount;
             self::$db_querier->update(
                 FinancialSetup::$financial_budget_table,
                 array('temp_amount' => $new_temp_amount),
