@@ -26,14 +26,14 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn($this->lang['common.title'], 'title'),
-			new HTMLTableColumn($this->lang['financial.club.name'], 'club_name'),
+			new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'title'),
+			new HTMLTableColumn($this->lang['financial.club.nb'], 'club_name'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'club_department'),
 			new HTMLTableColumn($this->lang['financial.request.event.date'], 'event_date'),
 			new HTMLTableColumn($this->lang['financial.request.creation.date'], 'creation_date'),
 			new HTMLTableColumn($this->lang['financial.request.validation.date'], 'agreement_date'),
-			new HTMLTableColumn($this->lang['financial.status'], 'agreement'),
-			new HTMLTableColumn($this->lang['common.actions'], '', array('sr-only' => true))
+			new HTMLTableColumn($this->lang['common.status'], 'agreement'),
+			new HTMLTableColumn($this->lang['financial.amount.paid'], 'amount_paid')
 		);
 
 		$table_model = new SQLHTMLTableModel(FinancialSetup::$financial_request_table, 'items-manager', $columns, new HTMLTableSortingRule('event_date', HTMLTableSortingRule::DESC));
@@ -64,23 +64,21 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 			$this->items_number++;
 			$this->ids[$this->items_number] = $item->get_id();
 
-			$edit_link = new EditLinkHTMLElement(FinancialUrlBuilder::edit_item($item->get_id(), $item->get_budget_id()));
-			$edit_link = $item->is_authorized_to_track() ? $edit_link->display() : '';
-
 			$delete_link = new DeleteLinkHTMLElement(FinancialUrlBuilder::delete_item($item->get_id()), '', array('data-confirmation' => 'delete-element'));
-			$delete_link = $item->is_authorized_to_track() ? $delete_link->display() : '';
+			$delete_link = FinancialAuthorizationsService::check_authorizations()->write() ? $delete_link->display() : '';
 
 			$club = LamclubsService::get_item($item->get_lamclubs_id());
+            $club_infos = '<span aria-label="'.$club->get_name().'">'.$club->get_ffam_nb().'</span>';
 
 			$row = array(
 				new HTMLTableRowCell($item->get_title(), 'align-left'),
-				new HTMLTableRowCell($club->get_name()),
+				new HTMLTableRowCell($club_infos),
                 new HTMLTableRowCell($club->get_department()),
                 new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_agreement_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_status()),
-                new HTMLTableRowCell($edit_link . $delete_link, 'controls')
+                new HTMLTableRowCell($item->get_amount_paid())
 			);
 
 			$results[] = new HTMLTableRow($row);

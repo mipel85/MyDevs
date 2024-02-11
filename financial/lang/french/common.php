@@ -24,15 +24,14 @@ $lang['financial.budget.add'] = 'Ajouter un budget';
 $lang['financial.budget.edit'] = 'Modifier un budget';
 
 // Titles
-
 $lang['financial.item.add']                = 'Ajouter une demande';
 $lang['financial.item.edit']               = 'Modifier une demande';
 $lang['financial.item.delete']             = 'Supprimer la demande';
-$lang['financial.my.items']                = 'Mes demandes';
-$lang['financial.member.items']            = 'Demandes crées par';
 $lang['financial.monitored.items']         = 'Suivi financier';
 $lang['financial.archived.items']          = 'Demandes archivées';
 $lang['financial.pending.items']           = 'Demandes en attente';
+$lang['financial.archived']                = 'archivées';
+$lang['financial.pending']                 = 'en attente';
 $lang['financial.filter.items']            = 'Filtrer les demandes';
 $lang['financial.items.management']        = 'Gestion des demandes';
 
@@ -52,14 +51,24 @@ $lang['financial.monitoring']           = 'Suivi financier';
 $lang['financial.monitoring.ongoing']   = 'Passer la demande `À l\'étude`';
 $lang['financial.monitoring.reject']    = 'Rejeter la demande';
 $lang['financial.monitoring.accept']    = 'Payer la demande';
+$lang['financial.budget.annual']        = 'Budget annuel';
 $lang['financial.budget.domain']        = 'Domaine';
 $lang['financial.budget.name']          = 'Nom du budget';
+$lang['financial.amount.paid']          = 'Montant';
 $lang['financial.budget.description']   = 'Description du budget';
 $lang['financial.budget.fiscal.year']   = 'Année de l\'exercice';
 $lang['financial.budget.annual.amount'] = 'Budget annuel';
-$lang['financial.budget.amount']        = 'Budget par demande';
-$lang['financial.budget.max.amount']    = 'Plafond par demande';
+$lang['financial.budget.pending']  = 'Des demandes sont en attentes';
+$lang['financial.budget.no.pending']  = 'Aucune demande en attente';
+$lang['financial.budget.balance.temp']  = 'Prév';
+$lang['financial.budget.balance.real']  = 'Réel';
+$lang['financial.budget.balance.temp.alt'] = 'Prév';
+$lang['financial.budget.balance.real.alt'] = 'Réelles';
+$lang['financial.budget.amount']        = 'Par demande';
+$lang['financial.budget.unit.amount']   = 'Unitaire';
+$lang['financial.budget.max.amount']    = 'Plafond';
 $lang['financial.budget.quantity']      = 'Nombre de demandes possibles';
+$lang['financial.budget.quantities']    = 'Quantités';
 $lang['financial.budget.upload']        = 'Budget avec téléversement <br /><span class="small text-italic">Pour que le demandeur puisse fournir des devis, factures, etc</span>';
 
 
@@ -71,9 +80,9 @@ $lang['financial.request.bill']               = '
 ';
 $lang['financial.request.club']               = 'Identifiants du club';
 $lang['financial.request.city']               = 'Ville';
-$lang['financial.request.event.date']         = 'Date';
+$lang['financial.request.event.date']         = 'Prévue le';
 $lang['financial.request.creation.date']      = 'Créée le';
-$lang['financial.request.validation.date']    = 'Date de validation';
+$lang['financial.request.validation.date']    = 'Validée le';
 $lang['financial.request.content']            = 'Descriptif (optionnel)';
 $lang['financial.request.files.url']          = 'Fichiers';
 $lang['financial.request.estimate.url']       = 'Devis';

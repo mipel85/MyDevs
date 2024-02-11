@@ -15,8 +15,10 @@ class FinancialBudgetItem
 	private $description;
 	private $fiscal_year;
 	private $annual_amount;
+	private $real_amount;
+	private $temp_amount;
+	private $unit_amount;
 	private $max_amount;
-	private $amount;
 	private $quantity;
 	private $temp_quantity;
 	private $real_quantity;
@@ -82,14 +84,34 @@ class FinancialBudgetItem
 		$this->annual_amount = $annual_amount;
 	}
 
-	public function get_amount()
+	public function get_real_amount()
 	{
-		return $this->amount;
+		return $this->real_amount;
 	}
 
-	public function set_amount($amount)
+	public function set_real_amount($real_amount)
 	{
-		$this->amount = $amount;
+		$this->real_amount = $real_amount;
+	}
+
+	public function get_temp_amount()
+	{
+		return $this->temp_amount;
+	}
+
+	public function set_temp_amount($temp_amount)
+	{
+		$this->temp_amount = $temp_amount;
+	}
+
+	public function get_unit_amount()
+	{
+		return $this->unit_amount;
+	}
+
+	public function set_unit_amount($unit_amount)
+	{
+		$this->unit_amount = $unit_amount;
 	}
 
 	public function get_max_amount()
@@ -171,8 +193,10 @@ class FinancialBudgetItem
 			'description'   => $this->get_description(),
 			'fiscal_year'   => $this->get_fiscal_year(),
 			'annual_amount' => $this->get_annual_amount(),
+			'real_amount'   => $this->get_real_amount(),
+			'temp_amount'   => $this->get_temp_amount(),
+			'unit_amount'   => $this->get_unit_amount(),
 			'max_amount'    => $this->get_max_amount(),
-			'amount'        => $this->get_amount(),
 			'quantity'      => $this->get_quantity(),
 			'temp_quantity' => $this->get_temp_quantity(),
 			'real_quantity' => $this->get_real_quantity(),
@@ -188,8 +212,10 @@ class FinancialBudgetItem
 		$this->description   = $properties['description'];
 		$this->fiscal_year   = $properties['fiscal_year'];
 		$this->annual_amount = $properties['annual_amount'];
+		$this->real_amount   = $properties['real_amount'];
+		$this->temp_amount   = $properties['temp_amount'];
+		$this->unit_amount   = $properties['unit_amount'];
 		$this->max_amount    = $properties['max_amount'];
-		$this->amount        = $properties['amount'];
 		$this->quantity      = $properties['quantity'];
 		$this->temp_quantity = $properties['temp_quantity'];
 		$this->real_quantity = $properties['real_quantity'];

@@ -25,7 +25,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 	{
 		$columns = array(
 			new HTMLTableColumn($this->lang['financial.monitoring'], '', array('css_class' => 'col-large')),
-			new HTMLTableColumn($this->lang['common.title'], 'title'),
+			new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'title'),
 			new HTMLTableColumn($this->lang['financial.club.nb'], 'ffam_nb'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'department'),
 			new HTMLTableColumn($this->lang['financial.request.city'], 'city'),
@@ -108,8 +108,8 @@ class FinancialRequestsPendingController extends DefaultModuleController
             }
             elseif ($item->get_agreement_state() == FinancialRequestItem::PENDING && $budget->get_use_dl())
             {
-                $ongoing_link = $ongoing_link->display();
                 $ongoing_class = '';
+                $ongoing_link = $ongoing_link->display();
             }
             else
             {
@@ -121,20 +121,20 @@ class FinancialRequestsPendingController extends DefaultModuleController
             $reject_link = $reject_link->display();
 
             $amount_label = $budget->get_max_amount() ? 
-                $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_amount() . '<br />max: ' . $budget->get_max_amount() . '€' : 
-                $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_amount();
-            $amount_number = TextHelper::mb_substr($budget->get_amount(), 0, -1);
+                $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_unit_amount() . '<br />max: ' . $budget->get_max_amount() . '€' : 
+                $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_unit_amount();
+            $amount_number = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
             $amount_max = $budget->get_max_amount() ? $budget->get_max_amount() : $amount_number;
 
             if (!$budget->get_use_dl())
             {
-                $real_amount = $budget->get_amount();
+                $real_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
                 $readonly = 'readonly';
                 $type = 'type="text"';
             }
-            elseif ($budget->get_use_dl() && TextHelper::mb_substr($budget->get_amount(), -1) !== '%')
+            elseif ($budget->get_use_dl() && TextHelper::mb_substr($budget->get_unit_amount(), -1) !== '%')
             {
-                $real_amount = TextHelper::mb_substr($budget->get_amount(), 0, -1);
+                $real_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
                 $readonly = '';
                 $type = 'type="number"';
             }

@@ -20,6 +20,7 @@ class FinancialRequestItem
 	private $creation_date;
 	private $estimate_url;
 	private $invoice_url;
+	private $amount_paid;
 	private $agreement;
 	private $agreement_date;
 
@@ -144,6 +145,16 @@ class FinancialRequestItem
 		return $this->creation_date;
 	}
 
+	public function set_amount_paid($amount_paid)
+	{
+		$this->amount_paid = $amount_paid;
+	}
+
+	public function get_amount_paid()
+	{
+		return $this->amount_paid;
+	}
+
 	public function set_agreement_state($agreement)
 	{
 		$this->agreement = $agreement;
@@ -187,11 +198,6 @@ class FinancialRequestItem
 		}
 	}
 
-	public function is_authorized_to_track()
-	{
-		return FinancialAuthorizationsService::check_authorizations()->write();
-	}
-
 	public function is_authorized_to_add()
 	{
 		return FinancialAuthorizationsService::check_authorizations()->write() || FinancialAuthorizationsService::check_authorizations()->contribution();
@@ -221,6 +227,7 @@ class FinancialRequestItem
 			'creation_date'  => $this->get_creation_date()->get_timestamp(),
 			'estimate_url'   => $this->get_estimate_url()->relative(),
 			'invoice_url'    => $this->get_invoice_url()->relative(),
+			'amount_paid'    => $this->get_amount_paid(),
 			'agreement'      => $this->get_agreement_state(),
 			'agreement_date' => $this->get_agreement_date() !== null ? $this->get_agreement_date()->get_timestamp() : 0
 		);
@@ -238,6 +245,7 @@ class FinancialRequestItem
 		$this->creation_date    = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
 		$this->estimate_url     = new Url($properties['estimate_url']);
 		$this->invoice_url      = new Url($properties['invoice_url']);
+		$this->amount_paid      = $properties['amount_paid'];
 		$this->agreement        = $properties['agreement'];
 		$this->agreement_date   = new Date($properties['agreement_date'], Timezone::SERVER_TIMEZONE);
 
@@ -261,7 +269,7 @@ class FinancialRequestItem
 
 	public function get_item_url()
 	{
-		return FinancialUrlBuilder::display($this->id, $this->rewrited_title)->rel();
+		return FinancialUrlBuilder::display_pending_items()->rel();
 	}
 }
 ?>

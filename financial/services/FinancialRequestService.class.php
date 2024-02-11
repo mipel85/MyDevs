@@ -94,15 +94,15 @@ class FinancialRequestService
         $now = new Date();
         self::$db_querier->update(
             FinancialSetup::$financial_request_table,
-            array('agreement' => FinancialRequestItem::ACCEPTED, 'agreement_date' => $now->get_timestamp()),
+            array('amount_paid' => $amount_paid, 'agreement' => FinancialRequestItem::ACCEPTED, 'agreement_date' => $now->get_timestamp()),
             'WHERE id=:id', array('id' => $id)
         );
 
         $budget = FinancialBudgetService::get_budget(self::get_item($id)->get_budget_id());
-        $new_amount = $budget->get_annual_amount() - $amount_paid;
+        $new_amount = $budget->get_real_amount() - $amount_paid;
         self::$db_querier->update(
             FinancialSetup::$financial_budget_table,
-            array('annual_amount' => $new_amount),
+            array('real_amount' => $new_amount),
             'WHERE id=:id', array('id' => $id)
         );
         if ($budget->get_real_quantity())
@@ -135,11 +135,19 @@ class FinancialRequestService
                 'WHERE id=:id', array('id' => $budget->get_id())
             );
         }
+        if (!$budget->get_use_dl())
+        {
+            $new_temp_amount = $budget->get_temp_amount() + $budget->get_unit_amount();
+            self::$db_querier->update(
+                FinancialSetup::$financial_budget_table,
+                array('temp_amount' => $new_temp_amount),
+                'WHERE id=:id', array('id' => $budget->get_id())
+            );
+        }
     }
 
     public static function ongoing_request($id)
     {
-        $now = new Date();
         self::$db_querier->update(
             FinancialSetup::$financial_request_table,
             array('agreement' => FinancialRequestItem::ONGOING),
@@ -159,6 +167,15 @@ class FinancialRequestService
                 'WHERE id=:id', array('id' => $budget->get_id())
             );
         }
+        if (!$budget->get_use_dl())
+        {
+            $new_temp_amount = $budget->get_temp_amount() - $budget->get_unit_amount();
+            self::$db_querier->update(
+                FinancialSetup::$financial_budget_table,
+                array('temp_amount' => $new_temp_amount),
+                'WHERE id=:id', array('id' => $budget->get_id())
+            );
+        }
     }
 
     public static function delete_pending_request($id)
@@ -170,6 +187,15 @@ class FinancialRequestService
             array('temp_quantity' => $new_temp_quant),
             'WHERE id=:id', array('id' => $budget->get_id())
         );
+        if (!$budget->get_use_dl())
+        {
+            $new_temp_amount = $budget->get_temp_amount() + $budget->get_unit_amount();
+            self::$db_querier->update(
+                FinancialSetup::$financial_budget_table,
+                array('temp_amount' => $new_temp_amount),
+                'WHERE id=:id', array('id' => $budget->get_id())
+            );
+        }
     }
 
 	/**

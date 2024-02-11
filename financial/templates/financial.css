@@ -9,3 +9,7 @@
 .monitoring-input[type="text"] {
     text-align: center;
 }
+
+.bordered-table tr:hover {
+    background-color: rgba(var(--main-rgb-t), 0.2);
+}

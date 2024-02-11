@@ -78,9 +78,9 @@ class FinancialHomeController extends DefaultModuleController
             $id = '<span class="hidden">' . $budget->get_id() . '</span>';
 
             $amount = '';
-            if(!empty($budget->get_amount()))
+            if(!empty($budget->get_unit_amount()))
             {
-                $amount .= $budget->get_amount();
+                $amount .= $budget->get_unit_amount();
                 if ($budget->get_use_dl())
                     $amount .= $this->lang['financial.bill'];
                 if ($budget->get_max_amount())
@@ -100,12 +100,12 @@ class FinancialHomeController extends DefaultModuleController
 			$br = new BrHTMLElement();
             $description = !empty($budget->get_description()) ? $br->display() . '<span class="smaller text-italic">' . $budget->get_description() . '</span>' : '';
 
-            if ($budget->get_annual_amount() > 0)
+            if ($budget->get_real_amount() > 0)
             {
                 $request_button = new LinkHTMLElement(FinancialUrlBuilder::add_item($budget->get_id()), $this->lang['financial.request.choice'], array(), 'small button');
                 $request_button->display();
             }
-            else 
+            else
                 $request_button = $this->lang['financial.request.not.available'];
 
             $row = array(

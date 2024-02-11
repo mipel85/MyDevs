@@ -52,7 +52,7 @@ class FinancialBudgetFormController extends DefaultModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('amount', $this->lang['financial.budget.amount'], $this->get_budget()->get_amount()));
+		$fieldset->add_field(new FormFieldTextEditor('amount', $this->lang['financial.budget.amount'], $this->get_budget()->get_unit_amount()));
 
 		$fieldset->add_field(new FormFieldTextEditor('max_amount', $this->lang['financial.budget.max.amount'], $this->get_budget()->get_max_amount()));
 
@@ -138,8 +138,10 @@ class FinancialBudgetFormController extends DefaultModuleController
 
 		if ($this->is_new_item)
 		{
-            $budget->set_temp_quantity($this->form->get_value('quantity'));
+            $budget->set_real_amount($this->form->get_value('annual_amount'));
+            $budget->set_temp_amount($this->form->get_value('annual_amount'));
             $budget->set_real_quantity($this->form->get_value('quantity'));
+            $budget->set_temp_quantity($this->form->get_value('quantity'));
 			$budget_id = FinancialBudgetService::add_budget($budget);
 			$budget->set_id($budget_id);
         }

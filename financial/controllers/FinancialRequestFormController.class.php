@@ -31,7 +31,7 @@ class FinancialRequestFormController extends DefaultModuleController
 
 	private function build_form($budget_params)
 	{
-        $description = $this->lang['financial.request.allocated.budget'] . ' : ' . $budget_params['amount'];
+        $description = $this->lang['financial.request.allocated.budget'] . ' : ' . $budget_params['unit_amount'];
         if ($budget_params['use_dl'])
             $description .= $this->lang['financial.request.bill'];
         $description .= '<br />' . $this->lang['financial.budget.domain'] . ': ' . $budget_params['domain'];

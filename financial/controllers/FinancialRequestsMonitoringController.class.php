@@ -9,14 +9,21 @@
 
 class FinancialRequestsMonitoringController extends DefaultModuleController
 {
-	private $items_number = 0;
-	private $ids = array();
+	private $hide_delete_input = array();
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
 
-		$current_page = $this->build_table();
+        $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
+        if ($c_clubs)
+        {
+            $current_page = $this->build_table();
+        }
+        else
+        {
+            $current_page = $this->build_warnings();
+        }
 
 		return $this->generate_response($current_page);
 	}
@@ -24,125 +31,74 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn($this->lang['financial.monitoring'], '', array('css_class' => 'col-large')),
-			new HTMLTableColumn($this->lang['common.title'], 'title'),
-			new HTMLTableColumn($this->lang['financial.club.name'], 'club_name'),
-			new HTMLTableColumn($this->lang['financial.club.dpt'], 'club_department'),
-			new HTMLTableColumn($this->lang['financial.request.city'], 'city'),
-			new HTMLTableColumn($this->lang['financial.request.event.date'], 'event_date'),
-			new HTMLTableColumn($this->lang['financial.request.creation.date'], 'creation_date'),
-			new HTMLTableColumn($this->lang['financial.request.files.url'], ''),
-			new HTMLTableColumn($this->lang['common.actions'], '', array('sr-only' => true))
+			new HTMLTableColumn($this->lang['financial.budget.domain'], 'domain'),
+			new HTMLTableColumn($this->lang['financial.request.type'], '', array('css_class' => 'align-left')),
+			new HTMLTableColumn($this->lang['financial.budget.annual'], ''),
+			new HTMLTableColumn($this->lang['financial.budget.balance.real'] . '<br /><span class="smaller">' . $this->lang['financial.archived'] . '</span>', ''),
+			new HTMLTableColumn($this->lang['financial.budget.balance.temp'] . '<br /><span class="smaller">' . $this->lang['financial.pending'] . '</span>', ''),
+			new HTMLTableColumn($this->lang['financial.budget.unit.amount'], ''),
+			new HTMLTableColumn($this->lang['financial.budget.max.amount'], ''),
+			new HTMLTableColumn($this->lang['financial.budget.quantities'], ''),
+			new HTMLTableColumn($this->lang['financial.budget.balance.real.alt'] . '<br /><span class="smaller">' . $this->lang['financial.archived'] . '</span>', ''),
+			new HTMLTableColumn($this->lang['financial.budget.balance.temp.alt'] . '<br /><span class="smaller">' . $this->lang['financial.pending'] . '</span>', '')
 		);
 
-        if (!FinancialAuthorizationsService::check_authorizations()->write())
-            unset($columns[0]);
+		$table_model = new SQLHTMLTableModel(FinancialSetup::$financial_budget_table, 'items-list', $columns, new HTMLTableSortingRule('id', HTMLTableSortingRule::ASC));
 
-		$table_model = new SQLHTMLTableModel(
-            FinancialSetup::$financial_request_table, 'items-pending', 
-            $columns, new HTMLTableSortingRule('event_date', HTMLTableSortingRule::DESC)
-        );
-
-		$table_model->set_layout_title($this->lang['financial.pending.items']);
-
-		// $table_model->set_filters_menu_title($this->lang['financial.filter.items']);
-		// $table_model->add_filter(new HTMLTableDateComparatorSQLFilter('event_date', 'filter0', $this->lang['financial.request.event.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
-		// $table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('event_date', 'filter1', $this->lang['financial.request.event.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
-		// $table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('event_date', 'filter2', $this->lang['financial.request.event.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
-		// $table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter3', $this->lang['financial.club.department']));
-
-        $table_model->add_permanent_filter('agreement = ' . FinancialRequestItem::PENDING . ' OR agreement = ' . FinancialRequestItem::ONGOING);
+		$table_model->set_layout_title($this->lang['financial.monitoring']);
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
         $table->hide_multiple_delete();
+        $table->set_css_class('bordered-table');
 
 		$results = array();
-		$result = $table_model->get_sql_results('request
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = request.author_user_id
-			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = request.lamclubs_id'
-		);
+		$result = $table_model->get_sql_results('budget');
+
+		$budgets = array();
 		foreach ($result as $row)
 		{
-			$item = new FinancialRequestItem();
-			$item->set_properties($row);
-            $budget = FinancialBudgetService::get_budget($item->get_budget_id());
+			$budget = new FinancialBudgetItem();
+			$budget->set_properties($row);
+			$budgets[] = $budget;
+		}
 
-			$this->items_number++;
-			$this->ids[$this->items_number] = $item->get_id();
+		foreach ($budgets as $budget)
+		{
+            $unit_amount = $budget->get_unit_amount() !== '0' ? $budget->get_unit_amount() : '';
+            $max_amount = $budget->get_max_amount() !== '0' ? $budget->get_max_amount() . '€' : '';
 
-			$edit_link = new EditLinkHTMLElement(FinancialUrlBuilder::edit_item($item->get_id(), $item->get_budget_id()));
-			$edit_link = $item->is_authorized_to_edit() ? $edit_link->display() : '';
-
-			$delete_link = new DeleteLinkHTMLElement(FinancialUrlBuilder::delete_item($item->get_id()), '', array('data-confirmation' => 'delete-element'));
-			$delete_link = $item->is_authorized_to_delete() ? $delete_link->display() : '';
-
-            $club = LamclubsService::get_item($item->get_lamclubs_id());
-            if($item->is_authorized_to_delete() || $item->is_authorized_to_edit())
+            if ($budget->get_use_dl() && $budget->get_real_quantity() !== $budget->get_temp_quantity())
             {
-                $estimate_file = new LinkHTMLElement(FinancialUrlBuilder::dl_estimate($item->get_id()), '<i class="far fa-fw fa-file-lines"></i>', array('aria-label' => $this->lang['financial.request.estimate.url']));
-                $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
-                $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-fw fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
-                $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
-                $no_files = $budget->get_use_dl() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()) ? '<span aria-label="' . $this->lang['financial.request.no.files'] . '"><i class="fa fa-lg fa-circle-question warning"></i></span>' : '';
-                $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl() && empty($item->get_invoice_url()->rel()) ?
-                    $this->lang['financial.ongoing'] : '';
+                $temp_amount = '<span aria-label="' . $this->lang['financial.budget.pending'] . '"><i class="fa fa-lg fa-triangle-exclamation warning"></i></span>';
+            }
+            elseif ($budget->get_use_dl() && $budget->get_real_quantity() == $budget->get_temp_quantity())
+            {
+                $temp_amount = '<span aria-label="' . $this->lang['financial.budget.no.pending'] . '"><i class="fa fa-lg fa-check success"></i></span>';
             }
             else
             {
-                $estimate_file = $invoice_file = $ongoing_status = $no_files = '';
+                $temp_amount = $budget->get_temp_amount() . '€';
             }
 
-            $ongoing_class = ($item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl()) ? ' bgc warning' : '';
+            $row = array(
+                new HTMLTableRowCell($budget->get_domain(), 'small'),
+                new HTMLTableRowCell($budget->get_name(), 'align-left'),
+                new HTMLTableRowCell($budget->get_annual_amount() . '€'),
+                new HTMLTableRowCell($budget->get_real_amount() . '€'),
+                new HTMLTableRowCell($temp_amount),
+                new HTMLTableRowCell($unit_amount),
+                new HTMLTableRowCell($max_amount),
+                new HTMLTableRowCell($budget->get_quantity()),
+                new HTMLTableRowCell($budget->get_real_quantity()),
+                new HTMLTableRowCell($budget->get_temp_quantity())
+            );
 
-            $ongoing_link = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.monitoring.ongoing']));
-            $ongoing_link = ($item->get_agreement_state() == FinancialRequestItem::PENDING && $budget->get_use_dl()) ? $ongoing_link->display() : '';
+            $table_row = new HTMLTableRow($row);
+            if (in_array($budget->get_id(), $this->hide_delete_input))
+                $table_row->hide_delete_input();
 
-            $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.monitoring.reject']));
-            $reject_link = $reject_link->display();
-
-            $amount_label = $budget->get_max_amount() ? 
-                $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_amount() . '<br />max: ' . $budget->get_max_amount() : 
-                $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_amount();
-            $amount_number = TextHelper::mb_substr($budget->get_amount(), 0, -1);
-            $amount_max = $budget->get_max_amount() ? $budget->get_max_amount() : $amount_number;
-
-            $id = $item->get_id();
-            $amount = '
-                <input class="tracking-input" type="number" min="0" max="' . $amount_max . '" id="amount_' . $id . '" value="' . $budget->get_amount() . '" aria-label="' . $amount_label . '" />
-                <script>
-                    let amount_'.$id.' = jQuery("#amount_'.$id.'").val(),
-                        target_'.$id.' = jQuery("#accept_'.$id.'"),
-                        href_'.$id.' = target_'.$id.'.attr("href");
-                    target_'.$id.'.attr("href", href_'.$id.' + amount_'.$id.');
-                    jQuery("#amount_'.$id.'").on("change",function() {
-                        amount_'.$id.' = jQuery(this).val();
-                        parts = href_'.$id.'.split("/");
-                        parts[parts.length - 1] = amount_'.$id.';
-                        let new_href_'.$id.' = parts.join("/");
-                        target_'.$id.'.attr("href", new_href_'.$id.');
-                    });
-                </script>
-            ';
-            $accept_link = new LinkHTMLElement(FinancialUrlBuilder::accept_request($item->get_id(), ''), '<i class="fa fa-square-check success"></i>', array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.monitoring.accept']));
-            $accept_link = $accept_link->display();
-
-			$row = array(
-				new HTMLTableRowCell($amount . $accept_link . $ongoing_link . $reject_link, 'controls' . $ongoing_class),
-				new HTMLTableRowCell($item->get_title(), 'align-left' . $ongoing_class),
-				new HTMLTableRowCell($club->get_name() , $ongoing_class),
-                new HTMLTableRowCell($club->get_department() , $ongoing_class),
-                new HTMLTableRowCell($item->get_city() , $ongoing_class),
-                new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
-                new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR) , $ongoing_class),
-				new HTMLTableRowCell($estimate_file . $invoice_file . $no_files . $ongoing_status, 'controls' . $ongoing_class),
-                new HTMLTableRowCell($edit_link . $delete_link, 'controls' . $ongoing_class)
-			);
-
-            if (!FinancialAuthorizationsService::check_authorizations()->write())
-                unset($row[0]);
-
-			$results[] = new HTMLTableRow($row);
+            $results[] = $table_row;
 		}
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
@@ -151,9 +107,20 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 		return $table->get_page_number();
 	}
 
+    private function build_warnings()
+    {
+        $this->view = new FileTemplate('financial/FinancialWarningsController.tpl');
+        $this->view->add_lang(LangLoader::get_all_langs('financial'));
+        $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
+
+        $this->view->put_all(array(
+            'C_NO_LAMCLUBS' => !$c_clubs
+        ));
+    }
+
 	private function check_authorizations()
 	{
-		if (!FinancialAuthorizationsService::check_authorizations()->contribution())
+		if (!FinancialAuthorizationsService::check_authorizations()->read())
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
@@ -163,15 +130,14 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 	private function generate_response($page = 1)
 	{
 		$response = new SiteDisplayResponse($this->view);
-
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['financial.items.management'], $this->lang['financial.module.title'], $page);
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(FinancialUrlBuilder::manage_items());
+		$graphical_environment->set_page_title($this->lang['financial.monitoring'], $page);
+		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['financial.seo.description.root'], array('site' => GeneralConfig::load()->get_site_name())));
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(FinancialUrlBuilder::home());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['financial.module.title'], FinancialUrlBuilder::home());
-
-		$breadcrumb->add($this->lang['financial.pending.items'], FinancialUrlBuilder::display_pending_items());
+		$breadcrumb->add($this->lang['financial.monitoring'], FinancialUrlBuilder::home());
 
 		return $response;
 	}

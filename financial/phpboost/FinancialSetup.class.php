@@ -56,7 +56,8 @@ class FinancialSetup extends DefaultModuleSetup
 			'creation_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'estimate_url' => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
 			'invoice_url' => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
-			'agreement' => array('type' => 'integer', 'notnull' => 1, 'default' => 0),
+			'amount_paid' => array('type' => 'integer','length' => 11, 'notnull' => 0, 'default' => 0),
+			'agreement' => array('type' => 'integer','length' => 1, 'notnull' => 1, 'default' => 0),
 			'agreement_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0)
 		);
 		$options = array(
@@ -77,7 +78,9 @@ class FinancialSetup extends DefaultModuleSetup
 			'description' => array('type' => 'text', 'length' => 255),
 			'fiscal_year' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'annual_amount' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'amount' => array('type' => 'string', 'length' => 11, 'default' => "''"),
+			'real_amount' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'temp_amount' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'unit_amount' => array('type' => 'string', 'length' => 11, 'default' => "''"),
 			'max_amount' => array('type' => 'string', 'length' => 11, 'default' => "''"),
 			'quantity' => array('type' => 'string', 'length' => 11, 'default' => "''"),
 			'real_quantity' => array('type' => 'string', 'length' => 11, 'default' => "''"),
@@ -107,12 +110,14 @@ class FinancialSetup extends DefaultModuleSetup
                     'description'   => $data[3],
                     'fiscal_year'   => $data[4],
                     'annual_amount' => $data[5],
-                    'amount'        => $data[6],
+                    'real_amount'   => $data[5],
+                    'temp_amount'   => $data[5],
+                    'unit_amount'   => $data[6],
                     'max_amount'    => $data[7],
                     'quantity'      => $data[8],
-                    'temp_quantity' => $data[9],
-                    'real_quantity' => $data[10],
-                    'use_dl'        => $data[11],
+                    'temp_quantity' => $data[8],
+                    'real_quantity' => $data[8],
+                    'use_dl'        => $data[9],
                 ));
             }
             fclose($handle);
