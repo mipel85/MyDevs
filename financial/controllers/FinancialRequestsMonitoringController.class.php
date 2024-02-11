@@ -24,7 +24,7 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn($this->lang['financial.tracking'], '', array('css_class' => 'col-large')),
+			new HTMLTableColumn($this->lang['financial.monitoring'], '', array('css_class' => 'col-large')),
 			new HTMLTableColumn($this->lang['common.title'], 'title'),
 			new HTMLTableColumn($this->lang['financial.club.name'], 'club_name'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'club_department'),
@@ -95,10 +95,10 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 
             $ongoing_class = ($item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl()) ? ' bgc warning' : '';
 
-            $ongoing_link = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.tracking.ongoing']));
+            $ongoing_link = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.monitoring.ongoing']));
             $ongoing_link = ($item->get_agreement_state() == FinancialRequestItem::PENDING && $budget->get_use_dl()) ? $ongoing_link->display() : '';
 
-            $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
+            $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.monitoring.reject']));
             $reject_link = $reject_link->display();
 
             $amount_label = $budget->get_max_amount() ? 
@@ -124,7 +124,7 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
                     });
                 </script>
             ';
-            $accept_link = new LinkHTMLElement(FinancialUrlBuilder::accept_request($item->get_id(), ''), '<i class="fa fa-square-check success"></i>', array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.tracking.accept']));
+            $accept_link = new LinkHTMLElement(FinancialUrlBuilder::accept_request($item->get_id(), ''), '<i class="fa fa-square-check success"></i>', array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.monitoring.accept']));
             $accept_link = $accept_link->display();
 
 			$row = array(
