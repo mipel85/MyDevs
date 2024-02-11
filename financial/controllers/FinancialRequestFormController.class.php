@@ -231,7 +231,6 @@ class FinancialRequestFormController extends DefaultModuleController
 		if ($this->is_new_item)
 		{
             $item->set_agreement_state(FinancialRequestItem::PENDING);
-            FinancialBudgetService::update_temp_quantity($item->get_budget_id());
             $item->set_creation_date(new Date());
 			$item_id = FinancialRequestService::add_item($item);
 			$item->set_id($item_id);

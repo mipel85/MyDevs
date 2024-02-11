@@ -90,26 +90,40 @@ class FinancialBudgetService
 
     public static function reset_budgets($date)
     {
+        $file = PATH_TO_ROOT . '/financial/data/budgets.csv';
         $req = self::$db_querier->select('SELECT *
 		FROM ' . FinancialSetup::$financial_budget_table);
         while($row = $req->fetch())
         {
-            self::$db_querier->update(
-                FinancialSetup::$financial_budget_table,
-                array($row['fiscal_year'] => $date),
-                'WHERE id = :id', array('id' => $row['id'])
-            );
+            if (($handle = fopen($file, 'r')) !== false)
+            {
+                while(($data = fgetcsv($handle, 1000, ';')) !== false)
+                {
+                    self::$db_querier->update(FinancialSetup::$financial_budget_table, array(
+                        'id'            => $data[0],
+                        'domain'        => $data[1],
+                        'name'          => $data[2],
+                        'description'   => $data[3],
+                        'fiscal_year'   => $date,
+                        'annual_amount' => $data[4],
+                        'real_amount'   => $data[4],
+                        'temp_amount'   => $data[4],
+                        'unit_amount'   => $data[5],
+                        'max_amount'    => $data[6],
+                        'quantity'      => $data[7],
+                        'temp_quantity' => $data[7],
+                        'real_quantity' => $data[7],
+                        'use_dl'        => $data[8]
+                    ),
+                    'WHERE id = :id', array('id' => $row['id']));
+                }
+                fclose($handle);
+            }
+            else
+            {
+                echo '<div class="message-helper bgc-full error">Erreur lors de l\'ouverture du fichier CSV.</div>';
+            }
         }
-    }
-
-    public static function update_temp_quantity($budget_id)
-    {
-
-    }
-
-    public static function update_real_quantity($budget_id)
-    {
-
     }
 
 	/**
