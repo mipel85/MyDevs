@@ -36,7 +36,7 @@ $lang['financial.filter.items']            = 'Filtrer les demandes';
 $lang['financial.items.management']        = 'Gestion des demandes';
 
 $lang['financial.request.type']            = 'Type de demande';
-$lang['financial.bill']                    = '<span class="small text-italic"> de la facture</span>';
+$lang['financial.bill']                    = '<span class="small text-italic"> sur facture</span>';
 $lang['financial.bill.max.amount']         = '<br /><span class="small text-italic">max :max_amount €</span>';
 $lang['financial.budget.available']        = 'Demandes disponibles';
 $lang['financial.request.access']          = 'Accès formulaire';
@@ -75,7 +75,6 @@ $lang['financial.budget.upload']        = 'Budget avec téléversement <br /><sp
 $lang['financial.request.form.title']   = '<span class="small">Demande d\'aide financière pour : </span>';
 $lang['financial.request.allocated.budget']   = 'Budget alloué pour cette demande';
 $lang['financial.request.bill']               = ' 
-    de votre facture.
     <br />Vous pouvez ne fournir qu\'un devis en début de processus, mais il faudra fournir une facture pour la validation de la demande.
 ';
 $lang['financial.request.club']               = 'Identifiants du club';
@@ -112,7 +111,7 @@ $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
     Le club <strong>:club_name</strong> (affiliation FFAM n° :club_ffam_number) souhaite obtenir une aide pour l\'organisation d\'une :activity prévue le :club_activity_date
     <br /><strong>Ville :</strong> :club_activity_city
     <br /><strong>Département :</strong> :club_activity_dpt
-    <br /><strong>Descriptif :</strong> :message
+    <br /><strong>Descriptif :</strong> :description
 ';
 
 // Config

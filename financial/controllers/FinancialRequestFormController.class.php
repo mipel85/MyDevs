@@ -32,6 +32,8 @@ class FinancialRequestFormController extends DefaultModuleController
 	private function build_form($budget_params)
 	{
         $description = $this->lang['financial.request.allocated.budget'] . ' : ' . $budget_params['unit_amount'];
+        if ($budget_params['max_amount'])
+            $description .= ' (' . $budget_params['max_amount'] . '€ ' . $this->lang['financial.bill'] . ')';
         if ($budget_params['use_dl'])
             $description .= $this->lang['financial.request.bill'];
         $description .= '<br />' . $this->lang['financial.budget.domain'] . ': ' . $budget_params['domain'];
@@ -84,7 +86,7 @@ class FinancialRequestFormController extends DefaultModuleController
                 )
             ));
 
-            $email_fieldset->add_field(new FormFieldMultiLineTextEditor('sender_message', $this->lang['financial.request.message'], '',
+            $email_fieldset->add_field(new FormFieldMultiLineTextEditor('sender_description', $this->lang['financial.request.message'], '',
                 array('description' => $this->lang['financial.request.message.clue'])
             ));
         }
@@ -115,7 +117,7 @@ class FinancialRequestFormController extends DefaultModuleController
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
             'club_activity_city' => $item->get_city(),
             'club_activity_dpt'  => $club->get_department(),
-            'message'            => $this->form->get_value('sender_message')
+            'description'        => !empty($this->form->get_value('sender_description')) ? $this->form->get_value('sender_description') : ''
         ));
 
         $item_email = new Mail();
