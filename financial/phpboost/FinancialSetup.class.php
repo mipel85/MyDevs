@@ -98,6 +98,7 @@ class FinancialSetup extends DefaultModuleSetup
 
 	private function insert_data()
 	{
+        $now = new Date();
 		$file = PATH_TO_ROOT . '/financial/data/budgets.csv';
         if (($handle = fopen($file, 'r')) !== false)
         {
@@ -108,16 +109,16 @@ class FinancialSetup extends DefaultModuleSetup
                     'domain'        => $data[1],
                     'name'          => $data[2],
                     'description'   => $data[3],
-                    'fiscal_year'   => $data[4],
-                    'annual_amount' => $data[5],
-                    'real_amount'   => $data[5],
-                    'temp_amount'   => $data[5],
-                    'unit_amount'   => $data[6],
-                    'max_amount'    => $data[7],
-                    'quantity'      => $data[8],
-                    'temp_quantity' => $data[8],
-                    'real_quantity' => $data[8],
-                    'use_dl'        => $data[9],
+                    'fiscal_year'   => $now->get_year(),
+                    'annual_amount' => $data[4],
+                    'real_amount'   => $data[4],
+                    'temp_amount'   => $data[4],
+                    'unit_amount'   => $data[5],
+                    'max_amount'    => $data[6],
+                    'quantity'      => $data[7],
+                    'temp_quantity' => $data[7],
+                    'real_quantity' => $data[7],
+                    'use_dl'        => $data[8],
                 ));
             }
             fclose($handle);
