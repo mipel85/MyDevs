@@ -18,7 +18,7 @@ class FinancialRequestRejectController extends DefaultModuleController
 			DispatchManager::redirect($error_controller);
 		}
 
-        FinancialRequestService::reject_request($item->get_id());
+        FinancialMonitoringService::request_rejection($item->get_id());
 
 		if (!FinancialAuthorizationsService::check_authorizations()->write() && FinancialAuthorizationsService::check_authorizations()->contribution())
 			ContributionService::generate_cache();

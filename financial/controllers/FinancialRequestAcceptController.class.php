@@ -21,7 +21,7 @@ class FinancialRequestAcceptController extends DefaultModuleController
 
         if(($budget->get_annual_amount() - $request->get_value('amount_paid', '')) >= 0)
         {
-            FinancialRequestService::accept_request($item->get_id(), $request->get_value('amount_paid', ''));
+            FinancialMonitoringService::request_payment($item->get_id(), $request->get_value('amount_paid', ''));
             AppContext::get_response()->redirect(
                 ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
                 StringVars::replace_vars($this->lang['financial.message.success.accept'], array('title' => $item->get_title())));

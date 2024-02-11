@@ -12,7 +12,7 @@ class FinancialRequestFormController extends DefaultModuleController
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
-        $budget_params = FinancialRequestService::get_budget_params($request->get_value('budget_id'));
+        $budget_params = FinancialBudgetService::get_budget_params($request->get_value('budget_id'));
 
 		$this->build_form($budget_params);
 
@@ -235,7 +235,7 @@ class FinancialRequestFormController extends DefaultModuleController
             $item->set_creation_date(new Date());
 			$item_id = FinancialRequestService::add_item($item);
 			$item->set_id($item_id);
-            FinancialRequestService::add_pending_request($item->get_id());
+            FinancialMonitoringService::add_pending_request($item->get_id());
 
 			if (!$this->is_contributor_member())
 				HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));

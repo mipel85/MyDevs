@@ -18,7 +18,7 @@ class FinancialRequestOngoingController extends DefaultModuleController
 			DispatchManager::redirect($error_controller);
 		}
 
-        FinancialRequestService::ongoing_request($item->get_id());
+        FinancialMonitoringService::set_request_ongoing($item->get_id());
 
 		FinancialRequestService::clear_cache();
 

@@ -63,23 +63,27 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 			$budgets[] = $budget;
 		}
 
+        $request_budgets = [];
+        $request_result = PersistenceContext::get_querier()->select('SELECT *
+            FROM ' . FinancialSetup::$financial_request_table . '
+            WHERE agreement = 1 OR agreement = 2
+        ');
+        while($row = $request_result->fetch())
+        {
+            $request_budgets[] = $row['budget_id'];
+        }
+
 		foreach ($budgets as $budget)
 		{
             $unit_amount = $budget->get_unit_amount() !== '0' ? $budget->get_unit_amount() : '';
             $max_amount = $budget->get_max_amount() !== '0' ? $budget->get_max_amount() . '€' : '';
 
-            if ($budget->get_use_dl() && $budget->get_real_quantity() !== $budget->get_temp_quantity())
-            {
+            if ($budget->get_use_dl() && in_array($budget->get_id(), $request_budgets))
                 $temp_amount = '<span aria-label="' . $this->lang['financial.budget.pending'] . '"><i class="fa fa-lg fa-triangle-exclamation warning"></i></span>';
-            }
             elseif ($budget->get_use_dl() && $budget->get_real_quantity() == $budget->get_temp_quantity())
-            {
                 $temp_amount = '<span aria-label="' . $this->lang['financial.budget.no.pending'] . '"><i class="fa fa-lg fa-check success"></i></span>';
-            }
             else
-            {
                 $temp_amount = $budget->get_temp_amount() . '€';
-            }
 
             $row = array(
                 new HTMLTableRowCell($budget->get_domain(), 'small'),

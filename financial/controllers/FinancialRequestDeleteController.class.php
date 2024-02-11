@@ -22,7 +22,7 @@ class FinancialRequestDeleteController extends DefaultModuleController
 		}
 
         if ($item->get_agreement_state() == FinancialRequestItem::PENDING || $item->get_agreement_state() == FinancialRequestItem::ONGOING)
-            FinancialRequestService::delete_pending_request($item->get_id());
+            FinancialMonitoringService::delete_pending_request($item->get_id());
 
 		FinancialRequestService::delete_item($item->get_id());
 
