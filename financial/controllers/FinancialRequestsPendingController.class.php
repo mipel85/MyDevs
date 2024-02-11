@@ -21,15 +21,10 @@ class FinancialRequestsPendingController extends DefaultModuleController
 		return $this->generate_response($current_page);
 	}
 
-	protected function get_template_string_content()
-	{
-		return '# INCLUDE MESSAGE_HELPER # # INCLUDE LEGEND # # INCLUDE CONTENT # ';
-	}
-
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn($this->lang['financial.tracking'], '', array('css_class' => 'col-large')),
+			new HTMLTableColumn($this->lang['financial.monitoring'], '', array('css_class' => 'col-large')),
 			new HTMLTableColumn($this->lang['common.title'], 'title'),
 			new HTMLTableColumn($this->lang['financial.club.nb'], 'ffam_nb'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'department'),
@@ -90,16 +85,17 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
                 $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-fw fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
                 $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
-                $no_files = $budget->get_use_dl() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()) ? '<span aria-label="' . $this->lang['financial.request.no.files'] . '"><i class="fa fa-lg fa-circle-question warning"></i></span>' : '';
+                $no_files = $budget->get_use_dl() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()) ? 
+                    '<span aria-label="' . $this->lang['financial.request.no.files'] . '"><i class="fa fa-lg fa-circle-question error"></i></span>' : '';
                 $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl() && empty($item->get_invoice_url()->rel()) ?
-                    '<span aria-label="' . $this->lang['financial.request.no.invoice'] . '">' . $this->lang['financial.ongoing'] . '</span>' : '';
+                    '<span aria-label="' . $this->lang['financial.request.no.invoice'] . '"><i class="fa fa-lg fa-triangle-exclamation"></i></span>' : '';
             }
             else
             {
                 $estimate_file = $invoice_file = $ongoing_status = $no_files = '';
             }
 
-            $ongoing_link = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.tracking.ongoing']));
+            $ongoing_link = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.monitoring.ongoing']));
             if ($budget->get_use_dl() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()))
             {
                 $ongoing_class = ' bgc error';
@@ -121,7 +117,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $ongoing_link = '';
             }
 
-            $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.tracking.reject']));
+            $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.monitoring.reject']));
             $reject_link = $reject_link->display();
 
             $amount_label = $budget->get_max_amount() ? 
@@ -132,20 +128,25 @@ class FinancialRequestsPendingController extends DefaultModuleController
 
             if (!$budget->get_use_dl())
             {
-                $real_amount = TextHelper::mb_substr($budget->get_amount(), 0, -1);
+                $real_amount = $budget->get_amount();
                 $readonly = 'readonly';
+                $type = 'type="text"';
             }
             elseif ($budget->get_use_dl() && TextHelper::mb_substr($budget->get_amount(), -1) !== '%')
             {
                 $real_amount = TextHelper::mb_substr($budget->get_amount(), 0, -1);
                 $readonly = '';
+                $type = 'type="number"';
             }
-            else
+            else 
+            {
                 $real_amount = $readonly = '';
+                $type = 'type="number"';
+            }
 
             $id = $item->get_id();
             $amount = '
-                <input class="tracking-input" type="number" min="0" max="' . $amount_max . '" id="amount_' . $id . '" value="' . $real_amount . '"' . $readonly . ' aria-label="' . $amount_label . '" />
+                <input class="monitoring-input" ' . $type . ' min="0" max="' . $amount_max . '" id="amount_' . $id . '" value="' . $real_amount . '"' . $readonly . ' aria-label="' . $amount_label . '" />
                 <script>
                     let amount_'.$id.' = jQuery("#amount_'.$id.'").val(),
                         target_'.$id.' = jQuery("#accept_'.$id.'"),
@@ -160,7 +161,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
                     });
                 </script>
             ';
-            $accept_link = new LinkHTMLElement(FinancialUrlBuilder::accept_request($item->get_id(), ''), '<i class="fa fa-square-check success"></i>', array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.tracking.accept']));
+            $accept_link = new LinkHTMLElement(FinancialUrlBuilder::accept_request($item->get_id(), ''), '<i class="fa fa-square-check success"></i>', array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.monitoring.accept']));
             $accept_link = $accept_link->display();
 
             if ($budget->get_use_dl() && empty($item->get_invoice_url()->rel()))
@@ -189,13 +190,33 @@ class FinancialRequestsPendingController extends DefaultModuleController
 		}
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
-		$this->view->put('CONTENT', $table->display());
-
-        $fieldset = new FormFieldsetHTML('contribution', $this->lang['contribution.contribution']);
-        $fieldset->set_description('essai de légende<br />plop');
-        $this->view->put('LEGEND', $fieldset->display());
+        $this->view->put_all(array(
+            'CONTENT' => $table->display(),
+			'LEGEND'  => self::build_legend(),
+        ));
 
 		return $table->get_page_number();
+	}
+
+	protected function get_template_string_content()
+	{
+		return '
+            # INCLUDE MESSAGE_HELPER #
+            # INCLUDE CONTENT #
+            # INCLUDE LEGEND #
+        ';
+	}
+
+	private function build_legend()
+	{
+		$view = new FileTemplate('financial/FinancialPendingLegend.tpl');
+		$view->add_lang($this->lang);
+
+		$view->put_all(array(
+            'C_MONITORING' => FinancialAuthorizationsService::check_authorizations()->write()
+		));
+
+		return $view;
 	}
 
 	private function check_authorizations()

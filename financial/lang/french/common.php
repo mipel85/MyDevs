@@ -35,29 +35,29 @@ $lang['financial.archived.items']          = 'Demandes archivées';
 $lang['financial.pending.items']           = 'Demandes en attente';
 $lang['financial.filter.items']            = 'Filtrer les demandes';
 $lang['financial.items.management']        = 'Gestion des demandes';
+
 $lang['financial.request.type']            = 'Type de demande';
+$lang['financial.bill']                    = '<span class="small text-italic"> de la facture</span>';
+$lang['financial.bill.max.amount']         = '<br /><span class="small text-italic">max :max_amount €</span>';
+$lang['financial.budget.available']        = 'Demandes disponibles';
 $lang['financial.request.access']          = 'Accès formulaire';
 $lang['financial.request.choice']          = 'Choisir';
 $lang['financial.request.not.available']   = 'Non disponible';
-$lang['financial.bill']                    = '<span class="small text-italic"> de la facture</span>';
-$lang['financial.bill.max.amount']         = '<br /><span class="small text-italic">max :max_amount €</span>';
-$lang['financial.budget.available']        = 'Nombre de demandes disponibles';
 $lang['financial.club.name']               = 'Nom du club';
 $lang['financial.club.dpt']                = 'Dept';
 $lang['financial.club.nb']                 = 'Club';
 
 // Labels
-$lang['financial.tracking']             = 'Suivi financier';
-$lang['financial.tracking.ongoing']     = 'Passer la demande `À l\'étude`';
-$lang['financial.ongoing']              = 'En attente de facture';
-$lang['financial.tracking.reject']      = 'Rejeter la demande';
-$lang['financial.tracking.accept']      = 'Payer la demande';
+$lang['financial.monitoring']           = 'Suivi financier';
+$lang['financial.monitoring.ongoing']   = 'Passer la demande `À l\'étude`';
+$lang['financial.monitoring.reject']    = 'Rejeter la demande';
+$lang['financial.monitoring.accept']    = 'Payer la demande';
 $lang['financial.budget.domain']        = 'Domaine';
 $lang['financial.budget.name']          = 'Nom du budget';
 $lang['financial.budget.description']   = 'Description du budget';
 $lang['financial.budget.fiscal.year']   = 'Année de l\'exercice';
-$lang['financial.budget.annual.amount'] = 'Montant du budget';
-$lang['financial.budget.amount']        = 'Montant par demande';
+$lang['financial.budget.annual.amount'] = 'Budget annuel';
+$lang['financial.budget.amount']        = 'Budget par demande';
 $lang['financial.budget.max.amount']    = 'Plafond par demande';
 $lang['financial.budget.quantity']      = 'Nombre de demandes possibles';
 $lang['financial.budget.upload']        = 'Budget avec téléversement <br /><span class="small text-italic">Pour que le demandeur puisse fournir des devis, factures, etc</span>';
@@ -72,7 +72,7 @@ $lang['financial.request.bill']               = '
 $lang['financial.request.club']               = 'Identifiants du club';
 $lang['financial.request.city']               = 'Ville';
 $lang['financial.request.event.date']         = 'Date';
-$lang['financial.request.creation.date']      = 'Date de création';
+$lang['financial.request.creation.date']      = 'Créée le';
 $lang['financial.request.validation.date']    = 'Date de validation';
 $lang['financial.request.content']            = 'Descriptif (optionnel)';
 $lang['financial.request.files.url']          = 'Fichiers';
@@ -145,4 +145,10 @@ $lang['financial.warnings']            = 'Attention !!';
 $lang['financial.warnings.lamclubs']   = 'Le module Lamclubs est manquant, le module financial ne pourra pas fonctionner correctement.';
 $lang['financial.warnings.categories'] = 'Il n\'y a aucune catégorie (activité) déclarée, le module financial ne pourra pas fonctionner correctement.';
 $lang['financial.error.invalid.date']  = 'La date entrée est invalide';
+
+// Legend
+$lang['financial.legend']  = 'Légende';
+$lang['financial.pending.legend.monitoring']  = 'Coucou le trésorier';
+$lang['financial.pending.legend.user']     = 'Ça va les dirigeants ?';
+
 ?>

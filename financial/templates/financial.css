@@ -2,6 +2,10 @@
     background-color: rgba(var(--notice-tone), 0.2);
 }
 
-.tracking-input {
+.monitoring-input {
     width: 60px;
+}
+
+.monitoring-input[type="text"] {
+    text-align: center;
 }
