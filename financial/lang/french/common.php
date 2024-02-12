@@ -168,7 +168,7 @@ $lang['financial.legend.monitoring.button.payment'] = 'Bouton Payer: Archive la 
 $lang['financial.legend.monitoring.button.ongoing'] = 'Bouton À l\'étude: Marque la demande pour signifier au demandeur qu\'il/elle doit fournir une facture.';
 $lang['financial.legend.monitoring.button.reject'] = 'Bouton Refuser: Archive la demande avec la mention Refusée.';
 
-$lang['financial.legend.user.pending'] = 'Cette page est accissible à tout moment en utilisant le menu <i class="fa fa-cog"></i>.';
+$lang['financial.legend.user.pending'] = 'Cette page est accessible à tout moment en utilisant le menu <i class="fa fa-cog"></i>.';
 $lang['financial.legend.user.archived'] = 'Si votre demande n\'apparait plus, c\'est qu\'elle a été traitée.';
 $lang['financial.legend.user.file'] = 'Colonne Fichiers';
 $lang['financial.legend.user.none'] = 'vide :  Aucune action n\'est requise pour que votre demande soit étudiée.';
