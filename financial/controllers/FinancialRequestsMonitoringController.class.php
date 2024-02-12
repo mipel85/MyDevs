@@ -53,6 +53,25 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 		$results = array();
 		$result = $table_model->get_sql_results('budget');
 
+        $pending_budgets = [];
+        $pending_result = PersistenceContext::get_querier()->select('SELECT *
+            FROM ' . FinancialSetup::$financial_request_table . '
+            WHERE agreement = 1 OR agreement = 2
+        ');
+        while($row = $pending_result->fetch())
+        {
+            $pending_budgets[] = $row['budget_id'];
+        }
+
+        $request_budgets = [];
+        $request_result = PersistenceContext::get_querier()->select('SELECT *
+            FROM ' . FinancialSetup::$financial_request_table);
+        while($row = $request_result->fetch())
+        {
+            $request_budgets[] = $row['budget_id'];
+        }
+        Debug::dump($request_budgets);
+
 		$budgets = array();
 		foreach ($result as $row)
 		{
@@ -61,22 +80,11 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 			$budgets[] = $budget;
 		}
 
-        $request_budgets = [];
-        $request_result = PersistenceContext::get_querier()->select('SELECT *
-            FROM ' . FinancialSetup::$financial_request_table . '
-            WHERE agreement = 1 OR agreement = 2
-        ');
-        while($row = $request_result->fetch())
-        {
-            $request_budgets[] = $row['budget_id'];
-        }
-
 		foreach ($budgets as $budget)
 		{
             $unit_amount = $budget->get_unit_amount() !== '0' ? $budget->get_unit_amount() : '';
-            $max_amount = $budget->get_max_amount() !== '0' ? $budget->get_max_amount() . '€' : '';
 
-            if ($budget->get_use_dl() && in_array($budget->get_id(), $request_budgets))
+            if ($budget->get_use_dl() && in_array($budget->get_id(), $pending_budgets))
                 $temp_amount = '<span aria-label="' . $this->lang['financial.budget.pending'] . '"><i class="fa fa-lg fa-triangle-exclamation warning"></i></span>';
             elseif ($budget->get_use_dl() && $budget->get_real_quantity() == $budget->get_temp_quantity())
                 $temp_amount = '<span aria-label="' . $this->lang['financial.budget.no.pending'] . '"><i class="fa fa-lg fa-hourglass-half success"></i></span>';
@@ -98,7 +106,11 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
             if (in_array($budget->get_id(), $this->hide_delete_input))
                 $table_row->hide_delete_input();
 
-            $results[] = $table_row;
+            if (in_array($budget->get_id(), $request_budgets))
+            {
+                $results[] = $table_row;
+            }
+            
 		}
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
