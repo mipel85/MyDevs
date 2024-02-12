@@ -24,7 +24,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn($this->lang['financial.monitoring'], '', array('css_class' => 'col-medium')),
+			new HTMLTableColumn($this->lang['financial.monitoring'], '', array('css_class' => 'col-xlarge')),
 			new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'title'),
 			new HTMLTableColumn($this->lang['financial.club.nb'], 'ffam_nb'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'department'),
@@ -44,13 +44,12 @@ class FinancialRequestsPendingController extends DefaultModuleController
         );
 
 		$table_model->set_layout_title($this->lang['financial.pending.items']);
-		// $table_model->set_caption('plop<br />replop');
 
-		// $table_model->set_filters_menu_title($this->lang['financial.filter.items']);
+		$table_model->set_filters_menu_title($this->lang['financial.filter.items']);
 		// $table_model->add_filter(new HTMLTableDateComparatorSQLFilter('event_date', 'filter0', $this->lang['financial.request.event.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		// $table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('event_date', 'filter1', $this->lang['financial.request.event.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		// $table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('event_date', 'filter2', $this->lang['financial.request.event.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
-		// $table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter3', $this->lang['financial.club.department']));
+		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter1', $this->lang['financial.club.dpt']));
 
         $table_model->add_permanent_filter('agreement = ' . FinancialRequestItem::PENDING . ' OR agreement = ' . FinancialRequestItem::ONGOING);
 
@@ -178,11 +177,9 @@ class FinancialRequestsPendingController extends DefaultModuleController
             }
 
             $club_infos = '<span aria-label="'.$club->get_name().'">'.$club->get_ffam_nb().'</span>';
-            $br = new BrHTMLElement();
-            $br = $br->display();
 
 			$row = array(
-				new HTMLTableRowCell($amount . $accept_link . ($accept_link ? $br : '') . $ongoing_link . $reject_link, 'align-right' . $ongoing_class),
+				new HTMLTableRowCell($amount . $accept_link . $ongoing_link . $reject_link, $ongoing_class),
 				new HTMLTableRowCell($item->get_title(), 'align-left' . $ongoing_class),
 				new HTMLTableRowCell($club_infos, $ongoing_class),
                 new HTMLTableRowCell($club->get_department() , $ongoing_class),
