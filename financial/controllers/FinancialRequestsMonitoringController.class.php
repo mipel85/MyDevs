@@ -70,7 +70,6 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
         {
             $request_budgets[] = $row['budget_id'];
         }
-        Debug::dump($request_budgets);
 
 		$budgets = array();
 		foreach ($result as $row)
