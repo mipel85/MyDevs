@@ -158,6 +158,26 @@ $lang['financial.error.invalid.date'] = 'La date entrée est invalide';
 
 // Legend
 $lang['financial.legend'] = 'Légende';
-$lang['financial.pending.legend.monitoring'] = 'Coucou le trésorier';
-$lang['financial.pending.legend.user'] = 'Ça va les dirigeants ?';
+
+$lang['financial.legend.monitoring.input'] = 'Champ Forfait';
+$lang['financial.legend.monitoring.input.disabled'] = 'Champ en marron, le champ n\'est pas modifiable.';
+$lang['financial.legend.monitoring.input.enabled'] = 'Champ avec flêches, le champ est modifiable.';
+
+$lang['financial.legend.monitoring.buttons'] = 'Boutons';
+$lang['financial.legend.monitoring.button.payment'] = 'Bouton Payer: Archive la demande avec la mention Acceptée et decompte le budget annuel de la somme indiquée dans le champ Forfait.';
+$lang['financial.legend.monitoring.button.ongoing'] = 'Bouton À l\'étude: Marque la demande pour signifier au demandeur qu\'il/elle doit fournir une facture.';
+$lang['financial.legend.monitoring.button.reject'] = 'Bouton Refuser: Archive la demande avec la mention Refusée.';
+
+$lang['financial.legend.user.pending'] = 'Cette page est accissible à tout moment en utilisant le menu <i class="fa fa-cog"></i>.';
+$lang['financial.legend.user.archived'] = 'Si votre demande n\'apparait plus, c\'est qu\'elle a été traitée.';
+$lang['financial.legend.user.file'] = 'Colonne Fichiers';
+$lang['financial.legend.user.none'] = 'vide :  Aucune action n\'est requise pour que votre demande soit étudiée.';
+$lang['financial.legend.user.error'] = '<i class="fa fa-circle-question error"></i> : vous devez fournir au moins un devis pour que votre demande soit étudiée.';
+$lang['financial.legend.user.warning'] = '<i class="fa fa-triangle-exclamation warning"></i> : votre demande est à l\'étude et une facture vous est demandée.';
+$lang['financial.legend.user.estimate'] = '<i class="far fa-file-lines link-color"></i> : vous avez fourni un devis.';
+$lang['financial.legend.user.invoice'] = '<i class="fa fa-file-signature link-color"></i> : vous avez fourni une facture.';
+
+$lang['financial.legend.user.controls'] = 'Pour chacune de vos demandes, vous avez accès à des boutons de controle.';
+$lang['financial.legend.user.edit'] = '<i class="far fa-edit link-color"></i> pour éditer votre demande';
+$lang['financial.legend.user.delete'] = '<i class="fa fa-trash-alt link-color"></i> pour supprimer votre demande';
 ?>
