@@ -34,13 +34,11 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 			new HTMLTableColumn($this->lang['financial.budget.domain'], 'domain'),
 			new HTMLTableColumn($this->lang['financial.request.type'], '', array('css_class' => 'align-left')),
 			new HTMLTableColumn($this->lang['financial.budget.annual'], ''),
-			new HTMLTableColumn($this->lang['financial.budget.balance.real'] . '<br /><span class="smaller">' . $this->lang['financial.archived'] . '</span>', ''),
-			new HTMLTableColumn($this->lang['financial.budget.balance.temp'] . '<br /><span class="smaller">' . $this->lang['financial.pending'] . '</span>', ''),
 			new HTMLTableColumn($this->lang['financial.budget.unit.amount'], ''),
-			new HTMLTableColumn($this->lang['financial.budget.max.amount'], ''),
-			new HTMLTableColumn($this->lang['financial.budget.quantities'], ''),
-			new HTMLTableColumn($this->lang['financial.budget.balance.real.alt'] . '<br /><span class="smaller">' . $this->lang['financial.archived'] . '</span>', ''),
-			new HTMLTableColumn($this->lang['financial.budget.balance.temp.alt'] . '<br /><span class="smaller">' . $this->lang['financial.pending'] . '</span>', '')
+			new HTMLTableColumn($this->lang['financial.budget.balance'] . '<br /><span class="smaller">' . $this->lang['financial.budget.real'] . '</span>', ''),
+			new HTMLTableColumn($this->lang['financial.budget.balance'] . '<br /><span class="smaller">' . $this->lang['financial.budget.temp'] . '</span>', ''),
+			new HTMLTableColumn($this->lang['financial.budget.quantities'] . '<br /><span class="smaller">' . $this->lang['financial.budget.real'] . '</span>', ''),
+			new HTMLTableColumn($this->lang['financial.budget.quantities'] . '<br /><span class="smaller">' . $this->lang['financial.budget.temp'] . '</span>', '')
 		);
 
 		$table_model = new SQLHTMLTableModel(FinancialSetup::$financial_budget_table, 'items-list', $columns, new HTMLTableSortingRule('id', HTMLTableSortingRule::ASC));
@@ -89,11 +87,9 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
                 new HTMLTableRowCell($budget->get_domain(), 'small'),
                 new HTMLTableRowCell($budget->get_name(), 'align-left'),
                 new HTMLTableRowCell($budget->get_annual_amount() . '€'),
+                new HTMLTableRowCell($unit_amount),
                 new HTMLTableRowCell($budget->get_real_amount() . '€'),
                 new HTMLTableRowCell($temp_amount),
-                new HTMLTableRowCell($unit_amount),
-                new HTMLTableRowCell($max_amount),
-                new HTMLTableRowCell($budget->get_quantity()),
                 new HTMLTableRowCell($budget->get_real_quantity()),
                 new HTMLTableRowCell($budget->get_temp_quantity())
             );

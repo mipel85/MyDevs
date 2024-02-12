@@ -24,7 +24,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn($this->lang['financial.monitoring'], '', array('css_class' => 'col-large')),
+			new HTMLTableColumn($this->lang['financial.monitoring'], '', array('css_class' => 'col-medium')),
 			new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'title'),
 			new HTMLTableColumn($this->lang['financial.club.nb'], 'ffam_nb'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'department'),
@@ -95,7 +95,12 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $estimate_file = $invoice_file = $ongoing_status = $no_files = '';
             }
 
-            $ongoing_link = new LinkHTMLElement(FinancialUrlBuilder::ongoing_request($item->get_id()), '<i class="fa fa-arrows-rotate link-color"></i>', array('aria-label' => $this->lang['financial.monitoring.ongoing']));
+            $ongoing_link = new LinkHTMLElement(
+                FinancialUrlBuilder::ongoing_request($item->get_id()), 
+                $this->lang['financial.monitoring.ongoing'], 
+                array('aria-label' => $this->lang['financial.monitoring.ongoing.clue']), 
+                'small pinned visitor'
+            );
             if ($budget->get_use_dl() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()))
             {
                 $ongoing_class = ' bgc error';
@@ -117,7 +122,12 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $ongoing_link = '';
             }
 
-            $reject_link = new LinkHTMLElement(FinancialUrlBuilder::reject_request($item->get_id()), '<i class="fa fa-rectangle-xmark error"></i>', array('aria-label' => $this->lang['financial.monitoring.reject']));
+            $reject_link = new LinkHTMLElement(
+                FinancialUrlBuilder::reject_request($item->get_id()), 
+                $this->lang['financial.monitoring.reject'], 
+                array('aria-label' => $this->lang['financial.monitoring.reject.clue']), 
+                'small pinned error'
+            );
             $reject_link = $reject_link->display();
 
             $amount_label = $budget->get_max_amount() ? 
@@ -154,7 +164,12 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 ' . $readonly . '
                 aria-label="' . $amount_label . '" />';
 
-            $accept_link = new LinkHTMLElement(FinancialUrlBuilder::accept_request($item->get_id(), ''), '<i class="fa fa-square-check success"></i>', array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.monitoring.accept']), 'payment-button');
+            $accept_link = new LinkHTMLElement(
+                FinancialUrlBuilder::accept_request($item->get_id(), ''), 
+                $this->lang['financial.monitoring.accept'], 
+                array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.monitoring.accept.clue']), 
+                'payment-button small pinned bgc-full success'
+            );
             $accept_link = $accept_link->display();
 
             if ($budget->get_use_dl() && empty($item->get_invoice_url()->rel()))
@@ -163,9 +178,11 @@ class FinancialRequestsPendingController extends DefaultModuleController
             }
 
             $club_infos = '<span aria-label="'.$club->get_name().'">'.$club->get_ffam_nb().'</span>';
+            $br = new BrHTMLElement();
+            $br = $br->display();
 
 			$row = array(
-				new HTMLTableRowCell($amount . $accept_link . $ongoing_link . $reject_link, 'controls' . $ongoing_class),
+				new HTMLTableRowCell($amount . $accept_link . ($accept_link ? $br : '') . $ongoing_link . $reject_link, 'align-right' . $ongoing_class),
 				new HTMLTableRowCell($item->get_title(), 'align-left' . $ongoing_class),
 				new HTMLTableRowCell($club_infos, $ongoing_class),
                 new HTMLTableRowCell($club->get_department() , $ongoing_class),
