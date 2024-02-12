@@ -85,7 +85,8 @@ class FinancialSetup extends DefaultModuleSetup
 			'quantity' => array('type' => 'string', 'length' => 11, 'default' => "''"),
 			'real_quantity' => array('type' => 'string', 'length' => 11, 'default' => "''"),
 			'temp_quantity' => array('type' => 'string', 'length' => 11, 'default' => "''"),
-			'use_dl' => array('type' => 'boolean', 'notnull' => 0, 'default' => 0)
+			'use_dl' => array('type' => 'boolean', 'notnull' => 0, 'default' => 0),
+			'bill_needed' => array('type' => 'boolean', 'notnull' => 0, 'default' => 0),
 		);
 		$options = array(
 			'primary' => array('id'),
@@ -119,6 +120,7 @@ class FinancialSetup extends DefaultModuleSetup
                     'temp_quantity' => $data[7],
                     'real_quantity' => $data[7],
                     'use_dl'        => $data[8],
+                    'bill_needed'   => $data[9]
                 ));
             }
             fclose($handle);

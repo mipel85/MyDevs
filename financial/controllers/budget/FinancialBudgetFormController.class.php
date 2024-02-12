@@ -60,6 +60,8 @@ class FinancialBudgetFormController extends DefaultModuleController
 
         $fieldset->add_field(new FormFieldCheckbox('use_dl', $this->lang['financial.budget.upload'], $this->get_budget()->get_use_dl()));
 
+        $fieldset->add_field(new FormFieldCheckbox('bill_needed', $this->lang['financial.budget.invoice.required'], $this->get_budget()->get_bill_needed()));
+
 		$fieldset->add_field(new FormFieldMultiLineTextEditor('description', $this->lang['financial.budget.description'], $this->get_budget()->get_description()));
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
@@ -134,6 +136,7 @@ class FinancialBudgetFormController extends DefaultModuleController
 		$budget->set_max_amount($this->form->get_value('max_amount'));
         $budget->set_quantity($this->form->get_value('quantity'));
         $budget->set_use_dl($this->form->get_value('use_dl'));
+        $budget->set_bill_needed($this->form->get_value('bill_needed'));
 		$budget->set_description($this->form->get_value('description'));
 
 		if ($this->is_new_item)

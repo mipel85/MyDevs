@@ -113,7 +113,8 @@ class FinancialBudgetService
                         'quantity'      => $data[7],
                         'temp_quantity' => $data[7],
                         'real_quantity' => $data[7],
-                        'use_dl'        => $data[8]
+                        'use_dl'        => $data[8],
+                        'bill_needed'   => $data[9]
                     ),
                     'WHERE id = :id', array('id' => $row['id']));
                 }

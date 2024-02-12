@@ -23,6 +23,7 @@ class FinancialBudgetItem
 	private $temp_quantity;
 	private $real_quantity;
 	private $use_dl;
+	private $bill_needed;
 
 	public function set_id($id)
 	{
@@ -164,6 +165,16 @@ class FinancialBudgetItem
 		return $this->use_dl;
 	}
 
+	public function set_bill_needed($bill_needed)
+	{
+		$this->bill_needed = $bill_needed;
+	}
+
+	public function get_bill_needed()
+	{
+		return $this->bill_needed;
+	}
+
 	public function is_authorized_to_add()
 	{
 		return FinancialAuthorizationsService::check_authorizations()->write();
@@ -200,7 +211,8 @@ class FinancialBudgetItem
 			'quantity'      => $this->get_quantity(),
 			'temp_quantity' => $this->get_temp_quantity(),
 			'real_quantity' => $this->get_real_quantity(),
-			'use_dl'        => $this->get_use_dl()
+			'use_dl'        => $this->get_use_dl(),
+			'bill_needed'   => $this->get_bill_needed()
 		);
 	}
 
@@ -220,6 +232,7 @@ class FinancialBudgetItem
 		$this->temp_quantity = $properties['temp_quantity'];
 		$this->real_quantity = $properties['real_quantity'];
 		$this->use_dl        = $properties['use_dl'];
+		$this->bill_needed   = $properties['bill_needed'];
 	}
 }
 ?>

@@ -31,7 +31,7 @@ class FinancialRequestFormController extends DefaultModuleController
     private function build_form($budget_params)
     {
         $description = $this->lang['financial.request.allocated.budget'] . ' : ' . $budget_params['unit_amount'];
-        if ($budget_params['max_amount']) $description .= ' (' . $budget_params['max_amount'] . '€ ' . $this->lang['financial.bill'] . ')';
+        if ($budget_params['max_amount']) $description .= ' (' . StringVars::replace_vars($this->lang['financial.bill.max.amount'], array('max_amount' => $budget_params['max_amount'])) . ' ' . $this->lang['financial.bill'] . ')';
         if ($budget_params['use_dl']) $description .= $this->lang['financial.request.bill'];
 
         $item = $this->get_item();

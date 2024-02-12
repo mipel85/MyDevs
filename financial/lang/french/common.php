@@ -36,7 +36,7 @@ $lang['financial.items.management'] = 'Gestion des demandes';
 
 $lang['financial.request.type'] = 'Type de demande';
 $lang['financial.bill'] = '<span class="small text-italic"> sur facture</span>';
-$lang['financial.bill.max.amount'] = '<br /><span class="small text-italic">max :max_amount €</span>';
+$lang['financial.bill.max.amount'] = '<span class="small text-italic">max :max_amount €</span>';
 $lang['financial.budget.available'] = 'Possibilités';
 $lang['financial.request.access'] = 'Formulaire';
 $lang['financial.request.choice'] = 'Choisir';
@@ -72,6 +72,7 @@ $lang['financial.budget.max.amount'] = 'Plafond';
 $lang['financial.budget.quantity'] = 'Nombre de demandes possibles';
 $lang['financial.budget.quantities'] = 'Quantités';
 $lang['financial.budget.upload'] = 'Budget avec téléversement <br /><span class="small text-italic">Pour que le demandeur puisse fournir des devis, factures, etc</span>';
+$lang['financial.budget.invoice.required'] = 'Facture obligatoire';
 
 $lang['financial.request.form.title'] = '<span class="small">Demande d\'aide : </span>';
 $lang['financial.request.allocated.budget'] = 'Budget alloué pour cette demande';

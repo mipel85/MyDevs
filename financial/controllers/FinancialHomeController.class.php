@@ -33,7 +33,7 @@ class FinancialHomeController extends DefaultModuleController
 		$columns = array(
 			new HTMLTableColumn($this->lang['financial.budget.domain'], 'domain'),
 			new HTMLTableColumn($this->lang['financial.request.type'], '', array('css_class' => 'align-left')),
-			new HTMLTableColumn($this->lang['financial.budget.amount'], ''),
+			new HTMLTableColumn($this->lang['financial.budget.unit.amount'], ''),
 			new HTMLTableColumn($this->lang['financial.budget.available'], ''),
 			new HTMLTableColumn($this->lang['financial.request.access'], ''),
 			new HTMLTableColumn('')
@@ -81,10 +81,10 @@ class FinancialHomeController extends DefaultModuleController
             if(!empty($budget->get_unit_amount()))
             {
                 $amount .= $budget->get_unit_amount();
+                if ($budget->get_max_amount())
+                    $amount .= '<br />' . StringVars::replace_vars($this->lang['financial.bill.max.amount'], array('max_amount' => $budget->get_max_amount()));
                 if ($budget->get_use_dl())
                     $amount .= $this->lang['financial.bill'];
-                if ($budget->get_max_amount())
-                    $amount .= StringVars::replace_vars($this->lang['financial.bill.max.amount'], array('max_amount' => $budget->get_max_amount()));
             }
 
             $quantity = '';

@@ -85,7 +85,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
                 $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-fw fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
                 $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
-                $no_files = $budget->get_use_dl() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()) ? 
+                $no_files = $budget->get_bill_needed() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()) ? 
                     '<span aria-label="' . $this->lang['financial.request.no.files'] . '"><i class="fa fa-lg fa-circle-question error"></i></span>' : '';
                 $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl() && empty($item->get_invoice_url()->rel()) ?
                     '<span aria-label="' . $this->lang['financial.request.no.invoice'] . '"><i class="fa fa-lg fa-triangle-exclamation"></i></span>' : '';
@@ -101,12 +101,12 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 array('aria-label' => $this->lang['financial.monitoring.ongoing.clue']), 
                 'small pinned visitor'
             );
-            if ($budget->get_use_dl() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()))
+            if ($budget->get_use_dl() && $budget->get_bill_needed() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()))
             {
                 $ongoing_class = ' bgc error';
                 $ongoing_link = '';
             }
-            elseif ($item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl())
+            elseif ($item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl() && $budget->get_bill_needed())
             {
                 $ongoing_class = ' bgc warning';
                 $ongoing_link = '';
