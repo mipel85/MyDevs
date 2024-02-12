@@ -81,9 +81,9 @@ class FinancialRequestsPendingController extends DefaultModuleController
             $club = LamclubsService::get_item($item->get_lamclubs_id());
             if($item->is_authorized_to_delete() || $item->is_authorized_to_edit())
             {
-                $estimate_file = new LinkHTMLElement(FinancialUrlBuilder::dl_estimate($item->get_id()), '<i class="far fa-fw fa-file-lines"></i>', array('aria-label' => $this->lang['financial.request.estimate.url']));
+                $estimate_file = new LinkHTMLElement(FinancialUrlBuilder::dl_estimate($item->get_id()), '<i class="far fa-lg fa-file-lines"></i>', array('aria-label' => $this->lang['financial.request.estimate.url']));
                 $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
-                $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-fw fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
+                $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-lg fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
                 $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
                 $no_files = $budget->get_bill_needed() && empty($item->get_estimate_url()->rel()) && empty($item->get_invoice_url()->rel()) ? 
                     '<span aria-label="' . $this->lang['financial.request.no.files'] . '"><i class="fa fa-lg fa-circle-question"></i></span>' : '';

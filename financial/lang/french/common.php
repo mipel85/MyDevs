@@ -175,7 +175,7 @@ $lang['financial.legend.user.none'] = 'vide :  Aucune action n\'est requise pour
 $lang['financial.legend.user.error'] = '<i class="fa fa-circle-question error"></i> : vous devez fournir au moins un devis pour que votre demande soit étudiée.';
 $lang['financial.legend.user.warning'] = '<i class="fa fa-triangle-exclamation warning"></i> : votre demande est à l\'étude et une facture vous est demandée.';
 $lang['financial.legend.user.estimate'] = '<i class="far fa-file-lines link-color"></i> : vous avez fourni un devis.';
-$lang['financial.legend.user.invoice'] = '<i class="fa fa-file-signature link-color"></i> : vous avez fourni une facture.';
+$lang['financial.legend.user.invoice'] = '<i class="fa fa-file-contract link-color"></i> : vous avez fourni une facture.';
 
 $lang['financial.legend.user.controls'] = 'Pour chacune de vos demandes, vous avez accès à des boutons de controle.';
 $lang['financial.legend.user.edit'] = '<i class="far fa-edit link-color"></i> pour éditer votre demande';
