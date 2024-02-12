@@ -1,48 +1,49 @@
-1;0063;49;Aéro Model Club Anjou
-2;0088;53;Aéro Model Club de la Mayenne
-3;0094;44;Presqu'ile Aéromodélisme
-4;0114;44;Club de Modélisme Gétignois
-5;0133;53;Club Aéromodéliste de Mayenne
-6;0140;72;Condor Club Tennie (CCT)
-7;0145;85;Club de Modélisme de Montaigu
-8;0179;72;Les Ailes du Maine Aéromodélisme
-9;0200;85;Club Modéliste Luçonnais
-10;0211;49;L'Aéromodèle Club du Choletais
-11;0262;85;Aéromodélisme Sablais
-12;0284;85;Aéromodélisme Club Pouzaugeais
-13;0304;85;ACY Modélisme
-14;0360;49;Club Modèle Réduit Saumurois
-15;0390;44;AMC de Montoir de Bretagne
-16;0425;44;Les Ailes du Val de Loire
-17;0536;72;Les Coucous du Val de Loir (LCVL)
-18;0545;44;Aéro Model Club de l'Ouest
-19;0552;44;Club Aéro-Modèle du Pays de Vilaine
-20;0644;44;Acro Modèles 44
-21;0655;72;Radio Modèle Club de la Flèche
-22;0661;72;Club de Modélisme Sabolien
-23;0689;53;Club d'Aéromodélisme de Bais
-24;0698;85;Sèvres Anjou Modélisme
-25;0700;44;Ass. R. M. des Bords de Loire
-26;0706;72;Radio Modèle Club Fertois
-27;0785;44;Aéromodélisme Marnais
-28;0788;85;Aéro Cénéen
-29;0820;85;Aéromodélisme Fontenaisien
-30;0986;49;Radiocommande Aéronautique des Mauges
-31;1519;44;Besné Aéro Modèles Club
-32;1525;85;Mini Modèl Club Noirmoutier
-33;1545;49;Les Ailes Andegaves
-34;1573;49;Escadron du Choletais
-35;1599;53;Pégase Aéromodels
-36;1623;44;Liveyourdrone
-37;1644;85;Les Coucous de St Pierre
-38;1645;44;Aéro Modélisme Sucéen
-39;1655;44;Aéro Modélisme Club Chapelain
-40;1676;85;Aéro Modélisme Club Dompierrois
-41;1683;85;L'Escadron des Fontenelles - EDF
-42;1686;44;Aéro-Models Club Les Têtes Brûlées (AMCTB 44)
-43;1699;85;Aéro Modèle Club Challandais (AM2C)
-44;1702;44;Les Ailes Silencieuses Asséracaises
-45;1704;44;Les Ailes Hayonnaises
-46;1714;44;Retz Aéromodélisme Passion
-47;1726;44;Air Modèles Club de Guémené
-48;1744;44;Modèle Air Club de l'Ouest
+1;0000;00;Nouveau Club
+2;0063;49;Aéro Model Club Anjou
+3;0088;53;Aéro Model Club de la Mayenne
+4;0094;44;Presqu'ile Aéromodélisme
+5;0114;44;Club de Modélisme Gétignois
+6;0133;53;Club Aéromodéliste de Mayenne
+7;0140;72;Condor Club Tennie (CCT)
+8;0145;85;Club de Modélisme de Montaigu
+9;0179;72;Les Ailes du Maine Aéromodélisme
+10;0200;85;Club Modéliste Luçonnais
+11;0211;49;L'Aéromodèle Club du Choletais
+12;0262;85;Aéromodélisme Sablais
+13;0284;85;Aéromodélisme Club Pouzaugeais
+14;0304;85;ACY Modélisme
+15;0360;49;Club Modèle Réduit Saumurois
+16;0390;44;AMC de Montoir de Bretagne
+17;0425;44;Les Ailes du Val de Loire
+18;0536;72;Les Coucous du Val de Loir (LCVL)
+19;0545;44;Aéro Model Club de l'Ouest
+20;0552;44;Club Aéro-Modèle du Pays de Vilaine
+21;0644;44;Acro Modèles 44
+22;0655;72;Radio Modèle Club de la Flèche
+23;0661;72;Club de Modélisme Sabolien
+24;0689;53;Club d'Aéromodélisme de Bais
+25;0698;85;Sèvres Anjou Modélisme
+26;0700;44;Ass. R. M. des Bords de Loire
+27;0706;72;Radio Modèle Club Fertois
+28;0785;44;Aéromodélisme Marnais
+29;0788;85;Aéro Cénéen
+30;0820;85;Aéromodélisme Fontenaisien
+31;0986;49;Radiocommande Aéronautique des Mauges
+32;1519;44;Besné Aéro Modèles Club
+33;1525;85;Mini Modèl Club Noirmoutier
+34;1545;49;Les Ailes Andegaves
+35;1573;49;Escadron du Choletais
+36;1599;53;Pégase Aéromodels
+37;1623;44;Liveyourdrone
+38;1644;85;Les Coucous de St Pierre
+39;1645;44;Aéro Modélisme Sucéen
+40;1655;44;Aéro Modélisme Club Chapelain
+41;1676;85;Aéro Modélisme Club Dompierrois
+42;1683;85;L'Escadron des Fontenelles - EDF
+43;1686;44;Aéro-Models Club Les Têtes Brûlées (AMCTB 44)
+44;1699;85;Aéro Modèle Club Challandais (AM2C)
+45;1702;44;Les Ailes Silencieuses Asséracaises
+46;1704;44;Les Ailes Hayonnaises
+47;1714;44;Retz Aéromodélisme Passion
+48;1726;44;Air Modèles Club de Guémené
+49;1744;44;Modèle Air Club de l'Ouest
