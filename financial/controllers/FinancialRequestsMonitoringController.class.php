@@ -53,23 +53,28 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 		$results = array();
 		$result = $table_model->get_sql_results('budget');
 
-        $pending_budgets = [];
-        $pending_result = PersistenceContext::get_querier()->select('SELECT *
-            FROM ' . FinancialSetup::$financial_request_table . '
-            WHERE agreement = 1 OR agreement = 2
-        ');
-        while($row = $pending_result->fetch())
-        {
-            $pending_budgets[] = $row['budget_id'];
-        }
+        // retrieve files pending requests
+            $pending_budgets = [];
+            $pending_result = PersistenceContext::get_querier()->select('SELECT *
+                FROM ' . FinancialSetup::$financial_request_table . '
+                WHERE agreement = 1 OR agreement = 2
+            ');
+            while($row = $pending_result->fetch())
+            {
+                $pending_budgets[] = $row['budget_id'];
+            }
 
-        $request_budgets = [];
-        $request_result = PersistenceContext::get_querier()->select('SELECT *
-            FROM ' . FinancialSetup::$financial_request_table);
-        while($row = $request_result->fetch())
-        {
-            $request_budgets[] = $row['budget_id'];
-        }
+        // Limits display to list of requests budget ids
+            $request_budgets = [];
+            $request_result = PersistenceContext::get_querier()->select('SELECT *
+                FROM ' . FinancialSetup::$financial_request_table);
+            while($row = $request_result->fetch())
+            {
+                $request_budgets[] = $row['budget_id'];
+            }
+            $request_budgets_filter = '(' . implode(', ', array_unique($request_budgets)) . ')';
+
+            $table_model->add_permanent_filter('id IN ' . $request_budgets_filter);
 
 		$budgets = array();
 		foreach ($result as $row)
@@ -109,7 +114,6 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
             {
                 $results[] = $table_row;
             }
-            
 		}
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
