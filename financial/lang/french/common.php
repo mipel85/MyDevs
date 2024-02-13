@@ -43,6 +43,7 @@ $lang['financial.request.choice'] = 'Choisir';
 $lang['financial.request.not.available'] = 'Non disponible';
 $lang['financial.club.name'] = 'Nom du club';
 $lang['financial.club.dpt'] = 'Dept';
+$lang['financial.club.dpt.filter'] = 'Département :';
 $lang['financial.club.nb'] = 'Club';
 
 // Labels

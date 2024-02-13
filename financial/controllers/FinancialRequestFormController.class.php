@@ -112,7 +112,7 @@ class FinancialRequestFormController extends DefaultModuleController
         $item_email = new Mail();
         $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
-        $item_email->set_subject($item->get_title());
+        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $item->get_title());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
         $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());
