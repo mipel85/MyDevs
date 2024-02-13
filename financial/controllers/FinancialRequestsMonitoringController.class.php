@@ -53,7 +53,7 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 		$results = array();
 		$result = $table_model->get_sql_results('budget');
 
-        // retrieve files pending requests
+        // retrieve pending requests
             $pending_budgets = [];
             $pending_result = PersistenceContext::get_querier()->select('SELECT *
                 FROM ' . FinancialSetup::$financial_request_table . '

@@ -15,7 +15,6 @@ class FinancialRequestItem
 	private $rewrited_title;
 	private $author_user;
 	private $lamclubs_id;
-	private $city;
 	private $event_date;
 	private $creation_date;
 	private $estimate_url;
@@ -87,16 +86,6 @@ class FinancialRequestItem
 	public function get_lamclubs_id()
 	{
 		return $this->lamclubs_id;
-	}
-
-	public function set_city($city)
-	{
-		$this->city = $city;
-	}
-
-	public function get_city()
-	{
-		return $this->city;
 	}
 
 	public function get_estimate_url()
@@ -222,7 +211,6 @@ class FinancialRequestItem
 			'rewrited_title' => $this->get_rewrited_title(),
 			'author_user_id' => $this->get_author_user()->get_id(),
 			'lamclubs_id'    => $this->get_lamclubs_id(),
-			'city'           => $this->get_city(),
             'event_date'     => $this->get_event_date()->get_timestamp(),
 			'creation_date'  => $this->get_creation_date()->get_timestamp(),
 			'estimate_url'   => $this->get_estimate_url()->relative(),
@@ -240,7 +228,6 @@ class FinancialRequestItem
 		$this->title            = $properties['title'];
 		$this->rewrited_title   = $properties['rewrited_title'];
 		$this->lamclubs_id      = $properties['lamclubs_id'];
-		$this->city             = $properties['city'];
         $this->event_date       = new Date($properties['event_date'], Timezone::SERVER_TIMEZONE);
 		$this->creation_date    = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
 		$this->estimate_url     = new Url($properties['estimate_url']);

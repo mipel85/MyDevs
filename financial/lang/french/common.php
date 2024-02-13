@@ -111,7 +111,6 @@ $lang['financial.status.rejected'] = 'Rejetée';
 $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i><br /><br /> 
     Le club <strong>:club_name</strong> (affiliation FFAM n° :club_ffam_number) souhaite obtenir une aide pour l\'organisation d\'une :activity prévue le :club_activity_date
-    <br /><strong>Ville :</strong> :club_activity_city
     <br /><strong>Département :</strong> :club_activity_dpt
     <br /><strong>Descriptif :</strong> :description
 ';

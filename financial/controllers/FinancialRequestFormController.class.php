@@ -47,10 +47,6 @@ class FinancialRequestFormController extends DefaultModuleController
             array('required' => true)
         ));
 
-        $fieldset->add_field(new FormFieldTextEditor('city', $this->lang['financial.request.city'], $this->get_item()->get_city(),
-            array('required' => true)
-        ));
-
         $fieldset->add_field(new FormFieldDate('event_date', $this->lang['financial.request.event.date'], $this->get_item()->get_event_date(),
             array('required' => true)
         ));
@@ -109,7 +105,6 @@ class FinancialRequestFormController extends DefaultModuleController
                 'club_ffam_number'   => $club->get_ffam_nb(),
                 'activity'           => $item->get_title(),
                 'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
-                'club_activity_city' => $item->get_city(),
                 'club_activity_dpt'  => $club->get_department(),
                 'description'        => !empty($this->form->get_value('sender_description')) ? $this->form->get_value('sender_description') : ''
         ));
@@ -217,7 +212,6 @@ class FinancialRequestFormController extends DefaultModuleController
         $item->set_rewrited_title(Url::encode_rewrite($item->get_title()));
 
         $item->set_lamclubs_id($this->form->get_value('club_infos')->get_raw_value());
-        $item->set_city($this->form->get_value('city'));
         $item->set_event_date($this->form->get_value('event_date'));
 
         if ($budget_params['use_dl'])
