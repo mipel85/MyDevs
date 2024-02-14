@@ -32,7 +32,7 @@
 						id="${HTML_ID}"
 						# IF C_TARGET #action="${TARGET}"# ENDIF #
 						method="${METHOD}" onsubmit="return HTMLForms.get('${HTML_ID}').validate();"
-						class="${FORMCLASS}">
+						class="fieldset-content# IF C_FORM_CLASS # ${FORM_CLASS}# ENDIF #">
 						# START fieldsets #
 							# INCLUDE fieldsets.FIELDSET #
 						# END fieldsets #

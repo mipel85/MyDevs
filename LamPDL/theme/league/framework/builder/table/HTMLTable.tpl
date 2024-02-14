@@ -223,6 +223,6 @@
 				</div>
 			</div>
 		</div>
-		<footer></footer>
+		<footer># INCLUDE DESCRIPTION #</footer>
 	</section>
 # ENDIF #

@@ -47,7 +47,7 @@ video { border-radius: var(--radius); }
 
 audio { border-radius: var(--radius); }
 
-input:not(.input-hours) { border-radius: var(--radius-large); }
+input { border-radius: var(--radius-large); }
 
 .button { border-radius: var(--radius); }
 
@@ -101,6 +101,8 @@ thead th:last-child,
     .form-field-datetime > .input-date {
         border-radius: var(--radius-large) 0 0 var(--radius-large);
     }
+
+    .input-hours { border-radius: 0; }
 
     .grouped-element:last-child:not(:only-child):not(select),
     .grouped-element:last-child:not(:only-child):not(select) input,
