@@ -131,7 +131,13 @@ class FinancialRequestsPendingController extends DefaultModuleController
             $amount_number = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
             $amount_max = $budget->get_max_amount() ? $budget->get_max_amount() : $amount_number;
 
-            if (!$budget->get_use_dl())
+            if (!$budget->get_use_dl() && ($budget->get_unit_amount() == '0€' || $budget->get_unit_amount() == '0%'))
+            {
+                $real_amount = '';
+                $readonly = '';
+                $type = 'type="number"';
+            }
+            elseif (!$budget->get_use_dl())
             {
                 $real_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
                 $readonly = 'readonly';

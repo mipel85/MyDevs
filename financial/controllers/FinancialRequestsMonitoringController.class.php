@@ -73,8 +73,8 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
                 $request_budgets[] = $row['budget_id'];
             }
             $request_budgets_filter = '(' . implode(', ', array_unique($request_budgets)) . ')';
-
-            $table_model->add_permanent_filter('id IN ' . $request_budgets_filter);
+            if(!empty($request_budgets))
+                $table_model->add_permanent_filter('id IN ' . $request_budgets_filter);
 
 		$budgets = array();
 		foreach ($result as $row)
@@ -86,7 +86,7 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 
 		foreach ($budgets as $budget)
 		{
-            $unit_amount = $budget->get_unit_amount() !== '0' ? $budget->get_unit_amount() : '';
+            $unit_amount = $budget->get_unit_amount() !== '0€' && $budget->get_unit_amount() !== '0%' ? $budget->get_unit_amount() : '';
 
             if ($budget->get_use_dl() && in_array($budget->get_id(), $pending_budgets))
                 $temp_amount = '<span aria-label="' . $this->lang['financial.budget.pending'] . '"><i class="fa fa-lg fa-triangle-exclamation warning"></i></span>';

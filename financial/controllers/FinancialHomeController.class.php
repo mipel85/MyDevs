@@ -77,15 +77,17 @@ class FinancialHomeController extends DefaultModuleController
 			$delete_link = $budget->is_authorized_to_delete() ? $delete_link->display() : '';
             $id = '<span class="hidden">' . $budget->get_id() . '</span>';
 
-            $amount = '';
-            if(!empty($budget->get_unit_amount()))
+            if($budget->get_unit_amount() !== '0€' && $budget->get_unit_amount() !== '0%')
             {
-                $amount .= $budget->get_unit_amount();
+                $amount = $budget->get_unit_amount();
                 if ($budget->get_max_amount())
                     $amount .= '<br />' . StringVars::replace_vars($this->lang['financial.bill.max.amount'], array('max_amount' => $budget->get_max_amount()));
                 if ($budget->get_use_dl())
                     $amount .= $this->lang['financial.bill'];
             }
+            else
+                $amount = '';
+
 
             $quantity = '';
             if($budget->get_quantity() !== '')

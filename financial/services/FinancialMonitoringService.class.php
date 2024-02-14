@@ -83,7 +83,7 @@ class FinancialMonitoringService
         }
         if (!$budget->get_use_dl())
         {
-            $unit_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
+            $unit_amount = $budget->get_unit_amount() !== '0€' && $budget->get_unit_amount() !== '0%' ? TextHelper::mb_substr($budget->get_unit_amount(), 0, -1) : 0;
             $new_temp_amount = $budget->get_temp_amount() + $unit_amount;
             self::$db_querier->update(
                 FinancialSetup::$financial_budget_table,
@@ -117,7 +117,7 @@ class FinancialMonitoringService
         }
         if (!$budget->get_use_dl())
         {
-            $unit_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
+            $unit_amount = $budget->get_unit_amount() !== '0€' && $budget->get_unit_amount() !== '0%' ? TextHelper::mb_substr($budget->get_unit_amount(), 0, -1) : 0;
             $new_temp_amount = $budget->get_temp_amount() - $unit_amount;
             self::$db_querier->update(
                 FinancialSetup::$financial_budget_table,
@@ -138,7 +138,7 @@ class FinancialMonitoringService
         );
         if (!$budget->get_use_dl())
         {
-            $unit_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
+            $unit_amount = $budget->get_unit_amount() !== '0€' && $budget->get_unit_amount() !== '0%' ? TextHelper::mb_substr($budget->get_unit_amount(), 0, -1) : 0;
             $new_temp_amount = $budget->get_temp_amount() + $unit_amount;
             self::$db_querier->update(
                 FinancialSetup::$financial_budget_table,

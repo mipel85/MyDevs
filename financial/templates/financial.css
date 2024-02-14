@@ -21,3 +21,11 @@
 .bordered-table tr:hover {
     background-color: rgba(var(--main-rgb-t), 0.2);
 }
+
+.fwkboost-mini-sandbox .fieldset-submit,
+.fwkboost-mini-sandbox.nav-levels-overlap ul li.nav-parent .nav-item-wrapper .button,
+.fwkboost-mini-sandbox .fieldset-inset {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}

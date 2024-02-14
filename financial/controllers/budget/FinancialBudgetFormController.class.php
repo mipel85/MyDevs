@@ -52,9 +52,15 @@ class FinancialBudgetFormController extends DefaultModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('unit_amount', $this->lang['financial.budget.amount'], $this->get_budget()->get_unit_amount()));
+		$fieldset->add_field(new FormFieldTextEditor('unit_amount', $this->lang['financial.budget.unit.amount'], $this->get_budget()->get_unit_amount(),
+            array(
+                'required' => true,
+                'pattern' => '[0-9]+[€%]{1}',
+                'description' => $this->lang['financial.budget.unit.amount.clue']
+            )
+        ));
 
-		$fieldset->add_field(new FormFieldTextEditor('max_amount', $this->lang['financial.budget.max.amount'], $this->get_budget()->get_max_amount()));
+		$fieldset->add_field(new FormFieldNumberEditor('max_amount', $this->lang['financial.budget.max.amount'], $this->get_budget()->get_max_amount()));
 
 		$fieldset->add_field(new FormFieldNumberEditor('quantity', $this->lang['financial.budget.quantity'], $this->get_budget()->get_quantity()));
 
