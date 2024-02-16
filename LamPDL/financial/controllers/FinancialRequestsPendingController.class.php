@@ -173,7 +173,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
             );
             $accept_link = $accept_link->display();
 
-            if ($budget->get_use_dl() && empty($item->get_invoice_url()->rel()))
+            if ($budget->get_use_dl() && $budget->get_bill_needed() && empty($item->get_invoice_url()->rel()))
             {
                 $amount = $accept_link = '';
             }

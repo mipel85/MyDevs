@@ -91,7 +91,9 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
             if ($budget->get_use_dl() && in_array($budget->get_id(), $pending_budgets))
                 $temp_amount = '<span aria-label="' . $this->lang['financial.budget.pending'] . '"><i class="fa fa-lg fa-triangle-exclamation warning"></i></span>';
             elseif ($budget->get_use_dl() && $budget->get_real_quantity() == $budget->get_temp_quantity())
-                $temp_amount = '<span aria-label="' . $this->lang['financial.budget.no.pending'] . '"><i class="fa fa-lg fa-hourglass-half success"></i></span>';
+                $temp_amount = '<span aria-label="' . $this->lang['financial.budget.no.pending'] . '">--</span>';
+            elseif ($budget->get_quantity() == '')
+                $temp_amount = '<span aria-label="' . $this->lang['financial.budget.no.pending'] . '">--</span>';
             else
                 $temp_amount = $budget->get_temp_amount() . '€';
 
