@@ -136,12 +136,11 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['financial.items.management'], $this->lang['financial.module.title'], $page);
+		$graphical_environment->set_page_title($this->lang['financial.archived.items'], $this->lang['financial.module.title'], $page);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(FinancialUrlBuilder::manage_items());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['financial.module.title'], FinancialUrlBuilder::home());
-
 		$breadcrumb->add($this->lang['financial.archived.items'], FinancialUrlBuilder::manage_items());
 
 		return $response;
