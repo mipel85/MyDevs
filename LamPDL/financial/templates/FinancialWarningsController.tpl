@@ -1,4 +1,4 @@
-<section id="module-financial" class="category-{CATEGORY_ID} single-item">
+<section id="module-financial" class="single-item">
 	<header class="section-header">
 		<h1>
 			<span itemprop="name">{@financial.warnings}</span>

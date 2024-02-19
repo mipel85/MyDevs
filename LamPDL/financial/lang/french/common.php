@@ -15,7 +15,6 @@ $lang['financial.config.auth'] = 'Configuration de module Aide Financière';
 
 $lang['financial.item'] = 'demande';
 $lang['financial.items'] = 'demandes';
-$lang['financial.no.category'] = 'Sans catégorie';
 
 // TreeLinks
 $lang['financial.budgets.management'] = 'Gestion des budgets';
@@ -153,7 +152,6 @@ $lang['financial.message.success.budget.delete'] = 'Le budget <strong>:name</str
 // Errors
 $lang['financial.warnings'] = 'Attention !!';
 $lang['financial.warnings.lamclubs'] = 'Le module Lamclubs est manquant, le module financial ne pourra pas fonctionner correctement.';
-$lang['financial.warnings.categories'] = 'Il n\'y a aucune catégorie (activité) déclarée, le module financial ne pourra pas fonctionner correctement.';
 $lang['financial.error.invalid.date'] = 'La date entrée est invalide';
 
 // Legend

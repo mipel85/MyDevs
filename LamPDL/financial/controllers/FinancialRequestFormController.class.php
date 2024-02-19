@@ -169,7 +169,7 @@ class FinancialRequestFormController extends DefaultModuleController
             {
                 $this->is_new_item = true;
                 $this->item = new FinancialRequestItem();
-                $this->item->init_default_properties(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY));
+                $this->item->init_default_properties();
             }
         }
         return $this->item;
