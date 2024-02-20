@@ -18,8 +18,6 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 
 		$current_page = $this->build_table();
 
-		$this->execute_multiple_delete_if_needed($request);
-
 		return $this->generate_response($current_page);
 	}
 
@@ -29,11 +27,11 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 			new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'title'),
 			new HTMLTableColumn($this->lang['financial.club.nb'], 'club_name'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'club_department'),
-			new HTMLTableColumn($this->lang['financial.request.event.date'], 'event_date'),
 			new HTMLTableColumn($this->lang['financial.request.creation.date'], 'creation_date'),
 			new HTMLTableColumn($this->lang['financial.request.validation.date'], 'agreement_date'),
 			new HTMLTableColumn($this->lang['common.status'], 'agreement'),
-			new HTMLTableColumn($this->lang['financial.amount.paid'], 'amount_paid')
+			new HTMLTableColumn($this->lang['financial.amount.paid'], 'amount_paid'),
+			new HTMLTableColumn($this->lang['financial.request.files.url'], '')
 		);
 
 		$table_model = new SQLHTMLTableModel(FinancialSetup::$financial_request_table, 'items-manager', $columns, new HTMLTableSortingRule('event_date', HTMLTableSortingRule::DESC));
@@ -50,6 +48,7 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
+        $table->hide_multiple_delete();
 
 		$results = array();
 		$result = $table_model->get_sql_results('request
@@ -70,15 +69,20 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 			$club = LamclubsService::get_item($item->get_lamclubs_id());
             $club_infos = '<span aria-label="'.$club->get_name().'">'.$club->get_ffam_nb().'</span>';
 
+            $estimate_file = new LinkHTMLElement(FinancialUrlBuilder::dl_estimate($item->get_id()), '<i class="far fa-lg fa-file-lines"></i>', array('aria-label' => $this->lang['financial.request.estimate.url']));
+            $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
+            $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-lg fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
+            $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
+
 			$row = array(
 				new HTMLTableRowCell($item->get_title(), 'align-left'),
 				new HTMLTableRowCell($club_infos),
                 new HTMLTableRowCell($club->get_department()),
-                new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_agreement_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_status()),
-                new HTMLTableRowCell($item->get_amount_paid())
+                new HTMLTableRowCell($item->get_amount_paid()),
+				new HTMLTableRowCell($estimate_file . $invoice_file, 'controls'),
 			);
 
 			$results[] = new HTMLTableRow($row);
@@ -88,38 +92,6 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 		$this->view->put('CONTENT', $table->display());
 
 		return $table->get_page_number();
-	}
-
-	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
-	{
-		if ($request->get_string('delete-selected-elements', false))
-		{
-			for ($i = 1 ; $i <= $this->items_number ; $i++)
-			{
-				if ($request->get_value('delete-checkbox-' . $i, 'off') == 'on')
-				{
-					if (isset($this->ids[$i]))
-					{
-						$item = '';
-						try {
-							$item = FinancialRequestService::get_item($this->ids[$i]);
-						} catch (RowNotFoundException $e) {}
-
-						if ($item)
-						{
-							//Delete item
-							FinancialRequestService::delete_item($item->get_id());
-
-							HooksService::execute_hook_action('delete', self::$module_id, $item->get_properties());
-						}
-					}
-				}
-			}
-
-			FinancialRequestService::clear_cache();
-
-			AppContext::get_response()->redirect(FinancialUrlBuilder::manage_items(), $this->lang['warning.process.success']);
-		}
 	}
 
 	private function check_authorizations()
