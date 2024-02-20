@@ -64,9 +64,9 @@ class FinancialRequestService
 	public static function get_item(int $id)
 	{
 		$row = self::$db_querier->select_single_row_query('SELECT *
-		FROM ' . FinancialSetup::$financial_request_table . ' event
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = event.author_user_id
-		WHERE event.id = :id', array(
+		FROM ' . FinancialSetup::$financial_request_table . ' planning
+		LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = planning.author_user_id
+		WHERE planning.id = :id', array(
 			'id' => $id
 		));
 
