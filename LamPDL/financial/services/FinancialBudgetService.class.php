@@ -58,7 +58,7 @@ class FinancialBudgetService
     }
 
 	/**
-	 * @desc Return the content of an budget.
+	 * @desc Return the content of one budget.
 	 * @param int $id Item identifier
 	 */
 	public static function get_budget(int $id)
@@ -90,40 +90,36 @@ class FinancialBudgetService
 
     public static function reset_budgets($date)
     {
+        self::$db_querier->truncate(FinancialSetup::$financial_budget_table);
         $file = PATH_TO_ROOT . '/financial/data/budgets.csv';
-        $req = self::$db_querier->select('SELECT *
-		FROM ' . FinancialSetup::$financial_budget_table);
-        while($row = $req->fetch())
+        if (($handle = fopen($file, 'r')) !== false)
         {
-            if (($handle = fopen($file, 'r')) !== false)
+            fgetcsv($handle); // ignore first row
+            while(($data = fgetcsv($handle, 1000, ';')) !== false)
             {
-                while(($data = fgetcsv($handle, 1000, ';')) !== false)
-                {
-                    self::$db_querier->update(FinancialSetup::$financial_budget_table, array(
-                        'id'            => $data[0],
-                        'domain'        => $data[1],
-                        'name'          => $data[2],
-                        'description'   => $data[3],
-                        'fiscal_year'   => $date,
-                        'annual_amount' => $data[4],
-                        'real_amount'   => $data[4],
-                        'temp_amount'   => $data[4],
-                        'unit_amount'   => $data[5],
-                        'max_amount'    => $data[6],
-                        'quantity'      => $data[7],
-                        'temp_quantity' => $data[7],
-                        'real_quantity' => $data[7],
-                        'use_dl'        => $data[8],
-                        'bill_needed'   => $data[9]
-                    ),
-                    'WHERE id = :id', array('id' => $row['id']));
-                }
-                fclose($handle);
+                self::$db_querier->insert(FinancialSetup::$financial_budget_table, array(
+                    'id'            => $data[0],
+                    'domain'        => $data[1],
+                    'name'          => $data[2],
+                    'description'   => $data[3],
+                    'fiscal_year'   => $date,
+                    'annual_amount' => $data[4],
+                    'real_amount'   => $data[4],
+                    'temp_amount'   => $data[4],
+                    'unit_amount'   => $data[5],
+                    'max_amount'    => $data[6],
+                    'quantity'      => $data[7],
+                    'temp_quantity' => $data[7],
+                    'real_quantity' => $data[7],
+                    'use_dl'        => $data[8],
+                    'bill_needed'   => $data[9]
+                ));
             }
-            else
-            {
-                echo '<div class="message-helper bgc-full error">Erreur lors de l\'ouverture du fichier CSV.</div>';
-            }
+            fclose($handle);
+        }
+        else
+        {
+            echo '<div class="message-helper bgc-full error">Erreur lors de l\'ouverture du fichier CSV.</div>';
         }
     }
 

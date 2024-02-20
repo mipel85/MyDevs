@@ -1,8 +1,7 @@
+0;Domaine;Nom du budget;Description du budget;Budget annuel(nombre);Montant du forfait(nombre + € ou %);Plafond du forfait (nombre);Quantité (nombre);Devis ou facture nécessaire (0 ou 1);Facture obligatoire (0 ou 1)
 1;Structure;Création d'un Club;Création uniquement et non affiliation d’un club existant;600;300€;0;2;0;0
-2;Organisation;Concours FAI;Fédération Aéronautique Internationale;500;0€;0;;0;0
-3;Organisation;Concours Régionaux;Toutes catégories;300;0€;0;;0;0
-4;Organisation;Championnat de France;Toutes catégories;1500;300€;500;3;1;0
-5;Organisation;Coupe du Monde;Toutes catégories;2000;500€;1000;2;1;0
+2;Organisation;Concours FAI;Fédération Aéronautique Internationale;2000;300€;500;4;1;0
+4;Organisation;Concours national;;1500;500€;1000;2;1;0
 6;Compétition;Aide pour cadet ou junior;Participation au Championnat d'Europe ou du Monde;1000;250€;0;4;0;0
 7;Organisation;Journée Portes-Ouvertes;Indoor ou extérieur;2500;30€;0;25;0;0
 8;Organisation;Journée Examen;QPDD, Brevets;250;50€;0;5;0;0

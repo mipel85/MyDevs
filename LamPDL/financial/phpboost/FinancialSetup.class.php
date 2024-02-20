@@ -102,10 +102,11 @@ class FinancialSetup extends DefaultModuleSetup
 		$file = PATH_TO_ROOT . '/financial/data/budgets.csv';
         if (($handle = fopen($file, 'r')) !== false)
         {
+            fgetcsv($handle); // ignore first row
             while(($data = fgetcsv($handle, 1000, ';')) !== false)
             {
                 PersistenceContext::get_querier()->insert(self::$financial_budget_table, array(
-                    'id'            => NULL,
+                    'id'            => $data[0],
                     'domain'        => $data[1],
                     'name'          => $data[2],
                     'description'   => $data[3],
