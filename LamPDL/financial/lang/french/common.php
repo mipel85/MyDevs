@@ -76,8 +76,9 @@ $lang['financial.budget.invoice.required'] = 'Facture obligatoire';
 
 $lang['financial.request.form.title'] = '<span class="small">Demande d\'aide : </span>';
 $lang['financial.request.allocated.budget'] = 'Budget alloué pour cette demande';
-$lang['financial.request.bill'] = ' 
-    <br />Vous pouvez fournir un devis en début de processus, mais il faudra fournir une facture pour la validation de la demande.
+$lang['financial.request.bill'] = '
+    <br /><span class="message-helper bgc warning">Attention !! Vous devez fournir un devis <strong>OU</strong> une facture !
+    <br />Vous pouvez ne fournir qu\'un devis en début de processus, vous pourrez plus tard fournir une facture pour le paiement de la demande.</span>
 ';
 $lang['financial.request.club'] = 'Identifiants du club';
 $lang['financial.request.city'] = 'Ville';
@@ -153,6 +154,7 @@ $lang['financial.message.success.budget.delete'] = 'Le budget <strong>:name</str
 $lang['financial.warnings'] = 'Attention !!';
 $lang['financial.warnings.lamclubs'] = 'Le module Lamclubs est manquant, le module financial ne pourra pas fonctionner correctement.';
 $lang['financial.error.invalid.date'] = 'La date entrée est invalide';
+$lang['financial.warning.estimate.url'] = 'Vous devez fournir au moins un devis';
 
 // Legend
 $lang['financial.legend'] = 'Légende';

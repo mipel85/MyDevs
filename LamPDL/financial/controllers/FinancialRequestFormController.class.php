@@ -52,9 +52,11 @@ class FinancialRequestFormController extends DefaultModuleController
         ));
 
         if ($budget_params['use_dl']){
-            $fieldset->add_field(new FormFieldUploadFile('estimate_url', $this->lang['financial.request.estimate.url'], $this->get_item()->get_estimate_url()->relative(),
-                array('description' => $this->lang['financial.request.estimate.url.clue'])
+            $fieldset->add_field($estimate_url = new FormFieldUploadFile('estimate_url', $this->lang['financial.request.estimate.url'], $this->get_item()->get_estimate_url()->relative(),
+                array('description' => $this->lang['financial.request.estimate.url.clue']),
+                // array(empty($this->get_item()->get_invoice_url()->relative()) ? new FormFieldConstraintNotEmpty($this->lang['financial.warning.estimate.url']) : '')
             ));
+
             $fieldset->add_field(new FormFieldUploadFile('invoice_url', $this->lang['financial.request.invoice.url'], $this->get_item()->get_invoice_url()->relative(),
                 array('description' => $this->lang['financial.request.invoice.url.clue'])
             ));
@@ -216,8 +218,32 @@ class FinancialRequestFormController extends DefaultModuleController
 
         if ($budget_params['use_dl'])
         {
-            $item->set_estimate_url(new Url($this->form->get_value('estimate_url')));
-            $item->set_invoice_url(new Url($this->form->get_value('invoice_url')));
+            $club = LamclubsService::get_item($item->get_lamclubs_id());
+            $ffam_nb = $club->get_ffam_nb();
+
+            if(Url::to_rel($this->form->get_value('estimate_url')) !== $item->get_estimate_url()->rel())
+            {
+                $filename = $this->get_filename($this->form->get_value('estimate_url'));
+                $renamed_file = copy(
+                    PATH_TO_ROOT . $this->form->get_value('estimate_url'),
+                    PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
+                );
+                $item->set_estimate_url(new Url('/financial/files/' . $ffam_nb . '_' . $filename));
+            }
+            else
+                $item->set_estimate_url(new Url($this->form->get_value('estimate_url')));
+
+            if(Url::to_rel($this->form->get_value('invoice_url')) !== $item->get_invoice_url()->rel())
+            {
+                $filename = $this->get_filename($this->form->get_value('invoice_url'));
+                $renamed_file = copy(
+                    PATH_TO_ROOT . $this->form->get_value('invoice_url'),
+                    PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
+                );
+                $item->set_invoice_url(new Url('/financial/files/' . $ffam_nb . '_' . $filename));
+            }
+            else
+                $item->set_invoice_url(new Url($this->form->get_value('invoice_url')));
         }
 
         if ($this->is_new_item)
@@ -240,6 +266,12 @@ class FinancialRequestFormController extends DefaultModuleController
         $this->contribution_actions($item);
 
         FinancialRequestService::clear_cache();
+    }
+
+    private function get_filename($url)
+    {
+        $path_parts = explode('/', $url);
+        return end($path_parts);
     }
 
     private function contribution_actions(FinancialRequestItem $item)
