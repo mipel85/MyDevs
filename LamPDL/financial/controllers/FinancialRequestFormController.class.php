@@ -19,7 +19,12 @@ class FinancialRequestFormController extends DefaultModuleController
         if ($this->submit_button->has_been_submited() && $this->form->validate())
         {
             $this->save($budget_params);
-            if ($this->is_new_item) $this->send_email();
+            if ($this->is_new_item) {
+                $this->send_email();
+            }
+            if (!$this->is_new_item && !empty($this->form->get_value('invoice_url')) && Url::to_rel($this->form->get_value('invoice_url')) !== $this->get_item()->get_invoice_url()->rel()) {
+                $this->send_invoice_email();
+            }
             $this->redirect($budget_params);
         }
 
@@ -54,7 +59,6 @@ class FinancialRequestFormController extends DefaultModuleController
         if ($budget_params['use_dl']){
             $fieldset->add_field($estimate_url = new FormFieldUploadFile('estimate_url', $this->lang['financial.request.estimate.url'], $this->get_item()->get_estimate_url()->relative(),
                 array('description' => $this->lang['financial.request.estimate.url.clue']),
-                // array(empty($this->get_item()->get_invoice_url()->relative()) ? new FormFieldConstraintNotEmpty($this->lang['financial.warning.estimate.url']) : '')
             ));
 
             $fieldset->add_field(new FormFieldUploadFile('invoice_url', $this->lang['financial.request.invoice.url'], $this->get_item()->get_invoice_url()->relative(),
@@ -101,14 +105,44 @@ class FinancialRequestFormController extends DefaultModuleController
 
         //msg content
         $item_message = StringVars::replace_vars($this->lang['financial.mail.msg'], array(
-                'club_sender_name'   => $this->form->get_value('sender_name'),
-                'club_sender_email'  => $this->form->get_value('sender_email'),
-                'club_name'          => $club->get_name(),
-                'club_ffam_number'   => $club->get_ffam_nb(),
-                'activity'           => $item->get_title(),
-                'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
-                'club_activity_dpt'  => $club->get_department(),
-                'description'        => !empty($this->form->get_value('sender_description')) ? $this->form->get_value('sender_description') : ''
+            'club_sender_name'   => $this->form->get_value('sender_name'),
+            'club_sender_email'  => $this->form->get_value('sender_email'),
+            'club_name'          => $club->get_name(),
+            'club_ffam_number'   => $club->get_ffam_nb(),
+            'activity'           => $item->get_title(),
+            'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
+            'club_activity_dpt'  => $club->get_department(),
+            'description'        => !empty($this->form->get_value('sender_description')) ? $this->form->get_value('sender_description') : ''
+        ));
+
+        $item_email = new Mail();
+        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
+        $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
+        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $item->get_title());
+        $item_email->set_content(TextHelper::html_entity_decode($item_message));
+
+        $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());
+        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_2()) ? FinancialConfig::load()->get_recipient_mail_2() : '');
+        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_3()) ? FinancialConfig::load()->get_recipient_mail_3() : '');
+        $send_email = AppContext::get_mail_service();
+
+        return $send_email->try_to_send($item_email);
+    }
+
+    private function send_invoice_email()
+    {
+        $item = $this->get_item();
+        $club = LamclubsService::get_item($item->get_lamclubs_id());
+
+        $item_message = '';
+
+        //msg content
+        $item_message = StringVars::replace_vars($this->lang['financial.mail.invoice.msg'], array(
+            'club_sender_name'   => $this->form->get_value('sender_name'),
+            'club_sender_email'  => $this->form->get_value('sender_email'),
+            'club_name'          => $club->get_name(),
+            'club_ffam_number'   => $club->get_ffam_nb(),
+            'activity'           => $item->get_title()
         ));
 
         $item_email = new Mail();
