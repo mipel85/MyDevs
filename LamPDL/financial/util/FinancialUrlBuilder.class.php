@@ -65,14 +65,6 @@ class FinancialUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function manage_items()
-	{
-		return DispatchManager::get_url(self::$dispatcher, '/manage/');
-	}
-
-	/**
-	 * @return Url
-	 */
 	public static function display($item_id, $rewrited_title)
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/' . $item_id . '-' . $rewrited_title . '/');
