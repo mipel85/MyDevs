@@ -128,7 +128,9 @@ $lang['financial.email.configuration.default'] = 'Adresse mail obligatoire. par 
 $lang['financial.email.configuration.optional'] = 'Adresse mail optionnelle';
 
 $lang['financial.reset'] = 'Nouvel exercice comptable';
-$lang['financial.reset.clue'] = 'Mise à jour des compteurs de demandes par budget';
+$lang['financial.reset.clue'] = '
+    Mise à jour des compteurs de demandes par budget
+';
 $lang['financial.reset.date'] = 'Année du nouvel exercice';
 $lang['financial.reset.date.clue'] = 'Exactement 4 chiffres';
 
@@ -147,8 +149,8 @@ $lang['financial.message.success.edit'] = 'La demande <strong>:title</strong> a 
 $lang['financial.message.success.delete'] = 'La demande <strong>:title</strong> a été supprimée';
 $lang['financial.message.success.reject'] = 'La demande <strong>:title</strong> a été rejetée et placée en archive';
 $lang['financial.message.success.accept'] = 'La demande <strong>:title</strong> a été acceptée et placée en archive';
-$lang['financial.message.error.accept'] = '<span class="message-helper bgc-full error">Le montant déclaré pour la validation de la demande: <strong>:title</strong> entraîne un dépassement du budget annuel</span>';
-$lang['financial.message.empty.accept'] = '<span class="message-helper bgc-full error">Le montant déclaré pour la validation de la demande: <strong>:title</strong> ne peut pas être nul</span>';
+$lang['financial.message.error.accept'] = 'Le montant déclaré pour la validation de la demande: <strong>:title</strong> entraîne un dépassement du budget annuel';
+$lang['financial.message.empty.accept'] = 'Le montant déclaré pour la validation de la demande: <strong>:title</strong> ne peut pas être nul';
 $lang['financial.message.success.ongoing'] = 'La demande <strong>:title</strong> a été placée à l\'étude';
 
 $lang['financial.message.success.budget.add'] = 'Le budget <strong>:name</strong> a été ajouté';

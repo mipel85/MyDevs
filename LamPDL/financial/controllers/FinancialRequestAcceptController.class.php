@@ -31,12 +31,12 @@ class FinancialRequestAcceptController extends DefaultModuleController
             else
                 AppContext::get_response()->redirect(
                     ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-                    StringVars::replace_vars($this->lang['financial.message.error.accept'], array('title' => $item->get_title())));
+                    StringVars::replace_vars($this->lang['financial.message.error.accept'], array('title' => $item->get_title())), MessageHelper::ERROR);
         }
         else
             AppContext::get_response()->redirect(
                 ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-                StringVars::replace_vars($this->lang['financial.message.empty.accept'], array('title' => $item->get_title())));
+                StringVars::replace_vars($this->lang['financial.message.empty.accept'], array('title' => $item->get_title())), MessageHelper::ERROR);
 
 		FinancialRequestService::clear_cache();
 	}
