@@ -66,7 +66,8 @@ class FinancialRequestFormController extends DefaultModuleController
             ));
         }
 
-        if ($this->is_new_item){
+        if ($this->is_new_item || $this->get_item()->get_agreement_state() == FinancialRequestItem::ONGOING)
+        {
             $email_fieldset = new FormFieldsetHTML('email', $this->lang['financial.request.email']);
             $email_fieldset->set_description($this->lang['financial.request.email.clue']);
             $form->add_fieldset($email_fieldset);
