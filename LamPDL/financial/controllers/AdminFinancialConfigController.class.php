@@ -70,7 +70,7 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
 		$form->add_fieldset($fieldset_authorizations);
 
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($this->lang['form.authorizations.read'], FinancialAuthorizationsService::READ_AUTHORIZATIONS),
+			new VisitorDisabledActionAuthorization($this->lang['form.authorizations.read'], FinancialAuthorizationsService::READ_AUTHORIZATIONS),
 			new VisitorDisabledActionAuthorization($this->lang['form.authorizations.write'], FinancialAuthorizationsService::WRITE_AUTHORIZATIONS),
 			new VisitorDisabledActionAuthorization($this->lang['form.authorizations.contribution'], FinancialAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS),
 			new MemberDisabledActionAuthorization($this->lang['form.authorizations.moderation'], FinancialAuthorizationsService::MODERATION_AUTHORIZATIONS)

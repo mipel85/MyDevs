@@ -248,7 +248,7 @@ class FinancialRequestItem
 	public function init_default_properties()
 	{
         $user = AppContext::get_current_user();
-        $this->lamclubs_id = LamclubsService::get_user_club(AppContext::get_current_user()->get_id());
+        $this->lamclubs_id = $this->is_authorized_to_add() ? LamclubsService::get_user_club(AppContext::get_current_user()->get_id()) : '';
 		$this->author_user = $user;
 		$this->event_date = new Date();
 		$this->creation_date = new Date();
