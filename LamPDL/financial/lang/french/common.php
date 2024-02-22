@@ -110,14 +110,20 @@ $lang['financial.status.rejected'] = 'Rejetée';
 
 // Email
 $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
-	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i><br /><br /> 
-    Le club <strong>:club_name</strong> (affiliation FFAM n° :club_ffam_number) souhaite obtenir une aide pour l\'activité : :activity, prévue le :club_activity_date
-    <br /><strong>Département :</strong> :club_activity_dpt
-    <br /><strong>Descriptif :</strong> :description
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="https://miroir.aeromodelisme-paysdeloire.fr/financial/pending/">Aller sur le site</a> <br /><br /> 
+    Le club <strong>:club_name</strong> souhaite obtenir une aide pour la demande : :activity.
+    <br /><br /><strong>Département :</strong> :club_activity_dpt
+    <br /><strong>Numéro FFAM :</strong> :club_ffam_number
+    <br /><strong>Date de réalisation :</strong> :club_activity_date
+    <br /><br /><strong>Descriptif :</strong> :description
 ';
+
 $lang['financial.mail.invoice.msg'] = 'Bonjour, <br /><br />
-	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i><br /><br /> 
-    Le club <strong>:club_name</strong> (affiliation FFAM n° :club_ffam_number) a fourni une facture dans le suivi de son dossier pour l\'activité : :activity
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="https://miroir.aeromodelisme-paysdeloire.fr/financial/pending/">Aller sur le site</a> <br /><br /> 
+    Le club <strong>:club_name</strong> a fourni une facture dans le suivi de son dossier pour la demande : :activity
+    <br /><strong>Numéro FFAM :</strong> :club_ffam_number
+    <br /><strong>Date de réalisation :</strong> :club_activity_date
+    <br /><br /><strong>Descriptif :</strong> :description
 ';
 
 // Config
