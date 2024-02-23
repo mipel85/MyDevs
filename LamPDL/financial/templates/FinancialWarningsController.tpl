@@ -10,6 +10,9 @@
                 # IF C_NO_LAMCLUBS #
                     <div class="message-helper bgc error">{@financial.warnings.lamclubs}</div>
                 # ENDIF #
+                # IF C_BREAK #
+                    <div class="message-helper bgc notice">{@financial.warnings.break}</div>
+                # ENDIF #
 			</article>
 		</div>
 	</div>

@@ -133,6 +133,8 @@ $lang['financial.recipient.mail_3'] = 'Adresse du destinataire n° 3 :';
 $lang['financial.email.configuration.default'] = 'Adresse mail obligatoire. par défaut : :default_mail';
 $lang['financial.email.configuration.optional'] = 'Adresse mail optionnelle';
 
+$lang['financial.winter.break'] = 'Mettre le module en pause';
+
 $lang['financial.reset'] = 'Nouvel exercice comptable';
 $lang['financial.reset.clue'] = '
     Mise à jour des compteurs de demandes par budget
@@ -166,6 +168,7 @@ $lang['financial.message.success.budget.delete'] = 'Le budget <strong>:name</str
 // Errors
 $lang['financial.warnings'] = 'Attention !!';
 $lang['financial.warnings.lamclubs'] = 'Le module Lamclubs est manquant, le module financial ne pourra pas fonctionner correctement.';
+$lang['financial.warnings.break'] = 'Oualou, mon zami, tu rontres chey ta maire !!';
 $lang['financial.error.invalid.date'] = 'La date entrée est invalide';
 $lang['financial.warning.estimate.url'] = 'Vous devez fournir au moins un devis';
 

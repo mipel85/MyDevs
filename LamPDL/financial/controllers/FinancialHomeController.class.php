@@ -15,14 +15,14 @@ class FinancialHomeController extends DefaultModuleController
 	{
 		$this->check_authorizations();
 
-        $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
-        if ($c_clubs)
+        if ($this->config->get_winter_break())
         {
-            $current_page = $this->build_table();
+            $current_page = $this->build_warnings();
         }
         else
         {
-            $current_page = $this->build_warnings();
+            $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
+            $current_page = $c_clubs ? $this->build_table() : $this->build_warnings();
         }
 
 		return $this->generate_response($current_page);
@@ -139,7 +139,8 @@ class FinancialHomeController extends DefaultModuleController
         $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
 
         $this->view->put_all(array(
-            'C_NO_LAMCLUBS' => !$c_clubs
+            'C_NO_LAMCLUBS' => !$c_clubs,
+            'C_BREAK' => $this->config->get_winter_break()
         ));
     }
 

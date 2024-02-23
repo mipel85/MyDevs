@@ -13,6 +13,7 @@ class FinancialConfig extends AbstractConfigData
     const RECIPIENT_MAIL_2 = 'recipient_mail_2';
     const RECIPIENT_MAIL_3 = 'recipient_mail_3';
     const RESET_DATE       = 'reset_date';
+    const WINTER_BREAK     = 'winter_break';
 	const AUTHORIZATIONS   = 'authorizations';
 
     public function get_recipient_mail_1()
@@ -43,6 +44,16 @@ class FinancialConfig extends AbstractConfigData
     public function set_recipient_mail_3($recipient_mail_3)
     {
         $this->set_property(self::RECIPIENT_MAIL_3, $recipient_mail_3);
+    }
+
+    public function get_winter_break()
+    {
+        return $this->get_property(self::WINTER_BREAK);
+    }
+
+    public function set_winter_break($winter_break)
+    {
+        $this->set_property(self::WINTER_BREAK, $winter_break);
     }
 
     public function get_reset_date()
@@ -82,6 +93,7 @@ class FinancialConfig extends AbstractConfigData
             self::RECIPIENT_MAIL_1  => 'mipel@aeromodelisme-paysdeloire.fr',
             self::RECIPIENT_MAIL_2  => '',
             self::RECIPIENT_MAIL_3  => '',
+            self::WINTER_BREAK      => false,
             self::RESET_DATE        => '',
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13)
 		);

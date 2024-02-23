@@ -66,6 +66,10 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
             )
         ));
 
+        $fieldset->add_field(new FormFieldCheckbox('winter_break', $this->lang['financial.winter.break'], $this->config->get_winter_break(),
+            array('class' => 'custom-checkbox')
+        ));
+
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $this->lang['form.authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
@@ -113,6 +117,7 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
         $this->config->set_recipient_mail_1($this->form->get_value('recipient_mail_1'));
         $this->config->set_recipient_mail_2($this->form->get_value('recipient_mail_2'));
         $this->config->set_recipient_mail_3($this->form->get_value('recipient_mail_3'));
+        $this->config->set_winter_break($this->form->get_value('winter_break'));
         $this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 
 		FinancialConfig::save();
