@@ -199,4 +199,16 @@ $lang['financial.legend.user.invoice'] = '<i class="fa fa-file-contract link-col
 $lang['financial.legend.user.controls'] = 'Pour chacune de vos demandes, vous avez accès à des boutons de controle.';
 $lang['financial.legend.user.edit'] = '<i class="far fa-edit link-color"></i> pour éditer votre demande';
 $lang['financial.legend.user.delete'] = '<i class="fa fa-trash-alt link-color"></i> pour supprimer votre demande';
+
+// Budjet archives
+$lang['financial.budget.archive.th.domain'] = 'Domaine';
+$lang['financial.budget.archive.th.name'] = 'Nom du Budget';
+$lang['financial.budget.archive.th.annual_amount'] = 'Budget annuel';
+$lang['financial.budget.archive.th.real_amount'] = 'Budget<br /><span class="smaller">réel</span>';
+$lang['financial.budget.archive.th.temp_amount'] = 'Budget<br /><span class="smaller">prévisionnel</span>';
+$lang['financial.budget.archive.th.unit_amount'] = 'Forfait';
+$lang['financial.budget.archive.th.real_quantity'] = 'Quantité<br /><span class="smaller">réelle</span>';
+$lang['financial.budget.archive.th.temp_quantity'] = 'Quantité<br /><span class="smaller">prévisionnelle</span>';
+$lang['financial.budget.archive.no.tables'] = 'Aucune table n\'existe pour cet exercice';
+
 ?>
