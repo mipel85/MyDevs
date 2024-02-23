@@ -43,7 +43,7 @@ class FinancialRequestsMonitoringController extends DefaultModuleController
 
 		$table_model = new SQLHTMLTableModel(FinancialSetup::$financial_budget_table, 'items-list', $columns, new HTMLTableSortingRule('id', HTMLTableSortingRule::ASC));
 
-		$table_model->set_layout_title($this->lang['financial.monitoring']);
+		$table_model->set_layout_title($this->lang['financial.monitoring'] . ' - ' . FinancialBudgetService::get_fiscal_year());
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
