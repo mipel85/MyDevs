@@ -17,7 +17,7 @@ class FinancialTreeLinks implements ModuleTreeLinksExtensionPoint
         $tree->add_link(new ModuleLink($lang['financial.pending.items'], FinancialUrlBuilder::display_pending_items(), FinancialAuthorizationsService::check_authorizations()->contribution()));
         $tree->add_link(new ModuleLink($lang['financial.archived.items'], FinancialUrlBuilder::display_archived_items(), FinancialAuthorizationsService::check_authorizations()->moderation()));
         $tree->add_link(new ModuleLink($lang['financial.monitoring'], FinancialUrlBuilder::display_monitoring_items(), FinancialAuthorizationsService::check_authorizations()->write()));
-        $tree->add_link(new ModuleLink($lang['financial.archived.budgets'], FinancialUrlBuilder::display_archived_budgets(), FinancialAuthorizationsService::check_authorizations()->write()));
+        $tree->add_link(new ModuleLink($lang['financial.archived.budgets'], FinancialUrlBuilder::display_archived_budgets(FinancialBudgetService::get_current_fiscal_year() - 1), FinancialAuthorizationsService::check_authorizations()->write()));
         $tree->add_link(new ModuleLink($lang['financial.budget.add'], FinancialUrlBuilder::add_budget(), FinancialAuthorizationsService::check_authorizations()->moderation()));
 
 		$tree->add_link(new AdminModuleLink($lang['form.configuration'], FinancialUrlBuilder::configuration()));

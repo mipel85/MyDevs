@@ -148,13 +148,6 @@ class FinancialMonitoringService
         }
     }
 
-    private static function copy_table($table_name, $new_table_name)
-    {
-        PersistenceContext::get_dbms_utils()->drop(array($new_table_name));
-        PersistenceContext::get_dbms_utils()->inject('CREATE TABLE `' . $new_table_name . '` LIKE `' . $table_name . '`;');
-        PersistenceContext::get_dbms_utils()->inject('INSERT INTO `' . $new_table_name . '` SELECT * FROM `' . $table_name . '`;');
-    }
-
     public static function change_fiscal_year($date)
     {
         // unset pending request in budget table
@@ -170,8 +163,8 @@ class FinancialMonitoringService
         }
 
         // Clone budget table to budget_($date - 1) table
-        $new_table = PREFIX . 'financial_budget_' . FinancialBudgetService::get_fiscal_year();
-        self::copy_table(FinancialSetup::$financial_budget_table, $new_table);
+        $new_table = PREFIX . 'financial_budget_' . FinancialBudgetService::get_current_fiscal_year();
+        PersistenceContext::get_dbms_utils()->copy_table(FinancialSetup::$financial_budget_table, $new_table);
 
         // Reset budget table
         self::$db_querier->truncate(FinancialSetup::$financial_budget_table);

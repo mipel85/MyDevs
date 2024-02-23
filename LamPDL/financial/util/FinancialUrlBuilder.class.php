@@ -25,9 +25,9 @@ class FinancialUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_archived_budgets($year = '')
+	public static function display_archived_budgets($year)
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/budgets/' . $year);
+		return DispatchManager::get_url(self::$dispatcher, '/budgets/' . $year . '/');
 	}
 
 	/**

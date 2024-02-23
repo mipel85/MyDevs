@@ -29,23 +29,29 @@ class FinancialBudgetArchivesController extends DefaultModuleController
 
 	private function build_view(HTTPRequestCustom $request)
 	{
-        $this->build_sorting_form();
+        $this->build_sorting_form($request);
     }
 
-	private function build_sorting_form()
+	private function build_sorting_form(HTTPRequestCustom $request)
 	{
-        // $year = $request->get_value('year', '');
+        $year = $request->get_value('year', '');
 		$form = new HTMLForm(__CLASS__, '', false);
 		$form->set_css_class('options');
 
 		$fieldset = new FormFieldsetHorizontal('filters', array('description' => $this->lang ['financial.display.year']));
 		$form->add_fieldset($fieldset);
 
-		$years = array(
-			new FormFieldSelectChoiceOption($this->lang['common.sort.by.update'], 1),
-		);
+        $budget_archive_tables = PersistenceContext::get_dbms_utils()->list_module_tables('financial_budget_');
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('year', '', '$year', $years,
+        $years = [];
+        foreach($budget_archive_tables as $budget)
+        {
+            $table_year = explode('_', $budget);
+            $year = end($table_year);
+            $years[] = new FormFieldSelectChoiceOption($year, $year);
+        }
+
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('year', '', $year, $years,
 			array(
                 'select_to_list' => true, 
                 'events' => array('change' => '
@@ -54,7 +60,7 @@ class FinancialBudgetArchivesController extends DefaultModuleController
             )
         ));
 
-		$this->view->put('SORT_FORM', $form->display());
+		$this->view->put('YEARS_FORM', $form->display());
 	}
 
 	private function check_authorizations()

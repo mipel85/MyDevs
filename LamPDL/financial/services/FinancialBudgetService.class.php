@@ -88,7 +88,7 @@ class FinancialBudgetService
         $req->dispose();
     }
 
-    public static function get_fiscal_year()
+    public static function get_current_fiscal_year()
     {
         $fiscal_years = [];
         $req = self::$db_querier->select('SELECT *
