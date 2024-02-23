@@ -95,7 +95,7 @@ class FinancialConfig extends AbstractConfigData
             self::RECIPIENT_MAIL_3  => '',
             self::WINTER_BREAK      => false,
             self::RESET_DATE        => '',
-			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13)
+			self::AUTHORIZATIONS => array('r0' => 5, 'r1' => 13)
 		);
 	}
 

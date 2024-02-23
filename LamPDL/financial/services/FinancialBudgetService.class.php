@@ -88,39 +88,18 @@ class FinancialBudgetService
         $req->dispose();
     }
 
-    public static function reset_budgets($date)
+    public static function get_fiscal_year()
     {
-        self::$db_querier->truncate(FinancialSetup::$financial_budget_table);
-        $file = PATH_TO_ROOT . '/financial/data/budgets.csv';
-        if (($handle = fopen($file, 'r')) !== false)
+        $fiscal_years = [];
+        $req = self::$db_querier->select('SELECT *
+            FROM ' . FinancialSetup::$financial_budget_table
+        );
+        while($row = $req->fetch())
         {
-            fgetcsv($handle); // ignore first row
-            while(($data = fgetcsv($handle, 1000, ';')) !== false)
-            {
-                self::$db_querier->insert(FinancialSetup::$financial_budget_table, array(
-                    'id'            => $data[0],
-                    'domain'        => $data[1],
-                    'name'          => $data[2],
-                    'description'   => $data[3],
-                    'fiscal_year'   => $date,
-                    'annual_amount' => $data[4],
-                    'real_amount'   => $data[4],
-                    'temp_amount'   => $data[4],
-                    'unit_amount'   => $data[5],
-                    'max_amount'    => $data[6],
-                    'quantity'      => $data[7],
-                    'temp_quantity' => $data[7],
-                    'real_quantity' => $data[7],
-                    'use_dl'        => $data[8],
-                    'bill_needed'   => $data[9]
-                ));
-            }
-            fclose($handle);
+            $fiscal_years[] = $row['fiscal_year'];
         }
-        else
-        {
-            echo '<div class="message-helper bgc-full error">Erreur lors de l\'ouverture du fichier CSV.</div>';
-        }
+        $fiscal_year = array_unique($fiscal_years);
+        return implode(',', $fiscal_year);
     }
 
 	/**

@@ -7,7 +7,7 @@
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
-class FinancialRequestsMonitoringController extends DefaultModuleController
+class FinancialBudgetMonitoringController extends DefaultModuleController
 {
 	private $hide_delete_input = array();
 

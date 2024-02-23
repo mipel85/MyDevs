@@ -148,6 +148,84 @@ class FinancialMonitoringService
         }
     }
 
+    private static function copy_table($table_name, $new_table_name)
+    {
+        PersistenceContext::get_dbms_utils()->drop(array($new_table_name));
+        PersistenceContext::get_dbms_utils()->inject('CREATE TABLE `' . $new_table_name . '` LIKE `' . $table_name . '`;');
+        PersistenceContext::get_dbms_utils()->inject('INSERT INTO `' . $new_table_name . '` SELECT * FROM `' . $table_name . '`;');
+    }
+
+    public static function change_fiscal_year($date)
+    {
+        // unset pending request in budget table
+        $result_pending = self::$db_querier->select('SELECT *
+            FROM ' . FinancialSetup::$financial_request_table . '
+            WHERE agreement = 1 OR agreement = 2
+        ');
+        while ($row = $result_pending->fetch())
+        {
+            $item = new FinancialRequestItem();
+            $item->set_properties($row);
+            self::delete_pending_request($row['id']);
+        }
+
+        // Clone budget table to budget_($date - 1) table
+        $new_table = PREFIX . 'financial_budget_' . FinancialBudgetService::get_fiscal_year();
+        self::copy_table(FinancialSetup::$financial_budget_table, $new_table);
+
+        // Reset budget table
+        self::$db_querier->truncate(FinancialSetup::$financial_budget_table);
+        $file = PATH_TO_ROOT . '/financial/data/budgets.csv';
+        if (($handle = fopen($file, 'r')) !== false)
+        {
+            fgetcsv($handle); // ignore first row
+            while(($data = fgetcsv($handle, 1000, ';')) !== false)
+            {
+                self::$db_querier->insert(FinancialSetup::$financial_budget_table, array(
+                    'id'            => $data[0],
+                    'domain'        => $data[1],
+                    'name'          => $data[2],
+                    'description'   => $data[3],
+                    'fiscal_year'   => $date,
+                    'annual_amount' => $data[4],
+                    'real_amount'   => $data[4],
+                    'temp_amount'   => $data[4],
+                    'unit_amount'   => $data[5],
+                    'max_amount'    => $data[6],
+                    'quantity'      => $data[7],
+                    'temp_quantity' => $data[7],
+                    'real_quantity' => $data[7],
+                    'use_dl'        => $data[8],
+                    'bill_needed'   => $data[9]
+                ));
+            }
+            fclose($handle);
+        }
+        else
+        {
+            echo '<div class="message-helper bgc-full error">Erreur lors de l\'ouverture du fichier CSV.</div>';
+        }
+
+        $result_pending = self::$db_querier->select('SELECT *
+            FROM ' . FinancialSetup::$financial_request_table . '
+            WHERE agreement = 1 OR agreement = 2
+        ');
+        // set old pending request to new budget table and rename title
+        while ($row = $result_pending->fetch())
+        {
+            $item = new FinancialRequestItem();
+            $item->set_properties($row);
+            // add pending item to budget
+            self::add_pending_request($item->get_id());
+            // rename
+            $budget = FinancialBudgetService::get_budget(self::get_item($item->get_id())->get_budget_id());
+            $new_title = $budget->get_name() . ' - ' . $date;
+            self::$db_querier->update(FinancialSetup::$financial_request_table, array('title' => $new_title, 'rewrited_title' => Url::encode_rewrite($new_title)), 'WHERE id = :id', array(
+                'id' => $item->get_id()
+            ));
+        }
+    }
+
 	/**
 	 * @desc Clears all module elements in cache.
 	 */

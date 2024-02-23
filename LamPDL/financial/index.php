@@ -19,14 +19,15 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('FinancialBudgetFormController', '`^/add_budget/?$`'),
 	new UrlControllerMapper('FinancialBudgetFormController', '`^/([0-9]+)/edit_budget/?$`', array('id')),
 	new UrlControllerMapper('FinancialDeleteBudgetController', '`^/([0-9]+)/delete_budget/?$`', array('id')),
-	// Manage items
+	// Manage budgets
+	new UrlControllerMapper('FinancialBudgetArchivesController', '`^/budgets/?([0-9]+)?/?$`', array('year')),
+	new UrlControllerMapper('FinancialBudgetMonitoringController', '`^/monitoring/?([0-9]+)?/?$`', array('page')),
 	new UrlControllerMapper('FinancialRequestFormController', '`^/add/?([0-9]+)?/?$`', array('budget_id')),
 	new UrlControllerMapper('FinancialRequestFormController', '`^/edit/?([0-9]+)?/?([0-9]+)?/?$`', array('id', 'budget_id')),
 	new UrlControllerMapper('FinancialRequestDeleteController', '`^/([0-9]+)/delete/?$`', array('id')),
 
 	new UrlControllerMapper('FinancialRequestsArchivedController', '`^/archived/?$`'),
 	new UrlControllerMapper('FinancialRequestsPendingController', '`^/pending/?([0-9]+)?/?$`', array('page')),
-	new UrlControllerMapper('FinancialRequestsMonitoringController', '`^/monitoring/?([0-9]+)?/?$`', array('page')),
 	// new UrlControllerMapper('FinancialMemberItemsController', '`^/member/([0-9]+)?/?([0-9]+)?/?$`', array('user_id', 'page')),
     new UrlControllerMapper('FinancialFileEstimateController', '`^/estimate/?([0-9]+)?/?$`', array('id')),
     new UrlControllerMapper('FinancialFileInvoiceController', '`^/invoice/?([0-9]+)?/?$`', array('id')),

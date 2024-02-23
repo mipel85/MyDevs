@@ -53,6 +53,8 @@ $lang['financial.monitoring.reject'] = 'Refuser';
 $lang['financial.monitoring.reject.clue'] = 'Rejeter la demande';
 $lang['financial.monitoring.accept'] = 'Payer';
 $lang['financial.monitoring.accept.clue'] = 'Payer la demande';
+$lang['financial.archived.budgets'] = 'Archives des budgets';
+$lang['financial.display.year'] = 'Afficher l\'année';
 $lang['financial.budget.annual'] = 'Budget annuel';
 $lang['financial.budget.domain'] = 'Domaine';
 $lang['financial.budget.name'] = 'Nom du budget';
@@ -141,6 +143,7 @@ $lang['financial.reset.clue'] = '
 ';
 $lang['financial.reset.date'] = 'Année du nouvel exercice';
 $lang['financial.reset.date.clue'] = 'Exactement 4 chiffres';
+$lang['financial.reset.button.name'] = 'Valider le nouvel exercice';
 
 // SEO
 $lang['financial.seo.description.root'] = 'Tous les demandes du site :site.';

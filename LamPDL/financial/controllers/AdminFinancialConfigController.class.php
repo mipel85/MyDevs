@@ -29,7 +29,7 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
 
 		if ($this->reset_button->has_been_submited() && $this->reset_form->validate())
 		{
-			FinancialBudgetService::reset_budgets($this->reset_form->get_value('reset_date'));
+			FinancialMonitoringService::change_fiscal_year($this->reset_form->get_value('reset_date'));
 		}
 
 		$this->view->put_all(array(
@@ -93,8 +93,10 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
 	private function build_reset_form()
 	{
 		$reset_form = new HTMLForm(__CLASS__ . '_reset');
+        $reset_form->set_css_class('bgc notice');
 
         $fieldset = new FormFieldsetHTML('reset_configuration', $this->lang['financial.reset']);
+        $fieldset->set_css_class('txt-main');
         $fieldset->set_description($this->lang['financial.reset.clue']);
         $reset_form->add_fieldset($fieldset);
 
@@ -106,7 +108,8 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
             )
         ));
 
-		$this->reset_button = new FormButtonDefaultSubmit();
+		$this->reset_button = new FormButtonDefaultSubmit($this->lang['financial.reset.button.name']);
+        $this->reset_button->set_css_class('bgc-full warning');
 		$reset_form->add_button($this->reset_button);
 
 		$this->reset_form = $reset_form;
