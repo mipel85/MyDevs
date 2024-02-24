@@ -34,6 +34,9 @@ class FinancialBudgetArchivesController extends DefaultModuleController
         $table = PREFIX . 'financial_budget_' . $requested_year;
         $budget_archive_tables = PersistenceContext::get_dbms_utils()->list_module_tables('financial_budget_');
 
+        if (empty($budget_archive_tables))
+            $this->view->put('C_NO_TABLES', true);
+        
         if (in_array($table, $budget_archive_tables))
         {
             $this->view->put('C_TABLE_EXISTS', true);
@@ -41,7 +44,7 @@ class FinancialBudgetArchivesController extends DefaultModuleController
             $result_thead = PersistenceContext::get_querier()->select('SHOW COLUMNS FROM ' . $table);
             while($row = $result_thead->fetch())
             {
-                if(!in_array($row['Field'], array('id', 'fiscal_year', 'description', 'max_amount', 'quantity', 'use_dl', 'bill_needed')))
+                if(in_array($row['Field'], array('domain', 'name', 'annual_amount', 'real_amount', 'unit_amount', 'quantity', 'real_quantity')))
                     $this->view->assign_block_vars('thead', array(
                         'TH' => $this->lang['financial.budget.archive.th.'. $row['Field']]
                     ));
@@ -54,19 +57,17 @@ class FinancialBudgetArchivesController extends DefaultModuleController
                     'C_NAME' => isset($row['name']),
                     'C_ANNUAL_AMOUNT' => isset($row['annual_amount']),
                     'C_REAL_AMOUNT' => isset($row['real_amount']),
-                    'C_TEMP_AMOUNT' => isset($row['temp_amount']),
                     'C_UNIT_AMOUNT' => isset($row['unit_amount']),
+                    'C_QUANTITY' => isset($row['quantity']),
                     'C_REAL_QUANTITY' => isset($row['real_quantity']),
-                    'C_TEMP_QUANTITY' => isset($row['temp_quantity']),
 
                     'DOMAIN' => isset($row['domain']) ? $row['domain'] : '',
                     'NAME' => isset($row['name']) ? $row['name'] : '',
                     'ANNUAL_AMOUNT' => isset($row['annual_amount']) ? $row['annual_amount'] : '',
                     'REAL_AMOUNT' => isset($row['real_amount']) ? $row['real_amount'] : '',
-                    'TEMP_AMOUNT' => isset($row['temp_amount']) ? $row['temp_amount'] : '',
                     'UNIT_AMOUNT' => isset($row['unit_amount']) ? $row['unit_amount'] :'',
-                    'REAL_QUANTITY' => isset($row['real_quantity']) ? $row['real_quantity'] : '',
-                    'TEMP_QUANTITY' => isset($row['temp_quantity']) ? $row['temp_quantity'] : ''
+                    'QUANTITY' => isset($row['quantity']) ? $row['quantity'] : '',
+                    'REAL_QUANTITY' => isset($row['real_quantity']) ? $row['real_quantity'] : ''
                 ));
             }
         }

@@ -204,11 +204,11 @@ $lang['financial.legend.user.delete'] = '<i class="fa fa-trash-alt link-color"><
 $lang['financial.budget.archive.th.domain'] = 'Domaine';
 $lang['financial.budget.archive.th.name'] = 'Nom du Budget';
 $lang['financial.budget.archive.th.annual_amount'] = 'Budget annuel';
-$lang['financial.budget.archive.th.real_amount'] = 'Budget<br /><span class="smaller">réel</span>';
-$lang['financial.budget.archive.th.temp_amount'] = 'Budget<br /><span class="smaller">prévisionnel</span>';
+$lang['financial.budget.archive.th.real_amount'] = 'Solde<br /><span class="smaller">en fin d\'exercice</span>';
 $lang['financial.budget.archive.th.unit_amount'] = 'Forfait';
-$lang['financial.budget.archive.th.real_quantity'] = 'Quantité<br /><span class="smaller">réelle</span>';
-$lang['financial.budget.archive.th.temp_quantity'] = 'Quantité<br /><span class="smaller">prévisionnelle</span>';
-$lang['financial.budget.archive.no.tables'] = 'Aucune table n\'existe pour cet exercice';
+$lang['financial.budget.archive.th.real_quantity'] = 'Quantité<br /><span class="smaller">en fin d\'exercice</span>';
+$lang['financial.budget.archive.th.quantity'] = 'Quantité';
+$lang['financial.budget.archive.no.tables'] = 'Aucune archive de budget n\'a été créée.';
+$lang['financial.budget.archive.unexists'] = 'Aucune table n\'existe pour cet exercice.';
 
 ?>

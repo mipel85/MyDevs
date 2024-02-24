@@ -22,13 +22,12 @@
                                 # START tbody #
                                     <tr>
                                         # IF tbody.C_DOMAIN #<td>{tbody.DOMAIN}</td># ENDIF #
-                                        # IF tbody.C_NAME #<td>{tbody.NAME}</td># ENDIF #
+                                        # IF tbody.C_NAME #<td class="align-left">{tbody.NAME}</td># ENDIF #
                                         # IF tbody.C_ANNUAL_AMOUNT #<td>{tbody.ANNUAL_AMOUNT}</td># ENDIF #
                                         # IF tbody.C_REAL_AMOUNT #<td>{tbody.REAL_AMOUNT}</td># ENDIF #
-                                        # IF tbody.C_TEMP_AMOUNT #<td>{tbody.TEMP_AMOUNT}</td># ENDIF #
                                         # IF tbody.C_UNIT_AMOUNT #<td>{tbody.UNIT_AMOUNT}</td># ENDIF #
+                                        # IF tbody.C_QUANTITY #<td>{tbody.QUANTITY}</td># ENDIF #
                                         # IF tbody.C_REAL_QUANTITY #<td>{tbody.REAL_QUANTITY}</td># ENDIF #
-                                        # IF tbody.C_TEMP_QUANTITY #<td>{tbody.TEMP_QUANTITY}</td># ENDIF #
                                     </tr>
                                 # END tbody #
                             </tbody>
@@ -37,7 +36,11 @@
                 </article>
             # ELSE #
                 <article class="content">
-                    <div class="message-helper bgc notice">{@financial.budget.archive.no.tables}</div>
+                    # IF C_NO_TABLES #
+                        <div class="message-helper bgc notice">{@financial.budget.archive.no.tables}</div>
+                    # ELSE #
+                        <div class="message-helper bgc notice">{@financial.budget.archive.unexists}</div>
+                    # ENDIF #
                 </article>
             # ENDIF #
 		</div>
