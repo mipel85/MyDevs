@@ -11,7 +11,6 @@
 ####################################################
 
 $lang['financial.module.title'] = 'Aide Financière';
-$lang['financial.config.auth'] = 'Configuration de module Aide Financière';
 
 $lang['financial.item'] = 'demande';
 $lang['financial.items'] = 'demandes';
@@ -62,7 +61,7 @@ $lang['financial.amount.paid'] = 'Montant';
 $lang['financial.budget.description'] = 'Description du budget';
 $lang['financial.budget.fiscal.year'] = 'Année de l\'exercice';
 $lang['financial.budget.annual.amount'] = 'Budget annuel';
-$lang['financial.budget.pending'] = 'Des demandes sont en attentes';
+$lang['financial.budget.pending'] = 'Des demandes sont en attente';
 $lang['financial.budget.no.pending'] = 'Aucune demande en attente';
 $lang['financial.budget.balance'] = 'Solde';
 $lang['financial.budget.rest'] = 'Restantes';
@@ -93,8 +92,8 @@ $lang['financial.request.estimate.url'] = 'Devis';
 $lang['financial.request.estimate.url.clue'] = 'Si vous n\'avez pas encore de facture';
 $lang['financial.request.invoice.url'] = 'Facture';
 $lang['financial.request.invoice.url.clue'] = 'Nécessaire pour la prise en compte de votre demande';
-$lang['financial.request.no.files'] = 'Un devis ou une facture sont nécéssaires pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
-$lang['financial.request.no.invoice'] = 'Une facture est nécéssaire pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
+$lang['financial.request.no.files'] = 'Un devis ou une facture sont nécessaires pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
+$lang['financial.request.no.invoice'] = 'Une facture est nécessaire pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
 
 $lang['financial.request.email'] = 'Informations email';
 $lang['financial.request.email.clue'] = 'Les informations suivantes ne sont ni enregistrées ni conservées sur le site (RGPD)';
@@ -112,7 +111,7 @@ $lang['financial.status.rejected'] = 'Rejetée';
 
 // Email
 $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
-	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="https://miroir.aeromodelisme-paysdeloire.fr/financial/pending/">Aller sur le site</a> <br /><br /> 
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="https://' . $_SERVER['SERVER_NAME'] . '/financial/pending/">Aller sur le site</a><br /><br /> 
     Le club <strong>:club_name</strong> souhaite obtenir une aide pour la demande : :activity.
     <br /><br /><strong>Département :</strong> :club_activity_dpt
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
@@ -121,7 +120,7 @@ $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
 ';
 
 $lang['financial.mail.invoice.msg'] = 'Bonjour, <br /><br />
-	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="https://miroir.aeromodelisme-paysdeloire.fr/financial/pending/">Aller sur le site</a> <br /><br /> 
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="https://' . $_SERVER['SERVER_NAME'] . '/financial/pending/">Aller sur le site</a><br /><br /> 
     Le club <strong>:club_name</strong> a fourni une facture dans le suivi de son dossier pour la demande : :activity
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
     <br /><strong>Date de réalisation :</strong> :club_activity_date
@@ -169,7 +168,7 @@ $lang['financial.message.success.budget.edit'] = 'Le budget <strong>:name</stron
 $lang['financial.message.success.budget.delete'] = 'Le budget <strong>:name</strong> a été supprimé';
 
 // Errors
-$lang['financial.warnings'] = 'Attention !!';
+$lang['financial.warnings'] = 'Information !';
 $lang['financial.warnings.lamclubs'] = 'Le module Lamclubs est manquant, le module financial ne pourra pas fonctionner correctement.';
 $lang['financial.warnings.break'] = 'En vue de la préparation de la fin de l\'exercice comptable, la saisie des demandes est suspendue.<br /> La reprise sera possible après l\'Assemblée Générale.';
 $lang['financial.error.invalid.date'] = 'La date entrée est invalide';
@@ -188,7 +187,7 @@ $lang['financial.legend.monitoring.button.ongoing'] = 'Bouton À l\'étude: Marq
 $lang['financial.legend.monitoring.button.reject'] = 'Bouton Refuser: Archive la demande avec la mention Refusée.';
 
 $lang['financial.legend.user.pending'] = 'Cette page est accessible à tout moment en utilisant le menu <i class="fa fa-cog"></i>.';
-$lang['financial.legend.user.archived'] = 'Si votre demande n\'apparait plus, c\'est qu\'elle a été traitée.';
+$lang['financial.legend.user.archived'] = 'Si votre demande n\'apparaît plus, c\'est qu\'elle a été traitée.';
 $lang['financial.legend.user.file'] = 'Colonne Fichiers';
 $lang['financial.legend.user.none'] = 'vide :  Aucune action n\'est requise pour que votre demande soit étudiée.';
 $lang['financial.legend.user.error'] = '<i class="fa fa-circle-question error"></i> : vous devez fournir au moins un devis pour que votre demande soit étudiée.';
@@ -196,7 +195,7 @@ $lang['financial.legend.user.warning'] = '<i class="fa fa-triangle-exclamation w
 $lang['financial.legend.user.estimate'] = '<i class="far fa-file-lines link-color"></i> : vous avez fourni un devis.';
 $lang['financial.legend.user.invoice'] = '<i class="fa fa-file-contract link-color"></i> : vous avez fourni une facture.';
 
-$lang['financial.legend.user.controls'] = 'Pour chacune de vos demandes, vous avez accès à des boutons de controle.';
+$lang['financial.legend.user.controls'] = 'Pour chacune de vos demandes, vous avez accès à des boutons de contrôle.';
 $lang['financial.legend.user.edit'] = '<i class="far fa-edit link-color"></i> pour éditer votre demande';
 $lang['financial.legend.user.delete'] = '<i class="fa fa-trash-alt link-color"></i> pour supprimer votre demande';
 
@@ -212,5 +211,4 @@ $lang['financial.budget.archive.th.quantity'] = 'Quantité';
 $lang['financial.budget.archive.no.tables'] = 'Aucune archive de budget n\'a été créée.';
 $lang['financial.budget.archive.unexists'] = 'Aucune table n\'existe pour cet exercice.';
 $lang['financial.budget.archive.home'] = 'Sélectionner une date dans le sélecteur "Afficher l\'année".';
-
 ?>
