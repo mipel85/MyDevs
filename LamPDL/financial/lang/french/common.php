@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 02 26
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 ####################################################
@@ -171,7 +171,7 @@ $lang['financial.message.success.budget.delete'] = 'Le budget <strong>:name</str
 // Errors
 $lang['financial.warnings'] = 'Attention !!';
 $lang['financial.warnings.lamclubs'] = 'Le module Lamclubs est manquant, le module financial ne pourra pas fonctionner correctement.';
-$lang['financial.warnings.break'] = 'Oualou, mon zami, tu rontres chey ta maire !!';
+$lang['financial.warnings.break'] = 'En vue de la préparation de la fin de l\'exercice comptable, la saisie des demandes est suspendue.<br /> La reprise sera possible après l\'Assemblée Générale.';
 $lang['financial.error.invalid.date'] = 'La date entrée est invalide';
 $lang['financial.warning.estimate.url'] = 'Vous devez fournir au moins un devis';
 

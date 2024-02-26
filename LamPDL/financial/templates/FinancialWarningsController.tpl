@@ -11,7 +11,7 @@
                     <div class="message-helper bgc error">{@financial.warnings.lamclubs}</div>
                 # ENDIF #
                 # IF C_BREAK #
-                    <div class="message-helper bgc notice">{@financial.warnings.break}</div>
+                    <div class="message-helper bgc notice">{@H|financial.warnings.break}</div>
                 # ENDIF #
 			</article>
 		</div>
