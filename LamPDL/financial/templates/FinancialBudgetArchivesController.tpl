@@ -1,7 +1,7 @@
 <section id="module-financial" class="single-item">
 	<header class="section-header">
 		<h1>
-			<span itemprop="name">{@financial.monitoring} - {YEAR_TITLE}</span>
+			<span itemprop="name">{@financial.budget.archives} # IF C_YEAR_SELECTED #- {YEAR_TITLE}# ENDIF #</span>
 		</h1>
 	</header>
 	<div class="sub-section">
@@ -39,7 +39,11 @@
                     # IF C_NO_TABLES #
                         <div class="message-helper bgc notice">{@financial.budget.archive.no.tables}</div>
                     # ELSE #
-                        <div class="message-helper bgc notice">{@financial.budget.archive.unexists}</div>
+                        # IF C_YEAR_SELECTED #
+                            <div class="message-helper bgc notice">{@financial.budget.archive.unexists}</div>
+                        # ELSE #
+                        <div class="message-helper bgc notice">{@financial.budget.archive.home}</div>
+                        # ENDIF #
                     # ENDIF #
                 </article>
             # ENDIF #

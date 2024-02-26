@@ -29,14 +29,16 @@ class FinancialBudgetArchivesController extends DefaultModuleController
 
 	private function build_view(HTTPRequestCustom $request)
 	{
-        $requested_year = !is_null($request->get_value('year', '')) ? $request->get_value('year', '') : '';
-        $this->view->put('YEAR_TITLE', $requested_year);
-        $table = PREFIX . 'financial_budget_' . $requested_year;
         $budget_archive_tables = PersistenceContext::get_dbms_utils()->list_module_tables('financial_budget_');
+        $requested_year = !is_null($request->get_value('year', '')) ? $request->get_value('year', '') : '';
+        $this->view->put_all(array(
+            'C_YEAR_SELECTED' => !empty($budget_archive_tables) && !empty($requested_year),
+            'C_NO_TABLES'  => empty($budget_archive_tables),
+            'YEAR_TITLE' => $requested_year,
 
-        if (empty($budget_archive_tables))
-            $this->view->put('C_NO_TABLES', true);
-        
+        ));
+
+        $table = PREFIX . 'financial_budget_' . $requested_year;
         if (in_array($table, $budget_archive_tables))
         {
             $this->view->put('C_TABLE_EXISTS', true);
@@ -75,7 +77,8 @@ class FinancialBudgetArchivesController extends DefaultModuleController
             $this->view->put('C_TABLE_EXISTS', false);
         }
         
-        $this->build_year_form($request);
+        if (count($budget_archive_tables) > 1 || empty($requested_year))
+            $this->build_year_form($request);
     }
 
 	private function build_year_form(HTTPRequestCustom $request)
@@ -131,6 +134,7 @@ class FinancialBudgetArchivesController extends DefaultModuleController
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['financial.module.title'], FinancialUrlBuilder::home());
+		$breadcrumb->add($this->lang['financial.budget.archives'], FinancialUrlBuilder::display_archived_budgets($request->get_getvalue('year', '')));
 
 		return $response;
 	}

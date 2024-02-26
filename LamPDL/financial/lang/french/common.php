@@ -201,6 +201,7 @@ $lang['financial.legend.user.edit'] = '<i class="far fa-edit link-color"></i> po
 $lang['financial.legend.user.delete'] = '<i class="fa fa-trash-alt link-color"></i> pour supprimer votre demande';
 
 // Budjet archives
+$lang['financial.budget.archives'] = 'Archives des budgets';
 $lang['financial.budget.archive.th.domain'] = 'Domaine';
 $lang['financial.budget.archive.th.name'] = 'Nom du Budget';
 $lang['financial.budget.archive.th.annual_amount'] = 'Budget annuel';
@@ -210,5 +211,6 @@ $lang['financial.budget.archive.th.real_quantity'] = 'Quantité<br /><span class
 $lang['financial.budget.archive.th.quantity'] = 'Quantité';
 $lang['financial.budget.archive.no.tables'] = 'Aucune archive de budget n\'a été créée.';
 $lang['financial.budget.archive.unexists'] = 'Aucune table n\'existe pour cet exercice.';
+$lang['financial.budget.archive.home'] = 'Sélectionner une date dans le sélecteur "Afficher l\'année".';
 
 ?>
