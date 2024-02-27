@@ -29,20 +29,13 @@ class PlanningMemberItemsController extends DefaultModuleController
 
 	private function build_table(HTTPRequestCustom $request)
 	{
-		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
-
 		$columns = array(
-			new HTMLTableColumn($this->lang['common.title'], 'title'),
-			new HTMLTableColumn($this->lang['category.category'], 'id_category'),
+			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
+			new HTMLTableColumn($this->lang['planning.activities'], 'title'),
 			new HTMLTableColumn($this->lang['planning.club.department'], 'clubs_department'),
 			new HTMLTableColumn($this->lang['planning.club.name'], 'clubs_name'),
-			new HTMLTableColumn($this->lang['common.see.details'], 'content'),
-			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn('')
 		);
-
-		if (!$display_categories)
-			unset($columns[1]);
 
 		$table_model = new SQLHTMLTableModel(PlanningSetup::$planning_table, 'items-list', $columns, new HTMLTableSortingRule('start_date', HTMLTableSortingRule::DESC));
 
@@ -56,8 +49,7 @@ class PlanningMemberItemsController extends DefaultModuleController
 		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('start_date', 'filter1', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
 		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter3', $this->lang['planning.club.department']));
-		if ($display_categories)
-			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
+        $table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
 
         $table_model->add_permanent_filter('author_user_id = ' . $this->get_member()->get_id());
 
@@ -112,23 +104,18 @@ class PlanningMemberItemsController extends DefaultModuleController
 
 			$c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
             $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
-            $c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+            $c_end_date = $item->get_end_date_enabled() && $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
             $club = LamclubsService::get_item($item->get_lamclubs_id());
 
 			if($item->is_approved())
 			{
 				$row = array(
+					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
 					new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $title), 'align-left'),
-					new HTMLTableRowCell($category->get_name()),
 					new HTMLTableRowCell($club->get_department()),
 					new HTMLTableRowCell($club->get_name()),
-					new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $this->lang['common.read.more'])),
-					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
 					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link, 'controls') : null
 				);
-
-				if (!$display_categories)
-					unset($row[1]);
 
 				$table_row = new HTMLTableRow($row);
 				if (in_array($item->get_id(), $this->hide_delete_input))

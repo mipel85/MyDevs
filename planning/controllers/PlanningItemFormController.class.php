@@ -66,13 +66,13 @@ class PlanningItemFormController extends DefaultModuleController
             )
 		));
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $this->get_item()->get_lamclubs_id(), LamclubsService::get_options_list(), array('required' => true)));
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $item->get_lamclubs_id(), LamclubsService::get_options_list(), array('required' => true)));
 
-        $fieldset->add_field($start_date = new FormFieldDateTime('start_date', $this->lang['planning.start.date'], $this->get_item()->get_start_date(),
+        $fieldset->add_field($start_date = new FormFieldDateTime('start_date', $this->lang['planning.start.date'], $item->get_start_date(),
 			array('required' => true, 'five_minutes_step' => true)
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('end_date_enabled', $this->lang['planning.end.date.enabled'], $this->get_item()->get_end_date_enabled(),
+		$fieldset->add_field(new FormFieldCheckbox('end_date_enabled', $this->lang['planning.end.date.enabled'], $item->get_end_date_enabled(),
 			array(
 				'events' => array('click' => '
 					if (HTMLForms.getField("end_date_enabled").getValue()) {
@@ -84,10 +84,10 @@ class PlanningItemFormController extends DefaultModuleController
 			)
 		));
 
-		$fieldset->add_field($end_date = new FormFieldDateTime('end_date', $this->lang['planning.end.date'], $this->get_item()->get_end_date(),
+		$fieldset->add_field($end_date = new FormFieldDateTime('end_date', $this->lang['planning.end.date'], $item->get_end_date(),
 			array(
                 'required' => true, 'five_minutes_step' => true,
-                'hidden' => !$this->get_item()->get_end_date_enabled()
+                'hidden' => !$item->get_end_date_enabled()
             )
 		));
 
@@ -148,13 +148,13 @@ class PlanningItemFormController extends DefaultModuleController
 			array('rows' => 15)
 		));
 
-        if ((!$this->is_new_item && $this->get_item()->is_authorized_to_add()) || CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation())
+        if ((!$this->is_new_item && $item->is_authorized_to_add()) || CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation())
         {
             $publication_fieldset = new FormFieldsetHTML('publications', $this->lang['form.publication']);
             $form->add_fieldset($publication_fieldset);
 
             if (!$this->is_new_item)
-                $publication_fieldset->add_field(new FormFieldCheckbox('cancelled', $this->lang['planning.form.cancel'], $this->get_item()->is_cancelled()));
+                $publication_fieldset->add_field(new FormFieldCheckbox('cancelled', $this->lang['planning.form.cancel'], $item->is_cancelled()));
 
             if (CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation())
                 $publication_fieldset->add_field(new FormFieldCheckbox('approved', $this->lang['form.approve'], $item->is_approved()));

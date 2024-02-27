@@ -293,7 +293,7 @@ class PlanningItem
 			'rewrited_link' => $this->get_rewrited_link(),
 			'start_date' => ($this->get_start_date() !== null ? $this->get_start_date()->get_timestamp() : ''),
 			'end_date_enabled' => $this->get_end_date_enabled(),
-			'end_date' => ($this->get_end_date() !== null ? $this->get_end_date()->get_timestamp() : ''),
+			'end_date' => ($this->get_end_date_enabled() && $this->get_end_date() !== null ? $this->get_end_date()->get_timestamp() : ''),
 			'author_user_id' => $this->get_author_user()->get_id(),
 			'email' => $this->get_email(),
 			'more_infos' => $this->get_more_infos(),
@@ -317,7 +317,8 @@ class PlanningItem
 		$this->activity_other = $properties['activity_other'];
 		$this->rewrited_link = $properties['rewrited_link'];
         $this->start_date = !empty($properties['start_date']) ? new Date($properties['start_date'], Timezone::SERVER_TIMEZONE) : null;
-		$this->end_date = !empty($properties['end_date']) ? new Date($properties['end_date'], Timezone::SERVER_TIMEZONE) : null;
+		$this->end_date_enabled = $properties['end_date_enabled'];
+		$this->end_date = !empty($properties['end_date_enabled']) && !empty($properties['end_date']) ? new Date($properties['end_date'], Timezone::SERVER_TIMEZONE) : null;
 		$this->email = $properties['email'];
 		$this->more_infos = $properties['more_infos'];
 
@@ -341,7 +342,6 @@ class PlanningItem
 			$this->display_map();
 		else
 			$this->hide_map();
-
 
 		$user = new User();
 		if (!empty($properties['user_id']))

@@ -40,6 +40,7 @@ $lang['planning.end.date']             = 'Date de fin';
 $lang['planning.club.department']      = 'Département';
 $lang['planning.club.name']            = 'Nom du Club';
 $lang['planning.organized.by']         = 'Organisé par';
+$lang['planning.status.published']     = 'Approuvé';
 $lang['planning.status.draft']         = 'En attente';
 $lang['planning.contact']              = 'Contacter le club';
 $lang['planning.contact.phone']        = 'Par téléphone';

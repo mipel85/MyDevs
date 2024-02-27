@@ -49,7 +49,7 @@ class PlanningHomeController extends DefaultModuleController
 		);
 
 		if (!$display_categories)
-			unset($columns[1]);
+			unset($columns[2]);
 
 		$table_model = new SQLHTMLTableModel(PlanningSetup::$planning_table, 'items-list', $columns, new HTMLTableSortingRule('start_date', HTMLTableSortingRule::ASC));
 
@@ -123,7 +123,7 @@ class PlanningHomeController extends DefaultModuleController
 
 			$c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
             $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
-            $c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+            $c_end_date = $item->get_end_date_enabled() && $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
             $club = LamclubsService::get_item($item->get_lamclubs_id());
             
 			if($item->is_approved())

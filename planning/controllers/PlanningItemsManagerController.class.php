@@ -78,19 +78,20 @@ class PlanningItemsManagerController extends DefaultModuleController
 
 			$br = new BrHTMLElement();
 
+            $draft_class = !$item->is_approved() ? 'bgc warning' : '';
             $c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
             $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
             $club = LamclubsService::get_item($item->get_lamclubs_id());
-            $c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+            $c_end_date = $item->get_end_date_enabled() && $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 
 			$row = array(
-				new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $title), 'align-left'),
-				new HTMLTableRowCell($author),
-				new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
-				new HTMLTableRowCell($club->get_department()),
-				new HTMLTableRowCell($club->get_name()),
-                new HTMLTableRowCell($item->is_approved() ? $this->lang['common.status.published'] : $this->lang['common.status.draft']),
-				new HTMLTableRowCell($edit_link->display() . $delete_link->display(), 'controls')
+				new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $title), 'align-left ' . $draft_class),
+				new HTMLTableRowCell($author, $draft_class),
+				new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : ''), $draft_class),
+				new HTMLTableRowCell($club->get_department(), $draft_class),
+				new HTMLTableRowCell($club->get_name(), $draft_class),
+                new HTMLTableRowCell($item->is_approved() ? $this->lang['planning.status.published'] : $this->lang['planning.status.draft'], $draft_class),
+				new HTMLTableRowCell($edit_link->display() . $delete_link->display(), 'controls ' . $draft_class)
 			);
 
 			if (!$display_categories)
