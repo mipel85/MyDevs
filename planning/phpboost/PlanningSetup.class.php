@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 02 27
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
@@ -59,11 +59,13 @@ class PlanningSetup extends DefaultModuleSetup
 			'update_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'cancelled' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
 			'approved' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
-
+            
+            
+            'more_infos' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'phone' => array('type' => 'string', 'length' => 10, 'notnull' => 0, 'default' => "''"),
 			'thumbnail_url' => array('type' => 'string', 'length' => 255, 'notnull' => 0, 'default' => "''"),
-			'content' => array('type' => 'text', 'length' => 65000, 'notnull' => 0, 'default' => "''"),
-			'location' => array('type' => 'text', 'length' => 65000, 'notnull' => 0, 'default' => "''"),
+			'content' => array('type' => 'text', 'length' => 65000, 'notnull' => 0),
+			'location' => array('type' => 'text', 'length' => 65000, 'notnull' => 0),
 			'map_displayed' => array('type' => 'boolean', 'notnull' => 0, 'default' => 0)
 		);
 		$options = array(
