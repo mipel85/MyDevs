@@ -3,8 +3,8 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
- * @since       PHPBoost 6.0 - 2020 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 02 27
+ * @since       PHPBoost 6.0 - 2024 02 25
 */
 
 ####################################################
@@ -59,7 +59,7 @@ $lang['planning.activities']          = 'Activités';
 $lang['planning.activity.clue']       = 'Si votre activité n\'est pas répertoriée, laissez sur "Autres activités" et remplissez le champ suivant.';
 $lang['planning.activity.other']      = 'Autre activité';
 $lang['planning.form.more.infos']     = 'Informations complémentaires <span class="description small text-italic">Optionnel</span>';
-$lang['planning.form.phone']          = 'N° de téléphone du club';
+$lang['planning.form.phone']          = 'N° de téléphone de contact';
 $lang['planning.form.phone.clue']     = '10 chiffres sans espace';
 $lang['planning.form.thumbnail']      = 'Affiche / Flyer';
 $lang['planning.form.thumbnail.clue'] = 'Fichier image ou pdf';

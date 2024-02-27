@@ -3,8 +3,8 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
- * @since       PHPBoost 6.0 - 2020 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 02 27
+ * @since       PHPBoost 6.0 - 2024 02 25
 */
 
 class PlanningHomeController extends DefaultModuleController
@@ -40,11 +40,11 @@ class PlanningHomeController extends DefaultModuleController
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
 		$columns = array(
+			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn($this->lang['planning.activities'], 'id_category'),
 			new HTMLTableColumn($this->lang['planning.club.department'], 'department'),
 			new HTMLTableColumn($this->lang['planning.club.name'], 'name'),
 			new HTMLTableColumn($this->lang['common.see.details'], 'content'),
-			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn('')
 		);
 
@@ -129,11 +129,11 @@ class PlanningHomeController extends DefaultModuleController
 			if($item->is_approved())
 			{
 				$row = array(
+					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : ''),'align-left'),
 					new HTMLTableRowCell($title, 'align-left'),
 					new HTMLTableRowCell($club->get_department()),
-					new HTMLTableRowCell($club->get_name()),
+					new HTMLTableRowCell($club->get_name(),'align-left'),
 					new HTMLTableRowCell($visitor_link),
-					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
 					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link . $moderator_link, 'controls') : null
 				);
 
