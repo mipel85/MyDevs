@@ -59,8 +59,7 @@ class PlanningSetup extends DefaultModuleSetup
 			'update_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'cancelled' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
 			'approved' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
-            
-            
+
             'more_infos' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'phone' => array('type' => 'string', 'length' => 10, 'notnull' => 0, 'default' => "''"),
 			'thumbnail_url' => array('type' => 'string', 'length' => 255, 'notnull' => 0, 'default' => "''"),

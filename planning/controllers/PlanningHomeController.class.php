@@ -63,8 +63,8 @@ class PlanningHomeController extends DefaultModuleController
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
 
         $now = new Date();
-        $clear = new Date($now->get_timestamp() - 86400, Timezone::SERVER_TIMEZONE);
-        $table_model->add_permanent_filter('end_date > ' . $clear->get_timestamp());
+        $clear = new Date($now->get_timestamp() - 172800, Timezone::SERVER_TIMEZONE);
+        $table_model->add_permanent_filter('start_date > ' . $clear->get_timestamp());
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
@@ -81,6 +81,7 @@ class PlanningHomeController extends DefaultModuleController
 		{
 			$item = new PlanningItem();
 			$item->set_properties($row);
+
 			$items[] = $item;
 			if ($item->is_authorized_to_edit() || $item->is_authorized_to_delete())
 			{
