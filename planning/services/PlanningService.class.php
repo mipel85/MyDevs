@@ -76,6 +76,11 @@ class PlanningService
 		return $item;
 	}
 
+    public static function send_email()
+    {
+        
+    }
+
 	/**
 	 * @desc Clears all module elements in cache.
 	 */

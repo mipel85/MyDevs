@@ -282,6 +282,8 @@ class PlanningItemFormController extends DefaultModuleController
 		$item->set_end_date_enabled($this->form->get_value('end_date_enabled'));
         if($this->form->get_value('end_date_enabled'))
             $item->set_end_date($this->form->get_value('end_date'));
+
+        $item->set_more_infos($this->form->get_value('more_infos'));
 		$item->set_phone($this->form->get_value('phone'));
 		$item->set_thumbnail($this->form->get_value('thumbnail'));
 		$item->set_email($this->form->get_value('email'));

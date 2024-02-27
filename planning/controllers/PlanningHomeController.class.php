@@ -110,6 +110,12 @@ class PlanningHomeController extends DefaultModuleController
 			$delete_link = new DeleteLinkHTMLElement(PlanningUrlBuilder::delete_item($item->get_id()), '', array('data-confirmation' => 'delete-element'));
 			$delete_link = $item->is_authorized_to_delete() ? $delete_link->display() : '';
 
+            $moderator_link = new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), '<i class="fa fa-fw fa-eye"></i>', array('aria-label' => $this->lang['common.read.more']));
+            $moderator_link = !$item->get_more_infos() && CategoriesAuthorizationsService::check_authorizations()->moderation() ? $moderator_link->display() : '';
+            
+            $visitor_link = new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), '<i class="fa fa-fw fa-eye"></i>', array('aria-label' => $this->lang['common.read.more']));
+            $visitor_link = $item->get_more_infos() ? $visitor_link->display() : '';
+
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
 
@@ -126,9 +132,9 @@ class PlanningHomeController extends DefaultModuleController
 					new HTMLTableRowCell($title, 'align-left'),
 					new HTMLTableRowCell($club->get_department()),
 					new HTMLTableRowCell($club->get_name()),
-					new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $this->lang['common.read.more'])),
+					new HTMLTableRowCell($visitor_link),
 					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
-					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link, 'controls') : null
+					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link . $moderator_link, 'controls') : null
 				);
 
 				if (!$display_categories)
