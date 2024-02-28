@@ -28,7 +28,7 @@ class PlanningItemsManagerController extends DefaultModuleController
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
 		$columns = array(
-			new HTMLTableColumn($this->lang['planning.activities'], 'id_category'),
+			new HTMLTableColumn($this->lang['planning.activity'], 'id_category'),
 			new HTMLTableColumn($this->lang['common.author'], 'display_name'),
 			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn($this->lang['planning.club.department'], 'department'),
@@ -56,9 +56,9 @@ class PlanningItemsManagerController extends DefaultModuleController
 		$table->set_filters_fieldset_class_HTML();
 
 		$results = array();
-		$result = $table_model->get_sql_results('event
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event.author_user_id
-			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = event.lamclubs_id'
+		$result = $table_model->get_sql_results('pl
+			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = pl.author_user_id
+			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = pl.lamclubs_id'
 		);
 		foreach ($result as $row)
 		{

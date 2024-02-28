@@ -13,8 +13,6 @@
 
 $lang['planning.module.title'] = 'Planning';
 
-$lang['planning.item']  = 'événement';
-$lang['planning.items'] = 'événements';
 $lang['planning.no.category'] = 'Sans catégorie';
 
 // TreeLinks

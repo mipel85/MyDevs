@@ -52,9 +52,9 @@ class PlanningPendingItemsController extends DefaultModuleController
 		$table->set_filters_fieldset_class_HTML();
 
 		$results = array();
-		$result = $table_model->get_sql_results('event
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event.author_user_id
-			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = event.lamclubs_id'
+		$result = $table_model->get_sql_results('pl
+			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = pl.author_user_id
+			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = pl.lamclubs_id'
 		);
 		foreach ($result as $row)
 		{

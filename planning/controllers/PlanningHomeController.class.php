@@ -63,16 +63,16 @@ class PlanningHomeController extends DefaultModuleController
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
 
         $now = new Date();
-        $clear = new Date($now->get_timestamp() - 172800, Timezone::SERVER_TIMEZONE);
-        $table_model->add_permanent_filter('start_date > ' . $clear->get_timestamp());
+        $clear = new Date($now->get_timestamp() - 86400, Timezone::SERVER_TIMEZONE);
+        $table_model->add_permanent_filter('(end_date_enabled = 0 AND start_date > ' . $clear->get_timestamp() . ') OR (end_date_enabled = 1 AND end_date > ' . $clear->get_timestamp() . ')');
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
 
 		$results = array();
-		$result = $table_model->get_sql_results('event
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event.author_user_id
-			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = event.lamclubs_id'
+		$result = $table_model->get_sql_results('pl
+			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = pl.author_user_id
+			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = pl.lamclubs_id'
 		);
 
 		$items = array();
@@ -111,11 +111,8 @@ class PlanningHomeController extends DefaultModuleController
 			$delete_link = new DeleteLinkHTMLElement(PlanningUrlBuilder::delete_item($item->get_id()), '', array('data-confirmation' => 'delete-element'));
 			$delete_link = $item->is_authorized_to_delete() ? $delete_link->display() : '';
 
-            $moderator_link = new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), '<i class="fa fa-fw fa-eye"></i>', array('aria-label' => $this->lang['common.read.more']));
-            $moderator_link = !$item->get_more_infos() && CategoriesAuthorizationsService::check_authorizations()->moderation() ? $moderator_link->display() : '';
-            
             $visitor_link = new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), '<i class="fa fa-fw fa-eye"></i>', array('aria-label' => $this->lang['common.read.more']));
-            $visitor_link = $item->get_more_infos() ? $visitor_link->display() : '';
+            $visitor_link = $visitor_link->display();
 
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
@@ -135,7 +132,7 @@ class PlanningHomeController extends DefaultModuleController
 					new HTMLTableRowCell($club->get_department()),
 					new HTMLTableRowCell($club->get_name(),'align-left'),
 					new HTMLTableRowCell($visitor_link),
-					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link . $moderator_link, 'controls') : null
+					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link, 'controls') : null
 				);
 
 				if (!$display_categories)
