@@ -42,8 +42,8 @@ class PlanningPendingItemsController extends DefaultModuleController
 		// $table_model->add_filter(new HTMLTableDateComparatorSQLFilter('start_date', 'filter0', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('start_date', 'filter1', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
-		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter3', $this->lang['planning.club.department']));
-		$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
+		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('department', 'filter3', $this->lang['planning.club.department'], array(44 => 44, 49 => 49, 53 => 53, 72 => 72, 85 => 85)));
+        $table_model->add_filter(new HTMLTableCategorySQLFilter('filter4', $this->lang['planning.activities']));
 
         $table_model->add_permanent_filter('approved = 0');
 

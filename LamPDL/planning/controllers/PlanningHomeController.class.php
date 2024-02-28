@@ -37,8 +37,6 @@ class PlanningHomeController extends DefaultModuleController
 
 	private function build_table()
 	{
-		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
-
 		$columns = array(
 			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn($this->lang['planning.activities'], 'id_category'),
@@ -48,9 +46,6 @@ class PlanningHomeController extends DefaultModuleController
 			new HTMLTableColumn('')
 		);
 
-		if (!$display_categories)
-			unset($columns[2]);
-
 		$table_model = new SQLHTMLTableModel(PlanningSetup::$planning_table, 'items-list', $columns, new HTMLTableSortingRule('start_date', HTMLTableSortingRule::ASC));
 
 		$table_model->set_layout_title($this->lang['planning.module.title']);
@@ -58,9 +53,8 @@ class PlanningHomeController extends DefaultModuleController
 		$table_model->set_filters_menu_title($this->lang['planning.filter.items']);
 		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('start_date', 'filter1', $this->lang['date.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['date.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
-		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter3', $this->lang['planning.club.department']));
-		if ($display_categories)
-			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
+		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('department', 'filter3', $this->lang['planning.club.department'], array(44 => 44, 49 => 49, 53 => 53, 72 => 72, 85 => 85)));
+        $table_model->add_filter(new HTMLTableCategorySQLFilter('filter4', $this->lang['planning.activities']));
 
         $now = new Date();
         $clear = new Date($now->get_timestamp() - 86400, Timezone::SERVER_TIMEZONE);
@@ -123,7 +117,7 @@ class PlanningHomeController extends DefaultModuleController
             $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
             $c_end_date = $item->get_end_date_enabled() && $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
             $club = LamclubsService::get_item($item->get_lamclubs_id());
-            
+
 			if($item->is_approved())
 			{
 				$row = array(
@@ -134,9 +128,6 @@ class PlanningHomeController extends DefaultModuleController
 					new HTMLTableRowCell($visitor_link),
 					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link, 'controls') : null
 				);
-
-				if (!$display_categories)
-					unset($row[1]);
 
 				$table_row = new HTMLTableRow($row);
 				if (in_array($item->get_id(), $this->hide_delete_input))

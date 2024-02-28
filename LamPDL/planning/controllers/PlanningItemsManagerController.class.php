@@ -25,8 +25,6 @@ class PlanningItemsManagerController extends DefaultModuleController
 
 	private function build_table()
 	{
-		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
-
 		$columns = array(
 			new HTMLTableColumn($this->lang['planning.activity'], 'id_category'),
 			new HTMLTableColumn($this->lang['common.author'], 'display_name'),
@@ -37,9 +35,6 @@ class PlanningItemsManagerController extends DefaultModuleController
 			new HTMLTableColumn($this->lang['common.actions'], '', array('sr-only' => true))
 		);
 
-		if (!$display_categories)
-			unset($columns[1]);
-
 		$table_model = new SQLHTMLTableModel(PlanningSetup::$planning_table, 'items-manager', $columns, new HTMLTableSortingRule('start_date', HTMLTableSortingRule::DESC));
 
 		$table_model->set_layout_title($this->lang['planning.items.management']);
@@ -47,9 +42,8 @@ class PlanningItemsManagerController extends DefaultModuleController
 		$table_model->set_filters_menu_title($this->lang['planning.filter.items']);
 		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('start_date', 'filter1', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['planning.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
-		$table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter4', $this->lang['planning.club.department']));
-		if ($display_categories)
-			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter6'));
+		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('department', 'filter3', $this->lang['planning.club.department'], array(44 => 44, 49 => 49, 53 => 53, 72 => 72, 85 => 85)));
+        $table_model->add_filter(new HTMLTableCategorySQLFilter('filter4', $this->lang['planning.activities']));
 		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $this->lang['common.status'], array(1 => $this->lang['common.status.approved'], 0 => $this->lang['planning.status.draft'])));
 
 		$table = new HTMLTable($table_model);
@@ -60,6 +54,7 @@ class PlanningItemsManagerController extends DefaultModuleController
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = pl.author_user_id
 			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = pl.lamclubs_id'
 		);
+
 		foreach ($result as $row)
 		{
 			$item = new PlanningItem();
@@ -93,9 +88,6 @@ class PlanningItemsManagerController extends DefaultModuleController
                 new HTMLTableRowCell($item->is_approved() ? $this->lang['planning.status.published'] : $this->lang['planning.status.draft'], $draft_class),
 				new HTMLTableRowCell($edit_link->display() . $delete_link->display(), 'controls ' . $draft_class)
 			);
-
-			if (!$display_categories)
-				unset($row[1]);
 
 			$results[] = new HTMLTableRow($row);
 		}
