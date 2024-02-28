@@ -3,8 +3,8 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
- * @since       PHPBoost 6.0 - 2020 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 02 27
+ * @since       PHPBoost 6.0 - 2024 02 25
 */
 
 class PlanningHomeController extends DefaultModuleController
@@ -40,16 +40,16 @@ class PlanningHomeController extends DefaultModuleController
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
 		$columns = array(
+			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn($this->lang['planning.activities'], 'id_category'),
 			new HTMLTableColumn($this->lang['planning.club.department'], 'department'),
 			new HTMLTableColumn($this->lang['planning.club.name'], 'name'),
 			new HTMLTableColumn($this->lang['common.see.details'], 'content'),
-			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn('')
 		);
 
 		if (!$display_categories)
-			unset($columns[1]);
+			unset($columns[2]);
 
 		$table_model = new SQLHTMLTableModel(PlanningSetup::$planning_table, 'items-list', $columns, new HTMLTableSortingRule('start_date', HTMLTableSortingRule::ASC));
 
@@ -64,15 +64,15 @@ class PlanningHomeController extends DefaultModuleController
 
         $now = new Date();
         $clear = new Date($now->get_timestamp() - 86400, Timezone::SERVER_TIMEZONE);
-        $table_model->add_permanent_filter('end_date > ' . $clear->get_timestamp());
+        $table_model->add_permanent_filter('(end_date_enabled = 0 AND start_date > ' . $clear->get_timestamp() . ') OR (end_date_enabled = 1 AND end_date > ' . $clear->get_timestamp() . ')');
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
 
 		$results = array();
-		$result = $table_model->get_sql_results('event
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event.author_user_id
-			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = event.lamclubs_id'
+		$result = $table_model->get_sql_results('pl
+			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = pl.author_user_id
+			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = pl.lamclubs_id'
 		);
 
 		$items = array();
@@ -81,6 +81,7 @@ class PlanningHomeController extends DefaultModuleController
 		{
 			$item = new PlanningItem();
 			$item->set_properties($row);
+
 			$items[] = $item;
 			if ($item->is_authorized_to_edit() || $item->is_authorized_to_delete())
 			{
@@ -110,6 +111,9 @@ class PlanningHomeController extends DefaultModuleController
 			$delete_link = new DeleteLinkHTMLElement(PlanningUrlBuilder::delete_item($item->get_id()), '', array('data-confirmation' => 'delete-element'));
 			$delete_link = $item->is_authorized_to_delete() ? $delete_link->display() : '';
 
+            $visitor_link = new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), '<i class="fa fa-fw fa-eye"></i>', array('aria-label' => $this->lang['common.read.more']));
+            $visitor_link = $visitor_link->display();
+
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
 
@@ -117,17 +121,17 @@ class PlanningHomeController extends DefaultModuleController
 
 			$c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
             $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
-            $c_end_date = $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+            $c_end_date = $item->get_end_date_enabled() && $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
             $club = LamclubsService::get_item($item->get_lamclubs_id());
             
 			if($item->is_approved())
 			{
 				$row = array(
+					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : ''),'align-left'),
 					new HTMLTableRowCell($title, 'align-left'),
 					new HTMLTableRowCell($club->get_department()),
-					new HTMLTableRowCell($club->get_name()),
-					new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $this->lang['common.read.more'])),
-					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
+					new HTMLTableRowCell($club->get_name(),'align-left'),
+					new HTMLTableRowCell($visitor_link),
 					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link, 'controls') : null
 				);
 

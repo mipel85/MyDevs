@@ -15,6 +15,15 @@
     margin-bottom: 1.618em;
 }
 
+@media (min-width: 769px) {
+    .cell-options {
+        min-width: 350px;
+    }
+}
+#module-planning .cell-options {
+    margin-bottom: 1.618em;
+}
+
 #date-select-form .grouped-element { border-width: 0; }
 
 .location-map { margin: 0.618em 0; }

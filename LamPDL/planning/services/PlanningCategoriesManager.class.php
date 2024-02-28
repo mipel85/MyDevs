@@ -21,8 +21,11 @@ class PlanningCategoriesManager extends CategoriesManager
 		}
 
 		$result = PersistenceContext::get_querier()->select('SELECT id
-		FROM ' . PlanningSetup::$planning_table . ' event
-		WHERE id_category = :id_category', array('id_category' => $id));
+            FROM ' . PlanningSetup::$planning_table . ' event
+            WHERE id_category = :id_category', array(
+                'id_category' => $id
+            )
+        );
 		while ($row = $result->fetch())
 		{
 			PlanningService::delete_item($row['id']);

@@ -34,10 +34,10 @@
 				<div class="content# IF C_CANCELLED # error# ENDIF #" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 
 					# IF C_CANCELLED #
-					<span class="message-helper bgc error">{@planning.cancelled.item}</span>
+                        <span class="message-helper bgc error">{@planning.cancelled.item}</span>
 					# ENDIF #
 
-					<div class="cell-tile day-infos">
+					<div class="cell-tile day-infos cell-options">
 						<div class="cell">
 							<div class="cell-list">
 								<ul>
@@ -45,22 +45,66 @@
 										<span>{@planning.start.date}</span>
 										<time class="text-strong" datetime="{START_DATE_ISO8601}" itemprop="startDate">{START_DATE_FULL}</time>
 									</li>
-									<li class="li-stretch">
-										<span>{@planning.end.date}</span>
-										<time class="text-strong datetime="{END_DATE_ISO8601}" itemprop="endDate">{END_DATE_FULL}</time>
-									</li>
+                                    # IF C_END_DATE #
+                                        <li class="li-stretch">
+                                            <span>{@planning.end.date}</span>
+                                            <time class="text-strong datetime="{END_DATE_ISO8601}" itemprop="endDate">{END_DATE_FULL}</time>
+                                        </li>
+									# ENDIF #
+                                    # IF C_CONTACT #
+                                        <li class="li-stretch">
+                                            <span>{@planning.contact}</span>
+                                            <div class="controls">
+                                                # IF C_CONTACT_PHONE #
+                                                <span>
+                                                    <span class="small text-italic">{@planning.contact.phone} : </span>
+                                                    {PHONE}
+                                                </span>
+                                                # ENDIF #
+                                                # IF C_CONTACT_EMAIL #
+                                                    <div class="modal-container">
+                                                        <span class="flex-between" data-modal="" data-target="email-panel">
+                                                            <span class="small text-italic">{@planning.contact.email.form} : </span>
+                                                            <i class="fa iboost fa-iboost-email link-color"></i>
+                                                        </span>
+                                                        <div id="email-panel" class="modal modal-animation">
+                                                            <div class="close-modal" aria-label="{@common.close}"></div>
+                                                            <div class="content-panel">
+                                                                <div class="align-right"><a href="#" class="error big hide-modal" aria-label="{@common.close}"><i class="far fa-circle-xmark" aria-hidden="true"></i></a></div>
+                                                                # INCLUDE EMAIL_FORM #
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                # ENDIF #
+                                            </div>
+                                        </li>
+									# ENDIF #
 									# IF C_LOCATION #
 										<li class="li-stretch" itemprop="location" itemscope itemtype="https://schema.org/Place">
 											<span class="text-strong">{@planning.location} : </span>
 											<span class="location-text" itemprop="name">{LOCATION}</span>
 										</li>
 									# ENDIF #
+                                    # IF C_HAS_THUMBNAIL #
+                                        <li>
+                                            # IF C_PDF #
+                                            # ELSE #
+                                                <img itemprop="thumbnailUrl" src="{U_THUMBNAIL}" alt="{TITLE}" />
+                                            # ENDIF #
+                                        </li>
+                                    # ENDIF #
 								</ul>
 							</div>
 						</div>
 					</div>
 
 					<div itemprop="text">{CONTENT}</div>
+
+                    # IF C_LOCATION #
+                        <aside class="location-map" itemprop="location" itemscope itemtype="https://schema.org/Place">
+                            # IF C_LOCATION_MAP #<div class="location-map">{LOCATION_MAP}</div># ENDIF #
+                        </aside>
+                    # ENDIF #
 				</div>
 
 				<aside>

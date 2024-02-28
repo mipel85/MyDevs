@@ -3,8 +3,8 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
- * @since       PHPBoost 6.0 - 2020 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 02 27
+ * @since       PHPBoost 6.0 - 2024 02 25
 */
 
 ####################################################
@@ -13,8 +13,6 @@
 
 $lang['planning.module.title'] = 'Planning';
 
-$lang['planning.item']  = 'événement';
-$lang['planning.items'] = 'événements';
 $lang['planning.no.category'] = 'Sans catégorie';
 
 // TreeLinks
@@ -25,33 +23,51 @@ $lang['items'] = 'événements';
 $lang['planning.item.add']         = 'Ajouter un événement';
 $lang['planning.item.edit']        = 'Modifier un événement';
 $lang['planning.item.delete']      = 'Supprimer l\'événement';
-$lang['planning.my.items']         = 'Mes événements';
+$lang['planning.my.items']         = 'Les événements de mon club';
 $lang['planning.member.items']     = 'Événements crées par';
 $lang['planning.pending.items']    = 'Événements en attente';
 $lang['planning.filter.items']     = 'Filtrer les événements';
 $lang['planning.items.management'] = 'Gestion des événements';
 
 // Labels
-$lang['planning.location']        = 'Adresse de l\'événement';
-$lang['planning.cancelled.item']  = 'Cet événement a été annulé';
-$lang['planning.start.date']      = 'Date de début';
-$lang['planning.end.date']        = 'Date de fin';
-$lang['planning.club.department'] = 'Département';
-$lang['planning.club.name']       = 'Nom du Club';
-$lang['planning.organized.by']    = 'Organisé par';
-$lang['planning.status.draft']    = 'En attente';
+$lang['planning.location']             = 'Adresse de l\'événement';
+$lang['planning.cancelled.item']       = 'Cet événement a été annulé';
+$lang['planning.start.date']           = 'Date de l\'événement';
+$lang['planning.end.date.enabled']     = 'Événement sur plusieurs jours';
+$lang['planning.end.date']             = 'Date de fin';
+$lang['planning.club.department']      = 'Département';
+$lang['planning.club.name']            = 'Nom du Club';
+$lang['planning.organized.by']         = 'Organisé par';
+$lang['planning.status.published']     = 'Approuvé';
+$lang['planning.status.draft']         = 'En attente';
+$lang['planning.contact']              = 'Contacter le club';
+$lang['planning.contact.phone']        = 'Par téléphone';
+$lang['planning.contact.email.form']   = 'Par email';
+
+$lang['planning.contact.author']          = 'Contacter le club';
+$lang['planning.item.interest']           = 'À propos de l\'activité : ';
+$lang['planning.sender.name']             = 'Mon nom';
+$lang['planning.sender.email']            = 'Mon adresse email';
+$lang['planning.sender.message']          = 'Mon message';
+$lang['planning.message.success.email']   = 'L\'email a bien été envoyé';
+$lang['planning.message.error.email']     = 'Une erreur est survenue lors de l\'envoi';
 
 // Form
 $lang['planning.activity']            = 'Activité';
 $lang['planning.activities']          = 'Activités';
-$lang['planning.activity.clue']       = 'Si votre activité n\'est pas répertoriée, laissez sur Autre et remplissez le champ suivant.';
+$lang['planning.activity.clue']       = 'Si votre activité n\'est pas répertoriée, laissez sur "Autres activités" et remplissez le champ suivant.';
 $lang['planning.activity.other']      = 'Autre activité';
-$lang['planning.form.content']        = 'Descriptif de l\'événement (optionnel)';
+$lang['planning.form.more.infos']     = 'Informations complémentaires <span class="description small text-italic">Optionnel</span>';
+$lang['planning.form.phone']          = 'N° de téléphone de contact';
+$lang['planning.form.phone.clue']     = '10 chiffres sans espace';
+$lang['planning.form.thumbnail']      = 'Affiche / Flyer';
+$lang['planning.form.thumbnail.clue'] = 'Fichier image ou pdf';
+$lang['planning.form.content']        = 'Descriptif de l\'événement';
 $lang['planning.form.cancel']         = 'Annuler l\'événement';
 $lang['planning.form.display.map']    = 'Afficher l\'adresse sur une carte';
 $lang['planning.club.infos']          = 'Club';
 $lang['planning.contact.email']       = 'Email de contact du club';
-$lang['planning.contact.email.clue']  = 'Pour qu\'un administrateur de la ligue puisse contacter le club avant validation.<br /><span class="warning">Ne sera affiché qu\'à vous et aux administrateurs dans la liste des événements en attente.</span>';
+$lang['planning.contact.email.clue']  = 'N\'est pas affiché directement sur le site';
 // Config
 $lang['planning.items.per.page.clue'] = 'Pour les pages "Mes événements" et "Événements en attente"';
 

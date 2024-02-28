@@ -22,7 +22,10 @@ class PlanningItemFormController extends DefaultModuleController
 			$this->redirect();
 		}
 
-		$this->view->put('CONTENT', $this->form->display());
+        $this->view->put_all(array(
+            'CONTENT' => $this->form->display(),
+			'OPTIONS'  => self::build_options(),
+        ));
 
 		return $this->generate_response($this->view);
 	}
@@ -63,14 +66,29 @@ class PlanningItemFormController extends DefaultModuleController
             )
 		));
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $this->get_item()->get_lamclubs_id(), LamclubsService::get_options_list(), array('required' => true)));
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $item->get_lamclubs_id(), LamclubsService::get_options_list(), array('required' => true)));
 
-        $fieldset->add_field($start_date = new FormFieldDateTime('start_date', $this->lang['planning.start.date'], $this->get_item()->get_start_date(),
+        $fieldset->add_field($start_date = new FormFieldDateTime('start_date', $this->lang['planning.start.date'], $item->get_start_date(),
 			array('required' => true, 'five_minutes_step' => true)
 		));
 
-		$fieldset->add_field($end_date = new FormFieldDateTime('end_date', $this->lang['planning.end.date'], $this->get_item()->get_end_date(),
-			array('required' => true, 'five_minutes_step' => true)
+		$fieldset->add_field(new FormFieldCheckbox('end_date_enabled', $this->lang['planning.end.date.enabled'], $item->get_end_date_enabled(),
+			array(
+				'events' => array('click' => '
+					if (HTMLForms.getField("end_date_enabled").getValue()) {
+						HTMLForms.getField("end_date").enable();
+					} else {
+						HTMLForms.getField("end_date").disable();
+					}'
+				)
+			)
+		));
+
+		$fieldset->add_field($end_date = new FormFieldDateTime('end_date', $this->lang['planning.end.date'], $item->get_end_date(),
+			array(
+                'required' => true, 'five_minutes_step' => true,
+                'hidden' => !$item->get_end_date_enabled()
+            )
 		));
 
 		$end_date->add_form_constraint(new FormConstraintFieldsDifferenceSuperior($start_date, $end_date));
@@ -82,6 +100,21 @@ class PlanningItemFormController extends DefaultModuleController
             )
         ));
 
+        $fieldset->add_field(new FormFieldCheckbox('more_infos', $this->lang['planning.form.more.infos'], $item->get_more_infos()));
+
+		$option_fieldset = new FormFieldsetHTML('options', $this->lang['form.options']);
+		$form->add_fieldset($option_fieldset);
+        // if ($this->is_new_item)
+        //     $option_fieldset->set_css_class('hidden');
+
+        $option_fieldset->add_field(new FormFieldTelEditor('phone', $this->lang['planning.form.phone'], $item->get_phone()));
+
+		$option_fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->lang['planning.form.thumbnail'], $item->get_thumbnail()->relative(), PlanningItem::THUMBNAIL_URL,
+			array (
+                'description' => $this->lang['planning.form.thumbnail.clue']
+            )
+		));
+
         $location_value = TextHelper::deserialize($item->get_location());
 
 		$location = '';
@@ -92,7 +125,7 @@ class PlanningItemFormController extends DefaultModuleController
 
 		if ($this->config->is_googlemaps_available())
 		{
-			$fieldset->add_field(new GoogleMapsFormFieldMapAddress('location', $this->lang['planning.location'], $location,
+			$option_fieldset->add_field(new GoogleMapsFormFieldMapAddress('location', $this->lang['planning.location'], $location,
 				array(
 					'events' => array('blur' => '
 						if (HTMLForms.getField("location").getValue()) {
@@ -104,22 +137,28 @@ class PlanningItemFormController extends DefaultModuleController
 				)
 			));
 
-			$fieldset->add_field(new FormFieldCheckbox('map_displayed', $this->lang['planning.form.display.map'], $item->is_map_displayed(),
+			$option_fieldset->add_field(new FormFieldCheckbox('map_displayed', $this->lang['planning.form.display.map'], $item->is_map_displayed(),
 				array('hidden' => !$location)
 			));
 		}
 		else
-			$fieldset->add_field(new FormFieldShortMultiLineTextEditor('location', $this->lang['planning.location'], $location));
+			$option_fieldset->add_field(new FormFieldShortMultiLineTextEditor('location', $this->lang['planning.location'], $location));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->lang['planning.form.content'], $item->get_content(),
+		$option_fieldset->add_field(new FormFieldRichTextEditor('content', $this->lang['planning.form.content'], $item->get_content(),
 			array('rows' => 15)
 		));
 
-		if ($this->get_item()->get_id() !== null)
-			$fieldset->add_field(new FormFieldCheckbox('cancelled', $this->lang['planning.form.cancel'], $this->get_item()->is_cancelled()));
+        if ((!$this->is_new_item && $item->is_authorized_to_add()) || CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation())
+        {
+            $publication_fieldset = new FormFieldsetHTML('publications', $this->lang['form.publication']);
+            $form->add_fieldset($publication_fieldset);
 
-		if (CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation())
-			$fieldset->add_field(new FormFieldCheckbox('approved', $this->lang['form.approve'], $item->is_approved()));
+            if (!$this->is_new_item)
+                $publication_fieldset->add_field(new FormFieldCheckbox('cancelled', $this->lang['planning.form.cancel'], $item->is_cancelled()));
+
+            if (CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation())
+                $publication_fieldset->add_field(new FormFieldCheckbox('approved', $this->lang['form.approve'], $item->is_approved()));
+        }
 
 		$this->build_contribution_fieldset($form);
 
@@ -130,6 +169,26 @@ class PlanningItemFormController extends DefaultModuleController
 		$form->add_button(new FormButtonReset());
 
 		$this->form = $form;
+	}
+
+	protected function get_template_string_content()
+	{
+		return '
+            # INCLUDE MESSAGE_HELPER #
+            # INCLUDE CONTENT #
+            # INCLUDE OPTIONS #
+        ';
+	}
+
+	private function build_options()
+	{
+		$view = new FileTemplate('planning/PlanningJS.tpl');
+		$view->add_lang($this->lang);
+
+		$view->put_all(array(
+		));
+
+		return $view;
 	}
 
 	private function build_contribution_fieldset($form)
@@ -214,13 +273,20 @@ class PlanningItemFormController extends DefaultModuleController
 	{
 		$item = $this->get_item();
 
+		$item->set_lamclubs_id($this->form->get_value('club_infos')->get_raw_value());
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
 			$item->set_id_category($this->form->get_value('id_category')->get_raw_value());
         $item->set_activity_other($this->form->get_value('activity_other'));
 		$item->set_rewrited_link(Url::encode_rewrite($item->get_category()->get_name()));
+		$item->set_start_date($this->form->get_value('start_date'));
+		$item->set_end_date_enabled($this->form->get_value('end_date_enabled'));
+        if($this->form->get_value('end_date_enabled'))
+            $item->set_end_date($this->form->get_value('end_date'));
 
-		$item->set_lamclubs_id($this->form->get_value('club_infos')->get_raw_value());
-		$item->set_content($this->form->get_value('email'));
+        $item->set_more_infos($this->form->get_value('more_infos'));
+		$item->set_phone($this->form->get_value('phone'));
+		$item->set_thumbnail($this->form->get_value('thumbnail'));
+		$item->set_email($this->form->get_value('email'));
 		$item->set_content($this->form->get_value('content'));
 		$item->set_location($this->form->get_value('location'));
 
@@ -231,11 +297,6 @@ class PlanningItemFormController extends DefaultModuleController
 			else
 				$item->hide_map();
 		}
-
-		if ($item->get_id() !== null && $this->form->get_value('cancelled'))
-			$item->cancel();
-		if ($item->get_id() !== null && !$this->form->get_value('cancelled'))
-			$item->uncancel();
 
 		if (CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation())
 		{
@@ -251,9 +312,6 @@ class PlanningItemFormController extends DefaultModuleController
 		else if (CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->contribution() && !CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->write())
 			$item->unapprove();
 
-		$item->set_start_date($this->form->get_value('start_date'));
-		$item->set_end_date($this->form->get_value('end_date'));
-
 		if ($this->is_new_item)
 		{
 			$item_id = PlanningService::add_item($item);
@@ -263,7 +321,11 @@ class PlanningItemFormController extends DefaultModuleController
 				HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 		else
-		{
+        {
+            if ($this->form->get_value('cancelled'))
+                $item->cancel();
+            else
+                $item->uncancel();
 			$item_id = PlanningService::update_item($item);
 
 			if (!$this->is_contributor_member())
