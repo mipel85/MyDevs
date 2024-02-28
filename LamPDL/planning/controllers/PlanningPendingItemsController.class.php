@@ -29,7 +29,6 @@ class PlanningPendingItemsController extends DefaultModuleController
 			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn($this->lang['planning.activity'], 'title'),
 			new HTMLTableColumn($this->lang['common.author'], 'display_name'),
-			new HTMLTableColumn($this->lang['common.email'], 'email'),
 			new HTMLTableColumn($this->lang['planning.club.department'], 'department'),
 			new HTMLTableColumn($this->lang['planning.club.name'], 'name'),
 			new HTMLTableColumn($this->lang['common.actions'], '', array('sr-only' => true))
@@ -82,9 +81,8 @@ class PlanningPendingItemsController extends DefaultModuleController
 
 			$row = array(
 				new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
-                new HTMLTableRowCell($title, 'align-left'),
+                new HTMLTableRowCell($c_auth ? new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $title) : $title, 'align-left'),
 				new HTMLTableRowCell($author),
-                new HTMLTableRowCell($c_auth ? $user->get_email() : ''),
 				new HTMLTableRowCell($club->get_department()),
 				new HTMLTableRowCell($club->get_name()),
                 new HTMLTableRowCell($c_auth ? $edit_link->display() . $delete_link->display() : '', 'controls')
