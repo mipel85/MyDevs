@@ -58,7 +58,7 @@ class PlanningHomeController extends DefaultModuleController
 
         $now = new Date();
         $clear = new Date($now->get_timestamp() - 86400, Timezone::SERVER_TIMEZONE);
-        $table_model->add_permanent_filter('(end_date_enabled = 0 AND start_date > ' . $clear->get_timestamp() . ') OR (end_date_enabled = 1 AND end_date > ' . $clear->get_timestamp() . ')');
+        $table_model->add_permanent_filter('(end_date_enabled = 0 AND start_date > ' . $clear->get_timestamp() . ' OR end_date_enabled = 1 AND end_date > ' . $clear->get_timestamp() . ')');
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
