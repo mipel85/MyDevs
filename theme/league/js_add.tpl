@@ -12,10 +12,12 @@
         });
 
         // Change root category name
-        let other_activity = ${escapejs(@theme.activities.other)};
-        jQuery('#filters_form_1_id_category option, #PlanningItemFormController_id_category option').each(function() {
+        jQuery('#module-planning #filters_form_1_id_category option, #module-financial #filters_form_1_id_category option, #PlanningItemFormController_id_category option').each(function() {
+            if (jQuery(this).val() == 'all') {
+                jQuery(this).attr('label', 'Toutes les activités')
+            }
             if (jQuery(this).val() == 0) {
-                jQuery(this).attr('label', other_activity)
+                jQuery(this).attr('label', ${escapejs(@theme.activities.other)})
             }
         });
 
