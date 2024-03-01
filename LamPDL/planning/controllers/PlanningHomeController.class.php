@@ -97,7 +97,6 @@ class PlanningHomeController extends DefaultModuleController
 		foreach ($items as $item)
 		{
 			$category = $item->get_category();
-			$user = $item->get_author_user();
 
 			$edit_link = new EditLinkHTMLElement(PlanningUrlBuilder::edit_item($item->get_id()));
 			$edit_link = $item->is_authorized_to_edit() ? $edit_link->display() : '';
@@ -107,9 +106,6 @@ class PlanningHomeController extends DefaultModuleController
 
             $visitor_link = new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), '<i class="fa fa-fw fa-eye"></i>', array('aria-label' => $this->lang['common.read.more']));
             $visitor_link = $visitor_link->display();
-
-			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
-			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
 
 			$br = new BrHTMLElement();
 
@@ -138,7 +134,10 @@ class PlanningHomeController extends DefaultModuleController
 		}
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
-		$this->view->put('CONTENT', $table->display());
+		$this->view->put_all(array(
+            'CONTENT' => $table->display(),
+            'CALL_TO_ACTION' => self::build_call_to_action()
+        ));
 
 		return $table->get_page_number();
 	}
@@ -155,6 +154,28 @@ class PlanningHomeController extends DefaultModuleController
             'C_NO_CATEGORIES' => !$c_categories
         ));
     }
+
+    private function build_call_to_action()
+    {
+        $view = new FileTemplate('planning/PlanningAddController.tpl');
+        $view->add_lang(LangLoader::get_all_langs('planning'));
+
+        $view->put_all(array(
+            'C_AUTH' => CategoriesAuthorizationsService::check_authorizations()->contribution(),
+            'ADD_ITEM' => PlanningUrlBuilder::add_item()->rel()
+        ));
+
+		return $view;
+    }
+
+	protected function get_template_string_content()
+	{
+		return '
+            # INCLUDE MESSAGE_HELPER #
+            # INCLUDE CALL_TO_ACTION #
+            # INCLUDE CONTENT #
+        ';
+	}
 
 	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
 	{
