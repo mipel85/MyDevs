@@ -1,5 +1,5 @@
 # IF C_AUTH #
-    <a id="add-item" href="{ADD_ITEM}" class="button success">{@planning.item.add}</a>
+    <a id="add-item" href="{ADD_ITEM}" class="button bgc success">{@planning.item.add}</a>
     <script>
         jQuery('#filters-1')
             .css({
