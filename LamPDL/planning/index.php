@@ -32,6 +32,7 @@ $url_controller_mappers = array(
 	
 	new UrlControllerMapper('PlanningPendingItemsController', '`^/pending/?([0-9]+)?/?$`', array('page')),
 	new UrlControllerMapper('PlanningMemberItemsController', '`^/member/([0-9]+)?/?([0-9]+)?/?$`', array('user_id', 'page')),
+	new UrlControllerMapper('PlanningVisitItemController', '`^/visit/([0-9]+)/?$`', array('id')),
 
 	// Display planning
 	new UrlControllerMapper('PlanningHomeController', '`^(?:/([0-9]+))?/?$`'),

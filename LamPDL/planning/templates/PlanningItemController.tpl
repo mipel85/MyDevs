@@ -79,6 +79,12 @@
                                             </div>
                                         </li>
 									# ENDIF #
+                                    # IF C_VISIT #
+                                        <li class="li-stretch">
+                                            <span>{@common.website}</span>
+                                            <a href="{U_VISIT}" class="offload"><i class="fa fa-fw fa-share-from-square" aria-hidden="true"></i></a>
+                                        </li>
+                                    # ENDIF #
 									# IF C_LOCATION #
 										<li class="li-stretch" itemprop="location" itemscope itemtype="https://schema.org/Place">
 											<span class="text-strong">{@planning.location} : </span>

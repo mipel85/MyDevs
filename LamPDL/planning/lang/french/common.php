@@ -60,6 +60,7 @@ $lang['planning.activity.other']      = 'Autre activité';
 $lang['planning.form.more.infos']     = 'Informations complémentaires <span class="description small text-italic">Optionnel</span>';
 $lang['planning.form.phone']          = 'N° de téléphone de contact';
 $lang['planning.form.phone.clue']     = '10 chiffres sans espace';
+$lang['planning.form.website']        = 'Site internet du club';
 $lang['planning.form.thumbnail']      = 'Affiche / Flyer';
 $lang['planning.form.thumbnail.clue'] = 'Fichier image ou pdf';
 $lang['planning.form.content']        = 'Descriptif de l\'événement';

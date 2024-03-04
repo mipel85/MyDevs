@@ -104,10 +104,10 @@ class PlanningItemFormController extends DefaultModuleController
 
 		$option_fieldset = new FormFieldsetHTML('options', $this->lang['form.options']);
 		$form->add_fieldset($option_fieldset);
-        // if ($this->is_new_item)
-        //     $option_fieldset->set_css_class('hidden');
 
         $option_fieldset->add_field(new FormFieldTelEditor('phone', $this->lang['planning.form.phone'], $item->get_phone()));
+
+        $option_fieldset->add_field(new FormFieldUrlEditor('website_url', $this->lang['planning.form.website'], $item->get_website_url()->absolute()));
 
 		$option_fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->lang['planning.form.thumbnail'], $item->get_thumbnail()->relative(), PlanningItem::THUMBNAIL_URL,
 			array (
@@ -285,6 +285,7 @@ class PlanningItemFormController extends DefaultModuleController
 
         $item->set_more_infos($this->form->get_value('more_infos'));
 		$item->set_phone($this->form->get_value('phone'));
+		$item->set_website_url(new Url($this->form->get_value('website_url')));
 		$item->set_thumbnail($this->form->get_value('thumbnail'));
 		$item->set_email($this->form->get_value('email'));
 		$item->set_content($this->form->get_value('content'));

@@ -27,6 +27,7 @@ class PlanningItem
 	private $approved;
 
 	private $phone;
+	private $website_url;
 	private $thumbnail_url;
 	private $content;
 	private $location;
@@ -214,6 +215,19 @@ class PlanningItem
 		return $this->phone;
 	}
 
+	public function get_website_url()
+	{
+		if (!$this->website_url instanceof Url)
+			return new Url('');
+
+		return $this->website_url;
+	}
+
+	public function set_website_url(Url $website_url)
+	{
+		$this->website_url = $website_url;
+	}
+
 	public function get_thumbnail()
 	{
 		if (!$this->thumbnail_url instanceof Url)
@@ -302,6 +316,7 @@ class PlanningItem
 			'cancelled' => (int)$this->is_cancelled(),
 			'approved' => (int)$this->is_approved(),
             'phone' => $this->get_phone(),
+			'website_url' => $this->get_website_url()->absolute(),
             'thumbnail_url' => $this->get_thumbnail()->relative(),
 			'content' => $this->get_content(),
 			'location' => $this->get_location(),
@@ -335,6 +350,7 @@ class PlanningItem
 			$this->unapprove();
 
 		$this->phone = $properties['phone'];
+		$this->website_url = new Url($properties['website_url']);
         $this->thumbnail_url = new Url($properties['thumbnail_url']);
 		$this->content = $properties['content'];
 		$this->location = $properties['location'];
@@ -439,6 +455,7 @@ class PlanningItem
 				'C_NEW_CONTENT'              => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('planning', $this->get_creation_date()->get_timestamp()),
 				'C_HAS_UPDATE_DATE' 		 => $this->has_update_date(),
 				'C_HAS_THUMBNAIL' 		     => $this->has_thumbnail(),
+				'C_VISIT' 		             => $this->get_website_url(),
 
 				//Category
 				'C_ROOT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY,
@@ -462,6 +479,7 @@ class PlanningItem
 				'U_AUTHOR_CONTRIB' => PlanningUrlBuilder::display_member_items($author->get_id())->rel(),
 				'U_ITEM'           => $this->get_item_url(),
 				'U_THUMBNAIL'      => $this->get_thumbnail()->rel(),
+				'U_VISIT'          => PlanningUrlBuilder::visit_item($this->id)->rel(),
 				'U_EDIT'           => PlanningUrlBuilder::edit_item($this->id)->rel(),
 				'U_DELETE'         => PlanningUrlBuilder::delete_item($this->id)->rel()
 			)

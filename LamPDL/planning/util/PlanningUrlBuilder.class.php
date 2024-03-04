@@ -78,6 +78,14 @@ class PlanningUrlBuilder
 	/**
 	 * @return Url
 	 */
+	public static function visit_item($id)
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/visit/' . $id);
+	}
+
+	/**
+	 * @return Url
+	 */
 	public static function home()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/');

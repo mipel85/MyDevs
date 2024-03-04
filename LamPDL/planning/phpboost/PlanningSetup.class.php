@@ -62,6 +62,7 @@ class PlanningSetup extends DefaultModuleSetup
 
             'more_infos' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'phone' => array('type' => 'string', 'length' => 10, 'notnull' => 0, 'default' => "''"),
+			'website_url' => array('type' => 'string', 'length' => 255, 'notnull' => 0, 'default' => "''"),
 			'thumbnail_url' => array('type' => 'string', 'length' => 255, 'notnull' => 0, 'default' => "''"),
 			'content' => array('type' => 'text', 'length' => 65000, 'notnull' => 0),
 			'location' => array('type' => 'text', 'length' => 65000, 'notnull' => 0),
