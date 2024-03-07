@@ -13,6 +13,7 @@ class LamclubsItem
 	private $name;
 	private $ffam_nb;
 	private $department;
+	private $website_url;
 
 	public function get_club_id()
 	{
@@ -54,6 +55,19 @@ class LamclubsItem
 		$this->department = $department;
 	}
 
+	public function get_website_url()
+	{
+		if (!$this->website_url instanceof Url)
+			return new Url('');
+
+		return $this->website_url;
+	}
+
+	public function set_website_url(Url $website_url)
+	{
+		$this->website_url = $website_url;
+	}
+
 	public function is_authorized_to_add()
 	{
 		return LamclubsAuthorizationsService::check_authorizations()->write();
@@ -72,19 +86,21 @@ class LamclubsItem
 	public function get_properties()
 	{
 		return array(
-			'club_id'         => $this->get_club_id(),
-			'name'       => $this->get_name(),
-			'ffam_nb'    => $this->get_ffam_nb(),
-			'department' => $this->get_department()
+			'club_id'     => $this->get_club_id(),
+			'name'        => $this->get_name(),
+			'ffam_nb'     => $this->get_ffam_nb(),
+			'department'  => $this->get_department(),
+			'website_url' => $this->get_website_url()->absolute()
 		);
 	}
 
 	public function set_properties(array $properties)
 	{
-		$this->club_id           = $properties['club_id'];
-		$this->name         = $properties['name'];
-		$this->ffam_nb      = $properties['ffam_nb'];
-		$this->department   = $properties['department'];
+		$this->club_id     = $properties['club_id'];
+		$this->name        = $properties['name'];
+		$this->ffam_nb     = $properties['ffam_nb'];
+		$this->department  = $properties['department'];
+		$this->website_url = new Url($properties['website_url']);
 	}
 
 	public function get_item_url()

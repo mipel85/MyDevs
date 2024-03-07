@@ -27,6 +27,7 @@ class LamclubsHomeController extends DefaultModuleController
 			new HTMLTableColumn($this->lang['lamclubs.ffam.number'], 'ffam_nb'),
 			new HTMLTableColumn($this->lang['lamclubs.department'], 'department'),
 			new HTMLTableColumn($this->lang['common.name'], 'name'),
+			new HTMLTableColumn($this->lang['common.website'], 'website_url'),
 			$controls ? new HTMLTableColumn($this->lang['common.moderation'], '', array('sr-only' => true)) : ''
 		), new HTMLTableSortingRule('ffam_nb', HTMLTableSortingRule::ASC));
 
@@ -61,12 +62,13 @@ class LamclubsHomeController extends DefaultModuleController
 
 			$edit_item = new LinkHTMLElement(LamclubsUrlBuilder::edit($item->get_club_id()), '', array('title' => $this->lang['common.edit']), 'fa fa-edit');
 			$delete_item = new LinkHTMLElement(LamclubsUrlBuilder::delete($item->get_club_id()), '', array('title' => $this->lang['common.delete'], 'data-confirmation' => 'delete-element'), 'far fa-trash-alt');
+            $c_visit = !empty($item->get_website_url()->rel());
 
-            // $draf_class = $item->get_published() ? '' : 'text-strike error';
 			$row = array(
 				new HTMLTableRowCell($item->get_ffam_nb()),
 				new HTMLTableRowCell($this->lang['lamclubs.' . $item->get_department()]),
 				new HTMLTableRowCell($item->get_name()),
+				new HTMLTableRowCell($c_visit ? new LinkHTMLElement(LamclubsUrlBuilder::visit_item($item->get_club_id()), $this->lang['common.website']) : ''),
 				$controls ? new HTMLTableRowCell($edit_item->display() . $delete_item->display()) : ''
 			);
 

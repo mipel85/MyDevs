@@ -19,6 +19,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('LamclubsItemFormController', '`^/add/?$`'),
 	new UrlControllerMapper('LamclubsItemFormController', '`^/([0-9]+)/edit/?$`', array('club_id')),
 	new UrlControllerMapper('LamclubsDeleteItemController', '`^/([0-9]+)/delete/?$`', array('club_id')),
+	new UrlControllerMapper('LamclubsVisitItemController', '`^/visit/([0-9]+)/?$`', array('id')),
 
 	// Homepage
 	new UrlControllerMapper('LamclubsHomeController', '`^/?$`'),

@@ -54,7 +54,9 @@ class LamclubsItemFormController extends DefaultModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
+		$fieldset->add_field(new FormFieldUrlEditor('website_url', $this->lang['common.website'], $this->get_item()->get_website_url()->absolute()));
+
+        $fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
@@ -120,6 +122,7 @@ class LamclubsItemFormController extends DefaultModuleController
 		$item->set_name($this->form->get_value('name'));
 		$item->set_ffam_nb(sprintf("%04d", $this->form->get_value('ffam_nb')));
 		$item->set_department($this->form->get_value('department')->get_raw_value());
+		$item->set_website_url(new Url($this->form->get_value('website_url')));
 
 		if ($item->get_club_id() === null)
 		{

@@ -111,7 +111,7 @@ class LamclubsService
 		return $options;
 	}
 
-	/**
+    /**
 	 * Get the club id regarding the user club
 	 *
 	 * @param  int $user_id

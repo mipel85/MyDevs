@@ -51,7 +51,8 @@ class LamclubsSetup extends DefaultModuleSetup
 			'club_id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
 			'name' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'ffam_nb' => array('type' => 'string', 'length' => 4, 'notnull' => 1, 'default' => "''"),
-			'department' => array('type' => 'integer', 'length' => 3, 'notnull' => 1, 'default' => 0)
+			'department' => array('type' => 'integer', 'length' => 3, 'notnull' => 1, 'default' => 0),
+			'website_url' => array('type' => 'string', 'length' => 255, 'notnull' => 0, 'default' => "''")
 		);
 		$options = array(
 			'primary' => array('club_id'),
@@ -67,17 +68,14 @@ class LamclubsSetup extends DefaultModuleSetup
 		$file = PATH_TO_ROOT . '/lamclubs/data/lamclubs.csv';
         if (($handle = fopen($file, 'r')) !== FALSE)
         {
-            while(($data = fgetcsv($handle, 1000, ',')) !== FALSE)
+            while(($data = fgetcsv($handle, 1000, ';')) !== FALSE)
             {
-                foreach ($data as $value)
-                {
-                    $lamclubs = explode(';', $value);
-                }
                 PersistenceContext::get_querier()->insert(self::$lamclubs_table, array(
-                    'club_id'         => NULL,
-                    'name'       => $lamclubs[3],
-                    'ffam_nb'    => $lamclubs[1],
-                    'department' => $lamclubs[2]
+                    'club_id'     => $data[0],
+                    'name'        => $data[3],
+                    'ffam_nb'     => $data[1],
+                    'department'  => $data[2],
+                    'website_url' => $data[4]
                 ));
             }
             fclose($handle);
