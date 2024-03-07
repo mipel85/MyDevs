@@ -57,7 +57,7 @@ $lang['planning.activity']            = 'Activité';
 $lang['planning.activities']          = 'Activités';
 $lang['planning.activity.clue']       = 'Si votre activité n\'est pas répertoriée, laissez sur "Autres activités" et remplissez le champ suivant.';
 $lang['planning.activity.other']      = 'Autre activité';
-$lang['planning.form.more.infos']     = 'Informations complémentaires <span class="description small text-italic">Optionnel</span>';
+$lang['planning.form.more.infos']     = 'Informations complémentaires <span class="description small text-italic">Optionnel (Tel, site, affiche, ...)</span>';
 $lang['planning.form.phone']          = 'N° de téléphone de contact';
 $lang['planning.form.phone.clue']     = '10 chiffres sans espace';
 $lang['planning.form.website']        = 'Site internet du club';

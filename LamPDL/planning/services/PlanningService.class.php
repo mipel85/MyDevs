@@ -64,9 +64,9 @@ class PlanningService
 	public static function get_item(int $id)
 	{
 		$row = self::$db_querier->select_single_row_query('SELECT *
-		FROM ' . PlanningSetup::$planning_table . ' event
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = event.author_user_id
-		WHERE event.id = :id', array(
+		FROM ' . PlanningSetup::$planning_table . ' pl
+		LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = pl.author_user_id
+		WHERE pl.id = :id', array(
 			'id' => $id
 		));
 

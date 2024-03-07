@@ -66,7 +66,9 @@ class PlanningItemFormController extends DefaultModuleController
             )
 		));
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $item->get_lamclubs_id(), LamclubsService::get_options_list(), array('required' => true)));
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $item->get_lamclubs_id(), LamclubsService::get_options_list(),
+            array('required' => true)
+        ));
 
         $fieldset->add_field($start_date = new FormFieldDateTime('start_date', $this->lang['planning.start.date'], $item->get_start_date(),
 			array('required' => true, 'five_minutes_step' => true)
@@ -184,9 +186,6 @@ class PlanningItemFormController extends DefaultModuleController
 	{
 		$view = new FileTemplate('planning/PlanningJS.tpl');
 		$view->add_lang($this->lang);
-
-		$view->put_all(array(
-		));
 
 		return $view;
 	}
@@ -430,7 +429,6 @@ class PlanningItemFormController extends DefaultModuleController
 
 			$graphical_environment->set_page_title($this->lang['planning.item.edit'], $this->lang['planning.module.title']);
 
-			$category = $item->get_category();
 			$breadcrumb->add($this->lang['planning.item.edit'], PlanningUrlBuilder::edit_item($item->get_id()));
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['planning.item.edit']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(PlanningUrlBuilder::edit_item($item->get_id()));

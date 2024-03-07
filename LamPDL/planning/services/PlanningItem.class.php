@@ -372,7 +372,10 @@ class PlanningItem
 	{
         $user = AppContext::get_current_user();
         $now = new Date();
-        $this->lamclubs_id = LamclubsService::get_user_club(AppContext::get_current_user()->get_id());
+        $club_id = LamclubsService::get_user_club(AppContext::get_current_user()->get_id());
+
+        $this->lamclubs_id = $club_id;
+        $this->website_url = new Url(LamclubsService::get_item($club_id)->get_website_url()->rel());
 		$this->id_category = $id_category;
 		$this->author_user = AppContext::get_current_user();
 		$this->email = $user->get_email();
