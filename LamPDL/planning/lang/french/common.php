@@ -55,18 +55,18 @@ $lang['planning.message.error.email']     = 'Une erreur est survenue lors de l\'
 // Form
 $lang['planning.activity']            = 'Activité';
 $lang['planning.activities']          = 'Activités';
-$lang['planning.activity.clue']       = 'Si votre activité n\'est pas répertoriée, laissez sur "Autres activités" et remplissez le champ suivant.';
+$lang['planning.activity.clue']       = 'Si votre activité n\'est pas dans la liste, laissez sur "Autres activités" et remplissez le champ ci-dessous.';
 $lang['planning.activity.other']      = 'Autre activité';
-$lang['planning.form.more.infos']     = 'Informations complémentaires <span class="description small text-italic">Optionnel (Tel, site, affiche, ...)</span>';
-$lang['planning.form.phone']          = 'N° de téléphone de contact';
+$lang['planning.form.more.infos']     = 'Informations complémentaires <span class="d-block small text-italic">Optionnel (Tél, adresse site, affiche, ...)</span>';
+$lang['planning.form.phone']          = 'N° de téléphone de contact <span class="d-block small text-italic">Optionnel</span>';
 $lang['planning.form.phone.clue']     = '10 chiffres sans espace';
-$lang['planning.form.website']        = 'Site internet du club';
+$lang['planning.form.website']        = 'Site internet du club <span class="d-block small text-italic"> A modifier si besoin </span>';
 $lang['planning.form.thumbnail']      = 'Affiche / Flyer';
 $lang['planning.form.thumbnail.clue'] = 'Fichier image ou pdf';
 $lang['planning.form.content']        = 'Descriptif de l\'événement';
 $lang['planning.form.cancel']         = 'Annuler l\'événement';
 $lang['planning.form.display.map']    = 'Afficher l\'adresse sur une carte';
-$lang['planning.club.infos']          = 'Club';
+$lang['planning.club.infos']          = 'Club <span class="d-block small text-italic"> N° FFAM, département, nom du Club </span>';
 $lang['planning.contact.email']       = 'Email de contact du club';
 $lang['planning.contact.email.clue']  = 'N\'est pas affiché directement sur le site';
 // Config
