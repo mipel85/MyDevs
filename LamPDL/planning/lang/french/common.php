@@ -14,6 +14,7 @@
 $lang['planning.module.title'] = 'Planning';
 
 $lang['planning.no.category'] = 'Sans catégorie';
+$lang['planning.see.thumbnail'] = 'Voir l\'affiche';
 
 // TreeLinks
 $lang['item']  = 'événement';

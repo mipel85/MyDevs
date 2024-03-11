@@ -39,7 +39,7 @@
 
 					<div class="cell-tile day-infos cell-options">
 						<div class="cell">
-							<div class="cell-list">
+							<div class="cell-list modal-container">
 								<ul>
 									<li class="li-stretch">
 										<span>{@planning.start.date}</span>
@@ -92,11 +92,26 @@
 										</li>
 									# ENDIF #
                                     # IF C_HAS_THUMBNAIL #
-                                        <li>
-                                            # IF C_PDF #
-                                            # ELSE #
-                                                <img itemprop="thumbnailUrl" src="{U_THUMBNAIL}" alt="{TITLE}" />
-                                            # ENDIF #
+                                        <li class="li-stretch">
+                                            <span>{@planning.see.thumbnail}</span>
+                                            <div>
+                                                <a data-modal data-target="planning-thumbnail"><i class="fa fa-fw fa-image"></i></a>
+                                                <div id="planning-thumbnail" class="modal modal-animation">
+                                                    <div class="close-modal" aria-label="{@common-close}"></div>
+                                                    <div class="content-panel">
+                                                        <div class="align-right"><a href="#" class="error big hide-modal" aria-label="{@common.close}"><i class="far fa-circle-xmark" aria-hidden="true"></i></a></div>
+                                                        # IF C_PDF #
+                                                            <div class="responsive-object">
+                                                                <object data="{U_THUMBNAIL}" type="application/pdf" id="pdf">
+                                                                    {@planning.location} <p><a href="{U_THUMBNAIL}">{TITLE}</a></p>
+                                                                </object>
+                                                            </div>
+                                                        # ELSE #
+                                                            <img itemprop="thumbnailUrl" src="{U_THUMBNAIL}" alt="{TITLE}" />
+                                                        # ENDIF #
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </li>
                                     # ENDIF #
 								</ul>

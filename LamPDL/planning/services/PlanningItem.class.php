@@ -432,6 +432,8 @@ class PlanningItem
 			$has_location_map = $this->is_map_displayed();
 		}
 
+        $flyer = new File($this->get_thumbnail()->rel());
+
         $club = LamclubsService::get_item($this->lamclubs_id);
 
         $phone = $this->get_phone() ? $this->private_phone($this->get_phone(), 12, '/images/maths/', $club->get_name(), $club->get_ffam_nb()) : '';
@@ -442,23 +444,24 @@ class PlanningItem
 			Date::get_array_tpl_vars($this->start_date, 'start_date'),
 			Date::get_array_tpl_vars($this->end_date, 'end_date'),
 			array(
-				'C_APPROVED'                 => $this->is_approved(),
-				'C_CONTROLS'                 => $this->is_authorized_to_edit() || $this->is_authorized_to_delete(),
-				'C_EDIT'                     => $this->is_authorized_to_edit(),
-				'C_DELETE'                   => $this->is_authorized_to_delete(),
-				'C_END_DATE'                 => $this->get_end_date_enabled(),
-				'C_CONTACT'                  => $this->get_email() || $this->get_phone(),
-				'C_CONTACT_EMAIL'            => $this->get_email(),
-				'C_CONTACT_PHONE'            => $this->get_phone(),
-				'C_LOCATION'                 => !empty($location),
-				'C_LOCATION_MAP'             => $has_location_map,
-				'C_AUTHOR_GROUP_COLOR'       => !empty($author_group_color),
-				'C_AUTHOR_EXISTS'             => $author->get_id() !== User::VISITOR_LEVEL,
-				'C_CANCELLED'                => $this->is_cancelled(),
-				'C_NEW_CONTENT'              => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('planning', $this->get_creation_date()->get_timestamp()),
-				'C_HAS_UPDATE_DATE' 		 => $this->has_update_date(),
-				'C_HAS_THUMBNAIL' 		     => $this->has_thumbnail(),
-				'C_VISIT' 		             => $this->get_website_url(),
+				'C_APPROVED'           => $this->is_approved(),
+				'C_CONTROLS'           => $this->is_authorized_to_edit() || $this->is_authorized_to_delete(),
+				'C_EDIT'               => $this->is_authorized_to_edit(),
+				'C_DELETE'             => $this->is_authorized_to_delete(),
+				'C_END_DATE'           => $this->get_end_date_enabled(),
+				'C_CONTACT'            => $this->get_email() || $this->get_phone(),
+				'C_CONTACT_EMAIL'      => $this->get_email(),
+				'C_CONTACT_PHONE'      => $this->get_phone(),
+				'C_LOCATION'           => !empty($location),
+				'C_LOCATION_MAP'       => $has_location_map,
+				'C_AUTHOR_GROUP_COLOR' => !empty($author_group_color),
+				'C_AUTHOR_EXISTS'      => $author->get_id() !== User::VISITOR_LEVEL,
+				'C_CANCELLED'          => $this->is_cancelled(),
+				'C_NEW_CONTENT'        => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('planning', $this->get_creation_date()->get_timestamp()),
+				'C_HAS_UPDATE_DATE'    => $this->has_update_date(),
+				'C_HAS_THUMBNAIL' 	   => $this->has_thumbnail(),
+				'C_VISIT' 		       => $this->get_website_url(),
+                'C_PDF'                => $flyer->get_extension() == 'pdf',
 
 				//Category
 				'C_ROOT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY,
@@ -467,15 +470,15 @@ class PlanningItem
 				'U_EDIT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY ? PlanningUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'planning')->rel(),
 
 				//Event
-				'ID'                       => $this->id,
-				'TITLE'                    => $category->get_id() == Category::ROOT_CATEGORY ? $this->get_activity_other() : $category->get_name(),
-				'CLUB_NAME'                => $club->get_name(),
-				'CLUB_DPT'                 => $club->get_department(),
-				'CLUB_ID'                  => $club->get_club_id(),
-				'PHONE'                    => $phone,
-				'CONTENT'                  => $rich_content,
-				'LOCATION'                 => $location,
-				'LOCATION_MAP'             => $location_map,
+				'ID'           => $this->id,
+				'TITLE'        => $category->get_id() == Category::ROOT_CATEGORY ? $this->get_activity_other() : $category->get_name(),
+				'CLUB_NAME'    => $club->get_name(),
+				'CLUB_DPT'     => $club->get_department(),
+				'CLUB_ID'      => $club->get_club_id(),
+				'PHONE'        => $phone,
+				'CONTENT'      => $rich_content,
+				'LOCATION'     => $location,
+				'LOCATION_MAP' => $location_map,
 
 				'U_SYNDICATION'    => SyndicationUrlBuilder::rss('planning', $category->get_id())->rel(),
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($author->get_id())->rel(),
