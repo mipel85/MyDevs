@@ -200,7 +200,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 
         $this->view->put_all(array(
             'CONTENT' => $table->display(),
-			'LEGEND'  => self::build_legend(),
+			'LEGEND'  => self::build_legend()
         ));
 
 		return $table->get_page_number();
