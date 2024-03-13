@@ -796,7 +796,7 @@ a.wikipedia-link { border-bottom-color: var(--main-tone); }
 .link-color    { color: var(--main-tone); 		   border-color: var(--main-tone); }
 .star  		   { color: var(--star-tone); 		   border-color: var(--star-tone); }
 
-.notice:hover        { color: var(--notice-light); 		  border-color: var(--notice-light); }
+.notice:hover        { color: var(--notice-dark); 		  border-color: var(--notice-dark); }
 .question:hover      { color: var(--question-light); 	  border-color: var(--question-light); }
 .success:hover       { color: var(--success-light); 	  border-color: var(--success-light); }
 .warning:hover       { color: var(--warning-light); 	  border-color: var(--warning-light); }

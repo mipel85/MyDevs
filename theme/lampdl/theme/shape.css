@@ -17,7 +17,7 @@ body {
 	font-size: 1.456em;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
-    background-image: url("images/bg.webp");
+    background-image: url('images/bg.webp');
     background-attachment: fixed;
     background-position: center top;
     background-repeat: no-repeat;

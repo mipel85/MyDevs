@@ -130,4 +130,4 @@
 	#header #module-connect input[type="text"] { width: auto; }
 }
 
-#module-connect.user-not-connected { display: none;}
+#module-connect.user-not-connected { display: none; }

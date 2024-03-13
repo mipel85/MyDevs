@@ -92,10 +92,3 @@
     font-weight: bold;
     font-size: 0.850em;
 }
-
-/* Datatable */
-thead tr + tr th { 
-    background-color: var(--logo-tone);
-    border-color: var(--logo-tone) !important;
-    border-radius: 0 !important;
-}
