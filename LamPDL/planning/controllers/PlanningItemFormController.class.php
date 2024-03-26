@@ -65,12 +65,10 @@ class PlanningItemFormController extends DefaultModuleController
                 'hidden' => $item->get_id_category() != Category::ROOT_CATEGORY
             )
 		));
-        
-		$fieldset->add_field(new FormFieldTextEditor('activity_detail', $this->lang['planning.activity.detail'], '',
+		$fieldset->add_field(new FormFieldTextEditor('activity_detail', $this->lang['planning.activity.detail'], $item->get_activity_detail(),
 			array(
                 'required' => true,
                 'description' => $this->lang['planning.activity.detail.clue'],
-                'hidden' => $item->get_id_category() != Category::ROOT_CATEGORY
             )
 		));
 
