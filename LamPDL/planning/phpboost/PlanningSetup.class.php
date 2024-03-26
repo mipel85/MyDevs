@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 02 27
+ * @version     PHPBoost 6.0 - last update: 2024 03 26
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
@@ -50,6 +50,7 @@ class PlanningSetup extends DefaultModuleSetup
 			'id_category' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'activity_other' => array('type' => 'string', 'length' => 150, 'notnull' => 0, 'default' => "''"),
 			'rewrited_link' => array('type' => 'string', 'length' => 250, 'default' => "''"),
+			'activity_detail' => array('type' => 'string', 'length' => 50, 'default' => "''"),
 			'start_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'end_date_enabled' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
 			'end_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),

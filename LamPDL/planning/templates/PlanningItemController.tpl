@@ -5,8 +5,9 @@
 			{@planning.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a class="offload" href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="far fa-edit" aria-hidden="true"></i></a># ENDIF #
 		</div>
 		<h1>
-			<span itemprop="name">{TITLE}</span>
+            <span itemprop="name">{TITLE}</span>
 		</h1>
+        <h3><span class="smaller">{@planning.activity.detail} : </span> {ACTIVITY_DETAIL}</h3>
         <h3><span class="smaller">{@planning.organized.by} : </span> {CLUB_NAME} <span class="smaller">({CLUB_DPT})</span></h3>
 	</header>
 	<div class="sub-section">

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 03 26
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
@@ -62,6 +62,14 @@ class PlanningItemFormController extends DefaultModuleController
 		$fieldset->add_field(new FormFieldTextEditor('activity_other', $this->lang['planning.activity.other'], '',
 			array(
                 'required' => true,
+                'hidden' => $item->get_id_category() != Category::ROOT_CATEGORY
+            )
+		));
+        
+		$fieldset->add_field(new FormFieldTextEditor('activity_detail', $this->lang['planning.activity.detail'], '',
+			array(
+                'required' => true,
+                'description' => $this->lang['planning.activity.detail.clue'],
                 'hidden' => $item->get_id_category() != Category::ROOT_CATEGORY
             )
 		));
@@ -277,6 +285,7 @@ class PlanningItemFormController extends DefaultModuleController
 			$item->set_id_category($this->form->get_value('id_category')->get_raw_value());
         $item->set_activity_other($this->form->get_value('activity_other'));
 		$item->set_rewrited_link(Url::encode_rewrite($item->get_category()->get_name()));
+		$item->set_activity_detail($this->form->get_value('activity_detail'));
 		$item->set_start_date($this->form->get_value('start_date'));
 		$item->set_end_date_enabled($this->form->get_value('end_date_enabled'));
         if($this->form->get_value('end_date_enabled'))

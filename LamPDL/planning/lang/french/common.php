@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 02 27
+ * @version     PHPBoost 6.0 - last update: 2024 03 26
  * @since       PHPBoost 6.0 - 2024 02 25
 */
 
@@ -54,22 +54,24 @@ $lang['planning.message.success.email']   = 'L\'email a bien été envoyé';
 $lang['planning.message.error.email']     = 'Une erreur est survenue lors de l\'envoi';
 
 // Form
-$lang['planning.activity']            = 'Activité';
-$lang['planning.activities']          = 'Activités';
-$lang['planning.activity.clue']       = 'Si votre activité n\'est pas dans la liste, laissez sur "Autres activités" et remplissez le champ ci-dessous.';
-$lang['planning.activity.other']      = 'Autre activité';
-$lang['planning.form.more.infos']     = 'Informations complémentaires <span class="d-block small text-italic">Optionnel (Tél, adresse site, affiche, ...)</span>';
-$lang['planning.form.phone']          = 'N° de téléphone de contact <span class="d-block small text-italic">Optionnel- ne pas saisir d\'espaces</span>';
-$lang['planning.form.phone.clue']     = '10 chiffres sans espace';
-$lang['planning.form.website']        = 'Site internet du club <span class="d-block small text-italic"> A modifier si besoin </span>';
-$lang['planning.form.thumbnail']      = 'Affiche / Flyer';
-$lang['planning.form.thumbnail.clue'] = 'Fichier image ou pdf';
-$lang['planning.form.content']        = 'Descriptif de l\'événement';
-$lang['planning.form.cancel']         = 'Annuler l\'événement';
-$lang['planning.form.display.map']    = 'Afficher l\'adresse sur une carte';
-$lang['planning.club.infos']          = 'Club <span class="d-block small text-italic"> N° FFAM, département, nom du Club </span>';
-$lang['planning.contact.email']       = 'Email de contact du club';
-$lang['planning.contact.email.clue']  = 'N\'est pas affiché directement sur le site';
+$lang['planning.activity']               = 'Activité';
+$lang['planning.activities']             = 'Activités';
+$lang['planning.activity.clue']          = 'Liste issue du site de la FFAM. <br />Si votre activité n\'est pas indiquée, laissez sur "Autres activités" et remplissez le champ ci-dessous.';
+$lang['planning.activity.other']         = 'Autre activité';
+$lang['planning.activity.detail']        = 'Nature de l\'activité';
+$lang['planning.activity.detail.clue']   = 'A définir selon vos besoins :<br /> Interclubs, coupe Baron, GPR...';
+$lang['planning.form.more.infos']        = 'Informations complémentaires <span class="d-block small text-italic">Optionnel (Tél, adresse site, affiche, ...)</span>';
+$lang['planning.form.phone']             = 'N° de téléphone de contact <span class="d-block small text-italic">Optionnel- ne pas saisir d\'espaces</span>';
+$lang['planning.form.phone.clue']        = '10 chiffres sans espace';
+$lang['planning.form.website']           = 'Site internet du club <span class="d-block small text-italic"> A modifier si besoin </span>';
+$lang['planning.form.thumbnail']         = 'Affiche / Flyer';
+$lang['planning.form.thumbnail.clue']    = 'Fichier image ou pdf';
+$lang['planning.form.content']           = 'Descriptif de l\'événement';
+$lang['planning.form.cancel']            = 'Annuler l\'événement';
+$lang['planning.form.display.map']       = 'Afficher l\'adresse sur une carte';
+$lang['planning.club.infos']             = 'Club <span class="d-block small text-italic"> N° FFAM, département, nom du Club </span>';
+$lang['planning.contact.email']          = 'Email de contact du club';
+$lang['planning.contact.email.clue']     = 'N\'est pas affiché directement sur le site';
 // Config
 $lang['planning.items.per.page.clue'] = 'Pour les pages "Mes événements" et "Événements en attente"';
 

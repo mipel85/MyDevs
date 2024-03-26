@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 02 27
+ * @version     PHPBoost 6.0 - last update: 2024 03 26
  * @since       PHPBoost 6.0 - 2024 02 25
 */
 
@@ -40,6 +40,7 @@ class PlanningHomeController extends DefaultModuleController
 		$columns = array(
 			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn($this->lang['planning.activities'], 'id_category'),
+			new HTMLTableColumn($this->lang['planning.activity.detail'], 'activity_detail'),
 			new HTMLTableColumn($this->lang['planning.club.department'], 'department'),
 			new HTMLTableColumn($this->lang['planning.club.name'], 'name'),
 			new HTMLTableColumn($this->lang['common.see.details'], 'content'),
@@ -119,6 +120,7 @@ class PlanningHomeController extends DefaultModuleController
 				$row = array(
 					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : ''),'align-left'),
 					new HTMLTableRowCell($title, 'align-left'),
+					new HTMLTableRowCell($item->get_activity_detail(), 'align-left'),
 					new HTMLTableRowCell($club->get_department()),
 					new HTMLTableRowCell($club->get_name(),'align-left'),
 					new HTMLTableRowCell($visitor_link),

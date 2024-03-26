@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 03 26
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
@@ -14,6 +14,7 @@ class PlanningItem
 	private $id_category;
 	private $activity_other;
 	private $rewrited_link;
+	private $activity_detail;
 	private $start_date;
 	private $end_date_enabled;
 	private $end_date;
@@ -88,6 +89,16 @@ class PlanningItem
 	public function get_rewrited_link()
 	{
 		return $this->rewrited_link;
+	}
+    
+	public function set_activity_detail($activity_detail)
+	{
+		$this->activity_detail = $activity_detail;
+	}
+
+	public function get_activity_detail()
+	{
+		return $this->activity_detail;
 	}
 
 	public function set_start_date(Date $start_date)
@@ -305,6 +316,7 @@ class PlanningItem
 			'lamclubs_id' => $this->get_lamclubs_id(),
 			'activity_other' => $this->get_activity_other(),
 			'rewrited_link' => $this->get_rewrited_link(),
+			'activity_detail' => $this->get_activity_detail(),
 			'start_date' => ($this->get_start_date() !== null ? $this->get_start_date()->get_timestamp() : null),
 			'end_date_enabled' => $this->get_end_date_enabled(),
 			'end_date' => ($this->get_end_date_enabled() && $this->get_end_date() !== null ? $this->get_end_date()->get_timestamp() : null),
@@ -331,6 +343,7 @@ class PlanningItem
 		$this->lamclubs_id = $properties['lamclubs_id'];
 		$this->activity_other = $properties['activity_other'];
 		$this->rewrited_link = $properties['rewrited_link'];
+		$this->activity_detail = $properties['activity_detail'];
         $this->start_date = !empty($properties['start_date']) ? new Date($properties['start_date'], Timezone::SERVER_TIMEZONE) : null;
 		$this->end_date_enabled = $properties['end_date_enabled'];
 		$this->end_date = !empty($properties['end_date_enabled']) && !empty($properties['end_date']) ? new Date($properties['end_date'], Timezone::SERVER_TIMEZONE) : null;
@@ -470,15 +483,16 @@ class PlanningItem
 				'U_EDIT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY ? PlanningUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'planning')->rel(),
 
 				//Event
-				'ID'           => $this->id,
-				'TITLE'        => $category->get_id() == Category::ROOT_CATEGORY ? $this->get_activity_other() : $category->get_name(),
-				'CLUB_NAME'    => $club->get_name(),
-				'CLUB_DPT'     => $club->get_department(),
-				'CLUB_ID'      => $club->get_club_id(),
-				'PHONE'        => $phone,
-				'CONTENT'      => $rich_content,
-				'LOCATION'     => $location,
-				'LOCATION_MAP' => $location_map,
+				'ID'              => $this->id,
+				'TITLE'           => $category->get_id() == Category::ROOT_CATEGORY ? $this->get_activity_other() : $category->get_name(),
+				'ACTIVITY_DETAIL' => $this->get_activity_detail(),
+				'CLUB_NAME'       => $club->get_name(),
+				'CLUB_DPT'        => $club->get_department(),
+				'CLUB_ID'         => $club->get_club_id(),
+				'PHONE'           => $phone,
+				'CONTENT'         => $rich_content,
+				'LOCATION'        => $location,
+				'LOCATION_MAP'    => $location_map,
 
 				'U_SYNDICATION'    => SyndicationUrlBuilder::rss('planning', $category->get_id())->rel(),
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($author->get_id())->rel(),

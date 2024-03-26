@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 03 26
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
@@ -32,6 +32,7 @@ class PlanningMemberItemsController extends DefaultModuleController
 		$columns = array(
 			new HTMLTableColumn($this->lang['date.date'], 'start_date'),
 			new HTMLTableColumn($this->lang['planning.activity'], 'title'),
+            new HTMLTableColumn($this->lang['planning.activity.detail'], 'activity_detail'),
 			new HTMLTableColumn($this->lang['planning.club.department'], 'clubs_department'),
 			new HTMLTableColumn($this->lang['planning.club.name'], 'clubs_name'),
 			new HTMLTableColumn('')
@@ -112,7 +113,8 @@ class PlanningMemberItemsController extends DefaultModuleController
 				$row = array(
 					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : '')),
 					new HTMLTableRowCell(new LinkHTMLElement(PlanningUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_link()), $title), 'align-left'),
-					new HTMLTableRowCell($club->get_department()),
+					new HTMLTableRowCell($item->get_activity_detail(), 'align-left'),
+                    new HTMLTableRowCell($club->get_department()),
 					new HTMLTableRowCell($club->get_name()),
 					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link, 'controls') : null
 				);
