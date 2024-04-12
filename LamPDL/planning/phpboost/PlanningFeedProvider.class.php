@@ -42,10 +42,10 @@ class PlanningFeedProvider implements FeedProvider
 			$ids_categories = array_keys($categories);
 
 			$result = $querier->select('SELECT *
-                FROM ' . PlanningSetup::$planning_table . ' event
-                LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event.author_user_id
-                LEFT JOIN '. PlanningSetup::$planning_cats_table .' cat ON cat.id = event.id_category
-                WHERE approved = 1
+                FROM ' . PlanningSetup::$planning_table . ' pl
+                LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = pl.author_user_id
+                LEFT JOIN '. PlanningSetup::$planning_cats_table .' cat ON cat.id = pl.id_category
+                WHERE pl.approved = 1
                 AND id_category IN :cats_ids
                 AND start_date > :timestamp_now
                 ORDER BY start_date ASC', array(
@@ -71,7 +71,8 @@ class PlanningFeedProvider implements FeedProvider
 					$feed_item->set_title($title);
 					$feed_item->set_link($link);
 					$feed_item->set_guid($link);
-					$feed_item->set_desc(FormatingHelper::second_parse($item->get_content()) . ($item->get_location() ? '<br />' . $lang['planning.location'] . ' : ' . $item->get_location() . '<br />' : '') . '<br />' . $lang['planning.start.date'] . ' : ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE) . '<br />' . $lang['planning.end.date'] . ' : ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE));
+					$feed_item->set_desc(FormatingHelper::second_parse($item->get_content()) . ($item->get_location() ? '<br />' . $lang['planning.location'] . ' : ' . $item->get_location() . '<br />' : '') . '<br />' . $lang['planning.start.date'] . ' : ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE) . '<br />' . $lang['planning.end.date'] . ' : ' . ($item->get_end_date_enabled() ? $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE) : ''));
+					$feed_item->set_image_url(Url::to_rel($item->get_thumbnail()));
 					$feed_item->set_date($item->get_start_date());
 					$feed_item->set_auth(CategoriesService::get_categories_manager($module_id)->get_heritated_authorizations($category->get_id(), Category::READ_AUTHORIZATIONS, Authorizations::AUTH_PARENT_PRIORITY));
 					$data->add_item($feed_item);
