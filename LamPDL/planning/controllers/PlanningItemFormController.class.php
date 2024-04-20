@@ -17,12 +17,6 @@ class PlanningItemFormController extends DefaultModuleController
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
-            if ($this->is_new_item) {
-                $this->send_email();
-            }
-            else {
-                $this->send_edit_email();
-            }
 			$this->form->get_field_by_id('activity_other')->set_hidden($this->get_item()->get_id_category() != Category::ROOT_CATEGORY);
 			$this->save();
 			$this->redirect();
@@ -202,33 +196,24 @@ class PlanningItemFormController extends DefaultModuleController
 		return $view;
 	}
 
-    private function send_email()
+    private function send_email($state = '')
     {
-        $item = $this->get_item();
+        switch($state) {
+            case('new') :
+                $subject = $this->lang['planning.email.new.item'];
+                $message = $this->lang['planning.email.new.item.message'];
+                break;
+            case('edit') :
+                $subject = $this->lang['planning.email.edit.item'];
+                $message = $this->lang['planning.email.edit.item.message'];
+                break;
+        }
 
         $item_email = new Mail();
         $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['planning.module.title']);
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
-        $item_email->set_subject($this->lang['planning.email.new.item']);
-        $item_email->set_content(TextHelper::html_entity_decode($this->lang['planning.email.new.item.message']));
-
-        $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());
-        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_2()) ? FinancialConfig::load()->get_recipient_mail_2() : '');
-        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_3()) ? FinancialConfig::load()->get_recipient_mail_3() : '');
-        $send_email = AppContext::get_mail_service();
-
-        return $send_email->try_to_send($item_email);
-    }
-
-    private function send_edit_email()
-    {
-        $item = $this->get_item();
-
-        $item_email = new Mail();
-        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['planning.module.title']);
-        $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
-        $item_email->set_subject($this->lang['planning.email.edit.item']);
-        $item_email->set_content(TextHelper::html_entity_decode($this->lang['planning.email.edit.item.message']));
+        $item_email->set_subject($subject);
+        $item_email->set_content(TextHelper::html_entity_decode($message));
 
         $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());
         $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_2()) ? FinancialConfig::load()->get_recipient_mail_2() : '');
@@ -393,9 +378,11 @@ class PlanningItemFormController extends DefaultModuleController
 			$contribution = new Contribution();
 			$contribution->set_id_in_module($item->get_id());
 			if ($this->is_new_item) {
+                $this->send_email('new');
                 $contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
             }
 			else {
+                $this->send_email('edit');
                 $contribution->set_description(stripslashes($this->form->get_value('edition_description')));
             }
 

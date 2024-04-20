@@ -74,8 +74,8 @@ $lang['planning.contact.email']          = 'Email de contact du club';
 $lang['planning.contact.email.clue']     = 'N\'est pas affiché directement sur le site';
 $lang['planning.email.new.item']         = 'Nouvelle contribution';
 $lang['planning.email.edit.item']        = 'Édition d\'une contribution';
-$lang['planning.email.new.item.message'] = 'Une nouvelle contribution a été postée sur le site';
-$lang['planning.email.edit.item.message'] = 'Une contribution a été éditée sur le site';
+$lang['planning.email.new.item.message'] = 'Une nouvelle contribution a été postée sur le site <a href="' . PlanningUrlBuilder::display_pending_items()->absolute() . '">Événements en attente</a>';
+$lang['planning.email.edit.item.message'] = 'Une contribution a été éditée sur le site <a href="' . PlanningUrlBuilder::display_pending_items()->absolute() . '">Événements en attente</a>';
 // Config
 $lang['planning.items.per.page.clue'] = 'Pour les pages "Mes événements" et "Événements en attente"';
 
