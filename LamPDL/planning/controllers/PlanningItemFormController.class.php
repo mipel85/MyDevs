@@ -215,9 +215,10 @@ class PlanningItemFormController extends DefaultModuleController
         $item_email->set_subject($subject);
         $item_email->set_content(TextHelper::html_entity_decode($message));
 
-        $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());
-        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_2()) ? FinancialConfig::load()->get_recipient_mail_2() : '');
-        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_3()) ? FinancialConfig::load()->get_recipient_mail_3() : '');
+        foreach(MailServiceConfig::load()->get_administrators_mails() as $recipient_email)
+        {
+            $item_email->add_recipient($recipient_email);
+        }
         $send_email = AppContext::get_mail_service();
 
         return $send_email->try_to_send($item_email);
