@@ -127,6 +127,10 @@ $lang['financial.mail.invoice.msg'] = 'Bonjour, <br /><br />
     <br /><br /><strong>Descriptif :</strong> :description
 ';
 
+$lang['financial.mail.finished.event'] = 'Bonjour, <br /><br />
+	L\'événement <strong>:event_title</strong> du club :club_name est terminé. Il peut être traité par le trésorier.
+';
+
 // Config
 $lang['financial.recipient.mail_1'] = 'Adresse du destinataire principal :';
 $lang['financial.recipient.mail_2'] = 'Adresse du destinataire n° 2 :';
