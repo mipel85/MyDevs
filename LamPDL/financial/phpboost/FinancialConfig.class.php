@@ -90,12 +90,12 @@ class FinancialConfig extends AbstractConfigData
 	public function get_default_values()
 	{
 		return array(
-            self::RECIPIENT_MAIL_1  => 'mipel@aeromodelisme-paysdeloire.fr',
-            self::RECIPIENT_MAIL_2  => '',
-            self::RECIPIENT_MAIL_3  => '',
-            self::WINTER_BREAK      => false,
-            self::RESET_DATE        => '',
-			self::AUTHORIZATIONS => array('r0' => 5, 'r1' => 13)
+            self::RECIPIENT_MAIL_1    => 'mipel@aeromodelisme-paysdeloire.fr',
+            self::RECIPIENT_MAIL_2    => '',
+            self::RECIPIENT_MAIL_3    => '',
+            self::WINTER_BREAK        => false,
+            self::RESET_DATE          => '',
+			self::AUTHORIZATIONS      => array('r0' => 5, 'r1' => 13)
 		);
 	}
 

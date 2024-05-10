@@ -96,7 +96,7 @@ $lang['financial.request.no.files'] = 'Un devis ou une facture sont nécessaires
 $lang['financial.request.no.invoice'] = 'Une facture est nécessaire pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
 
 $lang['financial.request.email'] = 'Informations email';
-$lang['financial.request.email.clue'] = 'Les informations suivantes ne sont ni enregistrées ni conservées sur le site (RGPD)';
+$lang['financial.request.email.clue'] = 'Les informations suivantes, nécessaires pour les échanges, ne sont pas affichées sur le site.';
 $lang['financial.request.contact.user'] = 'Nom du correspondant';
 $lang['financial.request.contact.email'] = 'Adresse email du correspondant';
 $lang['financial.request.contact.email.clue'] = 'Email du responsable de club à contacter en cas de besoin';
@@ -117,6 +117,25 @@ $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
     <br /><strong>Date de réalisation :</strong> :club_activity_date
     <br /><br /><strong>Descriptif :</strong> :description
+';
+
+$lang['financial.paid.mail.msg'] = 'Bonjour, <br /><br />
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i>
+    <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été réglée par paiement et archivée.
+';
+
+$lang['financial.rejected.mail.msg'] = 'Bonjour, <br /><br />
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i>
+    <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été refusée pour une des raisons suivantes :
+    <br />- Raison 1
+    <br />- Raison 2
+    <br />- Raison 3
+';
+
+$lang['financial.ongoing.mail.msg'] = 'Bonjour, <br /><br />
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i>
+    <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été prise en compte et requière une action de votre part :
+    <br />- Vous devez fournir une facture.
 ';
 
 $lang['financial.mail.invoice.msg'] = 'Bonjour, <br /><br />

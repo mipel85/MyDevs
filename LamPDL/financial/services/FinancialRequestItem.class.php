@@ -14,6 +14,8 @@ class FinancialRequestItem
 	private $title;
 	private $rewrited_title;
 	private $author_user;
+	private $sender_name;
+	private $sender_email;
 	private $lamclubs_id;
 	private $event_date;
 	private $creation_date;
@@ -76,6 +78,26 @@ class FinancialRequestItem
 	public function get_author_user()
 	{
 		return $this->author_user;
+	}
+
+	public function set_sender_name($sender_name)
+	{
+		$this->sender_name = $sender_name;
+	}
+
+	public function get_sender_name()
+	{
+		return $this->sender_name;
+	}
+
+	public function set_sender_email($sender_email)
+	{
+		$this->sender_email = $sender_email;
+	}
+
+	public function get_sender_email()
+	{
+		return $this->sender_email;
 	}
 
 	public function set_lamclubs_id($lamclubs_id)
@@ -210,6 +232,8 @@ class FinancialRequestItem
 			'title'          => $this->get_title(),
 			'rewrited_title' => $this->get_rewrited_title(),
 			'author_user_id' => $this->get_author_user()->get_id(),
+			'sender_name'    => $this->get_sender_name(),
+			'sender_email'   => $this->get_sender_email(),
 			'lamclubs_id'    => $this->get_lamclubs_id(),
             'event_date'     => $this->get_event_date()->get_timestamp(),
 			'creation_date'  => $this->get_creation_date()->get_timestamp(),
@@ -227,6 +251,8 @@ class FinancialRequestItem
 		$this->budget_id        = $properties['budget_id'];
 		$this->title            = $properties['title'];
 		$this->rewrited_title   = $properties['rewrited_title'];
+		$this->sender_email     = $properties['sender_email'];
+		$this->sender_name      = $properties['sender_name'];
 		$this->lamclubs_id      = $properties['lamclubs_id'];
         $this->event_date       = new Date($properties['event_date'], Timezone::SERVER_TIMEZONE);
 		$this->creation_date    = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
@@ -249,7 +275,9 @@ class FinancialRequestItem
 	{
         $user = AppContext::get_current_user();
         $this->lamclubs_id = $this->is_authorized_to_add() ? LamclubsService::get_user_club(AppContext::get_current_user()->get_id()) : '';
-		$this->author_user = $user;
+        $this->author_user = $user;
+        $this->sender_name = $user->get_display_name();
+		$this->sender_email = $user->get_email();
 		$this->event_date = new Date();
 		$this->creation_date = new Date();
 	}

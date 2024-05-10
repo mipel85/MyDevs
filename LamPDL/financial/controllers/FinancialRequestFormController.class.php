@@ -66,23 +66,23 @@ class FinancialRequestFormController extends DefaultModuleController
             ));
         }
 
+        $email_fieldset = new FormFieldsetHTML('email', $this->lang['financial.request.email']);
+        $email_fieldset->set_description($this->lang['financial.request.email.clue']);
+        $form->add_fieldset($email_fieldset);
+
+        $email_fieldset->add_field(new FormFieldTextEditor('sender_name', $this->lang['financial.request.contact.user'], $item->get_sender_name(),
+            array('required' => true)
+        ));
+
+        $email_fieldset->add_field(new FormFieldMailEditor('sender_email', $this->lang['financial.request.contact.email'], $item->get_sender_email(),
+            array(
+                'required'    => true,
+                'description' => $this->lang['financial.request.contact.email.clue']
+                )
+        ));
+
         if ($this->is_new_item || $this->get_item()->get_agreement_state() == FinancialRequestItem::ONGOING)
         {
-            $email_fieldset = new FormFieldsetHTML('email', $this->lang['financial.request.email']);
-            $email_fieldset->set_description($this->lang['financial.request.email.clue']);
-            $form->add_fieldset($email_fieldset);
-
-            $email_fieldset->add_field(new FormFieldTextEditor('sender_name', $this->lang['financial.request.contact.user'], $item->get_author_user()->get_display_name(),
-                array('required' => true)
-            ));
-
-            $email_fieldset->add_field(new FormFieldMailEditor('sender_email', $this->lang['financial.request.contact.email'], $item->get_author_user()->get_email(),
-                array(
-                    'required'    => true,
-                    'description' => $this->lang['financial.request.contact.email.clue']
-                    )
-            ));
-
             $email_fieldset->add_field(new FormFieldMultiLineTextEditor('sender_description', $this->lang['financial.request.message'], '',
                 array('description' => $this->lang['financial.request.message.clue'])
             ));
@@ -95,6 +95,72 @@ class FinancialRequestFormController extends DefaultModuleController
         $form->add_button(new FormButtonReset());
 
         $this->form = $form;
+    }
+
+    private function save($budget_params)
+    {
+        $item = $this->get_item();
+
+        $item->set_budget_id($budget_params['id']);
+
+        $item->set_title($budget_params['name'] . ' - ' . $budget_params['fiscal_year']);
+        $item->set_rewrited_title(Url::encode_rewrite($item->get_title()));
+
+        $item->set_lamclubs_id($this->form->get_value('club_infos')->get_raw_value());
+        $item->set_event_date($this->form->get_value('event_date'));
+        $item->set_sender_name($this->form->get_value('sender_name'));
+        $item->set_sender_email($this->form->get_value('sender_email'));
+
+        if ($budget_params['use_dl'])
+        {
+            $club = LamclubsService::get_item($item->get_lamclubs_id());
+            $ffam_nb = $club->get_ffam_nb();
+
+            if(Url::to_rel($this->form->get_value('estimate_url')) !== $item->get_estimate_url()->rel())
+            {
+                $filename = $this->get_filename($this->form->get_value('estimate_url'));
+                $renamed_file = copy(
+                    PATH_TO_ROOT . $this->form->get_value('estimate_url'),
+                    PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
+                );
+                $item->set_estimate_url(new Url('/financial/files/' . $ffam_nb . '_' . $filename));
+            }
+            else
+                $item->set_estimate_url(new Url($this->form->get_value('estimate_url')));
+
+            if(Url::to_rel($this->form->get_value('invoice_url')) !== $item->get_invoice_url()->rel())
+            {
+                $filename = $this->get_filename($this->form->get_value('invoice_url'));
+                $renamed_file = copy(
+                    PATH_TO_ROOT . $this->form->get_value('invoice_url'),
+                    PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
+                );
+                $item->set_invoice_url(new Url('/financial/files/' . $ffam_nb . '_' . $filename));
+            }
+            else
+                $item->set_invoice_url(new Url($this->form->get_value('invoice_url')));
+        }
+
+        if ($this->is_new_item)
+        {
+            $item->set_agreement_state(FinancialRequestItem::PENDING);
+            $item->set_creation_date(new Date());
+            $item_id = FinancialRequestService::add_item($item);
+            $item->set_id($item_id);
+            FinancialMonitoringService::add_pending_request($item->get_id());
+
+            if (!$this->is_contributor_member()) HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
+        }
+        else
+        {
+            $item_id = FinancialRequestService::update_item($item);
+
+            if (!$this->is_contributor_member()) HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
+        }
+
+        $this->contribution_actions($item);
+
+        FinancialRequestService::clear_cache();
     }
 
     private function send_email()
@@ -237,70 +303,6 @@ class FinancialRequestFormController extends DefaultModuleController
             $error_controller = PHPBoostErrors::user_in_read_only();
             DispatchManager::redirect($error_controller);
         }
-    }
-
-    private function save($budget_params)
-    {
-        $item = $this->get_item();
-
-        $item->set_budget_id($budget_params['id']);
-
-        $item->set_title($budget_params['name'] . ' - ' . $budget_params['fiscal_year']);
-        $item->set_rewrited_title(Url::encode_rewrite($item->get_title()));
-
-        $item->set_lamclubs_id($this->form->get_value('club_infos')->get_raw_value());
-        $item->set_event_date($this->form->get_value('event_date'));
-
-        if ($budget_params['use_dl'])
-        {
-            $club = LamclubsService::get_item($item->get_lamclubs_id());
-            $ffam_nb = $club->get_ffam_nb();
-
-            if(Url::to_rel($this->form->get_value('estimate_url')) !== $item->get_estimate_url()->rel())
-            {
-                $filename = $this->get_filename($this->form->get_value('estimate_url'));
-                $renamed_file = copy(
-                    PATH_TO_ROOT . $this->form->get_value('estimate_url'),
-                    PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
-                );
-                $item->set_estimate_url(new Url('/financial/files/' . $ffam_nb . '_' . $filename));
-            }
-            else
-                $item->set_estimate_url(new Url($this->form->get_value('estimate_url')));
-
-            if(Url::to_rel($this->form->get_value('invoice_url')) !== $item->get_invoice_url()->rel())
-            {
-                $filename = $this->get_filename($this->form->get_value('invoice_url'));
-                $renamed_file = copy(
-                    PATH_TO_ROOT . $this->form->get_value('invoice_url'),
-                    PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
-                );
-                $item->set_invoice_url(new Url('/financial/files/' . $ffam_nb . '_' . $filename));
-            }
-            else
-                $item->set_invoice_url(new Url($this->form->get_value('invoice_url')));
-        }
-
-        if ($this->is_new_item)
-        {
-            $item->set_agreement_state(FinancialRequestItem::PENDING);
-            $item->set_creation_date(new Date());
-            $item_id = FinancialRequestService::add_item($item);
-            $item->set_id($item_id);
-            FinancialMonitoringService::add_pending_request($item->get_id());
-
-            if (!$this->is_contributor_member()) HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
-        }
-        else
-        {
-            $item_id = FinancialRequestService::update_item($item);
-
-            if (!$this->is_contributor_member()) HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
-        }
-
-        $this->contribution_actions($item);
-
-        FinancialRequestService::clear_cache();
     }
 
     private function get_filename($url)
