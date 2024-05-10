@@ -183,7 +183,7 @@ class FinancialRequestFormController extends DefaultModuleController
         ));
 
         $item_email = new Mail();
-        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
+        $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
         $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_title());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
@@ -213,7 +213,7 @@ class FinancialRequestFormController extends DefaultModuleController
         ));
 
         $item_email = new Mail();
-        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
+        $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
         $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_title());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));

@@ -126,10 +126,8 @@ $lang['financial.paid.mail.msg'] = 'Bonjour, <br /><br />
 
 $lang['financial.rejected.mail.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i>
-    <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été refusée pour une des raisons suivantes :
-    <br />- Raison 1
-    <br />- Raison 2
-    <br />- Raison 3
+    <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été refusée. 
+    <br />Pour plus d\'informations, répondez à ce mail pour obtenir des explications supplémentaires du bureau de la ligue. 
 ';
 
 $lang['financial.ongoing.mail.msg'] = 'Bonjour, <br /><br />

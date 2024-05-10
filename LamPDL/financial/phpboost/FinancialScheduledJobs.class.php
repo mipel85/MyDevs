@@ -37,8 +37,8 @@ class FinancialScheduledJobs extends AbstractScheduledJobExtensionPoint
             if($event_date == $finished_date)
             {
                 $item_email = new Mail();
-                $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $lang['financial.module.title']);
-                $item_email->set_reply_to(MailServiceConfig::load()->get_default_mail_sender());
+                $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $lang['financial.module.title']);
+                $item_email->set_reply_to(FinancialConfig::load()->get_recipient_mail_1());
                 $item_email->set_subject($lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $row['title']);
                 $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
