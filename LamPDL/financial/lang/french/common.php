@@ -111,12 +111,18 @@ $lang['financial.status.rejected'] = 'Rejetée';
 
 // Email
 $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
-	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="https://' . $_SERVER['SERVER_NAME'] . '/financial/pending/">Aller sur le site</a><br /><br /> 
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="' . GeneralConfig::load()->get_site_url() . '/financial/pending/">Aller sur le site</a><br /><br /> 
     Le club <strong>:club_name</strong> souhaite obtenir une aide pour la demande : :activity.
     <br /><br /><strong>Département :</strong> :club_activity_dpt
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
     <br /><strong>Date de réalisation :</strong> :club_activity_date
     <br /><br /><strong>Descriptif :</strong> :description
+';
+
+$lang['financial.mail.confirm.msg'] = 'Bonjour :club_sender_name, <br /><br />
+	Votre demande pour l\'activité :activity, prévue pour votre club :club_name, a bien été prise en compte (<a href="' . GeneralConfig::load()->get_site_url() . '/financial/pending/">Voir le site</a>).
+    <br /><br />Elle sera traitée après le :club_activity_date, date de l\'événement.
+    <br /><br />Si nécessaire, des informations complèmentaires vous seront demandées sur cette même adresse email.
 ';
 
 $lang['financial.paid.mail.msg'] = 'Bonjour, <br /><br />
@@ -126,8 +132,8 @@ $lang['financial.paid.mail.msg'] = 'Bonjour, <br /><br />
 
 $lang['financial.rejected.mail.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i>
-    <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été refusée. 
-    <br />Pour plus d\'informations, répondez à ce mail pour obtenir des explications supplémentaires du bureau de la ligue. 
+    <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été refusée.
+    <br />Pour plus d\'informations, répondez à ce mail pour obtenir des explications supplémentaires du bureau de la ligue.
 ';
 
 $lang['financial.ongoing.mail.msg'] = 'Bonjour, <br /><br />
@@ -137,7 +143,7 @@ $lang['financial.ongoing.mail.msg'] = 'Bonjour, <br /><br />
 ';
 
 $lang['financial.mail.invoice.msg'] = 'Bonjour, <br /><br />
-	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="https://' . $_SERVER['SERVER_NAME'] . '/financial/pending/">Aller sur le site</a><br /><br /> 
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="' . GeneralConfig::load()->get_site_url() . '/financial/pending/">Aller sur le site</a><br /><br /> 
     Le club <strong>:club_name</strong> a fourni une facture dans le suivi de son dossier pour la demande : :activity
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
     <br /><strong>Date de réalisation :</strong> :club_activity_date
