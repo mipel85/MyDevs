@@ -54,14 +54,19 @@
 
 # IF C_MONITORING #
 <script>
+    const pattern = /^\d{1,4}(\.\d{0,2})?$/;
     jQuery('.monitoring-input').each(function() {
         let amount = jQuery(this).val(), /* récupération du montant forfaitaire rempli automatiquement - valeur sans décimales */
-                target = jQuery(this).siblings('.payment-button'),
-                href = target.attr('href');
+            target = jQuery(this).siblings('.payment-button'),
+            href = target.attr('href');
         target.attr('href', href + amount);
 
         jQuery(this).on('change', function() {
             amount = jQuery(this).val(); /* récupération du montant saisi avec des décimales */
+            if (pattern.test(amount))
+                target.css('pointer-events', 'auto');
+            else
+                target.css('pointer-events', 'none');
             var number = amount.split('.');
             if (number[0].length > 4 || number[1].length > 2 ){
                 alert('Le format saisi n\'est pas correct. \n Le montant doit être de la forme : 4 chiffres + point + 2 décimales');
