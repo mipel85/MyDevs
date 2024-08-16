@@ -57,7 +57,7 @@ class FinancialSetup extends DefaultModuleSetup
 			'creation_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'estimate_url' => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
 			'invoice_url' => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
-			'amount_paid' => array('type' => 'integer','length' => 11, 'notnull' => 0, 'default' => 0),
+			'amount_paid' => array('type' => 'decimal','length' => 10, 'scale' => 2, 'notnull' => 0, 'default' => 0),
 			'agreement' => array('type' => 'integer','length' => 1, 'notnull' => 1, 'default' => 0),
 			'agreement_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0)
 		);
@@ -79,7 +79,7 @@ class FinancialSetup extends DefaultModuleSetup
 			'description' => array('type' => 'text', 'length' => 255),
 			'fiscal_year' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'annual_amount' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'real_amount' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'real_amount' => array('type' => 'decimal', 'length' => 10, 'scale' => 2, 'notnull' => 1, 'default' => 0),
 			'temp_amount' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'unit_amount' => array('type' => 'string', 'length' => 11, 'default' => "''"),
 			'max_amount' => array('type' => 'string', 'length' => 11, 'default' => "''"),

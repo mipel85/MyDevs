@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 02 09
+ * @version     PHPBoost 6.0 - last update: 2024 08 14
  * @since       PHPBoost 6.0 - 2024 02 09
  */
 
@@ -20,7 +20,9 @@ class FinancialRequestAcceptController extends DefaultModuleController
      */
     public function execute(HTTPRequestCustom $request)
 	{
-		$item = $this->get_item($request);
+        $item = $this->get_item($request);
+        $amount_paid = $request->get_value('amount_paid', '');
+        $amount_paid = floatval(str_replace('_', '.', $amount_paid)); /* underscore passé dans url transformé en point */
 
 		if (!$item->is_authorized_to_delete() || AppContext::get_current_user()->is_readonly())
 		{
@@ -31,26 +33,48 @@ class FinancialRequestAcceptController extends DefaultModuleController
 
         if ($request->get_value('amount_paid', '') !== '')
         {
-            if(($budget->get_annual_amount() - $request->get_value('amount_paid', '')) >= 0)
+            /* on teste si le montant saisi est conforme - 4 chiffres max et 2 décimales */ 
+            if (strlen($request->get_value('amount_paid', '')) > 7)
             {
-                FinancialMonitoringService::request_payment($item->get_id(), $request->get_value('amount_paid', ''));
+              AppContext::get_response()->redirect(
+                    ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
+                    $this->lang['financial.input.number.length'], MessageHelper::ERROR);  
+            }
+
+            /* on teste si le montant à payer est bien inférieur au montant maximum */ 
+            if ($amount_paid > $budget->get_max_amount()) 
+          {
+              AppContext::get_response()->redirect(
+                    ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
+                    StringVars::replace_vars($this->lang['financial.message.error.maximum.budget'], array('title' => $item->get_title(), 'max_budget' => $budget->get_max_amount())), MessageHelper::ERROR);
+          }
+          else
+          /* on teste si le budget restant est suffisant */ 
+            if ($amount_paid > $budget->get_real_amount()) 
+          {
+              AppContext::get_response()->redirect(
+                    ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
+                    StringVars::replace_vars($this->lang['financial.message.error.remaining.budget'], array('title' => $item->get_title(), 'remaining_budget' => $budget->get_real_amount())), MessageHelper::ERROR);
+          }
+           else   
+          /* on teste si le budget annuel n'est pas dépassé */ 
+            if(($budget->get_annual_amount() - $amount_paid) >= 0 )
+            {
+                FinancialMonitoringService::request_payment($item->get_id(), $amount_paid, '');
                 $this->send_email($request);
                 AppContext::get_response()->redirect(
                     ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
                     StringVars::replace_vars($this->lang['financial.message.success.accept'], array('title' => $item->get_title())));
             }
-            else
-                AppContext::get_response()->redirect(
-                    ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-                    StringVars::replace_vars($this->lang['financial.message.error.accept'], array('title' => $item->get_title())), MessageHelper::ERROR);
         }
         else
             AppContext::get_response()->redirect(
                 ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
                 StringVars::replace_vars($this->lang['financial.message.empty.accept'], array('title' => $item->get_title())), MessageHelper::ERROR);
-
+    
 		FinancialRequestService::clear_cache();
 	}
+	
 
     private function send_email(HTTPRequestCustom $request)
     {

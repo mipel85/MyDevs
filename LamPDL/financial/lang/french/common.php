@@ -3,8 +3,8 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 02 26
- * @since       PHPBoost 6.0 - 2020 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 08 14
+ * @since       PHPBoost 6.0 - 2024 02 09
  */
 ####################################################
 #                    French                        #
@@ -24,7 +24,6 @@ $lang['financial.budget.edit'] = 'Modifier un budget';
 $lang['financial.item.add'] = 'Ajouter une demande';
 $lang['financial.item.edit'] = 'Modifier une demande';
 $lang['financial.item.delete'] = 'Supprimer la demande';
-$lang['financial.monitored.items'] = 'Suivi financier';
 $lang['financial.archived.items'] = 'Demandes archivées';
 $lang['financial.pending.items'] = 'Demandes en attente';
 $lang['financial.archived'] = 'archivées';
@@ -76,6 +75,8 @@ $lang['financial.budget.upload'] = 'Budget avec téléversement <br /><span clas
 $lang['financial.budget.invoice.required'] = 'Facture obligatoire';
 
 $lang['financial.request.form.title'] = '<span class="small">Demande d\'aide : </span>';
+$lang['financial.request.decimal.input'] = '<strong>Saisir le montant sous la forme 9999.99</strong>';
+$lang['financial.input.number.length'] = '<strong>Le montant saisi ne doit pas dépasser 4 chiffres et 2 décimales.</strong>';
 $lang['financial.request.allocated.budget'] = 'Budget alloué pour cette demande';
 $lang['financial.request.bill'] = '
     <br /><span class="message-helper bgc warning">Attention !! Vous devez fournir un devis <strong>OU</strong> une facture !
@@ -186,7 +187,9 @@ $lang['financial.message.success.edit'] = 'La demande <strong>:title</strong> a 
 $lang['financial.message.success.delete'] = 'La demande <strong>:title</strong> a été supprimée';
 $lang['financial.message.success.reject'] = 'La demande <strong>:title</strong> a été rejetée et placée en archive';
 $lang['financial.message.success.accept'] = 'La demande <strong>:title</strong> a été acceptée et placée en archive';
-$lang['financial.message.error.accept'] = 'Le montant déclaré pour la validation de la demande: <strong>:title</strong> entraîne un dépassement du budget annuel';
+$lang['financial.message.error.annual.budget'] = 'Le montant déclaré pour la validation de la demande: <strong>:title</strong> entraîne un dépassement du budget annuel';
+$lang['financial.message.error.maximum.budget'] = 'Le montant maximum prévu pour la demande : <strong>:title</strong> est de : <strong>:max_budget€</strong>';
+$lang['financial.message.error.remaining.budget'] = 'Le montant saisi pour la demande : <strong>:title</strong> est supérieur au budget restant : <strong>:remaining_budget€</strong>';
 $lang['financial.message.empty.accept'] = 'Le montant déclaré pour la validation de la demande: <strong>:title</strong> ne peut pas être nul';
 $lang['financial.message.success.ongoing'] = 'La demande <strong>:title</strong> a été placée à l\'étude';
 

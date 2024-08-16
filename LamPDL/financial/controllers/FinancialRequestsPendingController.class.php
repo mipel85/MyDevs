@@ -3,8 +3,8 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
- * @since       PHPBoost 6.0 - 2020 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 08 14
+ * @since       PHPBoost 6.0 - 2024 02 09
 */
 
 class FinancialRequestsPendingController extends DefaultModuleController
@@ -125,7 +125,9 @@ class FinancialRequestsPendingController extends DefaultModuleController
             );
             $reject_link = $reject_link->display();
 
-            $amount_label = $budget->get_max_amount() ? 
+            $amount_label = $this->lang['financial.request.decimal.input'] . '<br />'; /* précision sur le séparateur décimal dans le label de l'input */
+            
+            $amount_label.= $budget->get_max_amount() ? 
                 $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_unit_amount() . '<br />max: ' . $budget->get_max_amount() . '€' : 
                 $this->lang['financial.request.allocated.budget'] . ': ' . $budget->get_unit_amount();
             $amount_number = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
@@ -135,7 +137,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
             {
                 $real_amount = '';
                 $readonly = '';
-                $type = 'type="number"';
+                $type = 'type="text" pattern="^\d{1,4}(\.\d{0,2})?$"';
             }
             elseif (!$budget->get_use_dl())
             {
@@ -147,18 +149,19 @@ class FinancialRequestsPendingController extends DefaultModuleController
             {
                 $real_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
                 $readonly = '';
-                $type = 'type="number"';
+                $type = 'type="text" pattern="^\d{1,4}(\.\d{0,2})?$"';
             }
             else 
             {
                 $real_amount = $readonly = '';
-                $type = 'type="number"';
+                $type = 'type="text" pattern="^\d{1,4}(\.\d{0,2})?$"';
             }
 
             $id = $item->get_id();
             $amount = '<input 
+                placeholder = "0000.00"
                 class="monitoring-input"
-                ' . $type . '
+                '.$type.'
                 min="0" max="' . $amount_max . '"
                 id="amount_' . $id . '"
                 value="' . $real_amount . '"
