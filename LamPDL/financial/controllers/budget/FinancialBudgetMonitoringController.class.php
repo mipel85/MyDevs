@@ -3,8 +3,8 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
- * @since       PHPBoost 6.0 - 2020 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 08 17
+ * @since       PHPBoost 6.0 - 2024 02 08
 */
 
 class FinancialBudgetMonitoringController extends DefaultModuleController
@@ -148,7 +148,7 @@ class FinancialBudgetMonitoringController extends DefaultModuleController
 	{
 		$response = new SiteDisplayResponse($this->view);
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['financial.monitored.items'], $this->lang['financial.module.title'], $page);
+		$graphical_environment->set_page_title($this->lang['financial.monitoring'], $this->lang['financial.module.title'], $page);
 		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['financial.seo.description.root'], array('site' => GeneralConfig::load()->get_site_name())));
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(FinancialUrlBuilder::home());
 
