@@ -3,8 +3,8 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
- * @since       PHPBoost 6.0 - 2020 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 08 25
+ * @since       PHPBoost 6.0 - 2024 02 08
 */
 
 class FinancialHomeController extends DefaultModuleController
@@ -41,7 +41,6 @@ class FinancialHomeController extends DefaultModuleController
 
 		$table_model = new SQLHTMLTableModel(FinancialSetup::$financial_budget_table, 'items-list', $columns, new HTMLTableSortingRule('id', HTMLTableSortingRule::ASC));
 
-		$table_model->set_layout_title($this->lang['financial.module.title']);
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
@@ -62,7 +61,9 @@ class FinancialHomeController extends DefaultModuleController
 				$moderation_link_number++;
 			}
 		}
-
+        
+		$table_model->set_layout_title($this->lang['financial.module.title'] . ' - exercice ' . $budgets[0]->get_fiscal_year());
+        
 		if (empty($moderation_link_number))
 		{
 			$table_model->delete_last_column();

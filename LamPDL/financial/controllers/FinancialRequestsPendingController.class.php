@@ -138,23 +138,27 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $real_amount = '';
                 $readonly = '';
                 $type = 'type="text" pattern="^\d{1,4}(\.\d{0,2})?$"';
+                $color_link = 'bgc-full success';
             }
             elseif (!$budget->get_use_dl())
             {
                 $real_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
                 $readonly = 'readonly';
                 $type = 'type="text"';
+                $color_link = 'bgc-full success';
             }
             elseif ($budget->get_use_dl() && TextHelper::mb_substr($budget->get_unit_amount(), -1) !== '%')
             {
                 $real_amount = TextHelper::mb_substr($budget->get_unit_amount(), 0, -1);
                 $readonly = '';
                 $type = 'type="text" pattern="^\d{1,4}(\.\d{0,2})?$"';
+                $color_link = 'bgc-full notice button-disabled';
             }
             else 
             {
                 $real_amount = $readonly = '';
                 $type = 'type="text" pattern="^\d{1,4}(\.\d{0,2})?$"';
+                $color_link = 'bgc-full notice button-disabled';
             }
 
             $id = $item->get_id();
@@ -172,7 +176,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 FinancialUrlBuilder::accept_request($item->get_id(), ''), 
                 $this->lang['financial.monitoring.accept'], 
                 array('id' => 'accept_'.$item->get_id(), 'aria-label' => $this->lang['financial.monitoring.accept.clue']), 
-                'payment-button small pinned bgc-full success'
+                'payment-button small pinned '.$color_link.''
             );
             $accept_link = $accept_link->display();
 

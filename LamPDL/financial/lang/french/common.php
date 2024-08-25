@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 08 14
+ * @version     PHPBoost 6.0 - last update: 2024 08 25
  * @since       PHPBoost 6.0 - 2024 02 09
  */
 ####################################################
@@ -162,7 +162,7 @@ $lang['financial.recipient.mail_3'] = 'Adresse du destinataire n° 3 :';
 $lang['financial.email.configuration.default'] = 'Adresse mail obligatoire. par défaut : :default_mail';
 $lang['financial.email.configuration.optional'] = 'Adresse mail optionnelle';
 
-$lang['financial.winter.break'] = 'Mettre le module en pause';
+$lang['financial.winter.break'] = 'Suspendre la saisie des demandes, préparation fin d\'exercice';
 
 $lang['financial.reset'] = 'Nouvel exercice comptable';
 $lang['financial.reset.clue'] = '

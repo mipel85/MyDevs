@@ -3,7 +3,7 @@
 }
 
 .monitoring-input {
-    width: 90px;
+    width: 70px;
     margin-right: 0.618em;
     padding: 0 0 0 0.228em;
     border-radius: var(--radius);
@@ -20,4 +20,8 @@
 
 .bordered-table tr:hover {
     background-color: rgba(var(--main-rgb-t), 0.2);
+}
+
+.button-disabled {
+   pointer-events: none;
 }

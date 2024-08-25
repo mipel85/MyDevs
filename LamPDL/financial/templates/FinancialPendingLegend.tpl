@@ -53,30 +53,67 @@
 </div>
 
 # IF C_MONITORING #
-<script>
-    const pattern = /^\d{1,4}(\.\d{0,2})?$/;
-    jQuery('.monitoring-input').each(function() {
-        let amount = jQuery(this).val(), /* récupération du montant forfaitaire rempli automatiquement - valeur sans décimales */
-            target = jQuery(this).siblings('.payment-button'),
-            href = target.attr('href');
-        target.attr('href', href + amount);
+    <div class="floating-message-container">
+        <div id="input-validator" class="floating-element hide-message" style="opacity: 0; display: none;">
+            <div class="message-helper bgc error">
+                Le format saisi n'est pas correct. <br /> Le montant doit être de la forme : 4 chiffres + point + 2 décimales
+            </div>
+        </div>
+    </div>
+    <script>
+        jQuery(document).ready(function() {
+            const pattern = /^(\d{0,4})(\.\d{0,2})?$/;
 
-        jQuery(this).on('change', function() {
-            amount = jQuery(this).val(); /* récupération du montant saisi avec des décimales */
-            if (pattern.test(amount))
-                target.css('pointer-events', 'auto');
-            else
-                target.css('pointer-events', 'none');
-            var number = amount.split('.');
-            if (number[0].length > 4 || number[1].length > 2 ){
-                alert('Le format saisi n\'est pas correct. \n Le montant doit être de la forme : 4 chiffres + point + 2 décimales');
+            function inputValid(amount, target, pattern)
+            {
+                if (pattern.test(amount))
+                    target.css({
+                        'pointer-events': 'auto',
+                        'background-color': 'var(--success-tone)'
+                    });
+                else {
+                    jQuery('.floating-message-container').css('top', '80%');
+                    target.css({
+                        'pointer-events': 'none',
+                        'background-color': 'var(--error-tone)'
+                    });
+                    jQuery('#input-validator').css({
+                        opacity: 1,
+                        display: 'block'
+                    });
+                    setTimeout(function(){
+                        jQuery('#input-validator').fadeOut(1000);
+                    }, 2500);
+                }
             }
-            amount = amount.replace('.', '_'); /* transformation du séparateur décimal de point en underscore car point ou virgule interdits dans l'url*/
-            parts = href.split('/');
-            parts[parts.length - 1] = amount;
-            let new_href = parts.join('/');
-            target.attr('href', new_href);
+
+            /* récupération du montant forfaitaire rempli automatiquement - valeur sans décimales */
+            jQuery('.monitoring-input').each(function() {
+                let amount = jQuery(this).val(),
+                    target = jQuery(this).siblings('.payment-button'),
+                    href   = target.attr('href');
+                target.attr('href', href + amount);
+                // target.css('pointer-events', 'none'); /* payment-button désactivé par défaut */
+
+                /* récupération du montant saisi avec des décimales */
+                jQuery(this).on('keydown', function(event) {
+                    amount = jQuery(this).val();
+                    if (event.keyCode === 9)
+                        inputValid(amount, target, pattern);
+                }).on('mouseleave', function() {
+                    amount = jQuery(this).val();
+                    if (amount !=='')
+                    inputValid(amount, target, pattern);
+                }).on('change', function() {
+                    amount = jQuery(this).val();
+                    var number = amount.split('.');
+                    amount = amount.replace('.', '_'); /* transformation du séparateur décimal de point en underscore car point ou virgule interdits dans l'url*/
+                    parts = href.split('/');
+                    parts[parts.length - 1] = amount;
+                    let new_href = parts.join('/');
+                    target.attr('href', new_href);
+                });
+            });
         });
-    });
-</script>
+    </script>
 # ENDIF #
