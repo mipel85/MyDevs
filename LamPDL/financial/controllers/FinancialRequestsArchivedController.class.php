@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
- * @since       PHPBoost 6.0 - 2020 01 18
+ * @version     PHPBoost 6.0 - last update: 2024 08 30
+ * @since       PHPBoost 6.0 - 2024 02 09
+ * @contributor Mipel <mipel@phpboost.com>
 */
 
 class FinancialRequestsArchivedController extends DefaultModuleController
@@ -38,12 +39,21 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 
 		$table_model->set_layout_title($this->lang['financial.archived.items']);
 
-		// $table_model->set_filters_menu_title($this->lang['financial.filter.items']);
-		// $table_model->add_filter(new HTMLTableDateComparatorSQLFilter('event_date', 'filter0', $this->lang['financial.request.event.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
-		// $table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('event_date', 'filter1', $this->lang['financial.request.event.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
-		// $table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('event_date', 'filter2', $this->lang['financial.request.event.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
-		// $table_model->add_filter(new HTMLTableLikeTextSQLFilter('department', 'filter3', $this->lang['financial.club.department']));
+        $table_model->set_filters_menu_title($this->lang['financial.filter.items']);
+		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('department', 'filter1', $this->lang['financial.club.dpt.filter'], array(44 => 44, 49 => 49, 53 => 53, 72 => 72, 85 => 85)));
 
+        /* filtre par type de demande */
+        $result = PersistenceContext::get_querier()->select('SELECT title, rewrited_title FROM ' . FinancialSetup::$financial_request_table);
+		$request_type = array();
+		while ($row = $result->fetch())
+		{
+            $request_type[$row['rewrited_title']] = $row['title'];
+		}
+		$result->dispose();
+		asort($request_type);
+        $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('rewrited_title', 'filter2', $this->lang['financial.request.type'], $request_type, true));
+        
+        /* filtre permanent, on n'affiche pas les demandes acceptées ou rejetées */
         $table_model->add_permanent_filter('agreement = ' . FinancialRequestItem::ACCEPTED . ' OR agreement = ' . FinancialRequestItem::REJECTED);
 
 		$table = new HTMLTable($table_model);
@@ -55,9 +65,10 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = request.author_user_id
 			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = request.lamclubs_id'
 		);
+        
 		foreach ($result as $row)
 		{
-			$item = new FinancialRequestItem();
+            $item = new FinancialRequestItem();
 			$item->set_properties($row);
 
 			$this->items_number++;
@@ -73,7 +84,7 @@ class FinancialRequestsArchivedController extends DefaultModuleController
             $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
             $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-lg fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
             $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
-
+            
 			$row = array(
 				new HTMLTableRowCell($item->get_title(), 'align-left'),
 				new HTMLTableRowCell($club_infos),
@@ -87,7 +98,8 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 
 			$results[] = new HTMLTableRow($row);
 		}
-		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
+		
+        $table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
 		$this->view->put('CONTENT', $table->display());
 
