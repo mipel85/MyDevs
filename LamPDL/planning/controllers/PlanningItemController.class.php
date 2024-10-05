@@ -65,7 +65,7 @@ class PlanningItemController extends DefaultModuleController
 	private function build_email_form()
 	{
         $category = $this->item->get_category();
-        $category_name = $category->get_id() == Category::ROOT_CATEGORY ? $this->get_activity_other() : $category->get_name();
+        $category_name = $category->get_id() == Category::ROOT_CATEGORY ? $this->get_item->get_activity_other() : $category->get_name();
         $club = LamclubsService::get_item($this->item->get_lamclubs_id());
 
 		$email_form = new HTMLForm(__CLASS__);
