@@ -65,7 +65,7 @@ class PlanningItemController extends DefaultModuleController
 	private function build_email_form()
 	{
         $category = $this->item->get_category();
-        $category_name = $category->get_id() == Category::ROOT_CATEGORY ? $this->get_item->get_activity_other() : $category->get_name();
+        $category_name = $category->get_id() == Category::ROOT_CATEGORY ? $this->get_item()->get_activity_other() : $category->get_name();
         $club = LamclubsService::get_item($this->item->get_lamclubs_id());
 
 		$email_form = new HTMLForm(__CLASS__);
@@ -97,7 +97,7 @@ class PlanningItemController extends DefaultModuleController
 	private function send_email()
 	{
         $category = $this->item->get_category();
-        $category_name = $category->get_id() == Category::ROOT_CATEGORY ? $this->get_activity_other() : $category->get_name();
+        $category_name = $category->get_id() == Category::ROOT_CATEGORY ? $this->get_item()->get_activity_other() : $category->get_name();
 		$item_message = '';
 		$item_subject = $category_name . ' ' . $this->lang['common.from.date'] . ' ' .  $this->item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 		$item_sender_name = $this->email_form->get_value('sender_name');
