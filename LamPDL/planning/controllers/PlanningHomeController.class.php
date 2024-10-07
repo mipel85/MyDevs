@@ -115,14 +115,16 @@ class PlanningHomeController extends DefaultModuleController
             $c_end_date = $item->get_end_date_enabled() && $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
             $club = LamclubsService::get_item($item->get_lamclubs_id());
 
-			if($item->is_approved())
+			if ($item->is_approved())
 			{
+                $cancel_class = $item->is_cancelled() ? ' bgc error' : '';
+                $title = $item->is_cancelled() ? '<span class="text-strike">'. $title . '</span><br />' . $this->lang['planning.cancelled.item'] : $title;
 				$row = array(
-					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : ''),'align-left'),
-					new HTMLTableRowCell($title, 'align-left'),
-					new HTMLTableRowCell($item->get_activity_detail(), 'align-left'),
-					new HTMLTableRowCell($club->get_department()),
-					new HTMLTableRowCell($club->get_name(),'align-left'),
+					new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : ''),'align-left' . $cancel_class),
+					new HTMLTableRowCell($title, 'align-left' . $cancel_class),
+					new HTMLTableRowCell($item->get_activity_detail(), 'align-left' . $cancel_class),
+					new HTMLTableRowCell($club->get_department(), $cancel_class),
+					new HTMLTableRowCell($club->get_name(),'align-left' . $cancel_class),
 					new HTMLTableRowCell($visitor_link),
 					$moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link, 'controls') : null
 				);
