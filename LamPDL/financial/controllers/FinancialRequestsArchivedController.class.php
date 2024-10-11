@@ -26,8 +26,8 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 	{
 		$columns = array(
 			new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'title'),
-			new HTMLTableColumn($this->lang['financial.club.nb'], 'club_name'),
-			new HTMLTableColumn($this->lang['financial.club.dpt'], 'club_department'),
+			new HTMLTableColumn($this->lang['financial.club.nb'], 'name'),
+			new HTMLTableColumn($this->lang['financial.club.dpt'], 'department'),
 			new HTMLTableColumn($this->lang['financial.request.creation.date'], 'creation_date'),
 			new HTMLTableColumn($this->lang['financial.request.validation.date'], 'agreement_date'),
 			new HTMLTableColumn($this->lang['common.status'], 'agreement'),
