@@ -93,33 +93,35 @@
                 
             </script>
             # IF C_STATEMENT #
-            <table id="statement_view">
-                <thead>
-                    <tr>
-                        <th>Domaine</th><th>Type</th><th>N° FFAM</th><th>Club</th><th>Demandeur</th><th>Date demande</th><th>Date activité</th><th>Montant versé</th><th>Budget                               prévu</th></th><th>Budget dépensé</th><th>Budget restant</th><th>lien devis</th><th>lien facture</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    # START statement # 
-                    <tr class ="align-left">
-                        <td>{statement.DOMAIN}</td>
-                        <td>{statement.TYPE}</td>
-                        <td>{statement.FFAM_NUM}</td>
-                        <td>{statement.CLUB}</td>
-                        <td>{statement.AUTHOR}</td>
-                        <td>{statement.CREATION_DATE}</td>
-                        <td>{statement.EVENT_DATE}</td>
-                        <td>{statement.AMOUNT_PAID}</td>
-                        <td>{statement.BUDGET_PLANNED}</td>
-                        <td>{statement.BUDGET_ACHIEVED}</td>
-                        <td>{statement.BUDGET_REMAINING}</td>
-                        <td># IF statement.C_ESTIMATE_LINK #<a href="{statement.ESTIMATE_LINK}"><i class="far fa-lg fa-file-lines"></i></a># ENDIF #</td>
-                        <td># IF statement.C_INVOICE_LINK #<a href="{statement.INVOICE_LINK}"><i class="fa fa-lg fa-file-contract"></i></a># ENDIF #</td>
-                            
-                    </tr>
-                    # END statement # 
-                </tbody>
-            </table>
+            <div class="responsive-table">
+                <table id="statement_view">
+                    <thead>
+                        <tr>
+                            <th>Domaine</th><th>Type</th><th>N° FFAM</th><th>Club</th><th>Demandeur</th><th>Date demande</th><th>Date activité</th><th>Montant versé</th><th>Budget                               prévu</th></th><th>Budget dépensé</th><th>Budget restant</th><th>lien devis</th><th>lien facture</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        # START statement # 
+                        <tr class ="align-left">
+                            <td>{statement.DOMAIN}</td>
+                            <td>{statement.TYPE}</td>
+                            <td>{statement.FFAM_NUM}</td>
+                            <td>{statement.CLUB}</td>
+                            <td>{statement.AUTHOR}</td>
+                            <td>{statement.CREATION_DATE}</td>
+                            <td>{statement.EVENT_DATE}</td>
+                            <td>{statement.AMOUNT_PAID}</td>
+                            <td>{statement.BUDGET_PLANNED}</td>
+                            <td>{statement.BUDGET_ACHIEVED}</td>
+                            <td>{statement.BUDGET_REMAINING}</td>
+                            <td># IF statement.C_ESTIMATE_LINK #<a href="{statement.ESTIMATE_LINK}"><i class="far fa-lg fa-file-lines"></i></a># ENDIF #</td>
+                            <td># IF statement.C_INVOICE_LINK #<a href="{statement.INVOICE_LINK}"><i class="fa fa-lg fa-file-contract"></i></a># ENDIF #</td>
+                                
+                        </tr>
+                        # END statement # 
+                    </tbody>
+                </table>
+            </div>
             # ENDIF #
         </div>
     </div>

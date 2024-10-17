@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 10 15
+ * @version     PHPBoost 6.0 - last update: 2024 10 17
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 class FinancialStatementController extends DefaultModuleController
@@ -48,7 +48,8 @@ class FinancialStatementController extends DefaultModuleController
     private function build_chart_budgets_used()
     {
         $budgets_used = FinancialBudgetService::get_budgets_used();
-
+        
+        if ($budgets_used)
         foreach ($budgets_used as $value) {
             $this->view->assign_block_vars('budgets', array(
                 'NAME'          => $value['name'],
@@ -61,7 +62,8 @@ class FinancialStatementController extends DefaultModuleController
     private function build_statement_list()
     {
         $statement = FinancialBudgetService::get_statement_view();
-
+        
+        if ($statement)
         foreach ($statement as $value) {
             $this->view->assign_block_vars('statement', array(
                 'DOMAIN'           => $value['Domaine'],

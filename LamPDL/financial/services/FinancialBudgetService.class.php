@@ -126,7 +126,7 @@ class FinancialBudgetService
     public static function get_statement_view()
     {
         $req = self::$db_querier->select('SELECT *
-		FROM statement_view'
+		FROM ' . FinancialSetup::$financial_statement_view . ''
         );
 
         while($row = $req->fetch())

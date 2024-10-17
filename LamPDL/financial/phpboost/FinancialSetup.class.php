@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 10 17
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 class FinancialSetup extends DefaultModuleSetup
@@ -16,7 +16,7 @@ class FinancialSetup extends DefaultModuleSetup
     {
         self::$financial_request_table = PREFIX . 'financial_request';
         self::$financial_budget_table = PREFIX . 'financial_budget';
-        self::$financial_statement_view = PREFIX . 'statement_view';
+        self::$financial_statement_view = 'statement_view';
     }
 
     public function install()
