@@ -21,6 +21,7 @@ class FinancialSetup extends DefaultModuleSetup
 
     public function install()
     {
+        $this->drop_view();
         $this->drop_tables();
         $this->create_tables();
         $this->insert_data();
@@ -28,13 +29,19 @@ class FinancialSetup extends DefaultModuleSetup
 
     public function uninstall()
     {
+        $this->drop_view();
         $this->drop_tables();
         ConfigManager::delete('financial', 'config');
     }
 
     private function drop_tables()
     {
-        PersistenceContext::get_dbms_utils()->drop(array(self::$financial_request_table, self::$financial_budget_table, self::$financial_statement_view));
+        PersistenceContext::get_dbms_utils()->drop(array(self::$financial_request_table, self::$financial_budget_table));
+    }
+
+    private function drop_view()
+    {
+        PersistenceContext::get_querier()->select("DROP VIEW IF EXISTS " . self::$financial_statement_view);
     }
 
     private function create_tables()
