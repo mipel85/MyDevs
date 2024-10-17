@@ -473,7 +473,7 @@ class PlanningItem
 				'C_NEW_CONTENT'        => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('planning', $this->get_creation_date()->get_timestamp()),
 				'C_HAS_UPDATE_DATE'    => $this->has_update_date(),
 				'C_HAS_THUMBNAIL' 	   => $this->has_thumbnail(),
-				'C_VISIT' 		       => $this->get_website_url(),
+				'C_VISIT' 		       => $this->get_website_url()->rel(),
                 'C_PDF'                => $flyer->get_extension() == 'pdf',
 
 				//Category
