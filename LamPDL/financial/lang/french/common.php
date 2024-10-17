@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 08 25
+ * @version     PHPBoost 6.0 - last update: 2024 10 15
  * @since       PHPBoost 6.0 - 2024 02 09
  */
 ####################################################
@@ -30,6 +30,7 @@ $lang['financial.archived'] = 'archivées';
 $lang['financial.pending'] = 'en attente';
 $lang['financial.filter.items'] = 'Filtrer les demandes';
 $lang['financial.items.management'] = 'Gestion des demandes';
+$lang['financial.charts.items'] = 'Liste des graphiques';
 
 $lang['financial.request.type'] = 'Type de demande';
 $lang['financial.bill'] = '<span class="small text-italic"> sur facture</span>';
@@ -241,4 +242,11 @@ $lang['financial.budget.archive.th.quantity'] = 'Quantité';
 $lang['financial.budget.archive.no.tables'] = 'Aucune archive de budget n\'a été créée.';
 $lang['financial.budget.archive.unexists'] = 'Aucune table n\'existe pour cet exercice.';
 $lang['financial.budget.archive.home'] = 'Sélectionner une date dans le sélecteur "Afficher l\'année".';
+
+// financial statement
+$lang['financial.statement'] = 'Situation financière';
+$lang['financial.charts.menu'] = 'Liste des graphiques';
+$lang['financial.pending.chart'] = 'Demandes en attente';
+$lang['financial.chart.budgets.used'] = 'Graphique des dépenses par activités';
+$lang['financial.budgets.statement'] = 'Tableau des dépenses par activités';
 ?>

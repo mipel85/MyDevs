@@ -23,5 +23,48 @@
 }
 
 .button-disabled {
-   pointer-events: none;
+    pointer-events: none;
 }
+
+/*
+*charts menu
+*/
+
+.charts-menu {
+    text-align: center;
+    padding-bottom: 30px;
+    margin: 15px;
+}
+
+.chart-container {
+	padding-top: 30px !important;
+    /*background-color: #e3e6f5;*/
+}
+
+#financial_charts ul {
+	height: 0;
+	list-style-type: none;
+    padding-bottom: 50px;
+}
+
+#financial_charts li{
+	position: relative;
+	display: inline-block;
+	text-align: center;
+	}
+
+#financial_charts li a {
+	display: block;
+	padding: 0.350em;
+    font-style: italic;
+	}
+    
+    /* statement */
+    .align-left td{
+        text-align: left;
+        min-width: 100px;
+    }
+
+	
+
+

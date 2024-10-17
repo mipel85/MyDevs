@@ -5,75 +5,74 @@
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @version     PHPBoost 6.0 - last update: 2024 01 20
  * @since       PHPBoost 6.0 - 2020 01 18
-*/
-
+ */
 class FinancialBudgetService
 {
-	private static $db_querier;
+    private static $db_querier;
 
-	public static function __static()
-	{
-		self::$db_querier = PersistenceContext::get_querier();
-	}
-
-	/**
-	 * @desc Create a new budget.
-	 * @param FinancialBudgetItem $budget new FinancialBudgetItem
-	 */
-	public static function add_budget(FinancialBudgetItem $budget)
-	{
-		$result = self::$db_querier->insert(FinancialSetup::$financial_budget_table, $budget->get_properties());
-
-		return $result->get_last_inserted_id();
-	}
-
-	/**
-	 * @desc Update an budget.
-	 * @param FinancialBudgetItem $budget FinancialBudgetItem to update
-	 */
-	public static function update_budget(FinancialBudgetItem $budget)
-	{
-		self::$db_querier->update(FinancialSetup::$financial_budget_table, $budget->get_properties(), 'WHERE id = :id', array(
-			'id' => $budget->get_id()
-		));
-
-		return $budget->get_id();
-	}
-
-	/**
-	 * @desc Delete an budget.
-	 * @param int $id id of the budget
-	 */
-	public static function delete_budget(int $id)
-	{
-		if (AppContext::get_current_user()->is_readonly())
-		{
-			$controller = PHPBoostErrors::user_in_read_only();
-			DispatchManager::redirect($controller);
-		}
-
-		self::$db_querier->delete(FinancialSetup::$financial_budget_table, 'WHERE id = :id', array('id' => $id));
-
-		PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'financial', 'id' => $id));
+    public static function __static()
+    {
+        self::$db_querier = PersistenceContext::get_querier();
     }
 
-	/**
-	 * @desc Return the content of one budget.
-	 * @param int $id Item identifier
-	 */
-	public static function get_budget(int $id)
-	{
-		$row = self::$db_querier->select_single_row_query('SELECT *
+    /**
+     * @desc Create a new budget.
+     * @param FinancialBudgetItem $budget new FinancialBudgetItem
+     */
+    public static function add_budget(FinancialBudgetItem $budget)
+    {
+        $result = self::$db_querier->insert(FinancialSetup::$financial_budget_table, $budget->get_properties());
+
+        return $result->get_last_inserted_id();
+    }
+
+    /**
+     * @desc Update an budget.
+     * @param FinancialBudgetItem $budget FinancialBudgetItem to update
+     */
+    public static function update_budget(FinancialBudgetItem $budget)
+    {
+        self::$db_querier->update(FinancialSetup::$financial_budget_table, $budget->get_properties(), 'WHERE id = :id', array(
+            'id' => $budget->get_id()
+        ));
+
+        return $budget->get_id();
+    }
+
+    /**
+     * @desc Delete an budget.
+     * @param int $id id of the budget
+     */
+    public static function delete_budget(int $id)
+    {
+        if (AppContext::get_current_user()->is_readonly())
+        {
+            $controller = PHPBoostErrors::user_in_read_only();
+            DispatchManager::redirect($controller);
+        }
+
+        self::$db_querier->delete(FinancialSetup::$financial_budget_table, 'WHERE id = :id', array('id' => $id));
+
+        PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'financial', 'id' => $id));
+    }
+
+    /**
+     * @desc Return the content of one budget.
+     * @param int $id Item identifier
+     */
+    public static function get_budget(int $id)
+    {
+        $row = self::$db_querier->select_single_row_query('SELECT *
 		FROM ' . FinancialSetup::$financial_budget_table . ' budget
 		WHERE budget.id = :id', array(
-			'id' => $id
-		));
+            'id' => $id
+        ));
 
-		$budget = new FinancialBudgetItem();
-		$budget->set_properties($row);
+        $budget = new FinancialBudgetItem();
+        $budget->set_properties($row);
 
-		return $budget;
-	}
+        return $budget;
+    }
 
     public static function get_budget_params($id)
     {
@@ -102,12 +101,49 @@ class FinancialBudgetService
         return implode(',', $fiscal_year);
     }
 
-	/**
-	 * @desc Clears all module elements in cache.
-	 */
-	public static function clear_cache()
-	{
-		Feed::clear_cache('financial');
-	}
+    /**
+     * @desc Return the content of budgets used.
+     */
+    public static function get_budgets_used()
+    {
+        $req = self::$db_querier->select('SELECT name, annual_amount, real_amount
+		FROM ' . FinancialSetup::$financial_budget_table . '
+		WHERE real_amount <> annual_amount'
+        );
+
+        while($row = $req->fetch())
+        {
+            $values[] = array('name' => $row['name'], 'annual_amount' => $row['annual_amount'], 'real_amount' => $row['real_amount']);
+        }
+        if (isset($values))
+        return $values;
+        $req->dispose();
+    }
+    
+    /**
+     * @desc Return the content of statement view.
+     */
+    public static function get_statement_view()
+    {
+        $req = self::$db_querier->select('SELECT *
+		FROM statement_view'
+        );
+
+        while($row = $req->fetch())
+        {
+            $values[] = $row;
+        }
+        if (isset($values))
+        return $values;
+        $req->dispose();
+    }
+
+    /**
+     * @desc Clears all module elements in cache.
+     */
+    public static function clear_cache()
+    {
+        Feed::clear_cache('financial');
+    }
 }
 ?>

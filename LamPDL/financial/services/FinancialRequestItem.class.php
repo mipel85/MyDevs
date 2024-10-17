@@ -11,6 +11,7 @@ class FinancialRequestItem
 {
 	private $id;
 	private $budget_id;
+//	private $domain;
 	private $title;
 	private $rewrited_title;
 	private $author_user;
@@ -49,6 +50,16 @@ class FinancialRequestItem
 	{
 		return $this->budget_id;
 	}
+    
+//	public function set_domain($domain)
+//	{
+//		$this->domain = $domain;
+//	}
+//
+//	public function get_domain()
+//	{
+//		return $this->domain;
+//	}
 
 	public function set_title($title)
 	{

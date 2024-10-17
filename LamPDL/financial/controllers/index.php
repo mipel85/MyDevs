@@ -38,8 +38,9 @@ $url_controller_mappers = array(
     new UrlControllerMapper('FinancialRequestAcceptController', '`^/accept/?([0-9]+)?/?([0-9]+_{0,1}[0-9]{0,2})?/?$`', array('id', 'amount_paid')),
 
     // charts
-	new UrlControllerMapper('FinancialStatementController', '`^/statement/?([a-z_]+)?/?$`', ['section']),
-   
+	new UrlControllerMapper('FinancialChartsController', '`^/charts/?([a-z_]+)?/?$`', ['section']),
+	new UrlControllerMapper('FinancialPlotController', '`^/plot//?$`'),
+
     // Display financial
 	new UrlControllerMapper('FinancialHomeController', '`^(?:/([0-9]+))?/?$`')
 );

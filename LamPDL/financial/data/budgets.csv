@@ -1,4 +1,4 @@
-0;Domaine;Nom du budget;Description du budget;Budget annuel(nombre);Montant du forfait(nombre + € ou %);Plafond du forfait (nombre);Quantité (nombre);Devis ou facture nécessaire (0 ou 1);Facture obligatoire (0 ou 1)
+id;domain;name;description;annual_amount;Montant du forfait(nombre + € ou %);Plafond du forfait (nombre);Quantité (nombre);Devis ou facture nécessaire (0 ou 1);Facture obligatoire (0 ou 1)
 1;Structure;Création d'un Club;Création uniquement et non affiliation d’un club existant;600;300€;300;2;0;0
 2;Organisation;Concours FAI;Fédération Aéronautique Internationale;2000;500€;1000;2;1;0
 4;Organisation;Concours national;toutes natures;2000;300€;500;4;1;0
@@ -15,3 +15,4 @@
 16;Sécurité;Actions sécurité;Achat de filets, création bancs de démarrage...;3000;10%;400;0;1;1
 17;Matériel;Matériel de concours;Panneaux lumineux, chronos...;800;30%;400;0;1;1
 18;Matériel;Panneaux réglementaires;Accès réservé aux licenciés par exemple;1000;10%;400;0;1;1
+19;Jeunes;Actions Jeunes;Actions dans le domaine jeunesse;2000;2000;2000;0;1;0

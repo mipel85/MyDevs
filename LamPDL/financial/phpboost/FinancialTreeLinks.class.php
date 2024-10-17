@@ -27,6 +27,8 @@ class FinancialTreeLinks implements ModuleTreeLinksExtensionPoint
 
 		$tree->add_link(new AdminModuleLink($lang['form.configuration'], FinancialUrlBuilder::configuration()));
 
+        $tree->add_link(new AdminModuleLink($lang['financial.statement'], FinancialUrlBuilder::statement()));
+
 		return $tree;
 	}
 }

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 08 30
+ * @version     PHPBoost 6.0 - last update: 2024 10 15
  * @since       PHPBoost 6.0 - 2024 02 09
  * @contributor Mipel <mipel@phpboost.com>
 */
@@ -25,6 +25,7 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 	private function build_table()
 	{
 		$columns = array(
+			new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.budget.domain']), 'domain'),
 			new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'title'),
 			new HTMLTableColumn($this->lang['financial.club.nb'], 'name'),
 			new HTMLTableColumn($this->lang['financial.club.dpt'], 'department'),
@@ -35,7 +36,7 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 			new HTMLTableColumn($this->lang['financial.request.files.url'], '')
 		);
 
-		$table_model = new SQLHTMLTableModel(FinancialSetup::$financial_request_table, 'items-manager', $columns, new HTMLTableSortingRule('event_date', HTMLTableSortingRule::DESC));
+		$table_model = new SQLHTMLTableModel(FinancialSetup::$financial_request_table, 'items-manager', $columns, new HTMLTableSortingRule('domain', HTMLTableSortingRule::DESC));
 
 		$table_model->set_layout_title($this->lang['financial.archived.items']);
 
@@ -63,14 +64,14 @@ class FinancialRequestsArchivedController extends DefaultModuleController
 		$results = array();
 		$result = $table_model->get_sql_results('request
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = request.author_user_id
-			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = request.lamclubs_id'
+			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = request.lamclubs_id
+			LEFT JOIN ' . FinancialSetup::$financial_budget_table . ' budget ON request.budget_id = budget.id'
 		);
         
 		foreach ($result as $row)
 		{
             $item = new FinancialRequestItem();
 			$item->set_properties($row);
-
 			$this->items_number++;
 			$this->ids[$this->items_number] = $item->get_id();
 
@@ -84,8 +85,8 @@ class FinancialRequestsArchivedController extends DefaultModuleController
             $estimate_file = !empty($item->get_estimate_url()->rel()) ? $estimate_file->display() : '';
             $invoice_file = new LinkHTMLElement(FinancialUrlBuilder::dl_invoice($item->get_id()), '<i class="fa fa-lg fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
             $invoice_file = !empty($item->get_invoice_url()->rel()) ? $invoice_file->display() : '';
-            
 			$row = array(
+				new HTMLTableRowCell($row['domain'], 'align-left'),
 				new HTMLTableRowCell($item->get_title(), 'align-left'),
 				new HTMLTableRowCell($club_infos),
                 new HTMLTableRowCell($club->get_department()),
