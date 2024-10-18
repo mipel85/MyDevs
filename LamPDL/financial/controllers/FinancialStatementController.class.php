@@ -48,7 +48,8 @@ class FinancialStatementController extends DefaultModuleController
     {
         $budgets_used = FinancialBudgetService::get_budgets_used();
 
-        if ($budgets_used) foreach ($budgets_used as $value) {
+        if ($budgets_used) 
+            foreach ($budgets_used as $value) {
                 $this->view->assign_block_vars('budgets', array(
                     'NAME'          => $value['name'],
                     'ANNUAL_AMOUNT' => $value['annual_amount'],
@@ -61,7 +62,8 @@ class FinancialStatementController extends DefaultModuleController
     {
         $statement = FinancialBudgetService::get_statement_view();
         $total = 0;
-        if ($statement) foreach ($statement as $value) {
+        if ($statement) 
+            foreach ($statement as $value) {
                 $total += $value['Montant versé'];
                 $this->view->assign_block_vars('statement', array(
                     'DOMAIN'           => $value['Domaine'],

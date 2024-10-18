@@ -119,9 +119,6 @@
                             <td># IF statement.C_INVOICE_LINK #<a href="{statement.INVOICE_LINK}"><i class="fa fa-lg fa-file-contract"></i></a># ENDIF #</td>
                         </tr>
                         # END statement # 
-                        <tr>
-                            <td>{TOTAL}</td>
-                        </tr>        
                     </tbody>
                 </table>
             </div>
