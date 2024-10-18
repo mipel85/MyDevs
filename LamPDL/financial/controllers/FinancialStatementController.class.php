@@ -19,14 +19,13 @@ class FinancialStatementController extends DefaultModuleController
     {
         return new FileTemplate('financial/FinancialStatementController.tpl');
     }
-    
 
     public function execute(HTTPRequestCustom $request)
     {
         $columns_disabled = ThemesManager::get_theme(AppContext::get_current_user()->get_theme())->get_columns_disabled();
         $columns_disabled->set_disable_left_columns(true);
         $columns_disabled->set_disable_right_columns(true);
-        
+
         $this->build_view($request);
         return $this->generate_response($request);
     }
@@ -48,42 +47,41 @@ class FinancialStatementController extends DefaultModuleController
     private function build_chart_budgets_used()
     {
         $budgets_used = FinancialBudgetService::get_budgets_used();
-        
-        if ($budgets_used)
-        foreach ($budgets_used as $value) {
-            $this->view->assign_block_vars('budgets', array(
-                'NAME'          => $value['name'],
-                'ANNUAL_AMOUNT' => $value['annual_amount'],
-                'REAL_AMOUNT'   => $value['annual_amount'] - $value['real_amount']
-            ));
+
+        if ($budgets_used) foreach ($budgets_used as $value) {
+                $this->view->assign_block_vars('budgets', array(
+                    'NAME'          => $value['name'],
+                    'ANNUAL_AMOUNT' => $value['annual_amount'],
+                    'REAL_AMOUNT'   => $value['annual_amount'] - $value['real_amount']
+                ));
         }
     }
 
     private function build_statement_list()
     {
         $statement = FinancialBudgetService::get_statement_view();
-        
-        if ($statement)
-        foreach ($statement as $value) {
-            $this->view->assign_block_vars('statement', array(
-                'DOMAIN'           => $value['Domaine'],
-                'TYPE'             => $value['Type de demande'],
-                'CLUB'             => $value['Club'],
-                'FFAM_NUM'         => $value['N° FFAM'],
-                'AUTHOR'           => $value['Demandeur'],
-                'CREATION_DATE'    => $value['Date_création'],
-                'EVENT_DATE'       => $value['Date_événement'],
-                'AMOUNT_PAID'      => $value['Montant versé'],
-                'BUDGET_PLANNED'   => $value['Budget prévu'],
-                'BUDGET_ACHIEVED'  => $value['Budget dépensé'],
-                'BUDGET_REMAINING' => $value['Budget restant'],
-                'C_ESTIMATE_LINK'  => $value['lien devis'],
-                'ESTIMATE_LINK'    => Url::to_rel($value['lien devis']),
-                'C_INVOICE_LINK'   => $value['lien facture'],
-                'INVOICE_LINK'     => Url::to_rel($value['lien facture']),
-            ));
-
+        $total = 0;
+        if ($statement) foreach ($statement as $value) {
+                $total += $value['Montant versé'];
+                $this->view->assign_block_vars('statement', array(
+                    'DOMAIN'           => $value['Domaine'],
+                    'TYPE'             => $value['Type de demande'],
+                    'CLUB'             => $value['Club'],
+                    'FFAM_NUM'         => $value['N° FFAM'],
+                    'AUTHOR'           => $value['Demandeur'],
+                    'CREATION_DATE'    => $value['Date_création'],
+                    'EVENT_DATE'       => $value['Date_événement'],
+                    'AMOUNT_PAID'      => $value['Montant versé'],
+                    'BUDGET_PLANNED'   => $value['Budget prévu'],
+                    'BUDGET_ACHIEVED'  => $value['Budget dépensé'],
+                    'BUDGET_REMAINING' => $value['Budget restant'],
+                    'C_ESTIMATE_LINK'  => $value['lien devis'],
+                    'ESTIMATE_LINK'    => Url::to_rel($value['lien devis']),
+                    'C_INVOICE_LINK'   => $value['lien facture'],
+                    'INVOICE_LINK'     => Url::to_rel($value['lien facture']),
+                ));
 }
+        $this->view->put('TOTAL_BUDGET_ACHIEVED', $total);
     }
 
     private function generate_response(HTTPRequestCustom $request)

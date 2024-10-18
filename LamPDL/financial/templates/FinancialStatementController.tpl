@@ -18,9 +18,9 @@
                     </li>
                 </ul>
             </nav>
+            # IF C_CHART #
             <canvas id="myChart"></canvas>
             <script>
-                # IF C_CHART #
                 let ctx = document.getElementById("myChart").getContext('2d');
                 let data = {
                     labels: [ # START budgets # "{budgets.NAME}", # END budgets # ],
@@ -93,11 +93,12 @@
                 
             </script>
             # IF C_STATEMENT #
-            <div class="responsive-table">
-                <table id="statement_view">
+            <h2 class ="statement_title">{@financial.budgets.statement} --- {TOTAL_BUDGET_ACHIEVED}€</h2>
+            <div class = "responsive-table">
+                <table id ="statement_view">
                     <thead>
                         <tr>
-                            <th>Domaine</th><th>Type</th><th>N° FFAM</th><th>Club</th><th>Demandeur</th><th>Date demande</th><th>Date activité</th><th>Montant versé</th><th>Budget                               prévu</th></th><th>Budget dépensé</th><th>Budget restant</th><th>lien devis</th><th>lien facture</th>
+                            <th>Domaine</th><th>Type</th><th>N° FFAM</th><th>Club</th><th>Demandeur</th><th>Date demande</th><th>Date activité</th><th>Montant                                                versé</th><th>Budget prévu</th></th><th>Budget dépensé</th><th>Budget restant</th><th>Devis</th><th>Facture</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -116,9 +117,11 @@
                             <td>{statement.BUDGET_REMAINING}</td>
                             <td># IF statement.C_ESTIMATE_LINK #<a href="{statement.ESTIMATE_LINK}"><i class="far fa-lg fa-file-lines"></i></a># ENDIF #</td>
                             <td># IF statement.C_INVOICE_LINK #<a href="{statement.INVOICE_LINK}"><i class="fa fa-lg fa-file-contract"></i></a># ENDIF #</td>
-                                
                         </tr>
                         # END statement # 
+                        <tr>
+                            <td>{TOTAL}</td>
+                        </tr>        
                     </tbody>
                 </table>
             </div>
