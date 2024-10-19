@@ -15,4 +15,4 @@ id;domain;name;description;annual_amount;Montant du forfait(nombre + € ou %);P
 16;Sécurité;Actions sécurité;Achat de filets, création bancs de démarrage...;3000;10%;400;0;1;1
 17;Matériel;Matériel de concours;Panneaux lumineux, chronos...;800;30%;400;0;1;1
 18;Matériel;Panneaux réglementaires;Accès réservé aux licenciés par exemple;1000;10%;400;0;1;1
-19;Jeunes;Actions Jeunes;Actions dans le domaine jeunesse;2000;2000;2000;0;1;0
+19;Jeunes;Actions jeunesse;Actions dans le domaine de la jeunesse;2000;100%;2000;0;1;0
