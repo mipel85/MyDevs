@@ -141,6 +141,139 @@ class PlanningSetup extends DefaultModuleSetup
 			'auth'          => '',
 			'special_authorizations' => 0
 		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 6,
+			'id_parent'     => 0,
+			'c_order'       => 6,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.6']),
+			'name'          => $lang['planning.category.6'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 7,
+			'id_parent'     => 0,
+			'c_order'       => 7,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.7']),
+			'name'          => $lang['planning.category.7'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 8,
+			'id_parent'     => 0,
+			'c_order'       => 8,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.8']),
+			'name'          => $lang['planning.category.8'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 9,
+			'id_parent'     => 0,
+			'c_order'       => 9,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.9']),
+			'name'          => $lang['planning.category.9'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 10,
+			'id_parent'     => 0,
+			'c_order'       => 10,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.10']),
+			'name'          => $lang['planning.category.10'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 11,
+			'id_parent'     => 0,
+			'c_order'       => 11,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.11']),
+			'name'          => $lang['planning.category.11'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 12,
+			'id_parent'     => 0,
+			'c_order'       => 12,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.12']),
+			'name'          => $lang['planning.category.12'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 13,
+			'id_parent'     => 0,
+			'c_order'       => 13,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.13']),
+			'name'          => $lang['planning.category.13'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 14,
+			'id_parent'     => 0,
+			'c_order'       => 14,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.14']),
+			'name'          => $lang['planning.category.14'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 15,
+			'id_parent'     => 0,
+			'c_order'       => 15,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.15']),
+			'name'          => $lang['planning.category.15'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 16,
+			'id_parent'     => 0,
+			'c_order'       => 16,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.16']),
+			'name'          => $lang['planning.category.16'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+		PersistenceContext::get_querier()->insert(self::$planning_cats_table, array(
+			'id'            => 17,
+			'id_parent'     => 0,
+			'c_order'       => 17,
+			'auth'          => '',
+			'special_authorizations' => 0,
+			'rewrited_name' => Url::encode_rewrite($lang['planning.category.17']),
+			'name'          => $lang['planning.category.17'],
+			'auth'          => '',
+			'special_authorizations' => 0
+		));
+        
 	}
 }
 ?>
