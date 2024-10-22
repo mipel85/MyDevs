@@ -56,15 +56,15 @@ class FinancialSetup extends DefaultModuleSetup
 	private function create_financial_request_table()
 	{
 		$fields = array(
-			'id'				=> array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
-			'budget_id'			=> array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'title'							 => array('type' => 'string', 'length' => 255, 'default' => "''"),
-			'rewrited_title'		 => array('type' => 'string', 'length' => 255, 'default' => "''"),
-			'author_user_id'		 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'sender_name'				 => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => 0),
-			'sender_email'			 => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => 0),
+			'id'				 => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
+			'budget_id'			 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'title'				 => array('type' => 'string', 'length' => 255, 'default' => "''"),
+			'rewrited_title'	 => array('type' => 'string', 'length' => 255, 'default' => "''"),
+			'author_user_id'	 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'sender_name'		 => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => 0),
+			'sender_email'		 => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => 0),
 			'sender_description' => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
-			'lamclubs_id'				 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'lamclubs_id'		 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'event_date'				 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'creation_date'			 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'estimate_url'			 => array('type' => 'text', 'length' => 16777215, 'notnull' => 0),
