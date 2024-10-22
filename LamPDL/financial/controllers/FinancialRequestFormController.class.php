@@ -111,7 +111,8 @@ class FinancialRequestFormController extends DefaultModuleController
         $item->set_event_date($this->form->get_value('event_date'));
         $item->set_sender_name($this->form->get_value('sender_name'));
         $item->set_sender_email($this->form->get_value('sender_email'));
-
+        $item->set_sender_description($this->form->get_value('sender_description'));
+        
         if ($budget_params['use_dl'])
         {
             $club = LamclubsService::get_item($item->get_lamclubs_id());

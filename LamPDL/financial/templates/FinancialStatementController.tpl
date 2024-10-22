@@ -21,84 +21,87 @@
             # IF C_CHART #
             <canvas id="myChart"></canvas>
             <script>
+                jQuery(document).ready(function() {
+                jQuery('#global-container').css("width", "85%");
+                });
                 let ctx = document.getElementById("myChart").getContext('2d');
                 let data = {
-                    labels: [ # START budgets # "{budgets.NAME}", # END budgets # ],
-                    datasets: [{
-                            label: 'Prévu',
-                            data: [ # START budgets # "{budgets.ANNUAL_AMOUNT}", # END budgets # ],
-                            backgroundColor: '#99b0c8',
-                            borderWidth: 1.5,
-                            borderRadius: 6
+                labels: [ # START budgets # "{budgets.NAME}", # END budgets # ],
+                        datasets: [{
+                        label: 'Prévu',
+                                data: [ # START budgets # "{budgets.ANNUAL_AMOUNT}", # END budgets # ],
+                                backgroundColor: '#99b0c8',
+                                borderWidth: 1.5,
+                                borderRadius: 6
                         }, {
-                            label: 'Réalisé',
-                            data: [ # START budgets # "{budgets.REAL_AMOUNT}", # END budgets # ],
-                            backgroundColor: '#2aba66',
-                            borderWidth: 1.5,
-                            borderRadius: 6,
+                        label: 'Réalisé',
+                                data: [ # START budgets # "{budgets.REAL_AMOUNT}", # END budgets # ],
+                                backgroundColor: '#2aba66',
+                                borderWidth: 1.5,
+                                borderRadius: 6,
                         }]
                 };
                 let myChart = new Chart(ctx, {
-                    plugins: [ChartDataLabels],
-                    type: 'bar',
-                    data: data,
-                    options: {
+                plugins: [ChartDataLabels],
+                        type: 'bar',
+                        data: data,
+                        options: {
                         plugins: {
-                            datalabels: {
-                                color: 'blue',
+                        datalabels: {
+                        color: 'blue',
                                 labels: {
-                                    title: {
-                                        font: {
-                                            size: 15,
-                                            family: 'tahoma',
-                                            weight: 'bold',
-                                        },
-                                    },
-                                }
-                            },
-                            title: {
-                                display: true,
-                                text: "{@financial.chart.budgets.used}",
-                                color: 'blue',
+                                title: {
                                 font: {
-                                    size: 26,
-                                    family: 'tahoma',
-                                    weight: 'normal',
-                                    style: 'italic'
+                                size: 14,
+                                        family: 'tahoma',
+                                        weight: 'bold',
                                 },
-                                padding: {
-                                    bottom: 20
+                                },
                                 }
-                            }
                         },
-                        scales: {
-                            x: {
+                                title: {
                                 display: true,
-                                ticks: {
-                                    font: {
-                                        size: 18,
-                                    },
-                                    maxRotation: 0,
-                                    minRotation: 15,
+                                        text: "{@financial.chart.budgets.used}",
+                                        color: 'blue',
+                                        font: {
+                                        size: 26,
+                                                family: 'tahoma',
+                                                weight: 'normal',
+                                                style: 'italic'
+                                        },
+                                        padding: {
+                                        bottom: 20
+                                        }
                                 }
-                            },
-                            y: {
+                        },
+                                scales: {
+                                x: {
                                 display: true,
-                                type: 'logarithmic',
-                            }
-                        }
-                    },
+                                        ticks: {
+                                        font: {
+                                        size: 18,
+                                        },
+                                                maxRotation: 0,
+                                                minRotation: 15,
+                                        }
+                                },
+                                        y: {
+                                        display: true,
+                                                type: 'logarithmic',
+                                        }
+                                }
+                        },
                 });
                 # ENDIF #
-                
+
             </script>
             # IF C_STATEMENT #
-            <h2 class ="statement_title">{@financial.budgets.statement} --- {TOTAL_BUDGET_ACHIEVED}€</h2>
+            <h2 class ="statement_title">{@financial.budgets.statement} --- {TOTAL_EXPENSES}€</h2>
             <div class = "responsive-table">
                 <table id ="statement_view">
                     <thead>
                         <tr>
-                            <th>Domaine</th><th>Type</th><th>N° FFAM</th><th>Club</th><th>Demandeur</th><th>Date demande</th><th>Date activité</th><th>Montant                                                versé</th><th>Budget prévu</th></th><th>Budget dépensé</th><th>Budget restant</th><th>Devis</th><th>Facture</th>
+                            <th>Domaine</th><th>Type</th><th>N° FFAM</th><th>Club</th><th>Montant versé</th><th>Détails</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,15 +111,40 @@
                             <td>{statement.TYPE}</td>
                             <td>{statement.FFAM_NUM}</td>
                             <td>{statement.CLUB}</td>
-                            <td>{statement.AUTHOR}</td>
-                            <td>{statement.CREATION_DATE}</td>
-                            <td>{statement.EVENT_DATE}</td>
-                            <td>{statement.AMOUNT_PAID}</td>
-                            <td>{statement.BUDGET_PLANNED}</td>
-                            <td>{statement.BUDGET_ACHIEVED}</td>
-                            <td>{statement.BUDGET_REMAINING}</td>
-                            <td># IF statement.C_ESTIMATE_LINK #<a href="{statement.ESTIMATE_LINK}"><i class="far fa-lg fa-file-lines"></i></a># ENDIF #</td>
-                            <td># IF statement.C_INVOICE_LINK #<a href="{statement.INVOICE_LINK}"><i class="fa fa-lg fa-file-contract"></i></a># ENDIF #</td>
+                            <td>{statement.AMOUNT_PAID}€</td>
+                            <td class="modal-container">
+                                <span data-modal="" data-target="target-panel-{statement.ID}"><i class="fa fa-square-plus"></i></i></span>
+                                <div id="target-panel-{statement.ID}"class="modal modal-animation">
+                                    <div class="close-modal" aria-label="{@common.close}"></div>
+                                    <div class="content-panel">
+                                        <div class="align-right"><a href="#" class="error big hide-modal" aria-label="{@common.close}"><i class="far fa-circle-xmark"                                               aria-hidden="true"></i></a></div>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                            <span class="span-modal-title">{statement.CLUB}</span> --- {statement.DOMAIN} / {statement.TYPE}
+                                            </tr>
+                                            <th>Suivi par</th><th>Date demande</th><th>Date activité</th></th><th>Description</th>
+                                            <th>Budget prévu</th></th><th>Budget dépensé</th><th>Budget restant</th><th>Devis</th><th>Facture</th>
+                                            </tr>
+                                            </thead>
+                                            <tr>
+                                                <td>{statement.AUTHOR}</td>
+                                                <td>{statement.CREATION_DATE}</td>
+                                                <td>{statement.EVENT_DATE}</td>
+                                                <td class="description-width">{statement.DESCRIPTION}</td>
+                                                <td>{statement.BUDGET_PLANNED}€</td>
+                                                <td>{statement.BUDGET_ACHIEVED}€</td>
+                                                <td>{statement.BUDGET_REMAINING}€</td>
+                                                <td># IF statement.C_ESTIMATE_LINK #<a href="{statement.ESTIMATE_LINK}"><i class="far fa-lg fa-file-lines"></i>
+                                                    </a># ENDIF #</td>
+                                                <td># IF statement.C_INVOICE_LINK #<a href="{statement.INVOICE_LINK}"><i class="fa fa-lg fa-file-contract"></i>
+                                                    </a># ENDIF #</td>
+                                            </tr>
+                                        </table>       
+
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         # END statement # 
                     </tbody>

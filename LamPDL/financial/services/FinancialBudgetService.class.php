@@ -63,8 +63,8 @@ class FinancialBudgetService
     public static function get_budget(int $id)
     {
         $row = self::$db_querier->select_single_row_query('SELECT *
-		FROM ' . FinancialSetup::$financial_budget_table . ' budget
-		WHERE budget.id = :id', array(
+		       FROM ' . FinancialSetup::$financial_budget_table . ' budget
+		       WHERE budget.id = :id', array(
             'id' => $id
         ));
 
@@ -107,8 +107,8 @@ class FinancialBudgetService
     public static function get_budgets_used()
     {
         $req = self::$db_querier->select('SELECT name, annual_amount, real_amount
-		FROM ' . FinancialSetup::$financial_budget_table . '
-		WHERE real_amount <> annual_amount'
+		       FROM ' . FinancialSetup::$financial_budget_table . '
+		       WHERE real_amount <> annual_amount AND real_amount <> 0.00 '
         );
 
         while($row = $req->fetch())

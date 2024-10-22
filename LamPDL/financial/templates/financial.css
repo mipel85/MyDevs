@@ -70,3 +70,17 @@
     font-style: italic;
     padding-bottom: 18px;
 }
+
+.align-left td{
+    text-align: left;
+}
+
+.description-width {
+    min-width: 40%;
+}
+
+.span-modal-title {
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+}

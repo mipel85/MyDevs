@@ -48,8 +48,7 @@ class FinancialStatementController extends DefaultModuleController
     {
         $budgets_used = FinancialBudgetService::get_budgets_used();
 
-        if ($budgets_used) 
-            foreach ($budgets_used as $value) {
+        if ($budgets_used) foreach ($budgets_used as $value) {
                 $this->view->assign_block_vars('budgets', array(
                     'NAME'          => $value['name'],
                     'ANNUAL_AMOUNT' => $value['annual_amount'],
@@ -61,10 +60,12 @@ class FinancialStatementController extends DefaultModuleController
     private function build_statement_list()
     {
         $statement = FinancialBudgetService::get_statement_view();
-        $total = 0;
-        if ($statement) 
-            foreach ($statement as $value) {
-                $total += $value['Montant versé'];
+
+        $total_expenses = 0;
+        if ($statement) foreach ($statement as $value) {
+                $total_expenses += $value['Montant versé'];
+                $total_expenses = number_format($total_expenses, 2, '.', '');
+
                 $this->view->assign_block_vars('statement', array(
                     'DOMAIN'           => $value['Domaine'],
                     'TYPE'             => $value['Type de demande'],
@@ -74,16 +75,18 @@ class FinancialStatementController extends DefaultModuleController
                     'CREATION_DATE'    => $value['Date_création'],
                     'EVENT_DATE'       => $value['Date_événement'],
                     'AMOUNT_PAID'      => $value['Montant versé'],
-                    'BUDGET_PLANNED'   => $value['Budget prévu'],
+                    'BUDGET_PLANNED'   => number_format($value['Budget prévu'], 2, '.', ''),
                     'BUDGET_ACHIEVED'  => $value['Budget dépensé'],
                     'BUDGET_REMAINING' => $value['Budget restant'],
                     'C_ESTIMATE_LINK'  => $value['lien devis'],
                     'ESTIMATE_LINK'    => Url::to_rel($value['lien devis']),
                     'C_INVOICE_LINK'   => $value['lien facture'],
                     'INVOICE_LINK'     => Url::to_rel($value['lien facture']),
+                    'ID'               => $value['id'],
+                    'DESCRIPTION'      => $value['sender_description'],
                 ));
-}
-        $this->view->put('TOTAL_BUDGET_ACHIEVED', $total);
+        }
+        $this->view->put('TOTAL_EXPENSES', $total_expenses);
     }
 
     private function generate_response(HTTPRequestCustom $request)
