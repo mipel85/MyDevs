@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 10 23
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
@@ -102,9 +102,9 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
 
         $fieldset->add_field(new FormFieldTextEditor('reset_date', $this->lang['financial.reset.date'], '',
             array(
-                'required' => true,
+                'required'    => true,
                 'description' => $this->lang['financial.reset.date.clue'],
-                'pattern'       => '[0-9]{4}'
+                'pattern'     => '[0-9]{4}'
             )
         ));
 
