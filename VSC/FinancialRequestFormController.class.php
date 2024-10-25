@@ -1,4 +1,5 @@
 <?php
+
  /**
   * @copyright   &copy; 2005-2023 PHPBoost
   * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
@@ -6,7 +7,6 @@
   * @version     PHPBoost 6.0 - last update: 2024 10 25
   * @since       PHPBoost 6.0 - 2020 01 18
   */
-
  class FinancialRequestFormController extends DefaultModuleController
  {
 
