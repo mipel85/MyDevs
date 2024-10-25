@@ -84,21 +84,21 @@
 	 private function create_financial_budget_table()
 	 {
 		 $fields = array(
-			 'id'			=> array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
-			 'domain'		=> array('type' => 'text', 'length' => 255),
-			 'name'			=> array('type' => 'text', 'length' => 255),
-			 'description'	=> array('type' => 'text', 'length' => 255),
-			 'fiscal_year'	=> array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			 'id'			 => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
+			 'domain'		 => array('type' => 'text', 'length' => 255),
+			 'name'			 => array('type' => 'text', 'length' => 255),
+			 'description'	 => array('type' => 'text', 'length' => 255),
+			 'fiscal_year'	 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			 'annual_amount' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			 'real_amount'	=> array('type' => 'decimal', 'length' => 10, 'scale' => 2, 'notnull' => 1, 'default' => 0),
-			 'temp_amount'	=> array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			 'unit_amount'	=> array('type' => 'string', 'length' => 11, 'default' => "''"),
-			 'max_amount'	=> array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			 'quantity'		=> array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),
+			 'real_amount'	 => array('type' => 'decimal', 'length' => 10, 'scale' => 2, 'notnull' => 1, 'default' => 0),
+			 'temp_amount'	 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			 'unit_amount'	 => array('type' => 'string', 'length' => 11, 'default' => "''"),
+			 'max_amount'	 => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			 'quantity'		 => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),
 			 'real_quantity' => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),
 			 'temp_quantity' => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),
-			 'use_dl'		=> array('type' => 'boolean', 'notnull' => 0, 'default' => 0),
-			 'bill_needed'	=> array('type' => 'boolean', 'notnull' => 0, 'default' => 0),
+			 'use_dl'		 => array('type' => 'boolean', 'notnull' => 0, 'default' => 0),
+			 'bill_needed'	 => array('type' => 'boolean', 'notnull' => 0, 'default' => 0),
 		 );
 		 $options = array(
 			 'primary' => array('id'),
@@ -135,21 +135,21 @@
 			 fgetcsv($handle); // ignore first row
 			 while(($data = fgetcsv($handle, 1000, ';')) !== false) {
 				 PersistenceContext::get_querier()->insert(self::$financial_budget_table, array(
-					 'id'			=> $data[0],
-					 'domain'		=> $data[1],
-					 'name'			=> $data[2],
-					 'description'	=> $data[3],
-					 'fiscal_year'	=> $now->get_year(),
+					 'id'			 => $data[0],
+					 'domain'		 => $data[1],
+					 'name'			 => $data[2],
+					 'description'	 => $data[3],
+					 'fiscal_year'	 => $now->get_year(),
 					 'annual_amount' => $data[4],
-					 'real_amount'	=> $data[4],
-					 'temp_amount'	=> $data[4],
-					 'unit_amount'	=> $data[5],
-					 'max_amount'	=> $data[6],
-					 'quantity'		=> $data[7],
+					 'real_amount'	 => $data[4],
+					 'temp_amount'	 => $data[4],
+					 'unit_amount'	 => $data[5],
+					 'max_amount'	 => $data[6],
+					 'quantity'		 => $data[7],
 					 'temp_quantity' => $data[7],
 					 'real_quantity' => $data[7],
-					 'use_dl'		=> $data[8],
-					 'bill_needed'	=> $data[9]
+					 'use_dl'		 => $data[8],
+					 'bill_needed'	 => $data[9]
 				 ));
 			}
 			 fclose($handle);
