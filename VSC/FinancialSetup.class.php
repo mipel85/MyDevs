@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 10 17
+ * @version     PHPBoost 6.0 - last update: 2024 10 25
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
@@ -55,7 +55,7 @@ class FinancialSetup extends DefaultModuleSetup
     private function create_financial_request_table()
     {
         $fields = array(
-            'id'                 => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
+            'id'                  => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
             'budget_id'          => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
             'title'              => array('type' => 'string', 'length' => 255, 'default' => "''"),
             'rewrited_title'     => array('type' => 'string', 'length' => 255, 'default' => "''"),
