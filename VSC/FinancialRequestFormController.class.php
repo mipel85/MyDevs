@@ -234,11 +234,11 @@
 
 		 //msg content
 		 $item_message = StringVars::replace_vars($this->lang['financial.mail.invoice.msg'], array(
-			 'club_sender_name'	=> $this->form->get_value('sender_name'),
+			 'club_sender_name'	 => $this->form->get_value('sender_name'),
 			 'club_sender_email' => $this->form->get_value('sender_email'),
-			 'club_name'			=> $club->get_name(),
-			 'club_ffam_number'	=> $club->get_ffam_nb(),
-			 'activity'			=> $item->get_title()
+			 'club_name'		 => $club->get_name(),
+			 'club_ffam_number'	 => $club->get_ffam_nb(),
+			 'activity'			 => $item->get_title()
 		 ));
 
 		 $item_email = new Mail();
