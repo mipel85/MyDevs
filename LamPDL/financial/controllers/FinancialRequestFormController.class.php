@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 10 27
  * @since       PHPBoost 6.0 - 2020 01 18
  */
+
 class FinancialRequestFormController extends DefaultModuleController
 {
 
@@ -84,7 +85,7 @@ class FinancialRequestFormController extends DefaultModuleController
 
         if ($this->is_new_item || $this->get_item()->get_agreement_state() == FinancialRequestItem::ONGOING)
         {
-            $email_fieldset->add_field(new FormFieldMultiLineTextEditor('sender_description', $this->lang['financial.request.message'], '',
+            $email_fieldset->add_field(new FormFieldMultiLineTextEditor('request_description', $this->lang['financial.request.message'], '',
                 array('description' => $this->lang['financial.request.message.clue'])
             ));
         }
@@ -99,6 +100,7 @@ class FinancialRequestFormController extends DefaultModuleController
     }
 
     private function save($budget_params)
+
     {
         $item = $this->get_item();
 
@@ -111,7 +113,7 @@ class FinancialRequestFormController extends DefaultModuleController
         $item->set_event_date($this->form->get_value('event_date'));
         $item->set_sender_name($this->form->get_value('sender_name'));
         $item->set_sender_email($this->form->get_value('sender_email'));
-        $item->set_sender_description($this->form->get_value('sender_description'));
+        $item->set_request_description($this->form->get_value('request_description'));
         
         if ($budget_params['use_dl'])
         {
@@ -181,7 +183,7 @@ class FinancialRequestFormController extends DefaultModuleController
             'activity'           => $item->get_title(),
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
             'club_activity_dpt'  => $club->get_department(),
-            'description'        => !empty($this->form->get_value('sender_description')) ? $this->form->get_value('sender_description') : ''
+            'description'        => !empty($this->form->get_value('request_description')) ? $this->form->get_value('request_description') : ''
         ));
 
         $item_email = new Mail();
@@ -214,7 +216,7 @@ class FinancialRequestFormController extends DefaultModuleController
             'activity'           => $item->get_title(),
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
             'club_activity_dpt'  => $club->get_department(),
-            'description'        => !empty($this->form->get_value('sender_description')) ? $this->form->get_value('sender_description') : ''
+            'description'        => !empty($this->form->get_value('request_description')) ? $this->form->get_value('request_description') : ''
         ));
 
         $item_email = new Mail();

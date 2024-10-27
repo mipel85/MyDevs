@@ -3,12 +3,11 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 10 27
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 class FinancialExtensionPointProvider extends ItemsModuleExtensionPointProvider
 {
-
     public function home_page()
     {
         return new DefaultHomePageDisplay($this->get_id(), FinancialHomeController::get_view());
@@ -27,4 +26,3 @@ class FinancialExtensionPointProvider extends ItemsModuleExtensionPointProvider
         return $js_file;
     }
 }
-?>
