@@ -10,9 +10,9 @@
 class FinancialBudgetItem
 {
 	private $id;
-	private $domain;
-	private $name;
-	private $description;
+	private $budget_domain;
+	private $budget_type;
+	private $budget_description;
 	private $fiscal_year;
 	private $annual_amount;
 	private $real_amount;
@@ -35,34 +35,34 @@ class FinancialBudgetItem
 		return $this->id;
 	}
 
-	public function set_domain($domain)
+	public function set_budget_domain($budget_domain)
 	{
-		$this->domain = $domain;
+		$this->budget_domain = $budget_domain;
 	}
 
-	public function get_domain()
+	public function get_budget_domain()
 	{
-		return $this->domain;
+		return $this->budget_domain;
 	}
 
-	public function set_name($name)
+	public function set_budget_type($budget_type)
 	{
-		$this->name = $name;
+		$this->budget_type = $budget_type;
 	}
 
-	public function get_name()
+	public function get_budget_type()
 	{
-		return $this->name;
+		return $this->budget_type;
 	}
 
-	public function get_description()
+	public function get_budget_description()
 	{
-		return $this->description;
+		return $this->budget_description;
 	}
 
-	public function set_description($description)
+	public function set_budget_description($budget_description)
 	{
-		$this->description = $description;
+		$this->budget_description = $budget_description;
 	}
 
 	public function get_fiscal_year()
@@ -198,41 +198,41 @@ class FinancialBudgetItem
 	public function get_properties()
 	{
 		return array(
-			'id'            => $this->get_id(),
-			'domain'        => $this->get_domain(),
-			'name'          => $this->get_name(),
-			'description'   => $this->get_description(),
-			'fiscal_year'   => $this->get_fiscal_year(),
-			'annual_amount' => $this->get_annual_amount(),
-			'real_amount'   => $this->get_real_amount(),
-			'temp_amount'   => $this->get_temp_amount(),
-			'unit_amount'   => $this->get_unit_amount(),
-			'max_amount'    => $this->get_max_amount(),
-			'quantity'      => $this->get_quantity(),
-			'temp_quantity' => $this->get_temp_quantity(),
-			'real_quantity' => $this->get_real_quantity(),
-			'use_dl'        => $this->get_use_dl(),
-			'bill_needed'   => $this->get_bill_needed()
+			'id'                 => $this->get_id(),
+			'budget_domain'      => $this->get_budget_domain(),
+			'budget_type'        => $this->get_budget_type(),
+			'budget_description' => $this->get_budget_description(),
+			'fiscal_year'        => $this->get_fiscal_year(),
+			'annual_amount'      => $this->get_annual_amount(),
+			'real_amount'        => $this->get_real_amount(),
+			'temp_amount'        => $this->get_temp_amount(),
+			'unit_amount'        => $this->get_unit_amount(),
+			'max_amount'         => $this->get_max_amount(),
+			'quantity'           => $this->get_quantity(),
+			'temp_quantity'      => $this->get_temp_quantity(),
+			'real_quantity'      => $this->get_real_quantity(),
+			'use_dl'             => $this->get_use_dl(),
+			'bill_needed'        => $this->get_bill_needed()
 		);
 	}
 
 	public function set_properties(array $properties)
 	{
-		$this->id            = $properties['id'];
-		$this->domain        = $properties['domain'];
-		$this->name          = $properties['name'];
-		$this->description   = $properties['description'];
-		$this->fiscal_year   = $properties['fiscal_year'];
-		$this->annual_amount = $properties['annual_amount'];
-		$this->real_amount   = $properties['real_amount'];
-		$this->temp_amount   = $properties['temp_amount'];
-		$this->unit_amount   = $properties['unit_amount'];
-		$this->max_amount    = $properties['max_amount'];
-		$this->quantity      = $properties['quantity'];
-		$this->temp_quantity = $properties['temp_quantity'];
-		$this->real_quantity = $properties['real_quantity'];
-		$this->use_dl        = $properties['use_dl'];
-		$this->bill_needed   = $properties['bill_needed'];
+		$this->id                 = $properties['id'];
+		$this->budget_domain      = $properties['budget_domain'];
+		$this->budget_type        = $properties['budget_type'];
+		$this->budget_description = $properties['budget_description'];
+		$this->fiscal_year        = $properties['fiscal_year'];
+		$this->annual_amount      = $properties['annual_amount'];
+		$this->real_amount        = $properties['real_amount'];
+		$this->temp_amount        = $properties['temp_amount'];
+		$this->unit_amount        = $properties['unit_amount'];
+		$this->max_amount         = $properties['max_amount'];
+		$this->quantity           = $properties['quantity'];
+		$this->temp_quantity      = $properties['temp_quantity'];
+		$this->real_quantity      = $properties['real_quantity'];
+		$this->use_dl             = $properties['use_dl'];
+		$this->bill_needed        = $properties['bill_needed'];
 	}
 }
 ?>

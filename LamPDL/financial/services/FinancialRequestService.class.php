@@ -35,7 +35,6 @@ class FinancialRequestService
         self::$db_querier->update(FinancialSetup::$financial_request_table, $item->get_properties(), 'WHERE id = :id', array(
             'id' => $item->get_id()
         ));
-            
         return $item->get_id();
     }
         

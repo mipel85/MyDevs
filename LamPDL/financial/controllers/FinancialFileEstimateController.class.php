@@ -65,7 +65,7 @@ class FinancialFileEstimateController extends AbstractController
 		$response = new SiteDisplayResponse(new StringTemplate(''));
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->item->get_title(), LangLoader::get_message('finacial.module.title', 'common', 'finacial'));
+		$graphical_environment->set_page_title($this->item->get_request_type(), LangLoader::get_message('financial.module.title', 'common', 'financial'));
 		$graphical_environment->get_seo_meta_data()->set_description($this->item->get_real_summary());
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(FinancialUrlBuilder::download($this->item->get_id()));
 

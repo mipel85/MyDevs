@@ -60,6 +60,7 @@
 #financial_charts li a {
     display: block;
     padding: 0.350em;
+    font-size: 18px;
     font-style: italic;
 }
 
@@ -83,4 +84,13 @@
     font-size: 20px;
     font-style: italic;
     font-weight: bold;
+}
+
+#items-manager caption a {
+    color: blue;
+    font-family: 'tahoma';
+    font-weight: normal;
+    font-style: italic;
+    pointer-events: none;
+    cursor : default;
 }

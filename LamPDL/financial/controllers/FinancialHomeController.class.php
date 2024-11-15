@@ -31,7 +31,7 @@ class FinancialHomeController extends DefaultModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn($this->lang['financial.budget.domain'], 'domain'),
+			new HTMLTableColumn($this->lang['financial.budget.domain'], 'budget_domain'),
 			new HTMLTableColumn($this->lang['financial.request.type'], '', array('css_class' => 'align-left')),
 			new HTMLTableColumn($this->lang['financial.budget.unit.amount'], ''),
 			new HTMLTableColumn($this->lang['financial.budget.available'], ''),
@@ -101,7 +101,7 @@ class FinancialHomeController extends DefaultModuleController
             }
 
 			$br = new BrHTMLElement();
-            $description = !empty($budget->get_description()) ? $br->display() . '<span class="smaller text-italic">' . $budget->get_description() . '</span>' : '';
+            $description = !empty($budget->get_budget_description()) ? $br->display() . '<span class="smaller text-italic">' . $budget->get_budget_description() . '</span>' : '';
 
             if ($budget->get_real_amount() > 0)
             {
@@ -112,8 +112,8 @@ class FinancialHomeController extends DefaultModuleController
                 $request_button = $this->lang['financial.request.not.available'];
 
             $row = array(
-                new HTMLTableRowCell($budget->get_domain(), 'align-left'),
-                new HTMLTableRowCell($budget->get_name() . $description, 'big align-left'),
+                new HTMLTableRowCell($budget->get_budget_domain(), 'align-left'),
+                new HTMLTableRowCell($budget->get_budget_type() . $description, 'big align-left'),
                 new HTMLTableRowCell($amount),
                 new HTMLTableRowCell($quantity),
                 new HTMLTableRowCell($request_button),

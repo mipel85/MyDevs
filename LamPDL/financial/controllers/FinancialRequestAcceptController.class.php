@@ -46,7 +46,7 @@ class FinancialRequestAcceptController extends DefaultModuleController
           {
               AppContext::get_response()->redirect(
                     ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-                    StringVars::replace_vars($this->lang['financial.message.error.maximum.budget'], array('title' => $item->get_title(), 'max_budget' => $budget->get_max_amount())), MessageHelper::ERROR);
+                    StringVars::replace_vars($this->lang['financial.message.error.maximum.budget'], array('request_type' => $item->get_request_type(), 'max_budget' => $budget->get_max_amount())), MessageHelper::ERROR);
           }
           else
           /* on teste si le budget restant est suffisant */ 
@@ -54,7 +54,7 @@ class FinancialRequestAcceptController extends DefaultModuleController
           {
               AppContext::get_response()->redirect(
                     ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-                    StringVars::replace_vars($this->lang['financial.message.error.remaining.budget'], array('title' => $item->get_title(), 'remaining_budget' => $budget->get_real_amount())), MessageHelper::ERROR);
+                    StringVars::replace_vars($this->lang['financial.message.error.remaining.budget'], array('request_type' => $item->get_request_type(), 'remaining_budget' => $budget->get_real_amount())), MessageHelper::ERROR);
           }
            else   
           /* on teste si le budget annuel n'est pas dépassé */ 
@@ -64,13 +64,13 @@ class FinancialRequestAcceptController extends DefaultModuleController
                 $this->send_email($request);
                 AppContext::get_response()->redirect(
                     ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-                    StringVars::replace_vars($this->lang['financial.message.success.accept'], array('title' => $item->get_title())));
+                    StringVars::replace_vars($this->lang['financial.message.success.accept'], array('request_type' => $item->get_request_type())));
             }
         }
         else
             AppContext::get_response()->redirect(
                 ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-                StringVars::replace_vars($this->lang['financial.message.empty.accept'], array('title' => $item->get_title())), MessageHelper::ERROR);
+                StringVars::replace_vars($this->lang['financial.message.empty.accept'], array('request_type' => $item->get_request_type())), MessageHelper::ERROR);
     
 		FinancialRequestService::clear_cache();
 	}
@@ -90,14 +90,14 @@ class FinancialRequestAcceptController extends DefaultModuleController
             'club_sender_email'  => $item->get_sender_email(),
             'club_name'          => $club->get_name(),
             'club_ffam_number'   => $club->get_ffam_nb(),
-            'activity'           => $item->get_title(),
+            'activity'           => $item->get_request_type(),
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
         ));
 
         $item_email = new Mail();
         $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
         $item_email->set_reply_to(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
-        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_title());
+        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
         $item_email->add_recipient($item->get_sender_email());

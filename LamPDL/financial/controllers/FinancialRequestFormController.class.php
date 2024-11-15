@@ -46,7 +46,7 @@ class FinancialRequestFormController extends DefaultModuleController
         $form = new HTMLForm(__CLASS__);
         $form->set_layout_title($item->get_id() === null ? $this->lang['financial.item.add'] : $this->lang['financial.item.edit']);
 
-        $fieldset = new FormFieldsetHTML('request', $this->lang['financial.request.form.title'] . $budget_params['domain'] .' - ' . $budget_params['name']);
+        $fieldset = new FormFieldsetHTML('request', $this->lang['financial.request.form.title'] . $budget_params['budget_domain'] .' - ' . $budget_params['budget_type']);
         $fieldset->set_description($description);
         $form->add_fieldset($fieldset);
 
@@ -103,11 +103,10 @@ class FinancialRequestFormController extends DefaultModuleController
 
     {
         $item = $this->get_item();
-
         $item->set_budget_id($budget_params['id']);
 
-        $item->set_title($budget_params['name'] . ' - ' . $budget_params['fiscal_year']);
-        $item->set_rewrited_title(Url::encode_rewrite($item->get_title()));
+        $item->set_request_type($budget_params['budget_type'] . ' - ' . $budget_params['fiscal_year']);
+        $item->set_rewrited_type(Url::encode_rewrite($item->get_request_type()));
 
         $item->set_lamclubs_id($this->form->get_value('club_infos')->get_raw_value());
         $item->set_event_date($this->form->get_value('event_date'));
@@ -180,7 +179,7 @@ class FinancialRequestFormController extends DefaultModuleController
             'club_sender_email'  => $this->form->get_value('sender_email'),
             'club_name'          => $club->get_name(),
             'club_ffam_number'   => $club->get_ffam_nb(),
-            'activity'           => $item->get_title(),
+            'activity'           => $item->get_request_type(),
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
             'club_activity_dpt'  => $club->get_department(),
             'description'        => !empty($this->form->get_value('request_description')) ? $this->form->get_value('request_description') : ''
@@ -189,7 +188,7 @@ class FinancialRequestFormController extends DefaultModuleController
         $item_email = new Mail();
         $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
-        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_title());
+        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
         $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());
@@ -213,7 +212,7 @@ class FinancialRequestFormController extends DefaultModuleController
             'club_sender_email'  => $this->form->get_value('sender_email'),
             'club_name'          => $club->get_name(),
             'club_ffam_number'   => $club->get_ffam_nb(),
-            'activity'           => $item->get_title(),
+            'activity'           => $item->get_request_type(),
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
             'club_activity_dpt'  => $club->get_department(),
             'description'        => !empty($this->form->get_value('request_description')) ? $this->form->get_value('request_description') : ''
@@ -222,7 +221,7 @@ class FinancialRequestFormController extends DefaultModuleController
         $item_email = new Mail();
         $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
         $item_email->set_reply_to(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
-        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_title());
+        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
         $item_email->add_recipient($this->form->get_value('sender_email'));
@@ -244,13 +243,13 @@ class FinancialRequestFormController extends DefaultModuleController
             'club_sender_email'  => $this->form->get_value('sender_email'),
             'club_name'          => $club->get_name(),
             'club_ffam_number'   => $club->get_ffam_nb(),
-            'activity'           => $item->get_title()
+            'activity'           => $item->get_request_type()
         ));
 
         $item_email = new Mail();
         $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
-        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_title());
+        $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
         $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());
@@ -355,7 +354,7 @@ class FinancialRequestFormController extends DefaultModuleController
             if ($this->is_new_item) $contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
             else $contribution->set_description(stripslashes($this->form->get_value('edition_description')));
 
-            $contribution->set_entitled($item->get_title());
+            $contribution->set_entitled($item->get_request_type());
             $contribution->set_fixing_url(FinancialUrlBuilder::edit_item($item->get_id(), $item->get_budget_id())->relative());
             $contribution->set_poster_id(AppContext::get_current_user()->get_id());
             $contribution->set_module('financial');
@@ -383,9 +382,9 @@ class FinancialRequestFormController extends DefaultModuleController
     {
         $item = $this->get_item();
         if ($this->is_new_item){
-            AppContext::get_response()->redirect(FinancialUrlBuilder::display_pending_items(), StringVars::replace_vars($this->lang['financial.message.success.add'], array('title' => $item->get_title())));
+            AppContext::get_response()->redirect(FinancialUrlBuilder::display_pending_items(), StringVars::replace_vars($this->lang['financial.message.success.add'], array('request_type' => $item->get_request_type())));
         }else{
-            AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : FinancialUrlBuilder::display_pending_items()), StringVars::replace_vars($this->lang['financial.message.success.edit'], array('title' => $item->get_title())));
+            AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : FinancialUrlBuilder::display_pending_items()), StringVars::replace_vars($this->lang['financial.message.success.edit'], array('request_type' => $item->get_request_type())));
         }
     }
 

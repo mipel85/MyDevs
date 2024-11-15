@@ -1,4 +1,4 @@
-id;domain;name;description;annual_amount;Montant du forfait(nombre + € ou %);Plafond du forfait (nombre);Quantité (nombre);Devis ou facture nécessaire (0 ou 1);Facture obligatoire (0 ou 1)
+id;budget_domain;budget_type;budget_description;annual_amount;Montant du forfait(nombre + € ou %);Plafond du forfait (nombre);Quantité (nombre);Devis ou facture nécessaire (0 ou 1);Facture obligatoire (0 ou 1)
 1;Structure;Création d'un Club;Création uniquement et non affiliation d’un club existant;600;300€;300;2;0;0
 2;Organisation;Concours FAI;Fédération Aéronautique Internationale;2000;500€;1000;2;1;0
 4;Organisation;Concours national;toutes natures;2000;300€;500;4;1;0

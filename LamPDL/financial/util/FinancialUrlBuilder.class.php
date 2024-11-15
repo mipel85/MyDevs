@@ -163,7 +163,15 @@ class FinancialUrlBuilder
     {
         return DispatchManager::get_url(self::$dispatcher, '/statement/' . $section);
     }
-    
+
+    /**
+     * @return Url
+     */
+    public static function expenses_list()
+    {
+        return DispatchManager::get_url(self::$dispatcher, '/expenses_list/');
+    }
+
     /**
      * @return Url
      */

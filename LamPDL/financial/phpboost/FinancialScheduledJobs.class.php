@@ -30,7 +30,7 @@ class FinancialScheduledJobs extends AbstractScheduledJobExtensionPoint
             //msg content
             $item_message = StringVars::replace_vars($lang['financial.mail.finished.event'], array(
                 'club_name'   => $club->get_name(),
-                'event_title' => $row['title'],
+                'event_title' => $row['request_type'],
                 'event_date'  => $event_date
             ));
 
@@ -38,7 +38,7 @@ class FinancialScheduledJobs extends AbstractScheduledJobExtensionPoint
                 $item_email = new Mail();
                 $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $lang['financial.module.title']);
                 $item_email->set_reply_to(FinancialConfig::load()->get_recipient_mail_1());
-                $item_email->set_subject($lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $row['title']);
+                $item_email->set_subject($lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $row['request_type']);
                 $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
                 $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());

@@ -174,21 +174,21 @@ class FinancialMonitoringService
             while(($data = fgetcsv($handle, 1000, ';')) !== false)
             {
                 self::$db_querier->insert(FinancialSetup::$financial_budget_table, array(
-                    'id'            => $data[0],
-                    'domain'        => $data[1],
-                    'name'          => $data[2],
-                    'description'   => $data[3],
-                    'fiscal_year'   => $date,
-                    'annual_amount' => $data[4],
-                    'real_amount'   => $data[4],
-                    'temp_amount'   => $data[4],
-                    'unit_amount'   => $data[5],
-                    'max_amount'    => $data[6],
-                    'quantity'      => $data[7],
-                    'temp_quantity' => $data[7],
-                    'real_quantity' => $data[7],
-                    'use_dl'        => $data[8],
-                    'bill_needed'   => $data[9]
+                    'id'                 => $data[0],
+                    'budget_domain'      => $data[1],
+                    'budget_type'        => $data[2],
+                    'budget_description' => $data[3],
+                    'fiscal_year'        => $date,
+                    'annual_amount'      => $data[4],
+                    'real_amount'        => $data[4],
+                    'temp_amount'        => $data[4],
+                    'unit_amount'        => $data[5],
+                    'max_amount'         => $data[6],
+                    'quantity'           => $data[7],
+                    'temp_quantity'      => $data[7],
+                    'real_quantity'      => $data[7],
+                    'use_dl'             => $data[8],
+                    'bill_needed'        => $data[9]
                 ));
             }
             fclose($handle);
@@ -211,8 +211,8 @@ class FinancialMonitoringService
             self::add_pending_request($item->get_id());
             // rename
             $budget = FinancialBudgetService::get_budget(self::get_item($item->get_id())->get_budget_id());
-            $new_title = $budget->get_name() . ' - ' . $date;
-            self::$db_querier->update(FinancialSetup::$financial_request_table, array('title' => $new_title, 'rewrited_title' => Url::encode_rewrite($new_title)), 'WHERE id = :id', array(
+            $new_title = $budget->get_budget_type() . ' - ' . $date;
+            self::$db_querier->update(FinancialSetup::$financial_request_table, array('request_type' => $new_title, 'rewrited_type' => Url::encode_rewrite($new_title)), 'WHERE id = :id', array(
                 'id' => $item->get_id()
             ));
         }

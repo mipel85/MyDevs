@@ -39,6 +39,8 @@ $url_controller_mappers = array(
 
     // charts
 	new UrlControllerMapper('FinancialStatementController', '`^/statement/?([a-z_]+)?/?$`', ['section']),
+
+    new UrlControllerMapper('FinancialRequestsExpensesListController', '`^/expenses_list/?$`'),
    
     // Display financial
 	new UrlControllerMapper('FinancialHomeController', '`^(?:/([0-9]+))?/?$`')

@@ -40,7 +40,7 @@ $lang['financial.request.access'] = 'Formulaire';
 $lang['financial.request.choice'] = 'Choisir';
 $lang['financial.request.not.available'] = 'Non disponible';
 $lang['financial.club.name'] = 'Nom du club';
-$lang['financial.club.dpt'] = 'Dept';
+$lang['financial.club.dpt'] = 'Dépt.';
 $lang['financial.club.dpt.filter'] = 'Département :';
 $lang['financial.club.nb'] = 'Club';
 
@@ -52,12 +52,10 @@ $lang['financial.monitoring.reject'] = 'Refuser';
 $lang['financial.monitoring.reject.clue'] = 'Rejeter la demande';
 $lang['financial.monitoring.accept'] = 'Payer';
 $lang['financial.monitoring.accept.clue'] = 'Payer la demande';
-$lang['financial.archived.budgets'] = 'Archives des budgets';
 $lang['financial.display.year'] = 'Afficher l\'année';
-$lang['financial.budget.annual'] = 'Budget annuel';
 $lang['financial.budget.domain'] = 'Domaine';
 $lang['financial.budget.name'] = 'Nom du budget';
-$lang['financial.amount.paid'] = 'Montant';
+$lang['financial.amount.paid'] = 'Montant versé';
 $lang['financial.budget.description'] = 'Description du budget';
 $lang['financial.budget.fiscal.year'] = 'Année de l\'exercice';
 $lang['financial.budget.annual.amount'] = 'Budget annuel';
@@ -231,7 +229,7 @@ $lang['financial.legend.user.edit'] = '<i class="far fa-edit link-color"></i> po
 $lang['financial.legend.user.delete'] = '<i class="fa fa-trash-alt link-color"></i> pour supprimer votre demande';
 
 // Budjet archives
-$lang['financial.budget.archives'] = 'Archives des budgets';
+$lang['financial.archived.budgets'] = 'Archives des budgets';
 $lang['financial.budget.archive.th.domain'] = 'Domaine';
 $lang['financial.budget.archive.th.name'] = 'Nom du Budget';
 $lang['financial.budget.archive.th.annual_amount'] = 'Budget annuel';

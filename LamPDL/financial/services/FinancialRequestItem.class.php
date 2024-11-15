@@ -10,8 +10,8 @@ class FinancialRequestItem
 {
     private $id;
     private $budget_id;
-    private $title;
-    private $rewrited_title;
+    private $request_type;
+    private $rewrited_type;
     private $author_user;
     private $sender_name;
     private $sender_email;
@@ -49,24 +49,24 @@ class FinancialRequestItem
         return $this->budget_id;
     }
 
-    public function set_title($title)
+    public function set_request_type($request_type)
     {
-        $this->title = $title;
+        $this->request_type = $request_type;
     }
 
-    public function get_title()
+    public function get_request_type()
     {
-        return $this->title;
+        return $this->request_type;
     }
 
-    public function set_rewrited_title($rewrited_title)
+    public function set_rewrited_type($rewrited_type)
     {
-        $this->rewrited_title = $rewrited_title;
+        $this->rewrited_type = $rewrited_type;
     }
 
-    public function get_rewrited_title()
+    public function get_rewrited_type()
     {
-        return $this->rewrited_title;
+        return $this->rewrited_type;
     }
 
     public function set_author_user(User $author)
@@ -236,8 +236,8 @@ class FinancialRequestItem
         return array(
             'id'                  => $this->get_id(),
             'budget_id'           => $this->get_budget_id(),
-            'title'               => $this->get_title(),
-            'rewrited_title'      => $this->get_rewrited_title(),
+            'request_type'        => $this->get_request_type(),
+            'rewrited_type'       => $this->get_rewrited_type(),
             'author_user_id'      => $this->get_author_user()->get_id(),
             'sender_name'         => $this->get_sender_name(),
             'sender_email'        => $this->get_sender_email(),
@@ -257,8 +257,8 @@ class FinancialRequestItem
     {
         $this->id = $properties['id'];
         $this->budget_id = $properties['budget_id'];
-        $this->title = $properties['title'];
-        $this->rewrited_title = $properties['rewrited_title'];
+        $this->request_type = $properties['request_type'];
+        $this->rewrited_type = $properties['rewrited_type'];
         $this->sender_email = $properties['sender_email'];
         $this->sender_name = $properties['sender_name'];
         $this->request_description = $properties['request_description'];

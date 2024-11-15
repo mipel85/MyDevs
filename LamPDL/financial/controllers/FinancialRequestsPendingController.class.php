@@ -25,7 +25,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
     {
         $columns = array(
             new HTMLTableColumn($this->lang['financial.monitoring'], '', array('css_class' => 'col-xlarge')),
-            new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'title'),
+            new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'request_type'),
             new HTMLTableColumn($this->lang['financial.club.nb'], 'ffam_nb'),
             new HTMLTableColumn($this->lang['financial.club.dpt'], 'department'),
             new HTMLTableColumn($this->lang['financial.request.event.date'], 'event_date'),
@@ -174,7 +174,7 @@ class FinancialRequestsPendingController extends DefaultModuleController
 
             $row = array(
                 new HTMLTableRowCell($amount . $accept_link . $ongoing_link . $reject_link, $ongoing_class),
-                new HTMLTableRowCell($item->get_title(), 'align-left' . $ongoing_class),
+                new HTMLTableRowCell($item->get_request_type(), 'align-left' . $ongoing_class),
                 new HTMLTableRowCell($club_infos, $ongoing_class),
                 new HTMLTableRowCell($club->get_department(), $ongoing_class),
                 new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR), $ongoing_class),

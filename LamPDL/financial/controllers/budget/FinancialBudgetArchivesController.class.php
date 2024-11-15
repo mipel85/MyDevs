@@ -46,7 +46,7 @@ class FinancialBudgetArchivesController extends DefaultModuleController
             $result_thead = PersistenceContext::get_querier()->select('SHOW COLUMNS FROM ' . $table);
             while($row = $result_thead->fetch())
             {
-                if(in_array($row['Field'], array('domain', 'name', 'annual_amount', 'real_amount', 'unit_amount', 'quantity', 'real_quantity')))
+                if(in_array($row['Field'], array('budget_domain', 'budget_type', 'annual_amount', 'real_amount', 'unit_amount', 'quantity', 'real_quantity')))
                     $this->view->assign_block_vars('thead', array(
                         'TH' => $this->lang['financial.budget.archive.th.'. $row['Field']]
                     ));
@@ -55,16 +55,16 @@ class FinancialBudgetArchivesController extends DefaultModuleController
             while($row = $result->fetch())
             {
                 $this->view->assign_block_vars('tbody', array(
-                    'C_DOMAIN' => isset($row['domain']),
-                    'C_NAME' => isset($row['name']),
+                    'C_DOMAIN' => isset($row['budget_domain']),
+                    'C_NAME' => isset($row['budget_type']),
                     'C_ANNUAL_AMOUNT' => isset($row['annual_amount']),
                     'C_REAL_AMOUNT' => isset($row['real_amount']),
                     'C_UNIT_AMOUNT' => isset($row['unit_amount']),
                     'C_QUANTITY' => isset($row['quantity']),
                     'C_REAL_QUANTITY' => isset($row['real_quantity']),
 
-                    'DOMAIN' => isset($row['domain']) ? $row['domain'] : '',
-                    'NAME' => isset($row['name']) ? $row['name'] : '',
+                    'DOMAIN' => isset($row['budget_domain']) ? $row['budget_domain'] : '',
+                    'NAME' => isset($row['budget_type']) ? $row['budget_type'] : '',
                     'ANNUAL_AMOUNT' => isset($row['annual_amount']) ? $row['annual_amount'] : '',
                     'REAL_AMOUNT' => isset($row['real_amount']) ? $row['real_amount'] : '',
                     'UNIT_AMOUNT' => isset($row['unit_amount']) ? $row['unit_amount'] :'',
@@ -134,7 +134,7 @@ class FinancialBudgetArchivesController extends DefaultModuleController
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['financial.module.title'], FinancialUrlBuilder::home());
-		$breadcrumb->add($this->lang['financial.budget.archives'], FinancialUrlBuilder::display_archived_budgets($request->get_getvalue('year', '')));
+		$breadcrumb->add($this->lang['financial.archived.budgets'], FinancialUrlBuilder::display_archived_budgets($request->get_getvalue('year', '')));
 
 		return $response;
 	}

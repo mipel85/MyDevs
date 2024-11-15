@@ -33,7 +33,7 @@ class FinancialBudgetMonitoringController extends DefaultModuleController
 		$columns = array(
 			new HTMLTableColumn($this->lang['financial.budget.domain'], 'domain'),
 			new HTMLTableColumn($this->lang['financial.request.type'], '', array('css_class' => 'align-left')),
-			new HTMLTableColumn($this->lang['financial.budget.annual'], ''),
+			new HTMLTableColumn($this->lang['financial.budget.annual.amount'], ''),
 			new HTMLTableColumn($this->lang['financial.budget.unit.amount'], ''),
 			new HTMLTableColumn($this->lang['financial.budget.balance'] . '<br /><span class="smaller">' . $this->lang['financial.budget.real'] . '</span>', ''),
 			new HTMLTableColumn($this->lang['financial.budget.balance'] . '<br /><span class="smaller">' . $this->lang['financial.budget.temp'] . '</span>', ''),
@@ -98,8 +98,8 @@ class FinancialBudgetMonitoringController extends DefaultModuleController
                 $temp_amount = $budget->get_temp_amount() . '€';
 
             $row = array(
-                new HTMLTableRowCell($budget->get_domain(), 'small'),
-                new HTMLTableRowCell($budget->get_name(), 'align-left'),
+                new HTMLTableRowCell($budget->get_budget_domain(), 'small'),
+                new HTMLTableRowCell($budget->get_budget_type(), 'align-left'),
                 new HTMLTableRowCell($budget->get_annual_amount() . '€'),
                 new HTMLTableRowCell($unit_amount),
                 new HTMLTableRowCell($budget->get_real_amount() . '€'),

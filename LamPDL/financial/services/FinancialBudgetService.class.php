@@ -106,14 +106,14 @@ class FinancialBudgetService
      */
     public static function get_budgets_used()
     {
-        $req = self::$db_querier->select('SELECT name, annual_amount, real_amount
+        $req = self::$db_querier->select('SELECT budget_type, annual_amount, real_amount
 		       FROM ' . FinancialSetup::$financial_budget_table . '
 		       WHERE real_amount <> annual_amount AND real_amount <> 0.00 '
         );
 
         while($row = $req->fetch())
         {
-            $values[] = array('name' => $row['name'], 'annual_amount' => $row['annual_amount'], 'real_amount' => $row['real_amount']);
+            $values[] = array('budget_type' => $row['budget_type'], 'annual_amount' => $row['annual_amount'], 'real_amount' => $row['real_amount']);
         }
         if (isset($values))
         return $values;

@@ -34,7 +34,7 @@ class FinancialRequestDeleteController extends DefaultModuleController
 
         AppContext::get_response()->redirect(
             ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), FinancialUrlBuilder::home()->rel()) ? $request->get_url_referrer() : FinancialUrlBuilder::display_pending_items()), 
-            StringVars::replace_vars($this->lang['financial.message.success.delete'], array('title' => $item->get_title())));
+            StringVars::replace_vars($this->lang['financial.message.success.delete'], array('request_type' => $item->get_request_type())));
 	}
 
 	private function get_item(HTTPRequestCustom $request)
