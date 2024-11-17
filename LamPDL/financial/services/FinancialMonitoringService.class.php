@@ -150,17 +150,6 @@ class FinancialMonitoringService
 
     public static function change_fiscal_year($date)
     {
-//        // unset pending request in budget table
-//        $result_pending = self::$db_querier->select('SELECT *
-//            FROM ' . FinancialSetup::$financial_request_table . '
-//            WHERE agreement = 1 OR agreement = 2
-//        ');
-//        while ($row = $result_pending->fetch())
-//        {
-//            if ($row['temp_quantity'] != '')
-//            self::delete_pending_request($row['id']);
-//        }
-
         // Clone budget table to budget_($date - 1) table
         $new_table = PREFIX . 'financial_budget_' . FinancialBudgetService::get_current_fiscal_year();
         PersistenceContext::get_dbms_utils()->copy_table(FinancialSetup::$financial_budget_table, $new_table);

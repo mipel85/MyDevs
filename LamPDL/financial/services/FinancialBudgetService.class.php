@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 11 17
  * @since       PHPBoost 6.0 - 2020 01 18
  */
+
 class FinancialBudgetService
 {
     private static $db_querier;
@@ -33,7 +34,7 @@ class FinancialBudgetService
     public static function update_budget(FinancialBudgetItem $budget)
     {
         self::$db_querier->update(FinancialSetup::$financial_budget_table, $budget->get_properties(), 'WHERE id = :id', array(
-            'id' => $budget->get_id()
+			'id' => $budget->get_id()
         ));
 
         return $budget->get_id();
@@ -63,9 +64,9 @@ class FinancialBudgetService
     public static function get_budget(int $id)
     {
         $row = self::$db_querier->select_single_row_query('SELECT *
-		       FROM ' . FinancialSetup::$financial_budget_table . ' budget
-		       WHERE budget.id = :id', array(
-            'id' => $id
+			FROM ' . FinancialSetup::$financial_budget_table . ' budget
+			WHERE budget.id = :id', array(
+			'id' => $id
         ));
 
         $budget = new FinancialBudgetItem();
@@ -91,7 +92,7 @@ class FinancialBudgetService
     {
         $fiscal_years = [];
         $req = self::$db_querier->select('SELECT *
-            FROM ' . FinancialSetup::$financial_budget_table
+			FROM ' . FinancialSetup::$financial_budget_table
         );
         while($row = $req->fetch())
         {
@@ -107,31 +108,13 @@ class FinancialBudgetService
     public static function get_budgets_used()
     {
         $req = self::$db_querier->select('SELECT budget_type, annual_amount, real_amount
-		       FROM ' . FinancialSetup::$financial_budget_table . '
-		       WHERE real_amount <> annual_amount AND real_amount <> 0.00 '
+			FROM ' . FinancialSetup::$financial_budget_table . '
+			WHERE real_amount <> annual_amount AND real_amount <> 0.00 '
         );
 
         while($row = $req->fetch())
         {
             $values[] = array('budget_type' => $row['budget_type'], 'annual_amount' => $row['annual_amount'], 'real_amount' => $row['real_amount']);
-        }
-        if (isset($values))
-        return $values;
-        $req->dispose();
-    }
-    
-    /**
-     * @desc Return the content of statement view.
-     */
-    public static function get_statement_view()
-    {
-        $req = self::$db_querier->select('SELECT *
-		FROM ' . FinancialSetup::$financial_statement_view . ''
-        );
-
-        while($row = $req->fetch())
-        {
-            $values[] = $row;
         }
         if (isset($values))
         return $values;
