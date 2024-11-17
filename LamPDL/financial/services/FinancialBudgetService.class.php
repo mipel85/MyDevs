@@ -34,7 +34,7 @@ class FinancialBudgetService
     public static function update_budget(FinancialBudgetItem $budget)
     {
         self::$db_querier->update(FinancialSetup::$financial_budget_table, $budget->get_properties(), 'WHERE id = :id', array(
-		'id' => $budget->get_id()
+		    'id' => $budget->get_id()
         ));
 
         return $budget->get_id();
