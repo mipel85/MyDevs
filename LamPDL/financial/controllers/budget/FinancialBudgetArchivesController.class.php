@@ -134,7 +134,7 @@ class FinancialBudgetArchivesController extends DefaultModuleController
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['financial.module.title'], FinancialUrlBuilder::home());
-		$breadcrumb->add($this->lang['financial.archived.budgets'], FinancialUrlBuilder::display_archived_budgets($request->get_getvalue('year', '')));
+		$breadcrumb->add($this->lang['financial.archived.budget'], FinancialUrlBuilder::display_archived_budgets($request->get_getvalue('year', '')));
 
 		return $response;
 	}

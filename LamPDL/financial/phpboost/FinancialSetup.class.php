@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 11 15
+ * @version     PHPBoost 6.0 - last update: 2024 11 20
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
@@ -11,18 +11,15 @@ class FinancialSetup extends DefaultModuleSetup
 {
     public static $financial_request_table;
     public static $financial_budget_table;
-    public static $financial_statement_view;
 
     public static function __static()
     {
         self::$financial_request_table = PREFIX . 'financial_request';
         self::$financial_budget_table = PREFIX . 'financial_budget';
-        self::$financial_statement_view = 'statement_view';
     }
 
     public function install()
     {
-        $this->drop_view();
         $this->drop_tables();
         $this->create_tables();
         $this->insert_data();
@@ -30,7 +27,6 @@ class FinancialSetup extends DefaultModuleSetup
 
     public function uninstall()
     {
-        $this->drop_view();
         $this->drop_tables();
         ConfigManager::delete('financial', 'config');
     }
@@ -40,16 +36,10 @@ class FinancialSetup extends DefaultModuleSetup
         PersistenceContext::get_dbms_utils()->drop(array(self::$financial_request_table, self::$financial_budget_table));
     }
 
-    private function drop_view()
-    {
-        PersistenceContext::get_querier()->select("DROP VIEW IF EXISTS " . self::$financial_statement_view);
-    }
-
     private function create_tables()
     {
         $this->create_financial_request_table();
         $this->create_financial_budget_table();
-        $this->create_financial_statement_view();
     }
 
     private function create_financial_request_table()
@@ -107,24 +97,6 @@ class FinancialSetup extends DefaultModuleSetup
             )
         );
         PersistenceContext::get_dbms_utils()->create_table(self::$financial_budget_table, $fields, $options);
-    }
-
-    public static function create_financial_statement_view()
-    {
-
-        $statement_view = '
-        CREATE VIEW statement_view AS 
-        SELECT fr.id, fb.budget_domain AS Domaine, fr.request_type as `Type de demande`, lc.ffam_nb as `N° FFAM`, lc.name as Club, mem.display_name as Demandeur, fr.request_description,
-        FROM_UNIXTIME(fr.creation_date, "%d-%m-%Y") as Date_création,
-        FROM_UNIXTIME(fr.event_date, "%d-%m-%Y") as Date_événement, fr.amount_paid as `Montant versé`, fb.annual_amount as `Budget prévu`, fb.annual_amount-fb.real_amount as `Budget dépensé`, fb.real_amount as `Budget restant`, fr.estimate_url as `lien devis`, fr.invoice_url as `lien facture`
-        FROM `phpboost_financial_request` fr
-        LEFT JOIN `phpboost_lamclubs` lc ON fr.lamclubs_id = lc.club_id
-        LEFT JOIN `phpboost_member` mem ON fr.author_user_id = mem.user_id
-        LEFT JOIN `phpboost_financial_budget` fb ON fr.budget_id = fb.id
-        WHERE fr.amount_paid <> ""
-        ORDER BY fb.budget_domain, fr.request_type';
-
-        PersistenceContext::get_querier()->select($statement_view);
     }
 
     private function insert_data()

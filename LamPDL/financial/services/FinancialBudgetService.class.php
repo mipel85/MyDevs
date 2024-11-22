@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 11 17
+ * @version     PHPBoost 6.0 - last update: 2024 11 22
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
@@ -34,7 +34,7 @@ class FinancialBudgetService
     public static function update_budget(FinancialBudgetItem $budget)
     {
         self::$db_querier->update(FinancialSetup::$financial_budget_table, $budget->get_properties(), 'WHERE id = :id', array(
-        'id' => $budget->get_id()
+            'id' => $budget->get_id()
         ));
 
         return $budget->get_id();
@@ -109,7 +109,7 @@ class FinancialBudgetService
     {
         $req = self::$db_querier->select('SELECT budget_type, annual_amount, real_amount
 			FROM ' . FinancialSetup::$financial_budget_table . '
-			WHERE real_amount <> annual_amount AND real_amount <> 0.00 '
+			WHERE real_amount <> annual_amount '
         );
 
         while($row = $req->fetch())

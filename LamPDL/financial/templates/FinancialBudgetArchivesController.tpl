@@ -1,7 +1,7 @@
 <section id="module-financial" class="single-item">
 	<header class="section-header">
 		<h1>
-			<span itemprop="name">{@financial.budget.archives} # IF C_YEAR_SELECTED #- {YEAR_TITLE}# ENDIF #</span>
+			<span itemprop="name">{@financial.archived.budget} # IF C_YEAR_SELECTED #- {YEAR_TITLE}# ENDIF #</span>
 		</h1>
 	</header>
 	<div class="sub-section">

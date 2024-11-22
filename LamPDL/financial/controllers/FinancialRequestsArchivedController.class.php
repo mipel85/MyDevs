@@ -92,7 +92,7 @@ class FinancialRequestsArchivedController extends DefaultModuleController
                 new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_agreement_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
                 new HTMLTableRowCell($item->get_status()),
-                new HTMLTableRowCell($item->get_amount_paid()),
+                new HTMLTableRowCell($item->get_amount_paid() . '€'),
                 new HTMLTableRowCell($estimate_file . $invoice_file, 'controls'),
             );
 

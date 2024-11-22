@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 10 15
+ * @version     PHPBoost 6.0 - last update: 2024 11 22
  * @since       PHPBoost 6.0 - 2024 02 09
  */
 ####################################################
@@ -116,7 +116,7 @@ $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
     <br /><br /><strong>Département :</strong> :club_activity_dpt
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
     <br /><strong>Date de réalisation :</strong> :club_activity_date
-    <br /><br /><strong>Descriptif :</strong> :description
+    <br /><br /><strong>Descriptif :</strong> :budget_description
 ';
 
 $lang['financial.mail.confirm.msg'] = 'Bonjour :club_sender_name, <br /><br />
@@ -147,7 +147,7 @@ $lang['financial.mail.invoice.msg'] = 'Bonjour, <br /><br />
     Le club <strong>:club_name</strong> a fourni une facture dans le suivi de son dossier pour la demande : :activity
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
     <br /><strong>Date de réalisation :</strong> :club_activity_date
-    <br /><br /><strong>Descriptif :</strong> :description
+    <br /><br /><strong>Descriptif :</strong> :budget_description
 ';
 
 $lang['financial.mail.finished.event'] = 'Bonjour, <br /><br />
@@ -181,20 +181,20 @@ $lang['financial.seo.description.requests.list'] = 'Liste des demandes du site :
 $lang['financial.feed.name'] = 'Événement';
 
 // Messages helper
-$lang['financial.message.success.add'] = 'La demande <strong>:title</strong> a été ajoutée';
-$lang['financial.message.success.edit'] = 'La demande <strong>:title</strong> a été modifiée';
-$lang['financial.message.success.delete'] = 'La demande <strong>:title</strong> a été supprimée';
-$lang['financial.message.success.reject'] = 'La demande <strong>:title</strong> a été rejetée et placée en archive';
-$lang['financial.message.success.accept'] = 'La demande <strong>:title</strong> a été acceptée et placée en archive';
-$lang['financial.message.error.annual.budget'] = 'Le montant déclaré pour la validation de la demande: <strong>:title</strong> entraîne un dépassement du budget annuel';
-$lang['financial.message.error.maximum.budget'] = 'Le montant maximum prévu pour la demande : <strong>:title</strong> est de : <strong>:max_budget€</strong>';
-$lang['financial.message.error.remaining.budget'] = 'Le montant saisi pour la demande : <strong>:title</strong> est supérieur au budget restant : <strong>:remaining_budget€</strong>';
-$lang['financial.message.empty.accept'] = 'Le montant déclaré pour la validation de la demande: <strong>:title</strong> ne peut pas être nul';
-$lang['financial.message.success.ongoing'] = 'La demande <strong>:title</strong> a été placée à l\'étude';
+$lang['financial.message.success.add'] = 'La demande <strong>:request_type</strong> a été ajoutée';
+$lang['financial.message.success.edit'] = 'La demande <strong>:request_type</strong> a été modifiée';
+$lang['financial.message.success.delete'] = 'La demande <strong>:request_type</strong> a été supprimée';
+$lang['financial.message.success.reject'] = 'La demande <strong>:request_type</strong> a été rejetée et placée en archive';
+$lang['financial.message.success.accept'] = 'La demande <strong>:request_type</strong> a été acceptée et placée en archive';
+$lang['financial.message.error.annual.budget'] = 'Le montant déclaré pour la validation de la demande: <strong>:request_type</strong> entraîne un dépassement du budget annuel';
+$lang['financial.message.error.maximum.budget'] = 'Le montant maximum prévu pour la demande : <strong>:request_type</strong> est de : <strong>:max_budget€</strong>';
+$lang['financial.message.error.remaining.budget'] = 'Le montant saisi pour la demande : <strong>:request_type</strong> est supérieur au budget restant : <strong>:remaining_budget€</strong>';
+$lang['financial.message.empty.accept'] = 'Le montant déclaré pour la validation de la demande: <strong>:request_type</strong> ne peut pas être nul';
+$lang['financial.message.success.ongoing'] = 'La demande <strong>:request_type</strong> a été placée à l\'étude';
 
-$lang['financial.message.success.budget.add'] = 'Le budget <strong>:name</strong> a été ajouté';
-$lang['financial.message.success.budget.edit'] = 'Le budget <strong>:name</strong> a été modifié';
-$lang['financial.message.success.budget.delete'] = 'Le budget <strong>:name</strong> a été supprimé';
+$lang['financial.message.success.budget.add'] = 'Le budget <strong>:budget_type</strong> a été ajouté';
+$lang['financial.message.success.budget.edit'] = 'Le budget <strong>:budget_type</strong> a été modifié';
+$lang['financial.message.success.budget.delete'] = 'Le budget <strong>:budget_type</strong> a été supprimé';
 
 // Errors
 $lang['financial.warnings'] = 'Information !';
@@ -229,9 +229,9 @@ $lang['financial.legend.user.edit'] = '<i class="far fa-edit link-color"></i> po
 $lang['financial.legend.user.delete'] = '<i class="fa fa-trash-alt link-color"></i> pour supprimer votre demande';
 
 // Budjet archives
-$lang['financial.archived.budgets'] = 'Archives des budgets';
-$lang['financial.budget.archive.th.domain'] = 'Domaine';
-$lang['financial.budget.archive.th.name'] = 'Nom du Budget';
+$lang['financial.archived.budget'] = 'Archive du budget';
+$lang['financial.budget.archive.th.budget_domain'] = 'Domaine';
+$lang['financial.budget.archive.th.budget_type'] = 'Nom du Budget';
 $lang['financial.budget.archive.th.annual_amount'] = 'Budget annuel';
 $lang['financial.budget.archive.th.real_amount'] = 'Solde<br /><span class="smaller">en fin d\'exercice</span>';
 $lang['financial.budget.archive.th.unit_amount'] = 'Forfait';

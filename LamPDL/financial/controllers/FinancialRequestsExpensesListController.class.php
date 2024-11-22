@@ -90,7 +90,7 @@ class FinancialRequestsExpensesListController extends DefaultModuleController
 			$invoice_url = new LinkHTMLElement($item->get_invoice_url(), '<i class="fa fa-lg fa-file-contract"></i>', array('aria-label' => $this->lang['financial.request.invoice.url']));
 			$invoice_url = !empty($item->get_invoice_url()->rel()) ? $invoice_url->display() : '';
 
-			$row = array(
+			$values = array(
 				new HTMLTableRowCell($row['budget_domain'], 'align-left'),
 				new HTMLTableRowCell($item->get_request_type(), 'align-left'),
 				new HTMLTableRowCell($club->get_department()),
@@ -127,7 +127,7 @@ class FinancialRequestsExpensesListController extends DefaultModuleController
                                         <td>' . Date::to_format($row['event_date'], Date::FORMAT_DAY_MONTH_YEAR) . '</td>
 										<td class="description-width">' . $row['request_description'] . '</td>
 										<td>' . $row['annual_amount'] . '€</td>
-										<td>' . $row['annual_amount'] - $row['real_amount'] . '€</td>
+										<td>' . number_format($row['annual_amount'] - $row['real_amount'], 2, '.') . '€</td>
 										<td>' . $row['real_amount'] . '€</td>
 										<td>' . $estimate_url . '</td>
 										<td>' . $invoice_url . '</td>
@@ -138,7 +138,7 @@ class FinancialRequestsExpensesListController extends DefaultModuleController
 					</div>'
 				)
 			);
-			$results[] = new HTMLTableRow($row);
+			$results[] = new HTMLTableRow($values);
 		}
 		/* affiche le total des dépenses par type de demande */
 		$table_model->set_caption($this->lang['financial.budgets.statement'] . ' --- ' . $total_expenses . '€');
