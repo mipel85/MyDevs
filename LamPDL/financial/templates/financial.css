@@ -94,3 +94,8 @@
     pointer-events: none;
     cursor : default;
 }
+
+#cssmenu-module-financial > ul > li:nth-child(6) > a {
+    font-weight: bold;
+    color: #0000ff;
+}
