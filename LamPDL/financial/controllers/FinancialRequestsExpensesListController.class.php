@@ -109,7 +109,7 @@ class FinancialRequestsExpensesListController extends DefaultModuleController
                                         <span class="span-modal-title">' . $club->get_name() . '</span> --- ' . $row['budget_domain'] . ' / ' . $item->get_request_type() . '
                                     </tr>
                                     <tr>
-										<th>Suivi par</th>
+                                        <th>Suivi par</th>
                                         <th>Demandé</th>
                                         <th>Réalisé</th>
                                         <th>Payé</th>
