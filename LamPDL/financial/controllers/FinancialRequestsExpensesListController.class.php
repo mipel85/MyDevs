@@ -113,9 +113,9 @@ class FinancialRequestsExpensesListController extends DefaultModuleController
                                         <th>Demandé</th>
                                         <th>Réalisé</th>
                                         <th>Payé</th>
-                                        </th><th>Description</th>
+                                        <th>Description</th>
                                         <th>Budget prévu</th>
-                                        </th><th>Budget dépensé</th>
+                                        <th>Budget dépensé</th>
                                         <th>Budget restant</th>
                                         <th>Devis</th>
                                         <th>Facture</th>
