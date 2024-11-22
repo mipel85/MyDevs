@@ -108,8 +108,8 @@ class FinancialRequestsExpensesListController extends DefaultModuleController
                                     <tr>
                                         <span class="span-modal-title">' . $club->get_name() . '</span> --- ' . $row['budget_domain'] . ' / ' . $item->get_request_type() . '
                                     </tr>
-                                    <tr>                                    
-                                        <th>Suivi par</th>
+                                    <tr>
+										<th>Suivi par</th>
                                         <th>Demandé</th>
                                         <th>Réalisé</th>
                                         <th>Payé</th>
@@ -121,7 +121,7 @@ class FinancialRequestsExpensesListController extends DefaultModuleController
                                         <th>Facture</th>
                                     </tr>
                                 </thead>
-                                <tbody>                                            
+                                <tbody>
                                     <tr>
                                         <td>' . $row['sender_name'] . '</td>
                                         <td>' . Date::to_format($row['creation_date'], Date::FORMAT_DAY_MONTH_YEAR) . '</td>
