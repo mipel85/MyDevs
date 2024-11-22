@@ -4,20 +4,24 @@ function retrieveCaps($element)
         caps = title.match(/[A-Z]/g);
         chars = [],
         replacement = {};
-    for ( i = 0; i < caps.length; i++)
+
+    if (caps === null)
+        return;
+
+    for (let i = 0; i < caps.length; i++)
     {
-        chars.push('<span class="capital">'+caps[i]+'</span>');
+        chars.push('<span class="capital">' + caps[i] + '</span>');
     }
-    for ( i = 0; i < caps.length; i++)
+    for (let i = 0; i < caps.length; i++)
     {
         replacement[caps[i]] = chars[i];
     }
     $element.html(allReplace(title, replacement));
 }
 
-function allReplace(str, obj) {
-    for (const x in obj) {
-        str = str.replace(new RegExp(x, 'g'), obj[x]);
+function allReplace(str, replacement) {
+    for (let key in replacement) {
+        str = str.replace(new RegExp(key, 'g'), replacement[key]);
     }
     return str;
 };
