@@ -159,17 +159,17 @@ class FinancialUrlBuilder
     /**
      * @return Url
      */
-    public static function statement($section = '')
+    public static function expenses_list()
     {
-        return DispatchManager::get_url(self::$dispatcher, '/statement/' . $section);
+        return DispatchManager::get_url(self::$dispatcher, '/expenses_list/');
     }
 
     /**
      * @return Url
      */
-    public static function expenses_list()
+    public static function requests_chart()
     {
-        return DispatchManager::get_url(self::$dispatcher, '/expenses_list/');
+        return DispatchManager::get_url(self::$dispatcher, '/requests_chart/');
     }
 
     /**

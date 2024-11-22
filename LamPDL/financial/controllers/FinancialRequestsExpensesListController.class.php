@@ -110,8 +110,9 @@ class FinancialRequestsExpensesListController extends DefaultModuleController
                                     </tr>
                                     <tr>                                    
                                         <th>Suivi par</th>
-                                        <th>Date demande</th>
-                                        <th>Date activité</th>
+                                        <th>Demandé</th>
+                                        <th>Réalisé</th>
+                                        <th>Payé</th>
                                         </th><th>Description</th>
                                         <th>Budget prévu</th>
                                         </th><th>Budget dépensé</th>
@@ -125,6 +126,7 @@ class FinancialRequestsExpensesListController extends DefaultModuleController
                                         <td>' . $row['sender_name'] . '</td>
                                         <td>' . Date::to_format($row['creation_date'], Date::FORMAT_DAY_MONTH_YEAR) . '</td>
                                         <td>' . Date::to_format($row['event_date'], Date::FORMAT_DAY_MONTH_YEAR) . '</td>
+                                        <td>' . $item->get_agreement_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . '</td>
 										<td class="description-width">' . $row['request_description'] . '</td>
 										<td>' . $row['annual_amount'] . '€</td>
 										<td>' . number_format($row['annual_amount'] - $row['real_amount'], 2, '.') . '€</td>

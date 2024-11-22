@@ -27,10 +27,10 @@ class FinancialTreeLinks implements ModuleTreeLinksExtensionPoint
         $tree->add_link(new ModuleLink($lang['financial.budget.add'], FinancialUrlBuilder::add_budget(), FinancialAuthorizationsService::check_authorizations()->moderation()));
 
         
-        $statement = new AdminModuleLink($lang['financial.statement'], FinancialUrlBuilder::statement());
-        $statement->add_sub_link(new AdminModuleLink($lang['financial.chart.budgets.used'], FinancialUrlBuilder::statement()));
-        $statement->add_sub_link(new AdminModuleLink($lang['financial.budgets.statement'], FinancialUrlBuilder::expenses_list()));
-		$tree->add_link($statement);
+        $financial_statement = new AdminModuleLink($lang['financial.statement'], '');
+        $financial_statement->add_sub_link(new AdminModuleLink($lang['financial.chart.budgets.used'], FinancialUrlBuilder::requests_chart()));
+        $financial_statement->add_sub_link(new AdminModuleLink($lang['financial.budgets.statement'], FinancialUrlBuilder::expenses_list()));
+		$tree->add_link($financial_statement);
         
         $tree->add_link(new AdminModuleLink($lang['form.configuration'], FinancialUrlBuilder::configuration()));
         return $tree;
