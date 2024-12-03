@@ -9,25 +9,25 @@
 
 class LamclubsExtensionPointProvider extends ItemsModuleExtensionPointProvider
 {
-	public function __construct()
-	{
-		parent::__construct('lamclubs');
-	}
+    public function __construct()
+    {
+        parent::__construct('lamclubs');
+    }
 
-	public function home_page()
-	{
-		return new DefaultHomePageDisplay($this->get_club_id(), LamclubsHomeController::get_view());
-	}
+    public function home_page()
+    {
+        return new DefaultHomePageDisplay($this->get_club_id(), LamclubsHomeController::get_view());
+    }
 
-	public function url_mappings()
-	{
-		return new UrlMappings(array(new DispatcherUrlMapping('/lamclubs/index.php')));
-	}
+    public function url_mappings()
+    {
+        return new UrlMappings(array(new DispatcherUrlMapping('/lamclubs/index.php')));
+    }
 
-	public function user()
-	{
-		return false;
-	}
+    public function user()
+    {
+        return false;
+    }
 
     public function search()
     {
