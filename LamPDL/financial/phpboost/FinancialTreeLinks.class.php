@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 11 22
+ * @version     PHPBoost 6.0 - last update: 2024 12 04
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
@@ -19,7 +19,6 @@ class FinancialTreeLinks implements ModuleTreeLinksExtensionPoint
         $year = end($table_year);
 
         $tree->add_link(new ModuleLink($lang['financial.pending.items'], FinancialUrlBuilder::display_pending_items(), FinancialAuthorizationsService::check_authorizations()->contribution()));
-        $tree->add_link(new ModuleLink($lang['financial.archived.items'], FinancialUrlBuilder::display_archived_items(), FinancialAuthorizationsService::check_authorizations()->moderation()));
         
         if (!empty($budget_archive_tables)) {
             $tree->add_link(new ModuleLink($lang['financial.archived.budget'], FinancialUrlBuilder::display_archived_budgets($year), FinancialAuthorizationsService::check_authorizations()->write()));
@@ -28,8 +27,8 @@ class FinancialTreeLinks implements ModuleTreeLinksExtensionPoint
 
         
         $financial_statement = new AdminModuleLink($lang['financial.statement'], '');
-        $financial_statement->add_sub_link(new AdminModuleLink($lang['financial.chart.budgets.used'], FinancialUrlBuilder::requests_chart()));
-        $financial_statement->add_sub_link(new AdminModuleLink($lang['financial.budgets.statement'], FinancialUrlBuilder::expenses_list()));
+        $financial_statement->add_sub_link(new AdminModuleLink($lang['financial.chart.budgets.used'], FinancialUrlBuilder::requests_monitoring_chart()));
+        $financial_statement->add_sub_link(new AdminModuleLink($lang['financial.budgets.statement'], FinancialUrlBuilder::requests_monitoring_list()));
 		$tree->add_link($financial_statement);
         
         $tree->add_link(new AdminModuleLink($lang['form.configuration'], FinancialUrlBuilder::configuration()));

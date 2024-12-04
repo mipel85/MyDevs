@@ -3,13 +3,14 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 12 04
  * @since       PHPBoost 6.0 - 2020 01 18
  */
+
 class FinancialUrlBuilder
 {
-    const DEFAULT_SORT_FIELD = 'date';
-    const DEFAULT_SORT_MODE = 'desc';
+    const DEFAULT_SORT_FIELD   = 'date';
+    const DEFAULT_SORT_MODE    = 'desc';
     private static $dispatcher = '/financial';
 
     /**
@@ -55,14 +56,6 @@ class FinancialUrlBuilder
     /**
      * @return Url
      */
-    public static function archived_items()
-    {
-        return DispatchManager::get_url(self::$dispatcher, '/archived/');
-    }
-
-    /**
-     * @return Url
-     */
     public static function display($item_id, $rewrited_title)
     {
         return DispatchManager::get_url(self::$dispatcher, '/' . $item_id . '-' . $rewrited_title . '/');
@@ -81,12 +74,6 @@ class FinancialUrlBuilder
     {
         $page = $page !== 1 ? $page . '/' : '';
         return DispatchManager::get_url(self::$dispatcher, '/member/' . $user_id . '/' . $page);
-    }
-
-    public static function display_archived_items($page = 1)
-    {
-        $page = $page !== 1 ? $page . '/' : '';
-        return DispatchManager::get_url(self::$dispatcher, '/archived/' . '/' . $page);
     }
 
     public static function display_monitoring_items($page = 1)
@@ -159,17 +146,17 @@ class FinancialUrlBuilder
     /**
      * @return Url
      */
-    public static function expenses_list()
+    public static function requests_monitoring_chart()
     {
-        return DispatchManager::get_url(self::$dispatcher, '/expenses_list/');
+        return DispatchManager::get_url(self::$dispatcher, '/requests_monitoring_chart/');
     }
 
     /**
      * @return Url
      */
-    public static function requests_chart()
+    public static function requests_monitoring_list()
     {
-        return DispatchManager::get_url(self::$dispatcher, '/requests_chart/');
+        return DispatchManager::get_url(self::$dispatcher, '/requests_monitoring_list/');
     }
 
     /**

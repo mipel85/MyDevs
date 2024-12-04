@@ -25,4 +25,9 @@ class FinancialExtensionPointProvider extends ItemsModuleExtensionPointProvider
         $js_file->adding_running_module_displayed_file('https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2');
         return $js_file;
     }
+
+    public function search()
+    {
+        return false;
+    }
 }
