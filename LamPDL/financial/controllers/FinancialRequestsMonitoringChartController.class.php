@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 04
+ * @version     PHPBoost 6.0 - last update: 2024 12 06
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
@@ -38,7 +38,6 @@ class FinancialRequestsMonitoringChartController extends DefaultModuleController
 
     private function build_chart_budgets_used()
     {
-        $fiscal_year = FinancialBudgetService::get_current_fiscal_year();  
         $this->view->put('FISCAL_YEAR', FinancialBudgetService::get_current_fiscal_year());      
 
         $budgets_used = FinancialBudgetService::get_budgets_used();
