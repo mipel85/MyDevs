@@ -1,6 +1,6 @@
 <section id="module-financial">
     <header class="section-header">
-        <h1>{@financial.statement}</h1>
+        <h1>{@financial.statement} - exercice {FISCAL_YEAR}</h1>
     </header>
     <div class="sub-section">
         <div class="chart-container">
