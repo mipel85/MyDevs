@@ -38,8 +38,10 @@ class FinancialRequestsMonitoringChartController extends DefaultModuleController
 
     private function build_chart_budgets_used()
     {
-        $budgets_used = FinancialBudgetService::get_budgets_used();
+        $fiscal_year = FinancialBudgetService::get_current_fiscal_year();  
+        $this->view->put('FISCAL_YEAR', FinancialBudgetService::get_current_fiscal_year());      
 
+        $budgets_used = FinancialBudgetService::get_budgets_used();
         if ($budgets_used) {
             foreach ($budgets_used as $value) {
                 $this->view->assign_block_vars('budgets', array(

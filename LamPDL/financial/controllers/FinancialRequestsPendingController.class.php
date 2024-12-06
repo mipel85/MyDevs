@@ -45,7 +45,8 @@ class FinancialRequestsPendingController extends DefaultModuleController
             new HTMLTableSortingRule('event_date', HTMLTableSortingRule::DESC)
         );
 
-        $table_model->set_layout_title($this->lang['financial.pending.items']);
+        $fiscal_year = FinancialBudgetService::get_current_fiscal_year();
+        $table_model->set_layout_title($this->lang['financial.pending.items'] . ' - exercice ' . $fiscal_year);
 
         $table_model->set_filters_menu_title($this->lang['financial.filter.items']);
         $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('department', 'filter1', $this->lang['financial.club.dpt.filter'], array(44 => 44, 49 => 49, 53 => 53, 72 => 72, 85 => 85)));
