@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 03 26
+ * @version     PHPBoost 6.0 - last update: 2024 12 08
  * @since       PHPBoost 6.0 - 2024 02 25
 */
 
@@ -84,9 +84,6 @@ $lang['planning.seo.description.root']        = 'Tous les événements du site :
 $lang['planning.seo.description.pending']     = 'Tous les événements en attente.';
 $lang['planning.seo.description.member']      = 'Tous les événements de :author.';
 $lang['planning.seo.description.events.list'] = 'Liste des événements du site :site.';
-
-// Feed name
-$lang['planning.feed.name'] = 'Événement';
 
 // Messages helper
 $lang['planning.message.success.add']    = 'L\'événement <b>:title</b> a été ajouté';
