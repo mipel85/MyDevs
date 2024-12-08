@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2024 12 07
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
@@ -94,7 +94,8 @@ class PlanningItemController extends DefaultModuleController
 		$this->email_form = $email_form;
 	}
 
-	private function send_email()
+	/* permet d'envoyer un mail de contact à l'auteur de la contribution depuis la fiche de l'événement */
+    private function send_email()
 	{
         $category = $this->item->get_category();
         $category_name = $category->get_id() == Category::ROOT_CATEGORY ? $this->get_item()->get_activity_other() : $category->get_name();

@@ -156,8 +156,6 @@ class PlanningMemberItemsController extends DefaultModuleController
 					}
 				}
 			}
-
-			PlanningService::clear_cache();
 			AppContext::get_response()->redirect(PlanningUrlBuilder::home(), $this->lang['warning.process.success']);
 		}
 	}

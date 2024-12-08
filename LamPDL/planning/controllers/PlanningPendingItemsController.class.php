@@ -125,8 +125,6 @@ class PlanningPendingItemsController extends DefaultModuleController
 				}
 			}
 
-			PlanningService::clear_cache();
-
 			AppContext::get_response()->redirect(PlanningUrlBuilder::display_(), $this->lang['warning.process.success']);
 		}
 	}
