@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 08
+ * @version     PHPBoost 6.0 - last update: 2024 12 10
  * @since       PHPBoost 6.0 - 2024 02 25
  */
 
@@ -31,19 +31,20 @@ $lang['planning.filter.items']     = 'Filtrer les événements';
 $lang['planning.items.management'] = 'Gestion des événements';
 
 // Labels
-$lang['planning.location']           = 'Adresse de l\'événement';
-$lang['planning.cancelled.item']     = 'Cet événement a été annulé';
-$lang['planning.start.date']         = 'Date de l\'événement';
-$lang['planning.end.date.enabled']   = 'Événement sur plusieurs jours';
-$lang['planning.end.date']           = 'Date de fin';
-$lang['planning.club.department']    = 'Département';
-$lang['planning.club.name']          = 'Nom du Club';
-$lang['planning.organized.by']       = 'Organisé par';
-$lang['planning.status.published']   = 'Approuvé';
-$lang['planning.status.draft']       = 'En attente';
-$lang['planning.contact']            = 'Contacter le club';
-$lang['planning.contact.phone']      = 'Par téléphone';
-$lang['planning.contact.email.form'] = 'Par email';
+$lang['planning.location']               = 'Adresse de l\'événement';
+$lang['planning.cancelled.item']         = 'Cet événement a été annulé';
+$lang['planning.start.date']             = 'Date de l\'événement';
+$lang['planning.end.date.enabled']       = 'Événement sur plusieurs jours ou choix des horaires';
+$lang['planning.activity.daytime.hours'] = 'à cocher pour définir des horaires de début et de fin';
+$lang['planning.end.date']               = 'Date de fin';
+$lang['planning.club.department']        = 'Département';
+$lang['planning.club.name']              = 'Nom du Club';
+$lang['planning.organized.by']           = 'Organisé par';
+$lang['planning.status.published']       = 'Approuvé';
+$lang['planning.status.draft']           = 'En attente';
+$lang['planning.contact']                = 'Contacter le club';
+$lang['planning.contact.phone']          = 'Par téléphone';
+$lang['planning.contact.email.form']     = 'Par email';
 
 $lang['planning.contact.author']        = 'Contacter le club';
 $lang['planning.item.interest']         = 'À propos de l\'activité : ';
@@ -99,8 +100,8 @@ $lang['planning.email.new.item']          = 'Nouvelle activité sur le site LamP
 $lang['planning.email.edit.item']         = 'Édition d\'une activité sur le site LamPDL';
 $lang['planning.email.new.item.message']  = 'Bonjour, <br /><br />
      Le club<strong>:club_name</strong> (Dépt:club_dept- n° FFAM :club_ffam_number) vient de déposer une nouvelle activité dans le planning sur le site de la Ligue d\'Aéromodélisme des Pays de Loire.'
-     . ' <br />Vous pouvez la consulter en suivant ce lien : <a href="' . GeneralConfig::load()->get_site_url() . '/planning/">Événements en attente</a>';
-$lang['planning.email.edit.item.message']  = 'Bonjour, <br /><br />
+  . ' <br />Vous pouvez la consulter en suivant ce lien : <a href="' . GeneralConfig::load()->get_site_url() . '/planning/">Événements en attente</a>';
+$lang['planning.email.edit.item.message'] = 'Bonjour, <br /><br />
      Le club<strong>:club_name</strong> (Dépt:club_dept- n° FFAM :club_ffam_number) vient de modifier une activité dans le planning sur le site de la Ligue d\'Aéromodélisme des Pays de Loire.'
-     . ' <br />Vous pouvez la consulter en suivant ce lien : <a href="' . GeneralConfig::load()->get_site_url() . '/planning/">Événements en attente</a>';
+  . ' <br />Vous pouvez la consulter en suivant ce lien : <a href="' . GeneralConfig::load()->get_site_url() . '/planning/">Événements en attente</a>';
 ?>
