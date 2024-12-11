@@ -3,12 +3,13 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 10
+ * @version     PHPBoost 6.0 - last update: 2024 03 26
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
 class PlanningItemFormController extends DefaultModuleController
 {
+
     public function execute(HTTPRequestCustom $request)
     {
         $this->check_authorizations();
@@ -47,28 +48,28 @@ class PlanningItemFormController extends DefaultModuleController
             $search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
             $fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['planning.activity'], $item->get_id_category(), $search_category_children_options,
                 array(
-                    'description' => $this->lang['planning.activity.clue'],
-                    'events'      => array('change' => '
+                  'description' => $this->lang['planning.activity.clue'],
+                  'events'      => array('change' => '
                         if (HTMLForms.getField("id_category").getValue() == ' . Category::ROOT_CATEGORY . ') {
                             HTMLForms.getField("activity_other").enable();
                         } else {
                             HTMLForms.getField("activity_other").disable();
                         }'
-                    )
+                  )
                 )
-            ));
+              ));
         }
 
         $fieldset->add_field(new FormFieldTextEditor('activity_other', $this->lang['planning.activity.other'], $item->get_activity_other(),
             array(
-            'required' => true,
-            'hidden'   => $item->get_id_category() != Category::ROOT_CATEGORY
+                'required' => true,
+                'hidden'   => $item->get_id_category() != Category::ROOT_CATEGORY
             )
         ));
         $fieldset->add_field(new FormFieldTextEditor('activity_detail', $this->lang['planning.activity.detail'], $item->get_activity_detail(),
             array(
-            'required'    => true,
-            'description' => $this->lang['planning.activity.detail.clue'],
+                'required'    => true,
+                'description' => $this->lang['planning.activity.detail.clue'],
             )
         ));
 
@@ -82,8 +83,7 @@ class PlanningItemFormController extends DefaultModuleController
 
         $fieldset->add_field(new FormFieldCheckbox('end_date_enabled', $this->lang['planning.end.date.enabled'], $item->get_end_date_enabled(),
             array(
-            'description' => $this->lang['planning.activity.daytime.hours'],
-            'events'      => array('click' => '
+            'events' => array('click' => '
 					if (HTMLForms.getField("end_date_enabled").getValue()) {
 						HTMLForms.getField("end_date").enable();
 					} else {
@@ -95,8 +95,8 @@ class PlanningItemFormController extends DefaultModuleController
 
         $fieldset->add_field($end_date = new FormFieldDateTime('end_date', $this->lang['planning.end.date'], $item->get_end_date(),
           array(
-          'required'          => true, 'five_minutes_step' => true,
-          'hidden'            => !$item->get_end_date_enabled()
+            'required'          => true, 'five_minutes_step' => true,
+            'hidden'            => !$item->get_end_date_enabled()
           )
         ));
 
@@ -104,8 +104,8 @@ class PlanningItemFormController extends DefaultModuleController
 
         $fieldset->add_field(new FormFieldMailEditor('email', $this->lang['planning.contact.email'], $item->get_email(),
             array(
-            'required'    => true,
-            'description' => $this->lang['planning.contact.email.clue']
+                'required'    => true,
+                'description' => $this->lang['planning.contact.email.clue']
             )
         ));
 
@@ -120,7 +120,7 @@ class PlanningItemFormController extends DefaultModuleController
 
         $option_fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->lang['planning.form.thumbnail'], $item->get_thumbnail()->relative(), PlanningItem::THUMBNAIL_URL,
             array(
-            'description' => $this->lang['planning.form.thumbnail.clue']
+                'description' => $this->lang['planning.form.thumbnail.clue']
             )
         ));
 
@@ -193,26 +193,30 @@ class PlanningItemFormController extends DefaultModuleController
 
     private function send_email($state = '')
     {
+
         /* récupération des champs du formulaire pour définir le contenu du mail */
         /* récupération du département concerné par l'activité */
-        $club_infos = $this->form->get_value('club_infos')->get_label();
-        $infos = explode('-', $club_infos);
+        $club_infos       = $this->form->get_value('club_infos')->get_label();
+        $infos            = explode('-', $club_infos);
+        $club_ffam_number = $infos[0];
+        $club_dept        = $infos[1];
+        $club_name        = $infos[2];
 
         switch($state) {
             case('new') :
                 $subject = $this->lang['planning.email.new.item'];
                 $message = StringVars::replace_vars($this->lang['planning.email.new.item.message'], array(
-                  'club_name'        => $infos[2],
-                  'club_ffam_number' => $infos[0],
-                  'club_dept'        => $infos[1],
+                  'club_name'        => $club_name,
+                  'club_ffam_number' => $club_ffam_number,
+                  'club_dept'        => $club_dept,
                 ));
                 break;
             case('edit') :
                 $subject = $this->lang['planning.email.edit.item'];
                 $message = StringVars::replace_vars($this->lang['planning.email.edit.item.message'], array(
-                  'club_name'        => $infos[2],
-                  'club_ffam_number' => $infos[0],
-                  'club_dept'        => $infos[1],
+                  'club_name'        => $club_name,
+                  'club_ffam_number' => $club_ffam_number,
+                  'club_dept'        => $club_dept,
                 ));
                 break;
         }
@@ -231,7 +235,7 @@ class PlanningItemFormController extends DefaultModuleController
 
 
         /* envoi mail de nouvelle contribution aux délégués départementaux et suppléants si adresse mail existante */
-        $delegates_liste_email = LamclubsService::get_recipient_email($infos[1] ?? ''); /* teste si adresse mail non vide */
+        $delegates_liste_email = LamclubsService::get_recipient_email($club_dept);
         foreach ($delegates_liste_email as $delegates_recipient)
         {
             $item_email->add_recipient($delegates_recipient['recipient_email']);
@@ -374,16 +378,16 @@ class PlanningItemFormController extends DefaultModuleController
 
     private function contribution_actions(PlanningItem $item)
     {
-        if ($this->is_contributor_member())
+        if ($this->is_contributor_member() || AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL)) /* pour un membre ou un administrateur */
         {
             $contribution = new Contribution();
             $contribution->set_id_in_module($item->get_id());
             if ($this->is_new_item) {
                 $this->send_email('new');
-                $contribution->set_description(stripslashes($this->form->get_value('contribution_description') ?? ''));
+                $contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
             }else {
                 $this->send_email('edit');
-                $contribution->set_description(stripslashes($this->form->get_value('edition_description') ?? ''));
+                $contribution->set_description(stripslashes($this->form->get_value('edition_description')));
             }
 
             $contribution->set_entitled($item->get_category()->get_name());
