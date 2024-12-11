@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 10 27
+ * @version     PHPBoost 6.0 - last update: 2024 12 11
  * @since       PHPBoost 6.0 - 2024 02 09
 */
 
@@ -87,7 +87,8 @@ class FinancialRequestsPendingController extends DefaultModuleController
                     '<span aria-label="' . $this->lang['financial.request.no.files'] . '"><i class="fa fa-lg fa-circle-question"></i></span>' : '';
                 $ongoing_status = $item->get_agreement_state() == FinancialRequestItem::ONGOING && $budget->get_use_dl() && empty($item->get_invoice_url()->rel()) ?
                     '<span aria-label="' . $this->lang['financial.request.no.invoice'] . '"><i class="fa fa-lg fa-triangle-exclamation"></i></span>' : '';
-            } else {
+            } else 
+            {
                 $estimate_file = $invoice_file = $ongoing_status = $no_files = '';
             }
 
@@ -106,7 +107,8 @@ class FinancialRequestsPendingController extends DefaultModuleController
             } elseif ($item->get_agreement_state() == FinancialRequestItem::PENDING && $budget->get_use_dl()) {
                 $ongoing_class = '';
                 $ongoing_link = $ongoing_link->display();
-            } else {
+            } else 
+            {
                 $ongoing_class = '';
                 $ongoing_link = '';
             }
@@ -142,7 +144,8 @@ class FinancialRequestsPendingController extends DefaultModuleController
                 $readonly = '';
                 $type = 'type="text" pattern="^\d{1,4}(\.\d{0,2})?$"';
                 $color_link = 'bgc-full notice button-disabled';
-            } else {
+            } else 
+            {
                 $real_amount = $readonly = '';
                 $type = 'type="text" pattern="^\d{1,4}(\.\d{0,2})?$"';
                 $color_link = 'bgc-full notice button-disabled';

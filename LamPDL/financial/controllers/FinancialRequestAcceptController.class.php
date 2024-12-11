@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 08 14
+ * @version     PHPBoost 6.0 - last update: 2024 12 11
  * @since       PHPBoost 6.0 - 2024 02 09
  */
 
@@ -117,9 +117,12 @@ class FinancialRequestAcceptController extends DefaultModuleController
 		$id = $request->get_getint('id', 0);
 		if (!empty($id))
 		{
-			try {
+			try 
+            {
 				return FinancialRequestService::get_item($id);
-			} catch (RowNotFoundException $e) {
+            } 
+            catch (RowNotFoundException $e) 
+            {
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);
 			}

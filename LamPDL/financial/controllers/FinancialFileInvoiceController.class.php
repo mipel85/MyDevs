@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 10 27
+ * @version     PHPBoost 6.0 - last update: 2024 12 11
  * @since       PHPBoost 6.0 - 2024 02 08
 */
 
@@ -17,11 +17,13 @@ class FinancialFileInvoiceController extends AbstractController
 
         if (!empty($id)) {
             try {
-                $this->item = FinancialRequestService::get_item($id);
-            } catch (RowNotFoundException $e) {
-                $error_controller = PHPBoostErrors::unexisting_page();
-                DispatchManager::redirect($error_controller);
-            }
+                    $this->item = FinancialRequestService::get_item($id);
+                } 
+            catch (RowNotFoundException $e) 
+                {
+                    $error_controller = PHPBoostErrors::unexisting_page();
+                    DispatchManager::redirect($error_controller);
+                }
         }
 
         if ($this->item !== null && !FinancialAuthorizationsService::check_authorizations()->read()) {

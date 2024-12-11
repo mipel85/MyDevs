@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 10 27
+ * @version     PHPBoost 6.0 - last update: 2024 12 11
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
@@ -199,7 +199,8 @@ class FinancialRequestFormController extends DefaultModuleController
         return $send_email->try_to_send($item_email);
     }
 
-    private function send_confirm_email()
+        // envoi mail de confirmation à l'auteur de la demande 
+        private function send_confirm_email()
     {
         $item = $this->get_item();
         $club = LamclubsService::get_item($item->get_lamclubs_id());
@@ -383,7 +384,8 @@ class FinancialRequestFormController extends DefaultModuleController
         $item = $this->get_item();
         if ($this->is_new_item){
             AppContext::get_response()->redirect(FinancialUrlBuilder::display_pending_items(), StringVars::replace_vars($this->lang['financial.message.success.add'], array('request_type' => $item->get_request_type())));
-        }else{
+        }else
+        {
             AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : FinancialUrlBuilder::display_pending_items()), StringVars::replace_vars($this->lang['financial.message.success.edit'], array('request_type' => $item->get_request_type())));
         }
     }

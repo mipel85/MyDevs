@@ -3,61 +3,61 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 08 17
+ * @version     PHPBoost 6.0 - last update: 2024 12 11
  * @since       PHPBoost 6.0 - 2024 02 08
-*/
+ */
 
 class FinancialMonitoringService
 {
-	private static $db_querier;
+    private static $db_querier;
 
-	public static function __static()
-	{
-		self::$db_querier = PersistenceContext::get_querier();
-	}
+    public static function __static()
+    {
+        self::$db_querier = PersistenceContext::get_querier();
+    }
 
-	/**
-	 * @desc Return the content of an item.
-	 * @param int $id Item identifier
-	 */
-	public static function get_item(int $id)
-	{
-		$row = self::$db_querier->select_single_row_query('SELECT *
+    /**
+     * @desc Return the content of an item.
+     * @param int $id Item identifier
+     */
+    public static function get_item(int $id)
+    {
+        $row = self::$db_querier->select_single_row_query('SELECT *
 		FROM ' . FinancialSetup::$financial_request_table . ' event
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = event.author_user_id
 		WHERE event.id = :id', array(
-			'id' => $id
-		));
+          'id' => $id
+        ));
 
-		$item = new FinancialRequestItem();
-		$item->set_properties($row);
+        $item = new FinancialRequestItem();
+        $item->set_properties($row);
 
-		return $item;
-	}
+        return $item;
+    }
 
     public static function request_payment($id, $amount_paid)
     {
         $now = new Date();
         self::$db_querier->update(
-            FinancialSetup::$financial_request_table,
-            array('amount_paid' => $amount_paid, 'agreement' => FinancialRequestItem::ACCEPTED, 'agreement_date' => $now->get_timestamp()),
-            'WHERE id=:id', array('id' => $id)
+          FinancialSetup::$financial_request_table,
+          array('amount_paid' => $amount_paid, 'agreement' => FinancialRequestItem::ACCEPTED, 'agreement_date' => $now->get_timestamp()),
+          'WHERE id=:id', array('id' => $id)
         );
 
         $budget = FinancialBudgetService::get_budget(self::get_item($id)->get_budget_id());
         $new_amount = $budget->get_real_amount() - $amount_paid;
         self::$db_querier->update(
-            FinancialSetup::$financial_budget_table,
-            array('real_amount' => $new_amount),
-            'WHERE id=:id', array('id' => $budget->get_id())
+          FinancialSetup::$financial_budget_table,
+          array('real_amount' => $new_amount),
+          'WHERE id=:id', array('id' => $budget->get_id())
         );
         if ($budget->get_real_quantity())
         {
             $new_real_quant = $budget->get_real_quantity() - 1;
             self::$db_querier->update(
-                FinancialSetup::$financial_budget_table,
-                array('real_quantity' => $new_real_quant),
-                'WHERE id=:id', array('id' => $budget->get_id())
+              FinancialSetup::$financial_budget_table,
+              array('real_quantity' => $new_real_quant),
+              'WHERE id=:id', array('id' => $budget->get_id())
             );
         }
     }
@@ -66,9 +66,9 @@ class FinancialMonitoringService
     {
         $now = new Date();
         self::$db_querier->update(
-            FinancialSetup::$financial_request_table,
-            array('agreement' => FinancialRequestItem::REJECTED, 'agreement_date' => $now->get_timestamp()),
-            'WHERE id=:id', array('id' => $id)
+          FinancialSetup::$financial_request_table,
+          array('agreement' => FinancialRequestItem::REJECTED, 'agreement_date' => $now->get_timestamp()),
+          'WHERE id=:id', array('id' => $id)
         );
 
         $budget = FinancialBudgetService::get_budget(self::get_item($id)->get_budget_id());
@@ -76,9 +76,9 @@ class FinancialMonitoringService
         {
             $new_temp_quant = $budget->get_temp_quantity() + 1;
             self::$db_querier->update(
-                FinancialSetup::$financial_budget_table,
-                array('temp_quantity' => $new_temp_quant),
-                'WHERE id=:id', array('id' => $budget->get_id())
+              FinancialSetup::$financial_budget_table,
+              array('temp_quantity' => $new_temp_quant),
+              'WHERE id=:id', array('id' => $budget->get_id())
             );
         }
         if (!$budget->get_use_dl())
@@ -86,9 +86,9 @@ class FinancialMonitoringService
             $unit_amount = $budget->get_unit_amount() !== '0€' && $budget->get_unit_amount() !== '0%' ? TextHelper::mb_substr($budget->get_unit_amount(), 0, -1) : 0;
             $new_temp_amount = $budget->get_temp_amount() + $unit_amount;
             self::$db_querier->update(
-                FinancialSetup::$financial_budget_table,
-                array('temp_amount' => $new_temp_amount),
-                'WHERE id=:id', array('id' => $budget->get_id())
+              FinancialSetup::$financial_budget_table,
+              array('temp_amount' => $new_temp_amount),
+              'WHERE id=:id', array('id' => $budget->get_id())
             );
         }
     }
@@ -96,9 +96,9 @@ class FinancialMonitoringService
     public static function set_request_ongoing($id)
     {
         self::$db_querier->update(
-            FinancialSetup::$financial_request_table,
-            array('agreement' => FinancialRequestItem::ONGOING),
-            'WHERE id=:id', array('id' => $id)
+          FinancialSetup::$financial_request_table,
+          array('agreement' => FinancialRequestItem::ONGOING),
+          'WHERE id=:id', array('id' => $id)
         );
     }
 
@@ -110,9 +110,9 @@ class FinancialMonitoringService
         {
             $new_temp_quant = $budget->get_temp_quantity() - 1;
             self::$db_querier->update(
-                FinancialSetup::$financial_budget_table,
-                array('temp_quantity' => $new_temp_quant),
-                'WHERE id=:id', array('id' => $budget->get_id())
+              FinancialSetup::$financial_budget_table,
+              array('temp_quantity' => $new_temp_quant),
+              'WHERE id=:id', array('id' => $budget->get_id())
             );
         }
         if (!$budget->get_use_dl())
@@ -120,9 +120,9 @@ class FinancialMonitoringService
             $unit_amount = $budget->get_unit_amount() !== '0€' && $budget->get_unit_amount() !== '0%' ? TextHelper::mb_substr($budget->get_unit_amount(), 0, -1) : 0;
             $new_temp_amount = $budget->get_temp_amount() - $unit_amount;
             self::$db_querier->update(
-                FinancialSetup::$financial_budget_table,
-                array('temp_amount' => $new_temp_amount),
-                'WHERE id=:id', array('id' => $budget->get_id())
+              FinancialSetup::$financial_budget_table,
+              array('temp_amount' => $new_temp_amount),
+              'WHERE id=:id', array('id' => $budget->get_id())
             );
         }
     }
@@ -132,18 +132,18 @@ class FinancialMonitoringService
         $budget = FinancialBudgetService::get_budget(self::get_item($id)->get_budget_id());
         $new_temp_quant = $budget->get_temp_quantity() + 1;
         self::$db_querier->update(
-            FinancialSetup::$financial_budget_table,
-            array('temp_quantity' => $new_temp_quant),
-            'WHERE id=:id', array('id' => $budget->get_id())
+          FinancialSetup::$financial_budget_table,
+          array('temp_quantity' => $new_temp_quant),
+          'WHERE id=:id', array('id' => $budget->get_id())
         );
         if (!$budget->get_use_dl())
         {
             $unit_amount = $budget->get_unit_amount() !== '0€' && $budget->get_unit_amount() !== '0%' ? TextHelper::mb_substr($budget->get_unit_amount(), 0, -1) : 0;
             $new_temp_amount = $budget->get_temp_amount() + $unit_amount;
             self::$db_querier->update(
-                FinancialSetup::$financial_budget_table,
-                array('temp_amount' => $new_temp_amount),
-                'WHERE id=:id', array('id' => $budget->get_id())
+              FinancialSetup::$financial_budget_table,
+              array('temp_amount' => $new_temp_amount),
+              'WHERE id=:id', array('id' => $budget->get_id())
             );
         }
     }
@@ -181,8 +181,7 @@ class FinancialMonitoringService
                 ));
             }
             fclose($handle);
-        }
-        else
+        }else
         {
             echo '<div class="message-helper bgc-full error">Erreur lors de l\'ouverture du fichier CSV.</div>';
         }
@@ -192,7 +191,7 @@ class FinancialMonitoringService
             WHERE agreement = 1 OR agreement = 2
         ');
         // set old pending request to new budget table and rename title
-        while ($row = $result_pending->fetch())
+        while($row = $result_pending->fetch())
         {
             $item = new FinancialRequestItem();
             $item->set_properties($row);
@@ -202,17 +201,17 @@ class FinancialMonitoringService
             $budget = FinancialBudgetService::get_budget(self::get_item($item->get_id())->get_budget_id());
             $new_title = $budget->get_budget_type() . ' - ' . $date;
             self::$db_querier->update(FinancialSetup::$financial_request_table, array('request_type' => $new_title, 'rewrited_type' => Url::encode_rewrite($new_title)), 'WHERE id = :id', array(
-                'id' => $item->get_id()
+              'id' => $item->get_id()
             ));
         }
     }
 
-	/**
-	 * @desc Clears all module elements in cache.
-	 */
-	public static function clear_cache()
-	{
-		Feed::clear_cache('financial');
-	}
+    /**
+     * @desc Clears all module elements in cache.
+     */
+    public static function clear_cache()
+    {
+        Feed::clear_cache('financial');
+    }
 }
 ?>

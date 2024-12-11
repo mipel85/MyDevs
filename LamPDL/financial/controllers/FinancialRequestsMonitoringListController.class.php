@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 04
+ * @version     PHPBoost 6.0 - last update: 2024 12 11
  * @since       PHPBoost 6.0 - 2024 02 09
  * @contributor Mipel <mipel@phpboost.com>
  */
@@ -11,7 +11,7 @@
 class FinancialRequestsMonitoringListController extends DefaultModuleController
 {
     private $items_number = 0;
-    private $ids          = array();
+    private $ids = array();
 
     public function execute(HTTPRequestCustom $request)
     {

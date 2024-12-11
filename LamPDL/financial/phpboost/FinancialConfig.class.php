@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 10 27
+ * @version     PHPBoost 6.0 - last update: 2024 12 11
  * @since       PHPBoost 6.0 - 2020 01 18
 */
 
@@ -100,7 +100,7 @@ class FinancialConfig extends AbstractConfigData
     }
 
     /**
-     * @method Load the financial configuration.
+     * @method Load financial configuration.
      * @return FinancialConfig
      */
     public static function load()
@@ -109,7 +109,7 @@ class FinancialConfig extends AbstractConfigData
     }
 
     /**
-     * @method Saves the financial configuration in the database. It becomes persistent.
+     * @method Saves financial configuration in database. It becomes persistent.
      */
     public static function save()
     {
