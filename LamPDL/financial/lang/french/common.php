@@ -30,7 +30,6 @@ $lang['financial.archived'] = 'archivées';
 $lang['financial.pending'] = 'en attente';
 $lang['financial.filter.items'] = 'Filtrer les demandes';
 $lang['financial.items.management'] = 'Gestion des demandes';
-$lang['financial.charts.items'] = 'Liste des graphiques';
 
 $lang['financial.request.type'] = 'Type de demande';
 $lang['financial.bill'] = '<span class="small text-italic"> sur facture</span>';
@@ -122,7 +121,7 @@ $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
 $lang['financial.mail.confirm.msg'] = 'Bonjour :club_sender_name, <br /><br />
 	Votre demande pour l\'activité :activity, prévue pour votre club :club_name, a bien été prise en compte (<a href="' . GeneralConfig::load()->get_site_url() . '/financial/pending/">Voir le site</a>).
     <br /><br />Elle sera traitée après le :club_activity_date, date de l\'événement.
-    <br /><br />Si nécessaire, des informations complèmentaires vous seront demandées sur cette même adresse email.
+    <br /><br />Si nécessaire, des informations complémentaires vous seront demandées sur cette même adresse email.
 ';
 
 $lang['financial.paid.mail.msg'] = 'Bonjour, <br /><br />
@@ -138,7 +137,7 @@ $lang['financial.rejected.mail.msg'] = 'Bonjour, <br /><br />
 
 $lang['financial.ongoing.mail.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i>
-    <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été prise en compte et requière une action de votre part :
+    <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été prise en compte et requiert une action de votre part :
     <br />- Vous devez fournir une facture.
 ';
 
@@ -243,7 +242,6 @@ $lang['financial.budget.archive.home'] = 'Sélectionner une date dans le sélect
 
 // financial statement
 $lang['financial.statement'] = 'Situation financière';
-$lang['financial.charts.menu'] = 'Liste des graphiques';
 $lang['financial.pending.chart'] = 'Demandes en attente';
 $lang['financial.chart.budgets.used'] = 'Graphique des dépenses par activités';
 $lang['financial.budgets.statement'] = 'Tableau des dépenses par activités';
