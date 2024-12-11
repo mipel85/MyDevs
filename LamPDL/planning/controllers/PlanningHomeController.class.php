@@ -3,22 +3,22 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 03 26
+ * @version     PHPBoost 6.0 - last update: 2024 12 11
  * @since       PHPBoost 6.0 - 2024 02 25
  */
 
 class PlanningHomeController extends DefaultModuleController
 {
-    private $items_number            = 0;
-    private $ids                     = array();
-    private $hide_delete_input       = array();
+    private $items_number = 0;
+    private $ids = array();
+    private $hide_delete_input = array();
     private $display_multiple_delete = true;
 
     public function execute(HTTPRequestCustom $request)
     {
         $this->check_authorizations();
 
-        $c_clubs      = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
+        $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
         $c_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
         if ($c_clubs && $c_categories)
         {
@@ -55,7 +55,7 @@ class PlanningHomeController extends DefaultModuleController
         $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('department', 'filter3', $this->lang['planning.club.department'], array(44 => 44, 49 => 49, 53 => 53, 72 => 72, 85 => 85)));
         $table_model->add_filter(new HTMLTableCategorySQLFilter('filter4', $this->lang['planning.activities']));
 
-        $now   = new Date();
+        $now = new Date();
         $clear = new Date($now->get_timestamp() - 86400, Timezone::SERVER_TIMEZONE);
         $table_model->add_permanent_filter('(end_date_enabled = 0 AND start_date > ' . $clear->get_timestamp() . ' OR end_date_enabled = 1 AND end_date > ' . $clear->get_timestamp() . ')');
 
@@ -63,12 +63,12 @@ class PlanningHomeController extends DefaultModuleController
         $table->set_filters_fieldset_class_HTML();
 
         $results = array();
-        $result  = $table_model->get_sql_results('pl
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = pl.author_user_id
+        $result = $table_model->get_sql_results('pl
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = pl.author_user_id
 			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = pl.lamclubs_id'
         );
 
-        $items                  = array();
+        $items = array();
         $moderation_link_number = 0;
         foreach ($result as $row)
         {
@@ -81,7 +81,8 @@ class PlanningHomeController extends DefaultModuleController
                 $moderation_link_number++;
                 $this->items_number++;
                 $this->ids[$this->items_number] = $item->get_id();
-            }else $this->hide_delete_input[] = $item->get_id();
+            }else 
+                $this->hide_delete_input[] = $item->get_id();
         }
 
         if (empty($moderation_link_number))
@@ -107,15 +108,15 @@ class PlanningHomeController extends DefaultModuleController
             $br = new BrHTMLElement();
 
             $c_root_category = $category->get_id() == Category::ROOT_CATEGORY;
-            $title           = $c_root_category ? $item->get_activity_other() : $category->get_name();
-            $c_end_date      = $item->get_end_date_enabled() && $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
-            $club            = LamclubsService::get_item($item->get_lamclubs_id());
+            $title = $c_root_category ? $item->get_activity_other() : $category->get_name();
+            $c_end_date = $item->get_end_date_enabled() && $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) !== $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+            $club = LamclubsService::get_item($item->get_lamclubs_id());
 
             if ($item->is_approved())
             {
                 $cancel_class = $item->is_cancelled() ? ' bgc error' : '';
-                $title        = $item->is_cancelled() ? '<span class="text-strike">' . $title . '</span><br />' . $this->lang['planning.cancelled.item'] : $title;
-                $row          = array(
+                $title = $item->is_cancelled() ? '<span class="text-strike">' . $title . '</span><br />' . $this->lang['planning.cancelled.item'] : $title;
+                $row = array(
                   new HTMLTableRowCell(($c_end_date ? $this->lang['date.from.date'] : '') . ' ' . $item->get_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . ($c_end_date ? $br->display() . $this->lang['date.to.date'] . ' ' . $item->get_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR) : ''), 'align-left' . $cancel_class),
                   new HTMLTableRowCell($title, 'align-left' . $cancel_class),
                   new HTMLTableRowCell($item->get_activity_detail(), 'align-left' . $cancel_class),
@@ -143,9 +144,9 @@ class PlanningHomeController extends DefaultModuleController
 
     private function build_warnings()
     {
-        $this->view   = new FileTemplate('planning/PlanningWarningsController.tpl');
+        $this->view = new FileTemplate('planning/PlanningWarningsController.tpl');
         $this->view->add_lang(LangLoader::get_all_langs('planning'));
-        $c_clubs      = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
+        $c_clubs = ModulesManager::is_module_installed('lamclubs') && ModulesManager::is_module_activated('lamclubs');
         $c_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
         $this->view->put_all(array(
@@ -189,8 +190,9 @@ class PlanningHomeController extends DefaultModuleController
                         $item = '';
                         try
                             {
-                            $item = PlanningService::get_item($this->ids[$i]);
-                            }catch (RowNotFoundException $e)
+                                $item = PlanningService::get_item($this->ids[$i]);
+                            }
+                        catch (RowNotFoundException $e)
                             {
                             
                             }
@@ -219,7 +221,7 @@ class PlanningHomeController extends DefaultModuleController
 
     private function generate_response($page = 1)
     {
-        $response              = new SiteDisplayResponse($this->view);
+        $response = new SiteDisplayResponse($this->view);
         $graphical_environment = $response->get_graphical_environment();
         $graphical_environment->set_page_title($this->lang['planning.module.title'], $page);
         $graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['planning.seo.description.events.list'], array('site' => GeneralConfig::load()->get_site_name())));

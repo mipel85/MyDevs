@@ -3,13 +3,12 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 08
+ * @version     PHPBoost 6.0 - last update: 2024 12 11
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
 class AdminPlanningConfigController extends DefaultAdminModuleController
 {
-
     public function execute(HTTPRequestCustom $request)
     {
         $this->build_form();
@@ -32,7 +31,7 @@ class AdminPlanningConfigController extends DefaultAdminModuleController
         $form->add_fieldset($fieldset);
 
         $fieldset = new FormFieldsetHTML('authorizations_fieldset', $this->lang['form.authorizations'],
-          array('description' => $this->lang['form.authorizations.clue'])
+            array('description' => $this->lang['form.authorizations.clue'])
         );
         $form->add_fieldset($fieldset);
 
