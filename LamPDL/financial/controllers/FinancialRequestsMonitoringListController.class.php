@@ -139,10 +139,10 @@ class FinancialRequestsMonitoringListController extends DefaultModuleController
             );
             $results[] = new HTMLTableRow($values);
         }
-        $fiscal_year = FinancialBudgetService::get_current_fiscal_year();  
-        
+        $request_fiscal_year = FinancialRequestService::get_request_fiscal_year();  
+
         /* affiche le total des dépenses par type de demande */
-        $table_model->set_caption($this->lang['financial.budgets.statement'] . ' - ' . $fiscal_year . ' ...... ' . $total_expenses . '€');
+        $table_model->set_caption($this->lang['financial.budgets.statement'] . ' - ' . $request_fiscal_year . ' ...... ' . $total_expenses . '€');
         $table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
         $this->view->put('CONTENT', $table->display());

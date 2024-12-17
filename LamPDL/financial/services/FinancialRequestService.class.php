@@ -84,6 +84,20 @@ class FinancialRequestService
         }
         return $budgets;
     }
+
+    public static function get_request_fiscal_year()
+    {
+        $result = self::$db_querier->select('SELECT request_type
+		FROM ' . FinancialSetup::$financial_request_table . ' fr
+        LIMIT 1
+        ');
+        foreach ($result as $row)
+        {
+            $value = explode('-', $row['request_type']);
+            $request_fiscal_year = end($value);
+        }
+            return $request_fiscal_year;
+    }
         
     /**
      * @desc Clears all module elements in cache.
