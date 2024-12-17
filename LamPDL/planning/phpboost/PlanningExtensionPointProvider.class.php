@@ -13,5 +13,10 @@ class PlanningExtensionPointProvider extends ItemsModuleExtensionPointProvider
     {
         return new DefaultHomePageDisplay($this->get_id(), PlanningHomeController::get_view());
     }
+
+    public function feeds()
+    {
+        return false;
+    }
 }
 ?>
