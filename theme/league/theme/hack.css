@@ -132,7 +132,10 @@ h1, h2, h3, h4 {
     }
     .form-field-email,
         [type="email"] {
-        width: 90%;
+        width: 65%;
+    }
+    .form-field-select {
+        width: 65%;
     }
 }
 
