@@ -4,7 +4,7 @@
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @version     PHPBoost 6.0 - last update: 2024 01 20
- * @since       PHPBoost 6.0 - 2024 12 11
+ * @since       PHPBoost 6.0 - 2024 01 18
  */
 
 class LamclubsService
@@ -107,6 +107,7 @@ class LamclubsService
             $options[] = new FormFieldSelectChoiceOption($values['ffam_nb'] . ' - ' . $values['department'] . ' - ' . $values['name'], $values['club_id']);
             $i++;
         }
+
         return $options;
     }
 
@@ -118,19 +119,30 @@ class LamclubsService
      */
     public static function get_user_club(int $user_id)
     {
-        $result_ext   = self::$db_querier->select_single_row_query('SELECT ext.*
-            FROM ' . DB_TABLE_MEMBER_EXTENDED_FIELDS . ' ext
-            WHERE ext.user_id = ' . $user_id
-        );
-        $club = $result_ext['f_votre_club'];
-        $user_club = explode(' - ', $club);
-        $user_ffam_nb = $user_club[0];
+        if ($user_id != -1)
+        {
+            $result_ext = self::$db_querier->select_single_row_query('SELECT ext.*
+                FROM ' . DB_TABLE_MEMBER_EXTENDED_FIELDS . ' ext
+                WHERE ext.user_id = ' . $user_id
+            );
+            $club = $result_ext['f_votre_club'];
+            $user_club = explode(' - ', $club);
+            $user_ffam_nb = $user_club[0];
 
-        $result_club = self::$db_querier->select_single_row_query('SELECT club.*
-            FROM ' . LamclubsSetup::$lamclubs_table . ' club
-            WHERE club.ffam_nb = ' . $user_ffam_nb
-        );
-        return $result_club['club_id'];
+            $result_club = self::$db_querier->select_single_row_query('SELECT club.*
+                FROM ' . LamclubsSetup::$lamclubs_table . ' club
+                WHERE club.ffam_nb = ' . $user_ffam_nb
+            );
+            return $result_club['club_id'];
+        }
+        else {
+            $club_ids = [];
+            foreach (self::get_items_list() as $club)
+            {
+                $club_ids[] = $club['club_id'];
+            }
+            return end($club_ids);
+        }
     }
 
     /**
@@ -143,7 +155,7 @@ class LamclubsService
             FROM phpboost_lamclubs_recipient_email
             WHERE `recipient_dept` LIKE '. $dept .'
             AND `recipient_email` <> "" '  
- 
+
         );
         $recipient_data = [];
         while($row = $req->fetch())
