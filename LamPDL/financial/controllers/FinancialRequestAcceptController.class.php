@@ -92,6 +92,7 @@ class FinancialRequestAcceptController extends DefaultModuleController
             'club_ffam_number'   => $club->get_ffam_nb(),
             'activity'           => $item->get_request_type(),
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
+            'signature'          => $this->lang['financial.mail.signature']
         ));
 
         $item_email = new Mail();

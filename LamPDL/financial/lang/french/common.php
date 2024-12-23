@@ -20,6 +20,8 @@ $lang['financial.items'] = 'demandes';
 $lang['financial.budgets.management'] = 'Gestion des budgets';
 $lang['financial.budget.add'] = 'Ajouter un budget';
 $lang['financial.budget.edit'] = 'Modifier un budget';
+$lang['financial.budget.archived'] = 'Budgets archivés';
+$lang['financial.requests.archived'] = 'Demandes archivées';
 
 // Titles
 $lang['financial.item.add'] = 'Ajouter une demande';
@@ -51,7 +53,7 @@ $lang['financial.monitoring.reject'] = 'Refuser';
 $lang['financial.monitoring.reject.clue'] = 'Rejeter la demande';
 $lang['financial.monitoring.accept'] = 'Payer';
 $lang['financial.monitoring.accept.clue'] = 'Payer la demande';
-$lang['financial.display.year'] = 'Afficher l\'année';
+$lang['financial.display.year'] = 'Afficher l\'exercice :';
 $lang['financial.budget.domain'] = 'Domaine';
 $lang['financial.budget.name'] = 'Nom du budget';
 $lang['financial.amount.paid'] = 'Montant versé';
@@ -77,8 +79,8 @@ $lang['financial.request.decimal.input'] = '<strong>Saisir le montant sous la fo
 $lang['financial.input.number.length'] = '<strong>Le montant saisi ne doit pas dépasser 4 chiffres et 2 décimales.</strong>';
 $lang['financial.request.allocated.budget'] = 'Budget alloué pour cette demande';
 $lang['financial.request.bill'] = '
-    <br /><span class="message-helper bgc warning">Attention !! Vous devez fournir un devis <strong>OU</strong> une facture !
-    <br />Vous pouvez ne fournir qu\'un devis en début de processus, vous pourrez plus tard fournir une facture pour le paiement de la demande.</span>
+    <br /><span class="message-helper bgc warning">Attention !!!<br />Vous devez fournir un devis, une facture ou un bilan financier selon la demande !
+    <br />Pour les travaux, vous pouvez fournir un devis en début de processus, vous pourrez plus tard fournir une facture pour obtenir le paiement.</span>
 ';
 $lang['financial.request.club'] = 'Identifiants du club';
 $lang['financial.request.city'] = 'Ville';
@@ -87,15 +89,15 @@ $lang['financial.request.creation.date'] = 'Créée le';
 $lang['financial.request.validation.date'] = 'Validée le';
 $lang['financial.request.content'] = 'Descriptif (optionnel)';
 $lang['financial.request.files.url'] = 'Fichiers';
-$lang['financial.request.estimate.url'] = 'Devis';
+$lang['financial.request.estimate.url'] = 'Devis ou budget prévisionnel';
 $lang['financial.request.estimate.url.clue'] = 'Si vous n\'avez pas encore de facture';
-$lang['financial.request.invoice.url'] = 'Facture';
-$lang['financial.request.invoice.url.clue'] = 'Nécessaire pour la prise en compte de votre demande';
+$lang['financial.request.invoice.url'] = 'Facture ou bilan financier';
+$lang['financial.request.invoice.url.clue'] = 'Nécessaire pour le règlement de votre demande';
 $lang['financial.request.no.files'] = 'Un devis ou une facture sont nécessaires pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
 $lang['financial.request.no.invoice'] = 'Une facture est nécessaire pour traiter votre demande<br />Éditez avec le bouton <i class=\'fa fa-edit\'></i> pour en ajouter';
 
 $lang['financial.request.email'] = 'Informations email';
-$lang['financial.request.email.clue'] = 'Les informations suivantes, nécessaires pour les échanges, ne sont pas affichées sur le site.';
+$lang['financial.request.email.clue'] = '<i>Les informations suivantes, nécessaires pour les échanges, ne sont pas affichées sur le site.</i>';
 $lang['financial.request.contact.user'] = 'Nom du correspondant';
 $lang['financial.request.contact.email'] = 'Adresse email du correspondant';
 $lang['financial.request.contact.email.clue'] = 'Email du responsable de club à contacter en cas de besoin';
@@ -115,30 +117,35 @@ $lang['financial.mail.msg'] = 'Bonjour, <br /><br />
     <br /><br /><strong>Département :</strong> :club_activity_dpt
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
     <br /><strong>Date de réalisation :</strong> :club_activity_date
-    <br /><br /><strong>Descriptif :</strong> :budget_description
+    <br /><br /><strong>Descriptif :</strong> :request_description
+    :signature
 ';
 
 $lang['financial.mail.confirm.msg'] = 'Bonjour :club_sender_name, <br /><br />
-	Votre demande pour l\'activité :activity, prévue pour votre club :club_name, a bien été prise en compte (<a href="' . GeneralConfig::load()->get_site_url() . '/financial/pending/">Voir le site</a>).
+	Votre demande d\'aide financière pour : :activity, concernant votre club :club_name, a bien été prise en compte (<a href="' . GeneralConfig::load()->get_site_url() . '/financial/pending/">Voir le site</a>).
     <br /><br />Elle sera traitée après le :club_activity_date, date de l\'événement.
     <br /><br />Si nécessaire, des informations complémentaires vous seront demandées sur cette même adresse email.
+    :signature
 ';
 
 $lang['financial.paid.mail.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i>
     <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été réglée par paiement et archivée.
+    :signature
 ';
 
 $lang['financial.rejected.mail.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i>
     <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été refusée.
     <br />Pour plus d\'informations, répondez à ce mail pour obtenir des explications supplémentaires du bureau de la ligue.
+    :signature
 ';
 
 $lang['financial.ongoing.mail.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i>
     <br /><br />La demande :activity du :club_activity_date de votre club <strong>:club_ffam_number - :club_name</strong> a été prise en compte et requiert une action de votre part :
     <br />- Vous devez fournir une facture.
+    :signature
 ';
 
 $lang['financial.mail.invoice.msg'] = 'Bonjour, <br /><br />
@@ -146,11 +153,19 @@ $lang['financial.mail.invoice.msg'] = 'Bonjour, <br /><br />
     Le club <strong>:club_name</strong> a fourni une facture dans le suivi de son dossier pour la demande : :activity
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
     <br /><strong>Date de réalisation :</strong> :club_activity_date
-    <br /><br /><strong>Descriptif :</strong> :budget_description
+    <br /><br /><strong>Descriptif :</strong> :request_description
+    :signature
 ';
 
 $lang['financial.mail.finished.event'] = 'Bonjour, <br /><br />
 	L\'événement <strong>:event_title</strong> du club :club_name est terminé. Il peut être traité par le trésorier.
+    :signature
+';
+
+$lang['financial.mail.signature'] = '<br /><br />
+	<i>Ce message a été envoyé par le site <a href="' . GeneralConfig::load()->get_site_url() . '/financial/pending/">' . GeneralConfig::load()->get_site_url() . '</a>
+    <br />pour le compte de la Ligue d\'Aéromodélisme des Pays de la Loire<br /></i>
+    
 ';
 
 // Config
@@ -244,5 +259,5 @@ $lang['financial.budget.archive.home'] = 'Sélectionner une date dans le sélect
 $lang['financial.statement'] = 'Situation financière';
 $lang['financial.pending.chart'] = 'Demandes en attente';
 $lang['financial.chart.budgets.used'] = 'Graphique des dépenses par activités';
-$lang['financial.budgets.statement'] = 'Tableau des dépenses par activités';
+$lang['financial.budgets.statement'] = 'Liste des dépenses par activités';
 ?>

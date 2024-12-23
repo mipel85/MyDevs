@@ -24,6 +24,7 @@ class FinancialRequestItem
     private $amount_paid;
     private $agreement;
     private $agreement_date;
+   
     const PENDING = 1;
     const ONGOING = 2;
     const REJECTED = 3;

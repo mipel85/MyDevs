@@ -33,7 +33,11 @@ class FinancialSetup extends DefaultModuleSetup
 
     private function drop_tables()
     {
-        PersistenceContext::get_dbms_utils()->drop(array(self::$financial_request_table, self::$financial_budget_table));
+        $financial_tables = PersistenceContext::get_dbms_utils()->list_module_tables('financial_');
+        if ($financial_tables)
+        { 
+            PersistenceContext::get_dbms_utils()->drop($financial_tables);
+        }
     }
 
     private function create_tables()

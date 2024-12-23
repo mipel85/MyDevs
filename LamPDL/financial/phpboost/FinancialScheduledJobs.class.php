@@ -29,9 +29,8 @@ class FinancialScheduledJobs extends AbstractScheduledJobExtensionPoint
 
             //msg content
             $item_message = StringVars::replace_vars($lang['financial.mail.finished.event'], array(
-                'club_name'   => $club->get_name(),
                 'event_title' => $row['request_type'],
-                'event_date'  => $event_date
+                'club_name'   => $club->get_name()
             ));
 
             if ($event_date == $finished_date) {

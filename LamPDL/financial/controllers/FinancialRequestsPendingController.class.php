@@ -48,20 +48,19 @@ class FinancialRequestsPendingController extends DefaultModuleController
         $fiscal_year = FinancialBudgetService::get_current_fiscal_year();
         $table_model->set_layout_title($this->lang['financial.pending.items'] . ' - exercice ' . $fiscal_year);
 
+        $table_model->add_permanent_filter('agreement = ' . FinancialRequestItem::PENDING . ' OR agreement = ' . FinancialRequestItem::ONGOING);
+        
         $table_model->set_filters_menu_title($this->lang['financial.filter.items']);
         $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('department', 'filter1', $this->lang['financial.club.dpt.filter'], array(44 => 44, 49 => 49, 53 => 53, 72 => 72, 85 => 85)));
-
-        $table_model->add_permanent_filter('agreement = ' . FinancialRequestItem::PENDING . ' OR agreement = ' . FinancialRequestItem::ONGOING);
 
         $table = new HTMLTable($table_model);
         $table->set_filters_fieldset_class_HTML();
         $table->hide_multiple_delete();
 
         $results = array();
-        $result = $table_model->get_sql_results(
-            'request
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = request.author_user_id
-			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' club ON club.club_id = request.lamclubs_id'
+        $result = $table_model->get_sql_results('fr
+			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = fr.author_user_id
+			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' lc ON lc.club_id = fr.lamclubs_id'
         );
         foreach ($result as $row) {
             $item = new FinancialRequestItem();

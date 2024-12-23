@@ -9,7 +9,6 @@
 
 class FinancialRequestFormController extends DefaultModuleController
 {
-
     public function execute(HTTPRequestCustom $request)
     {
         $this->check_authorizations();
@@ -83,9 +82,8 @@ class FinancialRequestFormController extends DefaultModuleController
                 )
         ));
 
-        if ($this->is_new_item || $this->get_item()->get_agreement_state() == FinancialRequestItem::ONGOING)
-        {
-            $email_fieldset->add_field(new FormFieldMultiLineTextEditor('request_description', $this->lang['financial.request.message'], '',
+        if ($this->is_new_item || $this->get_item()->get_agreement_state() == FinancialRequestItem::ONGOING  || $this->get_item()->get_agreement_state() == FinancialRequestItem::PENDING)        {
+            $email_fieldset->add_field(new FormFieldMultiLineTextEditor('request_description', $this->lang['financial.request.message'], $this->get_item()->get_request_description(),
                 array('description' => $this->lang['financial.request.message.clue'])
             ));
         }
@@ -100,7 +98,6 @@ class FinancialRequestFormController extends DefaultModuleController
     }
 
     private function save($budget_params)
-
     {
         $item = $this->get_item();
         $item->set_budget_id($budget_params['id']);
@@ -175,14 +172,15 @@ class FinancialRequestFormController extends DefaultModuleController
 
         //msg content
         $item_message = StringVars::replace_vars($this->lang['financial.mail.msg'], array(
-            'club_sender_name'   => $this->form->get_value('sender_name'),
-            'club_sender_email'  => $this->form->get_value('sender_email'),
-            'club_name'          => $club->get_name(),
-            'club_ffam_number'   => $club->get_ffam_nb(),
-            'activity'           => $item->get_request_type(),
-            'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
-            'club_activity_dpt'  => $club->get_department(),
-            'description'        => !empty($this->form->get_value('request_description')) ? $this->form->get_value('request_description') : ''
+            'club_sender_name'    => $this->form->get_value('sender_name'),
+            'club_sender_email'   => $this->form->get_value('sender_email'),
+            'club_name'           => $club->get_name(),
+            'club_ffam_number'    => $club->get_ffam_nb(),
+            'activity'            => $item->get_request_type(),
+            'club_activity_date'  => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
+            'club_activity_dpt'   => $club->get_department(),
+            'request_description' => !empty($this->form->get_value('request_description')) ? $this->form->get_value('request_description') : ' --- ',
+            'signature'           => $this->lang['financial.mail.signature']
         ));
 
         $item_email = new Mail();
@@ -199,8 +197,8 @@ class FinancialRequestFormController extends DefaultModuleController
         return $send_email->try_to_send($item_email);
     }
 
-        // envoi mail de confirmation à l'auteur de la demande 
-        private function send_confirm_email()
+    // envoi mail de confirmation à l'auteur de la demande 
+    private function send_confirm_email()
     {
         $item = $this->get_item();
         $club = LamclubsService::get_item($item->get_lamclubs_id());
@@ -210,13 +208,10 @@ class FinancialRequestFormController extends DefaultModuleController
         //msg content
         $item_message = StringVars::replace_vars($this->lang['financial.mail.confirm.msg'], array(
             'club_sender_name'   => $this->form->get_value('sender_name'),
-            'club_sender_email'  => $this->form->get_value('sender_email'),
             'club_name'          => $club->get_name(),
-            'club_ffam_number'   => $club->get_ffam_nb(),
             'activity'           => $item->get_request_type(),
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
-            'club_activity_dpt'  => $club->get_department(),
-            'description'        => !empty($this->form->get_value('request_description')) ? $this->form->get_value('request_description') : ''
+            'signature'          => $this->lang['financial.mail.signature']
         ));
 
         $item_email = new Mail();
@@ -240,11 +235,14 @@ class FinancialRequestFormController extends DefaultModuleController
 
         //msg content
         $item_message = StringVars::replace_vars($this->lang['financial.mail.invoice.msg'], array(
-            'club_sender_name'   => $this->form->get_value('sender_name'),
-            'club_sender_email'  => $this->form->get_value('sender_email'),
-            'club_name'          => $club->get_name(),
-            'club_ffam_number'   => $club->get_ffam_nb(),
-            'activity'           => $item->get_request_type()
+            'club_sender_name'    => $this->form->get_value('sender_name'),
+            'club_sender_email'   => $this->form->get_value('sender_email'),
+            'club_name'           => $club->get_name(),
+            'activity'            => $item->get_request_type(),
+            'club_ffam_number'    => $club->get_ffam_nb(),
+            'club_activity_date'  => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
+            'request_description' => !empty($this->form->get_value('request_description')) ? $this->form->get_value('request_description') : ' --- ',
+            'signature'           => $this->lang['financial.mail.signature']
         ));
 
         $item_email = new Mail();

@@ -44,10 +44,11 @@ class FinancialRequestRejectController extends DefaultModuleController
         $item_message = StringVars::replace_vars($this->lang['financial.rejected.mail.msg'], array(
             'club_sender_name'   => $item->get_sender_name(),
             'club_sender_email'  => $item->get_sender_email(),
-            'club_name'          => $club->get_name(),
-            'club_ffam_number'   => $club->get_ffam_nb(),
             'activity'           => $item->get_request_type(),
             'club_activity_date' => $item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
+            'club_ffam_number'   => $club->get_ffam_nb(),
+            'club_name'          => $club->get_name(),
+            'signature'          => $this->lang['financial.mail.signature']
         ));
 
         $item_email = new Mail();

@@ -87,6 +87,7 @@
 }
 
 #items-manager caption a {
+    font-size: 24px;
     color: blue;
     font-family: 'tahoma';
     font-weight: normal;

@@ -150,9 +150,13 @@ class FinancialMonitoringService
 
     public static function change_fiscal_year($date)
     {
-        // Clone budget table to budget_($date - 1) table
-        $new_table = PREFIX . 'financial_budget_' . FinancialBudgetService::get_current_fiscal_year();
-        PersistenceContext::get_dbms_utils()->copy_table(FinancialSetup::$financial_budget_table, $new_table);
+        // Clone budget table to budget_($date - 1)
+        $budget_new_table = PREFIX . 'financial_budget_' . FinancialBudgetService::get_current_fiscal_year();
+        PersistenceContext::get_dbms_utils()->copy_table(FinancialSetup::$financial_budget_table, $budget_new_table);
+        
+        // Clone request table to request_($date - 1)
+        $request_new_table = PREFIX . 'financial_request_' . FinancialBudgetService::get_current_fiscal_year();
+        PersistenceContext::get_dbms_utils()->copy_table(FinancialSetup::$financial_request_table, $request_new_table);
 
         // Reset budget table
         self::$db_querier->truncate(FinancialSetup::$financial_budget_table);
@@ -186,10 +190,16 @@ class FinancialMonitoringService
             echo '<div class="message-helper bgc-full error">Erreur lors de l\'ouverture du fichier CSV.</div>';
         }
 
+        // Reset request table
+        self::$db_querier->truncate(FinancialSetup::$financial_request_table);
+
+        /* possibilité de reporter une demande en cours (pending_request) dans le budget de l'année suivante
+        *************************************************************************
         $result_pending = self::$db_querier->select('SELECT *
             FROM ' . FinancialSetup::$financial_request_table . '
             WHERE agreement = 1 OR agreement = 2
         ');
+
         // set old pending request to new budget table and rename title
         while($row = $result_pending->fetch())
         {
@@ -204,6 +214,7 @@ class FinancialMonitoringService
               'id' => $item->get_id()
             ));
         }
+        *************************************************************************/
     }
 
     /**

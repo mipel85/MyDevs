@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 11
+ * @version     PHPBoost 6.0 - last update: 2024 12 14
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
@@ -27,6 +27,14 @@ class FinancialUrlBuilder
     public static function display_archived_budgets($year)
     {
         return DispatchManager::get_url(self::$dispatcher, '/budgets/' . $year . '/');
+    }
+
+    /**
+     * @return Url
+     */
+    public static function display_archived_requests($year)
+    {
+        return DispatchManager::get_url(self::$dispatcher, '/requests/' . $year . '/');
     }
 
     /**
@@ -154,9 +162,9 @@ class FinancialUrlBuilder
     /**
      * @return Url
      */
-    public static function requests_monitoring_list()
+    public static function requests_monitoring_list($year)
     {
-        return DispatchManager::get_url(self::$dispatcher, '/requests_monitoring_list/');
+        return DispatchManager::get_url(self::$dispatcher, '/requests_monitoring_list/' . $year . '/');
     }
 
     /**
