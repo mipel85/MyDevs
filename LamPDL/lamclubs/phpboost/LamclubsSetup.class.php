@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 20
+ * @version     PHPBoost 6.0 - last update: 2025 12 01
  * @since       PHPBoost 6.0 - 2024 12 11
  */
 
@@ -72,9 +72,9 @@ class LamclubsSetup extends DefaultModuleSetup
             {
                 PersistenceContext::get_querier()->insert(self::$lamclubs_table, array(
                     'club_id'     => $data[0],
-                    'name'        => $data[3],
-                    'ffam_nb'     => $data[1],
-                    'department'  => $data[2],
+                    'name'        => $data[1],
+                    'ffam_nb'     => $data[2],
+                    'department'  => $data[3],
                     'website_url' => $data[4]
                 ));
             }
