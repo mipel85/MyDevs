@@ -65,9 +65,9 @@ class LamclubsHomeController extends DefaultModuleController
             $c_visit = !empty($item->get_website_url()->rel());
 
             $row = array(
-                new HTMLTableRowCell($item->get_ffam_nb()),
-                new HTMLTableRowCell($this->lang['lamclubs.' . $item->get_department()]),
-                new HTMLTableRowCell($item->get_name()),
+                new HTMLTableRowCell($item->get_ffam_nb(),'align-left'),
+                new HTMLTableRowCell($this->lang['lamclubs.' . $item->get_department()], 'align-left'),
+                new HTMLTableRowCell($item->get_name(), 'align-left'),
                 new HTMLTableRowCell($c_visit ? new LinkHTMLElement(LamclubsUrlBuilder::visit_item($item->get_club_id()), $this->lang['common.website']) : ''),
                 $controls ? new HTMLTableRowCell($edit_item->display() . $delete_item->display()) : ''
             );
