@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 11
+ * @version     PHPBoost 6.0 - last update: 2025 01 27
  * @since       PHPBoost 6.0 - 2024 12 04
  */
 
@@ -12,6 +12,7 @@
 ####################################################
 
 $lang['financial.module.title'] = 'Aide Financière';
+$lang['financial.module.edit.title'] = '** Modification ** Aide Financière';
 
 $lang['financial.item'] = 'demande';
 $lang['financial.items'] = 'demandes';
@@ -111,9 +112,19 @@ $lang['financial.status.accepted'] = 'Acceptée';
 $lang['financial.status.rejected'] = 'Rejetée';
 
 // Email
-$lang['financial.mail.msg'] = 'Bonjour, <br /><br />
+$lang['financial.mail.new.msg'] = 'Bonjour, <br /><br />
 	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="' . GeneralConfig::load()->get_site_url() . '/financial/pending/">Aller sur le site</a><br /><br /> 
     Le club <strong>:club_name</strong> souhaite obtenir une aide pour la demande : :activity.
+    <br /><br /><strong>Département :</strong> :club_activity_dpt
+    <br /><strong>Numéro FFAM :</strong> :club_ffam_number
+    <br /><strong>Date de réalisation :</strong> :club_activity_date
+    <br /><br /><strong>Descriptif :</strong> :request_description
+    :signature
+';
+
+$lang['financial.mail.edit.msg'] = 'Bonjour, <br /><br />
+	<i>Dossier suivi par :club_sender_name (:club_sender_email)</i> - <a href="' . GeneralConfig::load()->get_site_url() . '/financial/pending/">Aller sur le site</a><br /><br /> 
+    Le club <strong>:club_name</strong> vient de modifier sa demande d\'aide concernant : :activity.
     <br /><br /><strong>Département :</strong> :club_activity_dpt
     <br /><strong>Numéro FFAM :</strong> :club_ffam_number
     <br /><strong>Date de réalisation :</strong> :club_activity_date
