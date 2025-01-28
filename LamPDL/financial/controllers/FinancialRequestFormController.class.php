@@ -170,6 +170,10 @@ class FinancialRequestFormController extends DefaultModuleController
         $item = $this->get_item();
         $club = LamclubsService::get_item($item->get_lamclubs_id());
 
+        /* récupération du département concerné par l'activité */
+        $club_infos = $this->form->get_value('club_infos')->get_label();
+        $infos = explode('-', $club_infos);
+        
         $item_message = '';
 
         // on teste s'il s'agit d'une nouvelle demande ou d'une édition 
@@ -194,10 +198,23 @@ class FinancialRequestFormController extends DefaultModuleController
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
         $item_email->set_subject($msg_subject . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
+        
+        /* envoi mail de nouvelle contribution aux destinataires hors délégués départementaux */
+        $default_liste_email = LamclubsService::get_recipient_email(0);
 
-        $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());
-        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_2()) ? FinancialConfig::load()->get_recipient_mail_2() : '');
-        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_3()) ? FinancialConfig::load()->get_recipient_mail_3() : '');
+        foreach ($default_liste_email as $default_recipient)
+        {
+            $item_email->add_recipient($default_recipient['recipient_email']);
+        }
+
+        /* envoi mail de nouvelle contribution aux délégués départementaux et suppléants si adresse mail existante */
+        $delegates_liste_email = LamclubsService::get_recipient_email($infos[1] ?? ''); /* teste si adresse mail non vide */
+
+        foreach ($delegates_liste_email as $delegates_recipient)
+        {
+            $item_email->add_recipient($delegates_recipient['recipient_email']);
+        }
+//       
         $send_email = AppContext::get_mail_service();
 
         return $send_email->try_to_send($item_email);
