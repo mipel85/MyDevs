@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2025 01 27
+ * @version     PHPBoost 6.0 - last update: 2025 01 29
  * @since       PHPBoost 6.0 - 2020 01 18
  */
+
 class FinancialRequestFormController extends DefaultModuleController
 {
     public function execute(HTTPRequestCustom $request)
@@ -51,21 +52,21 @@ class FinancialRequestFormController extends DefaultModuleController
         $form->add_fieldset($fieldset);
 
         $fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['financial.request.club'], $this->get_item()->get_lamclubs_id(), LamclubsService::get_options_list(),
-                        array('required' => true)
+            array('required' => true)
         ));
 
         $fieldset->add_field(new FormFieldDate('event_date', $this->lang['financial.request.event.date'], $this->get_item()->get_event_date(),
-                        array('required' => true)
+            array('required' => true)
         ));
 
         if ($budget_params['use_dl'])
         {
             $fieldset->add_field($estimate_url = new FormFieldUploadFile('estimate_url', $this->lang['financial.request.estimate.url'], $this->get_item()->get_estimate_url()->relative(),
-                    array('description' => $this->lang['financial.request.estimate.url.clue']),
+                array('description' => $this->lang['financial.request.estimate.url.clue']),
             ));
 
             $fieldset->add_field(new FormFieldUploadFile('invoice_url', $this->lang['financial.request.invoice.url'], $this->get_item()->get_invoice_url()->relative(),
-                            array('description' => $this->lang['financial.request.invoice.url.clue'])
+                array('description' => $this->lang['financial.request.invoice.url.clue'])
             ));
         }
 
@@ -74,20 +75,20 @@ class FinancialRequestFormController extends DefaultModuleController
         $form->add_fieldset($email_fieldset);
 
         $email_fieldset->add_field(new FormFieldTextEditor('sender_name', $this->lang['financial.request.contact.user'], $item->get_sender_name(),
-                        array('required' => true)
+            array('required' => true)
         ));
 
         $email_fieldset->add_field(new FormFieldMailEditor('sender_email', $this->lang['financial.request.contact.email'], $item->get_sender_email(),
-                        array(
+            array(
                     'required'    => true,
                     'description' => $this->lang['financial.request.contact.email.clue']
-                        )
+            )
         ));
 
         if ($this->is_new_item || $this->get_item()->get_agreement_state() == FinancialRequestItem::ONGOING || $this->get_item()->get_agreement_state() == FinancialRequestItem::PENDING)
         {
             $email_fieldset->add_field(new FormFieldMultiLineTextEditor('request_description', $this->lang['financial.request.message'], $this->get_item()->get_request_description(),
-                            array('description' => $this->lang['financial.request.message.clue'])
+                array('description' => $this->lang['financial.request.message.clue'])
             ));
         }
 
@@ -123,8 +124,8 @@ class FinancialRequestFormController extends DefaultModuleController
             {
                 $filename = $this->get_filename($this->form->get_value('estimate_url'));
                 $renamed_file = copy(
-                        PATH_TO_ROOT . $this->form->get_value('estimate_url'),
-                        PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
+                    PATH_TO_ROOT . $this->form->get_value('estimate_url'),
+                    PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
                 );
                 $item->set_estimate_url(new Url('/financial/files/' . $ffam_nb . '_' . $filename));
             } else
@@ -134,8 +135,8 @@ class FinancialRequestFormController extends DefaultModuleController
             {
                 $filename = $this->get_filename($this->form->get_value('invoice_url'));
                 $renamed_file = copy(
-                        PATH_TO_ROOT . $this->form->get_value('invoice_url'),
-                        PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
+                    PATH_TO_ROOT . $this->form->get_value('invoice_url'),
+                    PATH_TO_ROOT . '/financial/files/' . $ffam_nb . '_' . $filename
                 );
                 $item->set_invoice_url(new Url('/financial/files/' . $ffam_nb . '_' . $filename));
             } else
@@ -194,7 +195,7 @@ class FinancialRequestFormController extends DefaultModuleController
         ));
 
         $item_email = new Mail();
-        $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
+        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']); // adresse de l'expéditeur (mail ligue)
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
         $item_email->set_subject($msg_subject . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
@@ -214,7 +215,7 @@ class FinancialRequestFormController extends DefaultModuleController
         {
             $item_email->add_recipient($delegates_recipient['recipient_email']);
         }
-//       
+       
         $send_email = AppContext::get_mail_service();
 
         return $send_email->try_to_send($item_email);
@@ -238,8 +239,8 @@ class FinancialRequestFormController extends DefaultModuleController
         ));
 
         $item_email = new Mail();
-        $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
-        $item_email->set_reply_to(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
+        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
+        $item_email->set_reply_to(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
         $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
@@ -269,14 +270,26 @@ class FinancialRequestFormController extends DefaultModuleController
         ));
 
         $item_email = new Mail();
-        $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
+        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
         $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 
-        $item_email->add_recipient(FinancialConfig::load()->get_recipient_mail_1());
-        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_2()) ? FinancialConfig::load()->get_recipient_mail_2() : '');
-        $item_email->add_recipient(!empty(FinancialConfig::load()->get_recipient_mail_3()) ? FinancialConfig::load()->get_recipient_mail_3() : '');
+        /* envoi mail de nouvelle contribution aux destinataires hors délégués départementaux */
+        $default_liste_email = LamclubsService::get_recipient_email(0);
+
+        foreach ($default_liste_email as $default_recipient)
+        {
+            $item_email->add_recipient($default_recipient['recipient_email']);
+        }
+
+        /* envoi mail de nouvelle contribution aux délégués départementaux et suppléants si adresse mail existante */
+        $delegates_liste_email = LamclubsService::get_recipient_email($infos[1] ?? ''); /* teste si adresse mail non vide */
+
+        foreach ($delegates_liste_email as $delegates_recipient)
+        {
+            $item_email->add_recipient($delegates_recipient['recipient_email']);
+        }
         $send_email = AppContext::get_mail_service();
 
         return $send_email->try_to_send($item_email);
@@ -291,7 +304,7 @@ class FinancialRequestFormController extends DefaultModuleController
             $form->add_fieldset($fieldset);
 
             $fieldset->add_field(new FormFieldMultiLineTextEditor('contribution_description', $this->lang['contribution.description'], '',
-                            array('description' => $this->lang['contribution.description.clue'])
+                array('description' => $this->lang['contribution.description.clue'])
             ));
         } elseif ($this->get_item()->is_authorized_to_edit() && $this->is_contributor_member())
         {
@@ -300,7 +313,7 @@ class FinancialRequestFormController extends DefaultModuleController
             $form->add_fieldset($fieldset);
 
             $fieldset->add_field(new FormFieldMultiLineTextEditor('edition_description', $this->lang['contribution.edition.description'], '',
-                            array('description' => $this->lang['contribution.edition.description.clue'])
+                array('description' => $this->lang['contribution.edition.description.clue'])
             ));
         }
     }
@@ -317,7 +330,8 @@ class FinancialRequestFormController extends DefaultModuleController
             $id = AppContext::get_request()->get_getint('id', 0);
             if (!empty($id))
             {
-                try {
+                try 
+                {
                     $this->item = FinancialRequestService::get_item($id);
                 } catch (RowNotFoundException $e){
                     $error_controller = PHPBoostErrors::unexisting_page();
