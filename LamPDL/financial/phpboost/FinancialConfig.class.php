@@ -3,48 +3,15 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 11
+ * @version     PHPBoost 6.0 - last update: 2025 01 29
  * @since       PHPBoost 6.0 - 2020 01 18
-*/
+ */
 
 class FinancialConfig extends AbstractConfigData
 {
-    public const RECIPIENT_MAIL_1 = 'recipient_mail_1';
-    public const RECIPIENT_MAIL_2 = 'recipient_mail_2';
-    public const RECIPIENT_MAIL_3 = 'recipient_mail_3';
-    public const RESET_DATE       = 'reset_date';
-    public const WINTER_BREAK     = 'winter_break';
-    public const AUTHORIZATIONS   = 'authorizations';
-
-    public function get_recipient_mail_1()
-    {
-        return $this->get_property(self::RECIPIENT_MAIL_1);
-    }
-
-    public function set_recipient_mail_1($recipient_mail_1)
-    {
-        $this->set_property(self::RECIPIENT_MAIL_1, $recipient_mail_1);
-    }
-
-    public function get_recipient_mail_2()
-    {
-        return $this->get_property(self::RECIPIENT_MAIL_2);
-    }
-
-    public function set_recipient_mail_2($recipient_mail_2)
-    {
-        $this->set_property(self::RECIPIENT_MAIL_2, $recipient_mail_2);
-    }
-
-    public function get_recipient_mail_3()
-    {
-        return $this->get_property(self::RECIPIENT_MAIL_3);
-    }
-
-    public function set_recipient_mail_3($recipient_mail_3)
-    {
-        $this->set_property(self::RECIPIENT_MAIL_3, $recipient_mail_3);
-    }
+    public const RESET_DATE = 'reset_date';
+    public const WINTER_BREAK = 'winter_break';
+    public const AUTHORIZATIONS = 'authorizations';
 
     public function get_winter_break()
     {
@@ -90,9 +57,6 @@ class FinancialConfig extends AbstractConfigData
     public function get_default_values()
     {
         return array(
-            self::RECIPIENT_MAIL_1 => 'mipel@aeromodelisme-paysdeloire.fr',
-            self::RECIPIENT_MAIL_2 => '',
-            self::RECIPIENT_MAIL_3 => '',
             self::WINTER_BREAK     => false,
             self::RESET_DATE       => '',
             self::AUTHORIZATIONS   => array('r0' => 5, 'r1' => 13)

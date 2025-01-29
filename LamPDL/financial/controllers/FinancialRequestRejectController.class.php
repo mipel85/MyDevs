@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 11
+ * @version     PHPBoost 6.0 - last update: 2025 01 29
  * @since       PHPBoost 6.0 - 2024 02 09
  */
 
@@ -52,8 +52,8 @@ class FinancialRequestRejectController extends DefaultModuleController
         ));
 
         $item_email = new Mail();
-        $item_email->set_sender(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
-        $item_email->set_reply_to(FinancialConfig::load()->get_recipient_mail_1(), $this->lang['financial.module.title']);
+        $item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
+        $item_email->set_reply_to(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['financial.module.title']);
         $item_email->set_subject($this->lang['financial.module.title'] . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
 

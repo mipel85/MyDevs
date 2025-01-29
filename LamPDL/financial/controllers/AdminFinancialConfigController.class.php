@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 11
+ * @version     PHPBoost 6.0 - last update: 2025 01 29
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
@@ -47,25 +47,6 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
         $fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
         $form->add_fieldset($fieldset);
 
-        $fieldset->add_field(new FormFieldMailEditor('recipient_mail_1', $this->lang['financial.recipient.mail_1'], $this->config->get_recipient_mail_1(), array(
-            'description' => StringVars::replace_vars($this->lang['financial.email.configuration.default'], array('default_mail' => FinancialConfig::load()->get_recipient_mail_1())),
-            'required'    => true,
-            'class'       => 'top-field third-field'
-            )
-        ));
-
-        $fieldset->add_field(new FormFieldMailEditor('recipient_mail_2', $this->lang['financial.recipient.mail_2'], $this->config->get_recipient_mail_2(), array(
-            'description' => $this->lang['financial.email.configuration.optional'],
-            'class'       => 'top-field third-field'
-            )
-        ));
-
-        $fieldset->add_field(new FormFieldMailEditor('recipient_mail_3', $this->lang['financial.recipient.mail_3'], $this->config->get_recipient_mail_3(), array(
-            'description' => $this->lang['financial.email.configuration.optional'],
-            'class'       => 'top-field third-field'
-            )
-        ));
-
         $fieldset->add_field(new FormFieldCheckbox('winter_break', $this->lang['financial.winter.break'], $this->config->get_winter_break(),
             array('class' => 'custom-checkbox')
         ));
@@ -102,9 +83,9 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
 
         $fieldset->add_field(new FormFieldTextEditor('reset_date', $this->lang['financial.reset.date'], '',
             array(
-                'required'    => true,
-                'description' => $this->lang['financial.reset.date.clue'],
-                'pattern'     => '[0-9]{4}'
+                    'required'    => true,
+                    'description' => $this->lang['financial.reset.date.clue'],
+                    'pattern'     => '[0-9]{4}'
             )
         ));
 
@@ -117,9 +98,6 @@ class AdminFinancialConfigController extends DefaultAdminModuleController
 
     private function save()
     {
-        $this->config->set_recipient_mail_1($this->form->get_value('recipient_mail_1'));
-        $this->config->set_recipient_mail_2($this->form->get_value('recipient_mail_2'));
-        $this->config->set_recipient_mail_3($this->form->get_value('recipient_mail_3'));
         $this->config->set_winter_break($this->form->get_value('winter_break'));
         $this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 
