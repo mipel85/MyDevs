@@ -1,21 +1,17 @@
 <?php
 /**
- * @copyright   &copy; 2005-2023 PHPBoost
+ * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 11
+ * @version     PHPBoost 6.0 - last update: 2025 02 14
  * @since       PHPBoost 6.0 - 2020 01 18
  */
-class FinancialExtensionPointProvider extends ItemsModuleExtensionPointProvider
+
+class FinancialExtensionPointProvider extends ExtensionPointProvider
 {
     public function home_page()
     {
         return new DefaultHomePageDisplay($this->get_id(), FinancialHomeController::get_view());
-    }
-
-    public function user()
-    {
-        return false;
     }
 
     public function js_files()
@@ -26,8 +22,26 @@ class FinancialExtensionPointProvider extends ItemsModuleExtensionPointProvider
         return $js_file;
     }
 
+    public function css_files()
+    {
+        $module_css_files = new ModuleCssFiles();
+        $module_css_files->adding_always_displayed_file('financial.css');
+        return $module_css_files;
+    }
+
     public function search()
     {
-        return false;
+        return new FinancialSearchable();
+    }
+
+    public function tree_links()
+    {
+        return new FinancialTreeLinks();
+    }
+
+    public function url_mappings()
+    {
+        return new UrlMappings([new DispatcherUrlMapping('/financial/index.php')]);
     }
 }
+?>
