@@ -92,7 +92,7 @@ class FinancialRequestFormController extends DefaultModuleController
             ));
         }
 
-        $this->build_contribution_fieldset($form);
+        // $this->build_contribution_fieldset($form);
 
         $this->submit_button = new FormButtonDefaultSubmit();
         $form->add_button($this->submit_button);
@@ -161,7 +161,7 @@ class FinancialRequestFormController extends DefaultModuleController
                 HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
         }
 
-        $this->contribution_actions($item);
+        // $this->contribution_actions($item);
 
         FinancialRequestService::clear_cache();
     }
@@ -174,10 +174,10 @@ class FinancialRequestFormController extends DefaultModuleController
         /* récupération du département concerné par l'activité */
         $club_infos = $this->form->get_value('club_infos')->get_label();
         $infos = explode('-', $club_infos);
-        
+
         $item_message = '';
 
-        // on teste s'il s'agit d'une nouvelle demande ou d'une édition 
+        // on teste s'il s'agit d'une nouvelle demande ou d'une édition
         $msg_subject = $this->is_new_item ? $this->lang['financial.module.title'] : $this->lang['financial.module.edit.title'];
         $msg_content = $this->is_new_item ? $this->lang['financial.mail.new.msg'] : $this->lang['financial.mail.edit.msg'];
 
@@ -215,7 +215,7 @@ class FinancialRequestFormController extends DefaultModuleController
         {
             $item_email->add_recipient($delegates_recipient['recipient_email']);
         }
-       
+
         $send_email = AppContext::get_mail_service();
 
         return $send_email->try_to_send($item_email);
