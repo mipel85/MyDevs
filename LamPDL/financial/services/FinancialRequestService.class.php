@@ -127,16 +127,16 @@ class FinancialRequestService
         $current_user_club = $current_user_club[0];
 
         $view->put_all([
-            'C_HOME' => FinancialUrlBuilder::home()->rel() === $current_page,
-            'C_MY_CLUB_REQUESTS' => FinancialUrlBuilder::display_club_items($current_user_club)->rel() == $current_page,
+            'C_HOME'              => FinancialUrlBuilder::home()->rel() === $current_page,
+            'C_MY_CLUB_REQUESTS'  => FinancialUrlBuilder::display_club_items($current_user_club)->rel() == $current_page,
             'C_CLUB_HAS_REQUESTS' => count(self::get_club_requests($current_user_club)) > 0,
-            'C_MY_REQUESTS' => FinancialUrlBuilder::display_member_items($current_user_id)->rel() == $current_page,
+            'C_MY_REQUESTS'       => FinancialUrlBuilder::display_member_items($current_user_id)->rel() == $current_page,
             'C_USER_HAS_REQUESTS' => count(self::get_user_requests($current_user_id)) > 0,
-            'C_ALL_REQUESTS' => FinancialUrlBuilder::display_pending_items()->rel() === $current_page,
-            'U_MY_CLUB_REQUESTS' => FinancialUrlBuilder::display_club_items($current_user_club)->rel(),
-            'U_MY_REQUESTS' => FinancialUrlBuilder::display_member_items($current_user_id)->rel(),
-            'U_ALL_REQUESTS' => FinancialUrlBuilder::display_pending_items()->rel(),
-            'U_HOME' => FinancialUrlBuilder::home()->rel(),
+            'C_ALL_REQUESTS'      => FinancialUrlBuilder::display_pending_items()->rel() === $current_page,
+            'U_MY_CLUB_REQUESTS'  => FinancialUrlBuilder::display_club_items($current_user_club)->rel(),
+            'U_MY_REQUESTS'       => FinancialUrlBuilder::display_member_items($current_user_id)->rel(),
+            'U_ALL_REQUESTS'      => FinancialUrlBuilder::display_pending_items()->rel(),
+            'U_HOME'              => FinancialUrlBuilder::home()->rel(),
         ]);
 
         return $view;

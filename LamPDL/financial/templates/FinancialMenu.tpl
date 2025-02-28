@@ -1,16 +1,16 @@
 <ul id="financial-menu">
     # IF C_CLUB_HAS_REQUESTS #
         # IF NOT C_MY_CLUB_REQUESTS #
-            <li><a class="offload pinned bgc-full member" href="{U_MY_CLUB_REQUESTS}">Voir les demandes de mon club</a></li>
+            <li><a class="offload d-block align-center pinned bgc link-color" href="{U_MY_CLUB_REQUESTS}">{@financial.button.club}</a></li>
         # ENDIF #
     # ENDIF #
     # IF C_USER_HAS_REQUESTS #
         # IF NOT C_MY_REQUESTS #
-            <li><a class="offload pinned bgc-full member" href="{U_MY_REQUESTS}">Voir mes demandes</a></li>
+            <li><a class="offload d-block align-center pinned bgc link-color" href="{U_MY_REQUESTS}">{@financial.button.member}</a></li>
         # ENDIF #
     # ENDIF #
-    # IF NOT C_ALL_REQUESTS #<li><a class="offload  pinned bgc-full moderator" href="{U_ALL_REQUESTS}">Voir toutes les demandes</a></li># ENDIF #
-    # IF NOT C_HOME #<li><a class="offload pinned bgc-full link-color" href="{U_HOME}">Faire une nouvelle demande</a></li># ENDIF #
+    # IF NOT C_ALL_REQUESTS #<li><a class="offload d-block align-center pinned bgc link-color" href="{U_ALL_REQUESTS}">{@financial.button.all}</a></li># ENDIF #
+    # IF NOT C_HOME #<li><a class="offload d-block align-center pinned bgc link-color" href="{U_HOME}">{@financial.button.home}</a></li># ENDIF #
 </ul>
 
 <script>
