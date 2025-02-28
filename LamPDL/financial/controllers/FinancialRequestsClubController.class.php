@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 11
+ * @version     PHPBoost 6.0 - last update: 2025 02 28
  * @since       PHPBoost 6.0 - 2024 02 09
 */
 
@@ -28,6 +28,7 @@ class FinancialRequestsClubController extends DefaultModuleController
             new HTMLTableColumn(TextHelper::ucfirst($this->lang['financial.item']), 'request_type'),
             new HTMLTableColumn($this->lang['financial.club.nb'], 'ffam_nb'),
             new HTMLTableColumn($this->lang['financial.club.dpt'], 'department'),
+            new HTMLTableColumn('Auteur', 'author_user_id'),
             new HTMLTableColumn($this->lang['financial.request.event.date'], 'event_date'),
             new HTMLTableColumn($this->lang['financial.request.creation.date'], 'creation_date'),
             new HTMLTableColumn($this->lang['financial.request.files.url'], ''),
@@ -185,6 +186,7 @@ class FinancialRequestsClubController extends DefaultModuleController
                 new HTMLTableRowCell($item->get_request_type(), 'align-left' . $ongoing_class),
                 new HTMLTableRowCell($club_infos, $ongoing_class),
                 new HTMLTableRowCell($club->get_department(), $ongoing_class),
+                 new HTMLTableRowCell($item->get_author_user()->get_display_name()),
                 new HTMLTableRowCell($item->get_event_date()->format(Date::FORMAT_DAY_MONTH_YEAR), $ongoing_class),
                 new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR), $ongoing_class),
                 new HTMLTableRowCell($estimate_file . $invoice_file . $no_files . $ongoing_status, 'controls' . $ongoing_class),
