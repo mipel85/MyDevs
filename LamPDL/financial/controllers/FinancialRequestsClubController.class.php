@@ -7,7 +7,7 @@
  * @since       PHPBoost 6.0 - 2024 02 09
 */
 
-class FinancialRequestsPendingController extends DefaultModuleController
+class FinancialRequestsClubController extends DefaultModuleController
 {
     private $items_number = 0;
     private $ids = array();
@@ -40,24 +40,29 @@ class FinancialRequestsPendingController extends DefaultModuleController
 
         $table_model = new SQLHTMLTableModel(
             FinancialSetup::$financial_request_table,
-            'items-pending',
+            'items-member',
             $columns,
             new HTMLTableSortingRule('event_date', HTMLTableSortingRule::DESC)
         );
 
         $fiscal_year = FinancialBudgetService::get_current_fiscal_year();
-        $table_model->set_layout_title($this->lang['financial.pending.items'] . '<span class="d-block smaller">Exercice ' . $fiscal_year . '</span>');
+        $ffam_nb = AppContext::get_request()->get_value('club');
 
-        $table_model->add_permanent_filter('agreement = ' . FinancialRequestItem::PENDING . ' OR agreement = ' . FinancialRequestItem::ONGOING);
-        
+        $club_name = LamclubsService::get_club_from_ffam($ffam_nb)->get_name();
+        $table_model->set_layout_title('<span class="d-block small">' . $this->lang['financial.club.items'] . '</span>' . $club_name . '<span class="d-block smaller">Exercice ' . $fiscal_year . '</span>');
+
+        $table_model->add_permanent_filter('
+            (agreement = ' . FinancialRequestItem::PENDING . ' OR agreement = ' . FinancialRequestItem::ONGOING . ')
+            AND lc.ffam_nb = ' . $ffam_nb);
+
         $table_model->set_filters_menu_title($this->lang['financial.filter.items']);
-        $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('department', 'filter1', $this->lang['financial.club.dpt.filter'], array(44 => 44, 49 => 49, 53 => 53, 72 => 72, 85 => 85)));
+        $table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('department', 'filter1', $this->lang['financial.club.dpt.filter'], [44 => 44, 49 => 49, 53 => 53, 72 => 72, 85 => 85]));
 
         $table = new HTMLTable($table_model);
         $table->set_filters_fieldset_class_HTML();
         $table->hide_multiple_delete();
 
-        $results = array();
+        $results = [];
         $result = $table_model->get_sql_results('fr
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = fr.author_user_id
 			LEFT JOIN ' . LamclubsSetup::$lamclubs_table . ' lc ON lc.club_id = fr.lamclubs_id'
@@ -238,13 +243,13 @@ class FinancialRequestsPendingController extends DefaultModuleController
         $response = new SiteDisplayResponse($this->view);
 
         $graphical_environment = $response->get_graphical_environment();
-        $graphical_environment->set_page_title($this->lang['financial.pending.items'], $this->lang['financial.module.title'], $page);
-        $graphical_environment->get_seo_meta_data()->set_canonical_url(FinancialUrlBuilder::display_pending_items());
+        $graphical_environment->set_page_title($this->lang['financial.club.breadcrumb'], $this->lang['financial.module.title'], $page);
+        $graphical_environment->get_seo_meta_data()->set_canonical_url(FinancialUrlBuilder::display_member_items(AppContext::get_request()->get_value('club')));
 
         $breadcrumb = $graphical_environment->get_breadcrumb();
         $breadcrumb->add($this->lang['financial.module.title'], FinancialUrlBuilder::home());
 
-        $breadcrumb->add($this->lang['financial.pending.items'], FinancialUrlBuilder::display_pending_items());
+        $breadcrumb->add($this->lang['financial.club.breadcrumb'], FinancialUrlBuilder::display_member_items(AppContext::get_request()->get_value('club')));
 
         return $response;
     }

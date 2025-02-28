@@ -60,7 +60,7 @@ class FinancialHomeController extends DefaultModuleController
             }
         }
 
-        $table_model->set_layout_title($this->lang['financial.module.title'] . ' - exercice ' . $budgets[0]->get_fiscal_year());
+        $table_model->set_layout_title($this->lang['financial.module.title'] . '<span class="d-block smaller">Exercice ' . $budgets[0]->get_fiscal_year() . '</span>');
 
         if (empty($moderation_link_number))
         {
@@ -107,7 +107,7 @@ class FinancialHomeController extends DefaultModuleController
                 new HTMLTableRowCell($amount),
                 new HTMLTableRowCell($quantity),
                 new HTMLTableRowCell($request_button),
-              $moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link . $id, 'controls') : null
+                $moderation_link_number ? new HTMLTableRowCell($edit_link . $delete_link . $id, 'controls') : null
             );
 
             $table_row = new HTMLTableRow($row);
@@ -117,9 +117,21 @@ class FinancialHomeController extends DefaultModuleController
         }
         $table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
-        $this->view->put('CONTENT', $table->display());
+        $this->view->put_all([
+            'CONTENT' =>  $table->display(),
+            'MENU' => FinancialRequestService::get_menu()
+        ]);
 
         return $table->get_page_number();
+    }
+
+    protected function get_template_string_content()
+    {
+        return '
+            # INCLUDE MENU #
+            # INCLUDE MESSAGE_HELPER #
+            # INCLUDE CONTENT #
+        ';
     }
 
     private function build_warnings()

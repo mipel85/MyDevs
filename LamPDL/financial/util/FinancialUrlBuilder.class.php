@@ -13,164 +13,116 @@ class FinancialUrlBuilder
     const DEFAULT_SORT_MODE    = 'desc';
     private static $dispatcher = '/financial';
 
-    /**
-     * @return Url
-     */
-    public static function configuration()
+    public static function configuration() : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/admin/config');
     }
 
-    /**
-     * @return Url
-     */
-    public static function display_archived_budgets($year)
+    public static function display_archived_budgets($year) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/budgets/' . $year . '/');
     }
 
-    /**
-     * @return Url
-     */
-    public static function display_archived_requests($year)
+    public static function display_archived_requests($year) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/requests/' . $year . '/');
     }
 
-    /**
-     * @return Url
-     */
-    public static function add_budget()
+    public static function add_budget() : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/add_budget/');
     }
 
-    /**
-     * @return Url
-     */
-    public static function edit_budget($id)
+    public static function edit_budget($id) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/edit_budget/');
     }
 
-    /**
-     * @return Url
-     */
-    public static function delete_budget($id)
+    public static function delete_budget($id) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/delete_budget/?' . 'token=' . AppContext::get_session()->get_token());
     }
 
-    /**
-     * @return Url
-     */
-    public static function display($item_id, $rewrited_title)
+    public static function display($item_id, $rewrited_title) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/' . $item_id . '-' . $rewrited_title . '/');
     }
 
-    /**
-     * @return Url
-     */
-    public static function display_pending_items($page = 1)
+    public static function display_pending_items($page = 1) : Url
     {
         $page = $page !== 1 ? $page . '/' : '';
         return DispatchManager::get_url(self::$dispatcher, '/pending/' . $page);
     }
 
-    public static function display_member_items($user_id, $page = 1)
+    public static function display_member_items($user_id, $page = 1) : Url
     {
         $page = $page !== 1 ? $page . '/' : '';
         return DispatchManager::get_url(self::$dispatcher, '/member/' . $user_id . '/' . $page);
     }
 
-    public static function display_monitoring_items($page = 1)
+    public static function display_club_items($club_id, $page = 1) : Url
+    {
+        $page = $page !== 1 ? $page . '/' : '';
+        return DispatchManager::get_url(self::$dispatcher, '/club/' . $club_id . '/' . $page);
+    }
+
+    public static function display_monitoring_items($page = 1) : Url
     {
         $page = $page !== 1 ? $page . '/' : '';
         return DispatchManager::get_url(self::$dispatcher, '/monitoring/' . '/' . $page);
     }
 
-    public static function add_item($budget_id)
+    public static function add_item($budget_id) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/add/' . $budget_id);
     }
 
-    /**
-     * @return Url
-     */
-    public static function edit_item($id, $budget_id)
+    public static function edit_item($id, $budget_id) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/edit/' . $id . '/' . $budget_id . '/');
     }
 
-    /**
-     * @return Url
-     */
-    public static function delete_item($id)
+    public static function delete_item($id) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/delete/?' . 'token=' . AppContext::get_session()->get_token());
     }
 
-    /**
-     * @return Url
-     */
-    public static function dl_estimate($id)
+    public static function dl_estimate($id) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/estimate/' . $id);
     }
 
-    /**
-     * @return Url
-     */
-    public static function dl_invoice($id)
+    public static function dl_invoice($id) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/invoice/' . $id);
     }
 
-    /**
-     * @return Url
-     */
-    public static function reject_request($id)
+    public static function reject_request($id) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/reject/' . $id);
     }
 
-    /**
-     * @return Url
-     */
-    public static function ongoing_request($id)
+    public static function ongoing_request($id) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/ongoing/' . $id);
     }
 
-    /**
-     * @return Url
-     */
-    public static function accept_request($id, $amount_paid)
+    public static function accept_request($id, $amount_paid) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/accept/' . $id . '/' . $amount_paid);
     }
 
-    /**
-     * @return Url
-     */
-    public static function requests_monitoring_chart()
+    public static function requests_monitoring_chart() : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/requests_monitoring_chart/');
     }
 
-    /**
-     * @return Url
-     */
-    public static function requests_monitoring_list($year)
+    public static function requests_monitoring_list($year) : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/requests_monitoring_list/' . $year . '/');
     }
 
-    /**
-     * @return Url
-     */
-    public static function home()
+    public static function home() : Url
     {
         return DispatchManager::get_url(self::$dispatcher, '/');
     }

@@ -199,7 +199,7 @@ class FinancialRequestFormController extends DefaultModuleController
         $item_email->set_reply_to($this->form->get_value('sender_email'), $this->form->get_value('sender_name'));
         $item_email->set_subject($msg_subject . ' - ' . $club->get_name() . ' - ' . $item->get_request_type());
         $item_email->set_content(TextHelper::html_entity_decode($item_message));
-        
+
         /* envoi mail de nouvelle contribution aux destinataires hors délégués départementaux */
         $default_liste_email = LamclubsService::get_recipient_email(0);
 

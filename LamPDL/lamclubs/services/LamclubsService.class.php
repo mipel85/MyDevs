@@ -165,5 +165,19 @@ class LamclubsService
         return $recipient_data;
         $req->dispose();
     }
+
+    public static function get_club_from_ffam($ffam_nb)
+    {
+        $row = self::$db_querier->select_single_row_query('SELECT ' . self::$module_id . '.*
+		FROM ' . LamclubsSetup::$lamclubs_table . ' ' . self::$module_id . '
+		WHERE ' . self::$module_id . '.ffam_nb = :ffam_nb', array(
+            'ffam_nb'         => $ffam_nb,
+            'current_user_id' => AppContext::get_current_user()->get_id()
+        ));
+
+        $item = new LamclubsItem();
+        $item->set_properties($row);
+        return $item;
+    }
 }
 ?>

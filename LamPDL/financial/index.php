@@ -29,6 +29,8 @@ new UrlControllerMapper('FinancialRequestFormController', '`^/add/?([0-9]+)?/?$`
 new UrlControllerMapper('FinancialRequestFormController', '`^/edit/?([0-9]+)?/?([0-9]+)?/?$`', array('id', 'budget_id')),
 new UrlControllerMapper('FinancialRequestDeleteController', '`^/([0-9]+)/delete/?$`', array('id')),
 new UrlControllerMapper('FinancialRequestsPendingController', '`^/pending/?([0-9]+)?/?$`', array('page')),
+new UrlControllerMapper('FinancialRequestsMemberController', '`^/member/?([0-9]+)/?([0-9]+)?/?$`', array('user', 'page')),
+new UrlControllerMapper('FinancialRequestsClubController', '`^/club/?([0-9]+)/?([0-9]+)?/?$`', array('club', 'page')),
 new UrlControllerMapper('FinancialFileEstimateController', '`^/estimate/?([0-9]+)?/?$`', array('id')),
 new UrlControllerMapper('FinancialFileInvoiceController', '`^/invoice/?([0-9]+)?/?$`', array('id')),
 new UrlControllerMapper('FinancialRequestsArchivedController', '`^/requests/?([0-9]+)?/?$`', array('year')),
