@@ -118,7 +118,7 @@ class FinancialRequestService
         $view = new FileTemplate('financial/FinancialMenu.tpl');
         $view->add_lang(LangLoader::get_all_langs('financial'));
 
-        $current_page = Url::to_rel('/financial'.AppContext::get_request()->get_value('url'));
+        $current_page = Url::to_rel('/financial' . AppContext::get_request()->get_value('url', ''));
         $current_user_id = AppContext::get_current_user()->get_id();
 
         $user_extended_fields = PersistenceContext::get_querier()->select_single_row(DB_TABLE_MEMBER_EXTENDED_FIELDS, ['f_votre_club'], 'WHERE user_id=:user_id', ['user_id' => $current_user_id]);
