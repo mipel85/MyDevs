@@ -1,7 +1,7 @@
 id;domaine;type de demande;description;montant annuel;forfait(montant + € ou %);montant max;quantité;devis/facture (0 ou 1);facture/bilan (0 ou 1)
 1;Structure;Création d'un Club;Création uniquement et non affiliation d’un club existant;600;300€;300;2;0;0
 2;Structure;Obtention Label EFAM;École Française d’AéroModélisme, label obtenu;2000;200€;200;10;0;0
-3;Structure;Aide création Label EFAM;Aide à la formation des encadrants et à l'obtention du label;500;100€;100;5;1;1
+3;Structure;Aide formation encadrants FFA;Aide à la formation des encadrants FFA;500;100€;100;5;1;1
 4;Structure;Renouvellement Label EFAM;École Française d’AéroModélisme, label renouvellé;2000;150€;150;0;0;0
 5;Organisation;Coupe du Monde;toutes catégories;1000;500€;1000;1;1;1
 6;Organisation;Concours FAI;Fédération Aéronautique Internationale;2000;500€;1000;2;1;1
