@@ -130,37 +130,3 @@
 	<footer id="footer"></footer>
 
 # ENDIF #
-<script>
-    var input = jQuery('#loginForm_password');
-    input.parent().append('<span id="revealer" aria-label="Afficher le mot de passe"><i class="fa fa-eye" aria-hidden="true"></i></span>');
-    var revealer = jQuery('#revealer');
-    input.css('position', 'relative');
-    revealer
-        .css({
-            'position': 'absolute',
-            'top': '50%',
-            'transform': 'translateY(-50%)',
-            'left': 'calc(100% + 0.309em)'
-        })
-        .addClass('hidden-password')
-        .on('click', function() {
-            if (jQuery(this).hasClass('hidden-password'))
-            {
-                jQuery(this)
-                    .addClass('shown-password')
-                    .removeClass('hidden-password')
-                    .html('<i class="fa fa-eye-slash" aria-hidden="true"></i>')
-                    .attr('aria-label', 'Cacher le mot de passe');
-                input.attr('type', 'text');
-            }
-            else if (jQuery(this).hasClass('shown-password'))
-            {
-                jQuery(this)
-                    .addClass('hidden-password')
-                    .removeClass('shown-password')
-                    .html('<i class="fa fa-eye" aria-hidden="true"></i>')
-                    .attr('aria-label', 'Afficher le mot de passe');
-                input.attr('type', 'password');
-            }
-        });
-</script>

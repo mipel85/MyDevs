@@ -1,5 +1,5 @@
-<script src="{PATH_TO_ROOT}/templates/league/js/retrieve.caps# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
-<script src="{PATH_TO_ROOT}/templates/league/js/scroll.circle# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
+<script src="{PATH_TO_ROOT}/templates/league/js/retrieve.caps.js"></script>
+<script src="{PATH_TO_ROOT}/templates/league/js/scroll.circle.js"></script>
 
 <script>
     jQuery(document).ready(function() {
