@@ -284,7 +284,7 @@ class FinancialRequestFormController extends DefaultModuleController
         }
 
         /* envoi mail de nouvelle contribution aux délégués départementaux et suppléants si adresse mail existante */
-        $delegates_liste_email = LamclubsService::get_recipient_email($infos[1] ?? ''); /* teste si adresse mail non vide */
+        $delegates_liste_email = LamclubsService::get_recipient_email($infos[1] ?? 0); /* teste si adresse mail non vide */
 
         foreach ($delegates_liste_email as $delegates_recipient)
         {
