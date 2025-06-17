@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2025 01 29
+ * @version     PHPBoost 6.0 - last update: 2025 06 17
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
@@ -209,7 +209,7 @@ class FinancialRequestFormController extends DefaultModuleController
         }
 
         /* envoi mail de nouvelle contribution aux délégués départementaux et suppléants si adresse mail existante */
-        $delegates_liste_email = LamclubsService::get_recipient_email($infos[1] ?? ''); /* teste si adresse mail non vide */
+        $delegates_liste_email = LamclubsService::get_recipient_email($infos[1]);
 
         foreach ($delegates_liste_email as $delegates_recipient)
         {
@@ -254,6 +254,10 @@ class FinancialRequestFormController extends DefaultModuleController
     {
         $item = $this->get_item();
         $club = LamclubsService::get_item($item->get_lamclubs_id());
+        
+        /* récupération du département concerné par l'activité */
+        $club_infos = $this->form->get_value('club_infos')->get_label();
+        $infos = explode('-', $club_infos);
 
         $item_message = '';
 
@@ -284,7 +288,7 @@ class FinancialRequestFormController extends DefaultModuleController
         }
 
         /* envoi mail de nouvelle contribution aux délégués départementaux et suppléants si adresse mail existante */
-        $delegates_liste_email = LamclubsService::get_recipient_email($infos[1] ?? 0); /* teste si adresse mail non vide */
+        $delegates_liste_email = LamclubsService::get_recipient_email($infos[1]);
 
         foreach ($delegates_liste_email as $delegates_recipient)
         {
