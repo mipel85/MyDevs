@@ -1,0 +1,18 @@
+id;budget_domain;budget_type;budget_description;annual_amount;Montant du forfait(nombre + € ou %);Plafond du forfait (nombre);Quantité (nombre);Devis ou facture nécessaire (0 ou 1);Facture obligatoire (0 ou 1)
+1;Structure;Création d'un Club;Création uniquement et non affiliation d’un club existant;600;300€;300;2;0;0
+2;Organisation;Concours FAI;Fédération Aéronautique Internationale;2000;500€;1000;2;1;0
+4;Organisation;Concours national;toutes natures;2000;300€;500;4;1;0
+6;Compétition;Aide pour cadet ou junior;Participation au Championnat d'Europe ou du Monde;1000;250€;250;4;0;0
+7;Organisation;Journée Portes-Ouvertes;Indoor ou extérieur;750;30€;30;25;0;0
+8;Organisation;Journée Examen;QPDD, Brevets;250;50€;50;5;0;0
+9;Structure;Création Label EFAM;École Française d’AéroModélisme;2000;200€;200;10;0;0
+10;Structure;Renouvellement Label EFAM;École Française d’AéroModélisme;2000;150€;150;0;0;0
+11;Organisation;Passage d'ailes;toutes natures;1250;50€;50;25;0;0
+12;Travaux;Réfection des pistes;Pistes en herbe ou en dur;5000;10%;2500;2;1;1
+13;Handicap;Aménagement d'accès aux handicapés;Accès aux pistes, au club-house...;2500;30%;1000;0;1;1
+14;Handicap;Actions diverses;Action dans le domaine du handicap;600;30%;300;0;1;1
+15;Féminisation;Aménagement de commodités;Hygiène sur le terrain;1500;30%;500;0;1;1
+16;Sécurité;Actions sécurité;Achat de filets, création bancs de démarrage...;3000;10%;400;0;1;1
+17;Matériel;Matériel de concours;Panneaux lumineux, chronos...;800;30%;400;0;1;1
+18;Matériel;Panneaux réglementaires;Accès réservé aux licenciés par exemple;1000;10%;400;0;1;1
+19;Jeunes;Actions jeunesse;Actions dans le domaine de la jeunesse;2000;100%;2000;0;1;0
