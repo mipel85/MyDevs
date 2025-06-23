@@ -15,7 +15,7 @@ class LamdeskService
         self::$db_querier = PersistenceContext::get_querier();
     }
 
-    public static function get_count_clubs_ffam()
+    public static function tdb_count_clubs_ffam()
     {
         $req = self::$db_querier->select('select
             (select count(*) from phpboost_lamclubs),
@@ -58,7 +58,7 @@ class LamdeskService
         $req->dispose();
     }
 
-    public static function get_count_clubs_site()
+    public static function tdb_count_clubs_site()
     {
         $req = self::$db_querier->select('(SELECT
             COUNT(DISTINCT f_votre_club) AS total_clubs,
@@ -107,6 +107,37 @@ class LamdeskService
         return $data;
         $req->dispose();
     }
+    
+    // requêtes financial    
+    public static function tdb_count_clubs_planning()
+    {
+        $req = self::$db_querier->select('SELECT "Total" AS department,
+        COUNT(p.activity_detail) AS planning_count
+        FROM phpboost_lamclubs lc
+        LEFT JOIN phpboost_planning p ON p.lamclubs_id = lc.club_id
+        WHERE lc.department IN (44, 49, 53, 72, 85)
+        UNION ALL
+        SELECT lc.department AS department,
+        COUNT(p.activity_detail) AS planning_count
+        FROM phpboost_lamclubs lc
+        LEFT JOIN phpboost_planning p ON p.lamclubs_id = lc.club_id
+        WHERE lc.department IN (44, 49, 53, 72, 85)
+        GROUP BY lc.department
+        ORDER BY 
+            CASE 
+            WHEN department = "Total" THEN 0
+            ELSE 1
+            END,
+            department;
+        ');
+
+        while ($row = $req->fetch())
+        {
+            $data[] = $row;
+        }
+        return $data;
+        $req->dispose();
+    }
 
     public static function get_clubs_with_activity()
     {
@@ -127,8 +158,7 @@ class LamdeskService
     }
 
     // requêtes financial
-
-    public static function get_count_clubs_requests()
+    public static function tdb_count_clubs_requests()
     {
         $req = self::$db_querier->select('SELECT "Total" AS department,
         COUNT(fr.request_type) AS request_count

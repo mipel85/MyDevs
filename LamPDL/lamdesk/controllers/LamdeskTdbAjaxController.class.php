@@ -13,14 +13,25 @@ class LamdeskTdbAjaxController extends AbstractController
         $param = $request->get_value('param');
         $dept = substr($param, -2);
 
-        if (str_contains($param, 'ffam'))
+        switch ($param)
         {
-            $liste_ffam = LamdeskService::get_clubs_by_dept($dept);
-            return new JSONResponse(array('liste_ffam' => $liste_ffam));
-        } else
-        {
-            $liste_site = LamdeskService::get_registred_clubs_by_dept($dept);
-            return new JSONResponse(array('liste_site' => $liste_site));
+            case str_contains($param, 'tdb_ffam') :
+                $liste_ffam = LamdeskService::get_clubs_by_dept($dept);
+                return new JSONResponse(array('liste_ffam' => $liste_ffam));
+                break;
+            case str_contains($param, 'tdb_site') :
+                $liste_site = LamdeskService::get_registred_clubs_by_dept($dept);
+                return new JSONResponse(array('liste_site' => $liste_site));
+                break;
+            case str_contains($param, 'tdb_planning') :
+                return new JSONResponse(array('planning' => 'planning'));
+                break;
+            case str_contains($param, 'tdb_request') :
+                $liste_request = LamdeskService::get_clubs_requests();
+                return new JSONResponse(array('request' => $liste_request));
+                break;
+        } {
+            
         }
     }
 }

@@ -26,7 +26,7 @@ class LamdeskTdbController extends DefaultModuleController
         $this->view->put('MENU', LamdeskMenu::get_menu());
 
         /* clubs de la Ligue source FFAM */
-        $clubs_ffam = LamdeskService::get_count_clubs_ffam();
+        $clubs_ffam = LamdeskService::tdb_count_clubs_ffam();
         $this->view->assign_block_vars('tdb_ffam', array(
             'FFAM_TOTAL' => $clubs_ffam[0],
             'FFAM_44'    => $clubs_ffam[1],
@@ -37,7 +37,7 @@ class LamdeskTdbController extends DefaultModuleController
         ));
 
         /* clubs inscrits sur le site */
-        $clubs_site = LamdeskService::get_count_clubs_site();
+        $clubs_site = LamdeskService::tdb_count_clubs_site();
         $this->view->assign_block_vars('tdb_site', array(
             'SITE_TOTAL' => $clubs_site[0],
             'SITE_44'    => $clubs_site[1],
@@ -48,22 +48,25 @@ class LamdeskTdbController extends DefaultModuleController
         ));
 
         /* clubs ayant inscrit des activités */
-        
-        
-        
-        
-        
-        
+        $clubs_planning = LamdeskService::tdb_count_clubs_planning();
+        $this->view->assign_block_vars('tdb_planning', array(
+            'PLANNING_TOTAL' => $clubs_planning[0]['planning_count'],
+            'PLANNING_44'    => $clubs_planning[1]['planning_count'],
+            'PLANNING_49'    => $clubs_planning[2]['planning_count'],
+            'PLANNING_53'    => $clubs_planning[3]['planning_count'],
+            'PLANNING_72'    => $clubs_planning[4]['planning_count'],
+            'PLANNING_85'    => $clubs_planning[5]['planning_count'],
+        ));
         
         /* clubs ayant effectué des demandes financières */
-        $requests = LamdeskService::get_count_clubs_requests();
+        $clubs_requests = LamdeskService::tdb_count_clubs_requests();
         $this->view->assign_block_vars('tdb_request', array(
-            'REQUEST_TOTAL' => $requests[0]['request_count'],
-            'REQUEST_44'    => $requests[1]['request_count'],
-            'REQUEST_49'    => $requests[2]['request_count'],
-            'REQUEST_53'    => $requests[3]['request_count'],
-            'REQUEST_72'    => $requests[4]['request_count'],
-            'REQUEST_85'    => $requests[5]['request_count'],
+            'REQUEST_TOTAL' => $clubs_requests[0]['request_count'],
+            'REQUEST_44'    => $clubs_requests[1]['request_count'],
+            'REQUEST_49'    => $clubs_requests[2]['request_count'],
+            'REQUEST_53'    => $clubs_requests[3]['request_count'],
+            'REQUEST_72'    => $clubs_requests[4]['request_count'],
+            'REQUEST_85'    => $clubs_requests[5]['request_count'],
         ));
 
         return $this->view;
