@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 12 11
+ * @version     PHPBoost 6.0 - last update: 2025 07 02
  * @since       PHPBoost 6.0 - 2020 01 18
  */
 
@@ -87,7 +87,7 @@ class FinancialSetup extends DefaultModuleSetup
             'real_amount'        => array('type' => 'decimal', 'length' => 10, 'scale' => 2, 'notnull' => 1, 'default' => 0),
             'temp_amount'        => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
             'unit_amount'        => array('type' => 'string', 'length' => 11, 'default' => "''"),
-            'max_amount'         => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+            'max_amount'         => array('type' => 'string', 'length' => 11, 'default' => "''"),
             'quantity'           => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),
             'real_quantity'      => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),
             'temp_quantity'      => array('type' => 'integer', 'length' => 11, 'notnull' => 0, 'default' => 0),
