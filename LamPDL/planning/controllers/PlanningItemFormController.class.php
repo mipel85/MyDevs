@@ -45,70 +45,70 @@ class PlanningItemFormController extends DefaultModuleController
             $search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
             $search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
             $fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['planning.activity'], $item->get_id_category(), $search_category_children_options,
-                            array(
-                                'description' => $this->lang['planning.activity.clue'],
-                                'events'      => array('change' => '
+                array(
+                    'description' => $this->lang['planning.activity.clue'],
+                    'events'      => array('change' => '
                         if (HTMLForms.getField("id_category").getValue() == ' . Category::ROOT_CATEGORY . ') {
                             HTMLForms.getField("activity_other").enable();
                         } else {
                             HTMLForms.getField("activity_other").disable();
                         }'
-                                )
-                            )
-                    ));
+                        )
+                    )
+                ));
         }
 
         $fieldset->add_field(new FormFieldTextEditor('activity_other', $this->lang['planning.activity.other'], $item->get_activity_other(),
-                        array(
-                    'required' => true,
-                    'hidden'   => $item->get_id_category() != Category::ROOT_CATEGORY
-                        )
+            array(
+                'required' => true,
+                'hidden'   => $item->get_id_category() != Category::ROOT_CATEGORY
+                )
         ));
         $fieldset->add_field(new FormFieldTextEditor('activity_detail', $this->lang['planning.activity.detail'], $item->get_activity_detail(),
-                        array(
-                    'required'    => true,
-                    'description' => $this->lang['planning.activity.detail.clue'],
-                        )
+            array(
+                'required'    => true,
+                'description' => $this->lang['planning.activity.detail.clue'],
+                )
         ));
 
         $fieldset->add_field(new FormFieldSimpleSelectChoice('club_infos', $this->lang['planning.club.infos'], $item->get_lamclubs_id(), LamclubsService::get_options_list(),
-                        array('required' => true)
+            array('required' => true)
         ));
 
         $fieldset->add_field($start_date = new FormFieldDateTime('start_date', $this->lang['planning.start.date'], $item->get_start_date(),
-                array(
-            'required'          => true, 'five_minutes_step' => true,
-            'description'       => '<span class="error">' . $this->lang['planning.time.verification'] . '</span>',
+            array(
+                'required'          => true, 'five_minutes_step' => true,
+                'description'       => '<span class="error">' . $this->lang['planning.time.verification'] . '</span>',
                 )
         ));
 
         $fieldset->add_field(new FormFieldCheckbox('end_date_enabled', $this->lang['planning.end.date.enabled'], $item->get_end_date_enabled(),
-                        array(
-                    'description' => $this->lang['planning.activity.daytime.hours'],
-                    'events'      => array('click' => '
-					if (HTMLForms.getField("end_date_enabled").getValue()) {
-						HTMLForms.getField("end_date").enable();
+            array(
+                'description' => $this->lang['planning.activity.daytime.hours'],
+                'events'      => array('click' => '
+                                    if (HTMLForms.getField("end_date_enabled").getValue()) {
+                                            HTMLForms.getField("end_date").enable();
 					} else {
-						HTMLForms.getField("end_date").disable();
+                                            HTMLForms.getField("end_date").disable();
 					}'
-                    )
-                        )
+                                    )
+                )
         ));
 
         $fieldset->add_field($end_date = new FormFieldDateTime('end_date', $this->lang['planning.end.date'], $item->get_end_date(),
-                array(
-            'required'          => true, 'five_minutes_step' => true,
-            'hidden'            => !$item->get_end_date_enabled()
+            array(
+                'required'          => true, 'five_minutes_step' => true,
+                'hidden'            => !$item->get_end_date_enabled()
                 )
         ));
 
         $end_date->add_form_constraint(new FormConstraintFieldsDifferenceSuperior($start_date, $end_date));
 
         $fieldset->add_field(new FormFieldMailEditor('email', $this->lang['planning.contact.email'], $item->get_email(),
-                        array(
-                    'required'    => true,
-                    'description' => $this->lang['planning.contact.email.clue']
-                        )
+            array(
+                'required'    => true,
+                'description' => $this->lang['planning.contact.email.clue']
+                )
         ));
 
         $fieldset->add_field(new FormFieldCheckbox('more_infos', $this->lang['planning.form.more.infos'], $item->get_more_infos()));
@@ -121,9 +121,9 @@ class PlanningItemFormController extends DefaultModuleController
         $option_fieldset->add_field(new FormFieldUrlEditor('website_url', $this->lang['planning.form.website'], $item->get_website_url()->absolute()));
 
         $option_fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->lang['planning.form.thumbnail'], $item->get_thumbnail()->relative(), PlanningItem::THUMBNAIL_URL,
-                        array(
-                    'description' => $this->lang['planning.form.thumbnail.clue']
-                        )
+            array(
+                'description' => $this->lang['planning.form.thumbnail.clue']
+                )
         ));
 
         $location_value = TextHelper::deserialize($item->get_location());
@@ -137,25 +137,25 @@ class PlanningItemFormController extends DefaultModuleController
         if ($this->config->is_googlemaps_available())
         {
             $option_fieldset->add_field(new GoogleMapsFormFieldMapAddress('location', $this->lang['planning.location'], $location,
-                            array(
-                        'events' => array('blur' => '
-						if (HTMLForms.getField("location").getValue()) {
-							HTMLForms.getField("map_displayed").enable();
-						} else {
-							HTMLForms.getField("map_displayed").disable();
-						}'
-                        )
-                            )
+                array(
+                    'events' => array('blur' => '
+                                        if (HTMLForms.getField("location").getValue()) {
+                                            HTMLForms.getField("map_displayed").enable();
+                                        } else {
+                                            HTMLForms.getField("map_displayed").disable();
+                                        }'
+                                    )
+                    )
             ));
 
             $option_fieldset->add_field(new FormFieldCheckbox('map_displayed', $this->lang['planning.form.display.map'], $item->is_map_displayed(),
-                            array('hidden' => !$location)
+                array('hidden' => !$location)
             ));
         } else
             $option_fieldset->add_field(new FormFieldShortMultiLineTextEditor('location', $this->lang['planning.location'], $location));
 
         $option_fieldset->add_field(new FormFieldRichTextEditor('content', $this->lang['planning.form.content'], $item->get_content(),
-                        array('rows' => 15)
+            array('rows' => 15)
         ));
 
         if ((!$this->is_new_item && $item->is_authorized_to_add()) || CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation())
@@ -284,8 +284,9 @@ class PlanningItemFormController extends DefaultModuleController
             {
                 try
                     {
-                    $this->item = PlanningService::get_item($id);
-                    } catch (RowNotFoundException $e)
+                        $this->item = PlanningService::get_item($id);
+                    } catch 
+                        (RowNotFoundException $e)
                     {
                     $error_controller = PHPBoostErrors::unexisting_page();
                     DispatchManager::redirect($error_controller);
