@@ -1,0 +1,15 @@
+id;domaine;type de demande;description;montant annuel;forfait(montant + € ou %);montant max;quantité;devis/facture (0 ou 1);facture/bilan (0 ou 1)
+1;Structure;Création d'un Club;Création uniquement et non affiliation d’un club existant;600;300€;300;2;0;0
+2;Structure;Création Label EFAM;École Française d’AéroModélisme, label obtenu;400;200€;200;2;0;0
+3;Structure;Renouvellement Label EFAM;École Française d’AéroModélisme, label renouvellé;300;150€;150;2;0;0
+4;Organisation;Journée Portes-Ouvertes;Indoor ou extérieur - une par an;1000;40€;40;25;0;0
+5;Organisation;Journée Examen;QPDD, Brevets - une par dépt.;250;50€;50;5;0;0
+6;Organisation;Passage d'ailes;toutes natures - une par club;400;20€;20;20;0;0
+7;Sécurité;Actions sécurité;Achat de filets, création bancs de démarrage...;1500;20%;300;5;1;1
+8;Matériel;Matériel de concours;Panneaux lumineux, chronos...;900;30%;300;3;1;1
+9;Matériel;Panneaux réglementaires;Affichage réglementaire;400;10%;400;2;1;1
+10;Féminisation;Aménagement de commodités;Hygiène sur le terrain;1000;30%;500;2;1;1
+11;Handicap;Aménagement d'accès aux handicapés;Accès aux pistes, au club-house...;1000;30%;500;2;1;1
+12;Compétition;Concours nationaux;Championnat de France;900;300€;300;3;0;0
+13;Compétition;Concours Internationaux;Inscrit au calendrier FAI;1000;500€;500;2;0;0
+14;Travaux;Réfection des pistes;Pistes en herbe ou en dur;2500;10%;2500;4;1;1
